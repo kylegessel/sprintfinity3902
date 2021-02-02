@@ -36,19 +36,40 @@ namespace Sprintfinity3902.Sprites
             Position = position;
         }
 
+        public void Update(GameTime gameTime)
+        {
+            Animation.Update(gameTime);
+            CurrentFrame = Animation.CurrentFrame;
+        }
+
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            throw new NotImplementedException();
+            AnimationFrame frame1 = Animation.GetFrame(0);
+            AnimationFrame frame2 = Animation.GetFrame(1);
+            AnimationFrame frame3 = Animation.GetFrame(2);
+
+            if (frame1 == CurrentFrame || frame3 == CurrentFrame)
+            {
+                Rectangle sourceRectangle = new Rectangle(Sprite1.X, Sprite1.Y, Sprite1.Width, Sprite1.Height);
+                Rectangle destinationRectangle = new Rectangle(CurrentPositionX, CurrentPositionY, 80, 30);
+                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+            }
+            else if (frame2 == CurrentFrame)
+            {
+                Rectangle sourceRectangle = new Rectangle(Sprite2.X, Sprite2.Y, Sprite2.Width, Sprite2.Height);
+                Rectangle destinationRectangle = new Rectangle(CurrentPositionX, CurrentPositionY, 50, 50);
+                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+            }
         }
 
         public void GetAnimation()
         {
-            throw new NotImplementedException();
+            Animation = new Animation();
+            Animation.AddFrame(Sprite1, 0);
+            Animation.AddFrame(Sprite2, 1 / 10f);
+            Animation.AddFrame(Sprite1, 1 / 5f);
+            Animation.Play();
         }
 
-        public void Update(GameTime gameTime)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

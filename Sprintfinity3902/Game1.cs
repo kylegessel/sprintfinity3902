@@ -47,6 +47,8 @@ namespace Sprintfinity3902
 
             texture = Content.Load<Texture2D>(linkSpriteSheet);
 
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+
             playerCharacter = new Player(this, texture);
 
             SetCommands();

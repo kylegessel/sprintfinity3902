@@ -63,6 +63,7 @@ namespace Sprintfinity3902
             mouse.Update();
 
             playerCharacter.Update(gameTime);
+            currentEnemy.CurrentEnemySprite.Update(gameTime);
 
             base.Update(gameTime);
         }

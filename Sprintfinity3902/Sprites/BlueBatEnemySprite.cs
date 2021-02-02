@@ -33,7 +33,7 @@ namespace Sprintfinity3902.Sprites
             Sprite1 = new Sprite(texture, BAT1_POS_X, BAT1_POS_Y, BAT1_WIDTH, BAT1_HEIGHT);
             Sprite2 = new Sprite(texture, BAT2_POS_X, BAT2_POS_Y, BAT2_WIDTH, BAT2_HEIGHT);
             Texture = texture;
-            Position = new Vector2(900, 500);
+            Position = new Vector2(500, 500);
         }
 
         public void Update(GameTime gameTime)
@@ -44,6 +44,7 @@ namespace Sprintfinity3902.Sprites
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            
             AnimationFrame frame1 = Animation.GetFrame(0);
             AnimationFrame frame2 = Animation.GetFrame(1);
             AnimationFrame frame3 = Animation.GetFrame(2);
@@ -51,15 +52,22 @@ namespace Sprintfinity3902.Sprites
             if (frame1 == CurrentFrame || frame3 == CurrentFrame)
             {
                 Rectangle sourceRectangle = new Rectangle(Sprite1.X, Sprite1.Y, Sprite1.Width, Sprite1.Height);
-                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 80, 30);
+                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 80, 40);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
             else if (frame2 == CurrentFrame)
             {
                 Rectangle sourceRectangle = new Rectangle(Sprite2.X, Sprite2.Y, Sprite2.Width, Sprite2.Height);
+                Rectangle destinationRectangle = new Rectangle(515, 500, 50, 50);
+                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+            }
+            else
+            {
+                Rectangle sourceRectangle = new Rectangle(Sprite2.X, Sprite2.Y, Sprite2.Width, Sprite2.Height);
                 Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 50, 50);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
+
         }
 
         public void GetAnimation()

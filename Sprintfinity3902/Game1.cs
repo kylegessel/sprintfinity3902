@@ -3,8 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
-using Ardrey.Sprint0.Sprites;
-using Ardrey.Sprint0.Commands;
+using Sprintfinity3902.Sprites;
+using Sprintfinity3902.Commands;
 using Sprintfinity3902.Interfaces;
 
 namespace Ardrey.Sprint0

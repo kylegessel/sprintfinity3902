@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ardrey.Sprint0
+namespace Sprintfinity3902
 {
     public static class Program
     {

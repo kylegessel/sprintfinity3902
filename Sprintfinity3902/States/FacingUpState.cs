@@ -1,5 +1,4 @@
-﻿using Ardrey.Sprint0;
-using Ardrey.Sprint0.Sprites;
+﻿using Sprintfinity3902.Sprites;
 using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;

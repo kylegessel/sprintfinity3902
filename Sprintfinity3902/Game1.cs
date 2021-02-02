@@ -6,8 +6,9 @@ using System;
 using Sprintfinity3902.Sprites;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Controllers;
 
-namespace Ardrey.Sprint0
+namespace Sprintfinity3902
 {
     public class Game1 : Game
     {
@@ -81,8 +82,8 @@ namespace Ardrey.Sprint0
 
         public void SetCommands()
         {
-            InputKeyboard input = (InputKeyboard) keyboard;
-            foreach(Keys key in Enum.GetValues(typeof(Keys)))
+            InputKeyboard input = (InputKeyboard)keyboard;
+            foreach (Keys key in Enum.GetValues(typeof(Keys)))
             {
                 input.RegisterCommand(key, new DoNothingCommand(this));
             }

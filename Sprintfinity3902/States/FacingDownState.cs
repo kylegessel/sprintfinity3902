@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0.States
+namespace Sprintfinity3902.States
 {
     public class FacingDownState : IPlayerState
     {

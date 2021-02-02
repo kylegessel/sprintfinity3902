@@ -20,6 +20,7 @@ namespace Sprintfinity3902
         public IController keyboard;
         public IController mouse;
         public Player playerCharacter;
+        public Enemy currentEnemy;
 
         private const string linkSpriteSheet = "Zelda - Link and Items - Transparent";
 
@@ -50,6 +51,8 @@ namespace Sprintfinity3902
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             playerCharacter = new Player(this, texture);
+            currentEnemy = new Enemy(this);
+            currentEnemy.getEnemy();
 
             SetCommands();
         }
@@ -71,6 +74,7 @@ namespace Sprintfinity3902
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             playerCharacter.playerSprite.Draw(_spriteBatch, gameTime);
+            currentEnemy.CurrentEnemySprite.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.End();
 

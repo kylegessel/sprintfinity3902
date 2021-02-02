@@ -9,7 +9,7 @@ namespace Sprintfinity3902
     public class Enemy
     {
         private Game1 _Game;
-        public ISprite CurrentEnemy { get; set; }
+        public ISprite CurrentEnemySprite { get; set; }
         public EnemySpriteFactory EnemyFactory { get; set; }
 
         public Enemy(Game1 game)
@@ -20,7 +20,8 @@ namespace Sprintfinity3902
 
         public void getEnemy()
         {
-            CurrentEnemy = EnemyFactory.CreateBlueBatEnemy();
+            CurrentEnemySprite = EnemyFactory.CreateBlueBatEnemy();
+            CurrentEnemySprite.GetAnimation();
         }
 
     }

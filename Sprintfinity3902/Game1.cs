@@ -21,7 +21,7 @@ namespace Sprintfinity3902
         public IController mouse;
         public Player playerCharacter;
 
-        private const string linkSpriteSheet = "NES - Link - Transparent";
+        private const string linkSpriteSheet = "Zelda - Link and Items - Transparent";
 
         public Game1()
         {

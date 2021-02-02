@@ -1,8 +1,8 @@
-﻿using Ardrey.Sprint0.Interfaces;
-using Ardrey.Sprint0.Sprites;
+﻿using Ardrey.Sprint0.Sprites;
 using Ardrey.Sprint0.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

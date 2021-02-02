@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0.Sprites
+namespace Sprintfinity3902.Sprites
 {
     public class LinkDownSprite : ISprite
     {
@@ -68,8 +69,8 @@ namespace Ardrey.Sprint0.Sprites
         {
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 0);
-            Animation.AddFrame(Sprite2, 1/10f);
-            Animation.AddFrame(Sprite1, 1/5f);
+            Animation.AddFrame(Sprite2, 1 / 10f);
+            Animation.AddFrame(Sprite1, 1 / 5f);
             Animation.Play();
         }
 

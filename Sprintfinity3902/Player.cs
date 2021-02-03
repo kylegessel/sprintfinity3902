@@ -47,6 +47,7 @@ namespace Sprintfinity3902
 
         public void Update(GameTime gameTime)
         {
+            playerSprite = currentState.Sprite;
             playerSprite.Update(gameTime);
         }
         public void setCurrentPositionX(int position)

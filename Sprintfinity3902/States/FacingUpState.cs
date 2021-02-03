@@ -16,7 +16,6 @@ namespace Sprintfinity3902.States
             PlayerCharacter = playerCharacter;
             Sprite = new LinkUpSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
             Sprite.GetAnimation();
-
         }
 
         public void Move()

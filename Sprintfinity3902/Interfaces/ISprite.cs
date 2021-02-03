@@ -13,7 +13,7 @@ namespace Sprintfinity3902.Interfaces
         Vector2 Position { get; set; }
         int CurrentPositionX { get; set; }
         int CurrentPositionY { get; set; }
-        public Animation Animation { get; set; }
+        Animation Animation { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, GameTime gameTime);
         void GetAnimation();

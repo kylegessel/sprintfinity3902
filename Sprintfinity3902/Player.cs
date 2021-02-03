@@ -61,10 +61,10 @@ namespace Sprintfinity3902
         {
             currentState.Move();
         }
-        public int getPositionX()
-        {
-            return CurrentPositionX;
-        }
+        //public int getPositionX()
+        //{
+            //return CurrentPositionX;
+        //}
         public void Update(GameTime gameTime)
         {
             playerSprite = currentState.Sprite;

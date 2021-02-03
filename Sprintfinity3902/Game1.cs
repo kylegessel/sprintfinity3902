@@ -16,7 +16,6 @@ namespace Sprintfinity3902
         private SpriteBatch _spriteBatch;
         public Texture2D texture;
         public Vector2 startingLocation = new Vector2(363, 195);
-        public ISprite sprite;
         public IController keyboard;
         public IController mouse;
         public Player playerCharacter;
@@ -80,11 +79,6 @@ namespace Sprintfinity3902
             _spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        public void SetSprite(ISprite spriteSet)
-        {
-            sprite = spriteSet;
         }
 
         public void SetCommands()

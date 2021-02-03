@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Sprintfinity3902.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0.Commands
+namespace Sprintfinity3902.Commands
 {
     public class SetLinkLeftCommand : ICommand
     {
@@ -15,7 +16,7 @@ namespace Ardrey.Sprint0.Commands
 
         public void Execute()
         {
-            if(PlayerCharacter.currentState != PlayerCharacter.getFacingLeftState())
+            if (PlayerCharacter.currentState != PlayerCharacter.getFacingLeftState())
             {
                 PlayerCharacter.setState(PlayerCharacter.getFacingLeftState());
             }

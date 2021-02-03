@@ -1,13 +1,13 @@
-﻿using Ardrey.Sprint0.Interfaces;
-using Ardrey.Sprint0.Sprites;
-using Ardrey.Sprint0.States;
+﻿using Sprintfinity3902.Sprites;
+using Sprintfinity3902.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0
+namespace Sprintfinity3902
 {
     public class Player
     {
@@ -63,7 +63,7 @@ namespace Ardrey.Sprint0
         }
         public int getPositionX()
         {
-            return this.CurrentPositionX;
+            return CurrentPositionX;
         }
         public void Update(GameTime gameTime)
         {

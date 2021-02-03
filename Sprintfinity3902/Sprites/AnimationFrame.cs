@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0.Sprites
+namespace Sprintfinity3902.Sprites
 {
     public class AnimationFrame
     {
         private Sprite _sprite;
-        
+
         public Sprite Sprite
         {
             get

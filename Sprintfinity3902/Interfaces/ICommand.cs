@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0
+namespace Sprintfinity3902.Interfaces
 {
     public interface ICommand
     {

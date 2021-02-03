@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0.Sprites
+namespace Sprintfinity3902.Sprites
 {
     public class Sprite
     {
@@ -34,12 +34,12 @@ namespace Ardrey.Sprint0.Sprites
 
         public int GetX()
         {
-            return this.X;
+            return X;
         }
 
         public int GetY()
         {
-            return this.Y;
+            return Y;
         }
 
     }

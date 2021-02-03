@@ -5,21 +5,22 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
-using Ardrey.Sprint0.Commands;
+using Sprintfinity3902.Commands;
+using Sprintfinity3902.Interfaces;
 
-namespace Ardrey.Sprint0
+namespace Sprintfinity3902.Controllers
 {
     public class InputKeyboard : IController
     {
-        private Dictionary<Keys, ICommand> controllerMappings;
+        private Dictionary<Keys, Interfaces.ICommand> controllerMappings;
 
         public InputKeyboard()
         {
-            controllerMappings = new Dictionary<Keys, ICommand>();
+            controllerMappings = new Dictionary<Keys, Interfaces.ICommand>();
 
         }
 
-        public void RegisterCommand(Keys key, ICommand command)
+        public void RegisterCommand(Keys key, Interfaces.ICommand command)
         {
             bool tryAdd = controllerMappings.TryAdd(key, command);
             if (tryAdd == false)
@@ -27,7 +28,7 @@ namespace Ardrey.Sprint0
                 controllerMappings.Remove(key);
                 controllerMappings.Add(key, command);
             }
-            
+
         }
 
         public void Update()

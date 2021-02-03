@@ -8,13 +8,11 @@ namespace Sprintfinity3902
 {
     public class Enemy
     {
-        private Game1 _Game;
         public ISprite CurrentEnemySprite { get; set; }
         public EnemySpriteFactory EnemyFactory { get; set; }
 
-        public Enemy(Game1 game)
+        public Enemy()
         {
-            _Game = game;
             EnemyFactory = EnemySpriteFactory.Instance;
         }
 

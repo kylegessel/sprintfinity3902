@@ -15,8 +15,6 @@ namespace Sprintfinity3902
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         public Texture2D texture;
-        public Vector2 startingLocation = new Vector2(363, 195);
-        public ISprite sprite;
         public IController keyboard;
         public IController mouse;
         public Player playerCharacter;
@@ -50,8 +48,8 @@ namespace Sprintfinity3902
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
-            playerCharacter = new Player(this, texture);
-            currentEnemy = new Enemy(this);
+            playerCharacter = new Player(texture);
+            currentEnemy = new Enemy();
             currentEnemy.getEnemy();
 
             SetCommands();
@@ -80,11 +78,6 @@ namespace Sprintfinity3902
             _spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        public void SetSprite(ISprite spriteSet)
-        {
-            sprite = spriteSet;
         }
 
         public void SetCommands()

@@ -22,26 +22,6 @@ namespace Sprintfinity3902.Sprites
             Height = height;
         }
 
-        public void Update(GameTime gameTime)
-        {
-
-        }
-
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-
-        }
-
-        public int GetX()
-        {
-            return X;
-        }
-
-        public int GetY()
-        {
-            return Y;
-        }
-
     }
 }
 

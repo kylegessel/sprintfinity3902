@@ -17,9 +17,9 @@ namespace Sprintfinity3902.Commands
 
         public void Execute()
         {
-            if (PlayerCharacter.currentState != PlayerCharacter.getFacingRightState())
+            if (PlayerCharacter.currentState != PlayerCharacter.facingRight)
             {
-                PlayerCharacter.setState(PlayerCharacter.getFacingRightState());
+                PlayerCharacter.setState(PlayerCharacter.facingRight);
             }
             else
             {

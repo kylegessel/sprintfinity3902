@@ -13,16 +13,16 @@ namespace Sprintfinity3902
     {
         public int CurrentPositionX { get; set; }
         public int CurrentPositionY { get; set; }
+        public IPlayerState facingDown { get; set; }
+        public IPlayerState facingLeft { get; set; }
+        public IPlayerState facingRight { get; set; }
+        public IPlayerState facingUp { get; set; }
 
         public Texture2D PlayerTexture;
         public Vector2 StartingLocation;
         public ISprite playerSprite;
         public IPlayerState currentState;
 
-        IPlayerState facingDown;
-        IPlayerState facingLeft;
-        IPlayerState facingRight;
-        IPlayerState facingUp;
         public Player(Texture2D playerSpriteSheet)
         {
             PlayerTexture = playerSpriteSheet;
@@ -39,22 +39,7 @@ namespace Sprintfinity3902
         {
             currentState = state;
         }
-        public IPlayerState getFacingDownState()
-        {
-            return facingDown;
-        }
-        public IPlayerState getFacingRightState()
-        {
-            return facingRight;
-        }
-        public IPlayerState getFacingLeftState()
-        {
-            return facingLeft;
-        }
-        public IPlayerState getFacingUpState()
-        {
-            return facingUp;
-        }
+
         public void Move()
         {
             currentState.Move();
@@ -62,7 +47,6 @@ namespace Sprintfinity3902
 
         public void Update(GameTime gameTime)
         {
-            playerSprite = currentState.Sprite;
             playerSprite.Update(gameTime);
         }
         public void setCurrentPositionX(int position)

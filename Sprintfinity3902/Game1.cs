@@ -60,7 +60,7 @@ namespace Sprintfinity3902
             keyboard.Update();
             mouse.Update();
 
-            playerCharacter.Update(gameTime);
+            playerCharacter.currentState.Sprite.Update(gameTime);
             currentEnemy.CurrentEnemySprite.Update(gameTime);
 
             base.Update(gameTime);

@@ -34,6 +34,8 @@ namespace Sprintfinity3902.Sprites
             Sprite2 = new Sprite(texture, BAT2_POS_X, BAT2_POS_Y, BAT2_WIDTH, BAT2_HEIGHT);
             Texture = texture;
             Position = new Vector2(500, 500);
+
+            GetAnimation();
         }
 
         public void Update(GameTime gameTime)

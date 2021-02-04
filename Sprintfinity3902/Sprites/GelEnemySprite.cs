@@ -34,6 +34,8 @@ namespace Sprintfinity3902.Sprites
             Sprite2 = new Sprite(texture, GEL2_POS_X, GEL2_POS_Y, GEL2_WIDTH, GEL2_HEIGHT);
             Texture = texture;
             Position = new Vector2(600, 500);
+
+            GetAnimation();
         }
 
         public void Update(GameTime gameTime)
@@ -58,7 +60,7 @@ namespace Sprintfinity3902.Sprites
             else if (frame2 == CurrentFrame)
             {
                 Rectangle sourceRectangle = new Rectangle(Sprite2.X, Sprite2.Y, Sprite2.Width, Sprite2.Height);
-                Rectangle destinationRectangle = new Rectangle(600, 500, 30, 45);
+                Rectangle destinationRectangle = new Rectangle(605, 500, 30, 45);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
             else

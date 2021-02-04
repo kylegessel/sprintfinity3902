@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class GelEnemySprite
+    public class GelEnemySprite : ISprite
     {
         public Sprite Sprite1 { get; set; }
         public Sprite Sprite2 { get; set; }
@@ -57,7 +58,7 @@ namespace Sprintfinity3902.Sprites
             else if (frame2 == CurrentFrame)
             {
                 Rectangle sourceRectangle = new Rectangle(Sprite2.X, Sprite2.Y, Sprite2.Width, Sprite2.Height);
-                Rectangle destinationRectangle = new Rectangle(515, 500, 30, 45);
+                Rectangle destinationRectangle = new Rectangle(600, 500, 30, 45);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
             else

@@ -36,5 +36,10 @@ namespace Sprintfinity3902.Sprites
             return new BlueBatEnemySprite(enemySpriteSheet);
         }
 
+        public ISprite CreateGelEnemy()
+        {
+            return new GelEnemySprite(enemySpriteSheet);
+        }
+
     }
 }

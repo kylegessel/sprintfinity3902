@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class GoriyaEnemyDownSprite
+    public class GoriyaEnemyDownSprite : ISprite
     {
         public Sprite Sprite { get; set; }
         public Texture2D Texture { get; set; }
@@ -21,12 +22,11 @@ namespace Sprintfinity3902.Sprites
         private const int GORIYA_WIDTH = 13;
         private const int GORIYA_HEIGHT = 16;
 
-
         public GoriyaEnemyDownSprite(Texture2D texture)
         {
             Sprite = new Sprite(texture, GORIYA_POS_X, GORIYA_POS_Y, GORIYA_WIDTH, GORIYA_HEIGHT);
             Texture = texture;
-            Position = new Vector2(750, 500);
+            Position = new Vector2(700, 500);
 
             GetAnimation();
         }
@@ -54,7 +54,7 @@ namespace Sprintfinity3902.Sprites
             {
                 Rectangle sourceRectangle = new Rectangle(Sprite.X, Sprite.Y, Sprite.Width, Sprite.Height);
                 Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 65, 80);
-                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
             }
             else
             {
@@ -69,8 +69,8 @@ namespace Sprintfinity3902.Sprites
         {
             Animation = new Animation();
             Animation.AddFrame(Sprite, 0);
-            Animation.AddFrame(Sprite, 1 / 24f);
-            Animation.AddFrame(Sprite, 1 / 12f);
+            Animation.AddFrame(Sprite, 1 / 10f);
+            Animation.AddFrame(Sprite, 1 / 5f);
             Animation.Play();
         }
     }

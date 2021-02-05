@@ -41,5 +41,24 @@ namespace Sprintfinity3902.Sprites
             return new GelEnemySprite(enemySpriteSheet);
         }
 
+        public ISprite CreateGoriyaDownEnemy()
+        {
+            return new GoriyaEnemyDownSprite(enemySpriteSheet);
+        }
+
+        public ISprite CreateGoriyaUpEnemy()
+        {
+            return new GoriyaEnemyUpSprite(enemySpriteSheet);
+        }
+        public ISprite CreateGoriyaLeftEnemy()
+        {
+            return new GoriyaEnemyLeftSprite(enemySpriteSheet);
+        }
+
+        public ISprite CreateGoriyaRightEnemy()
+        {
+            return new GoriyaEnemyRightSprite(enemySpriteSheet);
+        }
+
     }
 }

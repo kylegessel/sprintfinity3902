@@ -1,14 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class GoriyaEnemyLeftSprite
+    public class GoriyaEnemyLeftSprite : ISprite
     {
-        public Sprite Sprite { get; set; }
+        public Sprite Sprite1 { get; set; }
+        public Sprite Sprite2 { get; set; }
         public Texture2D Texture { get; set; }
         public Vector2 Position { get; set; }
         public int CurrentPositionX { get; set; }
@@ -16,16 +18,22 @@ namespace Sprintfinity3902.Sprites
         public Animation Animation { get; set; }
         public AnimationFrame CurrentFrame { get; set; }
 
-        private const int GORIYA_POS_X = 224;
-        private const int GORIYA_POS_Y = 11;
-        private const int GORIYA_WIDTH = 13;
-        private const int GORIYA_HEIGHT = 16;
+        private const int GORIYA1_POS_X = 257;
+        private const int GORIYA1_POS_Y = 11;
+        private const int GORIYA1_WIDTH = 13;
+        private const int GORIYA1_HEIGHT = 16;
+
+        private const int GORIYA2_POS_X = 275;
+        private const int GORIYA2_POS_Y = 12;
+        private const int GORIYA2_WIDTH = 14;
+        private const int GORIYA2_HEIGHT = 15;
 
         public GoriyaEnemyLeftSprite(Texture2D texture)
         {
-            Sprite = new Sprite(texture, GORIYA_POS_X, GORIYA_POS_Y, GORIYA_WIDTH, GORIYA_HEIGHT);
+            Sprite1 = new Sprite(texture, GORIYA1_POS_X, GORIYA1_POS_Y, GORIYA1_WIDTH, GORIYA1_HEIGHT);
+            Sprite2 = new Sprite(texture, GORIYA2_POS_X, GORIYA2_POS_Y, GORIYA2_WIDTH, GORIYA2_HEIGHT);
             Texture = texture;
-            Position = new Vector2(750, 500);
+            Position = new Vector2(900, 500);
 
             GetAnimation();
         }
@@ -45,21 +53,21 @@ namespace Sprintfinity3902.Sprites
 
             if (frame1 == CurrentFrame || frame3 == CurrentFrame)
             {
-                Rectangle sourceRectangle = new Rectangle(Sprite.X, Sprite.Y, Sprite.Width, Sprite.Height);
+                Rectangle sourceRectangle = new Rectangle(Sprite1.X, Sprite1.Y, Sprite1.Width, Sprite1.Height);
                 Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 65, 80);
-                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
             }
             else if (frame2 == CurrentFrame)
             {
-                Rectangle sourceRectangle = new Rectangle(Sprite.X, Sprite.Y, Sprite.Width, Sprite.Height);
-                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 65, 80);
-                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+                Rectangle sourceRectangle = new Rectangle(Sprite2.X, Sprite2.Y, Sprite2.Width, Sprite2.Height);
+                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 70, 75);
+                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
             }
             else
             {
-                Rectangle sourceRectangle = new Rectangle(Sprite.X, Sprite.Y, Sprite.Width, Sprite.Height);
+                Rectangle sourceRectangle = new Rectangle(Sprite1.X, Sprite1.Y, Sprite1.Width, Sprite1.Height);
                 Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 65, 80);
-                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
+                spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White, 0, new Vector2(0, 0), SpriteEffects.FlipHorizontally, 0);
             }
 
         }
@@ -67,9 +75,9 @@ namespace Sprintfinity3902.Sprites
         public void GetAnimation()
         {
             Animation = new Animation();
-            Animation.AddFrame(Sprite, 0);
-            Animation.AddFrame(Sprite, 1 / 10f);
-            Animation.AddFrame(Sprite, 1 / 5f);
+            Animation.AddFrame(Sprite1, 0);
+            Animation.AddFrame(Sprite2, 1 / 10f);
+            Animation.AddFrame(Sprite1, 1 / 5f);
             Animation.Play();
         }
     }

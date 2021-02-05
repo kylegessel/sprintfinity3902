@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class BlueBatEnemySprite : ISprite
+    public class GoriyaEnemyRightSprite : ISprite
     {
         public Sprite Sprite1 { get; set; }
         public Sprite Sprite2 { get; set; }
@@ -18,22 +18,22 @@ namespace Sprintfinity3902.Sprites
         public Animation Animation { get; set; }
         public AnimationFrame CurrentFrame { get; set; }
 
-        private const int BAT1_POS_X = 183;
-        private const int BAT1_POS_Y = 15;
-        private const int BAT1_WIDTH = 16;
-        private const int BAT1_HEIGHT = 8;
+        private const int GORIYA1_POS_X = 257;
+        private const int GORIYA1_POS_Y = 11;
+        private const int GORIYA1_WIDTH = 13;
+        private const int GORIYA1_HEIGHT = 16;
 
-        private const int BAT2_POS_X = 203;
-        private const int BAT2_POS_Y = 15;
-        private const int BAT2_WIDTH = 10;
-        private const int BAT2_HEIGHT = 10;
+        private const int GORIYA2_POS_X = 275;
+        private const int GORIYA2_POS_Y = 12;
+        private const int GORIYA2_WIDTH = 14;
+        private const int GORIYA2_HEIGHT = 15;
 
-        public BlueBatEnemySprite(Texture2D texture)
+        public GoriyaEnemyRightSprite(Texture2D texture)
         {
-            Sprite1 = new Sprite(texture, BAT1_POS_X, BAT1_POS_Y, BAT1_WIDTH, BAT1_HEIGHT);
-            Sprite2 = new Sprite(texture, BAT2_POS_X, BAT2_POS_Y, BAT2_WIDTH, BAT2_HEIGHT);
+            Sprite1 = new Sprite(texture, GORIYA1_POS_X, GORIYA1_POS_Y, GORIYA1_WIDTH, GORIYA1_HEIGHT);
+            Sprite2 = new Sprite(texture, GORIYA2_POS_X, GORIYA2_POS_Y, GORIYA2_WIDTH, GORIYA2_HEIGHT);
             Texture = texture;
-            Position = new Vector2(500, 500);
+            Position = new Vector2(1000, 500);
 
             GetAnimation();
         }
@@ -46,7 +46,7 @@ namespace Sprintfinity3902.Sprites
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            
+
             AnimationFrame frame1 = Animation.GetFrame(0);
             AnimationFrame frame2 = Animation.GetFrame(1);
             AnimationFrame frame3 = Animation.GetFrame(2);
@@ -54,19 +54,19 @@ namespace Sprintfinity3902.Sprites
             if (frame1 == CurrentFrame || frame3 == CurrentFrame)
             {
                 Rectangle sourceRectangle = new Rectangle(Sprite1.X, Sprite1.Y, Sprite1.Width, Sprite1.Height);
-                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 80, 40);
+                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 65, 80);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
             else if (frame2 == CurrentFrame)
             {
                 Rectangle sourceRectangle = new Rectangle(Sprite2.X, Sprite2.Y, Sprite2.Width, Sprite2.Height);
-                Rectangle destinationRectangle = new Rectangle(515, 500, 50, 50);
+                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 70, 75);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
             else
             {
-                Rectangle sourceRectangle = new Rectangle(Sprite2.X, Sprite2.Y, Sprite2.Width, Sprite2.Height);
-                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 50, 50);
+                Rectangle sourceRectangle = new Rectangle(Sprite1.X, Sprite1.Y, Sprite1.Width, Sprite1.Height);
+                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 65, 80);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
 
@@ -80,6 +80,5 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite1, 1 / 5f);
             Animation.Play();
         }
-
     }
 }

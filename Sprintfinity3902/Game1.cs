@@ -26,6 +26,7 @@ namespace Sprintfinity3902
         public ISprite currentEnemy6;
         public ISprite currentEnemy7;
         public ISprite currentEnemy8;
+        public Item currentItem;
 
         private const string linkSpriteSheet = "Zelda - Link and Items - Transparent";
 
@@ -54,6 +55,7 @@ namespace Sprintfinity3902
             texture = Content.Load<Texture2D>(linkSpriteSheet);
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            ItemSpriteFactory.Instance.LoadAllTextures(Content);
 
             playerCharacter = new Player(texture);
             currentEnemy = EnemySpriteFactory.Instance.CreateGelEnemy();
@@ -64,6 +66,9 @@ namespace Sprintfinity3902
             currentEnemy6 = EnemySpriteFactory.Instance.CreateGoriyaRightEnemy();
             currentEnemy7 = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
             currentEnemy8 = EnemySpriteFactory.Instance.CreateHandEnemy();
+
+            currentItem = new Item();
+            currentItem.getItem();
 
             SetCommands();
         }
@@ -82,6 +87,7 @@ namespace Sprintfinity3902
             currentEnemy6.Update(gameTime);
             currentEnemy7.Update(gameTime);
             currentEnemy8.Update(gameTime);
+            currentItem.CurrentItemSprite.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -101,6 +107,7 @@ namespace Sprintfinity3902
             currentEnemy6.Draw(_spriteBatch, gameTime);
             currentEnemy7.Draw(_spriteBatch, gameTime);
             currentEnemy8.Draw(_spriteBatch, gameTime);
+            currentItem.CurrentItemSprite.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.End();
 

@@ -28,7 +28,7 @@ namespace Sprintfinity3902.Sprites
         {
             Sprite1 = new Sprite(texture, BOMB_POS_X, BOMB_POS_Y, BOMB_WIDTH, BOMB_HEIGHT);
             Texture = texture;
-            Position = new Vector2(750, 500);
+            Position = new Vector2(750, 250);
         }
 
         public void Update(GameTime gameTime)

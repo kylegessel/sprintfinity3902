@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    class ItemSpriteFactory
+    public class ItemSpriteFactory
     {
         private Texture2D itemSpriteSheet;
 

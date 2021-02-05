@@ -27,7 +27,7 @@ namespace Sprintfinity3902
         public ISprite currentEnemy7;
         public ISprite currentEnemy8;
 
-        private const string linkSpriteSheet = "Zelda - Link and Items - Transparent";
+        private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
 
         public Game1()
         {

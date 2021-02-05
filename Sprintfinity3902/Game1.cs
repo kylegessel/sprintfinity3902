@@ -18,7 +18,15 @@ namespace Sprintfinity3902
         public IController keyboard;
         public IController mouse;
         public Player playerCharacter;
-        public Enemy currentEnemy;
+        public ISprite currentEnemy;
+        public ISprite currentEnemy2;
+        public ISprite currentEnemy3;
+        public ISprite currentEnemy4;
+        public ISprite currentEnemy5;
+        public ISprite currentEnemy6;
+        public ISprite currentEnemy7;
+        public ISprite currentEnemy8;
+        public Item currentItem;
 
         private const string linkSpriteSheet = "Zelda - Link and Items - Transparent";
 
@@ -47,10 +55,20 @@ namespace Sprintfinity3902
             texture = Content.Load<Texture2D>(linkSpriteSheet);
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            ItemSpriteFactory.Instance.LoadAllTextures(Content);
 
             playerCharacter = new Player(texture);
-            currentEnemy = new Enemy();
-            currentEnemy.getEnemy();
+            currentEnemy = EnemySpriteFactory.Instance.CreateGelEnemy();
+            currentEnemy2 = EnemySpriteFactory.Instance.CreateBlueBatEnemy();
+            currentEnemy3 = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
+            currentEnemy4 = EnemySpriteFactory.Instance.CreateGoriyaUpEnemy();
+            currentEnemy5 = EnemySpriteFactory.Instance.CreateGoriyaLeftEnemy();
+            currentEnemy6 = EnemySpriteFactory.Instance.CreateGoriyaRightEnemy();
+            currentEnemy7 = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
+            currentEnemy8 = EnemySpriteFactory.Instance.CreateHandEnemy();
+
+            currentItem = new Item();
+            currentItem.getItem();
 
             SetCommands();
         }
@@ -61,7 +79,15 @@ namespace Sprintfinity3902
             mouse.Update();
 
             playerCharacter.Update(gameTime);
-            currentEnemy.CurrentEnemySprite.Update(gameTime);
+            currentEnemy.Update(gameTime);
+            currentEnemy2.Update(gameTime);
+            currentEnemy3.Update(gameTime);
+            currentEnemy4.Update(gameTime);
+            currentEnemy5.Update(gameTime);
+            currentEnemy6.Update(gameTime);
+            currentEnemy7.Update(gameTime);
+            currentEnemy8.Update(gameTime);
+            currentItem.CurrentItemSprite.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -73,7 +99,15 @@ namespace Sprintfinity3902
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             playerCharacter.playerSprite.Draw(_spriteBatch, gameTime);
-            currentEnemy.CurrentEnemySprite.Draw(_spriteBatch, gameTime);
+            currentEnemy.Draw(_spriteBatch, gameTime);
+            currentEnemy2.Draw(_spriteBatch, gameTime);
+            currentEnemy3.Draw(_spriteBatch, gameTime);
+            currentEnemy4.Draw(_spriteBatch, gameTime);
+            currentEnemy5.Draw(_spriteBatch, gameTime);
+            currentEnemy6.Draw(_spriteBatch, gameTime);
+            currentEnemy7.Draw(_spriteBatch, gameTime);
+            currentEnemy8.Draw(_spriteBatch, gameTime);
+            currentItem.CurrentItemSprite.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.End();
 

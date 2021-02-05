@@ -29,6 +29,7 @@ namespace Sprintfinity3902
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
 
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);

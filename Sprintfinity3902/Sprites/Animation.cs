@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Ardrey.Sprint0.Sprites
+namespace Sprintfinity3902.Sprites
 {
     public class Animation
     {

@@ -4,8 +4,10 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Sprintfinity3902.Interfaces;
+using Sprintfinity3902;
 
-namespace Ardrey.Sprint0
+namespace Sprintfinity3902.Controllers
 {
     public class InputMouse : IController
     {

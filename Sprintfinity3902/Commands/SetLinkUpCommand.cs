@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Sprintfinity3902.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0.Commands
+namespace Sprintfinity3902.Commands
 {
     public class SetLinkUpCommand : ICommand
     {
@@ -15,9 +16,9 @@ namespace Ardrey.Sprint0.Commands
 
         public void Execute()
         {
-            if (PlayerCharacter.currentState != PlayerCharacter.getFacingUpState())
+            if (PlayerCharacter.currentState != PlayerCharacter.facingUp)
             {
-                PlayerCharacter.setState(PlayerCharacter.getFacingUpState());
+                PlayerCharacter.setState(PlayerCharacter.facingUp);
             }
             else
             {

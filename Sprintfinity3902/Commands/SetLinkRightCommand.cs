@@ -1,24 +1,25 @@
-﻿using System;
+﻿using Sprintfinity3902.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0.Commands
+namespace Sprintfinity3902.Commands
 {
-    public class SetLinkRightCommand : ICommand 
+    public class SetLinkRightCommand : ICommand
     {
         Player PlayerCharacter;
 
         public SetLinkRightCommand(Player player)
         {
             PlayerCharacter = player;
-            
+
         }
 
         public void Execute()
         {
-            if (PlayerCharacter.currentState != PlayerCharacter.getFacingRightState())
+            if (PlayerCharacter.currentState != PlayerCharacter.facingRight)
             {
-                PlayerCharacter.setState(PlayerCharacter.getFacingRightState());
+                PlayerCharacter.setState(PlayerCharacter.facingRight);
             }
             else
             {

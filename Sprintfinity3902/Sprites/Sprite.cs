@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0.Sprites
+namespace Sprintfinity3902.Sprites
 {
     public class Sprite
     {
@@ -20,26 +20,6 @@ namespace Ardrey.Sprint0.Sprites
             Y = y;
             Width = width;
             Height = height;
-        }
-
-        public void Update(GameTime gameTime)
-        {
-
-        }
-
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
-        {
-
-        }
-
-        public int GetX()
-        {
-            return this.X;
-        }
-
-        public int GetY()
-        {
-            return this.Y;
         }
 
     }

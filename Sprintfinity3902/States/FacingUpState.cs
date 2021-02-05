@@ -1,10 +1,10 @@
-﻿using Ardrey.Sprint0.Interfaces;
-using Ardrey.Sprint0.Sprites;
+﻿using Sprintfinity3902.Sprites;
+using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardrey.Sprint0.States
+namespace Sprintfinity3902.States
 {
     public class FacingUpState : IPlayerState
     {
@@ -16,7 +16,6 @@ namespace Ardrey.Sprint0.States
             PlayerCharacter = playerCharacter;
             Sprite = new LinkUpSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
             Sprite.GetAnimation();
-
         }
 
         public void Move()

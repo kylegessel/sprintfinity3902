@@ -3,23 +3,24 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
-using Ardrey.Sprint0.Sprites;
-using Ardrey.Sprint0.Commands;
+using Sprintfinity3902.Sprites;
+using Sprintfinity3902.Commands;
+using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Controllers;
 
-namespace Ardrey.Sprint0
+namespace Sprintfinity3902
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         public Texture2D texture;
-        public Vector2 startingLocation = new Vector2(363, 195);
-        public ISprite sprite;
         public IController keyboard;
         public IController mouse;
         public Player playerCharacter;
+        public Enemy currentEnemy;
 
-        private const string linkSpriteSheet = "NES - Link - Transparent";
+        private const string linkSpriteSheet = "Zelda - Link and Items - Transparent";
 
         public Game1()
         {
@@ -45,7 +46,11 @@ namespace Ardrey.Sprint0
 
             texture = Content.Load<Texture2D>(linkSpriteSheet);
 
-            playerCharacter = new Player(this, texture);
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+
+            playerCharacter = new Player(texture);
+            currentEnemy = new Enemy();
+            currentEnemy.getEnemy();
 
             SetCommands();
         }
@@ -56,6 +61,7 @@ namespace Ardrey.Sprint0
             mouse.Update();
 
             playerCharacter.Update(gameTime);
+            currentEnemy.CurrentEnemySprite.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -67,21 +73,17 @@ namespace Ardrey.Sprint0
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             playerCharacter.playerSprite.Draw(_spriteBatch, gameTime);
+            currentEnemy.CurrentEnemySprite.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
-        public void SetSprite(ISprite spriteSet)
-        {
-            sprite = spriteSet;
-        }
-
         public void SetCommands()
         {
-            InputKeyboard input = (InputKeyboard) keyboard;
-            foreach(Keys key in Enum.GetValues(typeof(Keys)))
+            InputKeyboard input = (InputKeyboard)keyboard;
+            foreach (Keys key in Enum.GetValues(typeof(Keys)))
             {
                 input.RegisterCommand(key, new DoNothingCommand(this));
             }

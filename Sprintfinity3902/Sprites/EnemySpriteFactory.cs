@@ -28,7 +28,7 @@ namespace Sprintfinity3902.Sprites
 
         public void LoadAllTextures(ContentManager content)
         {
-            enemySpriteSheet = content.Load<Texture2D>("Zelda - Dungeon Enemies - Transparent");
+            enemySpriteSheet = content.Load<Texture2D>("Zelda_Dungeon_Enemies_Transparent");
         }
 
         public ISprite CreateBlueBatEnemy()

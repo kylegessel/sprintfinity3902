@@ -20,7 +20,7 @@ namespace Sprintfinity3902
         public Player playerCharacter;
         public Enemy currentEnemy;
 
-        private const string linkSpriteSheet = "Zelda - Link and Items - Transparent";
+        private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
 
         public Game1()
         {

@@ -59,6 +59,10 @@ namespace Sprintfinity3902.Sprites
         {
             return new GoriyaEnemyRightSprite(enemySpriteSheet);
         }
+        public ISprite CreateSkeletonEnemy()
+        {
+            return new SkeletonEnemySprite(enemySpriteSheet);
+        }
 
     }
 }

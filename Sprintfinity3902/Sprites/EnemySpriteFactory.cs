@@ -63,6 +63,10 @@ namespace Sprintfinity3902.Sprites
         {
             return new SkeletonEnemySprite(enemySpriteSheet);
         }
+        public ISprite CreateHandEnemy()
+        {
+            return new HandEnemySprite(enemySpriteSheet);
+        }
 
     }
 }

@@ -18,7 +18,7 @@ namespace Sprintfinity3902
 
         public void getItem()
         {
-            CurrentItemSprite = ItemFactory.CreateBombItem();
+            CurrentItemSprite = ItemFactory.CreateBoomerangItem();
         }
     }
 

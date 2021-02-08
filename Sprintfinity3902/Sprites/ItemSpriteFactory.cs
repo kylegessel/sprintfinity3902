@@ -35,5 +35,10 @@ namespace Sprintfinity3902.Sprites
         {
             return new BombItemSprite(itemSpriteSheet);
         }
+
+        public ISprite CreateBoomerangItem()
+        {
+            return new BoomerangItemSprite(itemSpriteSheet);
+        }
     }
 }

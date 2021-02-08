@@ -24,5 +24,10 @@ namespace Sprintfinity3902.States
             PlayerCharacter.setCurrentPositionY(Sprite.CurrentPositionY);
         }
 
+        public void StopMoving()
+        {
+            Sprite = new LinkDownIdleSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
+        }
+
     }
 }

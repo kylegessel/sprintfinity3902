@@ -23,5 +23,10 @@ namespace Sprintfinity3902.States
             Sprite.CurrentPositionX = Sprite.CurrentPositionX - 5;
             PlayerCharacter.setCurrentPositionX(Sprite.CurrentPositionX);
         }
+
+        public void StopMoving()
+        {
+
+        }
     }
 }

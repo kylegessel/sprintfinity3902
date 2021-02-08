@@ -14,6 +14,8 @@ namespace Sprintfinity3902
         public int CurrentPositionX { get; set; }
         public int CurrentPositionY { get; set; }
         public IPlayerState facingDown { get; set; }
+        //added
+        //public IPlayerState facingDownIdle { get; set; }
         public IPlayerState facingLeft { get; set; }
         public IPlayerState facingRight { get; set; }
         public IPlayerState facingUp { get; set; }
@@ -29,6 +31,8 @@ namespace Sprintfinity3902
             StartingLocation = new Vector2(363, 195);
 
             facingDown = new FacingDownState(this);
+            //added
+            //facingDownIdle = new FacingDownIdleState(this);
             facingLeft = new FacingLeftState(this);
             facingRight = new FacingRightState(this);
             facingUp = new FacingUpState(this);
@@ -43,6 +47,12 @@ namespace Sprintfinity3902
         public void Move()
         {
             currentState.Move();
+        }
+
+        //added
+        public void StopMoving()
+        {
+            currentState.StopMoving();
         }
 
         public void Update(GameTime gameTime)

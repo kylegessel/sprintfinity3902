@@ -128,7 +128,7 @@ namespace Sprintfinity3902
             input.RegisterCommand(Keys.A, new SetLinkLeftCommand(playerCharacter));
             input.RegisterCommand(Keys.S, new SetLinkDownCommand(playerCharacter));
             input.RegisterCommand(Keys.D, new SetLinkRightCommand(playerCharacter));
-            input.RegisterCommand(Keys.Z, new SetLinkDownAttackCommand(playerCharacter));
+            input.RegisterCommand(Keys.Z, new SetLinkAttackCommand(playerCharacter));
         }
     }
 }

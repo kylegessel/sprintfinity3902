@@ -23,5 +23,10 @@ namespace Sprintfinity3902.States
             Sprite.CurrentPositionY = Sprite.CurrentPositionY - 5;
             PlayerCharacter.setCurrentPositionY(Sprite.CurrentPositionY);
         }
+
+        public void Attack()
+        {
+            //Needs to be implemented
+        }
     }
 }

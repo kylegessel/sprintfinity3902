@@ -24,5 +24,10 @@ namespace Sprintfinity3902.States
             PlayerCharacter.setCurrentPositionY(Sprite.CurrentPositionY);
         }
 
+        public void Attack()
+        {
+            PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
+        }
+
     }
 }

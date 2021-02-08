@@ -14,14 +14,23 @@ namespace Sprintfinity3902.States
         public FacingDownAttackState(Player playerCharacter)
         {
             PlayerCharacter = playerCharacter;
+            //get game time 
             Sprite = new LinkDownAttackSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
             Sprite.GetAnimation();
+
+            //compare game time 
+
+            //set to prev state
         }
 
         public void Move()
         {
-            //Sprite.CurrentPositionY = Sprite.CurrentPositionY + 5;
-            //PlayerCharacter.setCurrentPositionY(Sprite.CurrentPositionY);
+            //NULL
+        }
+
+        public void Attack()
+        {
+            //NULL
         }
 
     }

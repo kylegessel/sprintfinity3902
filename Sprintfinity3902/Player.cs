@@ -47,6 +47,11 @@ namespace Sprintfinity3902
             currentState.Move();
         }
 
+        public void Attack()
+        {
+            currentState.Attack();
+        }
+
         public void Update(GameTime gameTime)
         {
             playerSprite = currentState.Sprite;

@@ -58,7 +58,10 @@ namespace Sprintfinity3902.Sprites
                 PlaybackProgress += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (PlaybackProgress > Duration)
+                {
                     PlaybackProgress -= Duration;
+                    //Stop();
+                }
             }
 
 

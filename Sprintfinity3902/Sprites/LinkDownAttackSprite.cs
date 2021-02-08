@@ -81,7 +81,7 @@ namespace Sprintfinity3902.Sprites
             }
             else if (frame3 == CurrentFrame)
             {
-                Rectangle sourceRectangle = new Rectangle(Sprite2.X, Sprite2.Y, Sprite3.Width, Sprite3.Height);
+                Rectangle sourceRectangle = new Rectangle(Sprite3.X, Sprite3.Y, Sprite3.Width, Sprite3.Height);
                 Rectangle destinationRectangle = new Rectangle(CurrentPositionX, CurrentPositionY, Sprite3.Width*5, Sprite3.Height*5);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
@@ -98,10 +98,10 @@ namespace Sprintfinity3902.Sprites
         {
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 0);
-            Animation.AddFrame(Sprite2, 1 / 32f);
-            Animation.AddFrame(Sprite3, 1 / 24f);
-            Animation.AddFrame(Sprite4, 1 / 16f);
-            Animation.AddFrame(Sprite1, 1 / 8f);
+            Animation.AddFrame(Sprite2, 1/12f);
+            Animation.AddFrame(Sprite3, 2/12f);
+            Animation.AddFrame(Sprite4, 3/12f);
+            Animation.AddFrame(Sprite1, 4/12f);
             Animation.Play();
         }
 

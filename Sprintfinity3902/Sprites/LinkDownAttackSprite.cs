@@ -58,7 +58,6 @@ namespace Sprintfinity3902.Sprites
         {
             Animation.Update(gameTime);
             CurrentFrame = Animation.CurrentFrame;
-            if (Animation.IsPlaying == false)
                 
         }
 

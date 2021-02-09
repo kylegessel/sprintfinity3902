@@ -22,10 +22,5 @@ namespace Sprintfinity3902.States
             //Won't move
         }
 
-        public void StopMoving()
-        {
-            //Nothing to do, not moving
-        }
-
     }
 }

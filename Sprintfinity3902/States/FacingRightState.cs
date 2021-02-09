@@ -24,9 +24,5 @@ namespace Sprintfinity3902.States
             PlayerCharacter.setCurrentPositionX(Sprite.CurrentPositionX);
         }
 
-        public void StopMoving()
-        {
-
-        }
     }
 }

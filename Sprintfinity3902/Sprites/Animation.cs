@@ -43,6 +43,7 @@ namespace Sprintfinity3902.Sprites
         }
 
         public bool IsPlaying { get; private set; }
+        public bool PlayOneTime { get; private set; }
         public float PlaybackProgress { get; private set; }
         public void AddFrame(Sprite sprite, float timeStamp)
         {
@@ -58,7 +59,13 @@ namespace Sprintfinity3902.Sprites
                 PlaybackProgress += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (PlaybackProgress > Duration)
-                    PlaybackProgress -= Duration;
+                    if (PlayOneTime)
+                    {
+                        PlaybackProgress -= Duration;
+                        Stop();
+                    }
+                    else
+                        PlaybackProgress -= Duration;
             }
 
 
@@ -91,6 +98,11 @@ namespace Sprintfinity3902.Sprites
                 throw new ArgumentOutOfRangeException(nameof(index), "A frame with index " + index + " does not exist in this animation.");
 
             return _frames[index];
+        }
+
+        public void PlayOnce()
+        {
+            PlayOneTime = true;
         }
 
     }

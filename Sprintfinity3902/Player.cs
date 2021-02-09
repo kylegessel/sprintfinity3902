@@ -17,6 +17,8 @@ namespace Sprintfinity3902
         public IPlayerState facingLeft { get; set; }
         public IPlayerState facingRight { get; set; }
         public IPlayerState facingUp { get; set; }
+        public IPlayerState facingDownAttack { get; set; }
+
 
         public Texture2D PlayerTexture;
         public Vector2 StartingLocation;
@@ -32,6 +34,7 @@ namespace Sprintfinity3902
             facingLeft = new FacingLeftState(this);
             facingRight = new FacingRightState(this);
             facingUp = new FacingUpState(this);
+            facingDownAttack = new FacingDownAttackState(this);
             currentState = facingDown;
         }
 

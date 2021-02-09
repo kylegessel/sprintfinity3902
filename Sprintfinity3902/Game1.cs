@@ -3,14 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
-using Sprintfinity3902.Sprites;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Controllers;
 using System.Diagnostics;
+using Sprintfinity3902.SpriteFactories;
 
-namespace Sprintfinity3902
-{
+namespace Sprintfinity3902 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -45,8 +44,6 @@ namespace Sprintfinity3902
 
         protected override void Initialize()
         {
-            mouse = new InputMouse(this);
-
             base.Initialize();
         }
 
@@ -77,7 +74,7 @@ namespace Sprintfinity3902
         protected override void Update(GameTime gameTime)
         {
             InputKeyboard.Instance.Update();
-            mouse.Update();
+            InputMouse.Instance.Update();
 
             playerCharacter.Update(gameTime);
             currentEnemy.Update(gameTime);
@@ -121,17 +118,15 @@ namespace Sprintfinity3902
                 input.RegisterCommand(key, new DoNothingCommand(this));
             }
 
-            input.RegisterCommand(Keys.W, new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingUp));
-            input.RegisterCommand(Keys.A, new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingLeft));
-            input.RegisterCommand(Keys.S, new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingDown));
-            input.RegisterCommand(Keys.D, new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingRight));
+            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingUp), Keys.W, Keys.Up);
+            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingLeft), Keys.A, Keys.Left);
+            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingDown), Keys.S, Keys.Down);
+            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingRight), Keys.D, Keys.Right);
+ 
         }
 
         public void SetListeners() {
-            InputKeyboard.Instance.RegisterKeyUpCallback(Keys.W, () => { playerCharacter.CurrentState.Sprite.Animation.Stop(); });
-            InputKeyboard.Instance.RegisterKeyUpCallback(Keys.A, () => { playerCharacter.CurrentState.Sprite.Animation.Stop(); });
-            InputKeyboard.Instance.RegisterKeyUpCallback(Keys.S, () => { playerCharacter.CurrentState.Sprite.Animation.Stop(); });
-            InputKeyboard.Instance.RegisterKeyUpCallback(Keys.D, () => { playerCharacter.CurrentState.Sprite.Animation.Stop(); });
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
     }
 }

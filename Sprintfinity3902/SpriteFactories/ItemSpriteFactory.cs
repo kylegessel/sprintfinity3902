@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sprintfinity3902.Sprites
-{
-    public class ItemSpriteFactory
-    {
+namespace Sprintfinity3902.SpriteFactories {
+    public class ItemSpriteFactory {
         private Texture2D itemSpriteSheet;
 
         private static ItemSpriteFactory instance;
@@ -21,13 +20,11 @@ namespace Sprintfinity3902.Sprites
                 return instance;
             }
         }
-        public void LoadAllTextures(ContentManager content)
-        {
+        public void LoadAllTextures(ContentManager content) {
             itemSpriteSheet = content.Load<Texture2D>("Zelda_Link_and_Items_Transparent");
         }
 
-        public IEntity CreateBombItem()
-        {
+        public IEntity CreateBombItem() {
             return new BombItemSprite(itemSpriteSheet);
         }
     }

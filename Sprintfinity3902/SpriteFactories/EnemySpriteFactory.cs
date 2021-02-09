@@ -1,23 +1,20 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sprintfinity3902.Sprites
-{
-    public class EnemySpriteFactory
-    {
+namespace Sprintfinity3902.SpriteFactories {
+    public class EnemySpriteFactory {
         private Texture2D enemySpriteSheet;
 
         private static EnemySpriteFactory instance;
 
-        public static EnemySpriteFactory Instance
-        {
-            get
-            {
-                if (instance == null) { 
+        public static EnemySpriteFactory Instance {
+            get {
+                if (instance == null) {
                     instance = new EnemySpriteFactory();
                 }
                 return instance;
@@ -25,45 +22,36 @@ namespace Sprintfinity3902.Sprites
         }
 
 
-        public void LoadAllTextures(ContentManager content)
-        {
+        public void LoadAllTextures(ContentManager content) {
             enemySpriteSheet = content.Load<Texture2D>("Zelda_Dungeon_Enemies_Transparent");
         }
 
-        public IEntity CreateBlueBatEnemy()
-        {
+        public IEntity CreateBlueBatEnemy() {
             return new BlueBatEnemySprite(enemySpriteSheet);
         }
 
-        public IEntity CreateGelEnemy()
-        {
+        public IEntity CreateGelEnemy() {
             return new GelEnemySprite(enemySpriteSheet);
         }
 
-        public IEntity CreateGoriyaDownEnemy()
-        {
+        public IEntity CreateGoriyaDownEnemy() {
             return new GoriyaEnemyDownSprite(enemySpriteSheet);
         }
 
-        public IEntity CreateGoriyaUpEnemy()
-        {
+        public IEntity CreateGoriyaUpEnemy() {
             return new GoriyaEnemyUpSprite(enemySpriteSheet);
         }
-        public IEntity CreateGoriyaLeftEnemy()
-        {
+        public IEntity CreateGoriyaLeftEnemy() {
             return new GoriyaEnemyLeftSprite(enemySpriteSheet);
         }
 
-        public IEntity CreateGoriyaRightEnemy()
-        {
+        public IEntity CreateGoriyaRightEnemy() {
             return new GoriyaEnemyRightSprite(enemySpriteSheet);
         }
-        public IEntity CreateSkeletonEnemy()
-        {
+        public IEntity CreateSkeletonEnemy() {
             return new SkeletonEnemySprite(enemySpriteSheet);
         }
-        public IEntity CreateHandEnemy()
-        {
+        public IEntity CreateHandEnemy() {
             return new HandEnemySprite(enemySpriteSheet);
         }
 

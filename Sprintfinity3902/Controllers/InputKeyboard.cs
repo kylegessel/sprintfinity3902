@@ -19,6 +19,8 @@ namespace Sprintfinity3902.Controllers
 
         private static List<Keys> orderedKeyPress;
 
+        private static List<Keys> movementKeys;
+
         private static InputKeyboard instance;
 
         public static InputKeyboard Instance {
@@ -28,18 +30,11 @@ namespace Sprintfinity3902.Controllers
                     orderedKeyPress = new List<Keys>();
                     keyUpHandlers = new Dictionary<Keys, List<Action>>();
                     controllerMappings = new Dictionary<Keys, Interfaces.ICommand>();
+                    movementKeys = new List<Keys>() {
+                        Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right
+                    };
                 }
                 return instance;
-            }
-        }
-
-        public void RegisterCommand(Keys key, Interfaces.ICommand command)
-        {
-            bool tryAdd = controllerMappings.TryAdd(key, command);
-            if (tryAdd == false)
-            {
-                controllerMappings.Remove(key);
-                controllerMappings.Add(key, command);
             }
         }
 
@@ -47,11 +42,39 @@ namespace Sprintfinity3902.Controllers
             return orderedKeyPress.Contains(key);
         }
 
-        public void RegisterKeyUpCallback(Keys key, Action callback) {
+        private void addMapping(Interfaces.ICommand command, Keys key) {
+            bool tryAdd = controllerMappings.TryAdd(key, command);
+            if (tryAdd == false) {
+                controllerMappings.Remove(key);
+                controllerMappings.Add(key, command);
+            }
+        }
+
+        public void RegisterCommand(Interfaces.ICommand command, params Keys[] keys) {
+            foreach (Keys key in keys) {
+                addMapping(command, key);
+            }
+        }
+
+        public void RegisterCommand(Keys key, Interfaces.ICommand command) {
+            addMapping(command, key);
+        }
+
+        private void addCallback(Keys key, Action callback) {
             if (!keyUpHandlers.ContainsKey(key)) {
                 keyUpHandlers[key] = new List<Action>();
             }
             keyUpHandlers[key].Add(callback);
+        }
+
+        public void RegisterKeyUpCallback(Keys key, Action callback) {
+            addCallback(key, callback);
+        }
+
+        public void RegisterKeyUpCallback(Action callback, params Keys[] keys) {
+            foreach (Keys key in keys) {
+                addCallback(key, callback);
+            }
         }
 
         public void Update()
@@ -66,8 +89,6 @@ namespace Sprintfinity3902.Controllers
                         Debug.WriteLine(orderedKeyPress[i]);
                    }
 
-                    
-
                     foreach (KeyValuePair<Keys, List<Action>> pair in keyUpHandlers) {
                         if (pair.Key == orderedKeyPress[i]) {
                             
@@ -76,6 +97,7 @@ namespace Sprintfinity3902.Controllers
                             }
                         }
                     }
+
                     orderedKeyPress.RemoveAt(i);
                 } 
             }
@@ -90,7 +112,7 @@ namespace Sprintfinity3902.Controllers
             bool playerMoveHasExecuted = false;
 
             foreach (Keys key in orderedKeyPress) {
-                if (playerMoveHasExecuted && (key == Keys.W || key == Keys.A || key == Keys.S || key == Keys.D)) {
+                if (playerMoveHasExecuted && movementKeys.Contains(key)) {
                     continue;
                 } else {
                     playerMoveHasExecuted = true;

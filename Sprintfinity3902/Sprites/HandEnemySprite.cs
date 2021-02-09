@@ -32,7 +32,6 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite1, 0);
             Animation.AddFrame(Sprite2, 1 / 4f);
             Animation.AddFrame(Sprite1, 1 / 2f);
-            Animation.Play();
         }
     }
 }

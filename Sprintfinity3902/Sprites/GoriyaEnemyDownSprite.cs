@@ -26,7 +26,6 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite, 0);
             Animation.AddFrame(Sprite, 1 / 10f);
             Animation.AddFrame(Sprite, 1 / 5f);
-            Animation.Play();
         }
 
         public override void Draw(SpriteBatch spriteBatch)

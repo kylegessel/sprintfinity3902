@@ -41,14 +41,13 @@ namespace Sprintfinity3902.Sprites
             Texture = texture;
             Position = position;
 
-            Animation = new Animation();
+            Animation = new Animation(false);
             Animation.AddFrame(Sprite1, 0);
             Animation.AddFrame(Sprite2, 1 / 32f);
             Animation.AddFrame(Sprite3, 1 / 24f);
             Animation.AddFrame(Sprite4, 1 / 16f);
             Animation.AddFrame(Sprite1, 1 / 8f);
             Animation.PlayOnce();
-            Animation.Play();
         }
 
     }

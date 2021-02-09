@@ -15,11 +15,15 @@ namespace Sprintfinity3902.States
         {
             PlayerCharacter = playerCharacter;
             Sprite = new LinkLeftSprite(PlayerCharacter.Texture, PlayerCharacter.Position);
-            
+            Sprite.Animation.IsPlaying = false;
+
         }
 
         public void Move()
         {
+            if (!Sprite.Animation.IsPlaying) {
+                Sprite.Animation.Play();
+            }
             Sprite.X = Sprite.X - 5;
         }
     }

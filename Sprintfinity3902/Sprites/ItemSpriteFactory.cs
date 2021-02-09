@@ -11,21 +11,16 @@ namespace Sprintfinity3902.Sprites
     {
         private Texture2D itemSpriteSheet;
 
-        private static ItemSpriteFactory instance = new ItemSpriteFactory();
+        private static ItemSpriteFactory instance;
 
-        public static ItemSpriteFactory Instance
-        {
-            get
-            {
+        public static ItemSpriteFactory Instance {
+            get {
+                if (instance == null) {
+                    instance = new ItemSpriteFactory();
+                }
                 return instance;
             }
         }
-
-        private ItemSpriteFactory()
-        {
-
-        }
-
         public void LoadAllTextures(ContentManager content)
         {
             itemSpriteSheet = content.Load<Texture2D>("Zelda_Link_and_Items_Transparent");

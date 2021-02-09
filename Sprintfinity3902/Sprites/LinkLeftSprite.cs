@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -32,13 +34,12 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite1, 0);
             Animation.AddFrame(Sprite2, 1 / 10f);
             Animation.AddFrame(Sprite1, 1 / 5f);
-            Animation.Play();
         }
 
+        
       
         public override void Draw(SpriteBatch spriteBatch)
         {
-
             spriteBatch.Draw(Texture, Position, Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0);
         }
 

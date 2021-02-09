@@ -11,20 +11,19 @@ namespace Sprintfinity3902.Sprites
     {
         private Texture2D enemySpriteSheet;
 
-        private static EnemySpriteFactory instance = new EnemySpriteFactory();
+        private static EnemySpriteFactory instance;
 
         public static EnemySpriteFactory Instance
         {
             get
             {
+                if (instance == null) { 
+                    instance = new EnemySpriteFactory();
+                }
                 return instance;
             }
         }
 
-        private EnemySpriteFactory()
-        {
-
-        }
 
         public void LoadAllTextures(ContentManager content)
         {

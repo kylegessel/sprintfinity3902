@@ -25,6 +25,7 @@ namespace Sprintfinity3902.States
 
         public void Move()
         {
+
             //Sprite.CurrentPositionY = Sprite.CurrentPositionY + 5;
             //PlayerCharacter.setCurrentPositionY(Sprite.CurrentPositionY);
         }

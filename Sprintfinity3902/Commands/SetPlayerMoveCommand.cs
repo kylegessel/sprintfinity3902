@@ -5,25 +5,28 @@ using System.Text;
 
 namespace Sprintfinity3902.Commands
 {
-    public class SetLinkDownCommand : ICommand
+    public class SetPlayerMoveCommand: ICommand
     {
         Player PlayerCharacter;
+        private IPlayerState _state;
 
-        public SetLinkDownCommand(Player player)
+        public SetPlayerMoveCommand(Player player, IPlayerState state)
         {
             PlayerCharacter = player;
+            _state = state;
         }
 
         public void Execute()
         {
-            if (PlayerCharacter.CurrentState != PlayerCharacter.facingDown)
+            if (PlayerCharacter.CurrentState != _state)
             {
-                PlayerCharacter.setState(PlayerCharacter.facingDown);
+                PlayerCharacter.setState(_state);
             }
             else
             {
                 PlayerCharacter.Move();
             }
+            
         }
     }
 }

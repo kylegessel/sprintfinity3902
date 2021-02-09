@@ -6,6 +6,9 @@ using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Sprintfinity3902.Controllers;
+using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 
 namespace Sprintfinity3902
 {
@@ -35,14 +38,16 @@ namespace Sprintfinity3902
             Texture = playerSpriteSheet;
             Position = new Vector2(300, 300);
 
-            facingDown = new FacingDownState(this);
+            CurrentState = new FacingDownState(this);
+
+            facingDown = CurrentState;
             facingLeft = new FacingLeftState(this);
             facingRight = new FacingRightState(this);
             facingUp = new FacingUpState(this);
             facingDownAttack = new FacingDownAttackState(this);
 
-            CurrentState = facingDown;
         }
+
 
         public void setState(IPlayerState state) {
             Vector2 pos = CurrentState.Sprite.Position;

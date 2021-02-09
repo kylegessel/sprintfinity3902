@@ -24,7 +24,6 @@ namespace Sprintfinity3902.Sprites
             Position = new Vector2(750, 250);
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 1 / 10f);
-            Animation.Play();
 
         }
     }

@@ -20,6 +20,7 @@ namespace Sprintfinity3902.Sprites
             }
         }
 
+
         public AnimationFrame CurrentFrame
         {
             get

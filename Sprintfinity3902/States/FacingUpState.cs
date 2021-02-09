@@ -8,20 +8,19 @@ namespace Sprintfinity3902.States
 {
     public class FacingUpState : IPlayerState
     {
-        public ISprite Sprite { get; set; }
+        public IEntity Sprite { get; set; }
         Player PlayerCharacter;
 
         public FacingUpState(Player playerCharacter)
         {
             PlayerCharacter = playerCharacter;
-            Sprite = new LinkUpSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
-            Sprite.GetAnimation();
+            Sprite = new LinkUpSprite(PlayerCharacter.Texture, PlayerCharacter.Position);
+            
         }
 
         public void Move()
         {
-            Sprite.CurrentPositionY = Sprite.CurrentPositionY - 5;
-            PlayerCharacter.setCurrentPositionY(Sprite.CurrentPositionY);
+            Sprite.Y = Sprite.Y - 5;
         }
     }
 }

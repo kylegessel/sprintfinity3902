@@ -16,7 +16,7 @@ namespace Sprintfinity3902.Commands
 
         public void Execute()
         {
-            if (PlayerCharacter.currentState != PlayerCharacter.facingDownAttack)
+            if (PlayerCharacter.CurrentState != PlayerCharacter.facingDownAttack)
             {
                 PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
                 PlayerCharacter.facingDownAttack.Sprite.Animation.Play();

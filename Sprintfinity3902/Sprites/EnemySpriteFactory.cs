@@ -31,39 +31,39 @@ namespace Sprintfinity3902.Sprites
             enemySpriteSheet = content.Load<Texture2D>("Zelda_Dungeon_Enemies_Transparent");
         }
 
-        public ISprite CreateBlueBatEnemy()
+        public IEntity CreateBlueBatEnemy()
         {
             return new BlueBatEnemySprite(enemySpriteSheet);
         }
 
-        public ISprite CreateGelEnemy()
+        public IEntity CreateGelEnemy()
         {
             return new GelEnemySprite(enemySpriteSheet);
         }
 
-        public ISprite CreateGoriyaDownEnemy()
+        public IEntity CreateGoriyaDownEnemy()
         {
             return new GoriyaEnemyDownSprite(enemySpriteSheet);
         }
 
-        public ISprite CreateGoriyaUpEnemy()
+        public IEntity CreateGoriyaUpEnemy()
         {
             return new GoriyaEnemyUpSprite(enemySpriteSheet);
         }
-        public ISprite CreateGoriyaLeftEnemy()
+        public IEntity CreateGoriyaLeftEnemy()
         {
             return new GoriyaEnemyLeftSprite(enemySpriteSheet);
         }
 
-        public ISprite CreateGoriyaRightEnemy()
+        public IEntity CreateGoriyaRightEnemy()
         {
             return new GoriyaEnemyRightSprite(enemySpriteSheet);
         }
-        public ISprite CreateSkeletonEnemy()
+        public IEntity CreateSkeletonEnemy()
         {
             return new SkeletonEnemySprite(enemySpriteSheet);
         }
-        public ISprite CreateHandEnemy()
+        public IEntity CreateHandEnemy()
         {
             return new HandEnemySprite(enemySpriteSheet);
         }

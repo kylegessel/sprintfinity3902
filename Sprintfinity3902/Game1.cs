@@ -18,15 +18,14 @@ namespace Sprintfinity3902
         public IController keyboard;
         public IController mouse;
         public Player playerCharacter;
-        public ISprite currentEnemy;
-        public ISprite currentEnemy2;
-        public ISprite currentEnemy3;
-        public ISprite currentEnemy4;
-        public ISprite currentEnemy5;
-        public ISprite currentEnemy6;
-        public ISprite currentEnemy7;
-        public ISprite currentEnemy8;
-        public Item currentItem;
+        public IEntity currentEnemy;
+        public IEntity currentEnemy2;
+        public IEntity currentEnemy3;
+        public IEntity currentEnemy4;
+        public IEntity currentEnemy5;
+        public IEntity currentEnemy6;
+        public IEntity currentEnemy7;
+        public IEntity currentEnemy8;
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
 
@@ -70,9 +69,6 @@ namespace Sprintfinity3902
             currentEnemy7 = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
             currentEnemy8 = EnemySpriteFactory.Instance.CreateHandEnemy();
 
-            currentItem = new Item();
-            currentItem.getItem();
-
             SetCommands();
         }
 
@@ -90,7 +86,6 @@ namespace Sprintfinity3902
             currentEnemy6.Update(gameTime);
             currentEnemy7.Update(gameTime);
             currentEnemy8.Update(gameTime);
-            currentItem.CurrentItemSprite.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -101,16 +96,15 @@ namespace Sprintfinity3902
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            playerCharacter.playerSprite.Draw(_spriteBatch, gameTime);
-            currentEnemy.Draw(_spriteBatch, gameTime);
-            currentEnemy2.Draw(_spriteBatch, gameTime);
-            currentEnemy3.Draw(_spriteBatch, gameTime);
-            currentEnemy4.Draw(_spriteBatch, gameTime);
-            currentEnemy5.Draw(_spriteBatch, gameTime);
-            currentEnemy6.Draw(_spriteBatch, gameTime);
-            currentEnemy7.Draw(_spriteBatch, gameTime);
-            currentEnemy8.Draw(_spriteBatch, gameTime);
-            currentItem.CurrentItemSprite.Draw(_spriteBatch, gameTime);
+            playerCharacter.Draw(_spriteBatch);
+            currentEnemy.Draw(_spriteBatch);
+            currentEnemy2.Draw(_spriteBatch);
+            currentEnemy3.Draw(_spriteBatch);
+            currentEnemy4.Draw(_spriteBatch);
+            currentEnemy5.Draw(_spriteBatch);
+            currentEnemy6.Draw(_spriteBatch);
+            currentEnemy7.Draw(_spriteBatch);
+            currentEnemy8.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

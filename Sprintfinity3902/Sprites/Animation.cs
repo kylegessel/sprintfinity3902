@@ -72,14 +72,9 @@ namespace Sprintfinity3902.Sprites
 
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            /*
-            AnimationFrame frame = CurrentFrame;
-
-            if (frame != null)
-                frame.Sprite.Draw(spriteBatch, gameTime);
-            */
+            spriteBatch.Draw(CurrentFrame.Sprite.Texture, position, CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.None, 0.0f);
         }
 
         public void Play()

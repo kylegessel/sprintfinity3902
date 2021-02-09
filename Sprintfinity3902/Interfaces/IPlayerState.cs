@@ -6,7 +6,7 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface IPlayerState
     {
-        ISprite Sprite { get; set; }
+        IEntity Sprite { get; set; }
         void Move();
     }
 }

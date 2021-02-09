@@ -8,6 +8,5 @@ namespace Sprintfinity3902.Interfaces
     {
         ISprite Sprite { get; set; }
         void Move();
-        void StopMoving();
     }
 }

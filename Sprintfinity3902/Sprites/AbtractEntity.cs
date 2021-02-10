@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Sprintfinity3902.Sprites {
-    public abstract class AbstractEntity : IEntity {
+    public abstract class AbstractSprite : IEntity {
 
         private Animation _animation;
         private Vector2 _position;

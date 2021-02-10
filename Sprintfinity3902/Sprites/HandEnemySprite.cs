@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class HandEnemySprite : AbstractEntity
+    public class HandEnemySprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 

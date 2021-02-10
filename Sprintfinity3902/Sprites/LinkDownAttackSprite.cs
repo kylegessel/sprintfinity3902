@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class LinkDownAttackSprite : AbstractEntity
+    public class LinkDownAttackSprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 

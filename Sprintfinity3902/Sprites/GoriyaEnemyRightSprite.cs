@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class GoriyaEnemyRightSprite : AbstractEntity
+    public class GoriyaEnemyRightSprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 

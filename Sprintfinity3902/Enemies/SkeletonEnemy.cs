@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Sprintfinity3902.Enemies
 {
-    class SkeletonEnemy
+    public class SkeletonEnemy
     {
+
     }
 }

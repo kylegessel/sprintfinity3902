@@ -8,7 +8,7 @@ using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Sprites
 {
-    class BombItemSprite : AbstractEntity
+    class BombItemSprite : AbstractSprite
     {
         public Texture2D Texture { get; private set; }
 

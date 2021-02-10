@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 namespace Sprintfinity3902
 {
-    public class Player : AbstractEntity
+    public class Player : AbstractSprite
     {
         private IPlayerState _currentState;
 

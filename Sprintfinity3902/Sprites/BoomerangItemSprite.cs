@@ -14,9 +14,6 @@ namespace Sprintfinity3902.Sprites
         public Sprite Sprite2 { get; set; }
         public Sprite Sprite3 { get; set; }
         public Texture2D Texture { get; set; }
-        public Vector2 Position { get; set; }
-        public int CurrentPositionX { get; set; }
-        public int CurrentPositionY { get; set; }
         public Animation Animation { get; set; }
         public AnimationFrame CurrentFrame { get; set; }
 
@@ -37,11 +34,10 @@ namespace Sprintfinity3902.Sprites
 
         public BoomerangItemSprite(Texture2D texture)
         {
-            Sprite1 = new Sprite(texture, BOOMERANG_POS1_X, BOOMERANG_POS1_Y, BOOMERANG_WIDTH1, BOOMERANG_HEIGHT1);
-            Sprite2 = new Sprite(texture, BOOMERANG_POS2_X, BOOMERANG_POS2_Y, BOOMERANG_WIDTH2, BOOMERANG_HEIGHT2);
-            Sprite3 = new Sprite(texture, BOOMERANG_POS3_X, BOOMERANG_POS3_Y, BOOMERANG_WIDTH3, BOOMERANG_HEIGHT3);
+            Sprite Sprite1 = new Sprite(texture, BOOMERANG_POS1_X, BOOMERANG_POS1_Y, BOOMERANG_WIDTH1, BOOMERANG_HEIGHT1);
+            Sprite Sprite2 = new Sprite(texture, BOOMERANG_POS2_X, BOOMERANG_POS2_Y, BOOMERANG_WIDTH2, BOOMERANG_HEIGHT2);
+            Sprite Sprite3 = new Sprite(texture, BOOMERANG_POS3_X, BOOMERANG_POS3_Y, BOOMERANG_WIDTH3, BOOMERANG_HEIGHT3);
             Texture = texture;
-            Position = new Vector2(750, 250);
 
             GetAnimation();
         }
@@ -52,7 +48,7 @@ namespace Sprintfinity3902.Sprites
             CurrentFrame = Animation.CurrentFrame;
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             AnimationFrame frame1 = Animation.GetFrame(0);
             AnimationFrame frame2 = Animation.GetFrame(1);
@@ -62,24 +58,24 @@ namespace Sprintfinity3902.Sprites
             if (frame1 == CurrentFrame || frame4 == CurrentFrame)
             {
                 Rectangle sourceRectangle = new Rectangle(Sprite1.X, Sprite1.Y, Sprite1.Width, Sprite1.Height);
-                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 25, 40);
+                Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 25, 40);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
             else if (frame2 == CurrentFrame)
             {
                 Rectangle sourceRectangle = new Rectangle(Sprite2.X, Sprite2.Y, Sprite2.Width, Sprite2.Height);
-                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 40, 40);
+                Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 40, 40);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
             else if(frame3 == CurrentFrame)
             {
                 Rectangle sourceRectangle = new Rectangle(Sprite3.X, Sprite3.Y, Sprite3.Width, Sprite3.Height);
-                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 40, 25);
+                Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 40, 25);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
             else {
                 Rectangle sourceRectangle = new Rectangle(Sprite1.X, Sprite1.Y, Sprite1.Width, Sprite1.Height);
-                Rectangle destinationRectangle = new Rectangle((int)Position.X, (int)Position.Y, 25, 40);
+                Rectangle destinationRectangle = new Rectangle((int)position.X, (int)position.Y, 25, 40);
                 spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Color.White);
             }
         }

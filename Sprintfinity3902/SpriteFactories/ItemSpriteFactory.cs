@@ -24,7 +24,7 @@ namespace Sprintfinity3902.SpriteFactories {
             itemSpriteSheet = content.Load<Texture2D>("Zelda_Link_and_Items_Transparent");
         }
 
-        public IEntity CreateBombItem() {
+        public ISprite CreateBombItem() {
             return new BombItemSprite(itemSpriteSheet);
         }
     }

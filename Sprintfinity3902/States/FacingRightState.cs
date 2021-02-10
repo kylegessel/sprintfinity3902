@@ -8,7 +8,7 @@ namespace Sprintfinity3902.States
 {
     public class FacingRightState : IPlayerState
     {
-        public IEntity Sprite { get; set; }
+        public ISprite Sprite { get; set; }
         Player PlayerCharacter;
 
         public FacingRightState(Player playerCharacter)

@@ -17,14 +17,14 @@ namespace Sprintfinity3902 {
         public Texture2D texture;
         public IController mouse;
         public Player playerCharacter;
-        public IEntity currentEnemy;
-        public IEntity currentEnemy2;
-        public IEntity currentEnemy3;
-        public IEntity currentEnemy4;
-        public IEntity currentEnemy5;
-        public IEntity currentEnemy6;
-        public IEntity currentEnemy7;
-        public IEntity currentEnemy8;
+        public ISprite currentEnemy;
+        public ISprite currentEnemy2;
+        public ISprite currentEnemy3;
+        public ISprite currentEnemy4;
+        public ISprite currentEnemy5;
+        public ISprite currentEnemy6;
+        public ISprite currentEnemy7;
+        public ISprite currentEnemy8;
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
 

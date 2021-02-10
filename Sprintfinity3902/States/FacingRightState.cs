@@ -3,25 +3,30 @@ using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Sprintfinity3902.Entities;
+using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.States
 {
     public class FacingRightState : IPlayerState
     {
+        public Player Player { get; set; }
         public ISprite Sprite { get; set; }
-        Player PlayerCharacter;
 
-        public FacingRightState(Player playerCharacter)
+        public FacingRightState(Player currentPlayer)
         {
-            PlayerCharacter = playerCharacter;
-            Sprite = new LinkRightSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
-            Sprite.GetAnimation();
+            Player = currentPlayer;
+            Sprite = PlayerSpriteFactory.Instance.CreateLinkRightSprite();
+            Sprite.Animation.IsPlaying = false;
+
         }
 
         public void Move()
         {
-            Sprite.CurrentPositionX = Sprite.CurrentPositionX + 5;
-            PlayerCharacter.setCurrentPositionX(Sprite.CurrentPositionX);
+            if (!Sprite.Animation.IsPlaying) {
+                Sprite.Animation.Play();
+            }
+            Player.X = Player.X + 5;
         }
 
     }

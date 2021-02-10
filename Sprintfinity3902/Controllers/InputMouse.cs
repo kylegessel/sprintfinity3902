@@ -9,23 +9,48 @@ using Sprintfinity3902;
 
 namespace Sprintfinity3902.Controllers
 {
-    public class InputMouse : IController
-    {
-        private Game1 myGame;
+    public class InputMouse : IController {
 
-        public InputMouse(Game1 game)
-        {
-            myGame = game;
+        private static Dictionary<Keys, Interfaces.ICommand> controllerMappings;
+
+        private static InputMouse instance;
+
+        public static InputMouse Instance {
+            get {
+                if (instance == null) {
+                    instance = new InputMouse();
+                    controllerMappings = new Dictionary<Keys, Interfaces.ICommand>();
+                };
+
+                return instance;
+            }
+                
+        }
+    
+        public void Update() {
+            MouseState ms = Mouse.GetState();
+            Point mouseLocation = new Point(ms.X, ms.Y);
+
+            // Do stuff here
+
         }
 
-        public void RegisterCommand(Keys key, ICommand command)
-        {
-            throw new NotImplementedException();
+        private void addMapping(Interfaces.ICommand command, Keys key) {
+            bool tryAdd = controllerMappings.TryAdd(key, command);
+            if (tryAdd == false) {
+                controllerMappings.Remove(key);
+                controllerMappings.Add(key, command);
+            }
         }
 
-        public void Update()
-        {
+        public void RegisterCommand(Interfaces.ICommand command, params Keys[] keys) {
+            foreach (Keys key in keys) {
+                addMapping(command, key);
+            }
+        }
 
+        public void RegisterCommand(Keys key, Interfaces.ICommand command) {
+            addMapping(command, key);
         }
 
     }

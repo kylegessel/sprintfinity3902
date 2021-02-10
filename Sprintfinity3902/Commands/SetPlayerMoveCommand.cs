@@ -1,29 +1,33 @@
-﻿using Sprintfinity3902.Interfaces;
+﻿using Sprintfinity3902.Entities;
+using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Sprintfinity3902.Commands
 {
-    public class SetLinkUpCommand : ICommand
+    public class SetPlayerMoveCommand: ICommand
     {
         Player PlayerCharacter;
+        private IPlayerState _state;
 
-        public SetLinkUpCommand(Player player)
+        public SetPlayerMoveCommand(Player player, IPlayerState state)
         {
             PlayerCharacter = player;
+            _state = state;
         }
 
         public void Execute()
         {
-            if (PlayerCharacter.currentState != PlayerCharacter.facingUp)
+            if (PlayerCharacter.CurrentState != _state)
             {
-                PlayerCharacter.setState(PlayerCharacter.facingUp);
+                PlayerCharacter.SetState(_state);
             }
             else
             {
                 PlayerCharacter.Move();
             }
+            
         }
     }
 }

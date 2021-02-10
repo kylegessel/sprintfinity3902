@@ -16,7 +16,6 @@ namespace Sprintfinity3902.Interfaces
         Animation Animation { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, GameTime gameTime);
-        void GetAnimation();
 
     }
 }

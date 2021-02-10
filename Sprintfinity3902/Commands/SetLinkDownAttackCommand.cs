@@ -3,29 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sprintfinity3902.Commands
-{
-    public class SetLinkDownAttackCommand: ICommand
-    {
+namespace Sprintfinity3902.Commands {
+    public class SetLinkDownAttackCommand : ICommand {
         Player PlayerCharacter;
 
-        public SetLinkDownAttackCommand(Player player)
-        {
+        public SetLinkDownAttackCommand(Player player) {
             PlayerCharacter = player;
         }
 
-        public void Execute()
-        {
-            if (PlayerCharacter.currentState != PlayerCharacter.facingDownAttack)
-            {
+        public void Execute() {
+            if (PlayerCharacter.CurrentState != PlayerCharacter.facingDownAttack) {
                 PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
                 PlayerCharacter.facingDownAttack.Sprite.Animation.Play();
-            }
-            else
-            {
+            } else {
                 PlayerCharacter.Move();
             }
-            
+
         }
     }
 }

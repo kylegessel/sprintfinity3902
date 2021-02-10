@@ -8,20 +8,24 @@ namespace Sprintfinity3902.States
 {
     public class FacingDownState : IPlayerState
     {
-        public ISprite Sprite { get; set; }
+        public IEntity Sprite { get; set; }
         Player PlayerCharacter;
 
         public FacingDownState(Player playerCharacter)
         {
             PlayerCharacter = playerCharacter;
-            Sprite = new LinkDownSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
-            Sprite.GetAnimation();
+            Sprite = new LinkDownSprite(PlayerCharacter.Texture, PlayerCharacter.Position);
+            Sprite.Animation.IsPlaying = false;
+
+
         }
 
         public void Move()
         {
-            Sprite.CurrentPositionY = Sprite.CurrentPositionY + 5;
-            PlayerCharacter.setCurrentPositionY(Sprite.CurrentPositionY);
+            if (!Sprite.Animation.IsPlaying) {
+                Sprite.Animation.Play();
+            }
+            Sprite.Y = Sprite.Y + 5;
         }
 
     }

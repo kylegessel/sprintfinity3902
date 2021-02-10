@@ -16,8 +16,6 @@ namespace Sprintfinity3902.Sprites
             }
             set
             {
-                if (value == null) throw new ArgumentNullException("value", "The sprite cannot be null.");
-
                 _sprite = value;
             }
         }

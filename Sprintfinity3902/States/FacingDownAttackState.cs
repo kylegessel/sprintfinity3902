@@ -8,14 +8,14 @@ namespace Sprintfinity3902.States
 {
     public class FacingDownAttackState : IPlayerState
     {
-        public ISprite Sprite { get; set; }
+        public IEntity Sprite { get; set; }
         Player PlayerCharacter;
 
         public FacingDownAttackState(Player playerCharacter)
         {
             PlayerCharacter = playerCharacter;
-            Sprite = new LinkDownAttackSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
-            Sprite.GetAnimation();
+            Sprite = new LinkDownAttackSprite(PlayerCharacter.Texture, PlayerCharacter.Position);
+            
             if(Sprite.Animation.IsPlaying == false)
             {
                 PlayerCharacter.setState(PlayerCharacter.facingDown);
@@ -25,6 +25,7 @@ namespace Sprintfinity3902.States
 
         public void Move()
         {
+
             //Sprite.CurrentPositionY = Sprite.CurrentPositionY + 5;
             //PlayerCharacter.setCurrentPositionY(Sprite.CurrentPositionY);
         }

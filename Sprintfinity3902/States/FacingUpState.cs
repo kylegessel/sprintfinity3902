@@ -14,7 +14,7 @@ namespace Sprintfinity3902.States
         public FacingUpState(Player playerCharacter)
         {
             PlayerCharacter = playerCharacter;
-            Sprite = new LinkUpSprite(PlayerCharacter.Texture, PlayerCharacter.Position);
+            Sprite = new LinkUpSprite(PlayerCharacter.Texture);
             Sprite.Animation.IsPlaying = false;
 
         }

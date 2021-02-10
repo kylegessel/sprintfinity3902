@@ -14,7 +14,7 @@ namespace Sprintfinity3902.States
         public FacingRightState(Player playerCharacter)
         {
             PlayerCharacter = playerCharacter;
-            Sprite = new LinkRightSprite(PlayerCharacter.Texture, PlayerCharacter.Position);
+            Sprite = new LinkRightSprite(PlayerCharacter.Texture);
             Sprite.Animation.IsPlaying = false;
 
         }

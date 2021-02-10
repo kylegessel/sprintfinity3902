@@ -23,12 +23,11 @@ namespace Sprintfinity3902.Sprites
         private const int LINK_LEFT2_WIDTH = 14;
         private const int LINK_LEFT2_HEIGHT = 15;
 
-        public LinkLeftSprite(Texture2D texture, Vector2 position)
+        public LinkLeftSprite(Texture2D texture)
         {
             Sprite Sprite1 = new Sprite(texture, LINK_LEFT1_X, LINK_LEFT1_Y, LINK_LEFT1_WIDTH, LINK_LEFT1_HEIGHT);
             Sprite Sprite2 = new Sprite(texture, LINK_LEFT2_X, LINK_LEFT2_Y, LINK_LEFT2_WIDTH, LINK_LEFT2_HEIGHT);
             Texture = texture;
-            Position = position;
 
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 0);

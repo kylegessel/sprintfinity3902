@@ -21,7 +21,7 @@ namespace Sprintfinity3902.Sprites
         {
             Sprite Sprite1 = new Sprite(texture, BOMB_POS_X, BOMB_POS_Y, BOMB_WIDTH, BOMB_HEIGHT);
             Texture = texture;
-            Position = new Vector2(750, 250);
+
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 1 / 10f);
 

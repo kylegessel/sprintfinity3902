@@ -14,7 +14,7 @@ namespace Sprintfinity3902.States
         public FacingDownState(Player playerCharacter)
         {
             PlayerCharacter = playerCharacter;
-            Sprite = new LinkDownSprite(PlayerCharacter.Texture, PlayerCharacter.Position);
+            Sprite = new LinkDownSprite(PlayerCharacter.Texture);
             Sprite.Animation.IsPlaying = false;
 
 

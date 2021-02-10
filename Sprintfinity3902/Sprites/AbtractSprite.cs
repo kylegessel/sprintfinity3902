@@ -9,7 +9,6 @@ namespace Sprintfinity3902.Sprites {
     public abstract class AbstractSprite : ISprite {
 
         private Animation _animation;
-        private Vector2 _position;
 
         public Animation Animation {
             get {
@@ -17,32 +16,6 @@ namespace Sprintfinity3902.Sprites {
             }
             set {
                 _animation = value;
-            }
-        }
-        public Vector2 Position {
-            get {
-                return _position;
-            }
-            set {
-                _position = value;
-            }
-        }
-        public int X {
-            get {
-                return (int)Position.X;
-            }
-            set {
-                _position.X = value;
-                //Position = new Vector2(value, Position.Y);
-            }
-        }
-        public int Y {
-            get {
-                return (int)Position.Y;
-            }
-            set {
-                _position.Y = value;
-                //Position = new Vector2(Position.X, value);
             }
         }
 

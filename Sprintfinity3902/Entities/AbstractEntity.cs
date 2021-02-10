@@ -69,5 +69,15 @@ namespace Sprintfinity3902.Entities
         {
             Sprite.Update(gameTime);
         }
+
+        public virtual void Move()
+        {
+
+        }
+
+        public virtual void SetState(IPlayerState state)
+        {
+
+        }
     }
 }

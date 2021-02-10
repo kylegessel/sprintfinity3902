@@ -49,8 +49,9 @@ namespace Sprintfinity3902 {
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
 
-            playerCharacter = new Player(texture);
+            playerCharacter = new Player();
             
             currentEnemy1 = new SkeletonEnemy();
 

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class BlueBatEnemySprite : AbstractEntity
+    public class BlueBatEnemySprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 
@@ -26,7 +26,6 @@ namespace Sprintfinity3902.Sprites
             Sprite Sprite1 = new Sprite(texture, BAT1_POS_X, BAT1_POS_Y, BAT1_WIDTH, BAT1_HEIGHT);
             Sprite Sprite2 = new Sprite(texture, BAT2_POS_X, BAT2_POS_Y, BAT2_WIDTH, BAT2_HEIGHT);
             Texture = texture;
-            Position = new Vector2(500, 500);
 
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 0);

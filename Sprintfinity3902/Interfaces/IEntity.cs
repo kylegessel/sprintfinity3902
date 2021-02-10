@@ -1,25 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sprites;
 
-namespace Sprintfinity3902.Interfaces {
-    public interface IEntity {
-        Vector2 Position {
+namespace Sprintfinity3902.Interfaces
+{
+    public interface IEntity
+    {
+        ISprite Sprite
+        {
             get; set;
         }
-        public Animation Animation { get; }
-        int X {
+        Vector2 Position
+        {
             get; set;
         }
-        int Y {
+        int X
+        {
             get; set;
         }
-        void Draw(SpriteBatch spriteBatch);
-
+        int Y
+        {
+            get; set;
+        }
         void Update(GameTime gameTime);
+        void Draw(SpriteBatch spriteBatch);
+        void Move();
+        void SetState(IPlayerState state);
     }
 }

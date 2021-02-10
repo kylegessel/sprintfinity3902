@@ -9,11 +9,13 @@ using System.Text;
 using Sprintfinity3902.Controllers;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using Sprintfinity3902.Entities;
 
-namespace Sprintfinity3902
+namespace Sprintfinity3902.Entities
 {
     public class Player : AbstractEntity
     {
+
         private IPlayerState _currentState;
 
         public IPlayerState CurrentState {
@@ -30,32 +32,25 @@ namespace Sprintfinity3902
         public IPlayerState facingUp { get; set; }
         public IPlayerState facingDownAttack { get; set; }
 
-
-        public Texture2D Texture { get; set; }
-
-        public Player(Texture2D playerSpriteSheet)
+        public Player()
         {
-            Texture = playerSpriteSheet;
             Position = new Vector2(300, 300);
-
             CurrentState = new FacingDownState(this);
-
             facingDown = CurrentState;
             facingLeft = new FacingLeftState(this);
             facingRight = new FacingRightState(this);
             facingUp = new FacingUpState(this);
             facingDownAttack = new FacingDownAttackState(this);
-
         }
 
 
-        public void setState(IPlayerState state) {
-            Vector2 pos = CurrentState.Sprite.Position;
+        public override void SetState(IPlayerState state) {
+            Vector2 pos = Position;
             CurrentState = state;
-            CurrentState.Sprite.Position = pos;
+            Position = pos;
         }
 
-        public void Move() {
+        public override void Move() {
             CurrentState.Move();
         }
 
@@ -64,7 +59,7 @@ namespace Sprintfinity3902
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
-            CurrentState.Sprite.Draw(spriteBatch);
+            CurrentState.Sprite.Draw(spriteBatch, Position);
         }
 
     }

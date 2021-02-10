@@ -1,4 +1,5 @@
-﻿using Sprintfinity3902.Interfaces;
+﻿using Sprintfinity3902.Entities;
+using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Sprintfinity3902.Commands {
 
         public void Execute() {
             if (PlayerCharacter.CurrentState != PlayerCharacter.facingDownAttack) {
-                PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
+                PlayerCharacter.SetState(PlayerCharacter.facingDownAttack);
                 PlayerCharacter.facingDownAttack.Sprite.Animation.Play();
             } else {
                 PlayerCharacter.Move();

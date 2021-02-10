@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class LinkUpSprite : AbstractEntity
+    public class LinkUpSprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 
@@ -21,12 +21,11 @@ namespace Sprintfinity3902.Sprites
         private const int LINK_UP2_WIDTH = 12;
         private const int LINK_UP2_HEIGHT = 16;
 
-        public LinkUpSprite(Texture2D texture, Vector2 position)
+        public LinkUpSprite(Texture2D texture)
         {
             Sprite Sprite1 = new Sprite(texture, LINK_UP1_POS_X, LINK_UP1_POS_Y, LINK_UP1_WIDTH, LINK_UP1_HEIGHT);
             Sprite Sprite2 = new Sprite(texture, LINK_UP2_POS_X, LINK_UP2_POS_Y, LINK_UP2_WIDTH, LINK_UP2_HEIGHT);
             Texture = texture;
-            Position = position;
 
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 0);

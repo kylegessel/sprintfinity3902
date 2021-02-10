@@ -3,22 +3,23 @@ using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Sprintfinity3902.SpriteFactories;
+using Sprintfinity3902.Entities;
 
 namespace Sprintfinity3902.States
 {
     public class FacingDownAttackState : IPlayerState
     {
-        public IEntity Sprite { get; set; }
-        Player PlayerCharacter;
+        public Player Player { get; set; }
+        public ISprite Sprite { get; set; }
 
-        public FacingDownAttackState(Player playerCharacter)
+        public FacingDownAttackState(Player currentPlayer)
         {
-            PlayerCharacter = playerCharacter;
-            Sprite = new LinkDownAttackSprite(PlayerCharacter.Texture, PlayerCharacter.Position);
-            
+            Player = currentPlayer;
+            Sprite = PlayerSpriteFactory.Instance.CreateLinkDownAttackSprite();
             if(Sprite.Animation.IsPlaying == false)
             {
-                PlayerCharacter.setState(PlayerCharacter.facingDown);
+                Player.SetState(Player.facingDown);
             }
         }
 

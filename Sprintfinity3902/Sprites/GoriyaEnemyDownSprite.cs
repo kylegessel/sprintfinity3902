@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class GoriyaEnemyDownSprite : AbstractEntity
+    public class GoriyaEnemyDownSprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 
@@ -20,7 +20,6 @@ namespace Sprintfinity3902.Sprites
         {
             Sprite Sprite = new Sprite(texture, GORIYA_POS_X, GORIYA_POS_Y, GORIYA_WIDTH, GORIYA_HEIGHT);
             Texture = texture;
-            Position = new Vector2(700, 500);
 
             Animation = new Animation();
             Animation.AddFrame(Sprite, 0);
@@ -28,9 +27,9 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite, 1 / 5f);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Draw(Texture, Position, Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0f, new Vector2(0, 0), 5.0f, Animation.CurrentFrame == Animation.GetFrame(1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0f, new Vector2(0, 0), 5.0f, Animation.CurrentFrame == Animation.GetFrame(1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         }
     }
 }

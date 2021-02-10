@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class GoriyaEnemyRightSprite : AbstractEntity
+    public class GoriyaEnemyRightSprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 
@@ -26,7 +26,6 @@ namespace Sprintfinity3902.Sprites
             Sprite Sprite1 = new Sprite(texture, GORIYA1_POS_X, GORIYA1_POS_Y, GORIYA1_WIDTH, GORIYA1_HEIGHT);
             Sprite Sprite2 = new Sprite(texture, GORIYA2_POS_X, GORIYA2_POS_Y, GORIYA2_WIDTH, GORIYA2_HEIGHT);
             Texture = texture;
-            Position = new Vector2(1000, 500);
 
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 0);

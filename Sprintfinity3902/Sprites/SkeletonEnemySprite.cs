@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class SkeletonEnemySprite : AbstractEntity
+    public class SkeletonEnemySprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 
@@ -20,7 +20,6 @@ namespace Sprintfinity3902.Sprites
         {
             Sprite Sprite = new Sprite(texture, SKELETON_POS_X, SKELETON_POS_Y, SKELETON_WIDTH, SKELETON_HEIGHT);
             Texture = texture;
-            Position = new Vector2(1100, 500);
 
             Animation = new Animation();
             Animation.AddFrame(Sprite, 0);
@@ -28,8 +27,8 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite, 1 / 2f);
         }
 
-        public override void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(Texture, Position, Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0f, new Vector2(0, 0), 5.0f, Animation.CurrentFrame == Animation.GetFrame(1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position) {
+            spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0f, new Vector2(0, 0), 5.0f, Animation.CurrentFrame == Animation.GetFrame(1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         }
     
     }

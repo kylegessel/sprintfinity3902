@@ -8,7 +8,7 @@ using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Sprites
 {
-    class BombItemSprite : AbstractEntity
+    class BombItemSprite : AbstractSprite
     {
         public Texture2D Texture { get; private set; }
 
@@ -21,7 +21,7 @@ namespace Sprintfinity3902.Sprites
         {
             Sprite Sprite1 = new Sprite(texture, BOMB_POS_X, BOMB_POS_Y, BOMB_WIDTH, BOMB_HEIGHT);
             Texture = texture;
-            Position = new Vector2(750, 250);
+
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 1 / 10f);
 

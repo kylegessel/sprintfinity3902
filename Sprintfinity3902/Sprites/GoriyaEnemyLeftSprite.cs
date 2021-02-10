@@ -34,8 +34,8 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite1, 1 / 5f);
         }
 
-        public override void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(Texture, Position, Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0);
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position) {
+            spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0);
         }
     }
 }

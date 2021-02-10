@@ -9,10 +9,11 @@ using System.Text;
 using Sprintfinity3902.Controllers;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
+using Sprintfinity3902.Entities;
 
 namespace Sprintfinity3902
 {
-    public class Player : AbstractSprite
+    public class Player : AbstractEntity
     {
         private IPlayerState _currentState;
 
@@ -64,7 +65,7 @@ namespace Sprintfinity3902
         }
 
         public override void Draw(SpriteBatch spriteBatch) {
-            CurrentState.Sprite.Draw(spriteBatch);
+            CurrentState.Sprite.Draw(spriteBatch, Position);
         }
 
     }

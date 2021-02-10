@@ -18,7 +18,7 @@ namespace Sprintfinity3902.Interfaces {
         int Y {
             get; set;
         }
-        void Draw(SpriteBatch spriteBatch);
+        void Draw(SpriteBatch spriteBatch, Vector2 position);
 
         void Update(GameTime gameTime);
     }

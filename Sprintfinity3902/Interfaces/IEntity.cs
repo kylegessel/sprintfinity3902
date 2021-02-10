@@ -10,12 +10,24 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface IEntity
     {
-        Vector2 Position { get; set; }
-        int CurrentPositionX { get; set; }
-        int CurrentPositionY { get; set; }
-        Animation Animation { get; set; }
+        ISprite Sprite
+        {
+            get; set;
+        }
+        Vector2 Position
+        {
+            get; set;
+        }
+        int X
+        {
+            get; set;
+        }
+        int Y
+        {
+            get; set;
+        }
         void Update(GameTime gameTime);
-        void Draw(SpriteBatch spriteBatch, GameTime gameTime);
+        void Draw(SpriteBatch spriteBatch);
 
     }
 }

@@ -26,7 +26,6 @@ namespace Sprintfinity3902.Sprites
             Sprite Sprite1 = new Sprite(texture, HAND1_POS_X, HAND1_POS_Y, HAND1_WIDTH, HAND1_HEIGHT);
             Sprite Sprite2 = new Sprite(texture, HAND2_POS_X, HAND2_POS_Y, HAND2_WIDTH, HAND2_HEIGHT);
             Texture = texture;
-            Position = new Vector2(1200, 500);
 
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 0);

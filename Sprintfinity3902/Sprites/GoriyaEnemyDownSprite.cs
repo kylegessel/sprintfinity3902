@@ -20,7 +20,6 @@ namespace Sprintfinity3902.Sprites
         {
             Sprite Sprite = new Sprite(texture, GORIYA_POS_X, GORIYA_POS_Y, GORIYA_WIDTH, GORIYA_HEIGHT);
             Texture = texture;
-            Position = new Vector2(700, 500);
 
             Animation = new Animation();
             Animation.AddFrame(Sprite, 0);

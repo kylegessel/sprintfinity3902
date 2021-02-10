@@ -9,10 +9,10 @@ namespace Sprintfinity3902.Entities
 {
     public class SkeletonEnemy : AbstractEntity
     {
-        public SkeletonEnemy(Vector2 startingPosition)
+        public SkeletonEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
-            Position = startingPosition;
+            Position = new Vector2(1100, 500);
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Sprintfinity3902 {
 
             playerCharacter = new Player(texture);
             
-            currentEnemy1 = new SkeletonEnemy(new Vector2(500, 500));
+            currentEnemy1 = new SkeletonEnemy();
 
             SetCommands();
             SetListeners();

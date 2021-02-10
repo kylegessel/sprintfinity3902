@@ -20,7 +20,6 @@ namespace Sprintfinity3902.Sprites
         {
             Sprite Sprite = new Sprite(texture, SKELETON_POS_X, SKELETON_POS_Y, SKELETON_WIDTH, SKELETON_HEIGHT);
             Texture = texture;
-            Position = new Vector2(1100, 500);
 
             Animation = new Animation();
             Animation.AddFrame(Sprite, 0);

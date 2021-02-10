@@ -68,6 +68,7 @@ namespace Sprintfinity3902.Entities
         public virtual void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
+            Move();
         }
 
         public virtual void Move()

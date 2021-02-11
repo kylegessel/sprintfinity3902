@@ -23,8 +23,8 @@ namespace Sprintfinity3902.Sprites
 
         public HandEnemySprite(Texture2D texture)
         {
-            Sprite Sprite1 = new Sprite(texture, HAND1_POS_X, HAND1_POS_Y, HAND1_WIDTH, HAND1_HEIGHT);
-            Sprite Sprite2 = new Sprite(texture, HAND2_POS_X, HAND2_POS_Y, HAND2_WIDTH, HAND2_HEIGHT);
+            SpriteFrame Sprite1 = new SpriteFrame(texture, HAND1_POS_X, HAND1_POS_Y, HAND1_WIDTH, HAND1_HEIGHT);
+            SpriteFrame Sprite2 = new SpriteFrame(texture, HAND2_POS_X, HAND2_POS_Y, HAND2_WIDTH, HAND2_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

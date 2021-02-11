@@ -19,11 +19,7 @@ namespace Sprintfinity3902 {
         public IController mouse;
         public Player playerCharacter;
         public IEntity currentEnemy1;
-
-        private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
-
-
-
+        public IEntity gelEnemy;
 
         public Game1()
         {
@@ -45,15 +41,13 @@ namespace Sprintfinity3902 {
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            texture = Content.Load<Texture2D>(linkSpriteSheet);
-
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
 
             playerCharacter = new Player();
-            
             currentEnemy1 = new SkeletonEnemy();
+            gelEnemy = new GelEnemy();
 
             SetCommands();
             SetListeners();
@@ -66,6 +60,7 @@ namespace Sprintfinity3902 {
 
             playerCharacter.Update(gameTime);
             currentEnemy1.Update(gameTime);
+            gelEnemy.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -78,7 +73,7 @@ namespace Sprintfinity3902 {
 
             playerCharacter.Draw(_spriteBatch);
             currentEnemy1.Draw(_spriteBatch);
-
+            gelEnemy.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

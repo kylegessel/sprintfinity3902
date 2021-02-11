@@ -17,6 +17,7 @@ namespace Sprintfinity3902.Entities
         private int attackCount;
         private int attack;
         private int waitTime;
+        private int attackTime;
 
         public FinalBossEnemy()
         {
@@ -28,28 +29,47 @@ namespace Sprintfinity3902.Entities
 
             direction = new Random().Next(1, 4);
             directionCount = 0;
+
+            attack = new Random().Next(1, 3);
+            attackTime = 30;
         }
 
         public override void Move()
         {
             if (directionCount == 0)
             {
-                waitTime = new Random().Next(60, 180);
+                waitTime = new Random().Next(60, 150);
                 directionCount++;
             }
             else if (directionCount == waitTime)
             {
                 direction = new Random().Next(1, 4);
+                if (attack == 1)
+                    attack = 2;
+                else
+                    attack = new Random().Next(1, 3);
                 directionCount = 0;
             }
 
+            // Handle Movement
             if (direction == 1) //Forward
                 X = X - 1;
             else if (direction == 2) //Backward
                 X = X + 1;
             else { } //Still
-
             directionCount++;
+
+            // Handle Attack
+            if (attack == 1)
+            {
+                Sprite = OpenedMouth;
+                attackCount = 0;
+            }
+            else if (attackCount == attackTime)
+                Sprite = ClosedMouth;
+            attackCount++;
         }
+
+
     }
 }

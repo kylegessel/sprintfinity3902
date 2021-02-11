@@ -14,7 +14,7 @@ namespace Sprintfinity3902.Entities
         public HandEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
-            Position = new Vector2(1200, 500);
+            Position = new Vector2(300, 700);
         }
         public override void Move()
         {

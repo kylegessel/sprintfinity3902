@@ -9,27 +9,31 @@ using Sprintfinity3902.Controllers;
 using System.Diagnostics;
 using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Navigation;
 
 namespace Sprintfinity3902 {
-    public class Game1 : Game
-    {
+    public class Game1 : Game {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        public static int ScaleWindow = 7;
+        public GraphicsDeviceManager Graphics { get { return _graphics; } }
+
         public Texture2D texture;
         public IController mouse;
         public Player playerCharacter;
         public IEntity currentEnemy1;
         public IEntity gelEnemy;
+        public Camera camera;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 2000;
-            _graphics.PreferredBackBufferHeight = 1000;
             Window.Title = "The Legend of Zelda";
-            _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            camera = new Camera(this);
+            Graphics.ApplyChanges();
         }
 
         protected override void Initialize()
@@ -40,6 +44,8 @@ namespace Sprintfinity3902 {
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            camera.LoadAllTextures(Content);
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
@@ -58,6 +64,7 @@ namespace Sprintfinity3902 {
             InputKeyboard.Instance.Update();
             InputMouse.Instance.Update();
 
+
             playerCharacter.Update(gameTime);
             currentEnemy1.Update(gameTime);
             gelEnemy.Update(gameTime);
@@ -71,6 +78,7 @@ namespace Sprintfinity3902 {
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
+            camera.Draw(_spriteBatch);
             playerCharacter.Draw(_spriteBatch);
             currentEnemy1.Draw(_spriteBatch);
             gelEnemy.Draw(_spriteBatch);

@@ -54,6 +54,14 @@ namespace Sprintfinity3902.SpriteFactories {
         public ISprite CreateHandEnemy() {
             return new HandEnemySprite(enemySpriteSheet);
         }
+        public ISprite CreateFinalBossClosed()
+        {
+            return new FinalBossMouthCloseSprite(enemySpriteSheet);
+        }
+        public ISprite CreateFinalBossOpened()
+        {
+            return new FinalBossMouthOpenSprite(enemySpriteSheet);
+        }
 
     }
 }

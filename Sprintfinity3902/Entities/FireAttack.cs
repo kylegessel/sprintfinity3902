@@ -47,14 +47,15 @@ namespace Sprintfinity3902.Entities
             set { _positionDown.Y = value; }
         }
 
-        private int spread;
         public FireAttack(Vector2 position)
         {
             Sprite1 = ItemSpriteFactory.Instance.CreateFireAttack();
             Sprite2 = ItemSpriteFactory.Instance.CreateFireAttack();
+            Sprite3 = ItemSpriteFactory.Instance.CreateFireAttack();
+        
+            PositionUp = position;
             Position = position;
-
-            spread = 10;
+            PositionDown = position;
         }
 
         public override void Update(GameTime gameTime)
@@ -75,14 +76,13 @@ namespace Sprintfinity3902.Entities
         public override void Move()
         {
             //Implement 2 count integers that handle spread
-            spread++;
 
-            X_Up = X_Up - 2;
-            X = X - 2;
-            X_Down = X_Down - 2;
+            X_Up = X_Up - 8;
+            X = X - 8;
+            X_Down = X_Down - 8;
 
-            Y_Up = Y_Up - spread;
-            Y_Down = Y_Down + spread;
+            Y_Up = Y_Up - 4;
+            Y_Down = Y_Down + 4;
 
         }
     }

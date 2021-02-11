@@ -37,7 +37,7 @@ namespace Sprintfinity3902.Sprites
             Sprite Sprite4 = new Sprite(texture, FIRE_BLUE_X, FIRE_BLUE_Y, FIRE_BLUE_WIDTH, FIRE_BLUE_HEIGHT);
             Texture = texture;
 
-            Animation = new Animation();
+            Animation = new Animation(true);
             Animation.AddFrame(Sprite1, 0);
             Animation.AddFrame(Sprite2, 1/128f);
             Animation.AddFrame(Sprite3, 1/64f);

@@ -34,10 +34,10 @@ namespace Sprintfinity3902.Sprites
 
         public BoomerangItemSprite(Texture2D texture)
         {
-            Sprite Sprite1 = new Sprite(texture, BOOMERANG_POS1_X, BOOMERANG_POS1_Y, BOOMERANG_WIDTH1, BOOMERANG_HEIGHT1);
-            Sprite Sprite2 = new Sprite(texture, BOOMERANG_POS2_X, BOOMERANG_POS2_Y, BOOMERANG_WIDTH2, BOOMERANG_HEIGHT2);
-            Sprite Sprite3 = new Sprite(texture, BOOMERANG_POS3_X, BOOMERANG_POS3_Y, BOOMERANG_WIDTH3, BOOMERANG_HEIGHT3);
-            Sprite Sprite4 = new Sprite(texture, BOOMERANG_POS4_X, BOOMERANG_POS4_Y, BOOMERANG_WIDTH4, BOOMERANG_HEIGHT4);
+            SpriteFrame Sprite1 = new SpriteFrame(texture, BOOMERANG_POS1_X, BOOMERANG_POS1_Y, BOOMERANG_WIDTH1, BOOMERANG_HEIGHT1);
+            SpriteFrame Sprite2 = new SpriteFrame(texture, BOOMERANG_POS2_X, BOOMERANG_POS2_Y, BOOMERANG_WIDTH2, BOOMERANG_HEIGHT2);
+            SpriteFrame Sprite3 = new SpriteFrame(texture, BOOMERANG_POS3_X, BOOMERANG_POS3_Y, BOOMERANG_WIDTH3, BOOMERANG_HEIGHT3);
+            SpriteFrame Sprite4 = new SpriteFrame(texture, BOOMERANG_POS4_X, BOOMERANG_POS4_Y, BOOMERANG_WIDTH4, BOOMERANG_HEIGHT4);
 
             Texture = texture;
 

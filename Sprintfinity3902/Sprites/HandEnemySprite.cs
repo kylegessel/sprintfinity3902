@@ -17,9 +17,9 @@ namespace Sprintfinity3902.Sprites
         private const int HAND1_HEIGHT = 16;
 
         private const int HAND2_POS_X = 410;
-        private const int HAND2_POS_Y = 12;
-        private const int HAND2_WIDTH = 14;
-        private const int HAND2_HEIGHT = 15;
+        private const int HAND2_POS_Y = 11;
+        private const int HAND2_WIDTH = 16;
+        private const int HAND2_HEIGHT = 16;
 
         public HandEnemySprite(Texture2D texture)
         {
@@ -32,5 +32,6 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite2, 1 / 4f);
             Animation.AddFrame(Sprite1, 1 / 2f);
         }
+
     }
 }

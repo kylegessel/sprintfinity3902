@@ -13,8 +13,65 @@ using Sprintfinity3902.Entities;
 
 namespace Sprintfinity3902.Entities
 {
-    public class Player : AbstractEntity
+    public class Player : ILink
     {
+
+
+        private ISprite _sprite;
+        private Vector2 _position;
+
+        public ISprite Sprite
+        {
+            get
+            {
+                return _sprite;
+            }
+            set
+            {
+                _sprite = value;
+            }
+        }
+
+        public Vector2 Position
+        {
+            get
+            {
+                return _position;
+            }
+            set
+            {
+                _position = value;
+            }
+        }
+        public int X
+        {
+            get
+            {
+                return (int)Position.X;
+            }
+            set
+            {
+                _position.X = value;
+                //Position = new Vector2(value, Position.Y);
+            }
+        }
+        public int Y
+        {
+            get
+            {
+                return (int)Position.Y;
+            }
+            set
+            {
+                _position.Y = value;
+                //Position = new Vector2(Position.X, value);
+            }
+        }
+
+
+
+
+
 
         private IPlayerState _currentState;
 
@@ -44,13 +101,13 @@ namespace Sprintfinity3902.Entities
         }
 
 
-        public override void SetState(IPlayerState state) {
+        public void SetState(IPlayerState state) {
             Vector2 pos = Position;
             CurrentState = state;
             Position = pos;
         }
 
-        public override void Move() {
+        public void Move() {
             CurrentState.Move();
         }
 
@@ -59,14 +116,24 @@ namespace Sprintfinity3902.Entities
             CurrentState.Attack();
         }
 
-        public override void Update(GameTime gameTime) {
+        public void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);
             CurrentState.Update();
         }
 
-        public override void Draw(SpriteBatch spriteBatch) {
+        public void Draw(SpriteBatch spriteBatch) {
             CurrentState.Sprite.Draw(spriteBatch, Position);
         }
 
+        public void TakeDamage()
+        {
+
+        }
+
+        public void RemoveDecorator()
+        {
+
+        }
     }
+
 }

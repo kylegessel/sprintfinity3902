@@ -8,28 +8,9 @@ using Sprintfinity3902.Sprites;
 
 namespace Sprintfinity3902.Interfaces
 {
-    public interface ILink
+    public interface ILink : IEntity
     {
-        ISprite Sprite
-        {
-            get; set;
-        }
-        Vector2 Position
-        {
-            get; set;
-        }
-        int X
-        {
-            get; set;
-        }
-        int Y
-        {
-            get; set;
-        }
-        void Update(GameTime gameTime);
-        void Draw(SpriteBatch spriteBatch);
-        void Move();
-        void SetState(IPlayerState state);
+        public void Draw(SpriteBatch spriteBatch, Color color);
         void TakeDamage();
         void RemoveDecorator();
     }

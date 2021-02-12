@@ -8,7 +8,7 @@ namespace Sprintfinity3902.Interfaces
     {
         ISprite Sprite { get; set; }
         void Move();
-        void TakeDamage();
-        void RemoveDecorator();
+        //void TakeDamage();
+        //void RemoveDecorator();
     }
 }

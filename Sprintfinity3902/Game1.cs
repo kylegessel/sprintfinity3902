@@ -51,7 +51,7 @@ namespace Sprintfinity3902 {
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
 
-            playerCharacter = new Player();
+            playerCharacter = new Player(playerCharacter, this);
             
             currentEnemy1 = new SkeletonEnemy();
 
@@ -97,6 +97,7 @@ namespace Sprintfinity3902 {
             input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingLeft), Keys.A, Keys.Left);
             input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingDown), Keys.S, Keys.Down);
             input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingRight), Keys.D, Keys.Right);
+            
  
         }
 

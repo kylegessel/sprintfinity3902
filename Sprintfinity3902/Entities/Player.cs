@@ -17,6 +17,7 @@ namespace Sprintfinity3902.Entities
     {
 
         private IPlayerState _currentState;
+        Game1 game;
 
         public IPlayerState CurrentState {
             get {
@@ -31,8 +32,9 @@ namespace Sprintfinity3902.Entities
         public IPlayerState facingRight { get; set; }
         public IPlayerState facingUp { get; set; }
         public IPlayerState facingDownAttack { get; set; }
-
-        public Player()
+        public Player link { get; set; }
+        //Not sure if I need the Above
+        public Player(Player link, Game1 game)
         {
             Position = new Vector2(300, 300);
             CurrentState = new FacingDownState(this);
@@ -41,6 +43,9 @@ namespace Sprintfinity3902.Entities
             facingRight = new FacingRightState(this);
             facingUp = new FacingUpState(this);
             facingDownAttack = new FacingDownAttackState(this);
+            this.game = game;
+            this.link = link;
+
         }
 
 
@@ -60,6 +65,14 @@ namespace Sprintfinity3902.Entities
 
         public override void Draw(SpriteBatch spriteBatch) {
             CurrentState.Sprite.Draw(spriteBatch, Position);
+        }
+        public void TakeDamage()
+        {
+            
+        }
+        public void RemoveDecorator()
+        {
+            //Not in Damaged State
         }
 
     }

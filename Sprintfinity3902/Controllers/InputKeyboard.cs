@@ -85,10 +85,6 @@ namespace Sprintfinity3902.Controllers
             for (var i = 0; i < orderedKeyPress.Count; i++) {
                 if (!ks.IsKeyDown(orderedKeyPress[i])) {
 
-                   if (keyUpHandlers.Count > 0) {
-                        Debug.WriteLine(orderedKeyPress[i]);
-                   }
-
                     foreach (KeyValuePair<Keys, List<Action>> pair in keyUpHandlers) {
                         if (pair.Key == orderedKeyPress[i]) {
                             

@@ -13,6 +13,9 @@ namespace Sprintfinity3902.SpriteFactories {
 
         private static EnemySpriteFactory instance;
 
+        private static string ENEMY_FILE_NAME = "Zelda_Dungeon_Enemies_Transparent";
+        private static string BOSS_FILE_NAME = "Zelda_Bosses_Transparent";
+
         public static EnemySpriteFactory Instance {
             get {
                 if (instance == null) {
@@ -24,8 +27,8 @@ namespace Sprintfinity3902.SpriteFactories {
 
 
         public void LoadAllTextures(ContentManager content) {
-            enemySpriteSheet = content.Load<Texture2D>("Zelda_Dungeon_Enemies_Transparent");
-            bossSpriteSheet = content.Load<Texture2D>("Zelda_Bosses_Transparent");
+            enemySpriteSheet = content.Load<Texture2D>(ENEMY_FILE_NAME);
+            bossSpriteSheet = content.Load<Texture2D>(BOSS_FILE_NAME);
         }
 
         public ISprite CreateBlueBatEnemy() {

@@ -13,6 +13,9 @@ namespace Sprintfinity3902.SpriteFactories {
 
         private static ItemSpriteFactory instance;
 
+        private static string ITEM_FILE_NAME = "Zelda_Link_and_Items_Transparent";
+        private static string BOSS_FILE_NAME = "Zelda_Bosses_Transparent";
+
         public static ItemSpriteFactory Instance {
             get {
                 if (instance == null) {
@@ -22,8 +25,8 @@ namespace Sprintfinity3902.SpriteFactories {
             }
         }
         public void LoadAllTextures(ContentManager content) {
-            itemSpriteSheet = content.Load<Texture2D>("Zelda_Link_and_Items_Transparent");
-            bossSpriteSheet = content.Load<Texture2D>("Zelda_Bosses_Transparent");
+            itemSpriteSheet = content.Load<Texture2D>(ITEM_FILE_NAME);
+            bossSpriteSheet = content.Load<Texture2D>(BOSS_FILE_NAME);
         }
 
         public ISprite CreateBombItem() {

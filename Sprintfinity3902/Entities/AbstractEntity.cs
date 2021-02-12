@@ -66,6 +66,12 @@ namespace Sprintfinity3902.Entities
         public virtual void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
+            // These are specific to a class which inherits this Abstract Class, so keep these in in concrete class as override
+            /*
+             * Move();
+             * Attack();
+             */
+            Move();
         }
 
         public abstract void Move();

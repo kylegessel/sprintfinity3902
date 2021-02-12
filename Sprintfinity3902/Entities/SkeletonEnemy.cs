@@ -9,8 +9,6 @@ namespace Sprintfinity3902.Entities
 {
     public class SkeletonEnemy : AbstractEntity
     {
-        /*It's not good practice to assign variable outside constructor unless 'static' or 'const'*/
-
         private Random rd1 = new Random();
         private int count;
         private int direction;
@@ -18,7 +16,7 @@ namespace Sprintfinity3902.Entities
         public SkeletonEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
-            Position = new Vector2(500, 500);
+            Position = new Vector2(1000, 500);
 
             direction = rd1.Next(1, 5);
             count = 0;

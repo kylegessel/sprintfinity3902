@@ -9,10 +9,12 @@ using System.Text;
 namespace Sprintfinity3902.SpriteFactories {
     public class ItemSpriteFactory {
         private Texture2D itemSpriteSheet;
+        private Texture2D bossSpriteSheet;
 
         private static ItemSpriteFactory instance;
 
-        private static string FILE_NAME = "Zelda_Link_and_Items_Transparent";
+        private static string ITEM_FILE_NAME = "Zelda_Link_and_Items_Transparent";
+        private static string BOSS_FILE_NAME = "Zelda_Bosses_Transparent";
 
         public static ItemSpriteFactory Instance {
             get {
@@ -23,11 +25,17 @@ namespace Sprintfinity3902.SpriteFactories {
             }
         }
         public void LoadAllTextures(ContentManager content) {
-            itemSpriteSheet = content.Load<Texture2D>(FILE_NAME);
+            itemSpriteSheet = content.Load<Texture2D>(ITEM_FILE_NAME);
+            bossSpriteSheet = content.Load<Texture2D>(BOSS_FILE_NAME);
         }
 
         public ISprite CreateBombItem() {
             return new BombItemSprite(itemSpriteSheet);
+        }
+
+        public ISprite CreateFireAttack()
+        {
+            return new FireAttackSprite(bossSpriteSheet);
         }
     }
 }

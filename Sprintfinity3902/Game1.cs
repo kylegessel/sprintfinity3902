@@ -23,6 +23,10 @@ namespace Sprintfinity3902 {
         public IController mouse;
         public Player playerCharacter;
         public IEntity currentEnemy1;
+        public IEntity currentEnemy2;
+        public IEntity finalBoss;
+        public IEntity testAttack;
+
         public IEntity gelEnemy;
         public Camera camera;
 
@@ -50,10 +54,13 @@ namespace Sprintfinity3902 {
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+            gelEnemy = new GelEnemy();
 
             playerCharacter = new Player();
             currentEnemy1 = new SkeletonEnemy();
-            gelEnemy = new GelEnemy();
+            currentEnemy2 = new HandEnemy();
+            finalBoss = new FinalBossEnemy();
+            testAttack = new FireAttack(new Vector2(1200, 700));
 
             SetCommands();
             SetListeners();
@@ -64,10 +71,13 @@ namespace Sprintfinity3902 {
             InputKeyboard.Instance.Update();
             InputMouse.Instance.Update();
 
+            gelEnemy.Update(gameTime);
 
             playerCharacter.Update(gameTime);
             currentEnemy1.Update(gameTime);
-            gelEnemy.Update(gameTime);
+            currentEnemy2.Update(gameTime);
+            finalBoss.Update(gameTime);
+            testAttack.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -78,10 +88,15 @@ namespace Sprintfinity3902 {
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            camera.Draw(_spriteBatch);
+            gelEnemy.Draw(_spriteBatch);
             playerCharacter.Draw(_spriteBatch);
             currentEnemy1.Draw(_spriteBatch);
-            gelEnemy.Draw(_spriteBatch);
+
+            currentEnemy2.Draw(_spriteBatch);
+            testAttack.Draw(_spriteBatch);
+            finalBoss.Draw(_spriteBatch);
+            
+
 
             _spriteBatch.End();
 

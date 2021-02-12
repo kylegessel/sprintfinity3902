@@ -9,10 +9,12 @@ using System.Text;
 namespace Sprintfinity3902.SpriteFactories {
     public class EnemySpriteFactory {
         private Texture2D enemySpriteSheet;
+        private Texture2D bossSpriteSheet;
 
         private static EnemySpriteFactory instance;
 
-        private static string FILE_NAME = "Zelda_Dungeon_Enemies_Transparent";
+        private static string ENEMY_FILE_NAME = "Zelda_Dungeon_Enemies_Transparent";
+        private static string BOSS_FILE_NAME = "Zelda_Bosses_Transparent";
 
         public static EnemySpriteFactory Instance {
             get {
@@ -25,7 +27,8 @@ namespace Sprintfinity3902.SpriteFactories {
 
 
         public void LoadAllTextures(ContentManager content) {
-            enemySpriteSheet = content.Load<Texture2D>(FILE_NAME);
+            enemySpriteSheet = content.Load<Texture2D>(ENEMY_FILE_NAME);
+            bossSpriteSheet = content.Load<Texture2D>(BOSS_FILE_NAME);
         }
 
         public ISprite CreateBlueBatEnemy() {
@@ -55,6 +58,14 @@ namespace Sprintfinity3902.SpriteFactories {
         }
         public ISprite CreateHandEnemy() {
             return new HandEnemySprite(enemySpriteSheet);
+        }
+        public ISprite CreateFinalBossClosed()
+        {
+            return new FinalBossMouthCloseSprite(bossSpriteSheet);
+        }
+        public ISprite CreateFinalBossOpened()
+        {
+            return new FinalBossMouthOpenSprite(bossSpriteSheet);
         }
 
     }

@@ -11,6 +11,7 @@ namespace Sprintfinity3902.Entities
         public BoomerangItem()
         {
             Sprite = ItemSpriteFactory.Instance.CreateBoomerangItem();
+            Position = new Vector2(500, 400);
         }
 
     }

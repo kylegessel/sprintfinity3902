@@ -32,7 +32,7 @@ namespace Sprintfinity3902.States
 
         public void Attack()
         {
-            PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
+            Player.SetState(Player.facingDownAttack);
         }
 
     }

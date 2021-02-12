@@ -54,6 +54,11 @@ namespace Sprintfinity3902.Entities
             CurrentState.Move();
         }
 
+        public void Attack()
+        {
+            CurrentState.Attack();
+        }
+
         public override void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);
         }

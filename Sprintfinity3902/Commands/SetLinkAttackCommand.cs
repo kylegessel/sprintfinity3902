@@ -1,4 +1,5 @@
 ﻿using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

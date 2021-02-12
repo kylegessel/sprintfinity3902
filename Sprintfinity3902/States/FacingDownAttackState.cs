@@ -12,14 +12,16 @@ namespace Sprintfinity3902.States
     {
         public Player Player { get; set; }
         public ISprite Sprite { get; set; }
-        Player PlayerCharacter;
 
-        public FacingDownAttackState(Player playerCharacter)
+        public FacingDownAttackState(Player currentPlayer)
         {
-            PlayerCharacter = playerCharacter;
+            //PlayerCharacter = playerCharacter;
             //get game time 
-            Sprite = new LinkDownAttackSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
-            Sprite.GetAnimation();
+            // Sprite = new LinkDownAttackSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
+            //Sprite.GetAnimation();
+            Player = currentPlayer;
+            Sprite = PlayerSpriteFactory.Instance.CreateLinkDownAttackSprite();
+            Sprite.Animation.IsPlaying = false;
 
             //compare game time 
 

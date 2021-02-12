@@ -9,6 +9,7 @@ using Sprintfinity3902.Controllers;
 using System.Diagnostics;
 using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902 {
     public class Game1 : Game
@@ -51,7 +52,7 @@ namespace Sprintfinity3902 {
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
 
-            playerCharacter = new Player(playerCharacter, this);
+            playerCharacter = new Player();
             
             currentEnemy1 = new SkeletonEnemy();
 
@@ -97,7 +98,7 @@ namespace Sprintfinity3902 {
             input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingLeft), Keys.A, Keys.Left);
             input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingDown), Keys.S, Keys.Down);
             input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingRight), Keys.D, Keys.Right);
-            
+            input.RegisterCommand(new SetDamageLinkCommand(playerCharacter, this), Keys.E);
  
         }
 

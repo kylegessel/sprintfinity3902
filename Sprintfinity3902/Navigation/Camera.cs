@@ -16,9 +16,9 @@ namespace Sprintfinity3902.Navigation {
 
         public Camera(Game game) {
             _game = game;
-            _sourceRectangle = new Rectangle(0,0,257,177);
-            ((Game1)_game).Graphics.PreferredBackBufferWidth = _sourceRectangle.Width*Game1.ScaleWindow;
-            ((Game1)_game).Graphics.PreferredBackBufferHeight = _sourceRectangle.Height*Game1.ScaleWindow;
+            _sourceRectangle = new Rectangle(0,0,1900,1000);
+            ((Game1)_game).Graphics.PreferredBackBufferWidth = _sourceRectangle.Width;
+            ((Game1)_game).Graphics.PreferredBackBufferHeight = _sourceRectangle.Height;
 
 
 

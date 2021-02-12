@@ -74,7 +74,14 @@ namespace Sprintfinity3902.Entities
             Move();
         }
 
-        public abstract void Move();
+        public virtual void Attack()
+        {
+
+        }
+        public virtual void Move()
+        {
+
+        }
 
         public virtual void SetState(IPlayerState state) {
             /* 

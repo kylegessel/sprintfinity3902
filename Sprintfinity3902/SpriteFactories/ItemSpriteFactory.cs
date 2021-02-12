@@ -37,5 +37,10 @@ namespace Sprintfinity3902.SpriteFactories {
         {
             return new FireAttackSprite(bossSpriteSheet);
         }
+
+        public ISprite CreateBoomerangItem()
+        {
+            return new BoomerangItemSprite(itemSpriteSheet);
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace Sprintfinity3902 {
         public IEntity currentEnemy1;
         public IEntity currentEnemy2;
         public IEntity currentEnemy3;
+        public IEntity boomerangItem;
         public IEntity finalBoss;
         public IEntity testAttack;
 
@@ -56,6 +57,7 @@ namespace Sprintfinity3902 {
             currentEnemy1 = new SkeletonEnemy();
             currentEnemy2 = new HandEnemy();
             currentEnemy3 = new BlueBatEnemy();
+            boomerangItem = new BoomerangItem();
             finalBoss = new FinalBossEnemy();
             testAttack = new FireAttack(new Vector2(1200, 700));
 
@@ -72,6 +74,7 @@ namespace Sprintfinity3902 {
             currentEnemy1.Update(gameTime);
             currentEnemy2.Update(gameTime);
             currentEnemy3.Update(gameTime);
+            boomerangItem.Update(gameTime);
             finalBoss.Update(gameTime);
             testAttack.Update(gameTime);
 
@@ -88,6 +91,7 @@ namespace Sprintfinity3902 {
             currentEnemy1.Draw(_spriteBatch);
             currentEnemy2.Draw(_spriteBatch);
             currentEnemy3.Draw(_spriteBatch);
+            boomerangItem.Draw(_spriteBatch);
             finalBoss.Draw(_spriteBatch);
             testAttack.Draw(_spriteBatch);
 

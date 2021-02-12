@@ -3,11 +3,14 @@ using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Sprintfinity3902.SpriteFactories;
+using Sprintfinity3902.Entities;
 
 namespace Sprintfinity3902.States
 {
     public class FacingDownAttackState : IPlayerState
     {
+        public Player Player { get; set; }
         public ISprite Sprite { get; set; }
         Player PlayerCharacter;
 
@@ -22,6 +25,7 @@ namespace Sprintfinity3902.States
 
             //set to prev state
         }
+
 
         public void Move()
         {

@@ -1,70 +1,57 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sprintfinity3902.Sprites
-{
-    public class EnemySpriteFactory
-    {
+namespace Sprintfinity3902.SpriteFactories {
+    public class EnemySpriteFactory {
         private Texture2D enemySpriteSheet;
 
-        private static EnemySpriteFactory instance = new EnemySpriteFactory();
+        private static EnemySpriteFactory instance;
 
-        public static EnemySpriteFactory Instance
-        {
-            get
-            {
+        public static EnemySpriteFactory Instance {
+            get {
+                if (instance == null) {
+                    instance = new EnemySpriteFactory();
+                }
                 return instance;
             }
         }
 
-        private EnemySpriteFactory()
-        {
 
-        }
-
-        public void LoadAllTextures(ContentManager content)
-        {
+        public void LoadAllTextures(ContentManager content) {
             enemySpriteSheet = content.Load<Texture2D>("Zelda_Dungeon_Enemies_Transparent");
         }
 
-        public ISprite CreateBlueBatEnemy()
-        {
+        public ISprite CreateBlueBatEnemy() {
             return new BlueBatEnemySprite(enemySpriteSheet);
         }
 
-        public ISprite CreateGelEnemy()
-        {
+        public ISprite CreateGelEnemy() {
             return new GelEnemySprite(enemySpriteSheet);
         }
 
-        public ISprite CreateGoriyaDownEnemy()
-        {
+        public ISprite CreateGoriyaDownEnemy() {
             return new GoriyaEnemyDownSprite(enemySpriteSheet);
         }
 
-        public ISprite CreateGoriyaUpEnemy()
-        {
+        public ISprite CreateGoriyaUpEnemy() {
             return new GoriyaEnemyUpSprite(enemySpriteSheet);
         }
-        public ISprite CreateGoriyaLeftEnemy()
-        {
+        public ISprite CreateGoriyaLeftEnemy() {
             return new GoriyaEnemyLeftSprite(enemySpriteSheet);
         }
 
-        public ISprite CreateGoriyaRightEnemy()
-        {
+        public ISprite CreateGoriyaRightEnemy() {
             return new GoriyaEnemyRightSprite(enemySpriteSheet);
         }
-        public ISprite CreateSkeletonEnemy()
-        {
+        public ISprite CreateSkeletonEnemy() {
             return new SkeletonEnemySprite(enemySpriteSheet);
         }
-        public ISprite CreateHandEnemy()
-        {
+        public ISprite CreateHandEnemy() {
             return new HandEnemySprite(enemySpriteSheet);
         }
 

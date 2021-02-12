@@ -3,30 +3,22 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System;
-using Sprintfinity3902.Sprites;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Controllers;
+using System.Diagnostics;
+using Sprintfinity3902.SpriteFactories;
+using Sprintfinity3902.Entities;
 
-namespace Sprintfinity3902
-{
+namespace Sprintfinity3902 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         public Texture2D texture;
-        public IController keyboard;
         public IController mouse;
         public Player playerCharacter;
-        public ISprite currentEnemy;
-        public ISprite currentEnemy2;
-        public ISprite currentEnemy3;
-        public ISprite currentEnemy4;
-        public ISprite currentEnemy5;
-        public ISprite currentEnemy6;
-        public ISprite currentEnemy7;
-        public ISprite currentEnemy8;
-        public Item currentItem;
+        public IEntity currentEnemy1;
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
 
@@ -36,8 +28,9 @@ namespace Sprintfinity3902
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.PreferredBackBufferWidth = 2000;
+            _graphics.PreferredBackBufferHeight = 1000;
+            Window.Title = "The Legend of Zelda";
             _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -45,9 +38,6 @@ namespace Sprintfinity3902
 
         protected override void Initialize()
         {
-            keyboard = new InputKeyboard();
-            mouse = new InputMouse(this);
-
             base.Initialize();
         }
 
@@ -59,38 +49,23 @@ namespace Sprintfinity3902
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
 
-            playerCharacter = new Player(texture);
-            currentEnemy = EnemySpriteFactory.Instance.CreateGelEnemy();
-            currentEnemy2 = EnemySpriteFactory.Instance.CreateBlueBatEnemy();
-            currentEnemy3 = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
-            currentEnemy4 = EnemySpriteFactory.Instance.CreateGoriyaUpEnemy();
-            currentEnemy5 = EnemySpriteFactory.Instance.CreateGoriyaLeftEnemy();
-            currentEnemy6 = EnemySpriteFactory.Instance.CreateGoriyaRightEnemy();
-            currentEnemy7 = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
-            currentEnemy8 = EnemySpriteFactory.Instance.CreateHandEnemy();
-
-            currentItem = new Item();
-            currentItem.getItem();
+            playerCharacter = new Player();
+            
+            currentEnemy1 = new SkeletonEnemy();
 
             SetCommands();
+            SetListeners();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            keyboard.Update();
-            mouse.Update();
+            InputKeyboard.Instance.Update();
+            InputMouse.Instance.Update();
 
             playerCharacter.Update(gameTime);
-            currentEnemy.Update(gameTime);
-            currentEnemy2.Update(gameTime);
-            currentEnemy3.Update(gameTime);
-            currentEnemy4.Update(gameTime);
-            currentEnemy5.Update(gameTime);
-            currentEnemy6.Update(gameTime);
-            currentEnemy7.Update(gameTime);
-            currentEnemy8.Update(gameTime);
-            currentItem.CurrentItemSprite.Update(gameTime);
+            currentEnemy1.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -101,16 +76,9 @@ namespace Sprintfinity3902
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            playerCharacter.playerSprite.Draw(_spriteBatch, gameTime);
-            currentEnemy.Draw(_spriteBatch, gameTime);
-            currentEnemy2.Draw(_spriteBatch, gameTime);
-            currentEnemy3.Draw(_spriteBatch, gameTime);
-            currentEnemy4.Draw(_spriteBatch, gameTime);
-            currentEnemy5.Draw(_spriteBatch, gameTime);
-            currentEnemy6.Draw(_spriteBatch, gameTime);
-            currentEnemy7.Draw(_spriteBatch, gameTime);
-            currentEnemy8.Draw(_spriteBatch, gameTime);
-            currentItem.CurrentItemSprite.Draw(_spriteBatch, gameTime);
+            playerCharacter.Draw(_spriteBatch);
+            currentEnemy1.Draw(_spriteBatch);
+
 
             _spriteBatch.End();
 
@@ -119,16 +87,21 @@ namespace Sprintfinity3902
 
         public void SetCommands()
         {
-            InputKeyboard input = (InputKeyboard)keyboard;
+            InputKeyboard input = InputKeyboard.Instance;
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
             {
                 input.RegisterCommand(key, new DoNothingCommand(this));
             }
-            input.RegisterCommand(Keys.W, new SetLinkUpCommand(playerCharacter));
-            input.RegisterCommand(Keys.A, new SetLinkLeftCommand(playerCharacter));
-            input.RegisterCommand(Keys.S, new SetLinkDownCommand(playerCharacter));
-            input.RegisterCommand(Keys.D, new SetLinkRightCommand(playerCharacter));
-            input.RegisterCommand(Keys.Z, new SetLinkAttackCommand(playerCharacter));
+
+            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingUp), Keys.W, Keys.Up);
+            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingLeft), Keys.A, Keys.Left);
+            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingDown), Keys.S, Keys.Down);
+            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingRight), Keys.D, Keys.Right);
+ 
+        }
+
+        public void SetListeners() {
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
     }
 }

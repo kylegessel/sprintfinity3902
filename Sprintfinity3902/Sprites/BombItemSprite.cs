@@ -19,7 +19,7 @@ namespace Sprintfinity3902.Sprites
 
         public BombItemSprite(Texture2D texture)
         {
-            Sprite Sprite1 = new Sprite(texture, BOMB_POS_X, BOMB_POS_Y, BOMB_WIDTH, BOMB_HEIGHT);
+            SpriteFrame Sprite1 = new SpriteFrame(texture, BOMB_POS_X, BOMB_POS_Y, BOMB_WIDTH, BOMB_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

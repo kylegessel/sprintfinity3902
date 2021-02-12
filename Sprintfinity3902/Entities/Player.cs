@@ -41,6 +41,7 @@ namespace Sprintfinity3902.Entities
             facingRight = new FacingRightState(this);
             facingUp = new FacingUpState(this);
             facingDownAttack = new FacingDownAttackState(this);
+
         }
 
 

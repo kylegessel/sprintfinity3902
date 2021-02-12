@@ -61,6 +61,7 @@ namespace Sprintfinity3902.Entities
 
         public override void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);
+            CurrentState.Update();
         }
 
         public override void Draw(SpriteBatch spriteBatch) {

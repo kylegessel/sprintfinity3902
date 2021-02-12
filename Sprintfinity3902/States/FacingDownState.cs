@@ -34,6 +34,11 @@ namespace Sprintfinity3902.States
         {
             Player.SetState(Player.facingDownAttack);
         }
+        
+        public void Update()
+        {
+
+        }
 
     }
 }

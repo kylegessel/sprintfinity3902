@@ -33,5 +33,10 @@ namespace Sprintfinity3902.States
         {
             //Needs to be implemented
         }
+
+        public void Update()
+        {
+
+        }
     }
 }

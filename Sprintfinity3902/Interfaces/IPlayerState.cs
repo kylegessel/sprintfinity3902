@@ -10,5 +10,7 @@ namespace Sprintfinity3902.Interfaces
         void Move();
 
         void Attack();
+
+        void Update();
     }
 }

@@ -103,7 +103,7 @@ namespace Sprintfinity3902 {
         }
 
         public void SetListeners() {
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.Z);
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
     }
 }

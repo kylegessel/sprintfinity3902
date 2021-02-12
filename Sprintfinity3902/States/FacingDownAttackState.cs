@@ -13,6 +13,7 @@ namespace Sprintfinity3902.States
         public Player Player { get; set; }
         public ISprite Sprite { get; set; }
 
+        private Boolean AttackExecuted = false;
         public FacingDownAttackState(Player currentPlayer)
         {
             //PlayerCharacter = playerCharacter;
@@ -36,7 +37,22 @@ namespace Sprintfinity3902.States
 
         public void Attack()
         {
-            //NULL
+            if (!Sprite.Animation.IsPlaying)
+            {
+                AttackExecuted = true;
+                Sprite.Animation.PlayOnce();
+            }
+            
+            
+        }
+
+        public void Update()
+        {
+            if (!Sprite.Animation.IsPlaying && AttackExecuted)
+            {
+                Player.SetState(Player.facingDown);
+                AttackExecuted = false;
+            }
         }
 
     }

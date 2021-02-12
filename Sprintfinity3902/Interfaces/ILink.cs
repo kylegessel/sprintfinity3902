@@ -8,7 +8,7 @@ using Sprintfinity3902.Sprites;
 
 namespace Sprintfinity3902.Interfaces
 {
-    interface ILink
+    public interface ILink
     {
         ISprite Sprite
         {

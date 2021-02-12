@@ -28,6 +28,14 @@ namespace Sprintfinity3902.States
             }
             Player.X = Player.X + 5;
         }
+        public void TakeDamage()
+        {
+
+        }
+        public void RemoveDecorator()
+        {
+
+        }
 
     }
 }

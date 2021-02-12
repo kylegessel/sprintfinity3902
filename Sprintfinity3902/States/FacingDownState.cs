@@ -18,8 +18,6 @@ namespace Sprintfinity3902.States
             Player = currentPlayer;
             Sprite = PlayerSpriteFactory.Instance.CreateLinkDownSprite();
             Sprite.Animation.IsPlaying = false;
-
-
         }
 
         public void Move()
@@ -29,6 +27,13 @@ namespace Sprintfinity3902.States
             }
             Player.Y = Player.Y + 5;
         }
+        public void TakeDamage()
+        {
 
+        }
+        public void RemoveDecorator()
+        {
+            
+        }
     }
 }

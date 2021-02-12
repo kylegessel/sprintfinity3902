@@ -9,16 +9,15 @@ namespace Sprintfinity3902.Entities
 {
     public class SkeletonEnemy : AbstractEntity
     {
-        private Random rd1 = new Random();
         private int count;
         private int direction;
         private int waitTime;
         public SkeletonEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
-            Position = new Vector2(500, 500);
+            Position = new Vector2(1000, 500);
 
-            direction = rd1.Next(1, 5);
+            direction = new Random().Next(1, 5);
             count = 0;
         }
 
@@ -27,12 +26,12 @@ namespace Sprintfinity3902.Entities
             
             if(count == 0)
             {
-                waitTime = rd1.Next(240);
+                waitTime = new Random().Next(30, 180);
                 count++;
             }
             else if(count == waitTime)
             {
-                direction = rd1.Next(1, 5);
+                direction = new Random().Next(1, 5);
                 count = 0;
             }
 

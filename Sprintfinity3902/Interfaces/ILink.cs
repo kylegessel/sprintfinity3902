@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface ILink : IEntity
     {
-        public void Draw(SpriteBatch spriteBatch);
+        public void Draw(SpriteBatch spriteBatch, Color color);
         void TakeDamage();
         void RemoveDecorator();
     }

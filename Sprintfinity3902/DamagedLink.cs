@@ -87,8 +87,7 @@ namespace Sprintfinity3902.Link
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-           // Have an increment and then if else statements to change between red and blue
-           //Could pass a color from here all the way down to Animation...
+            //CurrentState.Sprite.Draw(spriteBatch, Position);
             decoratedLink.Draw(spriteBatch);
         }
         public void Move()

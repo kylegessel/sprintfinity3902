@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Sprintfinity3902.SpriteFactories {
     public class ItemSpriteFactory {
-        private Texture2D itemSpriteSheet;
+        private Texture2D linkItemSpriteSheet;
         private Texture2D bossSpriteSheet;
 
         private static ItemSpriteFactory instance;
@@ -22,12 +22,13 @@ namespace Sprintfinity3902.SpriteFactories {
             }
         }
         public void LoadAllTextures(ContentManager content) {
-            itemSpriteSheet = content.Load<Texture2D>("Zelda_Link_and_Items_Transparent");
+            linkItemSpriteSheet = content.Load<Texture2D>("Zelda_Link_and_Items_Transparent");
             bossSpriteSheet = content.Load<Texture2D>("Zelda_Bosses_Transparent");
+            linkItemSpriteSheet = content.Load<Texture2D>("Zelda_Items_&_Weapons_Transparent");
         }
 
         public ISprite CreateBombItem() {
-            return new BombItemSprite(itemSpriteSheet);
+            return new BombItemSprite(linkItemSpriteSheet);
         }
 
         public ISprite CreateFireAttack()

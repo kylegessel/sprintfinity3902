@@ -30,10 +30,5 @@ namespace Sprintfinity3902.States
             Player.Y = Player.Y + 5;
         }
 
-        public void TakeDamage()
-        {
-
-        }
-
     }
 }

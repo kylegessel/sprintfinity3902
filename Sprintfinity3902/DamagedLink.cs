@@ -16,13 +16,11 @@ namespace Sprintfinity3902.Link
     class DamagedLink : ILink
     {
         Game1 game;
-        ILink decoratedLink;
+        Player decoratedLink;
         int timer = 1000;
-
-        //Have to include Sprite and position info to satisfy ILink that extends IEntity
         private ISprite _sprite;
         private Vector2 _position;
-        
+
         public ISprite Sprite
         {
             get
@@ -71,9 +69,8 @@ namespace Sprintfinity3902.Link
             }
         }
         
-        
 
-        public DamagedLink (ILink decoratedLink, Game1 game)
+        public DamagedLink (Player decoratedLink, Game1 game)
         {
             this.decoratedLink = decoratedLink;
             this.game = game;
@@ -96,6 +93,7 @@ namespace Sprintfinity3902.Link
         }
         public void Move()
         {
+            //CurrentState.Move();
             decoratedLink.Move();
         }
         public void SetState(IPlayerState state)

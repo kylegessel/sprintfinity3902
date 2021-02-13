@@ -18,7 +18,7 @@ namespace Sprintfinity3902 {
         private SpriteBatch _spriteBatch;
         public Texture2D texture;
         public IController mouse;
-        public ILink playerCharacter;
+        public Player playerCharacter;
         public IEntity currentEnemy1;
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";

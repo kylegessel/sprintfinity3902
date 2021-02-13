@@ -19,7 +19,6 @@ namespace Sprintfinity3902.Link
         private IPlayerState _currentState;
         private ISprite _sprite;
         private Vector2 _position;
-        
 
         public ISprite Sprite
         {
@@ -82,7 +81,6 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingRight { get; set; }
         public IPlayerState facingUp { get; set; }
         public IPlayerState facingDownAttack { get; set; }
-        public ILink link;
         public Player()
         {
             Position = new Vector2(300, 300);
@@ -105,7 +103,6 @@ namespace Sprintfinity3902.Link
         }
 
         public void Update(GameTime gameTime) {
-            //Kyle has implemented CurrentState.Update
             CurrentState.Sprite.Update(gameTime);
         }
 
@@ -114,7 +111,7 @@ namespace Sprintfinity3902.Link
         }
         public void TakeDamage()
         {
-            CurrentState.TakeDamage();
+            Sprite = PlayerSpriteFactory.Instance.CreateDamagedLinkDownSprite();
         }
         public void RemoveDecorator()
         {

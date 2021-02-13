@@ -18,7 +18,8 @@ namespace Sprintfinity3902 {
         private SpriteBatch _spriteBatch;
         public Texture2D texture;
         public IController mouse;
-        public Player playerCharacter;
+        public ILink playerCharacter;
+        public Player link;
         public IEntity currentEnemy1;
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
@@ -94,16 +95,18 @@ namespace Sprintfinity3902 {
                 input.RegisterCommand(key, new DoNothingCommand(this));
             }
 
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingUp), Keys.W, Keys.Up);
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingLeft), Keys.A, Keys.Left);
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingDown), Keys.S, Keys.Down);
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingRight), Keys.D, Keys.Right);
-            input.RegisterCommand(new SetDamageLinkCommand(playerCharacter, this), Keys.E);
+            link = (Player)playerCharacter;
+
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingUp), Keys.W, Keys.Up);
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingLeft), Keys.A, Keys.Left);
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingDown), Keys.S, Keys.Down);
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingRight), Keys.D, Keys.Right);
+            input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
  
         }
 
         public void SetListeners() {
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
         }
     }
 }

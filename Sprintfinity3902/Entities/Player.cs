@@ -19,6 +19,7 @@ namespace Sprintfinity3902.Link
         private IPlayerState _currentState;
         private ISprite _sprite;
         private Vector2 _position;
+        
 
         public ISprite Sprite
         {
@@ -81,6 +82,8 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingRight { get; set; }
         public IPlayerState facingUp { get; set; }
         public IPlayerState facingDownAttack { get; set; }
+        public Color color;
+
         public Player()
         {
             Position = new Vector2(300, 300);
@@ -90,6 +93,7 @@ namespace Sprintfinity3902.Link
             facingRight = new FacingRightState(this);
             facingUp = new FacingUpState(this);
             facingDownAttack = new FacingDownAttackState(this);
+            color = Color.White;
         }
 
         public void SetState(IPlayerState state) {
@@ -106,12 +110,12 @@ namespace Sprintfinity3902.Link
             CurrentState.Sprite.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
+        public void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position);
         }
         public void TakeDamage()
         {
-            Sprite = PlayerSpriteFactory.Instance.CreateDamagedLinkDownSprite();
+            //Change the color to red (First color of Link's injured State
         }
         public void RemoveDecorator()
         {

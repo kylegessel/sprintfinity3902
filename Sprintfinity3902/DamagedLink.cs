@@ -17,6 +17,7 @@ namespace Sprintfinity3902.Link
     {
         Game1 game;
         Player decoratedLink;
+        Color linkColor;
         int timer = 1000;
         private ISprite _sprite;
         private Vector2 _position;
@@ -74,6 +75,7 @@ namespace Sprintfinity3902.Link
         {
             this.decoratedLink = decoratedLink;
             this.game = game;
+            linkColor = Color.Red;
         }
         public void Update(GameTime gameTime)
         {
@@ -82,13 +84,23 @@ namespace Sprintfinity3902.Link
             {
                 RemoveDecorator();
             }
+            //Implement logic to determine color
+            if (timer > 750 || (timer < 500 && timer > 250))
+            {
+                linkColor = Color.Red;
+            }
+            else
+            {
+                linkColor = Color.Blue;
+            }
+
             decoratedLink.Update(gameTime);
 
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Color Ignorecolor)
         {
             //CurrentState.Sprite.Draw(spriteBatch, Position);
-            decoratedLink.Draw(spriteBatch);
+            decoratedLink.Draw(spriteBatch, linkColor);
         }
         public void Move()
         {

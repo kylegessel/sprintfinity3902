@@ -20,6 +20,7 @@ namespace Sprintfinity3902 {
         public IController mouse;
         public ILink playerCharacter;
         public Player link;
+        public Color linkColor;
         public IEntity currentEnemy1;
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
@@ -78,7 +79,7 @@ namespace Sprintfinity3902 {
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            playerCharacter.Draw(_spriteBatch);
+            playerCharacter.Draw(_spriteBatch, Color.White);
             currentEnemy1.Draw(_spriteBatch);
 
 

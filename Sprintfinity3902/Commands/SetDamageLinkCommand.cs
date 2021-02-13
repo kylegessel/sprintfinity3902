@@ -14,22 +14,22 @@ namespace Sprintfinity3902.Commands
     {
         Player decoratedLink;
         ILink damagedLink;
-        Game1 Game;
+        Game1 game;
         //Player playerCharacter;
 
         public SetDamageLinkCommand(Game1 game)
         {
-            Game = game;
-            decoratedLink = (Player)Game.playerCharacter;
+            this.game = game;
+            decoratedLink = (Player)game.playerCharacter;
             
             //playerCharacter = player;
         }
 
         public void Execute()
         {
-            Game.playerCharacter.TakeDamage();
-            damagedLink = new DamagedLink(decoratedLink, Game);
-            Game.playerCharacter = damagedLink;
+            game.playerCharacter.TakeDamage();
+            damagedLink = new DamagedLink(decoratedLink, game);
+            game.playerCharacter = damagedLink;
         }
     }
 }

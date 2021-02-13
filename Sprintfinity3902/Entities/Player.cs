@@ -111,15 +111,15 @@ namespace Sprintfinity3902.Link
         }
 
         public void Draw(SpriteBatch spriteBatch, Color color) {
-            CurrentState.Sprite.Draw(spriteBatch, Position);
+            CurrentState.Sprite.Draw(spriteBatch, Position, color);
         }
         public void TakeDamage()
         {
-            //Change the color to red (First color of Link's injured State
+            //Will be needed in future to take away health?
         }
         public void RemoveDecorator()
         {
-            //Not in Damaged State
+            //NULL
         }
 
     }

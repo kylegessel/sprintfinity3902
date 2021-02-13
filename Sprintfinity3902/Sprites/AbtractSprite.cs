@@ -19,7 +19,7 @@ namespace Sprintfinity3902.Sprites {
             }
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position) {
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Color color) {
             Animation.Draw(spriteBatch, position);
         }
 

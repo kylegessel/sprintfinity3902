@@ -12,8 +12,10 @@ using Sprintfinity3902.Entities;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Navigation;
 
-namespace Sprintfinity3902 {
-    public class Game1 : Game {
+namespace Sprintfinity3902
+{
+    public class Game1 : Game
+    {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -29,6 +31,7 @@ namespace Sprintfinity3902 {
         public IEntity currentEnemy2;
         public IEntity currentEnemy3;
         public IEntity boomerangItem;
+        public IEntity bombItem;
         public IEntity finalBoss;
         public IEntity testAttack;
 
@@ -68,6 +71,7 @@ namespace Sprintfinity3902 {
             boomerangItem = new BoomerangItem();
             finalBoss = new FinalBossEnemy();
             testAttack = new FireAttack(new Vector2(1200, 700));
+            bombItem = new BombItem(new Vector2(-1000, -1000));
 
             SetCommands();
             SetListeners();
@@ -85,6 +89,7 @@ namespace Sprintfinity3902 {
             currentEnemy2.Update(gameTime);
             currentEnemy3.Update(gameTime);
             boomerangItem.Update(gameTime);
+            bombItem.Update(gameTime);
             finalBoss.Update(gameTime);
             testAttack.Update(gameTime);
 
@@ -103,9 +108,10 @@ namespace Sprintfinity3902 {
             currentEnemy2.Draw(_spriteBatch);
             currentEnemy3.Draw(_spriteBatch);
             boomerangItem.Draw(_spriteBatch);
+            bombItem.Draw(_spriteBatch);
             testAttack.Draw(_spriteBatch);
             finalBoss.Draw(_spriteBatch);
-            
+
 
 
             _spriteBatch.End();
@@ -128,10 +134,12 @@ namespace Sprintfinity3902 {
             input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingDown), Keys.S, Keys.Down);
             input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingRight), Keys.D, Keys.Right);
             input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
- 
+            input.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
+
         }
 
-        public void SetListeners() {
+        public void SetListeners()
+        {
             InputKeyboard.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
         }
     }

@@ -10,6 +10,7 @@ namespace Sprintfinity3902.SpriteFactories {
     public class ItemSpriteFactory {
         private Texture2D linkItemSpriteSheet;
         private Texture2D bossSpriteSheet;
+        private Texture2D itemSpriteSheet;
 
         private static ItemSpriteFactory instance;
 
@@ -24,7 +25,7 @@ namespace Sprintfinity3902.SpriteFactories {
         public void LoadAllTextures(ContentManager content) {
             linkItemSpriteSheet = content.Load<Texture2D>("Zelda_Link_and_Items_Transparent");
             bossSpriteSheet = content.Load<Texture2D>("Zelda_Bosses_Transparent");
-            linkItemSpriteSheet = content.Load<Texture2D>("Zelda_Items_&_Weapons_Transparent");
+            itemSpriteSheet = content.Load<Texture2D>("Zelda_Items_and_Weapons_Transparent");
         }
 
         public ISprite CreateBombItem() {
@@ -34,6 +35,11 @@ namespace Sprintfinity3902.SpriteFactories {
         public ISprite CreateFireAttack()
         {
             return new FireAttackSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateRupeeItem()
+        {
+            return new RupeeItemSprite(itemSpriteSheet);
         }
     }
 }

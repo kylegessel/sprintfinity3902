@@ -65,5 +65,9 @@ namespace Sprintfinity3902.SpriteFactories {
         {
             return new KeyItemSprite(itemSpriteSheet);
         }
+        public ISprite CreateTriforceItem()
+        {
+            return new TriforceItemSprite(itemSpriteSheet);
+        }
     }
 }

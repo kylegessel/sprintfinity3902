@@ -73,5 +73,9 @@ namespace Sprintfinity3902.SpriteFactories {
         {
             return new BowItemSprite(itemSpriteSheet);
         }
+        public ISprite CreateClockItem()
+        {
+            return new ClockItemSprite(itemSpriteSheet);
+        }
     }
 }

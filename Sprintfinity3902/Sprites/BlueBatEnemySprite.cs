@@ -23,8 +23,8 @@ namespace Sprintfinity3902.Sprites
 
         public BlueBatEnemySprite(Texture2D texture)
         {
-            Sprite Sprite1 = new Sprite(texture, BAT1_POS_X, BAT1_POS_Y, BAT1_WIDTH, BAT1_HEIGHT);
-            Sprite Sprite2 = new Sprite(texture, BAT2_POS_X, BAT2_POS_Y, BAT2_WIDTH, BAT2_HEIGHT);
+            SpriteFrame Sprite1 = new SpriteFrame(texture, BAT1_POS_X, BAT1_POS_Y, BAT1_WIDTH, BAT1_HEIGHT);
+            SpriteFrame Sprite2 = new SpriteFrame(texture, BAT2_POS_X, BAT2_POS_Y, BAT2_WIDTH, BAT2_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

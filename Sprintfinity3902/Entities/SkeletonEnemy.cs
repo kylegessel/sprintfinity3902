@@ -16,10 +16,15 @@ namespace Sprintfinity3902.Entities
         public SkeletonEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
-            Position = new Vector2(500, 500);
+            Position = new Vector2(1000, 500);
 
             direction = rd1.Next(1, 5);
             count = 0;
+        }
+
+        public override void Update(GameTime gameTime) {
+            Sprite.Update(gameTime);
+            Move();
         }
 
         public override void Move()

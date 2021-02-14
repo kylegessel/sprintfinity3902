@@ -18,7 +18,7 @@ namespace Sprintfinity3902.Sprites
 
         public GoriyaEnemyUpSprite(Texture2D texture)
         {
-            Sprite Sprite = new Sprite(texture, GORIYA_POS_X, GORIYA_POS_Y, GORIYA_WIDTH, GORIYA_HEIGHT);
+            SpriteFrame Sprite = new SpriteFrame(texture, GORIYA_POS_X, GORIYA_POS_Y, GORIYA_WIDTH, GORIYA_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

@@ -6,9 +6,9 @@ namespace Sprintfinity3902.Sprites
 {
     public class AnimationFrame
     {
-        private Sprite _sprite;
+        private SpriteFrame _sprite;
 
-        public Sprite Sprite
+        public SpriteFrame Sprite
         {
             get
             {
@@ -22,7 +22,7 @@ namespace Sprintfinity3902.Sprites
 
         public float TimeStamp { get; }
 
-        public AnimationFrame(Sprite sprite, float timeStamp)
+        public AnimationFrame(SpriteFrame sprite, float timeStamp)
         {
             Sprite = sprite;
             TimeStamp = timeStamp;

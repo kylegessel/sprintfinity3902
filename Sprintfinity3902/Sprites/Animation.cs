@@ -61,7 +61,7 @@ namespace Sprintfinity3902.Sprites
         }
 
         
-        public void AddFrame(Sprite sprite, float timeStamp) 
+        public void AddFrame(SpriteFrame sprite, float timeStamp) 
         { 
             _frames.Add(new AnimationFrame(sprite, timeStamp));
         }

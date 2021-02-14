@@ -23,8 +23,8 @@ namespace Sprintfinity3902.Sprites
 
         public LinkUpSprite(Texture2D texture)
         {
-            Sprite Sprite1 = new Sprite(texture, LINK_UP1_POS_X, LINK_UP1_POS_Y, LINK_UP1_WIDTH, LINK_UP1_HEIGHT);
-            Sprite Sprite2 = new Sprite(texture, LINK_UP2_POS_X, LINK_UP2_POS_Y, LINK_UP2_WIDTH, LINK_UP2_HEIGHT);
+            SpriteFrame Sprite1 = new SpriteFrame(texture, LINK_UP1_POS_X, LINK_UP1_POS_Y, LINK_UP1_WIDTH, LINK_UP1_HEIGHT);
+            SpriteFrame Sprite2 = new SpriteFrame(texture, LINK_UP2_POS_X, LINK_UP2_POS_Y, LINK_UP2_WIDTH, LINK_UP2_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

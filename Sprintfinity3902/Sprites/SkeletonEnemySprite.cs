@@ -18,7 +18,7 @@ namespace Sprintfinity3902.Sprites
 
         public SkeletonEnemySprite(Texture2D texture)
         {
-            Sprite Sprite = new Sprite(texture, SKELETON_POS_X, SKELETON_POS_Y, SKELETON_WIDTH, SKELETON_HEIGHT);
+            SpriteFrame Sprite = new SpriteFrame(texture, SKELETON_POS_X, SKELETON_POS_Y, SKELETON_WIDTH, SKELETON_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

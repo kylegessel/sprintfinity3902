@@ -23,8 +23,8 @@ namespace Sprintfinity3902.Sprites
 
         public LinkRightSprite(Texture2D texture)
         {
-            Sprite Sprite1 = new Sprite(texture, LINK_RIGHT1_X, LINK_RIGHT1_Y, LINK_RIGHT1_WIDTH, LINK_RIGHT1_HEIGHT);
-            Sprite Sprite2 = new Sprite(texture, LINK_RIGHT2_X, LINK_RIGHT2_Y, LINK_RIGHT2_WIDTH, LINK_RIGHT2_HEIGHT);
+            SpriteFrame Sprite1 = new SpriteFrame(texture, LINK_RIGHT1_X, LINK_RIGHT1_Y, LINK_RIGHT1_WIDTH, LINK_RIGHT1_HEIGHT);
+            SpriteFrame Sprite2 = new SpriteFrame(texture, LINK_RIGHT2_X, LINK_RIGHT2_Y, LINK_RIGHT2_WIDTH, LINK_RIGHT2_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

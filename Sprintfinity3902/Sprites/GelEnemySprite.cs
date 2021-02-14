@@ -23,8 +23,8 @@ namespace Sprintfinity3902.Sprites
 
         public GelEnemySprite(Texture2D texture)
         {
-            Sprite Sprite1 = new Sprite(texture, GEL1_POS_X, GEL1_POS_Y, GEL1_WIDTH, GEL1_HEIGHT);
-            Sprite Sprite2 = new Sprite(texture, GEL2_POS_X, GEL2_POS_Y, GEL2_WIDTH, GEL2_HEIGHT);
+            SpriteFrame Sprite1 = new SpriteFrame(texture, GEL1_POS_X, GEL1_POS_Y, GEL1_WIDTH, GEL1_HEIGHT);
+            SpriteFrame Sprite2 = new SpriteFrame(texture, GEL2_POS_X, GEL2_POS_Y, GEL2_WIDTH, GEL2_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

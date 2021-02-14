@@ -14,6 +14,8 @@ namespace Sprintfinity3902.SpriteFactories
 
         private static PlayerSpriteFactory instance;
 
+        private static string FILE_NAME = "Zelda_Link_and_Items_Transparent";
+
         public static PlayerSpriteFactory Instance
         {
             get
@@ -27,7 +29,7 @@ namespace Sprintfinity3902.SpriteFactories
         }
         public void LoadAllTextures(ContentManager content)
         {
-            playerSpriteSheet = content.Load<Texture2D>("Zelda_Link_and_Items_Transparent");
+            playerSpriteSheet = content.Load<Texture2D>(FILE_NAME);
         }
 
         public ISprite CreateLinkUpSprite()
@@ -49,10 +51,6 @@ namespace Sprintfinity3902.SpriteFactories
         public ISprite CreateLinkDownAttackSprite()
         {
             return new LinkDownAttackSprite(playerSpriteSheet);
-        }
-        public ISprite CreateDamagedLinkDownSprite()
-        {
-            return new DamagedLinkDownSprite(playerSpriteSheet);
         }
     }
 }

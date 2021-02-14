@@ -56,5 +56,10 @@ namespace Sprintfinity3902.SpriteFactories {
         {
             return new CompassItemSprite(itemSpriteSheet);
         }
+
+        public ISprite CreateMapItem()
+        {
+            return new MapItemSprite(itemSpriteSheet);
+        }
     }
 }

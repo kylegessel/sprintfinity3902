@@ -18,7 +18,8 @@ namespace Sprintfinity3902.Link
         Game1 game;
         Player decoratedLink;
         Color linkColor;
-        int timer = 1000;
+        int counter;
+        int timer = 400;
         private ISprite _sprite;
         private Vector2 _position;
 
@@ -85,9 +86,18 @@ namespace Sprintfinity3902.Link
                 RemoveDecorator();
             }
             //Implement logic to determine color
-            if (timer > 750 || (timer < 500 && timer > 250))
+            counter = timer % 12;
+            if (counter < 3)
+            {
+                linkColor = Color.Aqua;
+            }
+            else if (counter < 6)
             {
                 linkColor = Color.Red;
+            }
+            else if (counter < 9)
+            {
+                linkColor = Color.White;
             }
             else
             {

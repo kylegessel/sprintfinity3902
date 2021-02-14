@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Sprites {
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Color color) {
-            Animation.Draw(spriteBatch, position);
+            Animation.Draw(spriteBatch, position, color);
         }
 
         public virtual void Update(GameTime gameTime) {

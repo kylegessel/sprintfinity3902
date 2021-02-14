@@ -9,14 +9,65 @@ using System.Text;
 using Sprintfinity3902.Controllers;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
-using Sprintfinity3902.Entities;
+using Sprintfinity3902.SpriteFactories;
 
-namespace Sprintfinity3902.Entities
+namespace Sprintfinity3902.Link
 {
-    public class Player : AbstractEntity
+    public class Player : ILink
     {
 
         private IPlayerState _currentState;
+        private ISprite _sprite;
+        private Vector2 _position;
+        
+
+        public ISprite Sprite
+        {
+            get
+            {
+                return _sprite;
+            }
+            set
+            {
+                _sprite = value;
+            }
+        }
+
+        public Vector2 Position
+        {
+            get
+            {
+                return _position;
+            }
+            set
+            {
+                _position = value;
+            }
+        }
+        public int X
+        {
+            get
+            {
+                return (int)Position.X;
+            }
+            set
+            {
+                _position.X = value;
+                //Position = new Vector2(value, Position.Y);
+            }
+        }
+        public int Y
+        {
+            get
+            {
+                return (int)Position.Y;
+            }
+            set
+            {
+                _position.Y = value;
+                //Position = new Vector2(Position.X, value);
+            }
+        }
 
         public IPlayerState CurrentState {
             get {
@@ -31,6 +82,7 @@ namespace Sprintfinity3902.Entities
         public IPlayerState facingRight { get; set; }
         public IPlayerState facingUp { get; set; }
         public IPlayerState facingDownAttack { get; set; }
+        public Color color;
 
         public Player()
         {
@@ -41,26 +93,33 @@ namespace Sprintfinity3902.Entities
             facingRight = new FacingRightState(this);
             facingUp = new FacingUpState(this);
             facingDownAttack = new FacingDownAttackState(this);
-
+            color = Color.White;
         }
 
-
-        public override void SetState(IPlayerState state) {
+        public void SetState(IPlayerState state) {
             Vector2 pos = Position;
             CurrentState = state;
             Position = pos;
         }
 
-        public override void Move() {
+        public void Move() {
             CurrentState.Move();
         }
 
-        public override void Update(GameTime gameTime) {
+        public void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch) {
-            CurrentState.Sprite.Draw(spriteBatch, Position);
+        public void Draw(SpriteBatch spriteBatch, Color color) {
+            CurrentState.Sprite.Draw(spriteBatch, Position, color);
+        }
+        public void TakeDamage()
+        {
+            //Will be needed in future to take away health?
+        }
+        public void RemoveDecorator()
+        {
+            //NULL
         }
 
     }

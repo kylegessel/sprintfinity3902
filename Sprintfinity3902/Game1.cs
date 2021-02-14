@@ -9,6 +9,7 @@ using Sprintfinity3902.Controllers;
 using System.Diagnostics;
 using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Link;
 using Sprintfinity3902.Navigation;
 
 namespace Sprintfinity3902 {
@@ -21,7 +22,9 @@ namespace Sprintfinity3902 {
 
         public Texture2D texture;
         public IController mouse;
-        public Player playerCharacter;
+        public ILink playerCharacter;
+        public Player link;
+        public Color linkColor;
         public IEntity currentEnemy1;
         public IEntity currentEnemy2;
         public IEntity currentEnemy3;
@@ -94,10 +97,9 @@ namespace Sprintfinity3902 {
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
+            playerCharacter.Draw(_spriteBatch, Color.White);
             gelEnemy.Draw(_spriteBatch);
-            playerCharacter.Draw(_spriteBatch);
             currentEnemy1.Draw(_spriteBatch);
-
             currentEnemy2.Draw(_spriteBatch);
             currentEnemy3.Draw(_spriteBatch);
             boomerangItem.Draw(_spriteBatch);
@@ -119,15 +121,18 @@ namespace Sprintfinity3902 {
                 input.RegisterCommand(key, new DoNothingCommand(this));
             }
 
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingUp), Keys.W, Keys.Up);
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingLeft), Keys.A, Keys.Left);
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingDown), Keys.S, Keys.Down);
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingRight), Keys.D, Keys.Right);
+            link = (Player)playerCharacter;
+
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingUp), Keys.W, Keys.Up);
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingLeft), Keys.A, Keys.Left);
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingDown), Keys.S, Keys.Down);
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingRight), Keys.D, Keys.Right);
+            input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
  
         }
 
         public void SetListeners() {
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
         }
     }
 }

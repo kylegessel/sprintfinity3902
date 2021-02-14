@@ -68,9 +68,9 @@ namespace Sprintfinity3902.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Sprite1.Draw(spriteBatch, PositionUp);
-            Sprite2.Draw(spriteBatch, Position);
-            Sprite3.Draw(spriteBatch, PositionDown);
+            Sprite1.Draw(spriteBatch, PositionUp, Color.White);
+            Sprite2.Draw(spriteBatch, Position, Color.White);
+            Sprite3.Draw(spriteBatch, PositionDown, Color.White);
         }
 
         public override void Move()

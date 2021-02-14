@@ -55,7 +55,7 @@ namespace Sprintfinity3902.Sprites
         }
 
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
             if (Animation.CurrentFrame == Animation.GetFrame(3))
             {

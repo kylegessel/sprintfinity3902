@@ -46,7 +46,7 @@ namespace Sprintfinity3902.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch, Position);
+            Sprite.Draw(spriteBatch, Position, Color.White);
             FireAttack.Draw(spriteBatch);
         }
 

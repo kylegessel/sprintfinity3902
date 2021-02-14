@@ -46,5 +46,10 @@ namespace Sprintfinity3902.SpriteFactories {
         {
             return new HeartItemSprite(itemSpriteSheet);
         }
+
+        public ISprite CreateHeartContainerItem()
+        {
+            return new HeartContainerItemSprite(itemSpriteSheet);
+        }
     }
 }

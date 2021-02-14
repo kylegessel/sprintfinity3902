@@ -24,6 +24,7 @@ namespace Sprintfinity3902 {
         public IEntity testAttack;
         public IEntity rupee;
         public IEntity heart;
+        public IEntity heartContainer;
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
 
@@ -60,6 +61,7 @@ namespace Sprintfinity3902 {
             testAttack = new FireAttack(new Vector2(1200, 700));
             rupee = new RupeeItem();
             heart = new HeartItem();
+            heartContainer = new HeartContainerItem();
             
 
             SetCommands();
@@ -78,6 +80,7 @@ namespace Sprintfinity3902 {
             testAttack.Update(gameTime);
             rupee.Update(gameTime);
             heart.Update(gameTime);
+            heartContainer.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -95,6 +98,7 @@ namespace Sprintfinity3902 {
             testAttack.Draw(_spriteBatch);
             rupee.Draw(_spriteBatch);
             heart.Draw(_spriteBatch);
+            heartContainer.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

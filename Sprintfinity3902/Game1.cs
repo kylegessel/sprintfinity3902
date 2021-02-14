@@ -27,6 +27,8 @@ namespace Sprintfinity3902 {
         public IEntity heartContainer;
         public IEntity compass;
         public IEntity map;
+        public IEntity key;
+        public IEntity bomb;
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
 
@@ -66,6 +68,8 @@ namespace Sprintfinity3902 {
             heartContainer = new HeartContainerItem();
             compass = new CompassItem();
             map = new MapItem();
+            key = new KeyItem();
+            bomb = new BombItem();
             
 
             SetCommands();
@@ -87,6 +91,8 @@ namespace Sprintfinity3902 {
             heartContainer.Update(gameTime);
             compass.Update(gameTime);
             map.Update(gameTime);
+            key.Update(gameTime);
+            bomb.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -107,6 +113,8 @@ namespace Sprintfinity3902 {
             heartContainer.Draw(_spriteBatch);
             compass.Draw(_spriteBatch);
             map.Draw(_spriteBatch);
+            key.Draw(_spriteBatch);
+            bomb.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

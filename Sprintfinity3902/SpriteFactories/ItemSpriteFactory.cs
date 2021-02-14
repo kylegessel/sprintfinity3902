@@ -61,5 +61,9 @@ namespace Sprintfinity3902.SpriteFactories {
         {
             return new MapItemSprite(itemSpriteSheet);
         }
+        public ISprite CreateKeyItem()
+        {
+            return new KeyItemSprite(itemSpriteSheet);
+        }
     }
 }

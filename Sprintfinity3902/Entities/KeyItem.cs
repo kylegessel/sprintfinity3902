@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BombItem : AbstractEntity
+    public class KeyItem : AbstractEntity
     {
-        public BombItem()
+        public KeyItem()
         {
-            Sprite = ItemSpriteFactory.Instance.CreateBombItem();
-            Position = new Vector2(800, 600);
+            Sprite = ItemSpriteFactory.Instance.CreateKeyItem();
+            Position = new Vector2(700, 600);
         }
     }
 }

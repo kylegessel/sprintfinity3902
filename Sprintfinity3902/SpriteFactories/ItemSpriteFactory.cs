@@ -69,5 +69,9 @@ namespace Sprintfinity3902.SpriteFactories {
         {
             return new TriforceItemSprite(itemSpriteSheet);
         }
+        public ISprite CreateBowItem()
+        {
+            return new BowItemSprite(itemSpriteSheet);
+        }
     }
 }

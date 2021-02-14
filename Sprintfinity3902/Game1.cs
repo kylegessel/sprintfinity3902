@@ -30,6 +30,7 @@ namespace Sprintfinity3902 {
         public IEntity key;
         public IEntity bomb;
         public IEntity triforce;
+        public IEntity bow;
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
 
@@ -72,6 +73,7 @@ namespace Sprintfinity3902 {
             key = new KeyItem();
             bomb = new BombItem();
             triforce = new TriforceItem();
+            bow = new BowItem();
             
 
             SetCommands();
@@ -96,6 +98,7 @@ namespace Sprintfinity3902 {
             key.Update(gameTime);
             bomb.Update(gameTime);
             triforce.Update(gameTime);
+            bow.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -119,6 +122,7 @@ namespace Sprintfinity3902 {
             key.Draw(_spriteBatch);
             bomb.Draw(_spriteBatch);
             triforce.Draw(_spriteBatch);
+            bow.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

@@ -25,6 +25,7 @@ namespace Sprintfinity3902 {
         public IEntity rupee;
         public IEntity heart;
         public IEntity heartContainer;
+        public IEntity compass;
 
         private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
 
@@ -62,6 +63,7 @@ namespace Sprintfinity3902 {
             rupee = new RupeeItem();
             heart = new HeartItem();
             heartContainer = new HeartContainerItem();
+            compass = new CompassItem();
             
 
             SetCommands();
@@ -81,6 +83,7 @@ namespace Sprintfinity3902 {
             rupee.Update(gameTime);
             heart.Update(gameTime);
             heartContainer.Update(gameTime);
+            compass.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -99,6 +102,7 @@ namespace Sprintfinity3902 {
             rupee.Draw(_spriteBatch);
             heart.Draw(_spriteBatch);
             heartContainer.Draw(_spriteBatch);
+            compass.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

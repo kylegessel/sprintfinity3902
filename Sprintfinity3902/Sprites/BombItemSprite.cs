@@ -23,7 +23,7 @@ namespace Sprintfinity3902.Sprites
             Texture = texture;
 
             Animation = new Animation();
-            Animation.AddFrame(Sprite1, 1 / 10f);
+            Animation.AddFrame(Sprite1, 0f);
 
         }
     }

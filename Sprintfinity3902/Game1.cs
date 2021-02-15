@@ -32,6 +32,7 @@ namespace Sprintfinity3902
         public IEntity currentEnemy3;
         public IEntity boomerangItem;
         public IEntity bombItem;
+        public IEntity smokeItem;
         public IEntity finalBoss;
         public IEntity testAttack;
         public IEntity rupee;
@@ -81,7 +82,8 @@ namespace Sprintfinity3902
             boomerangItem = new BoomerangItem();
             finalBoss = new FinalBossEnemy();
             testAttack = new FireAttack(new Vector2(1200, 700));
-            bombItem = new BombItem(new Vector2(-1000, -1000));
+            smokeItem = new SmokeItem(new Vector2(-1000, -1000));
+            bombItem = new BombItem(new Vector2(-1000, -1000), (SmokeItem) smokeItem);
             rupee = new RupeeItem();
             heart = new HeartItem();
             heartContainer = new HeartContainerItem();
@@ -112,6 +114,7 @@ namespace Sprintfinity3902
             bombItem.Update(gameTime);
             finalBoss.Update(gameTime);
             testAttack.Update(gameTime);
+            smokeItem.Update(gameTime);
             rupee.Update(gameTime);
             heart.Update(gameTime);
             heartContainer.Update(gameTime);
@@ -138,6 +141,7 @@ namespace Sprintfinity3902
             currentEnemy3.Draw(_spriteBatch);
             boomerangItem.Draw(_spriteBatch);
             bombItem.Draw(_spriteBatch);
+            smokeItem.Draw(_spriteBatch);
             testAttack.Draw(_spriteBatch);
             finalBoss.Draw(_spriteBatch);
 

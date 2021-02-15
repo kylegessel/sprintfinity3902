@@ -5,17 +5,18 @@ using System.Collections.Generic;
 using System.Text;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.SpriteFactories;
+using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.States
 {
     public class FacingDownState : IPlayerState
     {
-        public ILink Player { get; set; }
+        public Player Player { get; set; }
         public ISprite Sprite { get; set; }
 
         public FacingDownState(ILink currentPlayer)
         {
-            Player = currentPlayer;
+            Player = (Player)currentPlayer;
             // Some type of if-else statement to get the damaged version?
             Sprite = PlayerSpriteFactory.Instance.CreateLinkDownSprite();
             

@@ -170,7 +170,7 @@ namespace Sprintfinity3902 {
             input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingDown), Keys.S, Keys.Down);
             input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingRight), Keys.D, Keys.Right);
             input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
-            input.RegisterCommand(new SetLinkAttackCommand(playerCharacter), Keys.Z);
+            input.RegisterCommand(new SetLinkAttackCommand(link), Keys.Z);
 
         }
 

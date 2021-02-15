@@ -9,25 +9,18 @@ using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.States
 {
-    public class FacingDownAttackState : IPlayerState
+    public class FacingUpAttackState : IPlayerState
     {
         public Player Player { get; set; }
         public ISprite Sprite { get; set; }
 
         private Boolean AttackExecuted = false;
-        public FacingDownAttackState(ILink currentPlayer)
+        public FacingUpAttackState(ILink currentPlayer)
         {
-            //PlayerCharacter = playerCharacter;
-            //get game time 
-            // Sprite = new LinkDownAttackSprite(PlayerCharacter.PlayerTexture, PlayerCharacter.StartingLocation);
-            //Sprite.GetAnimation();
+
             Player = (Player)currentPlayer;
-            Sprite = PlayerSpriteFactory.Instance.CreateLinkDownAttackSprite();
+            Sprite = PlayerSpriteFactory.Instance.CreateLinkUpAttackSprite();
             Sprite.Animation.IsPlaying = false;
-
-            //compare game time 
-
-            //set to prev state
         }
 
 
@@ -51,7 +44,7 @@ namespace Sprintfinity3902.States
         {
             if (!Sprite.Animation.IsPlaying && AttackExecuted)
             {
-                Player.SetState(Player.facingDown);
+                Player.SetState(Player.facingUp);
                 AttackExecuted = false;
             }
         }

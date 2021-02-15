@@ -5,17 +5,18 @@ using System.Collections.Generic;
 using System.Text;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.SpriteFactories;
+using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.States
 {
     public class FacingUpState : IPlayerState
     {
-        public ILink Player { get; set; }
+        public Player Player { get; set; }
         public ISprite Sprite { get; set; }
 
         public FacingUpState(ILink currentPlayer)
         {
-            Player = currentPlayer;
+            Player = (Player)currentPlayer;
             Sprite = PlayerSpriteFactory.Instance.CreateLinkUpSprite();
             Sprite.Animation.IsPlaying = false;
 
@@ -31,7 +32,7 @@ namespace Sprintfinity3902.States
 
         public void Attack()
         {
-            //Needs to be implemented
+            Player.SetState(Player.facingUpAttack);
         }
 
         public void Update()

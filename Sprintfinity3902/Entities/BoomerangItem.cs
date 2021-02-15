@@ -18,7 +18,7 @@ namespace Sprintfinity3902.Entities
         public BoomerangItem()
         {
             Sprite = ItemSpriteFactory.Instance.CreateBoomerangItem();
-            Position = new Vector2(500, 400);
+            Position = new Vector2(-1000, -1000);
             itemUse = false;
             itemUseCount = 0;
         }
@@ -65,9 +65,22 @@ namespace Sprintfinity3902.Entities
             }
             else
             {
-                // TODO: Implement return to player function
-                Position = new Vector2(Position.X - 10, Position.Y);
-
+                if (firingState == PlayerCharacter.facingDown)
+                {
+                    Position = new Vector2(Position.X, Position.Y - 10);
+                }
+                else if (firingState == PlayerCharacter.facingUp)
+                {
+                    Position = new Vector2(Position.X, Position.Y + 10);
+                }
+                else if (firingState == PlayerCharacter.facingLeft)
+                {
+                    Position = new Vector2(Position.X + 10, Position.Y);
+                }
+                else if (firingState == PlayerCharacter.facingRight)
+                {
+                    Position = new Vector2(Position.X - 10, Position.Y);
+                }
             }
 
             itemUseCount++;

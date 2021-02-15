@@ -41,6 +41,8 @@ namespace Sprintfinity3902
         public IEntity triforce;
         public IEntity bow;
         public IEntity clock;
+        public IEntity oldMan;
+        public IEntity fire;
 
         public IEntity gelEnemy;
         public Camera camera;
@@ -88,6 +90,8 @@ namespace Sprintfinity3902
             triforce = new TriforceItem();
             bow = new BowItem();
             clock = new ClockItem();
+            oldMan = new OldManNPC();
+            fire = new Fire();
             
 
             SetCommands();
@@ -118,6 +122,8 @@ namespace Sprintfinity3902
             triforce.Update(gameTime);
             bow.Update(gameTime);
             clock.Update(gameTime);
+            oldMan.Update(gameTime);
+            fire.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -147,6 +153,8 @@ namespace Sprintfinity3902
             triforce.Draw(_spriteBatch);
             bow.Draw(_spriteBatch);
             clock.Draw(_spriteBatch);
+            oldMan.Draw(_spriteBatch);
+            fire.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

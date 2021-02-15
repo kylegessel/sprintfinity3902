@@ -7,7 +7,7 @@ namespace Sprintfinity3902.Sprites
     {
         public Texture2D Texture { get; set; }
 
-        private const int FIRE_POS_X = 1;
+        private const int FIRE_POS_X = 52;
         private const int FIRE_POS_Y = 11;
         private const int FIRE_WIDTH = 16;
         private const int FIRE_HEIGHT = 16;

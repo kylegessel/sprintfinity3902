@@ -1,15 +1,7 @@
-﻿using Sprintfinity3902.Sprites;
-using Sprintfinity3902.States;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Sprintfinity3902.Controllers;
-using Microsoft.Xna.Framework.Input;
-using System.Diagnostics;
-using Sprintfinity3902.SpriteFactories;
+using Sprintfinity3902.States;
 
 namespace Sprintfinity3902.Link
 {

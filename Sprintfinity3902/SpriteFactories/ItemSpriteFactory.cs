@@ -2,11 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sprites;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Sprintfinity3902.SpriteFactories {
+namespace Sprintfinity3902.SpriteFactories
+{
     public class ItemSpriteFactory {
         private Texture2D linkItemSpriteSheet;
         private Texture2D bossSpriteSheet;
@@ -34,6 +32,21 @@ namespace Sprintfinity3902.SpriteFactories {
 
         public ISprite CreateBombItem() {
             return new BombItemSprite(linkItemSpriteSheet);
+        }
+
+        public ISprite CreateSmokeItem()
+        {
+            return new SmokeItemSprite(linkItemSpriteSheet);
+        }
+
+        public ISprite CreateMovingSwordHorizontalItem()
+        {
+            return new MovingSwordHorizontalSprite(linkItemSpriteSheet);
+        }
+
+        public ISprite CreateMovingSwordVerticalItem()
+        {
+            return new MovingSwordVerticalSprite(linkItemSpriteSheet);
         }
 
         public ISprite CreateFireAttack()

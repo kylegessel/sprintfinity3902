@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class Sprite
+    public class SpriteFrame
     {
         public Texture2D Texture { get; private set; }
         public Rectangle SourceRectangle { get; private set; }
@@ -30,13 +30,13 @@ namespace Sprintfinity3902.Sprites
                 return SourceRectangle.Height;
             }
         }
-        public Sprite(Texture2D texture, int x, int y, int width, int height)
+        public SpriteFrame(Texture2D texture, int x, int y, int width, int height)
         {
             Texture = texture;
             SourceRectangle = new Rectangle(x, y, width, height);
         }
 
-        public Sprite(Texture2D texture, Rectangle sourceRectangle) {
+        public SpriteFrame(Texture2D texture, Rectangle sourceRectangle) {
             Texture = texture;
             SourceRectangle = sourceRectangle;
         }

@@ -25,8 +25,8 @@ namespace Sprintfinity3902.Sprites
 
         public LinkLeftSprite(Texture2D texture)
         {
-            Sprite Sprite1 = new Sprite(texture, LINK_LEFT1_X, LINK_LEFT1_Y, LINK_LEFT1_WIDTH, LINK_LEFT1_HEIGHT);
-            Sprite Sprite2 = new Sprite(texture, LINK_LEFT2_X, LINK_LEFT2_Y, LINK_LEFT2_WIDTH, LINK_LEFT2_HEIGHT);
+            SpriteFrame Sprite1 = new SpriteFrame(texture, LINK_LEFT1_X, LINK_LEFT1_Y, LINK_LEFT1_WIDTH, LINK_LEFT1_HEIGHT);
+            SpriteFrame Sprite2 = new SpriteFrame(texture, LINK_LEFT2_X, LINK_LEFT2_Y, LINK_LEFT2_WIDTH, LINK_LEFT2_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();
@@ -35,13 +35,9 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite1, 1 / 5f);
         }
 
-        
-      
-        public override void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color) //Need to change Color.White to color
         {
-            spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0);
+            spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0);
         }
-
-
     }
 }

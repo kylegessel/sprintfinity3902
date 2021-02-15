@@ -6,12 +6,15 @@ using System.Text;
 
 namespace Sprintfinity3902.Entities
 {
-    public class GoriyaEnemy : AbstractEntity
-    {
+    public class GoriyaEnemy : AbstractEntity {
         public GoriyaEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
             Position = new Vector2(700, 500);
+        }
+
+        public override void Move() {
+            /*Move me*/
         }
     }
 }

@@ -28,6 +28,7 @@ namespace Sprintfinity3902
         public IEntity currentEnemy2;
         public IEntity currentEnemy3;
         public IEntity boomerangItem;
+        public IEntity bombItem;
         public IEntity finalBoss;
         public IEntity testAttack;
         public IEntity rupee;
@@ -77,13 +78,13 @@ namespace Sprintfinity3902
             boomerangItem = new BoomerangItem();
             finalBoss = new FinalBossEnemy();
             testAttack = new FireAttack(new Vector2(1200, 700));
+            bombItem = new BombItem(new Vector2(-1000, -1000));
             rupee = new RupeeItem();
             heart = new HeartItem();
             heartContainer = new HeartContainerItem();
             compass = new CompassItem();
             map = new MapItem();
             key = new KeyItem();
-            bomb = new BombItem();
             triforce = new TriforceItem();
             bow = new BowItem();
             clock = new ClockItem();
@@ -105,6 +106,7 @@ namespace Sprintfinity3902
             currentEnemy2.Update(gameTime);
             currentEnemy3.Update(gameTime);
             boomerangItem.Update(gameTime);
+            bombItem.Update(gameTime);
             finalBoss.Update(gameTime);
             testAttack.Update(gameTime);
             rupee.Update(gameTime);
@@ -113,7 +115,6 @@ namespace Sprintfinity3902
             compass.Update(gameTime);
             map.Update(gameTime);
             key.Update(gameTime);
-            bomb.Update(gameTime);
             triforce.Update(gameTime);
             bow.Update(gameTime);
             clock.Update(gameTime);
@@ -133,10 +134,9 @@ namespace Sprintfinity3902
             currentEnemy2.Draw(_spriteBatch);
             currentEnemy3.Draw(_spriteBatch);
             boomerangItem.Draw(_spriteBatch);
+            bombItem.Draw(_spriteBatch);
             testAttack.Draw(_spriteBatch);
             finalBoss.Draw(_spriteBatch);
-            
-
             testAttack.Draw(_spriteBatch);
             rupee.Draw(_spriteBatch);
             heart.Draw(_spriteBatch);
@@ -144,7 +144,6 @@ namespace Sprintfinity3902
             compass.Draw(_spriteBatch);
             map.Draw(_spriteBatch);
             key.Draw(_spriteBatch);
-            bomb.Draw(_spriteBatch);
             triforce.Draw(_spriteBatch);
             bow.Draw(_spriteBatch);
             clock.Draw(_spriteBatch);
@@ -169,10 +168,13 @@ namespace Sprintfinity3902
             input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingDown), Keys.S, Keys.Down);
             input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingRight), Keys.D, Keys.Right);
             input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
- 
+            input.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
+            input.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
+
         }
 
-        public void SetListeners() {
+        public void SetListeners()
+        {
             InputKeyboard.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
         }
     }

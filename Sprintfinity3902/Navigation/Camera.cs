@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
-namespace Sprintfinity3902.Navigation {
+namespace Sprintfinity3902.Navigation
+{
     public class Camera {
 
         private static string FILE_NAME = "NES - The Legend of Zelda - Level 1 E";

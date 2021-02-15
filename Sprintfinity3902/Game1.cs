@@ -1,18 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using System;
 using Sprintfinity3902.Commands;
-using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Controllers;
-using System.Diagnostics;
-using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Navigation;
+using Sprintfinity3902.SpriteFactories;
+using System;
 
-namespace Sprintfinity3902 {
+namespace Sprintfinity3902
+{
     public class Game1 : Game {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;

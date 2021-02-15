@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Sprintfinity3902.Sprites
+﻿namespace Sprintfinity3902.Sprites
 {
     public class AnimationFrame
     {

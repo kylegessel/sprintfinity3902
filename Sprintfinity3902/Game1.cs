@@ -135,6 +135,7 @@ namespace Sprintfinity3902
             input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingRight), Keys.D, Keys.Right);
             input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
             input.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
+            input.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
 
         }
 

@@ -89,7 +89,7 @@ namespace Sprintfinity3902.Sprites
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            spriteBatch.Draw(CurrentFrame.Sprite.Texture, position, CurrentFrame.Sprite.SourceRectangle, color, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(CurrentFrame.Sprite.Texture, position, CurrentFrame.Sprite.SourceRectangle, color, 0.0f, new Vector2(0, 0), 4.0f, SpriteEffects.None, 0.0f);
         }
 
         public void Play()

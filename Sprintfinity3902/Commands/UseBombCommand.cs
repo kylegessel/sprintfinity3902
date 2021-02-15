@@ -23,7 +23,10 @@ namespace Sprintfinity3902.Commands
 
         public void Execute()
         {
-            Bomb.UseItem(PlayerCharacter);
+            if (!Bomb.getItemUse())
+            {
+                Bomb.UseItem(PlayerCharacter);
+            }
         }
     }
 }

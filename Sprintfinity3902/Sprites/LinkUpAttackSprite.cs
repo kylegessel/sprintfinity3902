@@ -32,6 +32,11 @@ namespace Sprintfinity3902.Sprites
         private const int LINK_UATTACK4_WIDTH = 16;
         private const int LINK_UATTACK4_HEIGHT = 28;
 
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        {
+            position = new Vector2(position.X, position.Y-(12*5));
+            spriteBatch.Draw(Animation.CurrentFrame.Sprite.Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0.0f);
+        }
         public LinkUpAttackSprite(Texture2D texture)
         {
             SpriteFrame Sprite1 = new SpriteFrame(texture, LINK_UATTACK1_POS_X, LINK_UATTACK1_POS_Y, LINK_UATTACK1_WIDTH, LINK_UATTACK1_HEIGHT);

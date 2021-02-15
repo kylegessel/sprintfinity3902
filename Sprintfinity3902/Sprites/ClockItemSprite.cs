@@ -16,7 +16,7 @@ namespace Sprintfinity3902.Sprites
 
         public ClockItemSprite(Texture2D texture)
         {
-            Sprite sprite1 = new Sprite(texture, CLOCK_X, CLOCK_Y, CLOCK_WIDTH, CLOCK_HEIGHT);
+            SpriteFrame sprite1 = new SpriteFrame(texture, CLOCK_X, CLOCK_Y, CLOCK_WIDTH, CLOCK_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

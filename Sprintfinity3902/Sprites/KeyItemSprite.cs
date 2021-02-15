@@ -16,7 +16,7 @@ namespace Sprintfinity3902.Sprites
 
         public KeyItemSprite(Texture2D texture)
         {
-            Sprite sprite1 = new Sprite(texture, KEY_X, KEY_Y, KEY_WIDTH, KEY_HEIGHT);
+            SpriteFrame sprite1 = new SpriteFrame(texture, KEY_X, KEY_Y, KEY_WIDTH, KEY_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

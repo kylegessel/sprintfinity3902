@@ -16,7 +16,7 @@ namespace Sprintfinity3902.Sprites
 
         public BowItemSprite(Texture2D texture)
         {
-            Sprite sprite1 = new Sprite(texture, BOW_X, BOW_Y, BOW_WIDTH, BOW_HEIGHT);
+            SpriteFrame sprite1 = new SpriteFrame(texture, BOW_X, BOW_Y, BOW_WIDTH, BOW_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

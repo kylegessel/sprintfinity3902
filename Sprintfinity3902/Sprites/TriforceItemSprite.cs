@@ -21,8 +21,8 @@ namespace Sprintfinity3902.Sprites
 
         public TriforceItemSprite(Texture2D texture)
         {
-            Sprite sprite1 = new Sprite(texture, TRIFORCE_G_X, TRIFORCE_G_Y, TRIFORCE_G_WIDTH, TRIFORCE_G_HEIGHT);
-            Sprite sprite2 = new Sprite(texture, TRIFORCE_B_X, TRIFORCE_B_Y, TRIFORCE_B_WIDTH, TRIFORCE_B_HEIGHT);
+            SpriteFrame sprite1 = new SpriteFrame(texture, TRIFORCE_G_X, TRIFORCE_G_Y, TRIFORCE_G_WIDTH, TRIFORCE_G_HEIGHT);
+            SpriteFrame sprite2 = new SpriteFrame(texture, TRIFORCE_B_X, TRIFORCE_B_Y, TRIFORCE_B_WIDTH, TRIFORCE_B_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

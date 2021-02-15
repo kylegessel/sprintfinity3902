@@ -16,9 +16,9 @@ namespace Sprintfinity3902.Sprites
         private const int GEL1_WIDTH = 8;
         private const int GEL1_HEIGHT = 8;
 
-        private const int GEL2_POS_X = 11;
+        private const int GEL2_POS_X = 10;
         private const int GEL2_POS_Y = 15;
-        private const int GEL2_WIDTH = 6;
+        private const int GEL2_WIDTH = 8;
         private const int GEL2_HEIGHT = 9;
 
         public GelEnemySprite(Texture2D texture)

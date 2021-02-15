@@ -21,8 +21,8 @@ namespace Sprintfinity3902.Sprites
 
         public RupeeItemSprite(Texture2D texture)
         {
-            Sprite sprite1 = new Sprite(texture, RUPEE_G_X, RUPEE_G_Y, RUPEE_G_WIDTH, RUPEE_G_HEIGHT);
-            Sprite sprite2 = new Sprite(texture, RUPEE_B_X, RUPEE_B_Y, RUPEE_B_WIDTH, RUPEE_B_HEIGHT);
+            SpriteFrame sprite1 = new SpriteFrame(texture, RUPEE_G_X, RUPEE_G_Y, RUPEE_G_WIDTH, RUPEE_G_HEIGHT);
+            SpriteFrame sprite2 = new SpriteFrame(texture, RUPEE_B_X, RUPEE_B_Y, RUPEE_B_WIDTH, RUPEE_B_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

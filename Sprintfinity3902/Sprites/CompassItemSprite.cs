@@ -16,7 +16,7 @@ namespace Sprintfinity3902.Sprites
 
         public CompassItemSprite(Texture2D texture)
         {
-            Sprite sprite1 = new Sprite(texture, COMPASS_X, COMPASS_Y, COMPASS_WIDTH, COMPASS_HEIGHT);
+            SpriteFrame sprite1 = new SpriteFrame(texture, COMPASS_X, COMPASS_Y, COMPASS_WIDTH, COMPASS_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

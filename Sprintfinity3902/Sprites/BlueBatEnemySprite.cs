@@ -14,11 +14,11 @@ namespace Sprintfinity3902.Sprites
         private const int BAT1_POS_X = 183;
         private const int BAT1_POS_Y = 15;
         private const int BAT1_WIDTH = 16;
-        private const int BAT1_HEIGHT = 8;
+        private const int BAT1_HEIGHT = 10;
 
-        private const int BAT2_POS_X = 203;
+        private const int BAT2_POS_X = 200;
         private const int BAT2_POS_Y = 15;
-        private const int BAT2_WIDTH = 10;
+        private const int BAT2_WIDTH = 16;
         private const int BAT2_HEIGHT = 10;
 
         public BlueBatEnemySprite(Texture2D texture)

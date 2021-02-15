@@ -21,8 +21,8 @@ namespace Sprintfinity3902.Sprites
 
         public HeartItemSprite(Texture2D texture)
         {
-            Sprite sprite1 = new Sprite(texture, HEART_R_X, HEART_R_Y, HEART_R_WIDTH, HEART_R_HEIGHT);
-            Sprite sprite2 = new Sprite(texture, HEART_B_X, HEART_B_Y, HEART_B_WIDTH, HEART_B_HEIGHT);
+            SpriteFrame sprite1 = new SpriteFrame(texture, HEART_R_X, HEART_R_Y, HEART_R_WIDTH, HEART_R_HEIGHT);
+            SpriteFrame sprite2 = new SpriteFrame(texture, HEART_B_X, HEART_B_Y, HEART_B_WIDTH, HEART_B_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

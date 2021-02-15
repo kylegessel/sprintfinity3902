@@ -16,7 +16,7 @@ namespace Sprintfinity3902.Sprites
 
         public MapItemSprite(Texture2D texture)
         {
-            Sprite sprite1 = new Sprite(texture, MAP_X, MAP_Y, MAP_WIDTH, MAP_HEIGHT);
+            SpriteFrame sprite1 = new SpriteFrame(texture, MAP_X, MAP_Y, MAP_WIDTH, MAP_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

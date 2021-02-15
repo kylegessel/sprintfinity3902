@@ -18,7 +18,7 @@ namespace Sprintfinity3902.Sprites
 
         public SkeletonEnemySprite(Texture2D texture)
         {
-            Sprite Sprite = new Sprite(texture, SKELETON_POS_X, SKELETON_POS_Y, SKELETON_WIDTH, SKELETON_HEIGHT);
+            SpriteFrame Sprite = new SpriteFrame(texture, SKELETON_POS_X, SKELETON_POS_Y, SKELETON_WIDTH, SKELETON_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();
@@ -27,7 +27,7 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite, 1 / 2f);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 position) {
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color) {
             spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0f, new Vector2(0, 0), 5.0f, Animation.CurrentFrame == Animation.GetFrame(1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         }
     

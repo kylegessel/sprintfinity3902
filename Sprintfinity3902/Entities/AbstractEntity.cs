@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Entities
 {
-    public class AbstractEntity : IEntity
+    public abstract class AbstractEntity : IEntity
     {
         private ISprite _sprite;
         private Vector2 _position;
@@ -44,7 +44,6 @@ namespace Sprintfinity3902.Entities
             set
             {
                 _position.X = value;
-                //Position = new Vector2(value, Position.Y);
             }
         }
         public int Y
@@ -56,29 +55,40 @@ namespace Sprintfinity3902.Entities
             set
             {
                 _position.Y = value;
-                //Position = new Vector2(Position.X, value);
             }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch, Position);
+            Sprite.Draw(spriteBatch, Position, Color.White);
         }
 
         public virtual void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
+            // These are specific to a class which inherits this Abstract Class, so keep these in in concrete class as override
+            /*
+             * Move();
+             * Attack();
+             */
             Move();
         }
 
+        public virtual void Attack()
+        {
+
+        }
         public virtual void Move()
         {
 
         }
 
-        public virtual void SetState(IPlayerState state)
-        {
-
+        public virtual void SetState(IPlayerState state) {
+            /* 
+             * Do Nothing at all
+             * Most Entities will not need a SetState method
+             * But they can choose to override this if they do
+             */
         }
     }
 }

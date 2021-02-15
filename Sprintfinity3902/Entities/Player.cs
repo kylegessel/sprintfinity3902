@@ -9,16 +9,17 @@ using System.Text;
 using Sprintfinity3902.Controllers;
 using Microsoft.Xna.Framework.Input;
 using System.Diagnostics;
-using Sprintfinity3902.Entities;
+using Sprintfinity3902.SpriteFactories;
 
-namespace Sprintfinity3902.Entities
+namespace Sprintfinity3902.Link
 {
     public class Player : ILink
     {
 
-
+        private IPlayerState _currentState;
         private ISprite _sprite;
         private Vector2 _position;
+        
 
         public ISprite Sprite
         {
@@ -68,13 +69,6 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-
-
-
-
-
-        private IPlayerState _currentState;
-
         public IPlayerState CurrentState {
             get {
                 return _currentState;
@@ -88,6 +82,7 @@ namespace Sprintfinity3902.Entities
         public IPlayerState facingRight { get; set; }
         public IPlayerState facingUp { get; set; }
         public IPlayerState facingDownAttack { get; set; }
+        public Color color;
 
         public Player()
         {
@@ -98,8 +93,8 @@ namespace Sprintfinity3902.Entities
             facingRight = new FacingRightState(this);
             facingUp = new FacingUpState(this);
             facingDownAttack = new FacingDownAttackState(this);
+            color = Color.White;
         }
-
 
         public void SetState(IPlayerState state) {
             Vector2 pos = Position;
@@ -121,19 +116,17 @@ namespace Sprintfinity3902.Entities
             CurrentState.Update();
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
-            CurrentState.Sprite.Draw(spriteBatch, Position);
+        public void Draw(SpriteBatch spriteBatch, Color color) {
+            CurrentState.Sprite.Draw(spriteBatch, Position, color);
         }
-
         public void TakeDamage()
         {
-
+            //Will be needed in future to take away health?
         }
-
         public void RemoveDecorator()
         {
-
+            //NULL
         }
-    }
 
+    }
 }

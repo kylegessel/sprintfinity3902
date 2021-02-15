@@ -9,31 +9,50 @@ using Sprintfinity3902.Controllers;
 using System.Diagnostics;
 using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Link;
+using Sprintfinity3902.Navigation;
 
 namespace Sprintfinity3902 {
-    public class Game1 : Game
-    {
+    public class Game1 : Game {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        public static int ScaleWindow = 7;
+        public GraphicsDeviceManager Graphics { get { return _graphics; } }
+
         public Texture2D texture;
         public IController mouse;
-        public Player playerCharacter;
+        public ILink playerCharacter;
+        public Player link;
+        public Color linkColor;
         public IEntity currentEnemy1;
+        public IEntity currentEnemy2;
+        public IEntity currentEnemy3;
+        public IEntity boomerangItem;
+        public IEntity finalBoss;
+        public IEntity testAttack;
+        public IEntity rupee;
+        public IEntity heart;
+        public IEntity heartContainer;
+        public IEntity compass;
+        public IEntity map;
+        public IEntity key;
+        public IEntity bomb;
+        public IEntity triforce;
+        public IEntity bow;
+        public IEntity clock;
 
-        private const string linkSpriteSheet = "Zelda_Link_and_Items_Transparent";
-
-
-
+        public IEntity gelEnemy;
+        public Camera camera;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 2000;
-            _graphics.PreferredBackBufferHeight = 1000;
             Window.Title = "The Legend of Zelda";
-            _graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            camera = new Camera(this);
+            Graphics.ApplyChanges();
         }
 
         protected override void Initialize()
@@ -45,15 +64,31 @@ namespace Sprintfinity3902 {
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            texture = Content.Load<Texture2D>(linkSpriteSheet);
+            camera.LoadAllTextures(Content);
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+            gelEnemy = new GelEnemy();
 
             playerCharacter = new Player();
-            
             currentEnemy1 = new SkeletonEnemy();
+            currentEnemy2 = new HandEnemy();
+            currentEnemy3 = new BlueBatEnemy();
+            boomerangItem = new BoomerangItem();
+            finalBoss = new FinalBossEnemy();
+            testAttack = new FireAttack(new Vector2(1200, 700));
+            rupee = new RupeeItem();
+            heart = new HeartItem();
+            heartContainer = new HeartContainerItem();
+            compass = new CompassItem();
+            map = new MapItem();
+            key = new KeyItem();
+            bomb = new BombItem();
+            triforce = new TriforceItem();
+            bow = new BowItem();
+            clock = new ClockItem();
+            
 
             SetCommands();
             SetListeners();
@@ -64,8 +99,25 @@ namespace Sprintfinity3902 {
             InputKeyboard.Instance.Update();
             InputMouse.Instance.Update();
 
+            gelEnemy.Update(gameTime);
+
             playerCharacter.Update(gameTime);
             currentEnemy1.Update(gameTime);
+            currentEnemy2.Update(gameTime);
+            currentEnemy3.Update(gameTime);
+            boomerangItem.Update(gameTime);
+            finalBoss.Update(gameTime);
+            testAttack.Update(gameTime);
+            rupee.Update(gameTime);
+            heart.Update(gameTime);
+            heartContainer.Update(gameTime);
+            compass.Update(gameTime);
+            map.Update(gameTime);
+            key.Update(gameTime);
+            bomb.Update(gameTime);
+            triforce.Update(gameTime);
+            bow.Update(gameTime);
+            clock.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -76,9 +128,27 @@ namespace Sprintfinity3902 {
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            playerCharacter.Draw(_spriteBatch);
+            playerCharacter.Draw(_spriteBatch, Color.White);
+            gelEnemy.Draw(_spriteBatch);
             currentEnemy1.Draw(_spriteBatch);
+            currentEnemy2.Draw(_spriteBatch);
+            currentEnemy3.Draw(_spriteBatch);
+            boomerangItem.Draw(_spriteBatch);
+            testAttack.Draw(_spriteBatch);
+            finalBoss.Draw(_spriteBatch);
+            
 
+            testAttack.Draw(_spriteBatch);
+            rupee.Draw(_spriteBatch);
+            heart.Draw(_spriteBatch);
+            heartContainer.Draw(_spriteBatch);
+            compass.Draw(_spriteBatch);
+            map.Draw(_spriteBatch);
+            key.Draw(_spriteBatch);
+            bomb.Draw(_spriteBatch);
+            triforce.Draw(_spriteBatch);
+            bow.Draw(_spriteBatch);
+            clock.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
@@ -93,17 +163,19 @@ namespace Sprintfinity3902 {
                 input.RegisterCommand(key, new DoNothingCommand(this));
             }
 
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingUp), Keys.W, Keys.Up);
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingLeft), Keys.A, Keys.Left);
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingDown), Keys.S, Keys.Down);
-            input.RegisterCommand(new SetPlayerMoveCommand(playerCharacter, playerCharacter.facingRight), Keys.D, Keys.Right);
-            input.RegisterCommand(new SetLinkAttackCommand(playerCharacter), Keys.Z);
+            link = (Player)playerCharacter;
 
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingUp), Keys.W, Keys.Up);
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingLeft), Keys.A, Keys.Left);
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingDown), Keys.S, Keys.Down);
+            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingRight), Keys.D, Keys.Right);
+            input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
+            input.RegisterCommand(new SetLinkAttackCommand(playerCharacter), Keys.Z);
 
         }
 
         public void SetListeners() {
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
         }
     }
 }

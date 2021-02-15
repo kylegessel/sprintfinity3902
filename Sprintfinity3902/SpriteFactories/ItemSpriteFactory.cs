@@ -36,6 +36,11 @@ namespace Sprintfinity3902.SpriteFactories {
             return new BombItemSprite(linkItemSpriteSheet);
         }
 
+        public ISprite CreateSmokeItem()
+        {
+            return new SmokeItemSprite(linkItemSpriteSheet);
+        }
+
         public ISprite CreateFireAttack()
         {
             return new FireAttackSprite(bossSpriteSheet);

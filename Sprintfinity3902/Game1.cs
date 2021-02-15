@@ -82,14 +82,12 @@ namespace Sprintfinity3902
             finalBoss = new FinalBossEnemy();
             testAttack = new FireAttack(new Vector2(1200, 700));
             bombItem = new BombItem(new Vector2(-1000, -1000));
-
             rupee = new RupeeItem();
             heart = new HeartItem();
             heartContainer = new HeartContainerItem();
             compass = new CompassItem();
             map = new MapItem();
             key = new KeyItem();
-            bomb = new BombItem();
             triforce = new TriforceItem();
             bow = new BowItem();
             clock = new ClockItem();
@@ -120,7 +118,6 @@ namespace Sprintfinity3902
             compass.Update(gameTime);
             map.Update(gameTime);
             key.Update(gameTime);
-            bomb.Update(gameTime);
             triforce.Update(gameTime);
             bow.Update(gameTime);
             clock.Update(gameTime);
@@ -152,7 +149,6 @@ namespace Sprintfinity3902
             compass.Draw(_spriteBatch);
             map.Draw(_spriteBatch);
             key.Draw(_spriteBatch);
-            bomb.Draw(_spriteBatch);
             triforce.Draw(_spriteBatch);
             bow.Draw(_spriteBatch);
             clock.Draw(_spriteBatch);

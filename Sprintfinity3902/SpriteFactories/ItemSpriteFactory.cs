@@ -8,13 +8,15 @@ using System.Text;
 
 namespace Sprintfinity3902.SpriteFactories {
     public class ItemSpriteFactory {
-        private Texture2D itemSpriteSheet;
+        private Texture2D linkItemSpriteSheet;
         private Texture2D bossSpriteSheet;
+        private Texture2D itemSpriteSheet;
 
         private static ItemSpriteFactory instance;
 
-        private static string ITEM_FILE_NAME = "Zelda_Link_and_Items_Transparent";
+        private static string LINK_ITEM_FILE_NAME = "Zelda_Link_and_Items_Transparent";
         private static string BOSS_FILE_NAME = "Zelda_Bosses_Transparent";
+        private static string ITEM_FILE_NAME = "Zelda_Items_and_Weapons_Transparent";
 
         public static ItemSpriteFactory Instance {
             get {
@@ -25,12 +27,13 @@ namespace Sprintfinity3902.SpriteFactories {
             }
         }
         public void LoadAllTextures(ContentManager content) {
-            itemSpriteSheet = content.Load<Texture2D>(ITEM_FILE_NAME);
+            linkItemSpriteSheet = content.Load<Texture2D>(LINK_ITEM_FILE_NAME);
             bossSpriteSheet = content.Load<Texture2D>(BOSS_FILE_NAME);
+            itemSpriteSheet = content.Load<Texture2D>(ITEM_FILE_NAME);
         }
 
         public ISprite CreateBombItem() {
-            return new BombItemSprite(itemSpriteSheet);
+            return new BombItemSprite(linkItemSpriteSheet);
         }
 
         public ISprite CreateFireAttack()
@@ -38,9 +41,50 @@ namespace Sprintfinity3902.SpriteFactories {
             return new FireAttackSprite(bossSpriteSheet);
         }
 
+        public ISprite CreateRupeeItem()
+        {
+            return new RupeeItemSprite(itemSpriteSheet);
+        }
+
+        public ISprite CreateHeartItem()
+        {
+            return new HeartItemSprite(itemSpriteSheet);
+        }
+
+        public ISprite CreateHeartContainerItem()
+        {
+            return new HeartContainerItemSprite(itemSpriteSheet);
+        }
+
+        public ISprite CreateCompassItem()
+        {
+            return new CompassItemSprite(itemSpriteSheet);
+        }
+
+        public ISprite CreateMapItem()
+        {
+            return new MapItemSprite(itemSpriteSheet);
+        }
+        public ISprite CreateKeyItem()
+        {
+            return new KeyItemSprite(itemSpriteSheet);
+        }
+        public ISprite CreateTriforceItem()
+        {
+            return new TriforceItemSprite(itemSpriteSheet);
+        }
+        public ISprite CreateBowItem()
+        {
+            return new BowItemSprite(itemSpriteSheet);
+        }
+        public ISprite CreateClockItem()
+        {
+            return new ClockItemSprite(itemSpriteSheet);
+        }
+
         public ISprite CreateBoomerangItem()
         {
-            return new BoomerangItemSprite(itemSpriteSheet);
+            return new BoomerangItemSprite(linkItemSpriteSheet);
         }
     }
 }

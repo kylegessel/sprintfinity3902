@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Entities
         public BombItem()
         {
             Sprite = ItemSpriteFactory.Instance.CreateBombItem();
-            Position = new Vector2(500, 500);
+            Position = new Vector2(800, 600);
             
         }
 

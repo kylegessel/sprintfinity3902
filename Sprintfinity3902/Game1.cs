@@ -31,6 +31,16 @@ namespace Sprintfinity3902 {
         public IEntity boomerangItem;
         public IEntity finalBoss;
         public IEntity testAttack;
+        public IEntity rupee;
+        public IEntity heart;
+        public IEntity heartContainer;
+        public IEntity compass;
+        public IEntity map;
+        public IEntity key;
+        public IEntity bomb;
+        public IEntity triforce;
+        public IEntity bow;
+        public IEntity clock;
 
         public IEntity gelEnemy;
         public Camera camera;
@@ -68,6 +78,17 @@ namespace Sprintfinity3902 {
             boomerangItem = new BoomerangItem();
             finalBoss = new FinalBossEnemy();
             testAttack = new FireAttack(new Vector2(1200, 700));
+            rupee = new RupeeItem();
+            heart = new HeartItem();
+            heartContainer = new HeartContainerItem();
+            compass = new CompassItem();
+            map = new MapItem();
+            key = new KeyItem();
+            bomb = new BombItem();
+            triforce = new TriforceItem();
+            bow = new BowItem();
+            clock = new ClockItem();
+            
 
             SetCommands();
             SetListeners();
@@ -87,6 +108,16 @@ namespace Sprintfinity3902 {
             boomerangItem.Update(gameTime);
             finalBoss.Update(gameTime);
             testAttack.Update(gameTime);
+            rupee.Update(gameTime);
+            heart.Update(gameTime);
+            heartContainer.Update(gameTime);
+            compass.Update(gameTime);
+            map.Update(gameTime);
+            key.Update(gameTime);
+            bomb.Update(gameTime);
+            triforce.Update(gameTime);
+            bow.Update(gameTime);
+            clock.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -107,6 +138,17 @@ namespace Sprintfinity3902 {
             finalBoss.Draw(_spriteBatch);
             
 
+            testAttack.Draw(_spriteBatch);
+            rupee.Draw(_spriteBatch);
+            heart.Draw(_spriteBatch);
+            heartContainer.Draw(_spriteBatch);
+            compass.Draw(_spriteBatch);
+            map.Draw(_spriteBatch);
+            key.Draw(_spriteBatch);
+            bomb.Draw(_spriteBatch);
+            triforce.Draw(_spriteBatch);
+            bow.Draw(_spriteBatch);
+            clock.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

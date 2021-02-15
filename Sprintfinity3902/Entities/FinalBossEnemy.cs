@@ -21,49 +21,59 @@ namespace Sprintfinity3902.Entities
         private int waitTime;
         private int attackTime;
 
+        private Random rd;
+
         public FinalBossEnemy()
         {
             ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
             OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
 
             Sprite = ClosedMouth;
-            FireAttack = new DummyEntity();
+            //FireAttack = new DummyEntity();
             Position = new Vector2(1200, 500);
 
-            direction = new Random().Next(1, 4);
+            rd = new Random();
+
+            direction = rd.Next(1, 4);
             directionCount = 0;
 
-            attack = new Random().Next(1, 3);
+            attack = rd.Next(1, 3);
             attackTime = 60;
         }
 
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
-            FireAttack.Update(gameTime);
+            if (FireAttack != null) {
+                FireAttack.Update(gameTime);
+            }
+            
             Move();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch, Position);
-            FireAttack.Draw(spriteBatch);
+            if (FireAttack != null) {
+                FireAttack.Draw(spriteBatch);
+            }
         }
 
         public override void Move()
         {
+            // Movement of dragon
             if (directionCount == 0)
             {
-                waitTime = new Random().Next(60, 120);
+                waitTime = rd.Next(60, 120);
                 directionCount++;
             }
             else if (directionCount == waitTime)
             {
-                direction = new Random().Next(1, 4);
+                direction = rd.Next(1, 4);
                 if (attack == 1)
                     attack = 2;
                 else
-                    attack = new Random().Next(1, 3);
+                    attack = rd.Next(1, 3);
                 directionCount = 0;
             }
 
@@ -72,7 +82,7 @@ namespace Sprintfinity3902.Entities
                 X = X - 1;
             else if (direction == 2) //Backward
                 X = X + 1;
-            else { } //Still
+            
             directionCount++;
 
             // Handle Attack
@@ -85,7 +95,7 @@ namespace Sprintfinity3902.Entities
             else if (attackCount == attackTime)
             {
                 Sprite = ClosedMouth;
-                FireAttack = new DummyEntity();
+                //FireAttack = new DummyEntity();
             }
 
             attackCount++;

@@ -21,8 +21,8 @@ namespace Sprintfinity3902.Sprites
 
         public FinalBossMouthOpenSprite(Texture2D texture)
         {
-            Sprite Sprite1 = new Sprite(texture, BOSS_OPENED_1_POS_X, BOSS_OPENED_1_POS_Y, BOSS_OPENED_1_WIDTH, BOSS_OPENED_1_HEIGHT);
-            Sprite Sprite2 = new Sprite(texture, BOSS_OPENED_2_POS_X, BOSS_OPENED_2_POS_Y, BOSS_OPENED_2_WIDTH, BOSS_OPENED_2_HEIGHT);
+            SpriteFrame Sprite1 = new SpriteFrame(texture, BOSS_OPENED_1_POS_X, BOSS_OPENED_1_POS_Y, BOSS_OPENED_1_WIDTH, BOSS_OPENED_1_HEIGHT);
+            SpriteFrame Sprite2 = new SpriteFrame(texture, BOSS_OPENED_2_POS_X, BOSS_OPENED_2_POS_Y, BOSS_OPENED_2_WIDTH, BOSS_OPENED_2_HEIGHT);
             Texture = texture;
 
             Animation = new Animation();

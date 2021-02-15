@@ -14,14 +14,21 @@ namespace Sprintfinity3902.Navigation {
         private Game _game;
         private Rectangle _sourceRectangle;
 
+        public Rectangle SourceRectangle {
+            get {
+                return _sourceRectangle;
+            }
+        }
+
+        public GameWindow Window {
+            get {
+                return _game.Window;
+            }
+        }
+
         public Camera(Game game) {
             _game = game;
-            _sourceRectangle = new Rectangle(0,0,257,177);
-            ((Game1)_game).Graphics.PreferredBackBufferWidth = _sourceRectangle.Width*Game1.ScaleWindow;
-            ((Game1)_game).Graphics.PreferredBackBufferHeight = _sourceRectangle.Height*Game1.ScaleWindow;
-
-
-
+            _sourceRectangle = new Rectangle(1,0,257,177);
         }
 
         public void LoadAllTextures(ContentManager content) {

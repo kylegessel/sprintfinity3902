@@ -48,9 +48,5 @@ namespace Sprintfinity3902.Entities
             }
             count++;
         }
-
-        public override void Move() {
-            /*Move me*/
-        }
     }
 }

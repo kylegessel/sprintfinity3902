@@ -19,6 +19,8 @@ namespace Sprintfinity3902 {
         public static int ScaleWindow = 7;
         public GraphicsDeviceManager Graphics { get { return _graphics; } }
 
+        private Camera camera;
+
         public Texture2D texture;
         public IController mouse;
         public Player playerCharacter;
@@ -28,7 +30,6 @@ namespace Sprintfinity3902 {
         public IEntity testAttack;
 
         public IEntity gelEnemy;
-        public Camera camera;
 
         public Game1()
         {
@@ -36,7 +37,11 @@ namespace Sprintfinity3902 {
             Window.Title = "The Legend of Zelda";
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
             camera = new Camera(this);
+
+            Graphics.PreferredBackBufferWidth = camera.SourceRectangle.Width * Game1.ScaleWindow;
+            Graphics.PreferredBackBufferHeight = camera.SourceRectangle.Height * Game1.ScaleWindow;
             Graphics.ApplyChanges();
         }
 
@@ -54,6 +59,7 @@ namespace Sprintfinity3902 {
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+
             gelEnemy = new GelEnemy();
 
             playerCharacter = new Player();
@@ -71,6 +77,7 @@ namespace Sprintfinity3902 {
             InputKeyboard.Instance.Update();
             InputMouse.Instance.Update();
 
+
             gelEnemy.Update(gameTime);
 
             playerCharacter.Update(gameTime);
@@ -87,6 +94,8 @@ namespace Sprintfinity3902 {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+
+            camera.Draw(_spriteBatch);
 
             gelEnemy.Draw(_spriteBatch);
             playerCharacter.Draw(_spriteBatch);

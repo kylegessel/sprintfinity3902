@@ -56,6 +56,7 @@ namespace Sprintfinity3902
             Window.Title = "The Legend of Zelda";
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
             camera = new Camera(this);
 
             Graphics.ApplyChanges();

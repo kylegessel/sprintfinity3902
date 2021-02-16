@@ -6,12 +6,12 @@ namespace Sprintfinity3902.States
 {
     public class FacingDownState : IPlayerState
     {
-        public Player player { get; set; }
+        public Player PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }
 
         public FacingDownState(Player currentPlayer)
         {
-            player = currentPlayer;
+            PlayerCharacter = currentPlayer;
             // Some type of if-else statement to get the damaged version?
             Sprite = PlayerSpriteFactory.Instance.CreateLinkDownSprite();
             
@@ -23,19 +23,19 @@ namespace Sprintfinity3902.States
             if (!Sprite.Animation.IsPlaying) {
                 Sprite.Animation.Play();
             }
-            player.Y = player.Y + 5;
+            PlayerCharacter.Y = PlayerCharacter.Y + 5;
         }
 
         public void Attack()
         {
-            player.SetState(player.facingDownAttack);
-            player.Attack();
+            PlayerCharacter.SetState(PlayerCharacter.facingDownAttack);
+            PlayerCharacter.Attack();
         }
 
         public void UseItem()
         {
-            player.SetState(player.facingDownItem);
-            player.UseItem();
+            PlayerCharacter.SetState(PlayerCharacter.facingDownItem);
+            PlayerCharacter.UseItem();
         }
         
         public void Update()

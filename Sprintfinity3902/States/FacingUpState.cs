@@ -6,12 +6,12 @@ namespace Sprintfinity3902.States
 {
     public class FacingUpState : IPlayerState
     {
-        public Player player { get; set; }
+        public Player PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }
 
         public FacingUpState(Player currentPlayer)
         {
-            player = currentPlayer;
+            PlayerCharacter = currentPlayer;
             Sprite = PlayerSpriteFactory.Instance.CreateLinkUpSprite();
             Sprite.Animation.IsPlaying = false;
 
@@ -22,19 +22,19 @@ namespace Sprintfinity3902.States
             if (!Sprite.Animation.IsPlaying) {
                 Sprite.Animation.Play();
             }
-            player.Y = player.Y - 5;
+            PlayerCharacter.Y = PlayerCharacter.Y - 5;
         }
 
         public void Attack()
         {
-            player.SetState(player.facingUpAttack);
-            player.Attack();
+            PlayerCharacter.SetState(PlayerCharacter.facingUpAttack);
+            PlayerCharacter.Attack();
         }
 
         public void UseItem()
         {
-            player.SetState(player.facingUpItem);
-            player.UseItem();
+            PlayerCharacter.SetState(PlayerCharacter.facingUpItem);
+            PlayerCharacter.UseItem();
         }
 
         public void Update()

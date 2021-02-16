@@ -5,13 +5,13 @@ using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.States
 {
-    public class FacingDownItemState : IPlayerState
+    public class FacingUpItemState : IPlayerState
     {
         public Player PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }
 
         private Boolean itemExecuted = false;
-        public FacingDownItemState(Player currentPlayer)
+        public FacingUpItemState(Player currentPlayer)
         {
             PlayerCharacter = currentPlayer;
             Sprite = PlayerSpriteFactory.Instance.CreateLinkDownItemSprite();
@@ -44,7 +44,7 @@ namespace Sprintfinity3902.States
         {
             if (!Sprite.Animation.IsPlaying && itemExecuted)
             {
-                PlayerCharacter.SetState(PlayerCharacter.facingDown);
+                PlayerCharacter.SetState(PlayerCharacter.facingUp);
                 itemExecuted = false;
             }
         }

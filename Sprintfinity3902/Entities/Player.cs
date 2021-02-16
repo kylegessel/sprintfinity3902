@@ -96,10 +96,9 @@ namespace Sprintfinity3902.Link
             facingRightAttack = new FacingRightAttackState(this);
             facingUpAttack = new FacingUpAttackState(this);
             facingDownItem = new FacingDownItemState(this);
-            //set to down for testing
-            facingLeftItem = new FacingDownItemState(this);
-            facingRightItem = new FacingDownItemState(this);
-            facingUpItem = new FacingDownItemState(this);
+            facingLeftItem = new FacingLeftItemState(this);
+            facingRightItem = new FacingRightItemState(this);
+            facingUpItem = new FacingUpItemState(this);
             color = Color.White;
         }
 

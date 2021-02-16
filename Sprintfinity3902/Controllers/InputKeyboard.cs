@@ -79,7 +79,9 @@ namespace Sprintfinity3902.Controllers
             for (var i = 0; i < orderedKeyPress.Count; i++) {
                 if (!ks.IsKeyDown(orderedKeyPress[i])) {
 
-                    foreach (KeyValuePair<Keys, List<Action>> pair in keyUpHandlers) {
+
+
+                    foreach (KeyValuePair<Keys, List<Action>> pair in new Dictionary<Keys, List<Action>>(keyUpHandlers)) {
                         if (pair.Key == orderedKeyPress[i]) {
                             
                             foreach (Action handler in pair.Value) {
@@ -110,6 +112,14 @@ namespace Sprintfinity3902.Controllers
                 controllerMappings[key].Execute();
             }
 
+        }
+
+        public void UnregisterListeners() {
+            keyUpHandlers.Clear();
+        }
+
+        public void UnregisterCommands() {
+            controllerMappings.Clear();
         }
 
     }

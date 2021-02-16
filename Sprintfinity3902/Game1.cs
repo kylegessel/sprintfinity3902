@@ -54,6 +54,7 @@ namespace Sprintfinity3902
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             camera = new Camera(this);
+
             Graphics.ApplyChanges();
         }
 
@@ -62,24 +63,18 @@ namespace Sprintfinity3902
             base.Initialize();
         }
 
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+        protected void Reset() {
+            InputKeyboard.Instance.UnregisterListeners();
+            InputKeyboard.Instance.UnregisterCommands();
 
-            camera.LoadAllTextures(Content);
-
-            EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            ItemSpriteFactory.Instance.LoadAllTextures(Content);
-            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             gelEnemy = new GelEnemy();
-
             playerCharacter = new Player();
             currentEnemy1 = new SkeletonEnemy();
             currentEnemy2 = new HandEnemy();
             currentEnemy3 = new BlueBatEnemy();
             boomerangItem = new BoomerangItem();
             finalBoss = new FinalBossEnemy();
-            testAttack = new FireAttack(new Vector2(1200, 700));
+            testAttack = new FireAttack(finalBoss.Position);
             bombItem = new BombItem(new Vector2(-1000, -1000));
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
             rupee = new RupeeItem();
@@ -93,10 +88,23 @@ namespace Sprintfinity3902
             clock = new ClockItem();
             oldMan = new OldManNPC();
             fire = new Fire();
-            
 
             SetCommands();
             SetListeners();
+        }
+
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            camera.LoadAllTextures(Content);
+
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+
+            Reset();
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -136,6 +144,8 @@ namespace Sprintfinity3902
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
+            //camera.Draw(_spriteBatch);
+
             playerCharacter.Draw(_spriteBatch, Color.White);
             gelEnemy.Draw(_spriteBatch);
             currentEnemy1.Draw(_spriteBatch);
@@ -166,27 +176,29 @@ namespace Sprintfinity3902
 
         public void SetCommands()
         {
-            InputKeyboard input = InputKeyboard.Instance;
+            
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
             {
-                input.RegisterCommand(key, new DoNothingCommand(this));
+                InputKeyboard.Instance.RegisterCommand(key, new DoNothingCommand(this));
             }
 
             link = (Player)playerCharacter;
 
-            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingUp), Keys.W, Keys.Up);
-            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingLeft), Keys.A, Keys.Left);
-            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingDown), Keys.S, Keys.Down);
-            input.RegisterCommand(new SetPlayerMoveCommand(link, link.facingRight), Keys.D, Keys.Right);
-            input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
-            input.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
-            input.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
-            input.RegisterCommand(new SetLinkAttackCommand(link, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
+            InputKeyboard.Instance.RegisterCommand(new SetPlayerMoveCommand(link, link.facingUp), Keys.W, Keys.Up);
+            InputKeyboard.Instance.RegisterCommand(new SetPlayerMoveCommand(link, link.facingLeft), Keys.A, Keys.Left);
+            InputKeyboard.Instance.RegisterCommand(new SetPlayerMoveCommand(link, link.facingDown), Keys.S, Keys.Down);
+            InputKeyboard.Instance.RegisterCommand(new SetPlayerMoveCommand(link, link.facingRight), Keys.D, Keys.Right);
+            InputKeyboard.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
+            InputKeyboard.Instance.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
+            InputKeyboard.Instance.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
+            InputKeyboard.Instance.RegisterCommand(new SetLinkAttackCommand(link, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
         }
 
         public void SetListeners()
         {
             InputKeyboard.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => { Exit(); }, Keys.Q);
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => { Reset(); }, Keys.R);
         }
     }
 }

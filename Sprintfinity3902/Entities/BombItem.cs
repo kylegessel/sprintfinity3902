@@ -79,19 +79,19 @@ namespace Sprintfinity3902.Entities
         {
             PlayerCharacter = player;
             itemUse = true;
-            if (PlayerCharacter.CurrentState == PlayerCharacter.facingDown)
+            if (PlayerCharacter.CurrentState == PlayerCharacter.facingDownItem)
             {
                 Position = new Vector2(player.X, player.Y + 50);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingUp)
+            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingUpItem)
             {
                 Position = new Vector2(player.X, player.Y - 50);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingLeft)
+            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingLeftItem)
             {
                 Position = new Vector2(player.X - 50, player.Y);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingRight)
+            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingRightItem)
             {
                 Position = new Vector2(player.X + 66, player.Y);
             }

@@ -7,6 +7,8 @@
 
         void Attack();
 
+        void UseItem();
+
         void Update();
     }
 }

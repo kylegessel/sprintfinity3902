@@ -77,6 +77,10 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingLeftAttack { get; set; }
         public IPlayerState facingRightAttack { get; set; }
         public IPlayerState facingUpAttack { get; set; }
+        public IPlayerState facingDownItem { get; set; }
+        public IPlayerState facingLeftItem { get; set; }
+        public IPlayerState facingRightItem { get; set; }
+        public IPlayerState facingUpItem { get; set; }
         public Color color;
 
         public Player()
@@ -91,6 +95,11 @@ namespace Sprintfinity3902.Link
             facingLeftAttack = new FacingLeftAttackState(this);
             facingRightAttack = new FacingRightAttackState(this);
             facingUpAttack = new FacingUpAttackState(this);
+            facingDownItem = new FacingDownItemState(this);
+            //set to down for testing
+            facingLeftItem = new FacingDownItemState(this);
+            facingRightItem = new FacingDownItemState(this);
+            facingUpItem = new FacingDownItemState(this);
             color = Color.White;
         }
 
@@ -107,6 +116,11 @@ namespace Sprintfinity3902.Link
         public void Attack()
         {
             CurrentState.Attack();
+        }
+
+        public void UseItem()
+        {
+            CurrentState.UseItem();
         }
 
         public void Update(GameTime gameTime) {

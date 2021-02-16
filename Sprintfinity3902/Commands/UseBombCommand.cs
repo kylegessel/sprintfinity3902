@@ -23,8 +23,10 @@ namespace Sprintfinity3902.Commands
 
         public void Execute()
         {
+            //Eventually this should all live within player, this should become a call to use item.
             if (!Bomb.getItemUse())
             {
+                PlayerCharacter.UseItem();
                 Bomb.UseItem(PlayerCharacter);
             }
         }

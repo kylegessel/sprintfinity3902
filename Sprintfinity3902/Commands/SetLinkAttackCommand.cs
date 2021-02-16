@@ -23,9 +23,7 @@ namespace Sprintfinity3902.Commands
             //    PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
             //}
             //else
-            {
-                PlayerCharacter.Attack();
-            }
+            PlayerCharacter.Attack();
         }
     }
 }

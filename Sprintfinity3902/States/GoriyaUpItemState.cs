@@ -13,8 +13,6 @@ namespace Sprintfinity3902.States
         public ISprite Sprite { get; set; }
         public BoomerangItem Boomerang { get; set; }
 
-
-        private Boolean itemExecuted = false;
         public GoriyaUpItemState(GoriyaEnemy goriya)
         {
             Goriya = goriya;

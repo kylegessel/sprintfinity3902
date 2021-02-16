@@ -9,7 +9,7 @@ namespace Sprintfinity3902.Link
     public class Player : AbstractEntity, ILink
     {
 
-        private IPlayerState _currentState;
+        private IState _currentState;
 
         public IState CurrentState {
             get {
@@ -52,7 +52,7 @@ namespace Sprintfinity3902.Link
             color = Color.White;
         }
 
-        public void SetState(IState state) {
+        public override void SetState(IState state) {
             Vector2 pos = Position;
             CurrentState = state;
             Position = pos;

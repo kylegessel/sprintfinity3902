@@ -52,8 +52,6 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             isWaiting = false;
             isThrowing = false;
-            Boomerang = new BoomerangItem();
-            Boomerang.UseItem(this);
 
             facingDown = new GoriyaDownState(this);
             facingLeft = new GoriyaLeftState(this);

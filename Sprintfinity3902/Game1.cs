@@ -22,6 +22,8 @@ namespace Sprintfinity3902
         public GraphicsDeviceManager Graphics { get { return _graphics; } }
 
         private List<IEntity> cyclableBlocks;
+        private List<IEntity> cyclableItems;
+        private List<IEntity> cyclableCharacters;
 
         private IController mouse;
         public ILink playerCharacter;
@@ -72,24 +74,33 @@ namespace Sprintfinity3902
             InputKeyboard.Instance.UnregisterCommands();
 
             cyclableBlocks = new List<IEntity>();
+            cyclableItems = new List<IEntity>();
+            cyclableCharacters = new List<IEntity>();
 
             // cyclableBlocks.Add all blocks
 
-            cyclableBlocks.Add(new RupeeItem(new Vector2(500, 300)));
-            cyclableBlocks.Add(new HeartItem(new Vector2(500, 300)));
-            cyclableBlocks.Add(new CompassItem(new Vector2(500, 300)));
-            cyclableBlocks.Add(new MapItem(new Vector2(500, 300)));
-            cyclableBlocks.Add(new KeyItem(new Vector2(500, 300)));
+            cyclableItems.Add(new RupeeItem(new Vector2(500, 300)));
+            cyclableItems.Add(new HeartItem(new Vector2(500, 300)));
+            cyclableItems.Add(new CompassItem(new Vector2(500, 300)));
+            cyclableItems.Add(new MapItem(new Vector2(500, 300)));
+            cyclableItems.Add(new KeyItem(new Vector2(500, 300)));
+
+            cyclableCharacters.Add(new SkeletonEnemy());
+            cyclableCharacters.Add(new GelEnemy());
+            cyclableCharacters.Add(new HandEnemy());
+            cyclableCharacters.Add(new BlueBatEnemy());
+            cyclableCharacters.Add(new FinalBossEnemy());
+            cyclableCharacters.Add(new OldManNPC());
 
 
             gelEnemy = new GelEnemy();
             playerCharacter = new Player();
-            currentEnemy1 = new SkeletonEnemy();
-            currentEnemy2 = new HandEnemy();
-            currentEnemy3 = new BlueBatEnemy();
+            //currentEnemy1 = ;
+            //currentEnemy2 = ;
+            //currentEnemy3 = ;
             boomerangItem = new BoomerangItem();
-            finalBoss = new FinalBossEnemy();
-            testAttack = new FireAttack(finalBoss.Position);
+            //finalBoss = ;
+            //testAttack = new FireAttack(finalBoss.Position);
             bombItem = new BombItem(new Vector2(-1000, -1000));
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
             //rupee = ;
@@ -101,7 +112,7 @@ namespace Sprintfinity3902
             triforce = new TriforceItem();
             bow = new BowItem();
             clock = new ClockItem();
-            oldMan = new OldManNPC();
+            //oldMan = new OldManNPC();
             fire = new Fire();
 
             SetCommands();
@@ -127,18 +138,20 @@ namespace Sprintfinity3902
             InputKeyboard.Instance.Update();
             InputMouse.Instance.Update();
 
-            cyclableBlocks[0].Update(gameTime);
+            //cyclableBlocks[0].Update(gameTime);
+            cyclableCharacters[0].Update(gameTime);
+            cyclableItems[0].Update(gameTime);
 
             gelEnemy.Update(gameTime);
 
             playerCharacter.Update(gameTime);
-            currentEnemy1.Update(gameTime);
-            currentEnemy2.Update(gameTime);
-            currentEnemy3.Update(gameTime);
+            //currentEnemy1.Update(gameTime);
+            //currentEnemy2.Update(gameTime);
+            //currentEnemy3.Update(gameTime);
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
-            finalBoss.Update(gameTime);
-            testAttack.Update(gameTime);
+            //finalBoss.Update(gameTime);
+            //testAttack.Update(gameTime);
             //rupee.Update(gameTime);
             //heart.Update(gameTime);
             heartContainer.Update(gameTime);
@@ -148,7 +161,7 @@ namespace Sprintfinity3902
             triforce.Update(gameTime);
             bow.Update(gameTime);
             clock.Update(gameTime);
-            oldMan.Update(gameTime);
+            //oldMan.Update(gameTime);
             fire.Update(gameTime);
             movingSword.Update(gameTime);
 
@@ -163,18 +176,19 @@ namespace Sprintfinity3902
 
             //camera.Draw(_spriteBatch);
 
-            cyclableBlocks[0].Draw(_spriteBatch);
+            //cyclableBlocks[0].Draw(_spriteBatch);
+            cyclableItems[0].Draw(_spriteBatch);
+            cyclableCharacters[0].Draw(_spriteBatch);
 
             playerCharacter.Draw(_spriteBatch, Color.White);
-            gelEnemy.Draw(_spriteBatch);
-            currentEnemy1.Draw(_spriteBatch);
-            currentEnemy2.Draw(_spriteBatch);
-            currentEnemy3.Draw(_spriteBatch);
+            //gelEnemy.Draw(_spriteBatch);
+            //currentEnemy1.Draw(_spriteBatch);
+            //currentEnemy2.Draw(_spriteBatch);
+            //currentEnemy3.Draw(_spriteBatch);
             boomerangItem.Draw(_spriteBatch);
             bombItem.Draw(_spriteBatch);
-            testAttack.Draw(_spriteBatch);
-            finalBoss.Draw(_spriteBatch);
-            testAttack.Draw(_spriteBatch);
+            //testAttack.Draw(_spriteBatch);
+            //finalBoss.Draw(_spriteBatch);
             //rupee.Draw(_spriteBatch);
             //heart.Draw(_spriteBatch);
             heartContainer.Draw(_spriteBatch);
@@ -184,7 +198,7 @@ namespace Sprintfinity3902
             triforce.Draw(_spriteBatch);
             bow.Draw(_spriteBatch);
             clock.Draw(_spriteBatch);
-            oldMan.Draw(_spriteBatch);
+            //oldMan.Draw(_spriteBatch);
             fire.Draw(_spriteBatch);
             movingSword.Draw(_spriteBatch);
 
@@ -259,6 +273,80 @@ namespace Sprintfinity3902
 
 
             }, Keys.T);
+
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
+
+                //Debug.WriteLine(cyclableBlocks[0].ToString());
+
+                List<IEntity> holder = new List<IEntity>();
+                int cycleBy = 1;
+
+                for (int i = 0; i < cycleBy % cyclableItems.Count; i++) {
+                    holder.Add(cyclableItems[i]);
+                }
+
+                cyclableItems.RemoveRange(0, cycleBy % cyclableItems.Count);
+
+                cyclableItems.AddRange(holder);
+
+            }, Keys.I);
+
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
+
+                Debug.WriteLine(cyclableItems[0].ToString());
+
+                List<IEntity> holder = new List<IEntity>();
+                int cycleBy = -1;
+
+                for (int i = (cycleBy % cyclableItems.Count) + cyclableItems.Count; i < cyclableItems.Count; i++) {
+                    holder.Add(cyclableItems[i]);
+                }
+
+                cyclableItems.RemoveRange((cycleBy % cyclableItems.Count) + cyclableItems.Count, Math.Abs(cycleBy % cyclableItems.Count));
+
+                holder.AddRange(cyclableItems);
+
+                cyclableItems = holder;
+
+
+            }, Keys.U);
+
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
+
+                //Debug.WriteLine(cyclableBlocks[0].ToString());
+
+                List<IEntity> holder = new List<IEntity>();
+                int cycleBy = 1;
+
+                for (int i = 0; i < cycleBy % cyclableCharacters.Count; i++) {
+                    holder.Add(cyclableCharacters[i]);
+                }
+
+                cyclableCharacters.RemoveRange(0, cycleBy % cyclableCharacters.Count);
+
+                cyclableCharacters.AddRange(holder);
+
+            }, Keys.P);
+
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
+
+                Debug.WriteLine(cyclableCharacters[0].ToString());
+
+                List<IEntity> holder = new List<IEntity>();
+                int cycleBy = -1;
+
+                for (int i = (cycleBy % cyclableCharacters.Count) + cyclableCharacters.Count; i < cyclableCharacters.Count; i++) {
+                    holder.Add(cyclableCharacters[i]);
+                }
+
+                cyclableCharacters.RemoveRange((cycleBy % cyclableCharacters.Count) + cyclableCharacters.Count, Math.Abs(cycleBy % cyclableCharacters.Count));
+
+                holder.AddRange(cyclableCharacters);
+
+                cyclableCharacters = holder;
+
+
+            }, Keys.O);
 
         }
     }

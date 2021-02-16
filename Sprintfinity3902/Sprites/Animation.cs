@@ -75,6 +75,7 @@ namespace Sprintfinity3902.Sprites
                     if (PlayOneTime) {
                         PlaybackProgress -= Duration;
                         Stop();
+                        //PlayOneTime = false;
                     } else {
                         PlaybackProgress -= Duration;
                     }
@@ -107,6 +108,7 @@ namespace Sprintfinity3902.Sprites
         public void PlayOnce()
         {
             PlayOneTime = true;
+            Play();
         }
 
     }

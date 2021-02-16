@@ -5,16 +5,16 @@ using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.States
 {
-    public class FacingDownAttackState : IPlayerState
+    public class FacingRightItemState : IPlayerState
     {
         public Player PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }
 
-        private Boolean AttackExecuted = false;
-        public FacingDownAttackState(Player currentPlayer)
+        private Boolean itemExecuted = false;
+        public FacingRightItemState(Player currentPlayer)
         {
             PlayerCharacter = currentPlayer;
-            Sprite = PlayerSpriteFactory.Instance.CreateLinkDownAttackSprite();
+            Sprite = PlayerSpriteFactory.Instance.CreateLinkRightItemSprite();
             Sprite.Animation.IsPlaying = false;
         }
 
@@ -26,26 +26,26 @@ namespace Sprintfinity3902.States
 
         public void Attack()
         {
-            if (!Sprite.Animation.IsPlaying)
-            {
-                AttackExecuted = true;
-                Sprite.Animation.PlayOnce();
-            }
-            
+
+            //NULL
             
         }
 
         public void UseItem()
         {
-            //NULL
+            if (!Sprite.Animation.IsPlaying)
+            {
+                itemExecuted = true;
+                Sprite.Animation.PlayOnce();
+            }
         }
 
         public void Update()
         {
-            if (!Sprite.Animation.IsPlaying && AttackExecuted)
+            if (!Sprite.Animation.IsPlaying && itemExecuted)
             {
-                PlayerCharacter.SetState(PlayerCharacter.facingDown);
-                AttackExecuted = false;
+                PlayerCharacter.SetState(PlayerCharacter.facingRight);
+                itemExecuted = false;
             }
         }
 

@@ -178,7 +178,7 @@ namespace Sprintfinity3902
             input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
             input.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
             input.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
-
+            input.RegisterCommand(new SetLinkAttackCommand(link), Keys.Z, Keys.N);
         }
 
         public void SetListeners()

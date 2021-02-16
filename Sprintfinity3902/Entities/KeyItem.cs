@@ -10,5 +10,10 @@ namespace Sprintfinity3902.Entities
             Sprite = ItemSpriteFactory.Instance.CreateKeyItem();
             Position = new Vector2(700, 600);
         }
+
+        public KeyItem(Vector2 pos) {
+            Sprite = ItemSpriteFactory.Instance.CreateKeyItem();
+            Position = pos;
+        }
     }
 }

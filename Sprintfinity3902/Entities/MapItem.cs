@@ -10,5 +10,10 @@ namespace Sprintfinity3902.Entities
             Sprite = ItemSpriteFactory.Instance.CreateMapItem();
             Position = new Vector2(600, 600);
         }
+
+        public MapItem(Vector2 pos) {
+            Sprite = ItemSpriteFactory.Instance.CreateMapItem();
+            Position = pos;
+        }
     }
 }

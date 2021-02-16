@@ -10,5 +10,9 @@ namespace Sprintfinity3902.Entities
             Sprite = ItemSpriteFactory.Instance.CreateCompassItem();
             Position = new Vector2(500, 600);
         }
+        public CompassItem(Vector2 pos) {
+            Sprite = ItemSpriteFactory.Instance.CreateCompassItem();
+            Position = pos;
+        }
     }
 }

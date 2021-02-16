@@ -25,31 +25,11 @@ namespace Sprintfinity3902
         private List<IEntity> cyclableItems;
         private List<IEntity> cyclableCharacters;
 
-        private IController mouse;
         public ILink playerCharacter;
         public Player link;
-        private Color linkColor;
-        private IEntity currentEnemy1;
-        private IEntity currentEnemy2;
-        private IEntity currentEnemy3;
         private IEntity boomerangItem;
         private IEntity bombItem;
-        private IEntity finalBoss;
-        private IEntity testAttack;
-        private IEntity rupee;
-        private IEntity heart;
-        private IEntity heartContainer;
-        private IEntity compass;
-        private IEntity map;
-        private IEntity key;
-        private IEntity bomb;
-        private IEntity triforce;
-        private IEntity bow;
-        private IEntity clock;
-        private IEntity oldMan;
-        private IEntity fire;
         private IEntity movingSword;
-        private IEntity gelEnemy;
         public Camera camera;
 
         public Game1()
@@ -84,6 +64,11 @@ namespace Sprintfinity3902
             cyclableItems.Add(new CompassItem(new Vector2(500, 300)));
             cyclableItems.Add(new MapItem(new Vector2(500, 300)));
             cyclableItems.Add(new KeyItem(new Vector2(500, 300)));
+            cyclableItems.Add(new HeartContainerItem(new Vector2(500, 300)));
+            cyclableItems.Add(new ClockItem(new Vector2(500, 300)));
+            cyclableItems.Add(new BowItem(new Vector2(500, 300)));
+            cyclableItems.Add(new TriforceItem(new Vector2(500, 300)));
+
 
             cyclableCharacters.Add(new SkeletonEnemy());
             cyclableCharacters.Add(new GelEnemy());
@@ -91,29 +76,13 @@ namespace Sprintfinity3902
             cyclableCharacters.Add(new BlueBatEnemy());
             cyclableCharacters.Add(new FinalBossEnemy());
             cyclableCharacters.Add(new OldManNPC());
+            cyclableCharacters.Add(new Fire());
 
-
-            gelEnemy = new GelEnemy();
             playerCharacter = new Player();
-            //currentEnemy1 = ;
-            //currentEnemy2 = ;
-            //currentEnemy3 = ;
+
             boomerangItem = new BoomerangItem();
-            //finalBoss = ;
-            //testAttack = new FireAttack(finalBoss.Position);
             bombItem = new BombItem(new Vector2(-1000, -1000));
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
-            //rupee = ;
-            //heart = ;
-            heartContainer = new HeartContainerItem();
-            //compass = ;
-            //map = ;
-            //key = ;
-            triforce = new TriforceItem();
-            bow = new BowItem();
-            clock = new ClockItem();
-            //oldMan = new OldManNPC();
-            fire = new Fire();
 
             SetCommands();
             SetListeners();
@@ -142,27 +111,10 @@ namespace Sprintfinity3902
             cyclableCharacters[0].Update(gameTime);
             cyclableItems[0].Update(gameTime);
 
-            gelEnemy.Update(gameTime);
-
             playerCharacter.Update(gameTime);
-            //currentEnemy1.Update(gameTime);
-            //currentEnemy2.Update(gameTime);
-            //currentEnemy3.Update(gameTime);
+
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
-            //finalBoss.Update(gameTime);
-            //testAttack.Update(gameTime);
-            //rupee.Update(gameTime);
-            //heart.Update(gameTime);
-            heartContainer.Update(gameTime);
-            //compass.Update(gameTime);
-            //map.Update(gameTime);
-            //key.Update(gameTime);
-            triforce.Update(gameTime);
-            bow.Update(gameTime);
-            clock.Update(gameTime);
-            //oldMan.Update(gameTime);
-            fire.Update(gameTime);
             movingSword.Update(gameTime);
 
             base.Update(gameTime);
@@ -181,25 +133,9 @@ namespace Sprintfinity3902
             cyclableCharacters[0].Draw(_spriteBatch);
 
             playerCharacter.Draw(_spriteBatch, Color.White);
-            //gelEnemy.Draw(_spriteBatch);
-            //currentEnemy1.Draw(_spriteBatch);
-            //currentEnemy2.Draw(_spriteBatch);
-            //currentEnemy3.Draw(_spriteBatch);
+
             boomerangItem.Draw(_spriteBatch);
             bombItem.Draw(_spriteBatch);
-            //testAttack.Draw(_spriteBatch);
-            //finalBoss.Draw(_spriteBatch);
-            //rupee.Draw(_spriteBatch);
-            //heart.Draw(_spriteBatch);
-            heartContainer.Draw(_spriteBatch);
-            //compass.Draw(_spriteBatch);
-            //map.Draw(_spriteBatch);
-            //key.Draw(_spriteBatch);
-            triforce.Draw(_spriteBatch);
-            bow.Draw(_spriteBatch);
-            clock.Draw(_spriteBatch);
-            //oldMan.Draw(_spriteBatch);
-            fire.Draw(_spriteBatch);
             movingSword.Draw(_spriteBatch);
 
             _spriteBatch.End();

@@ -12,6 +12,18 @@ namespace Sprintfinity3902.Navigation
         private Game _game;
         private Rectangle _sourceRectangle;
 
+        public Rectangle SourceRectangle {
+            get {
+                return _sourceRectangle;
+            }
+        }
+
+        public GameWindow Window {
+            get {
+                return _game.Window;
+            }
+        }
+
         public Camera(Game game) {
             _game = game;
             _sourceRectangle = new Rectangle(0,0,1900,1000);

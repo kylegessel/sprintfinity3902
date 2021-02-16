@@ -10,5 +10,11 @@ namespace Sprintfinity3902.Entities
             Sprite = ItemSpriteFactory.Instance.CreateHeartContainerItem();
             Position = new Vector2(400, 600);
         }
+
+        public HeartContainerItem(Vector2 pos)
+        {
+            Sprite = ItemSpriteFactory.Instance.CreateHeartContainerItem();
+            Position = pos;
+        }
     }
 }

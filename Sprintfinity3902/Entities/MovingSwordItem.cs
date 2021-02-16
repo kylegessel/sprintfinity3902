@@ -33,27 +33,31 @@ namespace Sprintfinity3902.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (firingState == PlayerCharacter.facingDown)
+            if (firingState != null)
             {
-                spriteBatch.Draw(Sprite.Animation.CurrentFrame.Sprite.Texture, Position, Sprite.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipVertically, 0.0f);
-            }
-            else if (firingState == PlayerCharacter.facingUp)
-            {
-                Sprite.Draw(spriteBatch, Position, Color.White);
-            }
-            else if (firingState == PlayerCharacter.facingLeft)
-            {
-                spriteBatch.Draw(Sprite.Animation.CurrentFrame.Sprite.Texture, Position, Sprite.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0.0f);
-            }
-            else if (firingState == PlayerCharacter.facingRight)
-            {
-                Sprite2.Draw(spriteBatch, Position, Color.White);
+                if (firingState == PlayerCharacter.facingDownAttack)
+                {
+                    spriteBatch.Draw(Sprite.Animation.CurrentFrame.Sprite.Texture, Position, Sprite.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipVertically, 0.0f);
+                }
+                else if (firingState == PlayerCharacter.facingUpAttack)
+                {
+                    Sprite.Draw(spriteBatch, Position, Color.White);
+                }
+                else if (firingState == PlayerCharacter.facingLeftAttack)
+                {
+                    spriteBatch.Draw(Sprite2.Animation.CurrentFrame.Sprite.Texture, Position, Sprite2.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0.0f);
+                }
+                else if (firingState == PlayerCharacter.facingRightAttack)
+                {
+                    Sprite2.Draw(spriteBatch, Position, Color.White);
+                }
             }
         }
 
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
+            Sprite2.Update(gameTime);
             if (itemUse)
             {
                 MoveItem();
@@ -64,19 +68,19 @@ namespace Sprintfinity3902.Entities
         {
             if (itemUseCount <= 60)
             {
-                if (firingState == PlayerCharacter.facingDown)
+                if (firingState == PlayerCharacter.facingDownAttack)
                 {
                     Position = new Vector2(Position.X, Position.Y + 10);
                 }
-                else if (firingState == PlayerCharacter.facingUp)
+                else if (firingState == PlayerCharacter.facingUpAttack)
                 {
                     Position = new Vector2(Position.X, Position.Y - 10);
                 }
-                else if (firingState == PlayerCharacter.facingLeft)
+                else if (firingState == PlayerCharacter.facingLeftAttack)
                 {
                     Position = new Vector2(Position.X - 10, Position.Y);
                 }
-                else if (firingState == PlayerCharacter.facingRight)
+                else if (firingState == PlayerCharacter.facingRightAttack)
                 {
                     Position = new Vector2(Position.X + 10, Position.Y);
                 }
@@ -95,21 +99,21 @@ namespace Sprintfinity3902.Entities
             PlayerCharacter = player;
             firingState = PlayerCharacter.CurrentState;
 
-            if (firingState == PlayerCharacter.facingDown)
+            if (firingState == PlayerCharacter.facingDownAttack)
             {
-                Position = new Vector2(PlayerCharacter.X, PlayerCharacter.Y + 50);
+                Position = new Vector2(PlayerCharacter.X + 25, PlayerCharacter.Y + 50);
             }
-            else if (firingState == PlayerCharacter.facingUp)
+            else if (firingState == PlayerCharacter.facingUpAttack)
             {
-                Position = new Vector2(PlayerCharacter.X, PlayerCharacter.Y - 50);
+                Position = new Vector2(PlayerCharacter.X + 30, PlayerCharacter.Y - 50);
             }
-            else if (firingState == PlayerCharacter.facingLeft)
+            else if (firingState == PlayerCharacter.facingLeftAttack)
             {
-                Position = new Vector2(PlayerCharacter.X - 50, PlayerCharacter.Y);
+                Position = new Vector2(PlayerCharacter.X - 20, PlayerCharacter.Y + 25);
             }
-            else if (firingState == PlayerCharacter.facingRight)
+            else if (firingState == PlayerCharacter.facingRightAttack)
             {
-                Position = new Vector2(PlayerCharacter.X + 66, PlayerCharacter.Y);
+                Position = new Vector2(PlayerCharacter.X + 50, PlayerCharacter.Y + 25);
             }
             itemUse = true;
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
@@ -57,9 +58,21 @@ namespace Sprintfinity3902.Entities
 
         public override void Update(GameTime gameTime)
         {
-            Sprite1.Update(gameTime);
-            Sprite2.Update(gameTime);
-            Sprite3.Update(gameTime);
+
+            if (Sprite1 != null) {
+                Sprite1.Update(gameTime);
+                
+                
+            }
+            if (Sprite2 != null) {
+                Sprite2.Update(gameTime);
+                
+                
+            }
+            if (Sprite3 != null) {
+                Sprite3.Update(gameTime);
+                
+            }
             Move();
         }
 

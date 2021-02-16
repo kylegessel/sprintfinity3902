@@ -92,19 +92,19 @@ namespace Sprintfinity3902.Entities
 
                 if (firingState == PlayerCharacter.facingDownItem)
                 {
-                    Position = new Vector2(PlayerCharacter.X, PlayerCharacter.Y + 50);
+                    Position = new Vector2(PlayerCharacter.X + 20, PlayerCharacter.Y + 80);
                 }
                 else if (firingState == PlayerCharacter.facingUpItem)
                 {
-                    Position = new Vector2(PlayerCharacter.X, PlayerCharacter.Y - 50);
+                    Position = new Vector2(PlayerCharacter.X + 15, PlayerCharacter.Y - 50);
                 }
                 else if (firingState == PlayerCharacter.facingLeftItem)
                 {
-                    Position = new Vector2(PlayerCharacter.X - 50, PlayerCharacter.Y);
+                    Position = new Vector2(PlayerCharacter.X - 50, PlayerCharacter.Y + 20);
                 }
                 else if (firingState == PlayerCharacter.facingRightItem)
                 {
-                    Position = new Vector2(PlayerCharacter.X + 66, PlayerCharacter.Y);
+                    Position = new Vector2(PlayerCharacter.X + 66, PlayerCharacter.Y + 20);
                 }
             itemUse = true;
         }

@@ -10,5 +10,11 @@ namespace Sprintfinity3902.Entities
             Sprite = ItemSpriteFactory.Instance.CreateBowItem();
             Position = new Vector2(1000, 600);
         }
+
+        public BowItem(Vector2 pos)
+        {
+            Sprite = ItemSpriteFactory.Instance.CreateBowItem();
+            Position = pos;
+        }
     }
 }

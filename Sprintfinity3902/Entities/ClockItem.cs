@@ -10,5 +10,11 @@ namespace Sprintfinity3902.Entities
             Sprite = ItemSpriteFactory.Instance.CreateClockItem();
             Position = new Vector2(1100, 600);
         }
+
+        public ClockItem(Vector2 pos)
+        {
+            Sprite = ItemSpriteFactory.Instance.CreateClockItem();
+            Position = pos;
+        }
     }
 }

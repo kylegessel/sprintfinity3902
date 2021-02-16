@@ -74,11 +74,12 @@ namespace Sprintfinity3902
             cyclableCharacters.Add(new GelEnemy());
             cyclableCharacters.Add(new HandEnemy());
             cyclableCharacters.Add(new BlueBatEnemy());
+            cyclableCharacters.Add(new SpikeEnemy());
             cyclableCharacters.Add(new GoriyaEnemy());
             cyclableCharacters.Add(new FinalBossEnemy());
             cyclableCharacters.Add(new OldManNPC());
             cyclableCharacters.Add(new Fire());
-
+              
             playerCharacter = new Player();
 
             boomerangItem = new BoomerangItem();

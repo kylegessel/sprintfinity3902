@@ -9,6 +9,8 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprintfinity3902
 {
@@ -19,32 +21,33 @@ namespace Sprintfinity3902
         public static int ScaleWindow = 7;
         public GraphicsDeviceManager Graphics { get { return _graphics; } }
 
-        public Texture2D texture;
-        public IController mouse;
+        private List<IEntity> cyclableBlocks;
+
+        private IController mouse;
         public ILink playerCharacter;
         public Player link;
-        public Color linkColor;
-        public IEntity currentEnemy1;
-        public IEntity currentEnemy2;
-        public IEntity currentEnemy3;
-        public IEntity boomerangItem;
-        public IEntity bombItem;
-        public IEntity finalBoss;
-        public IEntity testAttack;
-        public IEntity rupee;
-        public IEntity heart;
-        public IEntity heartContainer;
-        public IEntity compass;
-        public IEntity map;
-        public IEntity key;
-        public IEntity bomb;
-        public IEntity triforce;
-        public IEntity bow;
-        public IEntity clock;
-        public IEntity oldMan;
-        public IEntity fire;
-        public IEntity movingSword;
-        public IEntity gelEnemy;
+        private Color linkColor;
+        private IEntity currentEnemy1;
+        private IEntity currentEnemy2;
+        private IEntity currentEnemy3;
+        private IEntity boomerangItem;
+        private IEntity bombItem;
+        private IEntity finalBoss;
+        private IEntity testAttack;
+        private IEntity rupee;
+        private IEntity heart;
+        private IEntity heartContainer;
+        private IEntity compass;
+        private IEntity map;
+        private IEntity key;
+        private IEntity bomb;
+        private IEntity triforce;
+        private IEntity bow;
+        private IEntity clock;
+        private IEntity oldMan;
+        private IEntity fire;
+        private IEntity movingSword;
+        private IEntity gelEnemy;
         public Camera camera;
 
         public Game1()
@@ -67,6 +70,17 @@ namespace Sprintfinity3902
             InputKeyboard.Instance.UnregisterListeners();
             InputKeyboard.Instance.UnregisterCommands();
 
+            cyclableBlocks = new List<IEntity>();
+
+            // cyclableBlocks.Add all blocks
+
+            cyclableBlocks.Add(new RupeeItem(new Vector2(500, 300)));
+            cyclableBlocks.Add(new HeartItem(new Vector2(500, 300)));
+            cyclableBlocks.Add(new CompassItem(new Vector2(500, 300)));
+            cyclableBlocks.Add(new MapItem(new Vector2(500, 300)));
+            cyclableBlocks.Add(new KeyItem(new Vector2(500, 300)));
+
+
             gelEnemy = new GelEnemy();
             playerCharacter = new Player();
             currentEnemy1 = new SkeletonEnemy();
@@ -77,12 +91,12 @@ namespace Sprintfinity3902
             testAttack = new FireAttack(finalBoss.Position);
             bombItem = new BombItem(new Vector2(-1000, -1000));
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
-            rupee = new RupeeItem();
-            heart = new HeartItem();
+            //rupee = ;
+            //heart = ;
             heartContainer = new HeartContainerItem();
-            compass = new CompassItem();
-            map = new MapItem();
-            key = new KeyItem();
+            //compass = ;
+            //map = ;
+            //key = ;
             triforce = new TriforceItem();
             bow = new BowItem();
             clock = new ClockItem();
@@ -112,6 +126,8 @@ namespace Sprintfinity3902
             InputKeyboard.Instance.Update();
             InputMouse.Instance.Update();
 
+            cyclableBlocks[0].Update(gameTime);
+
             gelEnemy.Update(gameTime);
 
             playerCharacter.Update(gameTime);
@@ -122,12 +138,12 @@ namespace Sprintfinity3902
             bombItem.Update(gameTime);
             finalBoss.Update(gameTime);
             testAttack.Update(gameTime);
-            rupee.Update(gameTime);
-            heart.Update(gameTime);
+            //rupee.Update(gameTime);
+            //heart.Update(gameTime);
             heartContainer.Update(gameTime);
-            compass.Update(gameTime);
-            map.Update(gameTime);
-            key.Update(gameTime);
+            //compass.Update(gameTime);
+            //map.Update(gameTime);
+            //key.Update(gameTime);
             triforce.Update(gameTime);
             bow.Update(gameTime);
             clock.Update(gameTime);
@@ -146,6 +162,8 @@ namespace Sprintfinity3902
 
             //camera.Draw(_spriteBatch);
 
+            cyclableBlocks[0].Draw(_spriteBatch);
+
             playerCharacter.Draw(_spriteBatch, Color.White);
             gelEnemy.Draw(_spriteBatch);
             currentEnemy1.Draw(_spriteBatch);
@@ -156,12 +174,12 @@ namespace Sprintfinity3902
             testAttack.Draw(_spriteBatch);
             finalBoss.Draw(_spriteBatch);
             testAttack.Draw(_spriteBatch);
-            rupee.Draw(_spriteBatch);
-            heart.Draw(_spriteBatch);
+            //rupee.Draw(_spriteBatch);
+            //heart.Draw(_spriteBatch);
             heartContainer.Draw(_spriteBatch);
-            compass.Draw(_spriteBatch);
-            map.Draw(_spriteBatch);
-            key.Draw(_spriteBatch);
+            //compass.Draw(_spriteBatch);
+            //map.Draw(_spriteBatch);
+            //key.Draw(_spriteBatch);
             triforce.Draw(_spriteBatch);
             bow.Draw(_spriteBatch);
             clock.Draw(_spriteBatch);
@@ -192,6 +210,9 @@ namespace Sprintfinity3902
             InputKeyboard.Instance.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
             InputKeyboard.Instance.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
             InputKeyboard.Instance.RegisterCommand(new SetLinkAttackCommand(link, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
+
+            // InputKeyboard.Instance.RegisterCommand(new ShiftListCommand<IEntity>(cyclableBlocks, -1), Keys.T);
+            // InputKeyboard.Instance.RegisterCommand(new ShiftListCommand<IEntity>(ref cyclableBlocks, 1), Keys.Y);
         }
 
         public void SetListeners()
@@ -199,6 +220,45 @@ namespace Sprintfinity3902
             InputKeyboard.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
             InputKeyboard.Instance.RegisterKeyUpCallback(() => { Exit(); }, Keys.Q);
             InputKeyboard.Instance.RegisterKeyUpCallback(() => { Reset(); }, Keys.R);
+
+
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
+
+                //Debug.WriteLine(cyclableBlocks[0].ToString());
+
+                List<IEntity> holder = new List<IEntity>();
+                int cycleBy = 1;
+
+                for (int i = 0; i < cycleBy % cyclableBlocks.Count; i++) {
+                    holder.Add(cyclableBlocks[i]);
+                }
+
+                cyclableBlocks.RemoveRange(0, cycleBy % cyclableBlocks.Count);
+
+                cyclableBlocks.AddRange(holder);
+
+            }, Keys.Y);
+
+            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
+
+                Debug.WriteLine(cyclableBlocks[0].ToString());
+
+                List<IEntity> holder = new List<IEntity>();
+                int cycleBy = -1;
+
+                for (int i = (cycleBy % cyclableBlocks.Count) + cyclableBlocks.Count; i < cyclableBlocks.Count; i++) {
+                    holder.Add(cyclableBlocks[i]);
+                }
+
+                cyclableBlocks.RemoveRange((cycleBy % cyclableBlocks.Count) + cyclableBlocks.Count, Math.Abs(cycleBy % cyclableBlocks.Count));
+
+                holder.AddRange(cyclableBlocks);
+
+                cyclableBlocks = holder;
+
+
+            }, Keys.T);
+
         }
     }
 }

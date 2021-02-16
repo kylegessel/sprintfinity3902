@@ -43,7 +43,7 @@ namespace Sprintfinity3902
         public IEntity clock;
         public IEntity oldMan;
         public IEntity fire;
-
+        public IEntity movingSword;
         public IEntity gelEnemy;
         public Camera camera;
 
@@ -81,6 +81,7 @@ namespace Sprintfinity3902
             finalBoss = new FinalBossEnemy();
             testAttack = new FireAttack(new Vector2(1200, 700));
             bombItem = new BombItem(new Vector2(-1000, -1000));
+            movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
             rupee = new RupeeItem();
             heart = new HeartItem();
             heartContainer = new HeartContainerItem();
@@ -124,6 +125,7 @@ namespace Sprintfinity3902
             clock.Update(gameTime);
             oldMan.Update(gameTime);
             fire.Update(gameTime);
+            movingSword.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -155,6 +157,7 @@ namespace Sprintfinity3902
             clock.Draw(_spriteBatch);
             oldMan.Draw(_spriteBatch);
             fire.Draw(_spriteBatch);
+            movingSword.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
@@ -178,7 +181,7 @@ namespace Sprintfinity3902
             input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
             input.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
             input.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
-            input.RegisterCommand(new SetLinkAttackCommand(link), Keys.Z, Keys.N);
+            input.RegisterCommand(new SetLinkAttackCommand(link, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
         }
 
         public void SetListeners()

@@ -10,9 +10,10 @@ namespace Sprintfinity3902.Entities
     {
 
         Player PlayerCharacter;
+        GoriyaEnemy Goriya;
         Boolean itemUse;
         int itemUseCount;
-        IPlayerState firingState;
+        IState firingState;
         public BoomerangItem()
         {
             Sprite = ItemSpriteFactory.Instance.CreateBoomerangItem();
@@ -105,6 +106,30 @@ namespace Sprintfinity3902.Entities
                 {
                     Position = new Vector2(PlayerCharacter.X + 66, PlayerCharacter.Y);
                 }
+            itemUse = true;
+        }
+
+        public void UseItem(GoriyaEnemy goriya)
+        {
+            Goriya = goriya;
+            firingState = Goriya.CurrentState;
+
+            if (firingState == Goriya.facingDownItem)
+            {
+                Position = new Vector2(Goriya.X, Goriya.Y + 50);
+            }
+            else if (firingState == Goriya.facingUpItem)
+            {
+                Position = new Vector2(Goriya.X, Goriya.Y - 50);
+            }
+            else if (firingState == Goriya.facingLeftItem)
+            {
+                Position = new Vector2(Goriya.X - 50, Goriya.Y);
+            }
+            else if (firingState == Goriya.facingRightItem)
+            {
+                Position = new Vector2(Goriya.X + 66, Goriya.Y);
+            }
             itemUse = true;
         }
     }

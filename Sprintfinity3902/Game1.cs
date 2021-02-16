@@ -42,6 +42,7 @@ namespace Sprintfinity3902
         public IEntity bow;
         public IEntity clock;
         public IEntity spike;
+        public IEntity goriya;
 
         public IEntity gelEnemy;
         public Camera camera;
@@ -90,6 +91,7 @@ namespace Sprintfinity3902
             bow = new BowItem();
             clock = new ClockItem();
             spike = new SpikeEnemy();
+            goriya = new GoriyaEnemy();
             
 
             SetCommands();
@@ -121,6 +123,7 @@ namespace Sprintfinity3902
             bow.Update(gameTime);
             clock.Update(gameTime);
             spike.Update(gameTime);
+            goriya.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -151,6 +154,7 @@ namespace Sprintfinity3902
             bow.Draw(_spriteBatch);
             clock.Draw(_spriteBatch);
             spike.Draw(_spriteBatch);
+            goriya.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

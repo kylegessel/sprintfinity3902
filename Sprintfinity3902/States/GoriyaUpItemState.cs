@@ -1,20 +1,24 @@
-﻿using Sprintfinity3902.Interfaces;
+﻿using Sprintfinity3902.Entities;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
-using Sprintfinity3902.Link;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Sprintfinity3902.States
 {
-    public class FacingRightItemState : IState
+    public class GoriyaUpItemState : IState
     {
-        public Player PlayerCharacter { get; set; }
+        public GoriyaEnemy Goriya { get; set; }
         public ISprite Sprite { get; set; }
+        public BoomerangItem Boomerang { get; set; }
+
 
         private Boolean itemExecuted = false;
-        public FacingRightItemState(Player currentPlayer)
+        public GoriyaUpItemState(GoriyaEnemy goriya)
         {
-            PlayerCharacter = currentPlayer;
-            Sprite = PlayerSpriteFactory.Instance.CreateLinkRightItemSprite();
+            Goriya = goriya;
+            Sprite = EnemySpriteFactory.Instance.CreateGoriyaUpEnemy();
             Sprite.Animation.IsPlaying = false;
         }
 
@@ -28,7 +32,7 @@ namespace Sprintfinity3902.States
         {
 
             //NULL
-            
+
         }
 
         public void UseItem()
@@ -38,16 +42,20 @@ namespace Sprintfinity3902.States
                 itemExecuted = true;
                 Sprite.Animation.PlayOnce();
             }
+
+            if (!Boomerang.getItemUse())
+            {
+                Boomerang.UseItem(Goriya);
+            }
         }
 
         public void Update()
         {
             if (!Sprite.Animation.IsPlaying && itemExecuted)
             {
-                PlayerCharacter.SetState(PlayerCharacter.facingRight);
+                Goriya.SetState(Goriya.facingUp);
                 itemExecuted = false;
             }
         }
-
     }
 }

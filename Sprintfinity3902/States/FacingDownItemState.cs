@@ -1,6 +1,5 @@
 ﻿using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
-using Sprintfinity3902.Entities;
 using System;
 using Sprintfinity3902.Link;
 
@@ -15,7 +14,7 @@ namespace Sprintfinity3902.States
         public FacingDownItemState(Player currentPlayer)
         {
             Link = currentPlayer;
-            Sprite = PlayerSpriteFactory.Instance.CreateLinkDownAttackSprite();
+            Sprite = PlayerSpriteFactory.Instance.CreateLinkDownItemSprite();
             Sprite.Animation.IsPlaying = false;
         }
 
@@ -28,7 +27,7 @@ namespace Sprintfinity3902.States
         public void Attack()
         {
 
-            
+            //NULL
             
         }
 

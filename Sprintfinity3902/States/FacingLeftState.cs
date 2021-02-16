@@ -28,11 +28,13 @@ namespace Sprintfinity3902.States
         public void Attack()
         {
             player.SetState(player.facingLeftAttack);
+            player.Attack();
         }
 
         public void UseItem()
         {
             player.SetState(player.facingLeftItem);
+            player.UseItem();
         }
         public void Update()
         {

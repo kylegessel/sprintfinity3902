@@ -30,7 +30,6 @@ namespace Sprintfinity3902
         private IEntity boomerangItem;
         private IEntity bombItem;
         private IEntity movingSword;
-        private IEntity goriya;
         public Camera camera;
 
         public Game1()
@@ -75,6 +74,7 @@ namespace Sprintfinity3902
             cyclableCharacters.Add(new GelEnemy());
             cyclableCharacters.Add(new HandEnemy());
             cyclableCharacters.Add(new BlueBatEnemy());
+            cyclableCharacters.Add(new GoriyaEnemy());
             cyclableCharacters.Add(new FinalBossEnemy());
             cyclableCharacters.Add(new OldManNPC());
             cyclableCharacters.Add(new Fire());
@@ -82,7 +82,6 @@ namespace Sprintfinity3902
             playerCharacter = new Player();
 
             boomerangItem = new BoomerangItem();
-            goriya = new GoriyaEnemy();
             bombItem = new BombItem(new Vector2(-1000, -1000));
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
 
@@ -114,7 +113,6 @@ namespace Sprintfinity3902
             cyclableItems[0].Update(gameTime);
 
             playerCharacter.Update(gameTime);
-            goriya.Update(gameTime);
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
@@ -139,7 +137,6 @@ namespace Sprintfinity3902
             boomerangItem.Draw(_spriteBatch);
             bombItem.Draw(_spriteBatch);
             movingSword.Draw(_spriteBatch);
-            goriya.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

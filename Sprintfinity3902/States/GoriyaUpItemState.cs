@@ -45,13 +45,7 @@ namespace Sprintfinity3902.States
 
         public void Update()
         {
-            /*
-            if (!Sprite.Animation.IsPlaying && itemExecuted)
-            {
-                Goriya.SetState(Goriya.facingUp);
-                itemExecuted = false;
-            }
-            */
+            //NULL
         }
     }
 }

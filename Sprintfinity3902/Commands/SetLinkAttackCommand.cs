@@ -22,11 +22,14 @@ namespace Sprintfinity3902.Commands
             //    PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
             //}
             //else
-            PlayerCharacter.Attack();
             if (!MovingSword.getItemUse())
             {
                 PlayerCharacter.Attack();
                 MovingSword.UseItem(PlayerCharacter);
+            }
+            else
+            {
+                PlayerCharacter.Attack();
             }
         }
     }

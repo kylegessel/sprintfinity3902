@@ -74,6 +74,13 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingRight { get; set; }
         public IPlayerState facingUp { get; set; }
         public IPlayerState facingDownAttack { get; set; }
+        public IPlayerState facingLeftAttack { get; set; }
+        public IPlayerState facingRightAttack { get; set; }
+        public IPlayerState facingUpAttack { get; set; }
+        public IPlayerState facingDownItem { get; set; }
+        public IPlayerState facingLeftItem { get; set; }
+        public IPlayerState facingRightItem { get; set; }
+        public IPlayerState facingUpItem { get; set; }
         public Color color;
 
         public Player()
@@ -85,6 +92,13 @@ namespace Sprintfinity3902.Link
             facingRight = new FacingRightState(this);
             facingUp = new FacingUpState(this);
             facingDownAttack = new FacingDownAttackState(this);
+            facingLeftAttack = new FacingLeftAttackState(this);
+            facingRightAttack = new FacingRightAttackState(this);
+            facingUpAttack = new FacingUpAttackState(this);
+            facingDownItem = new FacingDownItemState(this);
+            facingLeftItem = new FacingLeftItemState(this);
+            facingRightItem = new FacingRightItemState(this);
+            facingUpItem = new FacingUpItemState(this);
             color = Color.White;
         }
 
@@ -98,8 +112,19 @@ namespace Sprintfinity3902.Link
             CurrentState.Move();
         }
 
+        public void Attack()
+        {
+            CurrentState.Attack();
+        }
+
+        public void UseItem()
+        {
+            CurrentState.UseItem();
+        }
+
         public void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);
+            CurrentState.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch, Color color) {

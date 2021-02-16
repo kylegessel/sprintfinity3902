@@ -66,5 +66,10 @@ namespace Sprintfinity3902.SpriteFactories
             return new FinalBossMouthOpenSprite(bossSpriteSheet);
         }
 
+        public ISprite CreateSpikeEnemy()
+        {
+            return new SpikeEnemySprite(enemySpriteSheet);
+        }
+
     }
 }

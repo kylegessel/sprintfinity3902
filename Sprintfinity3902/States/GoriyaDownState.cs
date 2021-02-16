@@ -26,7 +26,7 @@ namespace Sprintfinity3902.States
             {
                 Sprite.Animation.Play();
             }
-            Goriya.Y = Goriya.Y + 5;
+            Goriya.Y = Goriya.Y + 1;
         }
 
         public void Attack()

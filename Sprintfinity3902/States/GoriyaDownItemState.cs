@@ -19,6 +19,8 @@ namespace Sprintfinity3902.States
             Goriya = goriya;
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
             Sprite.Animation.IsPlaying = false;
+
+            Boomerang = new BoomerangItem();
         }
 
 
@@ -36,6 +38,8 @@ namespace Sprintfinity3902.States
 
         public void UseItem()
         {
+            Boomerang.UseItem(Goriya);
+            /*
             if (!Sprite.Animation.IsPlaying)
             {
                 itemExecuted = true;
@@ -46,15 +50,18 @@ namespace Sprintfinity3902.States
             {
                 Boomerang.UseItem(Goriya);
             }
+            */
         }
 
         public void Update()
         {
+            /*
             if (!Sprite.Animation.IsPlaying && itemExecuted)
             {
                 Goriya.SetState(Goriya.facingDown);
                 itemExecuted = false;
             }
+            */
         }
 
     }

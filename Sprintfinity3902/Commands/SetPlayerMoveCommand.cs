@@ -6,9 +6,9 @@ namespace Sprintfinity3902.Commands
     public class SetPlayerMoveCommand: ICommand
     {
         Player PlayerCharacter;
-        private IPlayerState _state;
+        private IState _state;
 
-        public SetPlayerMoveCommand(Player player, IPlayerState state)
+        public SetPlayerMoveCommand(Player player, IState state)
         {
             PlayerCharacter = player;
             _state = state;

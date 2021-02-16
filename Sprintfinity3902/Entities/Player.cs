@@ -1,65 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.States;
 
 namespace Sprintfinity3902.Link
 {
-    public class Player : ILink
+    public class Player : AbstractEntity, ILink
     {
 
         private IPlayerState _currentState;
-        private ISprite _sprite;
-        private Vector2 _position;
-        
-
-        public ISprite Sprite
-        {
-            get
-            {
-                return _sprite;
-            }
-            set
-            {
-                _sprite = value;
-            }
-        }
-
-        public Vector2 Position
-        {
-            get
-            {
-                return _position;
-            }
-            set
-            {
-                _position = value;
-            }
-        }
-        public int X
-        {
-            get
-            {
-                return (int)Position.X;
-            }
-            set
-            {
-                _position.X = value;
-                //Position = new Vector2(value, Position.Y);
-            }
-        }
-        public int Y
-        {
-            get
-            {
-                return (int)Position.Y;
-            }
-            set
-            {
-                _position.Y = value;
-                //Position = new Vector2(Position.X, value);
-            }
-        }
 
         public IPlayerState CurrentState {
             get {
@@ -108,11 +58,11 @@ namespace Sprintfinity3902.Link
             Position = pos;
         }
 
-        public void Move() {
+        public override void Move() {
             CurrentState.Move();
         }
 
-        public void Attack()
+        public override void Attack()
         {
             CurrentState.Attack();
         }
@@ -122,7 +72,7 @@ namespace Sprintfinity3902.Link
             CurrentState.UseItem();
         }
 
-        public void Update(GameTime gameTime) {
+        public override void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);
             CurrentState.Update();
         }

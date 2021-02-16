@@ -41,6 +41,9 @@ namespace Sprintfinity3902
         public IEntity triforce;
         public IEntity bow;
         public IEntity clock;
+        public IEntity regBlock;
+        public IEntity face1Block;
+        public IEntity face2Block;
 
         public IEntity gelEnemy;
         public Camera camera;
@@ -69,6 +72,7 @@ namespace Sprintfinity3902
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+            BlockSpriteFactory.Instance.LoadAllTextures(Content);
             gelEnemy = new GelEnemy();
 
             playerCharacter = new Player();
@@ -88,6 +92,9 @@ namespace Sprintfinity3902
             triforce = new TriforceItem();
             bow = new BowItem();
             clock = new ClockItem();
+            regBlock = new RegularBlock();
+            face1Block = new Face1Block();
+            face2Block = new Face2Block();
             
 
             SetCommands();
@@ -118,6 +125,9 @@ namespace Sprintfinity3902
             triforce.Update(gameTime);
             bow.Update(gameTime);
             clock.Update(gameTime);
+            regBlock.Update(gameTime);
+            face1Block.Update(gameTime);
+            face2Block.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -147,6 +157,9 @@ namespace Sprintfinity3902
             triforce.Draw(_spriteBatch);
             bow.Draw(_spriteBatch);
             clock.Draw(_spriteBatch);
+            regBlock.Draw(_spriteBatch);
+            face1Block.Draw(_spriteBatch);
+            face2Block.Draw(_spriteBatch);
 
             _spriteBatch.End();
 

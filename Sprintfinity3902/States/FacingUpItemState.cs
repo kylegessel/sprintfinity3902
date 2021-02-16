@@ -14,7 +14,7 @@ namespace Sprintfinity3902.States
         public FacingUpItemState(Player currentPlayer)
         {
             PlayerCharacter = currentPlayer;
-            Sprite = PlayerSpriteFactory.Instance.CreateLinkDownItemSprite();
+            Sprite = PlayerSpriteFactory.Instance.CreateLinkUpItemSprite();
             Sprite.Animation.IsPlaying = false;
         }
 

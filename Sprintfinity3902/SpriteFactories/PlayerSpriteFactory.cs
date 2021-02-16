@@ -69,5 +69,17 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new LinkDownItemSprite(playerSpriteSheet);
         }
+        public ISprite CreateLinkUpItemSprite()
+        {
+            return new LinkUpItemSprite(playerSpriteSheet);
+        }
+        public ISprite CreateLinkRightItemSprite()
+        {
+            return new LinkRightItemSprite(playerSpriteSheet);
+        }
+        public ISprite CreateLinkLeftItemSprite()
+        {
+            return new LinkLeftItemSprite(playerSpriteSheet);
+        }
     }
 }

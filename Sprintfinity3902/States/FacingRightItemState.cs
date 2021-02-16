@@ -14,7 +14,7 @@ namespace Sprintfinity3902.States
         public FacingRightItemState(Player currentPlayer)
         {
             PlayerCharacter = currentPlayer;
-            Sprite = PlayerSpriteFactory.Instance.CreateLinkDownItemSprite();
+            Sprite = PlayerSpriteFactory.Instance.CreateLinkRightItemSprite();
             Sprite.Animation.IsPlaying = false;
         }
 

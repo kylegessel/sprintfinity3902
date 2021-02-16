@@ -11,15 +11,10 @@ namespace Sprintfinity3902.Entities
 
         private IState _currentState;
         private int waitTime;
-        private int count;
         private int direction;
-        private bool isMoving;
-        private bool isWaiting;
-        private bool isThrowing;
-        private bool start;
         private int choice;
+        public BoomerangItem Boomerang;
         
-
         public IState CurrentState
         {
             get
@@ -40,6 +35,11 @@ namespace Sprintfinity3902.Entities
         public IState facingLeftItem { get; set; }
         public IState facingRightItem { get; set; }
         public IState facingUpItem { get; set; }
+        public bool isMoving { get; set; }
+        public bool isWaiting { get; set; }
+        public bool isThrowing { get; set; }
+        public bool start { get; set; }
+        public int count { get; set; }
         public Color color;
 
         public GoriyaEnemy()
@@ -52,6 +52,7 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             isWaiting = false;
             isThrowing = false;
+            Boomerang = new BoomerangItem();
 
             facingDown = new GoriyaDownState(this);
             facingLeft = new GoriyaLeftState(this);
@@ -70,6 +71,74 @@ namespace Sprintfinity3902.Entities
             Vector2 pos = Position;
             CurrentState = state;
             Position = pos;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            CurrentState.Sprite.Update(gameTime);
+            CurrentState.Update();
+            Boomerang.Update(gameTime);
+
+            // Change values and then call change direction or move accordingly
+            if (isMoving)
+                Move();
+            else if (isThrowing)
+                UseItem();
+            else if (isWaiting)
+                Wait();
+            else
+                Choose();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            CurrentState.Sprite.Draw(spriteBatch, Position, color);
+            Boomerang.Draw(spriteBatch);
+        }
+
+        public void Choose()
+        {
+            choice = new Random().Next(1, 7);
+            if(choice == 1 || choice == 2)
+            {
+                isMoving = true;
+                start = true;
+            }
+            else if(choice == 3)
+            {
+                isThrowing = true;
+                start = true;
+            }
+            else if (choice == 4)
+            {
+                isWaiting = true;
+                start = true;
+            }
+            else if (choice == 5 || choice == 6)
+            {
+                ChangeDirection();
+            }
+        }
+
+        public void ChangeDirection()
+        {
+            direction = new Random().Next(1, 5);
+            if (direction == 1) //Left
+            {
+                this.SetState(facingLeft);
+            }
+            else if (direction == 2) //Right
+            {
+                this.SetState(facingRight);
+            }
+            else if (direction == 3) //Up
+            {
+                this.SetState(facingUp);
+            }
+            else if (direction == 4) //Down
+            {
+                this.SetState(facingDown);
+            }
         }
 
         public override void Move()
@@ -92,7 +161,6 @@ namespace Sprintfinity3902.Entities
                 count++;
             }
 
-
         }
 
         public void UseItem()
@@ -101,30 +169,10 @@ namespace Sprintfinity3902.Entities
             {
                 count = 0;
                 start = false;
-
-                if (CurrentState == facingDown)
-                    CurrentState = facingDownItem;
-                else if (CurrentState == facingUp)
-                    CurrentState = facingUpItem;
-                else if (CurrentState == facingRight)
-                    CurrentState = facingRightItem;
-                else if (CurrentState == facingLeft)
-                    CurrentState = facingLeftItem;
             }
 
-            if (count == 100)
-            {
+            if (count == 80)
                 isThrowing = false;
-
-                if (CurrentState == facingDownItem)
-                    CurrentState = facingDown;
-                else if (CurrentState == facingUpItem)
-                    CurrentState = facingUp;
-                else if (CurrentState == facingRightItem)
-                    CurrentState = facingRight;
-                else if (CurrentState == facingLeftItem)
-                    CurrentState = facingLeft;
-            }
 
             if (isThrowing)
             {
@@ -141,93 +189,12 @@ namespace Sprintfinity3902.Entities
                 start = false;
             }
 
-            if (count == 30)
-            {
+            if (count == 80)
                 isWaiting = false;
-            }
-
+            
             if (isWaiting)
-            {
                 count++;
-            }
-
         }
 
-        public override void Update(GameTime gameTime)
-        {
-            CurrentState.Sprite.Update(gameTime);
-            CurrentState.Update();
-
-            // Change values and then call change direction or move accordingly
-            if (isMoving)
-                Move();
-            else if (isThrowing)
-                UseItem();
-            else if (isWaiting)
-                Wait();
-            else
-                Choose();
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            CurrentState.Sprite.Draw(spriteBatch, Position, color);
-        }
-
-        public void Choose()
-        {
-            choice = new Random().Next(1, 5);
-            if(choice == 1)
-            {
-                isMoving = true;
-                start = true;
-            }
-            else if(choice == 2)
-            {
-                isThrowing = true;
-                start = true;
-            }
-            else if (choice == 3)
-            {
-                isWaiting = true;
-                start = true;
-            }
-            else if (choice == 4)
-            {
-                ChangeDirection();
-            }
-        }
-
-        public void ChangeDirection()
-        {
-            
-                direction = new Random().Next(1, 5);
-                if (direction == 1) //Left
-                {
-                    this.SetState(facingLeft);
-                }
-                else if (direction == 2) //Right
-                {
-                    this.SetState(facingRight);
-                }
-                else if (direction == 3) //Up
-                {
-                    this.SetState(facingUp);
-                }
-                else if (direction == 4) //Down
-                {
-                    this.SetState(facingDown);
-                }
-            
-        }
-
-        public void TakeDamage()
-        {
-            //Will be needed in future to take away health?
-        }
-        public void RemoveDecorator()
-        {
-            //NULL
-        }
     }
 }

@@ -11,6 +11,8 @@ namespace Sprintfinity3902.Entities
 
         Player PlayerCharacter;
         GoriyaEnemy Goriya;
+        Boolean isPlayer;
+        Boolean isGoriya;
         Boolean itemUse;
         int itemUseCount;
         IState firingState;
@@ -29,9 +31,13 @@ namespace Sprintfinity3902.Entities
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
-            if (itemUse)
+            if (itemUse && isPlayer)
             {
                 MoveItem();
+            }
+            else if(itemUse && isGoriya)
+            {
+                MoveItem2();
             }
         }
 
@@ -85,6 +91,56 @@ namespace Sprintfinity3902.Entities
             itemUseCount++;
         }
 
+        public void MoveItem2()
+        {
+            if (itemUseCount <= 60)
+            {
+                if (firingState == Goriya.facingDownItem)
+                {
+                    Position = new Vector2(Position.X, Position.Y + 10);
+                }
+                else if (firingState == Goriya.facingUpItem)
+                {
+                    Position = new Vector2(Position.X, Position.Y - 10);
+                }
+                else if (firingState == Goriya.facingLeftItem)
+                {
+                    Position = new Vector2(Position.X - 10, Position.Y);
+                }
+                else if (firingState == Goriya.facingRightItem)
+                {
+                    Position = new Vector2(Position.X + 10, Position.Y);
+                }
+            }
+            else if (itemUseCount == 120)
+            {
+                itemUse = false;
+                itemUseCount = 0;
+                Position = new Vector2(-1000, -1000);
+            }
+            else
+            {
+                if (firingState == Goriya.facingDownItem)
+                {
+                    Position = new Vector2(Position.X, Position.Y - 10);
+                }
+                else if (firingState == Goriya.facingUpItem)
+                {
+                    Position = new Vector2(Position.X, Position.Y + 10);
+                }
+                else if (firingState == Goriya.facingLeftItem)
+                {
+                    Position = new Vector2(Position.X + 10, Position.Y);
+                }
+                else if (firingState == Goriya.facingRightItem)
+                {
+                    Position = new Vector2(Position.X - 10, Position.Y);
+                }
+            }
+
+            itemUseCount++;
+        }
+
         public void UseItem(Player player)
         {
             PlayerCharacter = player;
@@ -107,6 +163,7 @@ namespace Sprintfinity3902.Entities
                     Position = new Vector2(PlayerCharacter.X + 66, PlayerCharacter.Y + 20);
                 }
             itemUse = true;
+            isPlayer = true;
         }
 
         public void UseItem(GoriyaEnemy goriya)
@@ -116,21 +173,22 @@ namespace Sprintfinity3902.Entities
 
             if (firingState == Goriya.facingDownItem)
             {
-                Position = new Vector2(Goriya.X, Goriya.Y + 50);
+                Position = new Vector2(Goriya.X + 20, Goriya.Y + 80);
             }
             else if (firingState == Goriya.facingUpItem)
             {
-                Position = new Vector2(Goriya.X, Goriya.Y - 50);
+                Position = new Vector2(Goriya.X + 15, Goriya.Y - 50);
             }
             else if (firingState == Goriya.facingLeftItem)
             {
-                Position = new Vector2(Goriya.X - 50, Goriya.Y);
+                Position = new Vector2(Goriya.X - 50, Goriya.Y + 20);
             }
             else if (firingState == Goriya.facingRightItem)
             {
-                Position = new Vector2(Goriya.X + 66, Goriya.Y);
+                Position = new Vector2(Goriya.X + 66, Goriya.Y + 20);
             }
             itemUse = true;
+            isGoriya = true;
         }
     }
 }

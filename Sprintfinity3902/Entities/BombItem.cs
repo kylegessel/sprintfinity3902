@@ -70,6 +70,7 @@ namespace Sprintfinity3902.Entities
                 Sprite2.Animation.Stop();
             }else if (itemUseCount == 60)
             {
+                Position = new Vector2(Position.X - 15, Position.Y);
                 Sprite2.Animation.Play();
             }
             itemUseCount++;
@@ -79,29 +80,29 @@ namespace Sprintfinity3902.Entities
         {
             PlayerCharacter = player;
             itemUse = true;
-            if (PlayerCharacter.CurrentState == PlayerCharacter.facingDown)
+            if (PlayerCharacter.CurrentState == PlayerCharacter.facingDownItem)
             {
-                Position = new Vector2(player.X, player.Y + 50);
+                Position = new Vector2(player.X + 20, player.Y + 55);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingUp)
+            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingUpItem)
             {
-                Position = new Vector2(player.X, player.Y - 50);
+                Position = new Vector2(player.X + 10, player.Y - 75);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingLeft)
+            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingLeftItem)
             {
-                Position = new Vector2(player.X - 50, player.Y);
+                Position = new Vector2(player.X - 45, player.Y);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingRight)
+            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingRightItem)
             {
-                Position = new Vector2(player.X + 66, player.Y);
+                Position = new Vector2(player.X + 80, player.Y);
             }
 
-            Position2 = new Vector2(Position.X - 80, Position.Y);
-            Position3 = new Vector2(Position.X + 80, Position.Y);
-            Position4 = new Vector2(Position.X + 40, Position.Y - 80);
-            Position5 = new Vector2(Position.X - 40, Position.Y - 80);
-            Position6 = new Vector2(Position.X + 40, Position.Y + 80);
-            Position7 = new Vector2(Position.X - 40, Position.Y + 80);
+            Position2 = new Vector2(Position.X - 95, Position.Y);
+            Position3 = new Vector2(Position.X + 65, Position.Y);
+            Position4 = new Vector2(Position.X + 25, Position.Y - 80);
+            Position5 = new Vector2(Position.X - 55, Position.Y - 80);
+            Position6 = new Vector2(Position.X + 25, Position.Y + 80);
+            Position7 = new Vector2(Position.X - 55, Position.Y + 80);
         }
 
     }

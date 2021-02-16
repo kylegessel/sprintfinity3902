@@ -10,5 +10,10 @@ namespace Sprintfinity3902.Entities
             Sprite = ItemSpriteFactory.Instance.CreateRupeeItem();
             Position = new Vector2(200, 600);
         }
+
+        public RupeeItem(Vector2 pos) {
+            Sprite = ItemSpriteFactory.Instance.CreateRupeeItem();
+            Position = pos;
+        }
     }
 }

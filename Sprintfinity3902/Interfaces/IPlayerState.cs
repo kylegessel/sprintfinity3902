@@ -4,7 +4,11 @@
     {
         ISprite Sprite { get; set; }
         void Move();
-        //void TakeDamage();
-        //void RemoveDecorator();
+
+        void Attack();
+
+        void UseItem();
+
+        void Update();
     }
 }

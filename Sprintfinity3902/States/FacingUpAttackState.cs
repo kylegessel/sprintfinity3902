@@ -1,20 +1,21 @@
 ﻿using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.SpriteFactories;
 using System;
+using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.States
 {
-    public class FacingDownAttackState : IPlayerState
+    public class FacingUpAttackState : IPlayerState
     {
         public Player PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }
 
         private Boolean AttackExecuted = false;
-        public FacingDownAttackState(Player currentPlayer)
+        public FacingUpAttackState(Player currentPlayer)
         {
+
             PlayerCharacter = currentPlayer;
-            Sprite = PlayerSpriteFactory.Instance.CreateLinkDownAttackSprite();
+            Sprite = PlayerSpriteFactory.Instance.CreateLinkUpAttackSprite();
             Sprite.Animation.IsPlaying = false;
         }
 
@@ -44,7 +45,7 @@ namespace Sprintfinity3902.States
         {
             if (!Sprite.Animation.IsPlaying && AttackExecuted)
             {
-                PlayerCharacter.SetState(PlayerCharacter.facingDown);
+                PlayerCharacter.SetState(PlayerCharacter.facingUp);
                 AttackExecuted = false;
             }
         }

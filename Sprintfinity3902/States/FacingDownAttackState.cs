@@ -1,6 +1,5 @@
 ﻿using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
-using Sprintfinity3902.Entities;
 using System;
 using Sprintfinity3902.Link;
 

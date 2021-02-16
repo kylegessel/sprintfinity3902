@@ -41,7 +41,9 @@ namespace Sprintfinity3902
         public IEntity triforce;
         public IEntity bow;
         public IEntity clock;
-
+        public IEntity oldMan;
+        public IEntity fire;
+        public IEntity movingSword;
         public IEntity gelEnemy;
         public Camera camera;
 
@@ -79,6 +81,7 @@ namespace Sprintfinity3902
             finalBoss = new FinalBossEnemy();
             testAttack = new FireAttack(new Vector2(1200, 700));
             bombItem = new BombItem(new Vector2(-1000, -1000));
+            movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
             rupee = new RupeeItem();
             heart = new HeartItem();
             heartContainer = new HeartContainerItem();
@@ -88,6 +91,8 @@ namespace Sprintfinity3902
             triforce = new TriforceItem();
             bow = new BowItem();
             clock = new ClockItem();
+            oldMan = new OldManNPC();
+            fire = new Fire();
             
 
             SetCommands();
@@ -118,13 +123,16 @@ namespace Sprintfinity3902
             triforce.Update(gameTime);
             bow.Update(gameTime);
             clock.Update(gameTime);
+            oldMan.Update(gameTime);
+            fire.Update(gameTime);
+            movingSword.Update(gameTime);
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkSlateGray);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
@@ -147,6 +155,9 @@ namespace Sprintfinity3902
             triforce.Draw(_spriteBatch);
             bow.Draw(_spriteBatch);
             clock.Draw(_spriteBatch);
+            oldMan.Draw(_spriteBatch);
+            fire.Draw(_spriteBatch);
+            movingSword.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
@@ -170,7 +181,7 @@ namespace Sprintfinity3902
             input.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
             input.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
             input.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
-            input.RegisterCommand(new SetLinkAttackCommand(link), Keys.Z, Keys.N);
+            input.RegisterCommand(new SetLinkAttackCommand(link, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
         }
 
         public void SetListeners()

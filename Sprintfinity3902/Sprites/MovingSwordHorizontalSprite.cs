@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Sprintfinity3902.Interfaces;
+﻿using Microsoft.Xna.Framework.Graphics;
 namespace Sprintfinity3902.Sprites
 {
     public class MovingSwordHorizontalSprite : AbstractSprite

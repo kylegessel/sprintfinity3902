@@ -3,11 +3,11 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class RegularBlock :AbstractEntity
+    public class WallLeft : AbstractEntity
     {
-        public RegularBlock()
+        public WallLeft()
         {
-            Sprite = BlockSpriteFactory.Instance.CreateRegularBlock();
+            Sprite = BlockSpriteFactory.Instance.CreateWallLeft();
             Position = new Vector2(300, 700);
         }
     }

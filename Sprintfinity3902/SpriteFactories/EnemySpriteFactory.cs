@@ -79,5 +79,10 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new FireSprite(npcSpriteSheet);
         }
+        public ISprite CreateSpikeEnemy()
+        {
+            return new SpikeEnemySprite(enemySpriteSheet);
+        }
+
     }
 }

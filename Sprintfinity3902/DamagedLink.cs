@@ -109,7 +109,7 @@ namespace Sprintfinity3902.Link
             //CurrentState.Move();
             decoratedLink.Move();
         }
-        public void SetState(IPlayerState state)
+        public void SetState(IState state)
         {
             decoratedLink.SetState(state);
         }

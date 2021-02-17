@@ -74,6 +74,8 @@ namespace Sprintfinity3902
             cyclableCharacters.Add(new GelEnemy());
             cyclableCharacters.Add(new HandEnemy());
             cyclableCharacters.Add(new BlueBatEnemy());
+            cyclableCharacters.Add(new SpikeEnemy());
+            cyclableCharacters.Add(new GoriyaEnemy());
             cyclableCharacters.Add(new FinalBossEnemy());
             cyclableCharacters.Add(new OldManNPC());
             cyclableCharacters.Add(new Fire());
@@ -81,7 +83,7 @@ namespace Sprintfinity3902
             cyclableBlocks.Add(new RegularBlock());
             cyclableBlocks.Add(new Face1Block());
             cyclableBlocks.Add(new Face2Block());
-        playerCharacter = new Player();
+            playerCharacter = new Player();
 
             boomerangItem = new BoomerangItem();
             bombItem = new BombItem(new Vector2(-1000, -1000));
@@ -116,7 +118,6 @@ namespace Sprintfinity3902
             cyclableItems[0].Update(gameTime);
 
             playerCharacter.Update(gameTime);
-
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
@@ -152,7 +153,7 @@ namespace Sprintfinity3902
             
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
             {
-                InputKeyboard.Instance.RegisterCommand(key, new DoNothingCommand(this));
+                InputKeyboard.Instance.RegisterCommand(new DoNothingCommand(this), key);
             }
 
             link = (Player)playerCharacter;

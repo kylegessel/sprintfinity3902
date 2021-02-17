@@ -24,5 +24,7 @@ namespace Sprintfinity3902.Interfaces
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
         void Move();
+        void Attack();
+        void SetState(IState state);
     }
 }

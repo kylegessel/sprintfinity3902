@@ -24,7 +24,7 @@ namespace Sprintfinity3902.Interfaces
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Color color);
         void Move();
-        void SetState(IPlayerState state);
+        void SetState(IState state);
         void TakeDamage();
 
         void RemoveDecorator();

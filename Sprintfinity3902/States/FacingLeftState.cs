@@ -4,7 +4,7 @@ using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.States
 {
-    public class FacingLeftState : IPlayerState
+    public class FacingLeftState : IState
     {
         public Player PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }

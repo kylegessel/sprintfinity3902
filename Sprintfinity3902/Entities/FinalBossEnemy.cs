@@ -25,9 +25,7 @@ namespace Sprintfinity3902.Entities
         {
             ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
             OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
-
             Sprite = ClosedMouth;
-            //FireAttack = new DummyEntity();
             Position = new Vector2(1200, 500);
 
             rd = new Random();
@@ -36,7 +34,7 @@ namespace Sprintfinity3902.Entities
             directionCount = 0;
 
             attack = rd.Next(1, 3);
-            attackTime = 60;
+            attackTime = 70;
         }
 
         public override void Update(GameTime gameTime)
@@ -94,7 +92,7 @@ namespace Sprintfinity3902.Entities
             else if (attackCount == attackTime)
             {
                 Sprite = ClosedMouth;
-                //FireAttack = new DummyEntity();
+                FireAttack = null;
             }
 
             attackCount++;

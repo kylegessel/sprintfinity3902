@@ -9,9 +9,9 @@ namespace Sprintfinity3902.Link
     public class Player : AbstractEntity, ILink
     {
 
-        private IPlayerState _currentState;
+        private IState _currentState;
 
-        public IPlayerState CurrentState {
+        public IState CurrentState {
             get {
                 return _currentState;
             }
@@ -19,18 +19,18 @@ namespace Sprintfinity3902.Link
                 _currentState = value;
             }
         }
-        public IPlayerState facingDown { get; set; }
-        public IPlayerState facingLeft { get; set; }
-        public IPlayerState facingRight { get; set; }
-        public IPlayerState facingUp { get; set; }
-        public IPlayerState facingDownAttack { get; set; }
-        public IPlayerState facingLeftAttack { get; set; }
-        public IPlayerState facingRightAttack { get; set; }
-        public IPlayerState facingUpAttack { get; set; }
-        public IPlayerState facingDownItem { get; set; }
-        public IPlayerState facingLeftItem { get; set; }
-        public IPlayerState facingRightItem { get; set; }
-        public IPlayerState facingUpItem { get; set; }
+        public IState facingDown { get; set; }
+        public IState facingLeft { get; set; }
+        public IState facingRight { get; set; }
+        public IState facingUp { get; set; }
+        public IState facingDownAttack { get; set; }
+        public IState facingLeftAttack { get; set; }
+        public IState facingRightAttack { get; set; }
+        public IState facingUpAttack { get; set; }
+        public IState facingDownItem { get; set; }
+        public IState facingLeftItem { get; set; }
+        public IState facingRightItem { get; set; }
+        public IState facingUpItem { get; set; }
         public Color color;
 
         public Player()
@@ -52,7 +52,7 @@ namespace Sprintfinity3902.Link
             color = Color.White;
         }
 
-        public void SetState(IPlayerState state) {
+        public override void SetState(IState state) {
             Vector2 pos = Position;
             CurrentState = state;
             Position = pos;

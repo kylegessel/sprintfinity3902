@@ -6,8 +6,8 @@ namespace Sprintfinity3902.Sprites
     {
         public Texture2D Texture { get; set; }
 
-        private const int BLOCK_X = 563;
-        private const int BLOCK_Y = 934;
+        private const int BLOCK_X = 339;
+        private const int BLOCK_Y = 91;
         private const int BLOCK_WIDTH = 16;
         private const int BLOCK_HEIGHT = 16;
 

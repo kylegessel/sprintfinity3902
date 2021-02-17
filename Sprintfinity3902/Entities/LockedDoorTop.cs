@@ -3,11 +3,11 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class Face2Block : AbstractEntity
+    public class LockedDoorTop : AbstractEntity
     {
-        public Face2Block()
+        public LockedDoorTop()
         {
-            Sprite = BlockSpriteFactory.Instance.CreateFace2Block();
+            Sprite = BlockSpriteFactory.Instance.CreateLockedDoorTop();
             Position = new Vector2(300, 700);
         }
     }

@@ -1,13 +1,13 @@
-﻿namespace Sprintfinity3902.Sprites
-{
-    public class AnimationFrame
-    {
+﻿
+
+
+namespace Sprintfinity3902.Sprites {
+    public class AnimationFrame {
+        
         private SpriteFrame _sprite;
 
-        public SpriteFrame Sprite
-        {
-            get
-            {
+        public SpriteFrame Sprite {
+            get {
                 return _sprite;
             }
             set
@@ -18,12 +18,10 @@
 
         public float TimeStamp { get; }
 
-        public AnimationFrame(SpriteFrame sprite, float timeStamp)
-        {
+        public AnimationFrame(SpriteFrame sprite, float timeStamp) {
             Sprite = sprite;
             TimeStamp = timeStamp;
         }
-
 
     }
 }

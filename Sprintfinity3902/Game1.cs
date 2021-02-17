@@ -149,7 +149,7 @@ namespace Sprintfinity3902
             
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
             {
-                InputKeyboard.Instance.RegisterCommand(new DoNothingCommand(this), key);
+                InputKeyboard.Instance.RegisterCommand(key, new DoNothingCommand(this));
             }
 
             link = (Player)playerCharacter;

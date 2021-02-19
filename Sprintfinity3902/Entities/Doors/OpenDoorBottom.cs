@@ -1,0 +1,14 @@
+﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.SpriteFactories;
+
+namespace Sprintfinity3902.Entities
+{
+    public class OpenDoorBottom : AbstractEntity
+    {
+        public OpenDoorBottom()
+        {
+            Sprite = BlockSpriteFactory.Instance.CreateOpenDoorBottom();
+            Position = new Vector2(300, 700);
+        }
+    }
+}

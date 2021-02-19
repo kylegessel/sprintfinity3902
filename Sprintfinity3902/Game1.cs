@@ -79,7 +79,16 @@ namespace Sprintfinity3902
             cyclableCharacters.Add(new FinalBossEnemy());
             cyclableCharacters.Add(new OldManNPC());
             cyclableCharacters.Add(new Fire());
-              
+
+            cyclableBlocks.Add(new RegularBlock());
+            cyclableBlocks.Add(new Face1Block());
+            cyclableBlocks.Add(new Face2Block());
+            cyclableBlocks.Add(new StairsBlock());
+            cyclableBlocks.Add(new BrickBlock());
+            cyclableBlocks.Add(new StripeBlock());
+            cyclableBlocks.Add(new BlackBlock());
+            cyclableBlocks.Add(new SpottedBlock());
+            cyclableBlocks.Add(new DarkBlueBlock());
             playerCharacter = new Player();
 
             boomerangItem = new BoomerangItem();
@@ -99,6 +108,7 @@ namespace Sprintfinity3902
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+            BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
             Reset();
             
@@ -109,7 +119,7 @@ namespace Sprintfinity3902
             InputKeyboard.Instance.Update();
             InputMouse.Instance.Update();
 
-            //cyclableBlocks[0].Update(gameTime);
+            cyclableBlocks[0].Update(gameTime);
             cyclableCharacters[0].Update(gameTime);
             cyclableItems[0].Update(gameTime);
 
@@ -129,7 +139,7 @@ namespace Sprintfinity3902
 
             //camera.Draw(_spriteBatch);
 
-            //cyclableBlocks[0].Draw(_spriteBatch);
+            cyclableBlocks[0].Draw(_spriteBatch);
             cyclableItems[0].Draw(_spriteBatch);
             cyclableCharacters[0].Draw(_spriteBatch);
 

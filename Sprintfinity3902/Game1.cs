@@ -83,6 +83,12 @@ namespace Sprintfinity3902
             cyclableBlocks.Add(new RegularBlock());
             cyclableBlocks.Add(new Face1Block());
             cyclableBlocks.Add(new Face2Block());
+            cyclableBlocks.Add(new StairsBlock());
+            cyclableBlocks.Add(new BrickBlock());
+            cyclableBlocks.Add(new StripeBlock());
+            cyclableBlocks.Add(new BlackBlock());
+            cyclableBlocks.Add(new SpottedBlock());
+            cyclableBlocks.Add(new DarkBlueBlock());
             playerCharacter = new Player();
 
             boomerangItem = new BoomerangItem();

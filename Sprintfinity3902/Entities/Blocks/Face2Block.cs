@@ -8,7 +8,7 @@ namespace Sprintfinity3902.Entities
         public Face2Block()
         {
             Sprite = BlockSpriteFactory.Instance.CreateFace2Block();
-            Position = new Vector2(500, 700);
+            Position = new Vector2(300, 700);
         }
     }
 }

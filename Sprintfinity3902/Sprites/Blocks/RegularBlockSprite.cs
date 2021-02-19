@@ -2,16 +2,16 @@
 
 namespace Sprintfinity3902.Sprites
 {
-    public class Face1BlockSprite : AbstractSprite
+    public class RegularBlockSprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 
-        private const int BLOCK_X = 339;
-        private const int BLOCK_Y = 91;
+        private const int BLOCK_X = 1001;
+        private const int BLOCK_Y = 11;
         private const int BLOCK_WIDTH = 16;
         private const int BLOCK_HEIGHT = 16;
 
-        public Face1BlockSprite(Texture2D texture)
+        public RegularBlockSprite(Texture2D texture)
         {
             SpriteFrame sprite1 = new SpriteFrame(texture, BLOCK_X, BLOCK_Y, BLOCK_WIDTH, BLOCK_HEIGHT);
             Texture = texture;

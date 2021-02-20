@@ -1,4 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*
+ * The basic idea for this Animation controller came from the following tutorial on YouTube:
+ * https://www.youtube.com/watch?v=2PKRJ0HSg4o
+ */
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;

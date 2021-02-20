@@ -8,7 +8,10 @@ using System.Diagnostics;
 namespace Sprintfinity3902.Controllers {
     public class InputKeyboard : IController {
 
+        // This is an ordered list of the pressed keys
         private static List<Keys> orderedKeyPress;
+
+        /* Singleton instance */
 
         private static InputKeyboard instance;
 
@@ -26,10 +29,15 @@ namespace Sprintfinity3902.Controllers {
             return orderedKeyPress;
         }
 
+        /* This checks to see if keys were released; if so,
+         * listeners are called. Also new pressed keys are 
+         * added to 'orderedKeyPress'.
+         */
         public void Update() {
 
             KeyboardState currentState = Keyboard.GetState();
 
+            // Checks to see if keys were released
             for (int i = 0; i < orderedKeyPress.Count; i++) {
                 if (!currentState.IsKeyDown(orderedKeyPress[i])) {
                     KeyboardManager.Instance.CallHandlers(orderedKeyPress[i]);
@@ -40,12 +48,14 @@ namespace Sprintfinity3902.Controllers {
             }
             Debug.WriteLine("");
 
+            // Check to add new keys
             foreach (Keys key in currentState.GetPressedKeys()) {
                 if (!orderedKeyPress.Contains(key)) {
                     orderedKeyPress.Insert(0, key);
                 }
             }
 
+            // Executes commands by giving list of pressed keys to KeyboardManager
             KeyboardManager.Instance.CallCommands(orderedKeyPress);
         }
 

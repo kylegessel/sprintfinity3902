@@ -3,22 +3,20 @@ using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.Commands
 {
-    public class SetPlayerMoveCommand: ICommand
+    public class SetPlayerMoveRightCommand: ICommand
     {
         Player PlayerCharacter;
-        private IState _state;
 
-        public SetPlayerMoveCommand(Player player, IState state)
+        public SetPlayerMoveRightCommand(Player player)
         {
             PlayerCharacter = player;
-            _state = state;
         }
 
         public void Execute()
         {
-            if (PlayerCharacter.CurrentState != _state)
+            if (PlayerCharacter.CurrentState != PlayerCharacter.facingRight)
             {
-                PlayerCharacter.SetState(_state);
+                PlayerCharacter.SetState(PlayerCharacter.facingRight);
             }
             else
             {

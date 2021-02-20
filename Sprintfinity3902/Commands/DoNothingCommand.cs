@@ -6,6 +6,9 @@ namespace Sprintfinity3902.Commands
     {
         private Game1 myGame;
 
+        public DoNothingCommand() {
+        }
+
         public DoNothingCommand(Game1 game)
         {
             myGame = game;

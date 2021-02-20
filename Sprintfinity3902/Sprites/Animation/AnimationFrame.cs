@@ -9,10 +9,8 @@ namespace Sprintfinity3902.Sprites
 
         private SpriteFrame _sprite;
 
-        public SpriteFrame Sprite
-        {
-            get
-            {
+        public SpriteFrame Sprite {
+            get {
                 return _sprite;
             }
             set
@@ -23,12 +21,10 @@ namespace Sprintfinity3902.Sprites
 
         public float TimeStamp { get; }
 
-        public AnimationFrame(SpriteFrame sprite, float timeStamp)
-        {
+        public AnimationFrame(SpriteFrame sprite, float timeStamp) {
             Sprite = sprite;
             TimeStamp = timeStamp;
         }
-
 
     }
 }

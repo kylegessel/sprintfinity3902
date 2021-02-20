@@ -8,10 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sprintfinity3902.Sprites
-{
-    public class Animation
-    {
+namespace Sprintfinity3902.Sprites {
+    public class Animation {
         public bool IsPlaying { get; set; }
         public bool PlayOneTime { get; private set; }
         public float PlaybackProgress { get; private set; }
@@ -27,24 +25,16 @@ namespace Sprintfinity3902.Sprites
             IsPlaying = shouldPlay;
         }
 
-        // index operator to return a frame. could use anim[1] to access frame 1 in an animation for instance (frame 2)
-        public AnimationFrame this[int index] {
-            get {
-                return GetFrame(index);
-            }
-        }
-
         public AnimationFrame GetFrame(int index) {
-            if (index < 0 || index >= _frames.Count)
-                throw new ArgumentOutOfRangeException(nameof(index), "A frame with index " + index + " does not exist in this animation.");
+            if (index < 0 || index >= _frames.Count) {
+                throw new ArgumentOutOfRangeException();
+            }
 
             return _frames[index];
         }
 
-        public AnimationFrame CurrentFrame
-        {
-            get
-            {
+        public AnimationFrame CurrentFrame {
+            get {
                 return _frames
                     .Where(f => f.TimeStamp <= PlaybackProgress)
                     .OrderBy(f => f.TimeStamp)
@@ -52,10 +42,8 @@ namespace Sprintfinity3902.Sprites
             }
         }
 
-        public float Duration
-        {
-            get
-            {
+        public float Duration {
+            get {
                 if (!_frames.Any())
                     return 0;
 
@@ -64,15 +52,13 @@ namespace Sprintfinity3902.Sprites
         }
 
         
-        public void AddFrame(SpriteFrame sprite, float timeStamp) 
-        { 
+        public void AddFrame(SpriteFrame sprite, float timeStamp) { 
             _frames.Add(new AnimationFrame(sprite, timeStamp));
         }
 
-        public void Update(GameTime gameTime)
-        {
-            if (IsPlaying)
-            {
+        public void Update(GameTime gameTime) {
+            
+            if (IsPlaying) {
                 PlaybackProgress += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (PlaybackProgress > Duration) {
@@ -83,34 +69,24 @@ namespace Sprintfinity3902.Sprites
                     } else {
                         PlaybackProgress -= Duration;
                     }
-                }
-                    
-                        
+                }     
             }
-
-
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
-        {
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color) {
             spriteBatch.Draw(CurrentFrame.Sprite.Texture, position, CurrentFrame.Sprite.SourceRectangle, color, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.None, 0.0f);
         }
 
-        public void Play()
-        {
+        public void Play() {
             IsPlaying = true;
         }
 
-        public void Stop()
-        {
+        public void Stop() {
             IsPlaying = false;
             PlaybackProgress = 0;
         }
 
-        
-
-        public void PlayOnce()
-        {
+        public void PlayOnce() {
             PlayOneTime = true;
             Play();
         }

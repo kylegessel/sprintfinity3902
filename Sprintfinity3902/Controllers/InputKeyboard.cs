@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Interfaces;
 using System;
@@ -33,7 +34,7 @@ namespace Sprintfinity3902.Controllers {
          * listeners are called. Also new pressed keys are 
          * added to 'orderedKeyPress'.
          */
-        public void Update() {
+        public void Update(GameTime gameTime) {
 
             KeyboardState currentState = Keyboard.GetState();
 

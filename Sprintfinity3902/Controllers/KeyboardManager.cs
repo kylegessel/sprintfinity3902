@@ -6,9 +6,10 @@ using Sprintfinity3902.Link;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using IUpdateable = Sprintfinity3902.Interfaces.IUpdateable;
 
 namespace Sprintfinity3902.Controllers {
-    public class KeyboardManager {
+    public class KeyboardManager : IUpdateable {
 
         // List of keys that describe movement of Link
         private static List<Keys> MOVEMENT_KEYS = new List<Keys>() {
@@ -167,8 +168,8 @@ namespace Sprintfinity3902.Controllers {
          * the InputKeyboard will call this.CallCommands and 
          * this.CallHandlers if it needs to.
          */
-        public void Update() {
-            InputKeyboard.Instance.Update();
+        public void Update(GameTime gameTime) {
+            InputKeyboard.Instance.Update(gameTime);
         }
 
     }

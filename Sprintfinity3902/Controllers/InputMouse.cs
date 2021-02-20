@@ -23,7 +23,7 @@ namespace Sprintfinity3902.Controllers
                 
         }
     
-        public void Update() {
+        public void Update(GameTime gameTime) {
             MouseState ms = Mouse.GetState();
             Point mouseLocation = new Point(ms.X, ms.Y);
 

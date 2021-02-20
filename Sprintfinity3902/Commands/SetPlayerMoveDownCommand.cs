@@ -3,7 +3,7 @@ using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.Commands
 {
-    public class SetPlayerMoveDownCommand: ICommand
+    public class SetPlayerMoveDownCommand : ICommand
     {
         Player PlayerCharacter;
 

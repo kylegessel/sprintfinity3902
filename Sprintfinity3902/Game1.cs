@@ -25,15 +25,18 @@ namespace Sprintfinity3902
         private List<IEntity> cyclableItems;
         private List<IEntity> cyclableCharacters;
 
+        private int blockIndex;
+        private int itemIndex;
+        private int NPCIndex;
+
+
         public ILink playerCharacter;
-        public Player link;
         private IEntity boomerangItem;
         private IEntity bombItem;
         private IEntity movingSword;
         public Camera camera;
 
-        public Game1()
-        {
+        public Game1() {
             _graphics = new GraphicsDeviceManager(this);
             Window.Title = "The Legend of Zelda";
             Content.RootDirectory = "Content";
@@ -41,23 +44,19 @@ namespace Sprintfinity3902
 
             camera = new Camera(this);
 
-            Graphics.ApplyChanges();
-        }
-
-        protected override void Initialize()
-        {
-            base.Initialize();
-        }
-
-        protected void Reset() {
-            InputKeyboard.Instance.UnregisterListeners();
-            InputKeyboard.Instance.UnregisterCommands();
-
             cyclableBlocks = new List<IEntity>();
             cyclableItems = new List<IEntity>();
             cyclableCharacters = new List<IEntity>();
 
-            // cyclableBlocks.Add all blocks
+            Graphics.ApplyChanges();
+        }
+
+        protected override void Initialize() {
+            base.Initialize();
+        }
+
+        protected void Reset() {
+            KeyboardManager.Instance.Reset();
 
             cyclableItems.Add(new RupeeItem(new Vector2(500, 300)));
             cyclableItems.Add(new HeartItem(new Vector2(500, 300)));
@@ -68,7 +67,6 @@ namespace Sprintfinity3902
             cyclableItems.Add(new ClockItem(new Vector2(500, 300)));
             cyclableItems.Add(new BowItem(new Vector2(500, 300)));
             cyclableItems.Add(new TriforceItem(new Vector2(500, 300)));
-
 
             cyclableCharacters.Add(new SkeletonEnemy());
             cyclableCharacters.Add(new GelEnemy());
@@ -95,12 +93,21 @@ namespace Sprintfinity3902
             bombItem = new BombItem(new Vector2(-1000, -1000));
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
 
-            SetCommands();
-            SetListeners();
+            KeyboardManager.Instance.Initialize((Player)playerCharacter);
+            KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
+            KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
+            
+            blockIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.T, Keys.Y);
+            itemIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.U, Keys.I);
+            NPCIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.O, Keys.P);
+
+            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)playerCharacter, (BombItem)bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
         }
 
-        protected override void LoadContent()
-        {
+        protected override void LoadContent() {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             camera.LoadAllTextures(Content);
@@ -111,17 +118,16 @@ namespace Sprintfinity3902
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
             Reset();
-            
+
         }
 
-        protected override void Update(GameTime gameTime)
-        {
-            InputKeyboard.Instance.Update();
+        protected override void Update(GameTime gameTime) {
+            KeyboardManager.Instance.Update();
             InputMouse.Instance.Update();
 
-            cyclableBlocks[0].Update(gameTime);
-            cyclableCharacters[0].Update(gameTime);
-            cyclableItems[0].Update(gameTime);
+            cyclableBlocks[KeyboardManager.Instance.GetCountDeltaKey(blockIndex, cyclableBlocks.Count)].Update(gameTime);
+            cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Update(gameTime);
+            cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Update(gameTime);
 
             playerCharacter.Update(gameTime);
             boomerangItem.Update(gameTime);
@@ -131,17 +137,16 @@ namespace Sprintfinity3902
             base.Update(gameTime);
         }
 
-        protected override void Draw(GameTime gameTime)
-        {
+        protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.DarkSlateGray);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             //camera.Draw(_spriteBatch);
 
-            cyclableBlocks[0].Draw(_spriteBatch);
-            cyclableItems[0].Draw(_spriteBatch);
-            cyclableCharacters[0].Draw(_spriteBatch);
+            cyclableBlocks[KeyboardManager.Instance.GetCountDeltaKey(blockIndex, cyclableBlocks.Count)].Draw(_spriteBatch);
+            cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Draw(_spriteBatch);
+            cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Draw(_spriteBatch);
 
             playerCharacter.Draw(_spriteBatch, Color.White);
 
@@ -154,147 +159,5 @@ namespace Sprintfinity3902
             base.Draw(gameTime);
         }
 
-        public void SetCommands()
-        {
-            
-            foreach (Keys key in Enum.GetValues(typeof(Keys)))
-            {
-                InputKeyboard.Instance.RegisterCommand(key, new DoNothingCommand(this));
-            }
-
-            link = (Player)playerCharacter;
-
-            InputKeyboard.Instance.RegisterCommand(new SetPlayerMoveCommand(link, link.facingUp), Keys.W, Keys.Up);
-            InputKeyboard.Instance.RegisterCommand(new SetPlayerMoveCommand(link, link.facingLeft), Keys.A, Keys.Left);
-            InputKeyboard.Instance.RegisterCommand(new SetPlayerMoveCommand(link, link.facingDown), Keys.S, Keys.Down);
-            InputKeyboard.Instance.RegisterCommand(new SetPlayerMoveCommand(link, link.facingRight), Keys.D, Keys.Right);
-            InputKeyboard.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
-            InputKeyboard.Instance.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
-            InputKeyboard.Instance.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
-            InputKeyboard.Instance.RegisterCommand(new SetLinkAttackCommand(link, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
-
-            // InputKeyboard.Instance.RegisterCommand(new ShiftListCommand<IEntity>(cyclableBlocks, -1), Keys.T);
-            // InputKeyboard.Instance.RegisterCommand(new ShiftListCommand<IEntity>(ref cyclableBlocks, 1), Keys.Y);
-        }
-
-        public void SetListeners()
-        {
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => { Exit(); }, Keys.Q);
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => { Reset(); }, Keys.R);
-
-
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
-
-                //Debug.WriteLine(cyclableBlocks[0].ToString());
-
-                List<IEntity> holder = new List<IEntity>();
-                int cycleBy = 1;
-
-                for (int i = 0; i < cycleBy % cyclableBlocks.Count; i++) {
-                    holder.Add(cyclableBlocks[i]);
-                }
-
-                cyclableBlocks.RemoveRange(0, cycleBy % cyclableBlocks.Count);
-
-                cyclableBlocks.AddRange(holder);
-
-            }, Keys.Y);
-
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
-
-                Debug.WriteLine(cyclableBlocks[0].ToString());
-
-                List<IEntity> holder = new List<IEntity>();
-                int cycleBy = -1;
-
-                for (int i = (cycleBy % cyclableBlocks.Count) + cyclableBlocks.Count; i < cyclableBlocks.Count; i++) {
-                    holder.Add(cyclableBlocks[i]);
-                }
-
-                cyclableBlocks.RemoveRange((cycleBy % cyclableBlocks.Count) + cyclableBlocks.Count, Math.Abs(cycleBy % cyclableBlocks.Count));
-
-                holder.AddRange(cyclableBlocks);
-
-                cyclableBlocks = holder;
-
-
-            }, Keys.T);
-
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
-
-                //Debug.WriteLine(cyclableBlocks[0].ToString());
-
-                List<IEntity> holder = new List<IEntity>();
-                int cycleBy = 1;
-
-                for (int i = 0; i < cycleBy % cyclableItems.Count; i++) {
-                    holder.Add(cyclableItems[i]);
-                }
-
-                cyclableItems.RemoveRange(0, cycleBy % cyclableItems.Count);
-
-                cyclableItems.AddRange(holder);
-
-            }, Keys.I);
-
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
-
-                Debug.WriteLine(cyclableItems[0].ToString());
-
-                List<IEntity> holder = new List<IEntity>();
-                int cycleBy = -1;
-
-                for (int i = (cycleBy % cyclableItems.Count) + cyclableItems.Count; i < cyclableItems.Count; i++) {
-                    holder.Add(cyclableItems[i]);
-                }
-
-                cyclableItems.RemoveRange((cycleBy % cyclableItems.Count) + cyclableItems.Count, Math.Abs(cycleBy % cyclableItems.Count));
-
-                holder.AddRange(cyclableItems);
-
-                cyclableItems = holder;
-
-
-            }, Keys.U);
-
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
-
-                //Debug.WriteLine(cyclableBlocks[0].ToString());
-
-                List<IEntity> holder = new List<IEntity>();
-                int cycleBy = 1;
-
-                for (int i = 0; i < cycleBy % cyclableCharacters.Count; i++) {
-                    holder.Add(cyclableCharacters[i]);
-                }
-
-                cyclableCharacters.RemoveRange(0, cycleBy % cyclableCharacters.Count);
-
-                cyclableCharacters.AddRange(holder);
-
-            }, Keys.P);
-
-            InputKeyboard.Instance.RegisterKeyUpCallback(() => {
-
-                Debug.WriteLine(cyclableCharacters[0].ToString());
-
-                List<IEntity> holder = new List<IEntity>();
-                int cycleBy = -1;
-
-                for (int i = (cycleBy % cyclableCharacters.Count) + cyclableCharacters.Count; i < cyclableCharacters.Count; i++) {
-                    holder.Add(cyclableCharacters[i]);
-                }
-
-                cyclableCharacters.RemoveRange((cycleBy % cyclableCharacters.Count) + cyclableCharacters.Count, Math.Abs(cycleBy % cyclableCharacters.Count));
-
-                holder.AddRange(cyclableCharacters);
-
-                cyclableCharacters = holder;
-
-
-            }, Keys.O);
-
-        }
     }
 }

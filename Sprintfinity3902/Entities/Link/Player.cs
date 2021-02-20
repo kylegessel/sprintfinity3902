@@ -31,6 +31,7 @@ namespace Sprintfinity3902.Link
         public IState facingLeftItem { get; set; }
         public IState facingRightItem { get; set; }
         public IState facingUpItem { get; set; }
+
         public Color color;
 
         public Player()

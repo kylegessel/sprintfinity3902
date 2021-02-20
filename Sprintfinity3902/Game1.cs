@@ -96,7 +96,8 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.Initialize((Player)playerCharacter);
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
-            
+            KeyboardManager.Instance.RegisterKeyUpCallback(() => { ((Player)playerCharacter).CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
+
             blockIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.T, Keys.Y);
             itemIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.U, Keys.I);
             NPCIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.O, Keys.P);

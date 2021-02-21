@@ -8,13 +8,13 @@ namespace Sprintfinity3902.Sprites
 
         private const int GORIYA1_POS_X = 257;
         private const int GORIYA1_POS_Y = 11;
-        private const int GORIYA1_WIDTH = 13;
+        private const int GORIYA1_WIDTH = 14;
         private const int GORIYA1_HEIGHT = 16;
 
         private const int GORIYA2_POS_X = 275;
         private const int GORIYA2_POS_Y = 12;
         private const int GORIYA2_WIDTH = 14;
-        private const int GORIYA2_HEIGHT = 15;
+        private const int GORIYA2_HEIGHT = 16;
 
         public GoriyaEnemyRightSprite(Texture2D texture)
         {

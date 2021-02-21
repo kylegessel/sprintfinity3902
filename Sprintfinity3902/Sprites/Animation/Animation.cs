@@ -8,7 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sprintfinity3902.Sprites {
+namespace Sprintfinity3902.Sprites
+{
     public class Animation {
         public bool IsPlaying { get; set; }
         public bool PlayOneTime { get; private set; }

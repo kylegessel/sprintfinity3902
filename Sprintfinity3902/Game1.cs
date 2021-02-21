@@ -1,17 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
-using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Link;
 using Sprintfinity3902.Maps;
 using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Sprintfinity3902
 {

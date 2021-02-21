@@ -7,14 +7,15 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class GoriyaEnemy : AbstractEntity {
+    public class GoriyaEnemy : AbstractEntity
+    {
 
         private IState _currentState;
         private int waitTime;
         private int direction;
         private int choice;
         public BoomerangItem Boomerang;
-        
+
         public IState CurrentState
         {
             get
@@ -42,7 +43,7 @@ namespace Sprintfinity3902.Entities
         public int count { get; set; }
         public Color color;
 
-        public GoriyaEnemy()
+        public GoriyaEnemy(BoomerangItem boomerang)
         {
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
             Position = new Vector2(700, 500);
@@ -52,7 +53,7 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             isWaiting = false;
             isThrowing = false;
-            Boomerang = new BoomerangItem();
+            Boomerang = boomerang;
 
             facingDown = new GoriyaDownState(this);
             facingLeft = new GoriyaLeftState(this);
@@ -99,12 +100,12 @@ namespace Sprintfinity3902.Entities
         public void Choose()
         {
             choice = new Random().Next(1, 7);
-            if(choice == 1 || choice == 2)
+            if (choice == 1 || choice == 2)
             {
                 isMoving = true;
                 start = true;
             }
-            else if(choice == 3)
+            else if (choice == 3)
             {
                 isThrowing = true;
                 start = true;
@@ -191,7 +192,7 @@ namespace Sprintfinity3902.Entities
 
             if (count == 80)
                 isWaiting = false;
-            
+
             if (isWaiting)
                 count++;
         }

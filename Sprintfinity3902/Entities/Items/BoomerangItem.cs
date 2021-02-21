@@ -35,9 +35,9 @@ namespace Sprintfinity3902.Entities
             {
                 MoveItem();
             }
-            else if(itemUse && isGoriya)
+            else if (itemUse && isGoriya)
             {
-                MoveItem2();
+                MoveItemGoriya();
             }
         }
 
@@ -91,7 +91,7 @@ namespace Sprintfinity3902.Entities
             itemUseCount++;
         }
 
-        public void MoveItem2()
+        public void MoveItemGoriya()
         {
             if (itemUseCount <= 60)
             {
@@ -146,22 +146,22 @@ namespace Sprintfinity3902.Entities
             PlayerCharacter = player;
             firingState = PlayerCharacter.CurrentState;
 
-                if (firingState == PlayerCharacter.facingDownItem)
-                {
-                    Position = new Vector2(PlayerCharacter.X + 20, PlayerCharacter.Y + 80);
-                }
-                else if (firingState == PlayerCharacter.facingUpItem)
-                {
-                    Position = new Vector2(PlayerCharacter.X + 15, PlayerCharacter.Y - 50);
-                }
-                else if (firingState == PlayerCharacter.facingLeftItem)
-                {
-                    Position = new Vector2(PlayerCharacter.X - 50, PlayerCharacter.Y + 20);
-                }
-                else if (firingState == PlayerCharacter.facingRightItem)
-                {
-                    Position = new Vector2(PlayerCharacter.X + 66, PlayerCharacter.Y + 20);
-                }
+            if (firingState == PlayerCharacter.facingDownItem)
+            {
+                Position = new Vector2(PlayerCharacter.X + 20, PlayerCharacter.Y + 80);
+            }
+            else if (firingState == PlayerCharacter.facingUpItem)
+            {
+                Position = new Vector2(PlayerCharacter.X + 15, PlayerCharacter.Y - 50);
+            }
+            else if (firingState == PlayerCharacter.facingLeftItem)
+            {
+                Position = new Vector2(PlayerCharacter.X - 50, PlayerCharacter.Y + 20);
+            }
+            else if (firingState == PlayerCharacter.facingRightItem)
+            {
+                Position = new Vector2(PlayerCharacter.X + 66, PlayerCharacter.Y + 20);
+            }
             itemUse = true;
             isPlayer = true;
         }

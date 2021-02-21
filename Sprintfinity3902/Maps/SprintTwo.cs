@@ -10,7 +10,8 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902.Maps
 {
-    public class SprintTwo : Map {
+    public class SprintTwo : Map
+    {
 
         private List<IEntity> cyclableBlocks;
         private List<IEntity> cyclableItems;
@@ -24,16 +25,22 @@ namespace Sprintfinity3902.Maps
         private IEntity boomerangItem;
         private IEntity bombItem;
         private IEntity movingSword;
+        private IEntity goriyaBoomerang;
 
-        public SprintTwo() {
+        public SprintTwo()
+        {
 
             cyclableBlocks = new List<IEntity>();
             cyclableItems = new List<IEntity>();
             cyclableCharacters = new List<IEntity>();
         }
 
-        public void Setup() {
+        public void Setup()
+        {
             KeyboardManager.Instance.Reset();
+
+            goriyaBoomerang = new BoomerangItem();
+
 
             cyclableItems.Add(new RupeeItem(new Vector2(500, 300)));
             cyclableItems.Add(new HeartItem(new Vector2(500, 300)));
@@ -51,7 +58,7 @@ namespace Sprintfinity3902.Maps
             cyclableCharacters.Add(new HandEnemy());
             cyclableCharacters.Add(new BlueBatEnemy());
             cyclableCharacters.Add(new SpikeEnemy());
-            cyclableCharacters.Add(new GoriyaEnemy());
+            cyclableCharacters.Add(new GoriyaEnemy((BoomerangItem)goriyaBoomerang));
             cyclableCharacters.Add(new FinalBossEnemy());
             cyclableCharacters.Add(new OldManNPC());
             cyclableCharacters.Add(new Fire());
@@ -72,7 +79,7 @@ namespace Sprintfinity3902.Maps
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
 
             KeyboardManager.Instance.Initialize((Player)playerCharacter);
-            
+
             KeyboardManager.Instance.RegisterKeyUpCallback(() => { ((Player)playerCharacter).CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
 
             blockIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.T, Keys.Y);
@@ -85,9 +92,10 @@ namespace Sprintfinity3902.Maps
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
         }
 
-        
 
-        public void Update(GameTime gameTime) {
+
+        public void Update(GameTime gameTime)
+        {
             cyclableBlocks[KeyboardManager.Instance.GetCountDeltaKey(blockIndex, cyclableBlocks.Count)].Update(gameTime);
             cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Update(gameTime);
             cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Update(gameTime);
@@ -98,7 +106,8 @@ namespace Sprintfinity3902.Maps
             movingSword.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch) {
+        public void Draw(SpriteBatch spriteBatch)
+        {
 
             cyclableBlocks[KeyboardManager.Instance.GetCountDeltaKey(blockIndex, cyclableBlocks.Count)].Draw(spriteBatch);
             cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Draw(spriteBatch);

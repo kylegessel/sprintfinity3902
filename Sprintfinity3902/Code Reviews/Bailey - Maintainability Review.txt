@@ -7,4 +7,20 @@ Kyle Gessel
 Reviewed by:
 Bailey Ardrey
 
-review...
+The state classes are short and isolate most of the details involved in states and state changes.
+On the surface, the Link state classes appear to be very maintainable. It is unlikely that any one
+change moving forward will cause massive changes to the states.
+
+There is one improvement I feel the state classes could make for the sake of maintainability. Currently,
+there are a number of methods that each state inherits from IState including Move, Attack, UseItem, and
+Update. However, only a number of select classes actually implement these methods. Others just have a
+commented //NULL. This makes for a bit of messiness within the state classes. Future maintenance could 
+be made easier if each state class only had the methods that directly applied to it. As a fan of the
+AbstractSprite and AbstractEntity classes, this might be able to be obtained by creating an
+AbstractState class that houses the PlayerCharacter and Sprite and basic forms of all the methods
+within each state. Then, each individual state would only need to override the methods that pertain
+to that state. This could make future changes a little easier, as there is the potential to only need
+to change AbstractState, instead of changing every individual state class (depending on the change).
+
+Overall, the states do a good job of isolating the details that pertain to state changes for link.
+Only minor tweeks could improve maintainability. As they stand now, they already do a great job!

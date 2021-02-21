@@ -8,6 +8,11 @@ namespace Sprintfinity3902.Entities
 {
     public class FairyItem : AbstractEntity
     {
+        private Random rand = new Random();
+        private int count;
+        private int direction;
+        private int waitTime;
+
         public FairyItem()
         {
             Sprite = ItemSpriteFactory.Instance.CreateFairyItem();
@@ -19,5 +24,57 @@ namespace Sprintfinity3902.Entities
             Sprite = ItemSpriteFactory.Instance.CreateFairyItem();
             Position = pos;
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            Sprite.Update(gameTime);
+            Move();
+        }
+
+        public override void Move()
+        {
+
+            if (count == 0)
+            {
+                waitTime = rand.Next(30, 90);
+            }
+            else if (count == waitTime)
+            {
+                // States for up, down, up right, up left, down left, down right.
+                direction = rand.Next(1, 6);
+
+                count = 0;
+            }
+
+            switch (direction)
+            {
+
+                case 1:
+                    Y = Y - 2;
+                    break;
+                case 2:
+                    Y = Y + 2;
+                    break;
+                case 3:
+                    X = X + 2;
+                    Y = Y + 2;
+                    break;
+                case 4:
+                    X = X - 2;
+                    Y = Y + 2;
+                    break;
+                case 5:
+                    X = X - 2;
+                    Y = Y - 2;
+                    break;
+                case 6:
+                    X = X + 2;
+                    Y = Y - 2;
+                    break;
+
+            }
+            count++;
+        }
     }
+    
 }

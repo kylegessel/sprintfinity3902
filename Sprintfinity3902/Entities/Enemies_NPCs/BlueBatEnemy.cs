@@ -24,7 +24,7 @@ namespace Sprintfinity3902.Entities
         {
             if(count == 0)
             {
-                waitTime = rand.Next(200);
+                waitTime = rand.Next(40, 200);
             }else if( count == waitTime)
             {
                 // States for left, right, up, down, up right, up left, down left, down right.

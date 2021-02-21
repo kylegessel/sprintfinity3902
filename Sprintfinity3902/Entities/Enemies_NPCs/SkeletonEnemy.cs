@@ -29,7 +29,7 @@ namespace Sprintfinity3902.Entities
             
             if(count == 0)
             {
-                waitTime = rd1.Next(240);
+                waitTime = rd1.Next(40, 240);
                 count++;
             }
             else if(count == waitTime)

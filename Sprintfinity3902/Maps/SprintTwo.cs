@@ -44,6 +44,7 @@ namespace Sprintfinity3902.Maps
             cyclableItems.Add(new ClockItem(new Vector2(500, 300)));
             cyclableItems.Add(new BowItem(new Vector2(500, 300)));
             cyclableItems.Add(new TriforceItem(new Vector2(500, 300)));
+            cyclableItems.Add(new FairyItem(new Vector2(500, 300)));
 
             cyclableCharacters.Add(new SkeletonEnemy());
             cyclableCharacters.Add(new GelEnemy());

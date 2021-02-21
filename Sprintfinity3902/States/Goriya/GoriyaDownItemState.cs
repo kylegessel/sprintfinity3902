@@ -1,9 +1,6 @@
 ﻿using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sprintfinity3902.States
 {

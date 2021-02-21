@@ -1,7 +1,7 @@
 ﻿using Sprintfinity3902.Interfaces;
-using System;
-using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Link;
+using Sprintfinity3902.SpriteFactories;
+using System;
 
 namespace Sprintfinity3902.States
 {

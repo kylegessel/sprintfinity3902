@@ -99,5 +99,10 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new BoomerangItemSprite(linkItemSpriteSheet);
         }
+
+        public ISprite CreateFairyItem()
+        {
+            return new FairyItemSprite(itemSpriteSheet);
+        }
     }
 }

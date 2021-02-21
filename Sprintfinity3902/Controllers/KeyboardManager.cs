@@ -5,10 +5,10 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using IUpdateable = Sprintfinity3902.Interfaces.IUpdateable;
 
-namespace Sprintfinity3902.Controllers {
+namespace Sprintfinity3902.Controllers
+{
     public class KeyboardManager : IUpdateable {
 
         // List of keys that describe movement of Link

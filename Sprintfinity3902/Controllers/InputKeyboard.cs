@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Sprintfinity3902.Commands;
 using Sprintfinity3902.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Sprintfinity3902.Controllers {
+namespace Sprintfinity3902.Controllers
+{
     public class InputKeyboard : IController {
 
         // This is an ordered list of the pressed keys

@@ -1,11 +1,9 @@
-﻿Reviewed Class: 
-Animation
-
-Written by: 
-Bailey Ardrey
-
-Reviewed by:
-Casey VanCauwenbergh
+﻿Reviewed by: Casey VanCauwenbergh
+Reviewed on: 2/22/2021
+Sprint 2
+Reviewed Class: Animation.cs
+File written by: Bailey Ardrey
+Time Spent: 30min
 
 Overall, the Animation class is written well and is easy to read and follow
 along with. All but one method in this class are under five lines of code. This

@@ -1,11 +1,9 @@
-﻿Reviewed Class: 
-KeyboardManager
-
-Written by: 
-Ben Hobson
-
-Reviewed by:
-Casey VanCauwenbergh
+﻿Reviewed by: Casey VanCauwenbergh
+Reviewed on: 2/22/2021
+Sprint 2
+Reviewed Class: KeyboardManager.cs
+File written by: Ben Hobson
+Time Spent: 40min
 
 One of the first things I noticed about the Keyboard Manager class is the
 length. It may be nice to seperate some of the content into another class to 

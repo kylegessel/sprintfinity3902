@@ -41,15 +41,15 @@ namespace Sprintfinity3902.Controllers
             for (int i = 0; i < orderedKeyPress.Count; i++) {
                 if (!currentState.IsKeyDown(orderedKeyPress[i])) {
                     KeyboardManager.Instance.CallHandlers(orderedKeyPress[i]);
-                    Debug.Write(orderedKeyPress[i] + " ");
                     orderedKeyPress.RemoveAt(i);
                 }
                 
             }
-            Debug.WriteLine("");
+            
 
             // Check to add new keys
             foreach (Keys key in currentState.GetPressedKeys()) {
+                Debug.WriteLine(key);
                 if (!orderedKeyPress.Contains(key)) {
                     orderedKeyPress.Insert(0, key);
                 }

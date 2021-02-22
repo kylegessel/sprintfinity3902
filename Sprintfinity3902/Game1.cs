@@ -28,7 +28,7 @@ namespace Sprintfinity3902
         private IEntity movingSword;
 
 
-        private Map sprintTwo; 
+        private IMap sprintTwo; 
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -37,7 +37,7 @@ namespace Sprintfinity3902
             IsMouseVisible = true;
 
             Camera.Instance.SetWindowBounds(graphics);
-            sprintTwo = new SprintTwo();
+            sprintTwo = new DefaultMap();
 
             Graphics.ApplyChanges();
         }

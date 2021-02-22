@@ -1,15 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Link;
 using System.Collections.Generic;
 
 namespace Sprintfinity3902.Maps
 {
     public class DefaultMap : IMap
     {
+
+        private IEntity boomerangItem;
+        private IEntity bombItem;
+        private IEntity movingSword;
+        private IEntity goriyaBoomerang;
 
         private List<IEntity> cyclableBlocks;
         private List<IEntity> cyclableItems;
@@ -19,14 +26,9 @@ namespace Sprintfinity3902.Maps
         private int itemIndex;
         private int NPCIndex;
 
-        private IEntity goriyaBoomerang;
 
         public DefaultMap()
         {
-
-            //cyclableBlocks = new List<IEntity>();
-            //cyclableItems = new List<IEntity>();
-            //cyclableCharacters = new List<IEntity>();
         }
 
         public void Setup(Game1 gameInstance)
@@ -37,6 +39,10 @@ namespace Sprintfinity3902.Maps
             cyclableBlocks = new List<IEntity>();
             cyclableItems = new List<IEntity>();
             cyclableCharacters = new List<IEntity>();
+
+            boomerangItem = new BoomerangItem();
+            bombItem = new BombItem(new Vector2(-1000, -1000));
+            movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
 
             cyclableItems.Add(new RupeeItem(new Vector2(500, 300)));
             cyclableItems.Add(new HeartItem(new Vector2(500, 300)));
@@ -73,27 +79,35 @@ namespace Sprintfinity3902.Maps
             itemIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.U, Keys.I);
             NPCIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.O, Keys.P);
 
+            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand((Game1)gameInstance), Keys.E);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)(gameInstance.playerCharacter), (BombItem)bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)(gameInstance.playerCharacter), (BoomerangItem)boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)(gameInstance.playerCharacter), (MovingSwordItem)movingSword), Keys.Z, Keys.N);
+
+
         }
-
-
 
         public void Update(GameTime gameTime)
         {
             cyclableBlocks[KeyboardManager.Instance.GetCountDeltaKey(blockIndex, cyclableBlocks.Count)].Update(gameTime);
             cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Update(gameTime);
             cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Update(gameTime);
+
+            boomerangItem.Update(gameTime);
+            bombItem.Update(gameTime);
+            movingSword.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
             cyclableBlocks[KeyboardManager.Instance.GetCountDeltaKey(blockIndex, cyclableBlocks.Count)].Draw(spriteBatch);
             cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Draw(spriteBatch);
             cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Draw(spriteBatch);
 
-
+            boomerangItem.Draw(spriteBatch);
+            bombItem.Draw(spriteBatch);
+            movingSword.Draw(spriteBatch);
         }
-
 
     }
 }

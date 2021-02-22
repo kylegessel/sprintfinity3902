@@ -24,7 +24,7 @@ namespace Sprintfinity3902.Entities
             _isMoving = false;
 
             Sprite = EnemySpriteFactory.Instance.CreateGelEnemy();
-            Position = new Vector2(600, 500);
+            Position = new Vector2(750, 540);
         }
 
         public override void Update(GameTime gameTime) {

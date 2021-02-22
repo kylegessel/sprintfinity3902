@@ -46,7 +46,7 @@ namespace Sprintfinity3902.Entities
         public GoriyaEnemy(BoomerangItem boomerang)
         {
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
-            Position = new Vector2(700, 500);
+            Position = new Vector2(750, 540);
             waitTime = new Random().Next(200);
             count = 0;
             color = Color.White;

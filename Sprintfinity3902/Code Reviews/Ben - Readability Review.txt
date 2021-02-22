@@ -1,0 +1,8 @@
+﻿Author: Benjamin Hobson
+Date: 2/21/21
+
+Reviewed Class: Sword Class
+Written by: Brad Knez
+
+Reviewed by: Benjamin Hobson
+

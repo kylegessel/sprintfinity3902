@@ -13,7 +13,7 @@ namespace Sprintfinity3902.Entities
         public SkeletonEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
-            Position = new Vector2(1000, 500);
+            Position = new Vector2(750, 540);
 
             direction = rd1.Next(1, 5);
             count = 0;

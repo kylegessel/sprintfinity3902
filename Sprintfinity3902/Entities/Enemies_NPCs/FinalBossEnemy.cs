@@ -26,7 +26,7 @@ namespace Sprintfinity3902.Entities
             ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
             OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
             Sprite = ClosedMouth;
-            Position = new Vector2(1200, 500);
+            Position = new Vector2(750, 540);
 
             rd = new Random();
 

@@ -10,8 +10,7 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Entities;
 
-namespace Sprintfinity3902
-{
+namespace Sprintfinity3902 {
     public class Game1 : Game {
 
         private GraphicsDeviceManager graphics;
@@ -72,7 +71,7 @@ namespace Sprintfinity3902
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
-            
+
         }
 
         protected override void LoadContent() {

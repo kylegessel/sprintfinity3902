@@ -6,10 +6,8 @@ using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
 
-namespace Sprintfinity3902.Maps
-{
-    public class DefaultMap : IMap
-    {
+namespace Sprintfinity3902.Maps {
+    public class DefaultMap : IMap {
 
         private List<IEntity> cyclableBlocks;
         private List<IEntity> cyclableItems;
@@ -21,16 +19,14 @@ namespace Sprintfinity3902.Maps
 
         private IEntity goriyaBoomerang;
 
-        public DefaultMap()
-        {
+        public DefaultMap() {
 
             //cyclableBlocks = new List<IEntity>();
             //cyclableItems = new List<IEntity>();
             //cyclableCharacters = new List<IEntity>();
         }
 
-        public void Setup(Game1 gameInstance)
-        {
+        public void Setup(Game1 gameInstance) {
 
             goriyaBoomerang = new BoomerangItem();
 
@@ -77,15 +73,13 @@ namespace Sprintfinity3902.Maps
 
 
 
-        public void Update(GameTime gameTime)
-        {
+        public void Update(GameTime gameTime) {
             cyclableBlocks[KeyboardManager.Instance.GetCountDeltaKey(blockIndex, cyclableBlocks.Count)].Update(gameTime);
             cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Update(gameTime);
             cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
+        public void Draw(SpriteBatch spriteBatch) {
 
             cyclableBlocks[KeyboardManager.Instance.GetCountDeltaKey(blockIndex, cyclableBlocks.Count)].Draw(spriteBatch);
             cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Draw(spriteBatch);

@@ -1,0 +1,26 @@
+﻿Author: Benjamin Hobson
+Date: 2/21/21
+
+Reviewed Class: Link Decorator
+Written by: Casey Vancauwenbergh
+
+Reviewed by: Benjamin Hobson
+
+Reviewing commit: c166858be28a92af2426dabb8dade30762cbe5aa (Pre Game1 class shortening)
+
+Reviewing empahsis: Maintainability
+
+Review:
+
+The player decorator is mainly housed in the SetDamageLinkCommand and DamagedLink classes. The SetDamageLinkCommand class takes Game as an input and is created in the Game1 class.
+It's not very maintainable practice to access public instance variables of a class directly. The code for a decorator for link makes more sense
+to be housed in the Player entity itself. Casey implemented the color feature into the Draw method of each PlayerState so the decorator could
+be made more simple by being housing in the Player itself instead of modifying the Game class. This will also reduce coupling between
+the game class and the decorator.
+
+DamagedLink reimplements all of the features of AbstractEntity which defeats the point of that class; it should simply extend AbstractEntity
+which is a quick fix. Overall, the DamagedLink class looks practically flawless to my eyes beyond the aforementioned repetition, its simple
+and easy to read, and seems easy to maintain.
+
+It was good practice to keep the duration of the decorator as a constant in the class and handle mod operations to make sure any value of the 
+timer would work for the animation. Overall, this is semi-maintainable, but should just be restructured into an already existing class.

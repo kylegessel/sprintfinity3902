@@ -48,6 +48,7 @@ namespace Sprintfinity3902.Controllers
 
             // Check to add new keys
             foreach (Keys key in currentState.GetPressedKeys()) {
+                Debug.WriteLine(key);
                 if (!orderedKeyPress.Contains(key)) {
                     orderedKeyPress.Insert(0, key);
                 }

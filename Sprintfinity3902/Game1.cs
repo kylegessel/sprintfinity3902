@@ -106,7 +106,7 @@ namespace Sprintfinity3902
             GraphicsDevice.Clear(Color.DarkSlateGray);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            Camera.Instance.Draw(SpriteBatch);
+            // Camera.Instance.Draw(SpriteBatch);
             sprintTwo.Draw(SpriteBatch);
 
 

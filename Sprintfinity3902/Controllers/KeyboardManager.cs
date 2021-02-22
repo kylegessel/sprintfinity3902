@@ -32,9 +32,6 @@ namespace Sprintfinity3902.Controllers
             get {
                 if (instance == null) {
                     instance = new KeyboardManager();
-                    controllerMappings = new Dictionary<Keys, ICommand>();
-                    keyUpHandlers = new Dictionary<Keys, List<Action>>();
-                    counters = new List<int>();
                 }
                 return instance;
             }
@@ -91,10 +88,10 @@ namespace Sprintfinity3902.Controllers
             RegisterCommand(new SetPlayerMoveLeftCommand((Player)player), Keys.A, Keys.Left);
             RegisterCommand(new SetPlayerMoveDownCommand((Player)player), Keys.S, Keys.Down);
             RegisterCommand(new SetPlayerMoveRightCommand((Player)player), Keys.D, Keys.Right);
-            
-            RegisterKeyUpCallback(
-                ((Player)player).CurrentState.Sprite.Animation.Stop,
-            Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
+
+            KeyboardManager.Instance.RegisterKeyUpCallback(() => {
+                ((Player)player).CurrentState.Sprite.Animation.Stop();
+            }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
 
         /* Creates an index in counters list initialized to 0

@@ -6,3 +6,19 @@ Written by: Brad Knez
 
 Reviewed by: Benjamin Hobson
 
+Reviewing commit: c166858be28a92af2426dabb8dade30762cbe5aa (Pre Game1 class shortening)
+
+Reviewing empahsis: Readability
+
+Review:
+
+Brad did a great job writing this class! It's pretty easy to read. I'd recommend using ternary operators to condense two lines
+of code that are exactly the same except for one expression as seen in the draw method. Additionally, a switch case might be easier on
+the eyes in the draw method but I beleive this is preference and very subjective. The spacing looks organized, and consistent (which I care 
+a lot about). The methods should all be consistent for spelling case if they're public (look at getUseItem again). @Brad please don't
+be one of those programmers who indent their 'else' statements (line 85). Lines 86-93 could use some evaluating. The countUse variable
+will be reset to 1 every time instead of 0 which is desirable. Maybe you could implement a reset method and throw a break in the else
+statement. Moving the sword to -1000, -1000 is actually a pretty good idea insofar that you make sure the owner of this class destroys this object
+as another precaution. Again, the UseItem function could benefit from ternary operator or a switch statement. Overall this is code I would 
+write myself and be proud of; it looks clean and well written. My only other advice (which again is subjective) is maybe to add
+a comment before each method giving a summary of its use. Great job.

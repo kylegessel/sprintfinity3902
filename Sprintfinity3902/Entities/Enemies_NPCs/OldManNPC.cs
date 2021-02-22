@@ -8,7 +8,7 @@ namespace Sprintfinity3902.Entities
         public OldManNPC()
         {
             Sprite = EnemySpriteFactory.Instance.CreateOldManNPC();
-            Position = new Vector2(1100, 500);
+            Position = new Vector2(750, 540);
         }
     }
 }

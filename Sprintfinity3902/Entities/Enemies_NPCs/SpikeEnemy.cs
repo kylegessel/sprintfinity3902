@@ -12,12 +12,12 @@ namespace Sprintfinity3902.Entities
         public SpikeEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSpikeEnemy();
-            Position = new Vector2(1200, 200);
+            Position = new Vector2(750, 540);
 
             movingLeft = true;
             wait = false;
             count = 0;
-            distance = 100;
+            distance = 70;
         }
 
         public override void Update(GameTime gameTime)

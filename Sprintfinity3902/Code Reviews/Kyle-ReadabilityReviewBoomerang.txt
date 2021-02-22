@@ -1,0 +1,38 @@
+﻿Reviewed by:
+Kyle Gessel
+
+Reviewed on:
+2/22/2021
+Sprint 2
+
+Reviewed Class: 
+BoomerangItem.cs
+
+Written by: 
+Brad Knez
+
+The boomerang is an extremely complex item, so its only expected that item
+class would be complex as well. This code takes a second to understand, but
+thats an attribute of complex math/logic not of bad coding.
+
+I really like the idea that creating the boomerang and the moveitem command to
+update the location are seperate. It helps with the logic to keep those two
+seperate. 
+
+I think of all the methods, moveItem is the hardest to read. Effectively, there
+are three states the boomerang can be while its moving. Going out, Returning,
+and being caught. The if logic seperates those three states, but it is not
+clear upon reading which state is which. For someone who isn't involved with
+the code, it would hard to process what kind of logic is going on within
+those if statements.
+
+If you needed to add a new state to the logic, this would just further the
+complexity in this section. Maybe if each of the states where seperate
+boomerang methods that were called to by moveItem, it might be clear what
+the if statements are doing, and make the addition of new states more
+intuitive. I could also see the boomerang pickup being a method most items
+need in the future.
+
+Given all of this, the logic behind making a boomerang return to a player
+likely among some of the most involved item logic in this project. The
+boomerang class looks great for the needs of sprint2!

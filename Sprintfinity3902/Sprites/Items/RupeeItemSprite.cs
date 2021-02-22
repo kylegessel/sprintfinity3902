@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprintfinity3902.Sprites
 {
@@ -16,6 +17,8 @@ namespace Sprintfinity3902.Sprites
         private const int RUPEE_B_WIDTH = 8;
         private const int RUPEE_B_HEIGHT = 16;
 
+        private int count;
+
         public RupeeItemSprite(Texture2D texture)
         {
             SpriteFrame sprite1 = new SpriteFrame(texture, RUPEE_G_X, RUPEE_G_Y, RUPEE_G_WIDTH, RUPEE_G_HEIGHT);
@@ -24,9 +27,20 @@ namespace Sprintfinity3902.Sprites
 
             Animation = new Animation();
             Animation.AddFrame(sprite1, 0);
-            Animation.AddFrame(sprite2, 1 / 2f);
-            Animation.AddFrame(sprite1, 1);
+            Animation.AddFrame(sprite2, 1 / 8f);
+            Animation.AddFrame(sprite1, 1 / 4f);
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            count++;
+            if (count == 150)
+            {
+                Animation.ChangeSpeed(1, 1 / 2f);
+                Animation.ChangeSpeed(2, 1);
+            }
+
+            Animation.Update(gameTime);
+        }
     }
 }

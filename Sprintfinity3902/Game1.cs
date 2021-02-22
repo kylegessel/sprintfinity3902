@@ -28,7 +28,7 @@ namespace Sprintfinity3902
         private IEntity movingSword;
 
 
-        private IMap sprintTwo; 
+        private IMap basicMap; 
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -37,7 +37,7 @@ namespace Sprintfinity3902
             IsMouseVisible = true;
 
             Camera.Instance.SetWindowBounds(graphics);
-            sprintTwo = new DefaultMap();
+            basicMap = new DefaultMap();
 
             Graphics.ApplyChanges();
         }
@@ -51,7 +51,7 @@ namespace Sprintfinity3902
 
 
 
-            sprintTwo.Setup(this);
+            basicMap.Setup(this);
 
             playerCharacter = new Player();
             link = (Player)playerCharacter;
@@ -92,7 +92,7 @@ namespace Sprintfinity3902
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
 
-            sprintTwo.Update(gameTime);
+            basicMap.Update(gameTime);
 
             playerCharacter.Update(gameTime);
             boomerangItem.Update(gameTime);
@@ -106,8 +106,9 @@ namespace Sprintfinity3902
             GraphicsDevice.Clear(Color.DarkSlateGray);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            Camera.Instance.Draw(SpriteBatch);
-            sprintTwo.Draw(SpriteBatch);
+            //This will be used for the Sprint 3 and is not needed for Sprint 2
+            //Camera.Instance.Draw(SpriteBatch);
+            basicMap.Draw(SpriteBatch);
 
 
             playerCharacter.Draw(SpriteBatch, Color.White);

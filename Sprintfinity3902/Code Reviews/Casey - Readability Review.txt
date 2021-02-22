@@ -7,4 +7,27 @@ Bailey Ardrey
 Reviewed by:
 Casey VanCauwenbergh
 
-review...
+Overall, the Animation class is written well and is easy to read and follow
+along with. All but one method in this class are under five lines of code. This
+makes it easy to look at a method and quickly understand its purpose. Also, 
+methods and variables are clearly named. Therefore, between the name and lines
+of code in each method, it can quickly be determine exactly what will be done 
+when the method is called. Finally, the Animation class allows the 
+AnimationFrame class to handle setting up each frame for an animation which 
+reduces the clutter in the Animation class. 
+
+There are also a couple things that make the Animation class a little harder to
+read in specific areas. In the draw method, it makes a call to the spriteBatch 
+draw method. This call is almost 160 characters with 9 parameters. Trying to 
+read through each parameter and understand its meaning can become challenging 
+very quickly. It may be best to have some of these float parameters be named 
+variable where their purpose is made more clear. A couple parameters use
+multiple dots to access attributes multiple levels down. Initializing these to
+other variable may also help it become more readable. The only other area that
+is a little more difficult to read is the Update method. Though I believe this 
+is the smartest implimentation, having nested if loops can make it slightly 
+more difficult to understand what is going on. 
+
+I don't believe their is much that needs to be changed in this class. For the 
+most part, it is clear, concise, and written in a manner that is easy to read
+and understand.

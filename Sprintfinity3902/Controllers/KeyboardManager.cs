@@ -93,7 +93,7 @@ namespace Sprintfinity3902.Controllers
             RegisterCommand(new SetPlayerMoveRightCommand((Player)player), Keys.D, Keys.Right);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(() => { 
-                player.CurrentState.Sprite.Animation.Stop(); 
+                ((Player)player).CurrentState.Sprite.Animation.Stop(); 
             }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
 
         }

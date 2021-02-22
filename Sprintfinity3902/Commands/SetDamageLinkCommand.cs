@@ -1,5 +1,6 @@
 ﻿using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
+using Sprintfinity3902.Maps;
 
 namespace Sprintfinity3902.Commands
 {
@@ -20,7 +21,7 @@ namespace Sprintfinity3902.Commands
 
         public void Execute()
         {
-             game.playerCharacter.TakeDamage();
+            game.playerCharacter.TakeDamage();
             damagedLink = new DamagedLink(decoratedLink, game);
             game.playerCharacter = damagedLink;
         }

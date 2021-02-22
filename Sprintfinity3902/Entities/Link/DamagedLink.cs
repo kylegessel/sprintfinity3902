@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Maps;
 
 
 namespace Sprintfinity3902.Link
@@ -64,7 +65,7 @@ namespace Sprintfinity3902.Link
         }
         
 
-        public DamagedLink (Player decoratedLink, Game1 game)
+        public DamagedLink (Player decoratedLink,Game1 game)
         {
             this.decoratedLink = decoratedLink;
             this.game = game;

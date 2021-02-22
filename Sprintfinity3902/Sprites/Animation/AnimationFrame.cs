@@ -19,7 +19,7 @@ namespace Sprintfinity3902.Sprites
             }
         }
 
-        public float TimeStamp { get; }
+        public float TimeStamp { get; set; }
 
         public AnimationFrame(SpriteFrame sprite, float timeStamp) {
             Sprite = sprite;

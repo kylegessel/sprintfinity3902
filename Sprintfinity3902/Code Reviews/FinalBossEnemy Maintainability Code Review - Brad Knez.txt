@@ -1,0 +1,44 @@
+Code Review
+Maintainability on FinalBossEnemy.cs by Brad Knez
+Time Spent: 20 minutes
+
+Quick Notes on the class:
+
+
+Starts by creating ISprites to hold all of the different versions of the dragon
+and the attack.
+
+Additionally creates integers for the different functions of enemy.
+
+Then, assigns values to all of these and decides a random direction and attack.
+
+Then updates the sprite, additionally checks for the FireAttack being null. if 
+it's not, goes ahead and Updates.
+
+Also updates and calls Move.
+
+Then calls Draw similarly to Update.
+
+Move then generates a random between 60 and 120 to determine how long it should move.
+
+Then generates an integer when the directionCount equals the wait time to pick 
+a new direction and move that way.
+
+This is very similar to how most movement works among the enemies and I 
+believe this solution is fine considering collision will need to be added
+in the future.
+
+Attack works in that it similarly generates a random number, if it's 1 the 
+dragon will attack.
+Once the timer runs out on attackCount, then it stops.
+
+Actual Code Review on Maintainability:
+Overall I feel this code is very maintable, it is extremely similar to our other
+enemies and how they work movement wise. The implementation is generally clean
+and doesn't do any "weirdness" to move or attack.
+
+My only concern comes from the attack and how that will work with collision but
+only time will tell. Also, for ease of reading it might be best to move attack 
+to it's own method.
+
+Well done!

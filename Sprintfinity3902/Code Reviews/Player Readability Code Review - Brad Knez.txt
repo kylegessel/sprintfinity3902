@@ -1,0 +1,37 @@
+Code Review
+Readibility on Player.cs by Brad Knez
+Time Spent: 20 minutes
+
+Quick notes on the class: 
+
+Starts class by defining states, and creating all possible state of link.
+
+Sets position, and then creates objects for each of the states passing in this.
+
+Creates function to set state.
+
+Move calls on the current state to handle how it is moving.
+
+Attack calls on the current state to handle how it is attacking.
+
+UseItem calls on the current state to handle the UseItem animation.
+
+Update updates the CurrentState and its sprite
+
+Draw draws the current state's sprite
+
+Unimplemented methods for for future, which is fine!
+
+Actual Code Review on Readibility:
+
+Player makes a lot of sense on first glance. It's very clear that it is very heavily based on states.
+
+The set, move, and attack are all public so it's very clear that they will be frequently called by outside soruces.
+
+This tells me that the Player actually moving and attacking is handled elsewhere.
+
+Also, the constant calls to CurrentState feels smart to me. Without fully understanding how the PlayerState works
+I imagine that it changes depending on Keyboard input, but that isn't necesarilly obvious nor does it need to be.
+
+Overall this code makes a lot of sense to the reader without prior knowledge of
+the class. Good work Kyle!  

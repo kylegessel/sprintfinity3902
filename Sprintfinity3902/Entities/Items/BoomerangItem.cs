@@ -11,184 +11,156 @@ namespace Sprintfinity3902.Entities
 
         Player PlayerCharacter;
         GoriyaEnemy Goriya;
-        Boolean isPlayer;
-        Boolean isGoriya;
-        Boolean itemUse;
-        int itemUseCount;
-        IState firingState;
+        Boolean ItemUse;
+        Boolean PlayerUse;
+        Boolean GoriyaUse;
+        int MoveUseCount;
+        IState FiringState;
+        IEntity Entity;
+        float XDiff;
+        float YDiff;
+        float BoomerangOutChange;
+        enum Direction
+        {
+            Up,
+            Down,
+            Left,
+            Right
+        }
+        Direction FireDirection;
         public BoomerangItem()
         {
             Sprite = ItemSpriteFactory.Instance.CreateBoomerangItem();
             Position = new Vector2(-1000, -1000);
-            itemUse = false;
-            itemUseCount = 0;
+            ItemUse = false;
+            MoveUseCount = 1;
         }
 
         public Boolean getItemUse()
         {
-            return itemUse;
+            return ItemUse;
         }
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
-            if (itemUse && isPlayer)
+            if (ItemUse)
             {
                 MoveItem();
-            }
-            else if (itemUse && isGoriya)
-            {
-                MoveItemGoriya();
             }
         }
 
         public void MoveItem()
         {
-            if (itemUseCount <= 60)
+            // Calculate how far away the boomerang presently is.
+            XDiff = Position.X - Entity.Position.X;
+            YDiff = Position.Y - Entity.Position.Y;
+
+            if (MoveUseCount <= 60)
             {
-                if (firingState == PlayerCharacter.facingDownItem)
+                // Calcuate how much we want the boomerang to change by, slowing down over time.
+                BoomerangOutChange = (13 - (MoveUseCount / 6));
+                if (FireDirection == Direction.Down)
                 {
-                    Position = new Vector2(Position.X, Position.Y + 10);
+                    Position = new Vector2(Position.X, Position.Y + BoomerangOutChange);
                 }
-                else if (firingState == PlayerCharacter.facingUpItem)
+                else if (FireDirection == Direction.Up)
                 {
-                    Position = new Vector2(Position.X, Position.Y - 10);
+                    Position = new Vector2(Position.X, Position.Y - BoomerangOutChange);
                 }
-                else if (firingState == PlayerCharacter.facingLeftItem)
+                else if (FireDirection == Direction.Left)
                 {
-                    Position = new Vector2(Position.X - 10, Position.Y);
+                    Position = new Vector2(Position.X - BoomerangOutChange, Position.Y);
                 }
-                else if (firingState == PlayerCharacter.facingRightItem)
+                else if (FireDirection == Direction.Right)
                 {
-                    Position = new Vector2(Position.X + 10, Position.Y);
+                    Position = new Vector2(Position.X + BoomerangOutChange, Position.Y);
                 }
+                // When the boomerang returns, reset to initial position.
             }
-            else if (itemUseCount == 120)
+            else if ((Math.Abs(Entity.Position.X - Position.X) <= 80) && (Math.Abs(Entity.Position.Y - Position.Y) <= 80))
             {
-                itemUse = false;
-                itemUseCount = 0;
+                ItemUse = false;
+                MoveUseCount = 0;
                 Position = new Vector2(-1000, -1000);
+                if (PlayerUse)
+                {
+                    PlayerCharacter.UseItem();
+                }
+                else if (GoriyaUse)
+                {
+                    Goriya.UseItem();
+                }
             }
             else
             {
-                if (firingState == PlayerCharacter.facingDownItem)
-                {
-                    Position = new Vector2(Position.X, Position.Y - 10);
-                }
-                else if (firingState == PlayerCharacter.facingUpItem)
-                {
-                    Position = new Vector2(Position.X, Position.Y + 10);
-                }
-                else if (firingState == PlayerCharacter.facingLeftItem)
-                {
-                    Position = new Vector2(Position.X + 10, Position.Y);
-                }
-                else if (firingState == PlayerCharacter.facingRightItem)
-                {
-                    Position = new Vector2(Position.X - 10, Position.Y);
-                }
+                // Calculate the new position based on how many times the MoveItem function has been called.
+                Position = new Vector2(Position.X - (XDiff / (120 - MoveUseCount)), Position.Y - (YDiff / (120 - MoveUseCount)));
             }
 
-            itemUseCount++;
-        }
-
-        public void MoveItemGoriya()
-        {
-            if (itemUseCount <= 60)
-            {
-                if (firingState == Goriya.facingDownItem)
-                {
-                    Position = new Vector2(Position.X, Position.Y + 10);
-                }
-                else if (firingState == Goriya.facingUpItem)
-                {
-                    Position = new Vector2(Position.X, Position.Y - 10);
-                }
-                else if (firingState == Goriya.facingLeftItem)
-                {
-                    Position = new Vector2(Position.X - 10, Position.Y);
-                }
-                else if (firingState == Goriya.facingRightItem)
-                {
-                    Position = new Vector2(Position.X + 10, Position.Y);
-                }
-            }
-            else if (itemUseCount == 120)
-            {
-                itemUse = false;
-                itemUseCount = 0;
-                Position = new Vector2(-1000, -1000);
-            }
-            else
-            {
-                if (firingState == Goriya.facingDownItem)
-                {
-                    Position = new Vector2(Position.X, Position.Y - 10);
-                }
-                else if (firingState == Goriya.facingUpItem)
-                {
-                    Position = new Vector2(Position.X, Position.Y + 10);
-                }
-                else if (firingState == Goriya.facingLeftItem)
-                {
-                    Position = new Vector2(Position.X + 10, Position.Y);
-                }
-                else if (firingState == Goriya.facingRightItem)
-                {
-                    Position = new Vector2(Position.X - 10, Position.Y);
-                }
-            }
-
-            itemUseCount++;
+            MoveUseCount++;
         }
 
         public void UseItem(Player player)
         {
             PlayerCharacter = player;
-            firingState = PlayerCharacter.CurrentState;
+            FiringState = PlayerCharacter.CurrentState;
+            Entity = PlayerCharacter;
 
-            if (firingState == PlayerCharacter.facingDownItem)
+            if (FiringState == PlayerCharacter.facingDownItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 20, PlayerCharacter.Y + 80);
+                FireDirection = Direction.Down;
             }
-            else if (firingState == PlayerCharacter.facingUpItem)
+            else if (FiringState == PlayerCharacter.facingUpItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 15, PlayerCharacter.Y - 50);
+                FireDirection = Direction.Up;
             }
-            else if (firingState == PlayerCharacter.facingLeftItem)
+            else if (FiringState == PlayerCharacter.facingLeftItem)
             {
                 Position = new Vector2(PlayerCharacter.X - 50, PlayerCharacter.Y + 20);
+                FireDirection = Direction.Left;
             }
-            else if (firingState == PlayerCharacter.facingRightItem)
+            else if (FiringState == PlayerCharacter.facingRightItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 66, PlayerCharacter.Y + 20);
+                FireDirection = Direction.Right;
             }
-            itemUse = true;
-            isPlayer = true;
+            ItemUse = true;
+            PlayerUse = true;
+            GoriyaUse = false;
         }
 
         public void UseItem(GoriyaEnemy goriya)
         {
             Goriya = goriya;
-            firingState = Goriya.CurrentState;
+            FiringState = Goriya.CurrentState;
+            Entity = Goriya;
 
-            if (firingState == Goriya.facingDownItem)
+            if (FiringState == Goriya.facingDownItem)
             {
                 Position = new Vector2(Goriya.X + 20, Goriya.Y + 80);
+                FireDirection = Direction.Down;
             }
-            else if (firingState == Goriya.facingUpItem)
+            else if (FiringState == Goriya.facingUpItem)
             {
                 Position = new Vector2(Goriya.X + 15, Goriya.Y - 50);
+                FireDirection = Direction.Up;
             }
-            else if (firingState == Goriya.facingLeftItem)
+            else if (FiringState == Goriya.facingLeftItem)
+
             {
                 Position = new Vector2(Goriya.X - 50, Goriya.Y + 20);
+                FireDirection = Direction.Left;
             }
-            else if (firingState == Goriya.facingRightItem)
+            else if (FiringState == Goriya.facingRightItem)
             {
                 Position = new Vector2(Goriya.X + 66, Goriya.Y + 20);
+                FireDirection = Direction.Right;
             }
-            itemUse = true;
-            isGoriya = true;
+            ItemUse = true;
+            PlayerUse = false;
+            GoriyaUse = true;
         }
     }
 }

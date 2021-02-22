@@ -1,19 +1,17 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Interfaces;
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Controllers
 {
-    public class InputKeyboard : IController
-    {
-        private static Dictionary<Keys, Interfaces.ICommand> controllerMappings;
+    public class InputKeyboard : IController {
 
-        private static Dictionary<Keys, List<Action>> keyUpHandlers;
-
+        // This is an ordered list of the pressed keys
         private static List<Keys> orderedKeyPress;
 
-        private static List<Keys> movementKeys;
+        /* Singleton instance */
 
         private static InputKeyboard instance;
 
@@ -22,104 +20,43 @@ namespace Sprintfinity3902.Controllers
                 if (instance == null) {
                     instance = new InputKeyboard();
                     orderedKeyPress = new List<Keys>();
-                    keyUpHandlers = new Dictionary<Keys, List<Action>>();
-                    controllerMappings = new Dictionary<Keys, Interfaces.ICommand>();
-                    movementKeys = new List<Keys>() {
-                        Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right
-                    };
                 }
                 return instance;
             }
         }
 
-        public bool KeyDown(Keys key) {
-            return orderedKeyPress.Contains(key);
+        public List<Keys> GetOrderedKeyPress() {
+            return orderedKeyPress;
         }
 
-        private void addMapping(Interfaces.ICommand command, Keys key) {
-            bool tryAdd = controllerMappings.TryAdd(key, command);
-            if (tryAdd == false) {
-                controllerMappings.Remove(key);
-                controllerMappings.Add(key, command);
-            }
-        }
+        /* This checks to see if keys were released; if so,
+         * listeners are called. Also new pressed keys are 
+         * added to 'orderedKeyPress'.
+         */
+        public void Update(GameTime gameTime) {
 
-        public void RegisterCommand(Interfaces.ICommand command, params Keys[] keys) {
-            foreach (Keys key in keys) {
-                addMapping(command, key);
-            }
-        }
+            KeyboardState currentState = Keyboard.GetState();
 
-        public void RegisterCommand(Keys key, Interfaces.ICommand command) {
-            addMapping(command, key);
-        }
-
-        private void addCallback(Keys key, Action callback) {
-            if (!keyUpHandlers.ContainsKey(key)) {
-                keyUpHandlers[key] = new List<Action>();
-            }
-            keyUpHandlers[key].Add(callback);
-        }
-
-        public void RegisterKeyUpCallback(Keys key, Action callback) {
-            addCallback(key, callback);
-        }
-
-        public void RegisterKeyUpCallback(Action callback, params Keys[] keys) {
-            foreach (Keys key in keys) {
-                addCallback(key, callback);
-            }
-        }
-
-        public void Update()
-        {
-            KeyboardState ks = Keyboard.GetState();
-            Keys[] pressedKeys = ks.GetPressedKeys();
-
-            for (var i = 0; i < orderedKeyPress.Count; i++) {
-                if (!ks.IsKeyDown(orderedKeyPress[i])) {
-
-
-
-                    foreach (KeyValuePair<Keys, List<Action>> pair in new Dictionary<Keys, List<Action>>(keyUpHandlers)) {
-                        if (pair.Key == orderedKeyPress[i]) {
-                            
-                            foreach (Action handler in pair.Value) {
-                                handler();
-                            }
-                        }
-                    }
-
+            // Checks to see if keys were released
+            for (int i = 0; i < orderedKeyPress.Count; i++) {
+                if (!currentState.IsKeyDown(orderedKeyPress[i])) {
+                    KeyboardManager.Instance.CallHandlers(orderedKeyPress[i]);
+                    Debug.Write(orderedKeyPress[i] + " ");
                     orderedKeyPress.RemoveAt(i);
-                } 
+                }
+                
             }
+            Debug.WriteLine("");
 
-            foreach (Keys key in pressedKeys)
-            {
+            // Check to add new keys
+            foreach (Keys key in currentState.GetPressedKeys()) {
                 if (!orderedKeyPress.Contains(key)) {
                     orderedKeyPress.Insert(0, key);
                 }
             }
 
-            bool playerMoveHasExecuted = false;
-
-            foreach (Keys key in orderedKeyPress) {
-                if (playerMoveHasExecuted && movementKeys.Contains(key)) {
-                    continue;
-                } else {
-                    playerMoveHasExecuted = true;
-                }
-                controllerMappings[key].Execute();
-            }
-
-        }
-
-        public void UnregisterListeners() {
-            keyUpHandlers.Clear();
-        }
-
-        public void UnregisterCommands() {
-            controllerMappings.Clear();
+            // Executes commands by giving list of pressed keys to KeyboardManager
+            KeyboardManager.Instance.CallCommands(orderedKeyPress);
         }
 
     }

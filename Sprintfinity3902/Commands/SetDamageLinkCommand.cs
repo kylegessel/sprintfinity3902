@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Commands
 
         public void Execute()
         {
-            game.playerCharacter.TakeDamage();
+             game.playerCharacter.TakeDamage();
             damagedLink = new DamagedLink(decoratedLink, game);
             game.playerCharacter = damagedLink;
         }

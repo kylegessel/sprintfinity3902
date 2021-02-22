@@ -3,7 +3,26 @@ Reviewed on: 2/22/2021
 Sprint 2
 Reviewed Class: Entities/Enemies_NPCs/GelEnemy.cs
 File written by: Ben Hobson
-Time Spent: 30min
+Time Spent: 20min
 
 The gel enemy was one of the first enemies implemented in the game, and will be
-ciritical in the upcoming sections after 
+ciritical in the upcoming sections when we start to implement collision and
+interaction with link. Its a great example of an basic enemy as it is simple 
+but has very unique movement pattern.
+
+This implements the abstract entity class and overrides its movement. It also
+adds a new movement method called moveSmoothly. Upon initial reading, its not
+how these two methods are different. The reason they are different is that move
+does an intialization/reset of important values and moveSmoothly actually moves
+the entity.
+
+I think this hurts the code's readability. Namely, the move function is
+misleading as it doesn't move the slime at all! Only moveSmoothly moves the
+slime. this is different from how move works in other entities.
+
+Otherwise however, the code is very intuitive and easy to process. This is due
+to the abstraction we have done with entity, allowing the slime code to be only
+code specifically for this entity.
+
+Because this is such an early implementation of an entity, I think a second
+look might be a good idea, but overall it is very readable code!

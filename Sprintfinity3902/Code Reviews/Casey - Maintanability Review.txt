@@ -1,0 +1,34 @@
+﻿Reviewed by: Casey VanCauwenbergh
+Reviewed on: 2/22/2021
+Sprint 2
+Reviewed Class: KeyboardManager.cs
+File written by: Ben Hobson
+Time Spent: 40min
+
+One of the first things I noticed about the Keyboard Manager class is the
+length. It may be nice to seperate some of the content into another class to 
+help keep the overal length a little shorter. Though I believe some of the 
+current content is only needed for Sprint 2 and will be removed in later 
+sprints. 
+
+Some things that I think are done well in terms of maintainability is the use 
+of multiple dictionarys. If Commands or inputs need to be changed in the future,
+they will only need to be added in the dictionary and everything else should
+continue to function without problems. Furthermore, every key is initialized 
+with a do nothing command and then is overridden if that key needs to trigger a
+different command. While this may call a few extra commands, it makes changes 
+easy. To add or remove a new command and key, it can be done in one new line or
+simply by removing one line. 
+
+One thing I noticed that could be improved upon is the class has tight coupling.
+For example, in the Initialize method, the RegisterKeyUpCallBack call parameters 
+depends on The State, Sprite, and Animation Classes. If there is a change in any
+of those classes it may result in having to change this class as well. Another 
+small thing I noticed is in the Reset and RegisterCommand methods, a parameter
+is entered as an Interface.ICommand objects when they could be just ICommand. 
+Also, in the Initialize method, the player variable is unnecessarily cast to a
+Player object. 
+
+Overall I think the class does a good job doing what it needs to do for Sprint2.
+For the most part, it should be relatively easy to maintain this class as we
+continue to add to our project. 

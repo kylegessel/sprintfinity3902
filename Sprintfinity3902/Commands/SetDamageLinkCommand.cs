@@ -8,14 +8,11 @@ namespace Sprintfinity3902.Commands
         Player decoratedLink;
         ILink damagedLink;
         Game1 game;
-        //Player playerCharacter;
 
         public SetDamageLinkCommand(Game1 game)
         {
             this.game = game;
             decoratedLink = (Player)game.playerCharacter;
-            
-            //playerCharacter = player;
         }
 
         public void Execute()

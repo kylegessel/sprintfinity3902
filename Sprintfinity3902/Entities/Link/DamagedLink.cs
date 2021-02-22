@@ -100,12 +100,10 @@ namespace Sprintfinity3902.Link
         }
         public void Draw(SpriteBatch spriteBatch, Color Ignorecolor)
         {
-            //CurrentState.Sprite.Draw(spriteBatch, Position);
             decoratedLink.Draw(spriteBatch, linkColor);
         }
         public void Move()
         {
-            //CurrentState.Move();
             decoratedLink.Move();
         }
         public void SetState(IState state)

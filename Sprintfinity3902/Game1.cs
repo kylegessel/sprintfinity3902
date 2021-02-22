@@ -37,9 +37,7 @@ namespace Sprintfinity3902
             Graphics.ApplyChanges();
         }
 
-        protected override void Initialize() {
-            base.Initialize();
-        }
+        protected override void Initialize() { base.Initialize(); }
 
         protected void Reset() {
             KeyboardManager.Instance.Reset();
@@ -47,14 +45,12 @@ namespace Sprintfinity3902
             playerCharacter = new Player();
             link = (Player)playerCharacter;
 
-            sprintTwo.Setup(this);
-
             KeyboardManager.Instance.Initialize(link);
-
-            KeyboardManager.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
+
+            sprintTwo.Setup(this);
         }
 
         protected override void LoadContent() {

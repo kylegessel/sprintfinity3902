@@ -91,10 +91,11 @@ namespace Sprintfinity3902.Controllers
             RegisterCommand(new SetPlayerMoveLeftCommand((Player)player), Keys.A, Keys.Left);
             RegisterCommand(new SetPlayerMoveDownCommand((Player)player), Keys.S, Keys.Down);
             RegisterCommand(new SetPlayerMoveRightCommand((Player)player), Keys.D, Keys.Right);
-            
-            RegisterKeyUpCallback(
-                ((Player)player).CurrentState.Sprite.Animation.Stop,
-            Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right, Keys.E);
+
+            KeyboardManager.Instance.RegisterKeyUpCallback(() => { 
+                player.CurrentState.Sprite.Animation.Stop(); 
+            }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
+
         }
 
         /* Creates an index in counters list initialized to 0

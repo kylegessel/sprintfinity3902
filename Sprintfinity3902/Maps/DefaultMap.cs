@@ -79,7 +79,7 @@ namespace Sprintfinity3902.Maps
             itemIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.U, Keys.I);
             NPCIndex = KeyboardManager.Instance.CreateNewDeltaKeys(Keys.O, Keys.P);
 
-            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand((Game1)gameInstance), Keys.E);
+            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(gameInstance), Keys.E);
             KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)(gameInstance.playerCharacter), (BombItem)bombItem), Keys.D1);
             KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)(gameInstance.playerCharacter), (BoomerangItem)boomerangItem), Keys.D2);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)(gameInstance.playerCharacter), (MovingSwordItem)movingSword), Keys.Z, Keys.N);

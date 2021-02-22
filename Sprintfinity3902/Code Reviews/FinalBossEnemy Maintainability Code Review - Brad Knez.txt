@@ -1,5 +1,8 @@
 Code Review
 Maintainability on FinalBossEnemy.cs by Brad Knez
+2/22/2021
+Sprint 2
+Code written by Bailey Ardrey
 Time Spent: 20 minutes
 
 Quick Notes on the class:
@@ -19,7 +22,8 @@ Also updates and calls Move.
 
 Then calls Draw similarly to Update.
 
-Move then generates a random between 60 and 120 to determine how long it should move.
+Move then generates a random between 60 and 120 to determine how long it should 
+move.
 
 Then generates an integer when the directionCount equals the wait time to pick 
 a new direction and move that way.

@@ -1,5 +1,8 @@
 Code Review
 Readibility on Player.cs by Brad Knez
+2/22/2021
+Sprint 2
+Code written by Kyle Gessel
 Time Spent: 20 minutes
 
 Quick notes on the class: 

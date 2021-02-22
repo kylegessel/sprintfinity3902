@@ -92,5 +92,10 @@ namespace Sprintfinity3902.Sprites
             Play();
         }
 
+        public void ChangeSpeed(int index, float speed)
+        {
+            this.GetFrame(index).TimeStamp = speed;
+        }
+
     }
 }

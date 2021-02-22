@@ -1,0 +1,30 @@
+﻿2/21/2021
+Sprint 2
+
+Reviewed Class: 
+DamagedLink (Decorator Class)
+
+Written by: 
+Casey Vancauwenbergh
+
+Reviewed by:
+Bailey Ardrey
+
+DamagedLink is very readable. Values are named well and make sense such as couner, decoratedLink,
+etc. This goes a long way in making the class easy to follow. However, there are about
+50 lines of code for the get and set methods for Sprite, Position, X, and Y that have already
+been defined in AbstractEntity. Given that DamagedLink is an entity, I feel it could extend
+AbstractEntity (similarly to the Player class) and get rid of the Sprite and Position handling 
+code within this class. This could help readability and flow.
+
+The constructor is simple and sets only necessary values. The update method is a simple loop to determine
+the current color of DamagedLink, but it is unclear if the last line, decoratedLink.Update(gameTime);,
+is necessary, as once playerCharacter in Game1 is set to DamagedLink, update should be called as normal
+60 times a second.
+
+Where the class shines is it's implementation of the Draw, Move, SetState, and RemoveDecorator methods.
+These are extremely simple and rely on other classes to house the necessary implementation details.
+This part of the class is extremely readable.
+
+Overall, there is some work that could be done to improve upon readability, but as it is now it does
+a good job and is very readable.

@@ -1,0 +1,44 @@
+﻿Sprint 2 Reflection
+
+Sprint 2 turned out tremendous. We started the code early and this led to us
+being able to complete all of our functionality almost a week before the sprint
+concluded. This was huge for us in that it allowed us to focus on the actual
+code during our last few meetings, instead of feeling rushed to reach a
+functional state.
+
+Some of the tools we used that led to our success were github and the
+integrated github project board for task management. These tools helped to keep
+all of our changes organized and also allowed us to easily fix any new bugs
+that were introduced in the coding process.
+
+Of course, we did have some issues. Much of the team was new to github, so
+there is a slight learning curve with using it as an effective version control
+tool. Most of these issues were solved early on in the sprint and have gone
+away due to general experience.
+
+During a few occassions, our master branch would break and we would have
+versions of our code that did not work. We plan to resolve this in our future
+sprints by creating a testing protocol to be used both prior to a pull request
+and during a pull request review. By making the testing process more robust, we
+hope to avoid issues where the master branch breaks. We also plan to be much 
+faster to respond to pull requests, so that team members don't feel like they
+are unable to move on until someone looks at their code.
+
+Another issue we had involved the project board. The project board proved to be
+a great tool in managing the tasks required, however early in the project the
+tasks were not as fleshed out as they needed to be. Many of the cards had to be
+made to be more specific or were just not useful. We plan to spend a longer
+period of time outlining the requirements of the sprint during one of our
+first meetings so that the project board is useful from the start of the
+sprint and not just during the end.
+
+In general, most things went extremely well. We used GroupMe for communication 
+between partners, and all team members have been accesible when other members
+have questions. We have team meetings every class day to do a quick stand-up
+based around the tasks on the project board. These meetings are general quick
+and feel impactful. If someone felt stuck on a problem and wanted to ask for
+advice, these meetings were a great time to do that.
+
+Overall, we feel proud of the code that we have created and feel good about the
+processes we used to get to where we are. We are looking forward to the
+challenges the next sprints bring!

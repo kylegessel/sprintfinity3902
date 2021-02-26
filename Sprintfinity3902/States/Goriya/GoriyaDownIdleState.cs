@@ -40,7 +40,8 @@ namespace Sprintfinity3902.States
             {
                 count = 0;
                 Start = false;
-                rnd = new Random().Next(30, 70);
+                Sprite.Animation.Stop();
+                rnd = new Random().Next(50, 90);
             }
 
             if(count == rnd)

@@ -44,7 +44,7 @@ namespace Sprintfinity3902.Entities
 
         public void doneUsing()
         {
-            ItemUse = false;
+            GoriyaUse = false;
         }
 
         public override void Update(GameTime gameTime)

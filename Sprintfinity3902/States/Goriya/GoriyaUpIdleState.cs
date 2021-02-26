@@ -19,7 +19,7 @@ namespace Sprintfinity3902.States
         public GoriyaUpIdleState(GoriyaEnemy goriya)
         {
             Goriya = goriya;
-            Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
+            Sprite = EnemySpriteFactory.Instance.CreateGoriyaUpEnemy();
             Sprite.Animation.IsPlaying = false;
             Start = false;
             count = 0;
@@ -29,7 +29,7 @@ namespace Sprintfinity3902.States
 
         public void Move()
         {
-            Goriya.SetState(Goriya.movingDown);
+            Goriya.SetState(Goriya.movingUp);
             Goriya.CurrentState.Start = true;
             Goriya.Move();
         }
@@ -40,7 +40,8 @@ namespace Sprintfinity3902.States
             {
                 count = 0;
                 Start = false;
-                rnd = new Random().Next(30, 70);
+                Sprite.Animation.Stop();
+                rnd = new Random().Next(50, 90);
             }
 
             if (count == rnd)
@@ -56,7 +57,7 @@ namespace Sprintfinity3902.States
 
         public void UseItem()
         {
-            Goriya.SetState(Goriya.itemDown);
+            Goriya.SetState(Goriya.itemUp);
             Goriya.CurrentState.Start = true;
             Goriya.UseItem();
         }

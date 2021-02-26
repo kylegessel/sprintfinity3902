@@ -1,6 +1,7 @@
 ﻿using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
+using System;
 
 namespace Sprintfinity3902.States
 {
@@ -11,6 +12,7 @@ namespace Sprintfinity3902.States
         public bool Start { get; set; }
 
         private int count;
+        private int rnd;
 
         public GoriyaDownItemState(GoriyaEnemy goriya)
         {
@@ -19,6 +21,7 @@ namespace Sprintfinity3902.States
             Sprite.Animation.IsPlaying = false;
             Start = false;
             count = 0;
+            rnd = 0;
         }
 
 
@@ -42,13 +45,15 @@ namespace Sprintfinity3902.States
             {
                 count = 0;
                 Start = false;
+                rnd = new Random().Next(0, 25);
+                Sprite.Animation.Stop();
                 if (!Goriya.Boomerang.getItemUse())
                 {
                     Goriya.Boomerang.UseItem(Goriya);
                 }
             }
 
-            if (count == 120)
+            if (count == rnd)
             {
                 Goriya.done = true;
                 Goriya.Boomerang.doneUsing();

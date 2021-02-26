@@ -12,8 +12,8 @@ namespace Sprintfinity3902.Entities
 
         private IGoriyaState _currentState;
         private int direction;
-        private int choice;
         public BoomerangItem Boomerang;
+        private GoriyaAI goriyaAI;
 
         public IGoriyaState CurrentState
         {
@@ -48,6 +48,7 @@ namespace Sprintfinity3902.Entities
             Position = new Vector2(750, 540);
             color = Color.White;
             Boomerang = boomerang;
+            goriyaAI = new GoriyaAI(this);
 
             movingDown = new GoriyaDownMovingState(this);
             movingLeft = new GoriyaLeftMovingState(this);
@@ -62,15 +63,8 @@ namespace Sprintfinity3902.Entities
             idleRight = new GoriyaRightIdleState(this);
             idleUp = new GoriyaUpIdleState(this);
 
-            CurrentState = itemUp;
+            CurrentState = movingLeft;
             CurrentState.Start = true;
-        }
-
-        public void SetState(IGoriyaState state)
-        {
-            Vector2 pos = Position;
-            CurrentState = state;
-            Position = pos;
         }
 
         public override void Update(GameTime gameTime)
@@ -79,7 +73,7 @@ namespace Sprintfinity3902.Entities
             {
                 done = false;
                 CurrentState.Start = true;
-                Choose();
+                goriyaAI.Choose();
             }
             else
             {
@@ -96,46 +90,24 @@ namespace Sprintfinity3902.Entities
             Boomerang.Draw(spriteBatch);
         }
 
-        public void Choose()
+        public void SetState(IGoriyaState state)
         {
-            choice = new Random().Next(1, 7);
-            if (choice == 1 || choice == 2)
-            {
-                Move();
-            }
-            else if (choice == 3)
-            {
-                UseItem();
-            }
-            else if (choice == 4)
-            {
-                Wait();
-            }
-            else if (choice == 5 || choice == 6)
-            {
-                ChangeDirection();
-            }
+            Vector2 pos = Position;
+            CurrentState = state;
+            Position = pos;
         }
 
         public void ChangeDirection()
         {
             direction = new Random().Next(1, 5);
             if (direction == 1) //Left
-            {
-                this.SetState(idleLeft);
-            }
+                this.SetState(movingLeft);
             else if (direction == 2) //Right
-            {
-                this.SetState(idleRight);
-            }
+                this.SetState(movingRight);
             else if (direction == 3) //Up
-            {
-                this.SetState(idleUp);
-            }
+                this.SetState(movingUp);
             else if (direction == 4) //Down
-            {
-                this.SetState(idleDown);
-            }
+                this.SetState(movingDown);
         }
 
         public override void Move()

@@ -10,5 +10,10 @@ namespace Sprintfinity3902.Entities
             Sprite = BlockSpriteFactory.Instance.CreateHoleDoorLeft();
             Position = new Vector2(300, 700);
         }
+        public HoleDoorLeft(Vector2 pos)
+        {
+            Sprite = BlockSpriteFactory.Instance.CreateHoleDoorLeft();
+            Position = pos;
+        }
     }
 }

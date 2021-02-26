@@ -4,7 +4,7 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.States
 {
-    public class GoriyaDownItemState : IGoriyaState
+    public class GoriyaDownMovingState : IGoriyaState
     {
         public GoriyaEnemy Goriya { get; set; }
         public ISprite Sprite { get; set; }
@@ -12,7 +12,7 @@ namespace Sprintfinity3902.States
 
         private int count;
 
-        public GoriyaDownItemState(GoriyaEnemy goriya)
+        public GoriyaDownMovingState(GoriyaEnemy goriya)
         {
             Goriya = goriya;
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
@@ -21,12 +21,28 @@ namespace Sprintfinity3902.States
             count = 0;
         }
 
-
         public void Move()
         {
-            Goriya.SetState(Goriya.movingDown);
-            Goriya.CurrentState.Start = true;
-            Goriya.Move();
+            if (Start)
+            {
+                count = 0;
+                Start = false;
+                if (!Sprite.Animation.IsPlaying)
+                {
+                    Sprite.Animation.Play();
+                }
+            }
+
+            if (count == 100)
+            {
+                Sprite.Animation.Stop();
+                Goriya.done = true;
+            }
+            else
+            {
+                Goriya.Y = Goriya.Y + 1;
+                count++;
+            }
         }
 
         public void Wait()
@@ -38,29 +54,14 @@ namespace Sprintfinity3902.States
 
         public void UseItem()
         {
-            if (Start)
-            {
-                count = 0;
-                Start = false;
-                if (!Goriya.Boomerang.getItemUse())
-                {
-                    Goriya.Boomerang.UseItem(Goriya);
-                }
-            }
-
-            if (count == 100)
-                Goriya.done = true;
-            else
-            {
-                count++;
-            }
-
+            Goriya.SetState(Goriya.itemDown);
+            Goriya.CurrentState.Start = true;
+            Goriya.UseItem();
         }
 
         public void Update()
         {
-            UseItem();
+            Move();
         }
-
     }
 }

@@ -16,7 +16,7 @@ namespace Sprintfinity3902 {
         private GraphicsDeviceManager graphics;
         private SpriteBatch SpriteBatch;
 
-        public static int ScaleWindow = 5;
+        public static int ScaleWindow = 6;
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
 

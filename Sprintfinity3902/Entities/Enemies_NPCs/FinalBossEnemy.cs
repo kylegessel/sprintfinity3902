@@ -36,6 +36,21 @@ namespace Sprintfinity3902.Entities
             attack = rd.Next(1, 3);
             attackTime = 70;
         }
+        public FinalBossEnemy(Vector2 pos)
+        {
+            ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
+            OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
+            Sprite = ClosedMouth;
+            Position = pos;
+
+            rd = new Random();
+
+            direction = rd.Next(1, 4);
+            directionCount = 0;
+
+            attack = rd.Next(1, 3);
+            attackTime = 70;
+        }
 
         public override void Update(GameTime gameTime)
         {

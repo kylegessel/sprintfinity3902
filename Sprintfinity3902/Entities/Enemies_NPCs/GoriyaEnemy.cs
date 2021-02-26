@@ -66,6 +66,30 @@ namespace Sprintfinity3902.Entities
             CurrentState = movingLeft;
             CurrentState.Start = true;
         }
+        public GoriyaEnemy(BoomerangItem boomerang, Vector2 pos)
+        {
+            Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
+            Position = pos;
+            color = Color.White;
+            Boomerang = boomerang;
+            goriyaAI = new GoriyaAI(this);
+
+            movingDown = new GoriyaDownMovingState(this);
+            movingLeft = new GoriyaLeftMovingState(this);
+            movingRight = new GoriyaRightMovingState(this);
+            movingUp = new GoriyaUpMovingState(this);
+            itemDown = new GoriyaDownItemState(this);
+            itemLeft = new GoriyaLeftItemState(this);
+            itemRight = new GoriyaRightItemState(this);
+            itemUp = new GoriyaUpItemState(this);
+            idleDown = new GoriyaDownIdleState(this);
+            idleLeft = new GoriyaLeftIdleState(this);
+            idleRight = new GoriyaRightIdleState(this);
+            idleUp = new GoriyaUpIdleState(this);
+
+            CurrentState = movingLeft;
+            CurrentState.Start = true;
+        }
 
         public override void Update(GameTime gameTime)
         {

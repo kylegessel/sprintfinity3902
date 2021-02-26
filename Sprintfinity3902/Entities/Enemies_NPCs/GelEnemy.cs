@@ -26,6 +26,16 @@ namespace Sprintfinity3902.Entities
             Sprite = EnemySpriteFactory.Instance.CreateGelEnemy();
             Position = new Vector2(750, 540);
         }
+        public GelEnemy(Vector2 pos)
+        {
+            _rand = new Random();
+            _waitTime = 1200; // In milliseconds
+            _totalElapsedTime = 0;
+            _isMoving = false;
+
+            Sprite = EnemySpriteFactory.Instance.CreateGelEnemy();
+            Position = pos;
+        }
 
         public override void Update(GameTime gameTime) {
             Sprite.Update(gameTime);

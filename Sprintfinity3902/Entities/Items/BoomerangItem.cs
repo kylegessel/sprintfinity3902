@@ -41,6 +41,12 @@ namespace Sprintfinity3902.Entities
         {
             return ItemUse;
         }
+
+        public void doneUsing()
+        {
+            ItemUse = false;
+        }
+
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);

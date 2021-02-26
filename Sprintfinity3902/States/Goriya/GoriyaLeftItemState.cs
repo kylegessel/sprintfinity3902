@@ -50,8 +50,11 @@ namespace Sprintfinity3902.States
                 }
             }
 
-            if (count == 100)
+            if (count == 120)
+            {
                 Goriya.done = true;
+                Goriya.Boomerang.doneUsing();
+            }
             else
             {
                 count++;

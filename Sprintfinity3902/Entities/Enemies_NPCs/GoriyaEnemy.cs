@@ -62,7 +62,7 @@ namespace Sprintfinity3902.Entities
             idleRight = new GoriyaRightIdleState(this);
             idleUp = new GoriyaUpIdleState(this);
 
-            CurrentState = movingUp;
+            CurrentState = itemUp;
             CurrentState.Start = true;
         }
 

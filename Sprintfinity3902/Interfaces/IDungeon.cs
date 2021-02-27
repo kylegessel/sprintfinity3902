@@ -9,6 +9,8 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface IDungeon
     {
-        
+        void Update(GameTime gameTime);
+        void Draw(SpriteBatch spriteBatch);
+        void Build();
     }
 }

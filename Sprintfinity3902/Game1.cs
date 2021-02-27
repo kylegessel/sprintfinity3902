@@ -25,10 +25,10 @@ namespace Sprintfinity3902 {
         private IEntity boomerangItem;
         private IEntity bombItem;
         private IEntity movingSword;
-        private RoomLoader roomLoader;
+        private IDungeon dungeon;
 
 
-        private IMap basicMap; 
+        //private IMap basicMap; 
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -37,22 +37,22 @@ namespace Sprintfinity3902 {
             IsMouseVisible = true;
 
             Camera.Instance.SetWindowBounds(graphics);
-            basicMap = new DefaultMap();
+            dungeon = new Dungeon();
+            //basicMap = new DefaultMap();
 
             Graphics.ApplyChanges();
         }
 
         protected override void Initialize() {
-            roomLoader = new RoomLoader();
             base.Initialize();
         }
 
         protected void Reset() {
             KeyboardManager.Instance.Reset();
 
+            //basicMap.Setup(this);
 
-
-            basicMap.Setup(this);
+            dungeon.Build();
 
             playerCharacter = new Player();
             link = (Player)playerCharacter;
@@ -84,7 +84,6 @@ namespace Sprintfinity3902 {
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
-            roomLoader.Build();
 
             Reset();
         }
@@ -94,27 +93,27 @@ namespace Sprintfinity3902 {
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
 
-            basicMap.Update(gameTime);
+            dungeon.Update(gameTime);
+            //basicMap.Update(gameTime);
 
             playerCharacter.Update(gameTime);
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
 
-            roomLoader.Update(gameTime);
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.DarkSlateGray);
+            GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             //This will be used for the Sprint 3 and is not needed for Sprint 2
             //Camera.Instance.Draw(SpriteBatch);
-            basicMap.Draw(SpriteBatch);
+            dungeon.Draw(SpriteBatch);
+            //basicMap.Draw(SpriteBatch);
 
-            roomLoader.Draw(SpriteBatch);
             playerCharacter.Draw(SpriteBatch, Color.White);
 
             boomerangItem.Draw(SpriteBatch);

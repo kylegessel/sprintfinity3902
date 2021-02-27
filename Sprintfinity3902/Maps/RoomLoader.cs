@@ -10,24 +10,25 @@ namespace Sprintfinity3902.Maps
     public class RoomLoader
     {
         StreamReader mapStream;
-
-        private List<IEntity> blocks;
-        private List<IEntity> enemies;
+        private IRoom Room { get; set; }
 
         // Have this input a filename and then load the room.
-        public RoomLoader()
+        public RoomLoader(IRoom room)
         {
             // Really think there is a better way to list these files, just a demo for the time being though.
-            mapStream = new StreamReader(@"..\..\..\Content\Rooms\TestRoom.csv");
-            blocks = new List<IEntity>();
-            enemies = new List<IEntity>();
+            Room = room;
+            mapStream = new StreamReader(Room.path);
+
         }
 
         public void Build()
         {
+            Room.roomEntities.Add(new RoomExterior(new Vector2(0, 320)));
+            Room.roomEntities.Add(new RoomInterior(new Vector2(160, 480)));
+            
             string line;
-            int currX = 0;
-            int currY = 0;
+            int currX = 160;
+            int currY = 480;
             Vector2 Position = new Vector2(currX, currY);
             while (!mapStream.EndOfStream)
             {
@@ -40,45 +41,30 @@ namespace Sprintfinity3902.Maps
                         switch (s)
                         {
                             case "TILE":
-                                blocks.Add(new FloorBlock(Position));
+                                Room.roomEntities.Add(new FloorBlock(Position));
                                 break;
                             case "BLOK":
-                                blocks.Add(new RegularBlock(Position));
+                                Room.roomEntities.Add(new RegularBlock(Position));
                                 break;
                             case "RFSH":
-                                blocks.Add(new Face1Block(Position));
+                                Room.roomEntities.Add(new Face1Block(Position));
                                 break;
                             case "LFSH":
-                                blocks.Add(new Face2Block(Position));
+                                Room.roomEntities.Add(new Face2Block(Position));
                                 break;
                         }
                         currX += 80;
-                        if(currX == 80 * 12)
+                        if(currX == 80 * 12 + 160)
                         {
-                            currX = 0;
+                            currX = 160;
                             currY += 80;
                         }
                         Position = new Vector2(currX, currY);
                     }
                 }
             }
+            
         }
             
-            
-        public void Update(GameTime gameTime)
-        {
-            foreach(IEntity entity in blocks)
-            {
-                entity.Update(gameTime);
-            }
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            foreach (IEntity entity in blocks)
-            {
-                entity.Draw(spriteBatch);
-            }
-        }
     }
 }

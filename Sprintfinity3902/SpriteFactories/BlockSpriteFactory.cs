@@ -159,11 +159,11 @@ namespace Sprintfinity3902.SpriteFactories
         /*Room*/
         public ISprite CreateRoomExterior()
         {
-            return new RoomExterior(blockSpriteSheet);
+            return new RoomExteriorSprite(blockSpriteSheet);
         }
         public ISprite CreateRoomInterior()
         {
-            return new RoomInterior(blockSpriteSheet);
+            return new RoomInteriorSprite(blockSpriteSheet);
         }
     }
 }

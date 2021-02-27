@@ -149,5 +149,16 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new WallBottomSprite(blockSpriteSheet);
         }
+
+
+        /*Room*/
+        public ISprite CreateRoomExterior()
+        {
+            return new RoomExterior(blockSpriteSheet);
+        }
+        public ISprite CreateRoomInterior()
+        {
+            return new RoomInterior(blockSpriteSheet);
+        }
     }
 }

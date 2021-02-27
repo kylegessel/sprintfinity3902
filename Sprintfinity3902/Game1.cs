@@ -25,6 +25,7 @@ namespace Sprintfinity3902 {
         private IEntity boomerangItem;
         private IEntity bombItem;
         private IEntity movingSword;
+        private RoomLoader roomLoader;
 
 
         private IMap basicMap; 
@@ -42,6 +43,7 @@ namespace Sprintfinity3902 {
         }
 
         protected override void Initialize() {
+            roomLoader = new RoomLoader();
             base.Initialize();
         }
 
@@ -82,6 +84,7 @@ namespace Sprintfinity3902 {
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
+            roomLoader.Build();
 
             Reset();
         }
@@ -98,6 +101,8 @@ namespace Sprintfinity3902 {
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
 
+            roomLoader.Update(gameTime);
+
             base.Update(gameTime);
         }
 
@@ -109,7 +114,7 @@ namespace Sprintfinity3902 {
             //Camera.Instance.Draw(SpriteBatch);
             basicMap.Draw(SpriteBatch);
 
-
+            roomLoader.Draw(SpriteBatch);
             playerCharacter.Draw(SpriteBatch, Color.White);
 
             boomerangItem.Draw(SpriteBatch);

@@ -13,6 +13,7 @@ namespace Sprintfinity3902.Maps
     {
         private List<IRoom> dungeonRooms;
         private IRoom currentRoom;
+        private int currentId;
         public int Id { get; set; }
 
         public Dungeon()
@@ -23,6 +24,7 @@ namespace Sprintfinity3902.Maps
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\TestRoom.csv", 3));
 
             currentRoom = GetById(1);
+            currentId = 1;
         }
 
         public void Build()
@@ -58,6 +60,20 @@ namespace Sprintfinity3902.Maps
         public IRoom GetById(int id)
         {
             return this.dungeonRooms.FirstOrDefault(z => z.Id == id);
+        }
+
+        public void NextRoom()
+        {
+            currentId = currentRoom.Id;
+            if(currentRoom.Id == 3)
+            {
+                currentRoom = GetById(1);
+            }
+            else
+            {
+                currentId++;
+                currentRoom = GetById(currentId);
+            }
         }
     }
 }

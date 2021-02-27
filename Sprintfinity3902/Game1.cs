@@ -69,6 +69,7 @@ namespace Sprintfinity3902 {
             KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)playerCharacter, (BombItem)bombItem), Keys.D1);
             KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new NextRoomCommand(dungeon), Keys.Space);
 
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);

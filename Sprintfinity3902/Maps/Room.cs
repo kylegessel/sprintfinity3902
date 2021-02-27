@@ -12,14 +12,16 @@ namespace Sprintfinity3902.Maps
 {
     public class Room : IRoom
     {
+        public int Id { get; set; }
         public List<IEntity> roomEntities { get; set; }
         public string path { get; set; }
         public RoomLoader loader { get; set; }
 
-        public Room(string fileLocation)
+        public Room(string fileLocation, int id)
         {
             roomEntities = new List<IEntity>();
             path = fileLocation;
+            Id = id;
 
             loader = new RoomLoader(this);
         }

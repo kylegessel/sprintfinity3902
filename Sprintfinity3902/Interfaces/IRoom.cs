@@ -10,6 +10,7 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface IRoom
     {
+        int Id { get; set; }
         List<IEntity> roomEntities { get; set; }
         string path { get; set; }
         RoomLoader loader { get; set; }

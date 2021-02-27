@@ -1,5 +1,6 @@
 ﻿Author: Benjamin Hobson
 Date: 2/21/21
+Sprint 2
 
 Reviewed Class: Link Decorator
 Written by: Casey Vancauwenbergh
@@ -9,6 +10,8 @@ Reviewed by: Benjamin Hobson
 Reviewing commit: c166858be28a92af2426dabb8dade30762cbe5aa (Pre Game1 class shortening)
 
 Reviewing empahsis: Maintainability
+
+Time Spent: 15min
 
 Review:
 

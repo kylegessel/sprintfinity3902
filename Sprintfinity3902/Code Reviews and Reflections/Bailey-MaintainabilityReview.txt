@@ -10,6 +10,9 @@ Kyle Gessel
 Reviewed by:
 Bailey Ardrey
 
+Time spent:
+20mins
+
 The state classes are short and isolate most of the details involved in states and state changes.
 On the surface, the Link state classes appear to be very maintainable. It is unlikely that any one
 change moving forward will cause massive changes to the states.

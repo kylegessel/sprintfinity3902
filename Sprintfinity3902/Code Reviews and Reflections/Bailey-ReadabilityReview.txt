@@ -10,6 +10,9 @@ Casey Vancauwenbergh
 Reviewed by:
 Bailey Ardrey
 
+Time spent:
+20mins
+
 DamagedLink is very readable. Values are named well and make sense such as couner, decoratedLink,
 etc. This goes a long way in making the class easy to follow. However, there are about
 50 lines of code for the get and set methods for Sprite, Position, X, and Y that have already

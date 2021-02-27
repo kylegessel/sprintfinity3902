@@ -35,6 +35,11 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new RegularBlockSprite(blockSpriteSheet);
         }
+
+        public ISprite CreateFloorBlock()
+        {
+            return new FloorBlockSprite(blockSpriteSheet);
+        }
         public ISprite CreateFace1Block()
         {
             return new Face1BlockSprite(blockSpriteSheet);

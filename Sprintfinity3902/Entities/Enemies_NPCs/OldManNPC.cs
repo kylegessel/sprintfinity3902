@@ -10,5 +10,10 @@ namespace Sprintfinity3902.Entities
             Sprite = EnemySpriteFactory.Instance.CreateOldManNPC();
             Position = new Vector2(750, 540);
         }
+        public OldManNPC(Vector2 pos)
+        {
+            Sprite = EnemySpriteFactory.Instance.CreateOldManNPC();
+            Position = pos;
+        }
     }
 }

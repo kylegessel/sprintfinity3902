@@ -2,10 +2,12 @@
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Sprintfinity3902.States
 {
-    public class GoriyaUpItemState : IGoriyaState
+    public class GoriyaUpIdleState : IGoriyaState
     {
         public GoriyaEnemy Goriya { get; set; }
         public ISprite Sprite { get; set; }
@@ -14,7 +16,7 @@ namespace Sprintfinity3902.States
         private int count;
         private int rnd;
 
-        public GoriyaUpItemState(GoriyaEnemy goriya)
+        public GoriyaUpIdleState(GoriyaEnemy goriya)
         {
             Goriya = goriya;
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaUpEnemy();
@@ -34,41 +36,35 @@ namespace Sprintfinity3902.States
 
         public void Wait()
         {
-            Goriya.SetState(Goriya.idleUp);
-            Goriya.CurrentState.Start = true;
-            Goriya.Wait();
-        }
-
-        public void UseItem()
-        {
             if (Start)
             {
                 count = 0;
                 Start = false;
                 Sprite.Animation.Stop();
-                rnd = new Random().Next(0, 25);
-                if (!Goriya.Boomerang.getItemUse())
-                {
-                    Goriya.Boomerang.UseItem(Goriya);
-                }
+                rnd = new Random().Next(50, 90);
             }
 
             if (count == rnd)
             {
                 Goriya.done = true;
-                Goriya.Boomerang.doneUsing();
             }
             else
             {
                 count++;
             }
 
+        }
 
+        public void UseItem()
+        {
+            Goriya.SetState(Goriya.itemUp);
+            Goriya.CurrentState.Start = true;
+            Goriya.UseItem();
         }
 
         public void Update()
         {
-            UseItem();
+            Wait();
         }
     }
 }

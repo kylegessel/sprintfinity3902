@@ -10,5 +10,10 @@ namespace Sprintfinity3902.Entities
             Sprite = BlockSpriteFactory.Instance.CreateWallBottom();
             Position = new Vector2(300, 700);
         }
+        public WallBottom(Vector2 pos)
+        {
+            Sprite = BlockSpriteFactory.Instance.CreateWallBottom();
+            Position = pos;
+        }
     }
 }

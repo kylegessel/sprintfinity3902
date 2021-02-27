@@ -10,5 +10,10 @@ namespace Sprintfinity3902.Entities
             Sprite = BlockSpriteFactory.Instance.CreateOpenDoorRight();
             Position = new Vector2(300, 700);
         }
+        public OpenDoorRight(Vector2 pos)
+        {
+            Sprite = BlockSpriteFactory.Instance.CreateOpenDoorRight();
+            Position = pos;
+        }
     }
 }

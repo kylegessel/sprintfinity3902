@@ -1,46 +1,75 @@
 ﻿using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
+using System;
 
 namespace Sprintfinity3902.States
 {
-    public class GoriyaRightItemState : IState
+    public class GoriyaRightItemState : IGoriyaState
     {
         public GoriyaEnemy Goriya { get; set; }
         public ISprite Sprite { get; set; }
+        public bool Start { get; set; }
+
+        private int count;
+        private int rnd;
+
 
         public GoriyaRightItemState(GoriyaEnemy goriya)
         {
             Goriya = goriya;
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaRightEnemy();
             Sprite.Animation.IsPlaying = false;
-
+            Start = false;
+            count = 0;
+            rnd = 0;
         }
 
 
         public void Move()
         {
-            //NULL
+            Goriya.SetState(Goriya.movingRight);
+            Goriya.CurrentState.Start = true;
+            Goriya.Move();
         }
 
-        public void Attack()
+        public void Wait()
         {
-
-            //NULL
-
+            Goriya.SetState(Goriya.idleRight);
+            Goriya.CurrentState.Start = true;
+            Goriya.Wait();
         }
 
         public void UseItem()
         {
-            if (!Goriya.Boomerang.getItemUse())
+            if (Start)
             {
-                Goriya.Boomerang.UseItem(Goriya);
+                count = 0;
+                Start = false;
+                Sprite.Animation.Stop();
+                rnd = new Random().Next(0, 25);
+                if (!Goriya.Boomerang.getItemUse())
+                {
+                    Goriya.Boomerang.UseItem(Goriya);
+                }
             }
+
+            if (count == rnd)
+            {
+                Goriya.done = true;
+                Goriya.Boomerang.doneUsing();
+            }
+            else
+            {
+
+                count++;
+            }
+
         }
 
         public void Update()
         {
-            //NULL
+            UseItem();
         }
     }
 }

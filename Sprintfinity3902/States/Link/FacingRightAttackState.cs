@@ -5,7 +5,7 @@ using System;
 
 namespace Sprintfinity3902.States
 {
-    public class FacingRightAttackState : IState
+    public class FacingRightAttackState : IPlayerState
     {
         public Player PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }

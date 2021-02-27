@@ -12,5 +12,10 @@ namespace Sprintfinity3902.Entities
             Sprite = EnemySpriteFactory.Instance.CreateFire();
             Position = new Vector2(750, 540);
         }
+        public Fire(Vector2 pos)
+        {
+            Sprite = EnemySpriteFactory.Instance.CreateFire();
+            Position = pos;
+        }
     }
 }

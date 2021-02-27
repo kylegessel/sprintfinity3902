@@ -15,7 +15,8 @@ namespace Sprintfinity3902.Entities
         Boolean PlayerUse;
         Boolean GoriyaUse;
         int MoveUseCount;
-        IState FiringState;
+        IPlayerState FiringStatePlayer;
+        IGoriyaState FiringStateGoriya;
         IEntity Entity;
         float XDiff;
         float YDiff;
@@ -40,6 +41,12 @@ namespace Sprintfinity3902.Entities
         {
             return ItemUse;
         }
+
+        public void doneUsing()
+        {
+            GoriyaUse = false;
+        }
+
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
@@ -103,25 +110,25 @@ namespace Sprintfinity3902.Entities
         public void UseItem(Player player)
         {
             PlayerCharacter = player;
-            FiringState = PlayerCharacter.CurrentState;
+            FiringStatePlayer = PlayerCharacter.CurrentState;
             Entity = PlayerCharacter;
 
-            if (FiringState == PlayerCharacter.facingDownItem)
+            if (FiringStatePlayer == PlayerCharacter.facingDownItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 20, PlayerCharacter.Y + 80);
                 FireDirection = Direction.Down;
             }
-            else if (FiringState == PlayerCharacter.facingUpItem)
+            else if (FiringStatePlayer == PlayerCharacter.facingUpItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 15, PlayerCharacter.Y - 50);
                 FireDirection = Direction.Up;
             }
-            else if (FiringState == PlayerCharacter.facingLeftItem)
+            else if (FiringStatePlayer == PlayerCharacter.facingLeftItem)
             {
                 Position = new Vector2(PlayerCharacter.X - 50, PlayerCharacter.Y + 20);
                 FireDirection = Direction.Left;
             }
-            else if (FiringState == PlayerCharacter.facingRightItem)
+            else if (FiringStatePlayer == PlayerCharacter.facingRightItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 66, PlayerCharacter.Y + 20);
                 FireDirection = Direction.Right;
@@ -134,26 +141,26 @@ namespace Sprintfinity3902.Entities
         public void UseItem(GoriyaEnemy goriya)
         {
             Goriya = goriya;
-            FiringState = Goriya.CurrentState;
+            FiringStateGoriya = Goriya.CurrentState;
             Entity = Goriya;
 
-            if (FiringState == Goriya.facingDownItem)
+            if (FiringStateGoriya == Goriya.itemDown)
             {
                 Position = new Vector2(Goriya.X + 20, Goriya.Y + 80);
                 FireDirection = Direction.Down;
             }
-            else if (FiringState == Goriya.facingUpItem)
+            else if (FiringStateGoriya == Goriya.itemUp)
             {
                 Position = new Vector2(Goriya.X + 15, Goriya.Y - 50);
                 FireDirection = Direction.Up;
             }
-            else if (FiringState == Goriya.facingLeftItem)
+            else if (FiringStateGoriya == Goriya.itemLeft)
 
             {
                 Position = new Vector2(Goriya.X - 50, Goriya.Y + 20);
                 FireDirection = Direction.Left;
             }
-            else if (FiringState == Goriya.facingRightItem)
+            else if (FiringStateGoriya == Goriya.itemRight)
             {
                 Position = new Vector2(Goriya.X + 66, Goriya.Y + 20);
                 FireDirection = Direction.Right;

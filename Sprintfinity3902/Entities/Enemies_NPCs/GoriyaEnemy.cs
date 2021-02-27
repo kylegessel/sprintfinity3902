@@ -10,13 +10,12 @@ namespace Sprintfinity3902.Entities
     public class GoriyaEnemy : AbstractEntity
     {
 
-        private IState _currentState;
-        private int waitTime;
+        private IGoriyaState _currentState;
         private int direction;
-        private int choice;
         public BoomerangItem Boomerang;
+        private GoriyaAI goriyaAI;
 
-        public IState CurrentState
+        public IGoriyaState CurrentState
         {
             get
             {
@@ -28,67 +27,85 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public IState facingDown { get; set; }
-        public IState facingLeft { get; set; }
-        public IState facingRight { get; set; }
-        public IState facingUp { get; set; }
-        public IState facingDownItem { get; set; }
-        public IState facingLeftItem { get; set; }
-        public IState facingRightItem { get; set; }
-        public IState facingUpItem { get; set; }
-        public bool isMoving { get; set; }
-        public bool isWaiting { get; set; }
-        public bool isThrowing { get; set; }
-        public bool start { get; set; }
-        public int count { get; set; }
+        public IGoriyaState movingDown { get; set; }
+        public IGoriyaState movingLeft { get; set; }
+        public IGoriyaState movingRight { get; set; }
+        public IGoriyaState movingUp { get; set; }
+        public IGoriyaState itemDown { get; set; }
+        public IGoriyaState itemLeft { get; set; }
+        public IGoriyaState itemRight { get; set; }
+        public IGoriyaState itemUp { get; set; }
+        public IGoriyaState idleDown { get; set; }
+        public IGoriyaState idleLeft { get; set; }
+        public IGoriyaState idleRight { get; set; }
+        public IGoriyaState idleUp { get; set; }
+        public bool done { get; set; }
         public Color color;
 
         public GoriyaEnemy(BoomerangItem boomerang)
         {
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
             Position = new Vector2(750, 540);
-            waitTime = new Random().Next(200);
-            count = 0;
             color = Color.White;
-            isMoving = false;
-            isWaiting = false;
-            isThrowing = false;
             Boomerang = boomerang;
+            goriyaAI = new GoriyaAI(this);
 
-            facingDown = new GoriyaDownState(this);
-            facingLeft = new GoriyaLeftState(this);
-            facingRight = new GoriyaRightState(this);
-            facingUp = new GoriyaUpState(this);
-            facingDownItem = new GoriyaDownItemState(this);
-            facingLeftItem = new GoriyaLeftItemState(this);
-            facingRightItem = new GoriyaRightItemState(this);
-            facingUpItem = new GoriyaUpItemState(this);
+            movingDown = new GoriyaDownMovingState(this);
+            movingLeft = new GoriyaLeftMovingState(this);
+            movingRight = new GoriyaRightMovingState(this);
+            movingUp = new GoriyaUpMovingState(this);
+            itemDown = new GoriyaDownItemState(this);
+            itemLeft = new GoriyaLeftItemState(this);
+            itemRight = new GoriyaRightItemState(this);
+            itemUp = new GoriyaUpItemState(this);
+            idleDown = new GoriyaDownIdleState(this);
+            idleLeft = new GoriyaLeftIdleState(this);
+            idleRight = new GoriyaRightIdleState(this);
+            idleUp = new GoriyaUpIdleState(this);
 
-            CurrentState = facingLeft;
+            CurrentState = movingLeft;
+            CurrentState.Start = true;
         }
-
-        public override void SetState(IState state)
+        public GoriyaEnemy(BoomerangItem boomerang, Vector2 pos)
         {
-            Vector2 pos = Position;
-            CurrentState = state;
+            Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
             Position = pos;
+            color = Color.White;
+            Boomerang = boomerang;
+            goriyaAI = new GoriyaAI(this);
+
+            movingDown = new GoriyaDownMovingState(this);
+            movingLeft = new GoriyaLeftMovingState(this);
+            movingRight = new GoriyaRightMovingState(this);
+            movingUp = new GoriyaUpMovingState(this);
+            itemDown = new GoriyaDownItemState(this);
+            itemLeft = new GoriyaLeftItemState(this);
+            itemRight = new GoriyaRightItemState(this);
+            itemUp = new GoriyaUpItemState(this);
+            idleDown = new GoriyaDownIdleState(this);
+            idleLeft = new GoriyaLeftIdleState(this);
+            idleRight = new GoriyaRightIdleState(this);
+            idleUp = new GoriyaUpIdleState(this);
+
+            CurrentState = movingLeft;
+            CurrentState.Start = true;
         }
 
         public override void Update(GameTime gameTime)
         {
-            CurrentState.Sprite.Update(gameTime);
-            CurrentState.Update();
-            Boomerang.Update(gameTime);
-
-            // Change values and then call change direction or move accordingly
-            if (isMoving)
-                Move();
-            else if (isThrowing)
-                UseItem();
-            else if (isWaiting)
-                Wait();
+            if (done)
+            {
+                done = false;
+                CurrentState.Start = true;
+                goriyaAI.Choose();
+            }
             else
-                Choose();
+            {
+                CurrentState.Sprite.Update(gameTime);
+                CurrentState.Update();
+                Boomerang.Update(gameTime);
+            }
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -97,104 +114,39 @@ namespace Sprintfinity3902.Entities
             Boomerang.Draw(spriteBatch);
         }
 
-        public void Choose()
+        public void SetState(IGoriyaState state)
         {
-            choice = new Random().Next(1, 7);
-            if (choice == 1 || choice == 2)
-            {
-                isMoving = true;
-                start = true;
-            }
-            else if (choice == 3)
-            {
-                isThrowing = true;
-                start = true;
-            }
-            else if (choice == 4)
-            {
-                isWaiting = true;
-                start = true;
-            }
-            else if (choice == 5 || choice == 6)
-            {
-                ChangeDirection();
-            }
+            Vector2 pos = Position;
+            CurrentState = state;
+            Position = pos;
         }
 
         public void ChangeDirection()
         {
             direction = new Random().Next(1, 5);
             if (direction == 1) //Left
-            {
-                this.SetState(facingLeft);
-            }
+                this.SetState(movingLeft);
             else if (direction == 2) //Right
-            {
-                this.SetState(facingRight);
-            }
+                this.SetState(movingRight);
             else if (direction == 3) //Up
-            {
-                this.SetState(facingUp);
-            }
+                this.SetState(movingUp);
             else if (direction == 4) //Down
-            {
-                this.SetState(facingDown);
-            }
+                this.SetState(movingDown);
         }
 
         public override void Move()
         {
-            if (start)
-            {
-                count = 0;
-                start = false;
-            }
-
-            if (count == 100)
-            {
-                isMoving = false;
-                CurrentState.Sprite.Animation.Stop();
-            }
-
-            if (isMoving)
-            {
-                CurrentState.Move();
-                count++;
-            }
-
+            CurrentState.Move();
         }
 
         public void UseItem()
         {
-            if (start)
-            {
-                count = 0;
-                start = false;
-            }
-
-            if (count == 80)
-                isThrowing = false;
-
-            if (isThrowing)
-            {
-                CurrentState.UseItem();
-                count++;
-            }
+            CurrentState.UseItem();
         }
 
         public void Wait()
         {
-            if (start)
-            {
-                count = 0;
-                start = false;
-            }
-
-            if (count == 80)
-                isWaiting = false;
-
-            if (isWaiting)
-                count++;
+            CurrentState.Wait();
         }
 
     }

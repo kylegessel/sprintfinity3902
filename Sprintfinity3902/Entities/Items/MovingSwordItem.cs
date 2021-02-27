@@ -13,7 +13,7 @@ namespace Sprintfinity3902.Entities
         Boolean itemUse;
         int itemUseCount;
         ISprite Sprite2;
-        IState firingState;
+        IPlayerState firingState;
 
         public MovingSwordItem(Vector2 position)
         {

@@ -4,7 +4,7 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.States
 {
-    public class FacingRightState : IState
+    public class FacingRightState : IPlayerState
     {
         public Player PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }

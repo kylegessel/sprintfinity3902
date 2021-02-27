@@ -19,6 +19,13 @@ namespace Sprintfinity3902.Entities
             direction = 0;
             count = 0;
         }
+        public BlueBatEnemy(Vector2 pos)
+        {
+            Sprite = EnemySpriteFactory.Instance.CreateBlueBatEnemy();
+            Position = pos;
+            direction = 0;
+            count = 0;
+        }
 
         public override void Move()
         {

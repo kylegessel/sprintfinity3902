@@ -10,5 +10,10 @@ namespace Sprintfinity3902.Entities
             Sprite = BlockSpriteFactory.Instance.CreateBlackBlock();
             Position = new Vector2(300, 700);
         }
+        public BlackBlock(Vector2 pos)
+        {
+            Sprite = BlockSpriteFactory.Instance.CreateBlackBlock();
+            Position = pos;
+        }
     }
 }

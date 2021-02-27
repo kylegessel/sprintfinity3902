@@ -10,5 +10,11 @@ namespace Sprintfinity3902.Entities
             Sprite = BlockSpriteFactory.Instance.CreateDarkBlueBlock();
             Position = new Vector2(300, 700);
         }
+
+        public DarkBlueBlock(Vector2 position)
+        {
+            Sprite = BlockSpriteFactory.Instance.CreateDarkBlueBlock();
+            Position = position;
+        }
     }
 }

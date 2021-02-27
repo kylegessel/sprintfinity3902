@@ -40,6 +40,7 @@ namespace Sprintfinity3902.Maps
                     {
                         switch (s)
                         {
+                            //BLOCKS
                             case "TILE":
                                 Room.roomEntities.Add(new FloorBlock(Position));
                                 break;
@@ -52,6 +53,24 @@ namespace Sprintfinity3902.Maps
                             case "LFSH":
                                 Room.roomEntities.Add(new Face2Block(Position));
                                 break;
+                            case "SPOT":
+                                Room.roomEntities.Add(new SpottedBlock(Position));
+                                break;
+
+                            //ENEMIES
+                            case "BBAT":
+                                Room.roomEntities.Add(new BlueBatEnemy(Position));
+                                break;
+                            case "SKLN":
+                                Room.roomEntities.Add(new SkeletonEnemy(Position));
+                                break;
+
+
+                            //ITEMS
+                            case "KEYI":
+                                Room.roomEntities.Add(new KeyItem(Position));
+                                break;
+
                         }
                         currX += 80;
                         if(currX == 80 * 12 + 160)

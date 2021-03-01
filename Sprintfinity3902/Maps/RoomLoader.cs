@@ -3,6 +3,7 @@ using Sprintfinity3902.Interfaces;
 using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Entities.Doors;
+using System;
 
 namespace Sprintfinity3902.Maps
 {
@@ -69,9 +70,8 @@ namespace Sprintfinity3902.Maps
                 line = mapStream.ReadLine();
                 if (!string.IsNullOrWhiteSpace(line))
                 {
-                    // DOORS
                     string[] lineValues = line.Split(',');
-                    BuildDoors(lineValues[0]);
+                    BuildDoors(lineValues[0], lineValues[1]);
                 }
 
             }
@@ -96,6 +96,21 @@ namespace Sprintfinity3902.Maps
                 case "SPOT":
                     Room.roomEntities.Add(new SpottedBlock(Position));
                     break;
+                case "BLCK":
+                    Room.roomEntities.Add(new BlackBlock(Position));
+                    break;
+                case "BRIK":
+                    Room.roomEntities.Add(new BrickBlock(Position));
+                    break;
+                case "DARK":
+                    Room.roomEntities.Add(new DarkBlueBlock(Position));
+                    break;
+                case "STAR":
+                    Room.roomEntities.Add(new StairsBlock(Position));
+                    break;
+                case "STIP":
+                    Room.roomEntities.Add(new StripeBlock(Position));
+                    break;
 
                 //ENEMIES
                 case "BBAT":
@@ -104,44 +119,103 @@ namespace Sprintfinity3902.Maps
                 case "SKLN":
                     Room.roomEntities.Add(new SkeletonEnemy(Position));
                     break;
+                case "BOSS":
+                    Room.roomEntities.Add(new FinalBossEnemy(Position));
+                    break;
+                case "FIRE":
+                    Room.roomEntities.Add(new Fire(Position));
+                    break;
+                case "GELY":
+                    Room.roomEntities.Add(new GelEnemy(Position));
+                    break;
+                case "GORY":
+                    BoomerangItem goriyaBoomerang = new BoomerangItem();
+                    Room.roomEntities.Add(goriyaBoomerang);
+                    Room.roomEntities.Add(new GoriyaEnemy(goriyaBoomerang, Position));
+                    break;
+                case "HAND":
+                    Room.roomEntities.Add(new HandEnemy(Position));
+                    break;
+                case "OLDM":
+                    Room.roomEntities.Add(new OldManNPC(Position));
+                    break;
+                case "SPKE":
+                    Room.roomEntities.Add(new SpikeEnemy(Position));
+                    break;
 
 
                 //ITEMS
+                // Probably could use a static bomb and boomerang object now that I think of it.
                 case "KEYI":
                     Room.roomEntities.Add(new KeyItem(Position));
+                    break;
+                case "BOWI":
+                    Room.roomEntities.Add(new BowItem(Position));
+                    break;
+                case "CLCK":
+                    Room.roomEntities.Add(new ClockItem(Position));
+                    break;
+                case "CMPS":
+                    Room.roomEntities.Add(new CompassItem(Position));
+                    break;
+                case "FARY":
+                    Room.roomEntities.Add(new FairyItem(Position));
+                    break;
+                case "HCON":
+                    Room.roomEntities.Add(new HeartContainerItem(Position));
+                    break;
+                case "HART":
+                    Room.roomEntities.Add(new HeartItem(Position));
+                    break;
+                case "MAPI":
+                    Room.roomEntities.Add(new MapItem(Position));
+                    break;
+                case "RUPE":
+                    Room.roomEntities.Add(new RupeeItem(Position));
+                    break;
+                case "TRIF":
+                    Room.roomEntities.Add(new TriforceItem(Position));
                     break;
 
             }
         }
 
-        public void BuildDoors(string input)
+        public void BuildDoors(string input, string destination)
         {
             switch (input)
             {
                 // DOORS
                 case "WALT":
                     DoorTop.SetState(DoorBottom.wallTop);
+                    DoorTop.DoorDestination = Int16.Parse(destination);
                     break;
                 case "WALB":
                     DoorBottom.SetState(DoorBottom.wallBottom);
+                    DoorBottom.DoorDestination = Int16.Parse(destination);
                     break;
                 case "WALL":
                     DoorLeft.SetState(DoorBottom.wallLeft);
+                    DoorLeft.DoorDestination = Int16.Parse(destination);
                     break;
                 case "WALR":
                     DoorRight.SetState(DoorBottom.wallRight);
+                    DoorRight.DoorDestination = Int16.Parse(destination);
                     break;
                 case "ODRT":
                     DoorTop.SetState(DoorTop.openDoorTop);
+                    DoorTop.DoorDestination = Int16.Parse(destination);
                     break;
                 case "ODRB":
                     DoorBottom.SetState(DoorTop.openDoorBottom);
+                    DoorBottom.DoorDestination = Int16.Parse(destination);
                     break;
                 case "ODRL":
                     DoorLeft.SetState(DoorTop.openDoorLeft);
+                    DoorLeft.DoorDestination = Int16.Parse(destination);
                     break;
                 case "ODRR":
                     DoorRight.SetState(DoorRight.openDoorRight);
+                    DoorRight.DoorDestination = Int16.Parse(destination);
                     break;
             }
         }

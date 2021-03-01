@@ -30,6 +30,8 @@ namespace Sprintfinity3902.Entities.Doors
         public IDoorState openDoorLeft { get; set; }
         public IDoorState openDoorRight { get; set; }
 
+        public int DoorDestination { get; set; }
+
 
 
 

@@ -217,6 +217,54 @@ namespace Sprintfinity3902.Maps
                     DoorRight.SetState(DoorRight.openDoorRight);
                     DoorRight.DoorDestination = Int16.Parse(destination);
                     break;
+                case "CDRT":
+                    DoorTop.SetState(DoorTop.closedDoorTop);
+                    DoorTop.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "CDRB":
+                    DoorBottom.SetState(DoorTop.closedDoorBottom);
+                    DoorBottom.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "CDRL":
+                    DoorLeft.SetState(DoorTop.closedDoorLeft);
+                    DoorLeft.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "CDRR":
+                    DoorRight.SetState(DoorRight.closedDoorRight);
+                    DoorRight.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "LDRT":
+                    DoorTop.SetState(DoorTop.lockedDoorTop);
+                    DoorTop.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "LDRB":
+                    DoorBottom.SetState(DoorTop.lockedDoorBottom);
+                    DoorBottom.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "LDRL":
+                    DoorLeft.SetState(DoorTop.lockedDoorLeft);
+                    DoorLeft.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "LDRR":
+                    DoorRight.SetState(DoorRight.lockedDoorRight);
+                    DoorRight.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "HDRT":
+                    DoorTop.SetState(DoorTop.holeDoorTop);
+                    DoorTop.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "HDRB":
+                    DoorBottom.SetState(DoorTop.holeDoorBottom);
+                    DoorBottom.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "HDRL":
+                    DoorLeft.SetState(DoorTop.holeDoorLeft);
+                    DoorLeft.DoorDestination = Int16.Parse(destination);
+                    break;
+                case "HDRR":
+                    DoorRight.SetState(DoorRight.holeDoorRight);
+                    DoorRight.DoorDestination = Int16.Parse(destination);
+                    break;
             }
         }
     }

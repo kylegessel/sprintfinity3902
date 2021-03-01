@@ -29,6 +29,18 @@ namespace Sprintfinity3902.Entities.Doors
         public IDoorState openDoorBottom { get; set; }
         public IDoorState openDoorLeft { get; set; }
         public IDoorState openDoorRight { get; set; }
+        public IDoorState closedDoorTop { get; set; }
+        public IDoorState closedDoorBottom { get; set; }
+        public IDoorState closedDoorLeft { get; set; }
+        public IDoorState closedDoorRight { get; set; }
+        public IDoorState lockedDoorTop { get; set; }
+        public IDoorState lockedDoorBottom { get; set; }
+        public IDoorState lockedDoorLeft { get; set; }
+        public IDoorState lockedDoorRight { get; set; }
+        public IDoorState holeDoorTop { get; set; }
+        public IDoorState holeDoorBottom { get; set; }
+        public IDoorState holeDoorLeft { get; set; }
+        public IDoorState holeDoorRight { get; set; }
 
         public int DoorDestination { get; set; }
 
@@ -47,6 +59,18 @@ namespace Sprintfinity3902.Entities.Doors
             openDoorBottom = new OpenDoorBottomState(this);
             openDoorLeft = new OpenDoorLeftState(this);
             openDoorRight = new OpenDoorRightState(this);
+            closedDoorTop = new ClosedDoorTopState(this);
+            closedDoorBottom = new ClosedDoorBottomState(this);
+            closedDoorLeft = new ClosedDoorLeftState(this);
+            closedDoorRight = new ClosedDoorRightState(this);
+            lockedDoorTop = new LockedDoorTopState(this);
+            lockedDoorBottom = new LockedDoorBottomState(this);
+            lockedDoorRight = new LockedDoorRightState(this);
+            lockedDoorLeft = new LockedDoorLeftState(this);
+            holeDoorTop = new HoleDoorTopState(this);
+            holeDoorBottom = new HoleDoorBottomState(this);
+            holeDoorLeft = new HoleDoorLeftState(this);
+            holeDoorRight = new HoleDoorRightState(this);
             
         }
 

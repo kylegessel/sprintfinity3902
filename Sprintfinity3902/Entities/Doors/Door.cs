@@ -26,6 +26,9 @@ namespace Sprintfinity3902.Entities.Doors
         public IDoorState wallLeft { get; set; }
         public IDoorState wallRight { get; set; }
         public IDoorState openDoorTop { get; set; }
+        public IDoorState openDoorBottom { get; set; }
+        public IDoorState openDoorLeft { get; set; }
+        public IDoorState openDoorRight { get; set; }
 
 
 
@@ -39,6 +42,9 @@ namespace Sprintfinity3902.Entities.Doors
             wallLeft = new WallLeftState(this);
             wallRight = new WallRightState(this);
             openDoorTop = new OpenDoorTopState(this);
+            openDoorBottom = new OpenDoorBottomState(this);
+            openDoorLeft = new OpenDoorLeftState(this);
+            openDoorRight = new OpenDoorRightState(this);
             
         }
 

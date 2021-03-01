@@ -119,6 +119,15 @@ namespace Sprintfinity3902.Maps
                         case "ODRT":
                             DoorTop.SetState(DoorTop.openDoorTop);
                             break;
+                        case "ODRB":
+                            DoorBottom.SetState(DoorTop.openDoorBottom);
+                            break;
+                        case "ODRL":
+                            DoorLeft.SetState(DoorTop.openDoorLeft);
+                            break;
+                        case "ODRR":
+                            DoorRight.SetState(DoorRight.openDoorRight);
+                            break;
                     }
                 }
 

@@ -3,16 +3,16 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.States.Door
 {
-    class OpenDoorTopState : IDoorState
+    class OpenDoorLeftState : IDoorState
     {
 
         public Entities.Doors.Door CurrentDoor { get; set; }
         public ISprite Sprite { get; set; }
 
-        public OpenDoorTopState(Entities.Doors.Door currentDoor)
+        public OpenDoorLeftState(Entities.Doors.Door currentDoor)
         {
             CurrentDoor = currentDoor;
-            Sprite = BlockSpriteFactory.Instance.CreateOpenDoorTop();
+            Sprite = BlockSpriteFactory.Instance.CreateOpenDoorLeft();
         }
 
         public void Open()

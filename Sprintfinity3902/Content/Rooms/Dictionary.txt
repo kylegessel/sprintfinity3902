@@ -41,3 +41,15 @@ ODRT: Open Door Top
 ODRB: Open Door Bottom
 ODRL: Open Door Left
 ODRR: Open Door Right
+CDRT: Closed Door Top
+CDRB: Closed Door Bottom
+CDRL: Closed Door Left
+CDRR: Closed Door Right
+LDRT: Locked Door Top
+LDRB: Locked Door Bottom
+LDRL: Locked Door Left
+LDRR: Locked Door Right
+HDRT: Hole Door Top
+HDRB: Hole Door Bottom
+HDRL: Hole Door Left
+HDRR: Hole Door Right

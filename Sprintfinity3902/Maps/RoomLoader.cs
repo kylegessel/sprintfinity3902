@@ -10,6 +10,7 @@ namespace Sprintfinity3902.Maps
     {
         StreamReader mapStream;
         private IRoom Room { get; set; }
+        private Vector2 Position { get; set; }
         public Door DoorTop { get; set; }
         public Door DoorBottom { get; set; }
         public Door DoorLeft { get; set; }
@@ -43,7 +44,7 @@ namespace Sprintfinity3902.Maps
             string line;
             int currX = 160;
             int currY = 480;
-            Vector2 Position = new Vector2(currX, currY);
+            Position = new Vector2(currX, currY);
             for(int i = 0; i < 7; i++)
             {
                 line = mapStream.ReadLine();
@@ -52,40 +53,7 @@ namespace Sprintfinity3902.Maps
                     string[] lineValues = line.Split(',');
                     for(int j = 0; j < 12; j++)
                     {
-                        switch (lineValues[j])
-                        {
-                            //BLOCKS
-                            case "TILE":
-                                Room.roomEntities.Add(new FloorBlock(Position));
-                                break;
-                            case "BLOK":
-                                Room.roomEntities.Add(new RegularBlock(Position));
-                                break;
-                            case "RFSH":
-                                Room.roomEntities.Add(new Face1Block(Position));
-                                break;
-                            case "LFSH":
-                                Room.roomEntities.Add(new Face2Block(Position));
-                                break;
-                            case "SPOT":
-                                Room.roomEntities.Add(new SpottedBlock(Position));
-                                break;
-
-                            //ENEMIES
-                            case "BBAT":
-                                Room.roomEntities.Add(new BlueBatEnemy(Position));
-                                break;
-                            case "SKLN":
-                                Room.roomEntities.Add(new SkeletonEnemy(Position));
-                                break;
-
-
-                            //ITEMS
-                            case "KEYI":
-                                Room.roomEntities.Add(new KeyItem(Position));
-                                break;
-
-                        }
+                        BuildBlocks(lineValues[j]);
                         currX += 80;
                         if(currX == 80 * 12 + 160)
                         {
@@ -101,38 +69,81 @@ namespace Sprintfinity3902.Maps
                 line = mapStream.ReadLine();
                 if (!string.IsNullOrWhiteSpace(line))
                 {
+                    // DOORS
                     string[] lineValues = line.Split(',');
-                    switch (lineValues[0])
-                    {
-                        case "WALT":
-                            DoorTop.SetState(DoorBottom.wallTop);
-                            break;
-                        case "WALB":
-                            DoorBottom.SetState(DoorBottom.wallBottom);
-                            break;
-                        case "WALL":
-                            DoorLeft.SetState(DoorBottom.wallLeft);
-                            break;
-                        case "WALR":
-                            DoorRight.SetState(DoorBottom.wallRight);
-                            break;
-                        case "ODRT":
-                            DoorTop.SetState(DoorTop.openDoorTop);
-                            break;
-                        case "ODRB":
-                            DoorBottom.SetState(DoorTop.openDoorBottom);
-                            break;
-                        case "ODRL":
-                            DoorLeft.SetState(DoorTop.openDoorLeft);
-                            break;
-                        case "ODRR":
-                            DoorRight.SetState(DoorRight.openDoorRight);
-                            break;
-                    }
+                    BuildDoors(lineValues[0]);
                 }
 
             }
         }
-            
+        public void BuildBlocks(string input)
+        {
+            switch (input)
+            {
+                //BLOCKS
+                case "TILE":
+                    Room.roomEntities.Add(new FloorBlock(Position));
+                    break;
+                case "BLOK":
+                    Room.roomEntities.Add(new RegularBlock(Position));
+                    break;
+                case "RFSH":
+                    Room.roomEntities.Add(new Face1Block(Position));
+                    break;
+                case "LFSH":
+                    Room.roomEntities.Add(new Face2Block(Position));
+                    break;
+                case "SPOT":
+                    Room.roomEntities.Add(new SpottedBlock(Position));
+                    break;
+
+                //ENEMIES
+                case "BBAT":
+                    Room.roomEntities.Add(new BlueBatEnemy(Position));
+                    break;
+                case "SKLN":
+                    Room.roomEntities.Add(new SkeletonEnemy(Position));
+                    break;
+
+
+                //ITEMS
+                case "KEYI":
+                    Room.roomEntities.Add(new KeyItem(Position));
+                    break;
+
+            }
+        }
+
+        public void BuildDoors(string input)
+        {
+            switch (input)
+            {
+                // DOORS
+                case "WALT":
+                    DoorTop.SetState(DoorBottom.wallTop);
+                    break;
+                case "WALB":
+                    DoorBottom.SetState(DoorBottom.wallBottom);
+                    break;
+                case "WALL":
+                    DoorLeft.SetState(DoorBottom.wallLeft);
+                    break;
+                case "WALR":
+                    DoorRight.SetState(DoorBottom.wallRight);
+                    break;
+                case "ODRT":
+                    DoorTop.SetState(DoorTop.openDoorTop);
+                    break;
+                case "ODRB":
+                    DoorBottom.SetState(DoorTop.openDoorBottom);
+                    break;
+                case "ODRL":
+                    DoorLeft.SetState(DoorTop.openDoorLeft);
+                    break;
+                case "ODRR":
+                    DoorRight.SetState(DoorRight.openDoorRight);
+                    break;
+            }
+        }
     }
 }

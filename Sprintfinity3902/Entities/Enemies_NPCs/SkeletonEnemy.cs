@@ -24,6 +24,11 @@ namespace Sprintfinity3902.Entities
             Move();
         }
 
+        public Rectangle getRectangle()
+        {
+            return new Rectangle(X, Y, 16*5, 16*5);
+        }
+
         public override void Move()
         {
             

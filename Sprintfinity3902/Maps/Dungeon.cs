@@ -21,7 +21,10 @@ namespace Sprintfinity3902.Maps
             dungeonRooms = new List<IRoom>();
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room1.csv", 1));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room2.csv", 2));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\TestRoom.csv", 3));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room3.csv", 3));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room4.csv", 4));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room5.csv", 5));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\TestRoom.csv", 6));
 
             currentRoom = GetById(1);
             currentId = 1;
@@ -65,7 +68,7 @@ namespace Sprintfinity3902.Maps
         public void NextRoom()
         {
             currentId = currentRoom.Id;
-            if(currentRoom.Id == 3)
+            if(currentRoom.Id == 6)
             {
                 currentRoom = GetById(1);
             }

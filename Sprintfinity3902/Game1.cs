@@ -28,7 +28,7 @@ namespace Sprintfinity3902 {
         private IDungeon dungeon;
 
 
-        private IMap basicMap; 
+        //private IMap basicMap; 
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -38,7 +38,7 @@ namespace Sprintfinity3902 {
 
             Camera.Instance.SetWindowBounds(graphics);
             dungeon = new Dungeon();
-            basicMap = new DefaultMap();
+            //basicMap = new DefaultMap();
 
             Graphics.ApplyChanges();
         }
@@ -50,7 +50,7 @@ namespace Sprintfinity3902 {
         protected void Reset() {
             KeyboardManager.Instance.Reset();
 
-            basicMap.Setup(this);
+            //basicMap.Setup(this);
 
             dungeon.Build();
 
@@ -95,7 +95,7 @@ namespace Sprintfinity3902 {
             Camera.Instance.Update(gameTime);
 
             dungeon.Update(gameTime);
-            basicMap.Update(gameTime);
+            //basicMap.Update(gameTime);
 
             playerCharacter.Update(gameTime);
             boomerangItem.Update(gameTime);
@@ -113,7 +113,7 @@ namespace Sprintfinity3902 {
             //This will be used for the Sprint 3 and is not needed for Sprint 2
             //Camera.Instance.Draw(SpriteBatch);
             dungeon.Draw(SpriteBatch);
-            basicMap.Draw(SpriteBatch);
+            //basicMap.Draw(SpriteBatch);
 
             playerCharacter.Draw(SpriteBatch, Color.White);
 

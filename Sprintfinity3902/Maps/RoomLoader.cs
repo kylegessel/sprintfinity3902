@@ -31,20 +31,20 @@ namespace Sprintfinity3902.Maps
 
         public void Build()
         {
-            DoorTop = new Door(new Vector2(112*Globals.GlobalVariables.SCALE, 64*Globals.GlobalVariables.SCALE));
-            DoorBottom = new Door(new Vector2(112 * Globals.GlobalVariables.SCALE, 208 * Globals.GlobalVariables.SCALE));
-            DoorLeft = new Door(new Vector2(0, 136*Globals.GlobalVariables.SCALE));
-            DoorRight = new Door(new Vector2(224*Globals.GlobalVariables.SCALE, 136*Globals.GlobalVariables.SCALE));
-            Room.roomEntities.Add(new RoomExterior(new Vector2(0, 64*Globals.GlobalVariables.SCALE)));
-            Room.roomEntities.Add(new RoomInterior(new Vector2(32*Globals.GlobalVariables.SCALE, 96*Globals.GlobalVariables.SCALE)));
+            DoorTop = new Door(new Vector2(112*Global.Var.SCALE, 64*Global.Var.SCALE));
+            DoorBottom = new Door(new Vector2(112 * Global.Var.SCALE, 208 * Global.Var.SCALE));
+            DoorLeft = new Door(new Vector2(0, 136*Global.Var.SCALE));
+            DoorRight = new Door(new Vector2(224*Global.Var.SCALE, 136*Global.Var.SCALE));
+            Room.roomEntities.Add(new RoomExterior(new Vector2(0, 64*Global.Var.SCALE)));
+            Room.roomEntities.Add(new RoomInterior(new Vector2(32*Global.Var.SCALE, 96*Global.Var.SCALE)));
             Room.roomEntities.Add(DoorTop);
             Room.roomEntities.Add(DoorBottom);
             Room.roomEntities.Add(DoorLeft);
             Room.roomEntities.Add(DoorRight);
             
             string line;
-            int currX = 160;
-            int currY = 480;
+            int currX = 32*Global.Var.SCALE;
+            int currY = 96*Global.Var.SCALE;
             Position = new Vector2(currX, currY);
             for(int i = 0; i < 7; i++)
             {
@@ -55,11 +55,11 @@ namespace Sprintfinity3902.Maps
                     for(int j = 0; j < 12; j++)
                     {
                         BuildBlocks(lineValues[j]);
-                        currX += 80;
-                        if(currX == 80 * 12 + 160)
+                        currX += 16*Global.Var.SCALE;
+                        if(currX == 16*Global.Var.SCALE * 12 + 32*Global.Var.SCALE)
                         {
-                            currX = 160;
-                            currY += 80;
+                            currX = 32*Global.Var.SCALE;
+                            currY += 16*Global.Var.SCALE;
                         }
                         Position = new Vector2(currX, currY);
                     }

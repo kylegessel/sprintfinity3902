@@ -16,7 +16,7 @@ namespace Sprintfinity3902 {
         private GraphicsDeviceManager graphics;
         private SpriteBatch SpriteBatch;
 
-        public static int ScaleWindow = Globals.GlobalVariables.SCALE;
+        public static int ScaleWindow = Global.Var.SCALE;
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
 
@@ -125,6 +125,7 @@ namespace Sprintfinity3902 {
 
             base.Draw(gameTime);
         }
+
 
     }
 }

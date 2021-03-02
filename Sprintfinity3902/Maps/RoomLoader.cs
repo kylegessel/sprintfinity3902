@@ -31,12 +31,12 @@ namespace Sprintfinity3902.Maps
 
         public void Build()
         {
-            DoorTop = new Door(new Vector2(560, 320));
-            DoorBottom = new Door(new Vector2(560, 1040));
-            DoorLeft = new Door(new Vector2(0, 680));
-            DoorRight = new Door(new Vector2(1120, 680));
-            Room.roomEntities.Add(new RoomExterior(new Vector2(0, 320)));
-            Room.roomEntities.Add(new RoomInterior(new Vector2(160, 480)));
+            DoorTop = new Door(new Vector2(112*Globals.GlobalVariables.SCALE, 64*Globals.GlobalVariables.SCALE));
+            DoorBottom = new Door(new Vector2(112 * Globals.GlobalVariables.SCALE, 208 * Globals.GlobalVariables.SCALE));
+            DoorLeft = new Door(new Vector2(0, 136*Globals.GlobalVariables.SCALE));
+            DoorRight = new Door(new Vector2(224*Globals.GlobalVariables.SCALE, 136*Globals.GlobalVariables.SCALE));
+            Room.roomEntities.Add(new RoomExterior(new Vector2(0, 64*Globals.GlobalVariables.SCALE)));
+            Room.roomEntities.Add(new RoomInterior(new Vector2(32*Globals.GlobalVariables.SCALE, 96*Globals.GlobalVariables.SCALE)));
             Room.roomEntities.Add(DoorTop);
             Room.roomEntities.Add(DoorBottom);
             Room.roomEntities.Add(DoorLeft);

@@ -46,7 +46,7 @@ namespace Sprintfinity3902.Sprites
             {
                 position = new Vector2(position.X - (4*5), position.Y);
             }
-            spriteBatch.Draw(Animation.CurrentFrame.Sprite.Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0.0f);
+            spriteBatch.Draw(Animation.CurrentFrame.Sprite.Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0.0f, new Vector2(0, 0), Globals.GlobalVariables.SCALE, SpriteEffects.FlipHorizontally, 0.0f);
         }
         public LinkLeftAttackSprite(Texture2D texture)
         {

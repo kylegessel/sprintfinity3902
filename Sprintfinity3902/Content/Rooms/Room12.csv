@@ -1,0 +1,11 @@
+ , ,HAND,HAND, , , , , ,HAND,HAND, 
+ ,BLOK, ,BLOK, ,BLOK,BLOK, ,BLOK, ,BLOK, 
+ , , , , , , , , , , , 
+HAND,BLOK, ,BLOK, ,BLOK,BLOK, ,BLOK, ,BLOK, 
+HAND, , , , , , , , , , ,HAND
+ ,BLOK, ,BLOK, ,BLOK,BLOK, ,BLOK, ,BLOK,HAND
+ , , , , , , , ,KEYI, , , 
+LDRT,-1,,,,,,,,,,
+WALB,-1,,,,,,,,,,
+ODRL,1,,,,,,,,,,
+WALR,-1,,,,,,,,,,

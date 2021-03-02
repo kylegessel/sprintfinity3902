@@ -47,32 +47,32 @@ namespace Sprintfinity3902.Entities
             switch (direction)
             {
                 case 1:
-                    X = X - 2;
+                    X = X - .4f * Global.Var.SCALE;
                     break;
                 case 2:
-                    X = X + 2;
+                    X = X + .4f * Global.Var.SCALE;
                     break;
                 case 3:
-                    Y = Y - 2;
+                    Y = Y - .4f * Global.Var.SCALE;
                     break;
                 case 4:
-                    Y = Y + 2;
+                    Y = Y + .4f * Global.Var.SCALE;
                     break;
                 case 5:
-                    X = X + 2;
-                    Y = Y + 2;
+                    X = X + .4f * Global.Var.SCALE;
+                    Y = Y + .4f * Global.Var.SCALE;
                     break;
                 case 6:
-                    X = X - 2;
-                    Y = Y + 2;
+                    X = X - .4f * Global.Var.SCALE;
+                    Y = Y + .4f * Global.Var.SCALE;
                     break;
                 case 7:
-                    X = X - 2;
-                    Y = Y - 2;
+                    X = X - .4f * Global.Var.SCALE;
+                    Y = Y - .4f * Global.Var.SCALE;
                     break;
                 case 8:
-                    X = X + 2;
-                    Y = Y - 2;
+                    X = X + .4f * Global.Var.SCALE;
+                    Y = Y - .4f * Global.Var.SCALE;
                     break;
                 case 9:
                     // Stop animation when not moving.

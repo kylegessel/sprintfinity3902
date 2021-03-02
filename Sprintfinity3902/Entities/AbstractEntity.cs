@@ -32,22 +32,22 @@ namespace Sprintfinity3902.Entities
                 _position = value;
             }
         }
-        public int X
+        public float X
         {
             get
             {
-                return (int)Position.X;
+                return Position.X;
             }
             set
             {
                 _position.X = value;
             }
         }
-        public int Y
+        public float Y
         {
             get
             {
-                return (int)Position.Y;
+                return Position.Y;
             }
             set
             {

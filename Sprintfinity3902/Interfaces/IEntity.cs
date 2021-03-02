@@ -13,11 +13,11 @@ namespace Sprintfinity3902.Interfaces
         {
             get; set;
         }
-        int X
+        float X
         {
             get; set;
         }
-        int Y
+        float Y
         {
             get; set;
         }

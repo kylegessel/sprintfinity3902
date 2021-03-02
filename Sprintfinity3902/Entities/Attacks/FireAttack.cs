@@ -19,14 +19,14 @@ namespace Sprintfinity3902.Entities
             get { return _positionUp; }
             set { _positionUp = value; }
         }
-        public int X_Up
+        public float X_Up
         {
-            get { return (int)PositionUp.X; }
+            get { return PositionUp.X; }
             set { _positionUp.X = value; }
         }
-        public int Y_Up
+        public float Y_Up
         {
-            get { return (int)PositionUp.Y; }
+            get { return PositionUp.Y; }
             set { _positionUp.Y = value; }
         }
         public Vector2 PositionDown
@@ -34,14 +34,14 @@ namespace Sprintfinity3902.Entities
             get { return _positionDown; }
             set { _positionDown = value; }
         }
-        public int X_Down
+        public float X_Down
         {
-            get { return (int)PositionDown.X; }
+            get { return PositionDown.X; }
             set { _positionDown.X = value; }
         }
-        public int Y_Down
+        public float Y_Down
         {
-            get { return (int)PositionDown.Y; }
+            get { return PositionDown.Y; }
             set { _positionDown.Y = value; }
         }
 

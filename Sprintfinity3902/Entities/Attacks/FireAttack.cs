@@ -87,12 +87,12 @@ namespace Sprintfinity3902.Entities
 
             isMoving = true;
 
-            X_Up = X_Up - 8;
-            X = X - 8;
-            X_Down = X_Down - 8;
+            X_Up = X_Up - 1.6f * Global.Var.SCALE;
+            X = X - 1.6f * Global.Var.SCALE;
+            X_Down = X_Down - 1.6f * Global.Var.SCALE;
 
-            Y_Up = Y_Up - 4;
-            Y_Down = Y_Down + 4;
+            Y_Up = Y_Up - .8f * Global.Var.SCALE;
+            Y_Down = Y_Down + .8f * Global.Var.SCALE;
         }
     }
 }

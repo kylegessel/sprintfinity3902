@@ -31,22 +31,25 @@ namespace Sprintfinity3902.Maps
 
         public void Build()
         {
-            DoorTop = new Door(new Vector2(112*Global.Var.SCALE, 64*Global.Var.SCALE));
-            DoorBottom = new Door(new Vector2(112 * Global.Var.SCALE, 208 * Global.Var.SCALE));
-            DoorLeft = new Door(new Vector2(0, 136*Global.Var.SCALE));
-            DoorRight = new Door(new Vector2(224*Global.Var.SCALE, 136*Global.Var.SCALE));
-            Room.roomEntities.Add(new RoomExterior(new Vector2(0, 64*Global.Var.SCALE)));
-            Room.roomEntities.Add(new RoomInterior(new Vector2(32*Global.Var.SCALE, 96*Global.Var.SCALE)));
-            Room.roomEntities.Add(DoorTop);
-            Room.roomEntities.Add(DoorBottom);
-            Room.roomEntities.Add(DoorLeft);
-            Room.roomEntities.Add(DoorRight);
+            
+            //Room.roomEntities.Add(new RoomExterior(new Vector2(0, 64*Global.Var.SCALE)));
+            //Room.roomEntities.Add(new RoomInterior(new Vector2(32*Global.Var.SCALE, 96*Global.Var.SCALE)));
             
             string line;
             int currX = 32*Global.Var.SCALE;
             int currY = 96*Global.Var.SCALE;
             Position = new Vector2(currX, currY);
-            for(int i = 0; i < 7; i++)
+
+            for (int i = 0; i < 2; i++)
+            {
+                line = mapStream.ReadLine();
+                if (!string.IsNullOrWhiteSpace(line))
+                {
+                    string[] lineValues = line.Split(',');
+                    BuildWallAndFloor(lineValues[0]);
+                }
+            }
+            for (int i = 0; i < 7; i++)
             {
                 line = mapStream.ReadLine();
                 if (!string.IsNullOrWhiteSpace(line))
@@ -65,7 +68,16 @@ namespace Sprintfinity3902.Maps
                     }
                 }
             }
-            for(int i = 0; i < 4; i++)
+
+            DoorTop = new Door(new Vector2(112 * Global.Var.SCALE, 64 * Global.Var.SCALE));
+            DoorBottom = new Door(new Vector2(112 * Global.Var.SCALE, 208 * Global.Var.SCALE));
+            DoorLeft = new Door(new Vector2(0, 136 * Global.Var.SCALE));
+            DoorRight = new Door(new Vector2(224 * Global.Var.SCALE, 136 * Global.Var.SCALE));
+            Room.roomEntities.Add(DoorTop);
+            Room.roomEntities.Add(DoorBottom);
+            Room.roomEntities.Add(DoorLeft);
+            Room.roomEntities.Add(DoorRight);
+            for (int i = 0; i < 4; i++)
             {
                 line = mapStream.ReadLine();
                 if (!string.IsNullOrWhiteSpace(line))
@@ -73,6 +85,30 @@ namespace Sprintfinity3902.Maps
                     string[] lineValues = line.Split(',');
                     BuildDoors(lineValues[0], lineValues[1]);
                 }
+
+            }
+
+        }
+
+        public void BuildWallAndFloor(string input)
+        {
+            switch (input)
+            {
+                case "RMEX":
+                    Room.roomEntities.Add(new RoomExterior(new Vector2(0, 64 * Global.Var.SCALE)));
+                    break;
+                case "RMIN":
+                    Room.roomEntities.Add(new RoomInterior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                    break;
+                case "RM08":
+                    Room.roomEntities.Add(new Room8Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                    break;
+                case "RM14":
+                    Room.roomEntities.Add(new Room14Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                    break;
+                case "RM18":
+                    Room.roomEntities.Add(new Room18Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                    break;
 
             }
         }
@@ -266,6 +302,7 @@ namespace Sprintfinity3902.Maps
                     DoorRight.DoorDestination = Int16.Parse(destination);
                     break;
             }
+
         }
     }
 }

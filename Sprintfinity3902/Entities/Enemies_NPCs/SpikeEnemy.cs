@@ -19,6 +19,16 @@ namespace Sprintfinity3902.Entities
             count = 0;
             distance = 70;
         }
+        public SpikeEnemy(Vector2 pos)
+        {
+            Sprite = EnemySpriteFactory.Instance.CreateSpikeEnemy();
+            Position = pos;
+
+            movingLeft = true;
+            wait = false;
+            count = 0;
+            distance = 70;
+        }
 
         public override void Update(GameTime gameTime)
         {

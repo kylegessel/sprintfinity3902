@@ -10,5 +10,10 @@ namespace Sprintfinity3902.Entities
             Sprite = BlockSpriteFactory.Instance.CreateOpenDoorTop();
             Position = new Vector2(300, 700);
         }
+        public OpenDoorTop(Vector2 pos)
+        {
+            Sprite = BlockSpriteFactory.Instance.CreateOpenDoorTop();
+            Position = pos;
+        }
     }
 }

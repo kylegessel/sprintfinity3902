@@ -5,7 +5,7 @@ using System;
 
 namespace Sprintfinity3902.States
 {
-    public class GoriyaUpItemState : IGoriyaState
+    public class GoriyaUpMovingState : IGoriyaState
     {
         public GoriyaEnemy Goriya { get; set; }
         public ISprite Sprite { get; set; }
@@ -14,7 +14,7 @@ namespace Sprintfinity3902.States
         private int count;
         private int rnd;
 
-        public GoriyaUpItemState(GoriyaEnemy goriya)
+        public GoriyaUpMovingState(GoriyaEnemy goriya)
         {
             Goriya = goriya;
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaUpEnemy();
@@ -24,12 +24,29 @@ namespace Sprintfinity3902.States
             rnd = 0;
         }
 
-
         public void Move()
         {
-            Goriya.SetState(Goriya.movingUp);
-            Goriya.CurrentState.Start = true;
-            Goriya.Move();
+            if (Start)
+            {
+                count = 0;
+                Start = false;
+                rnd = new Random().Next(80, 150);
+                if (!Sprite.Animation.IsPlaying)
+                {
+                    Sprite.Animation.Play();
+                }
+            }
+
+            if (count == rnd)
+            {
+                Goriya.done = true;
+            }
+            else
+            {
+                Goriya.Y = Goriya.Y - 1;
+                count++;
+            }
+
         }
 
         public void Wait()
@@ -41,34 +58,14 @@ namespace Sprintfinity3902.States
 
         public void UseItem()
         {
-            if (Start)
-            {
-                count = 0;
-                Start = false;
-                Sprite.Animation.Stop();
-                rnd = new Random().Next(0, 25);
-                if (!Goriya.Boomerang.getItemUse())
-                {
-                    Goriya.Boomerang.UseItem(Goriya);
-                }
-            }
-
-            if (count == rnd)
-            {
-                Goriya.done = true;
-                Goriya.Boomerang.doneUsing();
-            }
-            else
-            {
-                count++;
-            }
-
-
+            Goriya.SetState(Goriya.itemUp);
+            Goriya.CurrentState.Start = true;
+            Goriya.UseItem();
         }
 
         public void Update()
         {
-            UseItem();
+            Move();
         }
     }
 }

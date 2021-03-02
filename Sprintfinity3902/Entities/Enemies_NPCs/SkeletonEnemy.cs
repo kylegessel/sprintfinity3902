@@ -18,6 +18,14 @@ namespace Sprintfinity3902.Entities
             direction = rd1.Next(1, 5);
             count = 0;
         }
+        public SkeletonEnemy(Vector2 pos)
+        {
+            Sprite = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
+            Position = pos;
+
+            direction = rd1.Next(1, 5);
+            count = 0;
+        }
 
         public override void Update(GameTime gameTime) {
             Sprite.Update(gameTime);

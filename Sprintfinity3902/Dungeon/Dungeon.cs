@@ -31,9 +31,13 @@ namespace Sprintfinity3902.Dungeon
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room10.csv", 10));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room11.csv", 11));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room12.csv", 12));
-            //dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room13.csv", 13));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room14.csv", 13));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\TestRoom.csv", 14));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room13.csv", 13));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room14.csv", 14));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room15.csv", 15));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room16.csv", 16));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room17.csv", 17));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room18.csv", 18));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\TestRoom.csv", 19));
 
             currentRoom = GetById(1);
             currentId = 1;
@@ -77,7 +81,7 @@ namespace Sprintfinity3902.Dungeon
         public void NextRoom()
         {
             currentId = currentRoom.Id;
-            if(currentRoom.Id == 14)
+            if(currentRoom.Id == 19)
             {
                 currentRoom = GetById(1);
             }

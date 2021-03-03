@@ -50,26 +50,26 @@ namespace Sprintfinity3902.Entities
             {
 
                 case 1:
-                    Y = Y - 2;
+                    Y = Y - .4f * Global.Var.SCALE;
                     break;
                 case 2:
-                    Y = Y + 2;
+                    Y = Y + .4f * Global.Var.SCALE;
                     break;
                 case 3:
-                    X = X + 2;
-                    Y = Y + 2;
+                    X = X + .4f * Global.Var.SCALE;
+                    Y = Y + .4f * Global.Var.SCALE;
                     break;
                 case 4:
-                    X = X - 2;
-                    Y = Y + 2;
+                    X = X - .4f * Global.Var.SCALE;
+                    Y = Y + .4f * Global.Var.SCALE;
                     break;
                 case 5:
-                    X = X - 2;
-                    Y = Y - 2;
+                    X = X - .4f * Global.Var.SCALE;
+                    Y = Y - .4f * Global.Var.SCALE;
                     break;
                 case 6:
-                    X = X + 2;
-                    Y = Y - 2;
+                    X = X + .4f * Global.Var.SCALE;
+                    Y = Y - .4f * Global.Var.SCALE;
                     break;
 
             }

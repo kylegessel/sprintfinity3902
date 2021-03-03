@@ -35,7 +35,7 @@ namespace Sprintfinity3902.Entities
             {
                 if (firingState == PlayerCharacter.facingDownAttack)
                 {
-                    spriteBatch.Draw(Sprite.Animation.CurrentFrame.Sprite.Texture, Position, Sprite.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipVertically, 0.0f);
+                    spriteBatch.Draw(Sprite.Animation.CurrentFrame.Sprite.Texture, Position, Sprite.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), Global.Var.SCALE, SpriteEffects.FlipVertically, 0.0f);
                 }
                 else if (firingState == PlayerCharacter.facingUpAttack)
                 {
@@ -43,7 +43,7 @@ namespace Sprintfinity3902.Entities
                 }
                 else if (firingState == PlayerCharacter.facingLeftAttack)
                 {
-                    spriteBatch.Draw(Sprite2.Animation.CurrentFrame.Sprite.Texture, Position, Sprite2.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0.0f);
+                    spriteBatch.Draw(Sprite2.Animation.CurrentFrame.Sprite.Texture, Position, Sprite2.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), Global.Var.SCALE, SpriteEffects.FlipHorizontally, 0.0f);
                 }
                 else if (firingState == PlayerCharacter.facingRightAttack)
                 {
@@ -68,19 +68,19 @@ namespace Sprintfinity3902.Entities
             {
                 if (firingState == PlayerCharacter.facingDownAttack)
                 {
-                    Position = new Vector2(Position.X, Position.Y + 10);
+                    Position = new Vector2(Position.X, Position.Y + 2 * Global.Var.SCALE);
                 }
                 else if (firingState == PlayerCharacter.facingUpAttack)
                 {
-                    Position = new Vector2(Position.X, Position.Y - 10);
+                    Position = new Vector2(Position.X, Position.Y - 2 * Global.Var.SCALE);
                 }
                 else if (firingState == PlayerCharacter.facingLeftAttack)
                 {
-                    Position = new Vector2(Position.X - 10, Position.Y);
+                    Position = new Vector2(Position.X - 2 * Global.Var.SCALE, Position.Y);
                 }
                 else if (firingState == PlayerCharacter.facingRightAttack)
                 {
-                    Position = new Vector2(Position.X + 10, Position.Y);
+                    Position = new Vector2(Position.X + 2 * Global.Var.SCALE, Position.Y);
                 }
             }
             else
@@ -99,19 +99,19 @@ namespace Sprintfinity3902.Entities
 
             if (firingState == PlayerCharacter.facingDownAttack)
             {
-                Position = new Vector2(PlayerCharacter.X + 25, PlayerCharacter.Y + 50);
+                Position = new Vector2(PlayerCharacter.X + 5 * Global.Var.SCALE, PlayerCharacter.Y + 10 * Global.Var.SCALE);
             }
             else if (firingState == PlayerCharacter.facingUpAttack)
             {
-                Position = new Vector2(PlayerCharacter.X + 30, PlayerCharacter.Y - 50);
+                Position = new Vector2(PlayerCharacter.X + 6 * Global.Var.SCALE, PlayerCharacter.Y - 10 * Global.Var.SCALE);
             }
             else if (firingState == PlayerCharacter.facingLeftAttack)
             {
-                Position = new Vector2(PlayerCharacter.X - 20, PlayerCharacter.Y + 25);
+                Position = new Vector2(PlayerCharacter.X - 4 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
             }
             else if (firingState == PlayerCharacter.facingRightAttack)
             {
-                Position = new Vector2(PlayerCharacter.X + 50, PlayerCharacter.Y + 25);
+                Position = new Vector2(PlayerCharacter.X + 10 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
             }
             itemUse = true;
         }

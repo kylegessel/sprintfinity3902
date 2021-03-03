@@ -1,0 +1,13 @@
+RMEX,,,,,,,,,,,
+RMIN,,,,,,,,,,,
+ , , , , , , ,BLOK,BLOK,BLOK,BLOK,BLOK
+ , , , , , , , , ,BLOK,BLOK,BLOK
+ , , , , , , , , ,BOSS,BLOK,BLOK
+ , , , , , , , , , ,HCON, 
+ , , , , , , , , , ,BLOK,BLOK
+ , , , , , , , , ,BLOK,BLOK,BLOK
+ , , , , , , ,BLOK,BLOK,BLOK,BLOK, 
+WALT,-1,,,,,,,,,,
+LDRB,-1,,,,,,,,,,
+WALL,-1,,,,,,,,,,
+CDRR,-1,,,,,,,,,,

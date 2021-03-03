@@ -43,7 +43,7 @@ namespace Sprintfinity3902.States
             }
             else
             {
-                Goriya.X = Goriya.X - 1;
+                Goriya.X = Goriya.X - .2f * Global.Var.SCALE;
                 count++;
             }
         }

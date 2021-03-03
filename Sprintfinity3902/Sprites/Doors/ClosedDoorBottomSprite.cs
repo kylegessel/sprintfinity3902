@@ -7,7 +7,7 @@ namespace Sprintfinity3902.Sprites
         public Texture2D Texture { get; set; }
 
         private const int DOOR_X = 914;
-        private const int DOOR_Y = 11;
+        private const int DOOR_Y = 110;
         private const int DOOR_WIDTH = 32;
         private const int DOOR_HEIGHT = 32;
 

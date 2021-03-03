@@ -35,6 +35,11 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new RegularBlockSprite(blockSpriteSheet);
         }
+
+        public ISprite CreateFloorBlock()
+        {
+            return new FloorBlockSprite(blockSpriteSheet);
+        }
         public ISprite CreateFace1Block()
         {
             return new Face1BlockSprite(blockSpriteSheet);
@@ -148,6 +153,29 @@ namespace Sprintfinity3902.SpriteFactories
         public ISprite CreateWallBottom()
         {
             return new WallBottomSprite(blockSpriteSheet);
+        }
+
+
+        /*Room*/
+        public ISprite CreateRoomExterior()
+        {
+            return new RoomExteriorSprite(blockSpriteSheet);
+        }
+        public ISprite CreateRoomInterior()
+        {
+            return new RoomInteriorSprite(blockSpriteSheet);
+        }
+        public ISprite CreateRoom14Interior()
+        {
+            return new Room14InteriorSprite(blockSpriteSheet);
+        }
+        public ISprite CreateRoom18Interior()
+        {
+            return new Room18InteriorSprite(blockSpriteSheet);
+        }
+        public ISprite CreateRoom8Interior()
+        {
+            return new Room8InteriorSprite(blockSpriteSheet);
         }
     }
 }

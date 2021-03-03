@@ -17,9 +17,6 @@ namespace Sprintfinity3902.Dungeon
         public Door DoorLeft { get; set; }
         public Door DoorRight { get; set; }
 
-
-
-
         // Have this input a filename and then load the room.
         public RoomLoader(IRoom room)
         {
@@ -31,10 +28,6 @@ namespace Sprintfinity3902.Dungeon
 
         public void Build()
         {
-            
-            //Room.roomEntities.Add(new RoomExterior(new Vector2(0, 64*Global.Var.SCALE)));
-            //Room.roomEntities.Add(new RoomInterior(new Vector2(32*Global.Var.SCALE, 96*Global.Var.SCALE)));
-            
             string line;
             int currX = 32*Global.Var.SCALE;
             int currY = 96*Global.Var.SCALE;
@@ -94,6 +87,7 @@ namespace Sprintfinity3902.Dungeon
         {
             switch (input)
             {
+                //WALLS AND FLOORS
                 case "RMEX":
                     Room.roomEntities.Add(new RoomExterior(new Vector2(0, 64 * Global.Var.SCALE)));
                     break;
@@ -112,6 +106,7 @@ namespace Sprintfinity3902.Dungeon
 
             }
         }
+
         public void BuildBlocks(string input)
         {
             switch (input)

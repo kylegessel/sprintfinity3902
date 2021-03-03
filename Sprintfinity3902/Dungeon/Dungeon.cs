@@ -54,23 +54,11 @@ namespace Sprintfinity3902.Dungeon
         public void Update(GameTime gameTime)
         {
             currentRoom.Update(gameTime);
-            /*
-            foreach(IRoom room in dungeonRooms)
-            {
-                room.Update(gameTime);
-            }
-            */
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             currentRoom.Draw(spriteBatch);
-            /*
-            foreach(IRoom room in dungeonRooms)
-            {
-                room.Draw(spriteBatch);
-            }
-            */
         }
 
         public IRoom GetById(int id)

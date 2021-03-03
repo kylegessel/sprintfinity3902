@@ -54,11 +54,11 @@ namespace Sprintfinity3902.Entities
             }
             else if (movingLeft)
             {
-                X = X - 10;
+                X = X - 2 * Global.Var.SCALE;
             }
             else if (movingLeft == false)
             {
-                X = X + 10;
+                X = X + 2 * Global.Var.SCALE ;
             }
             count++;
         }

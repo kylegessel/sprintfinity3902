@@ -37,7 +37,7 @@ namespace Sprintfinity3902.Link
                 _position = value;
             }
         }
-        public int X
+        public float X
         {
             get
             {
@@ -49,7 +49,7 @@ namespace Sprintfinity3902.Link
                 //Position = new Vector2(value, Position.Y);
             }
         }
-        public int Y
+        public float Y
         {
             get
             {

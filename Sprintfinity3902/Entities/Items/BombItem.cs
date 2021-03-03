@@ -70,7 +70,7 @@ namespace Sprintfinity3902.Entities
                 Sprite2.Animation.Stop();
             }else if (itemUseCount == 60)
             {
-                Position = new Vector2(Position.X - 15, Position.Y);
+                Position = new Vector2(Position.X - 3 * Global.Var.SCALE, Position.Y);
                 Sprite2.Animation.Play();
             }
             itemUseCount++;
@@ -82,27 +82,27 @@ namespace Sprintfinity3902.Entities
             itemUse = true;
             if (PlayerCharacter.CurrentState == PlayerCharacter.facingDownItem)
             {
-                Position = new Vector2(player.X + 20, player.Y + 55);
+                Position = new Vector2(player.X + 4*Global.Var.SCALE, player.Y + 11*Global.Var.SCALE);
             }
             else if (PlayerCharacter.CurrentState == PlayerCharacter.facingUpItem)
             {
-                Position = new Vector2(player.X + 10, player.Y - 75);
+                Position = new Vector2(player.X + 2*Global.Var.SCALE, player.Y - 15*Global.Var.SCALE);
             }
             else if (PlayerCharacter.CurrentState == PlayerCharacter.facingLeftItem)
             {
-                Position = new Vector2(player.X - 45, player.Y);
+                Position = new Vector2(player.X - 9*Global.Var.SCALE, player.Y);
             }
             else if (PlayerCharacter.CurrentState == PlayerCharacter.facingRightItem)
             {
-                Position = new Vector2(player.X + 80, player.Y);
+                Position = new Vector2(player.X + 16*Global.Var.SCALE, player.Y);
             }
 
-            Position2 = new Vector2(Position.X - 95, Position.Y);
-            Position3 = new Vector2(Position.X + 65, Position.Y);
-            Position4 = new Vector2(Position.X + 25, Position.Y - 80);
-            Position5 = new Vector2(Position.X - 55, Position.Y - 80);
-            Position6 = new Vector2(Position.X + 25, Position.Y + 80);
-            Position7 = new Vector2(Position.X - 55, Position.Y + 80);
+            Position2 = new Vector2(Position.X - 19*Global.Var.SCALE, Position.Y);
+            Position3 = new Vector2(Position.X + 13*Global.Var.SCALE, Position.Y);
+            Position4 = new Vector2(Position.X + 5*Global.Var.SCALE, Position.Y - 16*Global.Var.SCALE);
+            Position5 = new Vector2(Position.X - 11*Global.Var.SCALE, Position.Y - 16 * Global.Var.SCALE);
+            Position6 = new Vector2(Position.X + 5*Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE);
+            Position7 = new Vector2(Position.X - 11*Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE);
         }
 
     }

@@ -35,19 +35,19 @@ namespace Sprintfinity3902.Entities
 
             if (direction == 1) //Left
             {
-                X = X - 1;
+                X = X - .2f * Global.Var.SCALE;
             }
             else if (direction == 2) //Right
             {
-                X = X + 1;
+                X = X + .2f * Global.Var.SCALE;
             }
             else if (direction == 3) //Up
             {
-                Y = Y - 1;
+                Y = Y - .2f * Global.Var.SCALE;
             }
             else if (direction == 4) //Down
             {
-                Y = Y + 1;
+                Y = Y + .2f * Global.Var.SCALE;
             }
             count++;
         }

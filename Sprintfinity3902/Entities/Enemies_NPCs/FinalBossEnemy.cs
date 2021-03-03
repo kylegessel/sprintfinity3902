@@ -91,9 +91,9 @@ namespace Sprintfinity3902.Entities
 
             // Handle Movement
             if (direction == 1) //Forward
-                X = X - 1;
+                X = X - .2f*Global.Var.SCALE;
             else if (direction == 2) //Backward
-                X = X + 1;
+                X = X + .2f*Global.Var.SCALE;
             
             directionCount++;
 

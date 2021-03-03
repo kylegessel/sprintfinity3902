@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Navigation
 
         private static Texture2D map;
 
-        private Rectangle windowBounds = new Rectangle(1, 1, 256, 176);
+        private Rectangle windowBounds = new Rectangle(1, 1, 256, 240);
 
         private static Camera instance;
 

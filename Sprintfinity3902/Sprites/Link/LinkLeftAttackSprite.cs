@@ -36,17 +36,17 @@ namespace Sprintfinity3902.Sprites
             }
             else if (Animation.CurrentFrame == Animation.GetFrame(1))
             {
-                position = new Vector2(position.X - (12*5), position.Y);
+                position = new Vector2(position.X - (12*Global.Var.SCALE), position.Y);
             }
             else if (Animation.CurrentFrame == Animation.GetFrame(2))
             {
-                position = new Vector2(position.X - (8*5), position.Y);
+                position = new Vector2(position.X - (8*Global.Var.SCALE), position.Y);
             }
             else if (Animation.CurrentFrame == Animation.GetFrame(3))
             {
-                position = new Vector2(position.X - (4*5), position.Y);
+                position = new Vector2(position.X - (4*Global.Var.SCALE), position.Y);
             }
-            spriteBatch.Draw(Animation.CurrentFrame.Sprite.Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0.0f);
+            spriteBatch.Draw(Animation.CurrentFrame.Sprite.Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0.0f, new Vector2(0, 0), Global.Var.SCALE, SpriteEffects.FlipHorizontally, 0.0f);
         }
         public LinkLeftAttackSprite(Texture2D texture)
         {
@@ -55,7 +55,7 @@ namespace Sprintfinity3902.Sprites
             SpriteFrame Sprite3 = new SpriteFrame(texture, LINK_LATTACK3_POS_X, LINK_LATTACK3_POS_Y, LINK_LATTACK3_WIDTH, LINK_LATTACK3_HEIGHT);
             SpriteFrame Sprite4 = new SpriteFrame(texture, LINK_LATTACK4_POS_X, LINK_LATTACK4_POS_Y, LINK_LATTACK4_WIDTH, LINK_LATTACK4_HEIGHT);
             Texture = texture;
-
+           
             Animation = new Animation(false);
             Animation.AddFrame(Sprite1, 0);
             Animation.AddFrame(Sprite2, 1 / 32f);

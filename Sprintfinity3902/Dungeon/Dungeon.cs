@@ -91,5 +91,19 @@ namespace Sprintfinity3902.Dungeon
                 currentRoom = GetById(currentId);
             }
         }
+
+        public void PreviousRoom()
+        {
+            currentId = currentRoom.Id;
+            if (currentRoom.Id == 1)
+            {
+                currentRoom = GetById(19);
+            }
+            else
+            {
+                currentId--;
+                currentRoom = GetById(currentId);
+            }
+        }
     }
 }

@@ -28,7 +28,12 @@ namespace Sprintfinity3902.Dungeon
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room7.csv", 7));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room8.csv", 8));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room9.csv", 9));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\TestRoom.csv", 10));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room10.csv", 10));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room11.csv", 11));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room12.csv", 12));
+            //dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room13.csv", 13));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room14.csv", 13));
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\TestRoom.csv", 14));
 
             currentRoom = GetById(1);
             currentId = 1;
@@ -72,7 +77,7 @@ namespace Sprintfinity3902.Dungeon
         public void NextRoom()
         {
             currentId = currentRoom.Id;
-            if(currentRoom.Id == 10)
+            if(currentRoom.Id == 14)
             {
                 currentRoom = GetById(1);
             }

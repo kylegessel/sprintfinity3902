@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Maps;
+using Sprintfinity3902.Dungeon;
 using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Link;
@@ -37,7 +37,7 @@ namespace Sprintfinity3902 {
             IsMouseVisible = true;
 
             Camera.Instance.SetWindowBounds(graphics);
-            dungeon = new Dungeon();
+            dungeon = new Dungeon.Dungeon();
             //basicMap = new DefaultMap();
 
             Graphics.ApplyChanges();

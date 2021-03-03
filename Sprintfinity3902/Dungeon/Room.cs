@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Sprintfinity3902.Maps
+namespace Sprintfinity3902.Dungeon
 {
     public class Room : IRoom
     {

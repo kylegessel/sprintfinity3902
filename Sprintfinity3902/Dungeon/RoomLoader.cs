@@ -5,7 +5,7 @@ using Sprintfinity3902.Entities;
 using Sprintfinity3902.Entities.Doors;
 using System;
 
-namespace Sprintfinity3902.Maps
+namespace Sprintfinity3902.Dungeon
 {
     public class RoomLoader
     {

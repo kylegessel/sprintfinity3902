@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprintfinity3902.Maps;
+using Sprintfinity3902.Dungeon;
 using System;
 using System.Collections.Generic;
 using System.IO;

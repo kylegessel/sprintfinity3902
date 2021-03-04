@@ -78,6 +78,12 @@ namespace Sprintfinity3902.Link
             CurrentState.Update();
         }
 
+
+        public Rectangle getRectangle()
+        {
+            return new Rectangle(X, Y, 16 * 5, 16 * 5);
+        }
+
         public void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position, color);
         }

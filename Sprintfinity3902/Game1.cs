@@ -93,6 +93,22 @@ namespace Sprintfinity3902 {
 
             basicMap.Update(gameTime);
 
+            DefaultMap testMap = (DefaultMap)basicMap;
+            Rectangle regblockrect = testMap.getRectangle();
+
+            Rectangle linkrect = link.getRectangle();
+
+            //detector
+            if (regblockrect.Intersects(linkrect))
+            {
+                //playerCharacter.TakeDamage();
+                 
+                //handler
+                ILink damagedLink = new DamagedLink(link, this);
+                playerCharacter = damagedLink;
+            }
+
+
             playerCharacter.Update(gameTime);
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);

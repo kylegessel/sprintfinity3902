@@ -18,6 +18,7 @@ namespace Sprintfinity3902.Maps {
         private int NPCIndex;
 
         private IEntity goriyaBoomerang;
+        private RegularBlock regBlock;
 
         public DefaultMap() {
 
@@ -29,6 +30,7 @@ namespace Sprintfinity3902.Maps {
         public void Setup(Game1 gameInstance) {
 
             goriyaBoomerang = new BoomerangItem();
+            regBlock = new RegularBlock();
 
             cyclableBlocks = new List<IEntity>();
             cyclableItems = new List<IEntity>();
@@ -55,7 +57,7 @@ namespace Sprintfinity3902.Maps {
             cyclableCharacters.Add(new OldManNPC());
             cyclableCharacters.Add(new Fire());
 
-            cyclableBlocks.Add(new RegularBlock());
+            cyclableBlocks.Add(regBlock);
             cyclableBlocks.Add(new Face1Block());
             cyclableBlocks.Add(new Face2Block());
             cyclableBlocks.Add(new StairsBlock());
@@ -85,9 +87,11 @@ namespace Sprintfinity3902.Maps {
             cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Draw(spriteBatch);
             cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Draw(spriteBatch);
 
-
         }
 
-
+        public Rectangle getRectangle()
+        {
+            return regBlock.getRectangle();
+        }
     }
 }

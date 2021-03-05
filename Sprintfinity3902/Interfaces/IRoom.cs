@@ -11,7 +11,10 @@ namespace Sprintfinity3902.Interfaces
     public interface IRoom
     {
         int Id { get; set; }
-        List<IEntity> roomEntities { get; set; }
+        //List<IEntity> roomEntities { get; set; }
+        List<IEntity> blocks { get; set; }
+        List<IEntity> items { get; set; }
+        List <IEntity> enemies { get; set; }
         string path { get; set; }
         RoomLoader loader { get; set; }
         void Update(GameTime gameTime);

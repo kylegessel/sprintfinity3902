@@ -74,8 +74,14 @@ namespace Sprintfinity3902.Link
         }
 
         public override void Update(GameTime gameTime) {
-            CurrentState.Sprite.Update(gameTime);
+            CurrentState.Sprite.Update(gameTime);  //can this pass out size?
             CurrentState.Update();
+            //return new Rectangle(0,0,0,0);
+        } 
+
+        public Rectangle getRectangle()
+        {
+            return new Rectangle((int)X, (int)Y, 16*5, 16*5);
         }
 
         public void Draw(SpriteBatch spriteBatch, Color color) {

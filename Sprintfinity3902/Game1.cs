@@ -9,6 +9,7 @@ using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Collision;
 
 namespace Sprintfinity3902 {
     public class Game1 : Game {
@@ -26,8 +27,9 @@ namespace Sprintfinity3902 {
         private IEntity bombItem;
         private IEntity movingSword;
 
+        private IMap basicMap;
 
-        private IMap basicMap; 
+        private ICollision blockCollision = new BlockCollisionHandler();
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -101,11 +103,11 @@ namespace Sprintfinity3902 {
             //detector
             if (regblockrect.Intersects(linkrect))
             {
-                //playerCharacter.TakeDamage();
-                 
                 //handler
-                ILink damagedLink = new DamagedLink(link, this);
-                playerCharacter = damagedLink;
+                //ILink damagedLink = new DamagedLink(link, this);
+                //playerCharacter = damagedLink;
+                blockCollision.reflectMovingEntity((IEntity)playerCharacter, ICollision.CollisionSide.TOP);
+
             }
 
 

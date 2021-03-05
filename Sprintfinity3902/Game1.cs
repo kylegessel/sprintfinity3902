@@ -9,6 +9,7 @@ using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Collision;
 
 namespace Sprintfinity3902 {
     public class Game1 : Game {
@@ -26,6 +27,7 @@ namespace Sprintfinity3902 {
         private IEntity bombItem;
         private IEntity movingSword;
         private IDungeon dungeon;
+        //private IDetector detector;
 
 
         //private IMap basicMap; 
@@ -50,6 +52,7 @@ namespace Sprintfinity3902 {
         protected void Reset() {
             KeyboardManager.Instance.Reset();
 
+            
             //basicMap.Setup(this);
 
             dungeon.Build();
@@ -74,6 +77,8 @@ namespace Sprintfinity3902 {
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
             KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.PreviousRoom, Keys.K);
+
+            CollisionDetector.Instance.setup(this);
         }
 
         protected override void LoadContent() {
@@ -93,21 +98,15 @@ namespace Sprintfinity3902 {
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
 
+
+
             dungeon.Update(gameTime);
             //basicMap.Update(gameTime);
 
             //DefaultMap testMap = (DefaultMap)basicMap;
             IRoom currentRoom = dungeon.GetCurrentRoom();
 
-            Rectangle linkrect = link.getRectangle();
-
-            foreach (AbstractEntity entity in currentRoom.roomEntities){
-                if (entity.IsCollidable() && entity.GetBoundingRect().Intersects(linkrect))
-                {
-                    ILink damagedLink = new DamagedLink(link, this);
-                    playerCharacter = damagedLink;
-                }
-            }
+            
             //Rectangle skelerect = testMap.getRectangle();
 
            
@@ -126,6 +125,8 @@ namespace Sprintfinity3902 {
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
+
+            CollisionDetector.Instance.CheckCollision(currentRoom.roomEntities);
 
 
             base.Update(gameTime);

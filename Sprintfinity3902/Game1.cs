@@ -103,30 +103,15 @@ namespace Sprintfinity3902 {
             dungeon.Update(gameTime);
             //basicMap.Update(gameTime);
 
-            //DefaultMap testMap = (DefaultMap)basicMap;
             IRoom currentRoom = dungeon.GetCurrentRoom();
 
-            
-            //Rectangle skelerect = testMap.getRectangle();
-
-           
-
-
-            //detector
-            //if (skelerect.Intersects(linkrect))
-            //{
-                //playerCharacter.TakeDamage();
-
-                //handler
-                
-            //}
             
             playerCharacter.Update(gameTime);
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
 
-            CollisionDetector.Instance.CheckCollision(currentRoom.roomEntities);
+            CollisionDetector.Instance.CheckCollision(currentRoom.items);
 
 
             base.Update(gameTime);

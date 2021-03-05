@@ -111,7 +111,7 @@ namespace Sprintfinity3902 {
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
 
-            CollisionDetector.Instance.CheckCollision(currentRoom.items);
+            CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items);
 
 
             base.Update(gameTime);

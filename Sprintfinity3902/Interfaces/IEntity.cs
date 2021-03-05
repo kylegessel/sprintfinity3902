@@ -26,5 +26,6 @@ namespace Sprintfinity3902.Interfaces
         void Move();
         void Attack();
         void SetState(IPlayerState state);
+        Rectangle GetBoundingRect();
     }
 }

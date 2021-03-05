@@ -90,11 +90,6 @@ namespace Sprintfinity3902.Dungeon {
 
         }
 
-        public Rectangle getRectangle()
-        {
-            return skele.getRectangle();
-        }
-
 
     }
 }

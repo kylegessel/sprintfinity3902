@@ -42,6 +42,8 @@ namespace Sprintfinity3902.Dungeon
                     BuildWallAndFloor(lineValues[0]);
                 }
             }
+
+            // add fake entitities
             for (int i = 0; i < 7; i++)
             {
                 line = mapStream.ReadLine();
@@ -90,6 +92,7 @@ namespace Sprintfinity3902.Dungeon
                 //WALLS AND FLOORS
                 case "RMEX":
                     Room.roomEntities.Add(new RoomExterior(new Vector2(0, 64 * Global.Var.SCALE)));
+                    //add all 8
                     break;
                 case "RMIN":
                     Room.roomEntities.Add(new RoomInterior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));

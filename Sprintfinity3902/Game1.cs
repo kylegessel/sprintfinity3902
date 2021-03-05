@@ -96,20 +96,31 @@ namespace Sprintfinity3902 {
             dungeon.Update(gameTime);
             //basicMap.Update(gameTime);
 
-            DefaultMap testMap = (DefaultMap)basicMap;
-            Rectangle skelerect = testMap.getRectangle();
+            //DefaultMap testMap = (DefaultMap)basicMap;
+            IRoom currentRoom = dungeon.GetCurrentRoom();
 
             Rectangle linkrect = link.getRectangle();
 
+            foreach (AbstractEntity entity in currentRoom.roomEntities){
+                if (entity.IsCollidable() && entity.GetBoundingRect().Intersects(linkrect))
+                {
+                    ILink damagedLink = new DamagedLink(link, this);
+                    playerCharacter = damagedLink;
+                }
+            }
+            //Rectangle skelerect = testMap.getRectangle();
+
+           
+
+
             //detector
-            if (skelerect.Intersects(linkrect))
-            {
+            //if (skelerect.Intersects(linkrect))
+            //{
                 //playerCharacter.TakeDamage();
 
                 //handler
-                ILink damagedLink = new DamagedLink(link, this);
-                playerCharacter = damagedLink;
-            }
+                
+            //}
             
             playerCharacter.Update(gameTime);
             boomerangItem.Update(gameTime);

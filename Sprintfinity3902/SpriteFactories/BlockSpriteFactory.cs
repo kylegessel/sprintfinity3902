@@ -8,10 +8,12 @@ namespace Sprintfinity3902.SpriteFactories
     public class BlockSpriteFactory
     {
         private Texture2D blockSpriteSheet;
+        private Texture2D mapSprite;
 
         private static BlockSpriteFactory instance;
 
         private static string BLOCK_FILE_NAME = "Zelda_Dungeon_Tileset_Transparent";
+        private static string MAP_FILE_NAME = "Zelda_DungeonMap";
 
         public static BlockSpriteFactory Instance
         {
@@ -29,6 +31,12 @@ namespace Sprintfinity3902.SpriteFactories
         public void LoadAllTextures(ContentManager content)
         {
             blockSpriteSheet = content.Load<Texture2D>(BLOCK_FILE_NAME);
+            mapSprite = content.Load<Texture2D>(BLOCK_FILE_NAME);
+        }
+
+        public ISprite CreateMapSprite()
+        {
+            return new DungeonMapSprite(blockSpriteSheet);
         }
 
         public ISprite CreateRegularBlock()

@@ -6,16 +6,18 @@ using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
+using Sprintfinity3902.SpriteFactories;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Sprintfinity3902
 {
-    public class PauseMenu
+    public class PauseMenu : Interfaces.IDrawable, Interfaces.IUpdateable
     {
         private int count;
         private Game1 Game;
+        public Map Map { get; set; }
         public bool Pause { get; set; }
         public bool Transition { get; set; }
 
@@ -25,6 +27,7 @@ namespace Sprintfinity3902
             Pause = false;
             Game = game;
             count = 0;
+            Map = new Map(new Vector2(8, -256));
         }
 
         public void Update(GameTime gameTime)
@@ -35,6 +38,7 @@ namespace Sprintfinity3902
                 {
                     ChangePosition();
                     Game.playerCharacter.Y = Game.playerCharacter.Y + 2 * Global.Var.SCALE;
+                    Map.Y = Map.Y + 2 * Global.Var.SCALE;
 
                     if (count == 176 * Global.Var.SCALE)
                     {
@@ -45,6 +49,7 @@ namespace Sprintfinity3902
                 {
                     ChangePosition();
                     Game.playerCharacter.Y = Game.playerCharacter.Y - 2 * Global.Var.SCALE;
+                    Map.Y = Map.Y - 2 * Global.Var.SCALE;
 
                     if (count == 176 * Global.Var.SCALE)
                     {
@@ -60,9 +65,9 @@ namespace Sprintfinity3902
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (Pause && Transition == false)
+            if (Pause)
             {
-                
+                Map.Draw(spriteBatch);
             }
         }
 

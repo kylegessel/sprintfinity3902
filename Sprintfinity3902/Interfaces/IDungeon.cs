@@ -15,6 +15,5 @@ namespace Sprintfinity3902.Interfaces
         void NextRoom();
         void PreviousRoom();
         IRoom GetCurrentRoom();
-        void PauseGame();
     }
 }

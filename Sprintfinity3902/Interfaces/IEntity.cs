@@ -21,16 +21,11 @@ namespace Sprintfinity3902.Interfaces
         {
             get; set;
         }
-        bool Moving
-        {
-            get; set;
-        }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
         void Move();
         void Attack();
         void SetState(IPlayerState state);
         Rectangle GetBoundingRect();
-        void StopMoving();
     }
 }

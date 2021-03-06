@@ -23,13 +23,11 @@ namespace Sprintfinity3902 {
 
         public ILink playerCharacter;
         private Player link;
-        private IEntity boomerangItem;
-        private IEntity bombItem;
-        private IEntity movingSword;
-        private IDungeon dungeon;
-        private bool pause;
-        private bool done;
-        private int count;
+        public IEntity boomerangItem;
+        public IEntity bombItem;
+        public IEntity movingSword;
+        public IDungeon dungeon;
+        private PauseMenu pauseMenu;
         //private IDetector detector;
 
 
@@ -40,9 +38,7 @@ namespace Sprintfinity3902 {
             Window.Title = "The Legend of Zelda";
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            pause = false;
-            done = true;
-            count = 0;
+            pauseMenu = new PauseMenu(this);
 
             Camera.Instance.SetWindowBounds(graphics);
             dungeon = new Dungeon.Dungeon();
@@ -105,44 +101,18 @@ namespace Sprintfinity3902 {
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
 
-
-            if (pause == false)
+            if (pauseMenu.Pause || pauseMenu.Transition)
+                pauseMenu.Update(gameTime);
+            else
             {
-                if (done == false)
-                {
-                    dungeon.GetCurrentRoom().ChangePosition(pause);
-                    link.Y = link.Y - 2 * Global.Var.SCALE;
+                dungeon.Update(gameTime);
 
-                    if(count == 176 * Global.Var.SCALE)
-                    {
-                        done = true;
-                    }
-                    count = count + 2*Global.Var.SCALE;
-                }
-                else
-                {
-                    dungeon.Update(gameTime);
-
-                    playerCharacter.Update(gameTime);
-                    boomerangItem.Update(gameTime);
-                    bombItem.Update(gameTime);
-                    movingSword.Update(gameTime);
-                }
+                playerCharacter.Update(gameTime);
+                boomerangItem.Update(gameTime);
+                bombItem.Update(gameTime);
+                movingSword.Update(gameTime);
             }
-            else if (pause == true)
-            {
-                if(done == false)
-                {
-                    dungeon.GetCurrentRoom().ChangePosition(pause);
-                    link.Y = link.Y + 2 * Global.Var.SCALE;
 
-                    if (count == 176 * Global.Var.SCALE)
-                    {
-                        done = true;
-                    }
-                    count = count + 2*Global.Var.SCALE;
-                }
-            }
             //basicMap.Update(gameTime);
 
             IRoom currentRoom = dungeon.GetCurrentRoom();
@@ -160,6 +130,7 @@ namespace Sprintfinity3902 {
             //This will be used for the Sprint 3 and is not needed for Sprint 2
             //Camera.Instance.Draw(SpriteBatch);
             dungeon.Draw(SpriteBatch);
+            pauseMenu.Draw(SpriteBatch);
             //basicMap.Draw(SpriteBatch);
 
             playerCharacter.Draw(SpriteBatch, Color.White);
@@ -175,33 +146,7 @@ namespace Sprintfinity3902 {
 
         protected void Pause()
         {
-            pause = !pause;
-            dungeon.GetCurrentRoom().SetPauseCount();
-            count = 0;
-            done = false;
-
-            if (pause)
-            {
-                KeyboardManager.Instance.RegisterCommand(new DoNothingCommand(this), Keys.W, Keys.Up, Keys.S, Keys.Down, Keys.A, Keys.Left, Keys.D, Keys.Right);
-                KeyboardManager.Instance.RegisterCommand(new DoNothingCommand(this), Keys.E, Keys.D1, Keys.D2, Keys.Z, Keys.N);
-
-                KeyboardManager.Instance.RemoveKeyUpCallback(Keys.L, Keys.K);
-
-            }
-            else if (pause == false)
-            {
-                KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand((Player)playerCharacter), Keys.W, Keys.Up);
-                KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand((Player)playerCharacter), Keys.A, Keys.Left);
-                KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand((Player)playerCharacter), Keys.S, Keys.Down);
-                KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand((Player)playerCharacter), Keys.D, Keys.Right);
-                KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
-                KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)playerCharacter, (BombItem)bombItem), Keys.D1);
-                KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
-                KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
-
-                KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.NextRoom, Keys.L);
-                KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.PreviousRoom, Keys.K);
-            }
+            pauseMenu.PauseGame();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Sprintfinity3902
             Pause = false;
             Game = game;
             count = 0;
-            Map = new Map(new Vector2(8, -256));
+            Map = new Map(new Vector2(15*Global.Var.SCALE, -160 * Global.Var.SCALE));
         }
 
         public void Update(GameTime gameTime)
@@ -65,10 +65,7 @@ namespace Sprintfinity3902
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (Pause)
-            {
-                Map.Draw(spriteBatch);
-            }
+            Map.Draw(spriteBatch);
         }
 
         public void PauseGame()

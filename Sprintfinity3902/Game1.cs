@@ -20,7 +20,6 @@ namespace Sprintfinity3902 {
         public static int ScaleWindow = Global.Var.SCALE;
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
-
         public ILink playerCharacter;
         private Player link;
         public IEntity boomerangItem;
@@ -38,10 +37,8 @@ namespace Sprintfinity3902 {
             Window.Title = "The Legend of Zelda";
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            pauseMenu = new PauseMenu(this);
 
             Camera.Instance.SetWindowBounds(graphics);
-            dungeon = new Dungeon.Dungeon();
             //basicMap = new DefaultMap();
 
             Graphics.ApplyChanges();
@@ -54,10 +51,11 @@ namespace Sprintfinity3902 {
         protected void Reset() {
             KeyboardManager.Instance.Reset();
 
-            
-            //basicMap.Setup(this);
 
+            //basicMap.Setup(this);
+            dungeon = new Dungeon.Dungeon();
             dungeon.Build();
+            pauseMenu = new PauseMenu(this);
 
             playerCharacter = new Player();
             link = (Player)playerCharacter;
@@ -102,7 +100,9 @@ namespace Sprintfinity3902 {
             Camera.Instance.Update(gameTime);
 
             if (pauseMenu.Pause || pauseMenu.Transition)
+            {
                 pauseMenu.Update(gameTime);
+            }
             else
             {
                 dungeon.Update(gameTime);

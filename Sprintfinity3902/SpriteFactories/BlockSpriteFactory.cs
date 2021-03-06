@@ -31,12 +31,12 @@ namespace Sprintfinity3902.SpriteFactories
         public void LoadAllTextures(ContentManager content)
         {
             blockSpriteSheet = content.Load<Texture2D>(BLOCK_FILE_NAME);
-            mapSprite = content.Load<Texture2D>(BLOCK_FILE_NAME);
+            mapSprite = content.Load<Texture2D>(MAP_FILE_NAME);
         }
 
         public ISprite CreateMapSprite()
         {
-            return new DungeonMapSprite(blockSpriteSheet);
+            return new DungeonMapSprite(mapSprite);
         }
 
         public ISprite CreateRegularBlock()

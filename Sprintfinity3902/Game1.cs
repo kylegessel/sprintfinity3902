@@ -111,6 +111,7 @@ namespace Sprintfinity3902 {
                 if (done == false)
                 {
                     dungeon.GetCurrentRoom().ChangePosition(pause);
+                    link.Y = link.Y - 2 * Global.Var.SCALE;
 
                     if(count == 176 * Global.Var.SCALE)
                     {
@@ -133,6 +134,7 @@ namespace Sprintfinity3902 {
                 if(done == false)
                 {
                     dungeon.GetCurrentRoom().ChangePosition(pause);
+                    link.Y = link.Y + 2 * Global.Var.SCALE;
 
                     if (count == 176 * Global.Var.SCALE)
                     {

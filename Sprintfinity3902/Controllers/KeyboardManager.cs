@@ -153,6 +153,14 @@ namespace Sprintfinity3902.Controllers
             }
         }
 
+        public void RemoveKeyUpCallback(params Keys[] keys)
+        {
+            foreach(Keys key in keys)
+            {
+                keyUpHandlers.Remove(key);
+            }
+        }
+
         public void UnregisterListeners() {
             keyUpHandlers.Clear();
         }
@@ -169,6 +177,7 @@ namespace Sprintfinity3902.Controllers
         public void Update(GameTime gameTime) {
             InputKeyboard.Instance.Update(gameTime);
         }
+
 
     }
 }

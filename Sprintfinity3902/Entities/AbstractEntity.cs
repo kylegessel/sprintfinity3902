@@ -10,6 +10,7 @@ namespace Sprintfinity3902.Entities
         private ISprite _sprite;
         private Vector2 _position;
         private Boolean _collidable = true;
+        private bool _moving = true;
 
         public ISprite Sprite
         {
@@ -57,6 +58,18 @@ namespace Sprintfinity3902.Entities
             }
         }
 
+        public bool Moving
+        {
+            get
+            {
+                return _moving;
+            }
+            set
+            {
+                _moving = value;
+            }
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             Sprite.Draw(spriteBatch, Position, Color.White);
@@ -70,7 +83,10 @@ namespace Sprintfinity3902.Entities
              * Move();
              * Attack();
              */
-            Move();
+            if (Moving)
+            {
+                Move();
+            }
         }
 
         public virtual void Attack()
@@ -102,6 +118,12 @@ namespace Sprintfinity3902.Entities
             //Sprite.Animation.CurrentFrame.Width
             return new Rectangle((int)Position.X, (int)Position.Y, 16 * Global.Var.SCALE, 16 * Global.Var.SCALE);
 
+        }
+
+        public void StopMoving()
+        {
+            Moving = !Moving;
+            
         }
     }
 }

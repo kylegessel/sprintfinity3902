@@ -98,5 +98,10 @@ namespace Sprintfinity3902.Dungeon
         {
             return currentRoom;
         }
+
+        public void PauseGame()
+        {
+            currentRoom.PauseGame();
+        }
     }
 }

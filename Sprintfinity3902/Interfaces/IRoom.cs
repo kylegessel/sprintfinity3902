@@ -19,5 +19,6 @@ namespace Sprintfinity3902.Interfaces
         RoomLoader loader { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
+        void PauseGame();
     }
 }

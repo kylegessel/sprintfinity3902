@@ -21,12 +21,14 @@ namespace Sprintfinity3902.Dungeon
 
         public string path { get; set; }
         public RoomLoader loader { get; set; }
+        public bool Pause { get; set; }
 
         public Room(string fileLocation, int id)
         {
             blocks = new List<IEntity>();
             enemies = new List<IEntity>();
             items = new List<IEntity>();
+            Pause = false;
             path = fileLocation;
             Id = id;
 
@@ -35,21 +37,42 @@ namespace Sprintfinity3902.Dungeon
 
         public void Update(GameTime gameTime)
         {
-            
-            foreach (IEntity entity in blocks)
+            if (!Pause)
             {
-                entity.Update(gameTime);
+                foreach (IEntity entity in blocks)
+                {
+                    entity.Update(gameTime);
+                }
+
+                foreach (IEntity entity in enemies)
+                {
+                    entity.Update(gameTime);
+                }
+
+                foreach (IEntity entity in items)
+                {
+                    entity.Update(gameTime);
+                }
+            }
+            else
+            {
+                ChangePosition(gameTime);
+                foreach (IEntity entity in blocks)
+                {
+                    entity.Update(gameTime);
+                }
+
+                foreach (IEntity entity in enemies)
+                {
+                    entity.Update(gameTime);
+                }
+
+                foreach (IEntity entity in items)
+                {
+                    entity.Update(gameTime);
+                }
             }
 
-            foreach (IEntity entity in enemies)
-            {
-                entity.Update(gameTime);
-            }
-
-            foreach (IEntity entity in items)
-            {
-                entity.Update(gameTime);
-            }
 
         }
 
@@ -76,22 +99,50 @@ namespace Sprintfinity3902.Dungeon
 
         }
 
-        public void ChangePosition()
+        public void ChangePosition(GameTime gameTime)
         {
             foreach (IEntity entity in blocks)
             {
-                //Change position of all entities in the room when you enter the 
-                //pause menu or inventory screen
+               if(entity.Position.Y != 256 * Global.Var.SCALE)
+               {
+                    entity.Y = entity.Y + 1 *Global.Var.SCALE;
+               }
             }
 
             foreach (IEntity entity in enemies)
             {
-
+                if (entity.Position.Y != 256 * Global.Var.SCALE)
+                {
+                    entity.Y = entity.Y + 1 * Global.Var.SCALE;
+                }
             }
 
             foreach (IEntity entity in items)
             {
+                if (entity.Position.Y != 256 * Global.Var.SCALE)
+                {
+                    entity.Y = entity.Y + 1 * Global.Var.SCALE;
+                }
+            }
+            
+        }
 
+        public void PauseGame()
+        {
+            Pause = !Pause;
+            foreach (IEntity entity in blocks)
+            {
+                entity.StopMoving();
+            }
+
+            foreach (IEntity entity in enemies)
+            {
+                entity.StopMoving();
+            }
+
+            foreach (IEntity entity in items)
+            {
+                entity.StopMoving();
             }
         }
     }

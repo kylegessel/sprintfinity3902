@@ -77,6 +77,7 @@ namespace Sprintfinity3902 {
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
             KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.PreviousRoom, Keys.K);
+            KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.PauseGame, Keys.P);
 
             CollisionDetector.Instance.setup(this);
         }

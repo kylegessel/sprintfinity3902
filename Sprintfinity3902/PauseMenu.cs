@@ -23,7 +23,7 @@ namespace Sprintfinity3902
             Pause = false;
             Game = game;
             count = 0;
-            Map = new Map(new Vector2(15*Global.Var.SCALE, -160 * Global.Var.SCALE));
+            Map = new Map(new Vector2(15*Global.Var.SCALE, -161 * Global.Var.SCALE));
         }
 
         public void Update(GameTime gameTime)

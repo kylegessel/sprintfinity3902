@@ -9,9 +9,9 @@ namespace Sprintfinity3902.Dungeon
     public class Dungeon : IDungeon
     {
         private List<IRoom> dungeonRooms;
-        private IRoom currentRoom;
+        public IRoom CurrentRoom { get; set; }
         private int currentId;
-        public int Id { get; set; }
+        public int NextId { get; set; }
 
         public Dungeon()
         {
@@ -36,8 +36,9 @@ namespace Sprintfinity3902.Dungeon
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room18.csv", 18));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\TestRoom.csv", 19));
 
-            currentRoom = GetById(1);
-            currentId = 1;
+            CurrentRoom = GetById(1);
+            currentId = CurrentRoom.Id;
+            NextId = CurrentRoom.Id;
         }
 
         public void Build()
@@ -50,12 +51,13 @@ namespace Sprintfinity3902.Dungeon
 
         public void Update(GameTime gameTime)
         {
-            currentRoom.Update(gameTime);
+            CurrentRoom = GetById(NextId);
+            CurrentRoom.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            currentRoom.Draw(spriteBatch);
+            CurrentRoom.Draw(spriteBatch);
         }
 
         public IRoom GetById(int id)
@@ -65,35 +67,43 @@ namespace Sprintfinity3902.Dungeon
 
         public void NextRoom()
         {
-            currentId = currentRoom.Id;
-            if(currentRoom.Id == 19)
+            currentId = CurrentRoom.Id;
+            if(CurrentRoom.Id == 19)
             {
-                currentRoom = GetById(1);
+                CurrentRoom = GetById(1);
             }
             else
             {
                 currentId++;
-                currentRoom = GetById(currentId);
+                CurrentRoom = GetById(currentId);
             }
+            NextId = CurrentRoom.Id;
         }
 
         public void PreviousRoom()
         {
-            currentId = currentRoom.Id;
-            if (currentRoom.Id == 1)
+            currentId = CurrentRoom.Id;
+            if (CurrentRoom.Id == 1)
             {
-                currentRoom = GetById(19);
+                CurrentRoom = GetById(19);
             }
             else
             {
                 currentId--;
-                currentRoom = GetById(currentId);
+                CurrentRoom = GetById(currentId);
             }
+            NextId = CurrentRoom.Id;
         }
 
         public IRoom GetCurrentRoom()
         {
-            return currentRoom;
+            return CurrentRoom;
+        }
+
+        public void SetCurrentRoom(int id)
+        {
+            NextId = id;
+
         }
     }
 }

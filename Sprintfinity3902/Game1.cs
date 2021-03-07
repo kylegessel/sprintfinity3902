@@ -26,7 +26,7 @@ namespace Sprintfinity3902
         public IEntity bombItem;
         public IEntity movingSword;
         public IDungeon dungeon;
-        private PauseMenu pauseMenu;
+        public PauseMenu pauseMenu;
         //private IDetector detector;
 
         public Game1() {
@@ -60,6 +60,7 @@ namespace Sprintfinity3902
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
 
             KeyboardManager.Instance.Initialize(link);
+            InputMouse.Instance.GiveGame(this);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
 
@@ -93,6 +94,8 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.Update(gameTime);
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
+
+
 
             if (pauseMenu.Pause || pauseMenu.Transition)
             {
@@ -134,6 +137,8 @@ namespace Sprintfinity3902
             SpriteBatch.End();
 
             base.Draw(gameTime);
+
+
         }
 
         protected void Pause()

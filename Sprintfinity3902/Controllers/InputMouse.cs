@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
+using Sprintfinity3902;
 
 namespace Sprintfinity3902.Controllers
 {
@@ -10,6 +11,9 @@ namespace Sprintfinity3902.Controllers
         private static Dictionary<Keys, Interfaces.ICommand> controllerMappings;
 
         private static InputMouse instance;
+        private Game1 Game;
+        private MouseState ms;
+        private Point mouseLocation;
 
         public static InputMouse Instance {
             get {
@@ -20,15 +24,15 @@ namespace Sprintfinity3902.Controllers
 
                 return instance;
             }
-                
+
         }
-    
+
         public void Update(GameTime gameTime) {
-            MouseState ms = Mouse.GetState();
-            Point mouseLocation = new Point(ms.X, ms.Y);
+            ms = Mouse.GetState();
+            mouseLocation = new Point(ms.X, ms.Y);
 
-            // Do stuff here
-
+            if (Game.pauseMenu.Pause && Game.pauseMenu.Transition == false)
+                MouseMapInput();
         }
 
         private void addMapping(Interfaces.ICommand command, Keys key) {
@@ -47,6 +51,24 @@ namespace Sprintfinity3902.Controllers
 
         public void RegisterCommand(Keys key, Interfaces.ICommand command) {
             addMapping(command, key);
+        }
+
+        public void GiveGame(Game1 game)
+        {
+            Game = game;
+        }
+
+        public void MouseMapInput()
+        {
+            if (mouseLocation.X > 54*Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 147 * Global.Var.SCALE && mouseLocation.Y < 173 * Global.Var.SCALE)
+            {
+                if(ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(1);
+
+                }
+            }
+            
         }
 
     }

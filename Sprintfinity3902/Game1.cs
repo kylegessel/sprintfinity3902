@@ -1,17 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Collision;
+using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
+using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Dungeon;
+using Sprintfinity3902.Link;
 using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
-using Sprintfinity3902.Link;
-using Sprintfinity3902.Commands;
-using Sprintfinity3902.Entities;
-using Sprintfinity3902.Collision;
 
-namespace Sprintfinity3902 {
+namespace Sprintfinity3902
+{
     public class Game1 : Game {
 
         private GraphicsDeviceManager graphics;
@@ -28,9 +28,6 @@ namespace Sprintfinity3902 {
         public IDungeon dungeon;
         private PauseMenu pauseMenu;
         //private IDetector detector;
-
-
-        //private IMap basicMap; 
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -51,8 +48,6 @@ namespace Sprintfinity3902 {
         protected void Reset() {
             KeyboardManager.Instance.Reset();
 
-
-            //basicMap.Setup(this);
             dungeon = new Dungeon.Dungeon();
             dungeon.Build();
             pauseMenu = new PauseMenu(this);
@@ -113,8 +108,6 @@ namespace Sprintfinity3902 {
                 movingSword.Update(gameTime);
             }
 
-            //basicMap.Update(gameTime);
-
             IRoom currentRoom = dungeon.GetCurrentRoom();
 
             CollisionDetector.Instance.CheckCollision(currentRoom.items);
@@ -131,7 +124,6 @@ namespace Sprintfinity3902 {
             //Camera.Instance.Draw(SpriteBatch);
             dungeon.Draw(SpriteBatch);
             pauseMenu.Draw(SpriteBatch);
-            //basicMap.Draw(SpriteBatch);
 
             playerCharacter.Draw(SpriteBatch, Color.White);
 

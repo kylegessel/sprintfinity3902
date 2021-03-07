@@ -6,10 +6,6 @@ using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
-using Sprintfinity3902.SpriteFactories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sprintfinity3902
 {
@@ -106,37 +102,25 @@ namespace Sprintfinity3902
             foreach (IEntity entity in Game.dungeon.GetCurrentRoom().blocks)
             {
                 if (count != 176 * Global.Var.SCALE && Pause)
-                {
                     entity.Y = entity.Y + 2 * Global.Var.SCALE;
-                }
                 else if (count != 176 * Global.Var.SCALE && Pause == false)
-                {
                     entity.Y = entity.Y - 2 * Global.Var.SCALE;
-                }
             }
 
             foreach (IEntity entity in Game.dungeon.GetCurrentRoom().enemies)
             {
                 if (count != 176 * Global.Var.SCALE && Pause)
-                {
                     entity.Y = entity.Y + 2 * Global.Var.SCALE;
-                }
                 else if (count != 176 * Global.Var.SCALE && Pause == false)
-                {
                     entity.Y = entity.Y - 2 * Global.Var.SCALE;
-                }
             }
 
             foreach (IEntity entity in Game.dungeon.GetCurrentRoom().items)
             {
                 if (count != 176 * Global.Var.SCALE && Pause)
-                {
                     entity.Y = entity.Y + 2 * Global.Var.SCALE;
-                }
                 else if (count != 176 * Global.Var.SCALE && Pause == false)
-                {
                     entity.Y = entity.Y - 2 * Global.Var.SCALE;
-                }
             }
         }
     }

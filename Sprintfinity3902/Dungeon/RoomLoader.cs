@@ -1,9 +1,9 @@
-﻿using System.IO;
-using Sprintfinity3902.Interfaces;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Entities.Doors;
+using Sprintfinity3902.Interfaces;
 using System;
+using System.IO;
 
 namespace Sprintfinity3902.Dungeon
 {

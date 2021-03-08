@@ -69,8 +69,11 @@ namespace Sprintfinity3902.Collision
             foreach (AbstractEntity block in blocks)
             {
 
-                if (block.GetBoundingRect().Intersects(linkRect))
+                if (block.IsCollidable() && block.GetBoundingRect().Intersects(linkRect))
                 {
+
+                    //ILink damagedLink = new DamagedLink(link, gameInstance);
+                    //gameInstance.playerCharacter = damagedLink;
                     /*
                      * TODO: link block collision handler
                      */

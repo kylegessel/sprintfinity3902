@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.States;
+using System;
+using System.Collections.Generic;
 
 namespace Sprintfinity3902.Link
 {
@@ -34,9 +36,26 @@ namespace Sprintfinity3902.Link
 
         public Color color;
 
+        private Dictionary<pickups, int> itemcount;
+
+        public enum pickups { 
+            BOMB,
+            BOOMERANG,
+            BOW,
+            CLOCK,
+            COMPASS,
+            FAIRY,
+            HEART,
+            KEY,
+            MAP,
+            SWORD,
+            RUPEE,
+            TRIFORCE
+        };
+
         public Player()
         {
-            Position = new Vector2(60 *Global.Var.SCALE, 120*Global.Var.SCALE);
+            Position = new Vector2(60 * Global.Var.SCALE, 120 * Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
             facingDown = CurrentState;
             facingLeft = new FacingLeftState(this);
@@ -51,6 +70,25 @@ namespace Sprintfinity3902.Link
             facingRightItem = new FacingRightItemState(this);
             facingUpItem = new FacingUpItemState(this);
             color = Color.White;
+
+            itemcount = new Dictionary<pickups, int>();
+        }
+
+        public void pickup(pickups item) {
+            if (itemcount.ContainsKey(item)) {
+                itemcount[item]++;
+                return ;
+            }
+            itemcount.Add(item, 1);
+        }
+
+        public void useItem(pickups item) {
+            if (itemcount.ContainsKey(item) && itemcount[item] > 0) {
+                itemcount[item]--;
+                return ;
+            } 
+            // Not enough quantity or any
+            /* TODO: Implmt err control */
         }
 
         public override void SetState(IPlayerState state) {

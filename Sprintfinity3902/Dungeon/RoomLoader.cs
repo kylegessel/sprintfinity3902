@@ -160,7 +160,10 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(new Fire(Position));
                     break;
                 case "GELY":
-                    Room.enemies.Add(new GelEnemy(Position));
+                    GelEnemy gel = new GelEnemy(Position);
+                    gel.X = gel.Position.X + 4 * Global.Var.SCALE;
+                    gel.Y = gel.Position.Y + 4 * Global.Var.SCALE;
+                    Room.enemies.Add(gel);
                     break;
                 case "GORY":
                     BoomerangItem goriyaBoomerang = new BoomerangItem();
@@ -181,7 +184,9 @@ namespace Sprintfinity3902.Dungeon
                 //ITEMS
                 // Probably could use a static bomb and boomerang object now that I think of it.
                 case "KEYI":
-                    Room.items.Add(new KeyItem(Position));
+                    KeyItem key = new KeyItem(Position);
+                    key.X = key.Position.X + 4 * Global.Var.SCALE;
+                    Room.items.Add(key);
                     break;
                 case "BOWI":
                     Room.items.Add(new BowItem(Position));
@@ -190,25 +195,36 @@ namespace Sprintfinity3902.Dungeon
                     Room.items.Add(new ClockItem(Position));
                     break;
                 case "CMPS":
-                    Room.items.Add(new CompassItem(Position));
+                    CompassItem compass = new CompassItem(Position);
+                    compass.X = compass.Position.X + 2 * Global.Var.SCALE;
+                    compass.Y = compass.Position.Y + 2 * Global.Var.SCALE;
+                    Room.items.Add(compass);
                     break;
                 case "FARY":
                     Room.items.Add(new FairyItem(Position));
                     break;
                 case "HCON":
-                    Room.items.Add(new HeartContainerItem(Position));
+                    HeartContainerItem hcont = new HeartContainerItem(Position);
+                    hcont.X = hcont.Position.X + 1 * Global.Var.SCALE;
+                    hcont.Y = hcont.Position.Y + 1 * Global.Var.SCALE;
+                    Room.items.Add(hcont);
                     break;
                 case "HART":
                     Room.items.Add(new HeartItem(Position));
                     break;
                 case "MAPI":
-                    Room.items.Add(new MapItem(Position));
+                    MapItem map = new MapItem(Position);
+                    map.X = map.Position.X + 4 * Global.Var.SCALE;
+                    Room.items.Add(map);
                     break;
                 case "RUPE":
                     Room.items.Add(new RupeeItem(Position));
                     break;
                 case "TRIF":
-                    Room.items.Add(new TriforceItem(Position));
+                    TriforceItem triforce = new TriforceItem(Position);
+                    triforce.X = triforce.Position.X + 11 * Global.Var.SCALE;
+                    triforce.Y = triforce.Position.Y + 11 * Global.Var.SCALE;
+                    Room.items.Add(triforce);
                     break;
 
             }

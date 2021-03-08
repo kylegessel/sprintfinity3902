@@ -58,6 +58,7 @@ namespace Sprintfinity3902.Controllers
             Game = game;
         }
 
+        //FOR SPRINT 3 ONLY
         public void MouseMapInput()
         {
             if (mouseLocation.X > 54 * Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 148 * Global.Var.SCALE && mouseLocation.Y < 174 * Global.Var.SCALE)

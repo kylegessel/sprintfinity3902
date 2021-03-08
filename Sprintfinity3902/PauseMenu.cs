@@ -78,6 +78,8 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.RegisterCommand(new DoNothingCommand(Game), Keys.E, Keys.D1, Keys.D2, Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RemoveKeyUpCallback(Keys.L, Keys.K);
+
+            //Store Link within Game, then reset to that Link
         }
 
         public void ReregisterCommands()

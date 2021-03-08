@@ -19,6 +19,7 @@ namespace Sprintfinity3902.Dungeon {
 
         private IEntity goriyaBoomerang;
         private SkeletonEnemy skele;
+        private RegularBlock regBlock;
 
         public DefaultMap() {
 
@@ -31,6 +32,7 @@ namespace Sprintfinity3902.Dungeon {
 
             goriyaBoomerang = new BoomerangItem();
             skele = new SkeletonEnemy();
+            regBlock = new RegularBlock();
 
             cyclableBlocks = new List<IEntity>();
             cyclableItems = new List<IEntity>();
@@ -57,7 +59,7 @@ namespace Sprintfinity3902.Dungeon {
             cyclableCharacters.Add(new OldManNPC());
             cyclableCharacters.Add(new Fire());
 
-            cyclableBlocks.Add(new RegularBlock());
+            cyclableBlocks.Add(regBlock);
             cyclableBlocks.Add(new Face1Block());
             cyclableBlocks.Add(new Face2Block());
             cyclableBlocks.Add(new StairsBlock());
@@ -87,9 +89,13 @@ namespace Sprintfinity3902.Dungeon {
             cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Draw(spriteBatch);
             cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Draw(spriteBatch);
 
-
         }
 
-
+        /*
+        public Rectangle getRectangle()
+        {
+            return regBlock.getRectangle();
+        }
+        */
     }
 }

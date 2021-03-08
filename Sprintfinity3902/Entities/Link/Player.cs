@@ -122,6 +122,13 @@ namespace Sprintfinity3902.Link
             return new Rectangle((int)X, (int)Y, 16*5, 16*5);
         }
 
+        /*
+        public Rectangle getRectangle()
+        {
+            return new Rectangle(X, Y, 16 * 5, 16 * 5);
+        }
+        */
+
         public void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position, color);
         }

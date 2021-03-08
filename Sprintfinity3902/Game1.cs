@@ -113,7 +113,7 @@ namespace Sprintfinity3902
 
             IRoom currentRoom = dungeon.GetCurrentRoom();
 
-            CollisionDetector.Instance.CheckCollision(currentRoom.items);
+            CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items);
 
 
             base.Update(gameTime);

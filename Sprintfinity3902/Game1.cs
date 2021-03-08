@@ -11,6 +11,7 @@ using Sprintfinity3902.Commands;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Collision;
 using System.Collections.Generic;
+using Sprintfinity3902.Entities.Items;
 
 namespace Sprintfinity3902 {
     public class Game1 : Game {
@@ -27,6 +28,7 @@ namespace Sprintfinity3902 {
         private IEntity boomerangItem;
         private IEntity bombItem;
         private IEntity movingSword;
+        private IEntity bombExplosion;
         private IDungeon dungeon;
         private List<IEntity> linkProj;
         //private IDetector detector;
@@ -63,7 +65,7 @@ namespace Sprintfinity3902 {
 
             
             boomerangItem = new BoomerangItem();
-            bombItem = new BombItem(new Vector2(-1000, -1000));
+            bombItem = new BombItem(new Vector2(-1000, -1000), (BombExplosionItem) bombExplosion);
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
 
             linkProj = new List<IEntity>();

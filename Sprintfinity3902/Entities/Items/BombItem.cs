@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
@@ -10,6 +11,7 @@ namespace Sprintfinity3902.Entities
     public class BombItem : AbstractEntity {
 
         Player PlayerCharacter;
+        BombExplosionItem BombExplosion;
         Boolean itemUse;
         int itemUseCount;
         ISprite Sprite2;
@@ -19,11 +21,12 @@ namespace Sprintfinity3902.Entities
         Vector2 Position5;
         Vector2 Position6;
         Vector2 Position7;
-        public BombItem(Vector2 position)
+        public BombItem(Vector2 position, BombExplosionItem bombExplode)
         {
             Sprite = ItemSpriteFactory.Instance.CreateBombItem();
             Sprite2 = ItemSpriteFactory.Instance.CreateSmokeItem();
             Position = position;
+            BombExplosion = bombExplode;
             itemUse = false;
             itemUseCount = 0;
         }
@@ -39,24 +42,23 @@ namespace Sprintfinity3902.Entities
             {
                 Sprite.Draw(spriteBatch, Position, Color.White);
             }
-            else if (itemUseCount < 120)
+
+            if (BombExplosion != null)
             {
-                Sprite2.Draw(spriteBatch, Position, Color.White);
-                Sprite2.Draw(spriteBatch, Position2, Color.White);
-                Sprite2.Draw(spriteBatch, Position3, Color.White);
-                Sprite2.Draw(spriteBatch, Position4, Color.White);
-                Sprite2.Draw(spriteBatch, Position5, Color.White);
-                Sprite2.Draw(spriteBatch, Position6, Color.White);
-                Sprite2.Draw(spriteBatch, Position7, Color.White);
+                BombExplosion.Draw(spriteBatch);
             }
         }
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
-            Sprite2.Update(gameTime);
             if (itemUse)
             {
                 ExplodeBomb();
+            }
+
+            if(BombExplosion != null)
+            {
+                BombExplosion.Update(gameTime);
             }
         }
 
@@ -67,11 +69,10 @@ namespace Sprintfinity3902.Entities
                 itemUse = false;
                 itemUseCount = 0;
                 Position = new Vector2(-1000, -1000);
-                Sprite2.Animation.Stop();
+                BombExplosion = null;
             }else if (itemUseCount == 60)
             {
-                Position = new Vector2(Position.X - 3 * Global.Var.SCALE, Position.Y);
-                Sprite2.Animation.Play();
+                BombExplosion = new BombExplosionItem(Position);
             }
             itemUseCount++;
         }
@@ -96,13 +97,6 @@ namespace Sprintfinity3902.Entities
             {
                 Position = new Vector2(player.X + 16*Global.Var.SCALE, player.Y);
             }
-
-            Position2 = new Vector2(Position.X - 19*Global.Var.SCALE, Position.Y);
-            Position3 = new Vector2(Position.X + 13*Global.Var.SCALE, Position.Y);
-            Position4 = new Vector2(Position.X + 5*Global.Var.SCALE, Position.Y - 16*Global.Var.SCALE);
-            Position5 = new Vector2(Position.X - 11*Global.Var.SCALE, Position.Y - 16 * Global.Var.SCALE);
-            Position6 = new Vector2(Position.X + 5*Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE);
-            Position7 = new Vector2(Position.X - 11*Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE);
         }
 
     }

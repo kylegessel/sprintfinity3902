@@ -18,7 +18,7 @@ namespace Sprintfinity3902.Collision
         
         ICollision blockCollision = new BlockCollisionHandler();
         ICollision.CollisionSide side;
-        Rectangle intersectionRect;
+        //Rectangle intersectionRect;
         
 
         /* Singleton instance */
@@ -90,6 +90,7 @@ namespace Sprintfinity3902.Collision
             foreach (AbstractEntity enemy in enemies)
             {
                 Rectangle enemyRect = enemy.GetBoundingRect();
+                alreadyMoved = false;
 
                 foreach (AbstractEntity block in blocks)
                 {
@@ -145,20 +146,6 @@ namespace Sprintfinity3902.Collision
                 items.Remove(pickup);
             }
           
-        }
-
-
-
-        //MINE 
-        public void CheckBlockCollision( List<IEntity> blocks)
-        {
-            Rectangle linkrect = link.GetBoundingRect();
-            
-
-            foreach (AbstractEntity entity in blocks)
-            {
-               
-            }
         }
 
     }

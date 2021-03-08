@@ -9,7 +9,6 @@ namespace Sprintfinity3902.Collision
 {
     public class BlockCollisionHandler : ICollision 
     {
-        //public IEntity movingEntity;
         ICollision.CollisionSide side;
         Rectangle intersectionRect;
 

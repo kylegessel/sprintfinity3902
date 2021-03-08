@@ -15,10 +15,11 @@ namespace Sprintfinity3902.Collision
         Game1 gameInstance;
         Player link;
 
+        
         ICollision blockCollision = new BlockCollisionHandler();
         ICollision.CollisionSide side;
         Rectangle intersectionRect;
-
+        
 
         /* Singleton instance */
 
@@ -32,34 +33,123 @@ namespace Sprintfinity3902.Collision
             }
         }
 
-        //public CollisionDetector() {
-        //Reset();
-        // }
         public void setup(Game1 game)
         {
             gameInstance = game;
             link = (Player)game.playerCharacter;
         }
-        
-        /* This method updates the InputKeyboard singleton
-         * to remove clutter from game class. Additionally,
-         * the InputKeyboard will call this.CallCommands and 
-         * this.CallHandlers if it needs to.
+
+        /* 
+         * This method updates the Collision singleton
          */
-        public void CheckCollision( List<IEntity> entities) {
+        public void CheckCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> items) {
+            DetectLinkDamage(enemies);
+            DetectBlockCollision(enemies, blocks);
+            DetectEnemyDamage(enemies);
+            DetectItemPickup(items);
 
-            Rectangle linkrect = link.GetBoundingRect();
+        }
 
-            foreach (AbstractEntity entity in entities)
+        private void DetectLinkDamage(List<IEntity> enemies)
+        {
+
+            Rectangle linkRect = link.GetBoundingRect();
+
+            foreach (AbstractEntity enemy in enemies)
             {
-                if (entity.IsCollidable() && entity.GetBoundingRect().Intersects(linkrect))
+                if (enemy.IsCollidable() && enemy.GetBoundingRect().Intersects(linkRect))
                 {
+                    /*
+                     * TODO: Replace with handler
+                     */
                     ILink damagedLink = new DamagedLink(link, gameInstance);
                     gameInstance.playerCharacter = damagedLink;
                 }
             }
         }
 
+        private void DetectBlockCollision(List<IEntity> enemies, List<IEntity> blocks)
+        {
+
+            Rectangle linkRect = link.GetBoundingRect();
+            Boolean alreadyMoved = false;
+
+            foreach (AbstractEntity block in blocks)
+            {
+                Rectangle blockRect = block.GetBoundingRect();
+                if (block.IsCollidable() && blockRect.Intersects(linkRect))
+                {
+                    side = blockCollision.sideOfCollision(blockRect, linkRect);
+                    if (!alreadyMoved) //This will prevent it from moving back twice
+                    {
+                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                    }
+                }
+            }
+
+            foreach (AbstractEntity enemy in enemies)
+            {
+                Rectangle enemyRect = enemy.GetBoundingRect();
+
+                foreach (AbstractEntity block in blocks)
+                {
+                    Rectangle blockRect = block.GetBoundingRect();
+                    if (block.IsCollidable() && blockRect.Intersects(enemyRect))
+                    {
+                        side = blockCollision.sideOfCollision(blockRect, enemyRect);
+                        if (!alreadyMoved) //This will prevent it from moving back twice
+                        {
+                            alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private void DetectEnemyDamage(List<IEntity> enemies)
+        {
+            
+            /*
+             * TODO: implement link hurtboxes and pass to this function.
+             */
+
+            foreach (AbstractEntity enemy in enemies)
+            {
+                /*
+                 * TODO: enemy damage handler
+                 */
+            }
+        }
+
+        private void DetectItemPickup(List<IEntity> items)
+        {
+
+            Rectangle linkRect = link.GetBoundingRect();
+            List<IEntity> deletionList = new List<IEntity>();
+
+            foreach (AbstractEntity item in items)
+            {
+                if (item.GetBoundingRect().Intersects(linkRect))
+                {
+                    /*
+                     * TODO: item pickup handler
+                     */
+                    deletionList.Add(item);
+                }
+            }
+
+            //how tf does this work
+            foreach (AbstractEntity pickup in deletionList)
+            {
+                items.Remove(pickup);
+            }
+          
+        }
+
+
+
+        //MINE 
         public void CheckBlockCollision( List<IEntity> blocks)
         {
             Rectangle linkrect = link.GetBoundingRect();
@@ -67,85 +157,7 @@ namespace Sprintfinity3902.Collision
 
             foreach (AbstractEntity entity in blocks)
             {
-                Rectangle blockrect = entity.GetBoundingRect();
-                if (entity.IsCollidable() && blockrect.Intersects(linkrect))
-                {
-                    intersectionRect = Rectangle.Intersect(linkrect, blockrect);
-                    
-                    //Insert logic to determine where the overlap is
-                    if (intersectionRect.Top == blockrect.Top)
-                    {
-                        if (intersectionRect.Left == blockrect.Left)
-                        {
-                            if (intersectionRect.Height > intersectionRect.Width)
-                            {
-                                side = ICollision.CollisionSide.LEFT;
-                            }
-                            else
-                            {
-                                side = ICollision.CollisionSide.TOP;
-                            }
-                        }
-                        else if (intersectionRect.Right == blockrect.Right)
-                        {
-                            if (intersectionRect.Height > intersectionRect.Width)
-                            {
-                                side = ICollision.CollisionSide.RIGHT;
-                            }
-                            else
-                            {
-                                side = ICollision.CollisionSide.TOP;
-                            }
-                        }
-                        else //Only intersects top (Not sure if this is possible) -- Will be with the walls
-                        {
-                            side = ICollision.CollisionSide.TOP;
-                        }
-                    }
-                    else if (intersectionRect.Bottom == blockrect.Bottom)
-                    {
-                        if (intersectionRect.Left == blockrect.Left)
-                        {
-                            if(intersectionRect.Height > intersectionRect.Width)
-                            {
-                                side = ICollision.CollisionSide.LEFT;
-                            }
-                            else
-                            {
-                                side = ICollision.CollisionSide.BOTTOM;
-                            }
-
-                        }
-                        else if (intersectionRect.Right == blockrect.Right)
-                        {
-                            //compare width and  height
-                            if (intersectionRect.Height > intersectionRect.Width)
-                            {
-                                side = ICollision.CollisionSide.RIGHT;
-                            }
-                            else
-                            {
-                                side = ICollision.CollisionSide.BOTTOM;
-                            }
-                        }
-                        else //Only intersects Bot (Don't think this is possible)
-                        {
-                            side = ICollision.CollisionSide.BOTTOM;
-                        }
-                    }
-                    else if (intersectionRect.Right == blockrect.Left)
-                    {
-                        side = ICollision.CollisionSide.LEFT;
-                    }
-                    else //Link ran into left wall
-                    {
-                        side = ICollision.CollisionSide.RIGHT;
-                    }
-
-                        //if top, check left and right, if neither side = top, if has a side compare height to width, go with the bigger one
-
-                    blockCollision.reflectMovingEntity(link, side);
-                }
+               
             }
         }
 

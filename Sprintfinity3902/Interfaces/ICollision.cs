@@ -1,4 +1,8 @@
-﻿namespace Sprintfinity3902.Interfaces
+﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Entities;
+using System;
+
+namespace Sprintfinity3902.Interfaces
 {
     public interface ICollision
     {
@@ -8,10 +12,12 @@
             TOP,
             RIGHT,
             BOTTOM,
-            LEFT
+            LEFT,
+            NONE
         }
 
-        public void reflectMovingEntity(IEntity movingEntity, CollisionSide side);
+        Boolean reflectMovingEntity(IEntity movingEntity, CollisionSide side); //, Rectangle intersectionRect);
 
+        CollisionSide sideOfCollision(Rectangle block, Rectangle characterRect);
     }
 }

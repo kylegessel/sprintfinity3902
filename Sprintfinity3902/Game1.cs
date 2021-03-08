@@ -32,8 +32,6 @@ namespace Sprintfinity3902 {
 
         //private IMap basicMap; 
 
-        
-
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
             Window.Title = "The Legend of Zelda";
@@ -100,13 +98,6 @@ namespace Sprintfinity3902 {
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
 
-            dungeon.Update(gameTime);
-            //basicMap.Update(gameTime);
-
-            //DefaultMap testMap = (DefaultMap)basicMap;
-
-            
-
 
 
             dungeon.Update(gameTime);
@@ -120,8 +111,7 @@ namespace Sprintfinity3902 {
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
 
-            CollisionDetector.Instance.CheckCollision(currentRoom.items);
-            CollisionDetector.Instance.CheckBlockCollision(currentRoom.blocks);
+            CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items);
 
 
             base.Update(gameTime);

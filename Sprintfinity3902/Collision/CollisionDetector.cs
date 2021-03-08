@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using System;
@@ -132,7 +133,7 @@ namespace Sprintfinity3902.Collision
             {
                 if (item.GetBoundingRect().Intersects(linkRect))
                 {
-                    link.pickup(IItem.ITEMS.BOMB);
+                    link.pickup(((AbstractItem)item).ID);
                     /*
                      * TODO: item pickup handler
                      */

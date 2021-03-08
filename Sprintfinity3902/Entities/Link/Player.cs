@@ -36,22 +36,7 @@ namespace Sprintfinity3902.Link
 
         public Color color;
 
-        private Dictionary<pickups, int> itemcount;
-
-        public enum pickups { 
-            BOMB,
-            BOOMERANG,
-            BOW,
-            CLOCK,
-            COMPASS,
-            FAIRY,
-            HEART,
-            KEY,
-            MAP,
-            SWORD,
-            RUPEE,
-            TRIFORCE
-        };
+        private Dictionary<IItem.ITEMS, int> itemcount;
 
         public Player()
         {
@@ -71,10 +56,10 @@ namespace Sprintfinity3902.Link
             facingUpItem = new FacingUpItemState(this);
             color = Color.White;
 
-            itemcount = new Dictionary<pickups, int>();
+            itemcount = new Dictionary<IItem.ITEMS, int>();
         }
 
-        public void pickup(pickups item) {
+        public void pickup(IItem.ITEMS item) {
             if (itemcount.ContainsKey(item)) {
                 itemcount[item]++;
                 return ;
@@ -82,7 +67,7 @@ namespace Sprintfinity3902.Link
             itemcount.Add(item, 1);
         }
 
-        public void useItem(pickups item) {
+        public void useItem(IItem.ITEMS item) {
             if (itemcount.ContainsKey(item) && itemcount[item] > 0) {
                 itemcount[item]--;
                 return ;

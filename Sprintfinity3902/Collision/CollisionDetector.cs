@@ -132,6 +132,7 @@ namespace Sprintfinity3902.Collision
             {
                 if (item.GetBoundingRect().Intersects(linkRect))
                 {
+                    link.pickup(IItem.ITEMS.BOMB);
                     /*
                      * TODO: item pickup handler
                      */

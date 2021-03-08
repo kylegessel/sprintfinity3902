@@ -64,49 +64,61 @@ namespace Sprintfinity3902.Entities
 
             if (MoveUseCount <= 60)
             {
-                // Calcuate how much we want the boomerang to change by, slowing down over time.
-                BoomerangOutChange = (13 - (MoveUseCount / 6));
-                if (FireDirection == Direction.Down)
-                {
-                    Position = new Vector2(Position.X, Position.Y + BoomerangOutChange);
-                }
-                else if (FireDirection == Direction.Up)
-                {
-                    Position = new Vector2(Position.X, Position.Y - BoomerangOutChange);
-                }
-                else if (FireDirection == Direction.Left)
-                {
-                    Position = new Vector2(Position.X - BoomerangOutChange, Position.Y);
-                }
-                else if (FireDirection == Direction.Right)
-                {
-                    Position = new Vector2(Position.X + BoomerangOutChange, Position.Y);
-                }
-                // When the boomerang returns, reset to initial position.
+                FireItem();
             }
-            else if ((Math.Abs(Entity.Position.X - Position.X) <= 16 * Global.Var.SCALE) && (Math.Abs(Entity.Position.Y - Position.Y) <= 16 * Global.Var.SCALE))
+            else if ((Math.Abs(XDiff) <= 16 * Global.Var.SCALE) && (Math.Abs(YDiff) <= 16 * Global.Var.SCALE))
             {
-                ItemUse = false;
-                MoveUseCount = 0;
-                Position = new Vector2(-1000, -1000);
-                if (PlayerUse)
-                {
-                    PlayerCharacter.UseItem();
-                }
-                else if (GoriyaUse)
-                {
-                    Goriya.UseItem();
-                }
+                // When the boomerang returns, reset to initial position.
+                ResetItem();
             }
             else
             {
-                // Calculate the new position based on how many times the MoveItem function has been called.
-                Position = new Vector2(Position.X - (XDiff / (24 * Global.Var.SCALE - MoveUseCount)), Position.Y - (YDiff / (24 * Global.Var.SCALE - MoveUseCount)));
+                Return();
             }
 
             MoveUseCount++;
         }
 
+        public void FireItem()
+        {
+            // Calcuate how much we want the boomerang to change by, slowing down over time.
+            BoomerangOutChange = (13 - (MoveUseCount / 6));
+            if (FireDirection == Direction.Down)
+            {
+                Position = new Vector2(Position.X, Position.Y + BoomerangOutChange);
+            }
+            else if (FireDirection == Direction.Up)
+            {
+                Position = new Vector2(Position.X, Position.Y - BoomerangOutChange);
+            }
+            else if (FireDirection == Direction.Left)
+            {
+                Position = new Vector2(Position.X - BoomerangOutChange, Position.Y);
+            }
+            else if (FireDirection == Direction.Right)
+            {
+                Position = new Vector2(Position.X + BoomerangOutChange, Position.Y);
+            }
+        }
+        public void ResetItem()
+        {
+            ItemUse = false;
+            MoveUseCount = 0;
+            Position = new Vector2(-1000, -1000);
+            if (PlayerUse)
+            {
+                PlayerCharacter.UseItem();
+            }
+            else if (GoriyaUse)
+            {
+                Goriya.UseItem();
+            }
+        }
+        public void Return()
+        {
+            // Calculate the new position based on how many times the MoveItem function has been called.
+            Position = new Vector2(Position.X - (XDiff / (24 * Global.Var.SCALE - MoveUseCount)), Position.Y - (YDiff / (24 * Global.Var.SCALE - MoveUseCount)));
+        }
         public void UseItem(Player player)
         {
             PlayerCharacter = player;

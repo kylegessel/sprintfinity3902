@@ -6,7 +6,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BoomerangItem : AbstractEntity
+    public class BoomerangItem : AbstractEntity, IProjectile
     {
 
         Player PlayerCharacter;
@@ -14,7 +14,9 @@ namespace Sprintfinity3902.Entities
         Boolean ItemUse;
         Boolean PlayerUse;
         Boolean GoriyaUse;
+        Boolean bounce;
         int MoveUseCount;
+        int MaxMoveUseCount;
         IPlayerState FiringStatePlayer;
         IGoriyaState FiringStateGoriya;
         IEntity Entity;
@@ -34,7 +36,9 @@ namespace Sprintfinity3902.Entities
             Sprite = ItemSpriteFactory.Instance.CreateBoomerangItem();
             Position = new Vector2(-1000, -1000);
             ItemUse = false;
+            bounce = false;
             MoveUseCount = 1;
+            MaxMoveUseCount = 120;
         }
 
         public Boolean getItemUse()
@@ -62,7 +66,7 @@ namespace Sprintfinity3902.Entities
             XDiff = Position.X - Entity.Position.X;
             YDiff = Position.Y - Entity.Position.Y;
 
-            if (MoveUseCount <= 60)
+            if (MoveUseCount <= 60 && !bounce)
             {
                 FireItem();
             }
@@ -104,6 +108,8 @@ namespace Sprintfinity3902.Entities
         {
             ItemUse = false;
             MoveUseCount = 0;
+            MaxMoveUseCount = 120;
+            bounce = false;
             Position = new Vector2(-1000, -1000);
             if (PlayerUse)
             {
@@ -117,7 +123,7 @@ namespace Sprintfinity3902.Entities
         public void Return()
         {
             // Calculate the new position based on how many times the MoveItem function has been called.
-            Position = new Vector2(Position.X - (XDiff / (24 * Global.Var.SCALE - MoveUseCount)), Position.Y - (YDiff / (24 * Global.Var.SCALE - MoveUseCount)));
+            Position = new Vector2(Position.X - (XDiff / (MaxMoveUseCount - MoveUseCount)), Position.Y - (YDiff / (MaxMoveUseCount - MoveUseCount)));
         }
         public void UseItem(Player player)
         {
@@ -181,5 +187,19 @@ namespace Sprintfinity3902.Entities
             PlayerUse = false;
             GoriyaUse = true;
         }
+
+        public Boolean Collide(IEnemy enemy)
+        {
+            if (MoveUseCount < 60)
+            {
+                bounce = true;
+                MaxMoveUseCount = MoveUseCount * 2;
+            }
+
+            enemy.CollideBoomerang();
+
+            return false;
+        }
+       
     }
 }

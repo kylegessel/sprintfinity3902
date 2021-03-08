@@ -7,7 +7,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class MovingSwordItem : AbstractEntity
+    public class MovingSwordItem : AbstractEntity, IProjectile
     {
         Player PlayerCharacter;
         Boolean itemUse;
@@ -114,6 +114,14 @@ namespace Sprintfinity3902.Entities
                 Position = new Vector2(PlayerCharacter.X + 10 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
             }
             itemUse = true;
+        }
+
+        public Boolean Collide(IEnemy enemy)
+        {
+            enemy.CollideProjectile();
+            // Code for removing sword on contact, needs to be replaced.
+            Position = new Vector2(-1000, -1000);
+            return true;
         }
     }
 }

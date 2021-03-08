@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BlueBatEnemy : AbstractEntity
+    public class BlueBatEnemy : AbstractEntity, IEnemy
     {
 
         private Random rand = new Random();
@@ -25,6 +26,18 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             direction = 0;
             count = 0;
+        }
+
+        public void CollideBoomerang()
+        {
+            direction = 9;
+            count = 0;
+            waitTime = 120;
+        }
+
+        public void CollideProjectile()
+        {
+            
         }
 
         public override void Move()

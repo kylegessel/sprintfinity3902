@@ -2,6 +2,7 @@
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
+using System;
 using System.Collections.Generic;
 
 namespace Sprintfinity3902.Collision
@@ -38,7 +39,7 @@ namespace Sprintfinity3902.Collision
         public void CheckCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> items, List<IEntity> linkProj) {
             DetectLinkDamage(enemies);
             DetectBlockCollision(enemies, blocks);
-            DetectEnemyDamage(enemies, linkProj);
+            DetectEnemyDamage(enemies, linkProj, items);
             DetectItemPickup(items);
 
         }
@@ -96,7 +97,7 @@ namespace Sprintfinity3902.Collision
 
         }
 
-        private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj)
+        private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj, List<IEntity> items)
         {
 
             List<IEntity> deletionList = new List<IEntity>();
@@ -116,7 +117,15 @@ namespace Sprintfinity3902.Collision
                         /*
                          * TODO: Replace with handler
                          */
-                        deletionList.Add(enemy);
+                        IProjectile projectile = (IProjectile)proj;
+
+                        Boolean removeItem = projectile.Collide((IEnemy)enemy);
+                        if (removeItem)
+                        {
+                            deletionList.Add(enemy);
+                            items.Add(new RupeeItem(enemy.Position));
+                        }
+
                     }
 
                 }

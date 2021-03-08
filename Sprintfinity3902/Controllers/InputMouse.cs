@@ -60,16 +60,153 @@ namespace Sprintfinity3902.Controllers
 
         public void MouseMapInput()
         {
-            if (mouseLocation.X > 54*Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 147 * Global.Var.SCALE && mouseLocation.Y < 173 * Global.Var.SCALE)
+            if (mouseLocation.X > 54 * Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 148 * Global.Var.SCALE && mouseLocation.Y < 174 * Global.Var.SCALE)
             {
-                if(ms.LeftButton == ButtonState.Pressed)
+                if (ms.LeftButton == ButtonState.Pressed)
                 {
                     Game.dungeon.SetCurrentRoom(1);
-
+                    Game.Pause();
                 }
             }
-            
+            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 148 * Global.Var.SCALE && mouseLocation.Y < 174 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(2);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 129 * Global.Var.SCALE && mouseLocation.X < 167 * Global.Var.SCALE && mouseLocation.Y > 148 * Global.Var.SCALE && mouseLocation.Y < 174 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(3);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 122 * Global.Var.SCALE && mouseLocation.Y < 148 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(4);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 54 * Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 96 * Global.Var.SCALE && mouseLocation.Y < 122 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(5);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 96 * Global.Var.SCALE && mouseLocation.Y < 122 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(6);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 129 * Global.Var.SCALE && mouseLocation.X < 167 * Global.Var.SCALE && mouseLocation.Y > 96 * Global.Var.SCALE && mouseLocation.Y < 122 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(7);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 16 * Global.Var.SCALE && mouseLocation.X < 54 * Global.Var.SCALE && mouseLocation.Y > 70 * Global.Var.SCALE && mouseLocation.Y < 96 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(8);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 54 * Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 70 * Global.Var.SCALE && mouseLocation.Y < 96 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(9);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 70 * Global.Var.SCALE && mouseLocation.Y < 96 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(10);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 129 * Global.Var.SCALE && mouseLocation.X < 167 * Global.Var.SCALE && mouseLocation.Y > 70 * Global.Var.SCALE && mouseLocation.Y < 96 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(11);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 167 * Global.Var.SCALE && mouseLocation.X < 205 * Global.Var.SCALE && mouseLocation.Y > 70 * Global.Var.SCALE && mouseLocation.Y < 96 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(12);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 16 * Global.Var.SCALE && mouseLocation.X < 54 * Global.Var.SCALE && mouseLocation.Y > 18 * Global.Var.SCALE && mouseLocation.Y < 42 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(13);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 44 * Global.Var.SCALE && mouseLocation.Y < 70 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(14);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 167 * Global.Var.SCALE && mouseLocation.X < 205 * Global.Var.SCALE && mouseLocation.Y > 44 * Global.Var.SCALE && mouseLocation.Y < 70 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(15);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 205 * Global.Var.SCALE && mouseLocation.X < 242 * Global.Var.SCALE && mouseLocation.Y > 44 * Global.Var.SCALE && mouseLocation.Y < 70 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(16);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 54 * Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 18 * Global.Var.SCALE && mouseLocation.Y < 42 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(17);
+                    Game.Pause();
+                }
+            }
+            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 18 * Global.Var.SCALE && mouseLocation.Y < 42 * Global.Var.SCALE)
+            {
+                if (ms.LeftButton == ButtonState.Pressed)
+                {
+                    Game.dungeon.SetCurrentRoom(18);
+                    Game.Pause();
+                }
+            }
+
         }
 
     }
+
 }

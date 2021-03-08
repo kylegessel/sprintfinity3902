@@ -33,7 +33,7 @@ namespace Sprintfinity3902
                 if (Pause)
                 {
                     ChangePosition();
-                    Game.playerCharacter.Y = Game.playerCharacter.Y + 2 * Global.Var.SCALE;
+                    Game.link.Y = Game.link.Y + 2 * Global.Var.SCALE;
                     Map.Y = Map.Y + 2 * Global.Var.SCALE;
 
                     if (count == 176 * Global.Var.SCALE)
@@ -44,7 +44,7 @@ namespace Sprintfinity3902
                 if(Pause == false)
                 {
                     ChangePosition();
-                    Game.playerCharacter.Y = Game.playerCharacter.Y - 2 * Global.Var.SCALE;
+                    Game.link.Y = Game.link.Y - 2 * Global.Var.SCALE;
                     Map.Y = Map.Y - 2 * Global.Var.SCALE;
 
                     if (count == 176 * Global.Var.SCALE)
@@ -55,8 +55,6 @@ namespace Sprintfinity3902
                 }
             }
             count = count + 2 * Global.Var.SCALE;
-
-            //Update Mouse Position
         }
 
         public void Draw(SpriteBatch spriteBatch)

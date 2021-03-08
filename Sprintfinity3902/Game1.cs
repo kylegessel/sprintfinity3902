@@ -21,7 +21,7 @@ namespace Sprintfinity3902
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
         public ILink playerCharacter;
-        private Player link;
+        public Player link;
         public IEntity boomerangItem;
         public IEntity bombItem;
         public IEntity movingSword;
@@ -141,7 +141,7 @@ namespace Sprintfinity3902
 
         }
 
-        protected void Pause()
+        public void Pause()
         {
             pauseMenu.PauseGame();
         }

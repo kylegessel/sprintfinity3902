@@ -42,6 +42,8 @@ namespace Sprintfinity3902.Dungeon
                     BuildWallAndFloor(lineValues[0]);
                 }
             }
+
+            // add fake entitities
             for (int i = 0; i < 7; i++)
             {
                 line = mapStream.ReadLine();
@@ -66,10 +68,10 @@ namespace Sprintfinity3902.Dungeon
             DoorBottom = new Door(new Vector2(112 * Global.Var.SCALE, 208 * Global.Var.SCALE));
             DoorLeft = new Door(new Vector2(0, 136 * Global.Var.SCALE));
             DoorRight = new Door(new Vector2(224 * Global.Var.SCALE, 136 * Global.Var.SCALE));
-            Room.roomEntities.Add(DoorTop);
-            Room.roomEntities.Add(DoorBottom);
-            Room.roomEntities.Add(DoorLeft);
-            Room.roomEntities.Add(DoorRight);
+            Room.blocks.Add(DoorTop);
+            Room.blocks.Add(DoorBottom);
+            Room.blocks.Add(DoorLeft);
+            Room.blocks.Add(DoorRight);
             for (int i = 0; i < 4; i++)
             {
                 line = mapStream.ReadLine();
@@ -89,19 +91,20 @@ namespace Sprintfinity3902.Dungeon
             {
                 //WALLS AND FLOORS
                 case "RMEX":
-                    Room.roomEntities.Add(new RoomExterior(new Vector2(0, 64 * Global.Var.SCALE)));
+                    Room.blocks.Add(new RoomExterior(new Vector2(0, 64 * Global.Var.SCALE)));
+                    //add all 8
                     break;
                 case "RMIN":
-                    Room.roomEntities.Add(new RoomInterior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                    Room.blocks.Add(new RoomInterior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
                     break;
                 case "RM08":
-                    Room.roomEntities.Add(new Room8Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                    Room.blocks.Add(new Room8Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
                     break;
                 case "RM14":
-                    Room.roomEntities.Add(new Room14Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                    Room.blocks.Add(new Room14Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
                     break;
                 case "RM18":
-                    Room.roomEntities.Add(new Room18Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                    Room.blocks.Add(new Room18Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
                     break;
 
             }
@@ -113,99 +116,99 @@ namespace Sprintfinity3902.Dungeon
             {
                 //BLOCKS
                 case "TILE":
-                    Room.roomEntities.Add(new FloorBlock(Position));
+                    Room.blocks.Add(new FloorBlock(Position));
                     break;
                 case "BLOK":
-                    Room.roomEntities.Add(new RegularBlock(Position));
+                    Room.blocks.Add(new RegularBlock(Position));
                     break;
                 case "RFSH":
-                    Room.roomEntities.Add(new Face1Block(Position));
+                    Room.blocks.Add(new Face1Block(Position));
                     break;
                 case "LFSH":
-                    Room.roomEntities.Add(new Face2Block(Position));
+                    Room.blocks.Add(new Face2Block(Position));
                     break;
                 case "SPOT":
-                    Room.roomEntities.Add(new SpottedBlock(Position));
+                    Room.blocks.Add(new SpottedBlock(Position));
                     break;
                 case "BLCK":
-                    Room.roomEntities.Add(new BlackBlock(Position));
+                    Room.blocks.Add(new BlackBlock(Position));
                     break;
                 case "BRIK":
-                    Room.roomEntities.Add(new BrickBlock(Position));
+                    Room.blocks.Add(new BrickBlock(Position));
                     break;
                 case "DARK":
-                    Room.roomEntities.Add(new DarkBlueBlock(Position));
+                    Room.blocks.Add(new DarkBlueBlock(Position));
                     break;
                 case "STAR":
-                    Room.roomEntities.Add(new StairsBlock(Position));
+                    Room.blocks.Add(new StairsBlock(Position));
                     break;
                 case "STIP":
-                    Room.roomEntities.Add(new StripeBlock(Position));
+                    Room.blocks.Add(new StripeBlock(Position));
                     break;
 
                 //ENEMIES
                 case "BBAT":
-                    Room.roomEntities.Add(new BlueBatEnemy(Position));
+                    Room.enemies.Add(new BlueBatEnemy(Position));
                     break;
                 case "SKLN":
-                    Room.roomEntities.Add(new SkeletonEnemy(Position));
+                    Room.enemies.Add(new SkeletonEnemy(Position));
                     break;
                 case "BOSS":
-                    Room.roomEntities.Add(new FinalBossEnemy(Position));
+                    Room.enemies.Add(new FinalBossEnemy(Position));
                     break;
                 case "FIRE":
-                    Room.roomEntities.Add(new Fire(Position));
+                    Room.enemies.Add(new Fire(Position));
                     break;
                 case "GELY":
-                    Room.roomEntities.Add(new GelEnemy(Position));
+                    Room.enemies.Add(new GelEnemy(Position));
                     break;
                 case "GORY":
                     BoomerangItem goriyaBoomerang = new BoomerangItem();
-                    Room.roomEntities.Add(goriyaBoomerang);
-                    Room.roomEntities.Add(new GoriyaEnemy(goriyaBoomerang, Position));
+                    Room.enemies.Add(goriyaBoomerang);
+                    Room.enemies.Add(new GoriyaEnemy(goriyaBoomerang, Position));
                     break;
                 case "HAND":
-                    Room.roomEntities.Add(new HandEnemy(Position));
+                    Room.enemies.Add(new HandEnemy(Position));
                     break;
                 case "OLDM":
-                    Room.roomEntities.Add(new OldManNPC(Position));
+                    Room.enemies.Add(new OldManNPC(Position));
                     break;
                 case "SPKE":
-                    Room.roomEntities.Add(new SpikeEnemy(Position));
+                    Room.enemies.Add(new SpikeEnemy(Position));
                     break;
 
 
                 //ITEMS
                 // Probably could use a static bomb and boomerang object now that I think of it.
                 case "KEYI":
-                    Room.roomEntities.Add(new KeyItem(Position));
+                    Room.items.Add(new KeyItem(Position));
                     break;
                 case "BOWI":
-                    Room.roomEntities.Add(new BowItem(Position));
+                    Room.items.Add(new BowItem(Position));
                     break;
                 case "CLCK":
-                    Room.roomEntities.Add(new ClockItem(Position));
+                    Room.items.Add(new ClockItem(Position));
                     break;
                 case "CMPS":
-                    Room.roomEntities.Add(new CompassItem(Position));
+                    Room.items.Add(new CompassItem(Position));
                     break;
                 case "FARY":
-                    Room.roomEntities.Add(new FairyItem(Position));
+                    Room.items.Add(new FairyItem(Position));
                     break;
                 case "HCON":
-                    Room.roomEntities.Add(new HeartContainerItem(Position));
+                    Room.items.Add(new HeartContainerItem(Position));
                     break;
                 case "HART":
-                    Room.roomEntities.Add(new HeartItem(Position));
+                    Room.items.Add(new HeartItem(Position));
                     break;
                 case "MAPI":
-                    Room.roomEntities.Add(new MapItem(Position));
+                    Room.items.Add(new MapItem(Position));
                     break;
                 case "RUPE":
-                    Room.roomEntities.Add(new RupeeItem(Position));
+                    Room.items.Add(new RupeeItem(Position));
                     break;
                 case "TRIF":
-                    Room.roomEntities.Add(new TriforceItem(Position));
+                    Room.items.Add(new TriforceItem(Position));
                     break;
 
             }

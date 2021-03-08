@@ -18,6 +18,7 @@ namespace Sprintfinity3902.Dungeon {
         private int NPCIndex;
 
         private IEntity goriyaBoomerang;
+        private SkeletonEnemy skele;
 
         public DefaultMap() {
 
@@ -29,6 +30,7 @@ namespace Sprintfinity3902.Dungeon {
         public void Setup(Game1 gameInstance) {
 
             goriyaBoomerang = new BoomerangItem();
+            skele = new SkeletonEnemy();
 
             cyclableBlocks = new List<IEntity>();
             cyclableItems = new List<IEntity>();
@@ -45,7 +47,7 @@ namespace Sprintfinity3902.Dungeon {
             cyclableItems.Add(new TriforceItem(new Vector2(500, 300)));
             cyclableItems.Add(new FairyItem(new Vector2(500, 300)));
 
-            cyclableCharacters.Add(new SkeletonEnemy());
+            cyclableCharacters.Add(skele);
             cyclableCharacters.Add(new GelEnemy());
             cyclableCharacters.Add(new HandEnemy());
             cyclableCharacters.Add(new BlueBatEnemy());

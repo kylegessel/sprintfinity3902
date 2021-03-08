@@ -93,5 +93,10 @@ namespace Sprintfinity3902.Dungeon
                 currentRoom = GetById(currentId);
             }
         }
+
+        public IRoom GetCurrentRoom()
+        {
+            return currentRoom;
+        }
     }
 }

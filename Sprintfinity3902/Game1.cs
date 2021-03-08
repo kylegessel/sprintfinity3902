@@ -10,6 +10,7 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Collision;
+using System.Collections.Generic;
 
 namespace Sprintfinity3902 {
     public class Game1 : Game {
@@ -26,7 +27,9 @@ namespace Sprintfinity3902 {
         private IEntity boomerangItem;
         private IEntity bombItem;
         private IEntity movingSword;
+        private IEntity hitboxSword;
         private IDungeon dungeon;
+        private List<IEntity> linkProj;
         //private IDetector detector;
 
 
@@ -51,7 +54,6 @@ namespace Sprintfinity3902 {
 
         protected void Reset() {
             KeyboardManager.Instance.Reset();
-
             
             //basicMap.Setup(this);
 
@@ -60,9 +62,20 @@ namespace Sprintfinity3902 {
             playerCharacter = new Player();
             link = (Player)playerCharacter;
 
+            
             boomerangItem = new BoomerangItem();
             bombItem = new BombItem(new Vector2(-1000, -1000));
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
+            hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
+
+            linkProj = new List<IEntity>();
+
+            linkProj.Add(boomerangItem);
+            linkProj.Add(bombItem);
+            linkProj.Add(movingSword);
+            linkProj.Add(hitboxSword);
+
+
 
             KeyboardManager.Instance.Initialize(link);
 
@@ -71,7 +84,7 @@ namespace Sprintfinity3902 {
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
             KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)playerCharacter, (BombItem)bombItem), Keys.D1);
             KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
@@ -110,8 +123,9 @@ namespace Sprintfinity3902 {
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
+            hitboxSword.Update(gameTime);
 
-            CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items);
+            CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj);
 
 
             base.Update(gameTime);

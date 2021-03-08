@@ -1,6 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using Sprintfinity3902.Commands;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
@@ -40,12 +38,14 @@ namespace Sprintfinity3902.Collision
         }
 
         /* 
-         * This method updates the Collision singleton
+         * This method updates the Collision singleton 
+         * 
+         * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> items) {
+        public void CheckCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> items, List<IEntity> linkProj) {
             DetectLinkDamage(enemies);
             DetectBlockCollision(enemies, blocks);
-            DetectEnemyDamage(enemies);
+            DetectEnemyDamage(enemies, linkProj);
             DetectItemPickup(items);
 
         }
@@ -108,18 +108,35 @@ namespace Sprintfinity3902.Collision
 
         }
 
-        private void DetectEnemyDamage(List<IEntity> enemies)
+        private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj)
         {
-            
+
+            List<IEntity> deletionList = new List<IEntity>();
             /*
              * TODO: implement link hurtboxes and pass to this function.
              */
-
-            foreach (AbstractEntity enemy in enemies)
+            foreach (AbstractEntity proj in linkProj)
             {
-                /*
-                 * TODO: enemy damage handler
-                 */
+                foreach (AbstractEntity enemy in enemies)
+                {
+                    /*
+                     * TODO: enemy damage handler
+                     */
+
+                    if (proj.GetBoundingRect().Intersects(enemy.GetBoundingRect()))
+                    {
+                        /*
+                         * TODO: Replace with handler
+                         */
+                        deletionList.Add(enemy);
+                    }
+
+                }
+            }
+
+            foreach (AbstractEntity pickup in deletionList)
+            {
+                enemies.Remove(pickup);
             }
         }
 
@@ -134,13 +151,13 @@ namespace Sprintfinity3902.Collision
                 if (item.GetBoundingRect().Intersects(linkRect))
                 {
                     /*
-                     * TODO: item pickup handler
+                     * TODO: Replace with handler
                      */
                     deletionList.Add(item);
                 }
             }
 
-            //how tf does this work
+            //how tf does this work, isn't items just a reference?
             foreach (AbstractEntity pickup in deletionList)
             {
                 items.Remove(pickup);

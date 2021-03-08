@@ -81,7 +81,7 @@ namespace Sprintfinity3902.Collision
                         side = ICollision.CollisionSide.BOTTOM;
                     }
                 }
-                else if (intersectionRect.Right == blockRect.Left)
+                else if (intersectionRect.Left == blockRect.Left)
                 {
                     side = ICollision.CollisionSide.LEFT;
                 }

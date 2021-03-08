@@ -8,11 +8,13 @@ namespace Sprintfinity3902.Commands
     {
         Player PlayerCharacter;
         MovingSwordItem MovingSword;
+        SwordHitboxItem Sword;
 
-        public SetLinkAttackCommand(Player player, MovingSwordItem movingSword)
+        public SetLinkAttackCommand(Player player, MovingSwordItem movingSword, SwordHitboxItem sword)
         {
             PlayerCharacter = player;
             MovingSword = movingSword;
+            Sword = sword;
         }
 
         public void Execute()
@@ -22,15 +24,17 @@ namespace Sprintfinity3902.Commands
             //    PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
             //}
             //else
-            if (!MovingSword.getItemUse())
-            {
+            //if (!MovingSword.getItemUse())
+            //{
                 PlayerCharacter.Attack();
-                MovingSword.UseItem(PlayerCharacter);
-            }
-            else
-            {
-                PlayerCharacter.Attack();
-            }
+                Sword.UseItem(PlayerCharacter);
+            //    MovingSword.UseItem(PlayerCharacter);
+            //}
+            //else
+            //{
+            //    PlayerCharacter.Attack();
+             //   Sword.UseItem(PlayerCharacter);
+            //}
         }
     }
 }

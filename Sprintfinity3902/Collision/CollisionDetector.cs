@@ -11,6 +11,7 @@ namespace Sprintfinity3902.Collision
 
         Game1 gameInstance;
         Player link;
+        Rectangle RoomInteriorBounds = new Rectangle(32,96,192,112);
 
         /* Singleton instance */
 
@@ -72,8 +73,8 @@ namespace Sprintfinity3902.Collision
                 if (block.IsCollidable() && block.GetBoundingRect().Intersects(linkRect))
                 {
 
-                    //ILink damagedLink = new DamagedLink(link, gameInstance);
-                    //gameInstance.playerCharacter = damagedLink;
+                    ILink damagedLink = new DamagedLink(link, gameInstance);
+                    gameInstance.playerCharacter = damagedLink;
                     /*
                      * TODO: link block collision handler
                      */

@@ -84,7 +84,7 @@ namespace Sprintfinity3902.Entities
                 }
                 // When the boomerang returns, reset to initial position.
             }
-            else if ((Math.Abs(Entity.Position.X - Position.X) <= 80) && (Math.Abs(Entity.Position.Y - Position.Y) <= 80))
+            else if ((Math.Abs(Entity.Position.X - Position.X) <= 16 * Global.Var.SCALE) && (Math.Abs(Entity.Position.Y - Position.Y) <= 16 * Global.Var.SCALE))
             {
                 ItemUse = false;
                 MoveUseCount = 0;
@@ -101,7 +101,7 @@ namespace Sprintfinity3902.Entities
             else
             {
                 // Calculate the new position based on how many times the MoveItem function has been called.
-                Position = new Vector2(Position.X - (XDiff / (120 - MoveUseCount)), Position.Y - (YDiff / (120 - MoveUseCount)));
+                Position = new Vector2(Position.X - (XDiff / (24 * Global.Var.SCALE - MoveUseCount)), Position.Y - (YDiff / (24 * Global.Var.SCALE - MoveUseCount)));
             }
 
             MoveUseCount++;
@@ -115,22 +115,22 @@ namespace Sprintfinity3902.Entities
 
             if (FiringStatePlayer == PlayerCharacter.facingDownItem)
             {
-                Position = new Vector2(PlayerCharacter.X + 20, PlayerCharacter.Y + 80);
+                Position = new Vector2(PlayerCharacter.X + 4*Global.Var.SCALE, PlayerCharacter.Y + 16 * Global.Var.SCALE);
                 FireDirection = Direction.Down;
             }
             else if (FiringStatePlayer == PlayerCharacter.facingUpItem)
             {
-                Position = new Vector2(PlayerCharacter.X + 15, PlayerCharacter.Y - 50);
+                Position = new Vector2(PlayerCharacter.X + 3 * Global.Var.SCALE, PlayerCharacter.Y - 10 * Global.Var.SCALE);
                 FireDirection = Direction.Up;
             }
             else if (FiringStatePlayer == PlayerCharacter.facingLeftItem)
             {
-                Position = new Vector2(PlayerCharacter.X - 50, PlayerCharacter.Y + 20);
+                Position = new Vector2(PlayerCharacter.X - 10 * Global.Var.SCALE, PlayerCharacter.Y + 4 * Global.Var.SCALE);
                 FireDirection = Direction.Left;
             }
             else if (FiringStatePlayer == PlayerCharacter.facingRightItem)
             {
-                Position = new Vector2(PlayerCharacter.X + 66, PlayerCharacter.Y + 20);
+                Position = new Vector2(PlayerCharacter.X + 13.2f * Global.Var.SCALE, PlayerCharacter.Y + 4 * Global.Var.SCALE);
                 FireDirection = Direction.Right;
             }
             ItemUse = true;
@@ -146,23 +146,23 @@ namespace Sprintfinity3902.Entities
 
             if (FiringStateGoriya == Goriya.itemDown)
             {
-                Position = new Vector2(Goriya.X + 20, Goriya.Y + 80);
+                Position = new Vector2(Goriya.X + 4 * Global.Var.SCALE, Goriya.Y + 16 * Global.Var.SCALE);
                 FireDirection = Direction.Down;
             }
             else if (FiringStateGoriya == Goriya.itemUp)
             {
-                Position = new Vector2(Goriya.X + 15, Goriya.Y - 50);
+                Position = new Vector2(Goriya.X + 3 * Global.Var.SCALE, Goriya.Y - 10 * Global.Var.SCALE); ;
                 FireDirection = Direction.Up;
             }
             else if (FiringStateGoriya == Goriya.itemLeft)
 
             {
-                Position = new Vector2(Goriya.X - 50, Goriya.Y + 20);
+                Position = new Vector2(Goriya.X - 10 * Global.Var.SCALE, Goriya.Y + 4 * Global.Var.SCALE);
                 FireDirection = Direction.Left;
             }
             else if (FiringStateGoriya == Goriya.itemRight)
             {
-                Position = new Vector2(Goriya.X + 66, Goriya.Y + 20);
+                Position = new Vector2(Goriya.X + 13.2f * Global.Var.SCALE, Goriya.Y + 4 * Global.Var.SCALE);
                 FireDirection = Direction.Right;
             }
             ItemUse = true;

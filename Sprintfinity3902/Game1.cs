@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Maps;
+using Sprintfinity3902.Dungeon;
 using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.Link;
@@ -17,7 +17,7 @@ namespace Sprintfinity3902 {
         private GraphicsDeviceManager graphics;
         private SpriteBatch SpriteBatch;
 
-        public static int ScaleWindow = 5;
+        public static int ScaleWindow = Global.Var.SCALE;
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
 
@@ -26,10 +26,13 @@ namespace Sprintfinity3902 {
         private IEntity boomerangItem;
         private IEntity bombItem;
         private IEntity movingSword;
+        private IDungeon dungeon;
+        //private IDetector detector;
 
-        private IMap basicMap;
 
-        private ICollision blockCollision = new BlockCollisionHandler();
+        //private IMap basicMap; 
+
+        
 
         public Game1() {
             graphics = new GraphicsDeviceManager(this);
@@ -38,7 +41,8 @@ namespace Sprintfinity3902 {
             IsMouseVisible = true;
 
             Camera.Instance.SetWindowBounds(graphics);
-            basicMap = new DefaultMap();
+            dungeon = new Dungeon.Dungeon();
+            //basicMap = new DefaultMap();
 
             Graphics.ApplyChanges();
         }
@@ -50,9 +54,10 @@ namespace Sprintfinity3902 {
         protected void Reset() {
             KeyboardManager.Instance.Reset();
 
+            
+            //basicMap.Setup(this);
 
-
-            basicMap.Setup(this);
+            dungeon.Build();
 
             playerCharacter = new Player();
             link = (Player)playerCharacter;
@@ -70,10 +75,12 @@ namespace Sprintfinity3902 {
             KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
 
-
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
+            KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.NextRoom, Keys.L);
+            KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.PreviousRoom, Keys.K);
 
+            CollisionDetector.Instance.setup(this);
         }
 
         protected override void LoadContent() {
@@ -93,40 +100,41 @@ namespace Sprintfinity3902 {
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
 
-            basicMap.Update(gameTime);
+            dungeon.Update(gameTime);
+            //basicMap.Update(gameTime);
 
-            DefaultMap testMap = (DefaultMap)basicMap;
-            Rectangle regblockrect = testMap.getRectangle();
+            //DefaultMap testMap = (DefaultMap)basicMap;
 
-            Rectangle linkrect = link.getRectangle();
-
-            //detector
-            if (regblockrect.Intersects(linkrect))
-            {
-                //handler
-                //ILink damagedLink = new DamagedLink(link, this);
-                //playerCharacter = damagedLink;
-                blockCollision.reflectMovingEntity((IEntity)playerCharacter, ICollision.CollisionSide.TOP);
-
-            }
+            
 
 
+
+            dungeon.Update(gameTime);
+            //basicMap.Update(gameTime);
+
+            IRoom currentRoom = dungeon.GetCurrentRoom();
+
+            
             playerCharacter.Update(gameTime);
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
 
+            CollisionDetector.Instance.CheckCollision(currentRoom.items);
+            CollisionDetector.Instance.CheckBlockCollision(currentRoom.blocks);
+
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.DarkSlateGray);
+            GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             //This will be used for the Sprint 3 and is not needed for Sprint 2
             //Camera.Instance.Draw(SpriteBatch);
-            basicMap.Draw(SpriteBatch);
-
+            dungeon.Draw(SpriteBatch);
+            //basicMap.Draw(SpriteBatch);
 
             playerCharacter.Draw(SpriteBatch, Color.White);
 
@@ -138,6 +146,7 @@ namespace Sprintfinity3902 {
 
             base.Draw(gameTime);
         }
+
 
     }
 }

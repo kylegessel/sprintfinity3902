@@ -20,19 +20,19 @@ namespace Sprintfinity3902.Collision
         {
             if (side == ICollision.CollisionSide.TOP) //Entity would be moving down
             {
-                movingEntity.Y -= 5;
+                movingEntity.Y -=  Global.Var.SCALE;
             }
             else if (side == ICollision.CollisionSide.RIGHT) //Entity would be moving left
             {
-                movingEntity.X += 5;
+                movingEntity.X += Global.Var.SCALE;
             }
             else if (side == ICollision.CollisionSide.BOTTOM) //Entity would be moving up
             {
-                movingEntity.Y += 5;
+                movingEntity.Y += Global.Var.SCALE;
             }
             else if (side == ICollision.CollisionSide.LEFT) //Entity would be moving right
             {
-                movingEntity.X -= 5;
+                movingEntity.X -= Global.Var.SCALE;
             }
             else
             {

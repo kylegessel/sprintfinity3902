@@ -31,7 +31,7 @@ namespace Sprintfinity3902.Sprites
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color) //Need to change Color.White to color
         {
-            spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0f, new Vector2(0, 0), 5.0f, SpriteEffects.FlipHorizontally, 0);
+            spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0f, new Vector2(0, 0), Global.Var.SCALE, SpriteEffects.FlipHorizontally, 0);
         }
     }
 }

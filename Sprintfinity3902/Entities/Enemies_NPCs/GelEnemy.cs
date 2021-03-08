@@ -5,7 +5,7 @@ using System;
 namespace Sprintfinity3902.Entities
 {
     public class GelEnemy : AbstractEntity {
-        private static int CELL_WIDTH = 80;
+        private static int CELL_WIDTH = 16 * Global.Var.SCALE;
         private static int MOVEMENT_DURATION_MS = 200;
 
         private Random _rand;

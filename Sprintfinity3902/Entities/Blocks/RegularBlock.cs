@@ -16,9 +16,11 @@ namespace Sprintfinity3902.Entities
             Position = pos;
         }
 
+        /*
         public Rectangle getRectangle()
         {
             return new Rectangle(X, Y, 16 * 5, 16 * 5);
         }
+        */
     }
 }

@@ -1,13 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public abstract class AbstractEntity : IEntity
+    public abstract class AbstractEntity : IEntity, ICollidable
     {
         private ISprite _sprite;
         private Vector2 _position;
+        private Boolean _collidable = true;
 
         public ISprite Sprite
         {
@@ -32,22 +34,22 @@ namespace Sprintfinity3902.Entities
                 _position = value;
             }
         }
-        public int X
+        public float X
         {
             get
             {
-                return (int)Position.X;
+                return Position.X;
             }
             set
             {
                 _position.X = value;
             }
         }
-        public int Y
+        public float Y
         {
             get
             {
-                return (int)Position.Y;
+                return Position.Y;
             }
             set
             {
@@ -79,13 +81,27 @@ namespace Sprintfinity3902.Entities
         {
 
         }
-
-        public virtual void SetState(IPlayerState state) {
+        public virtual void SetState(IPlayerState state)
+        {
             /* 
              * Do Nothing at all
              * Most Entities will not need a SetState method
              * But they can choose to override this if they do
              */
+        }
+
+        public virtual Boolean IsCollidable()
+        {
+            return _collidable;
+        }
+
+
+
+        public virtual Rectangle GetBoundingRect()
+        {
+            //Sprite.Animation.CurrentFrame.Width
+            return new Rectangle((int)Position.X, (int)Position.Y, 16 * Global.Var.SCALE, 16 * Global.Var.SCALE);
+
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Sprintfinity3902.Link
 
         public Player()
         {
-            Position = new Vector2(300, 300);
+            Position = new Vector2(60 *Global.Var.SCALE, 120*Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
             facingDown = CurrentState;
             facingLeft = new FacingLeftState(this);
@@ -74,15 +74,22 @@ namespace Sprintfinity3902.Link
         }
 
         public override void Update(GameTime gameTime) {
-            CurrentState.Sprite.Update(gameTime);
+            CurrentState.Sprite.Update(gameTime);  //can this pass out size?
             CurrentState.Update();
+            //return new Rectangle(0,0,0,0);
+        } 
+
+        public Rectangle getRectangle()
+        {
+            return new Rectangle((int)X, (int)Y, 16*5, 16*5);
         }
 
-
+        /*
         public Rectangle getRectangle()
         {
             return new Rectangle(X, Y, 16 * 5, 16 * 5);
         }
+        */
 
         public void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position, color);

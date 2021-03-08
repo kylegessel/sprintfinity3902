@@ -13,11 +13,11 @@ namespace Sprintfinity3902.Interfaces
         {
             get; set;
         }
-        int X
+        float X
         {
             get; set;
         }
-        int Y
+        float Y
         {
             get; set;
         }
@@ -26,5 +26,6 @@ namespace Sprintfinity3902.Interfaces
         void Move();
         void Attack();
         void SetState(IPlayerState state);
+        Rectangle GetBoundingRect();
     }
 }

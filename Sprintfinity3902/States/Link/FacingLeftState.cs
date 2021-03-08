@@ -22,7 +22,7 @@ namespace Sprintfinity3902.States
             if (!Sprite.Animation.IsPlaying) {
                 Sprite.Animation.Play();
             }
-            PlayerCharacter.X = PlayerCharacter.X - 5;
+            PlayerCharacter.X = PlayerCharacter.X - 1 * Global.Var.SCALE;
         }
 
         public void Attack()

@@ -1,0 +1,13 @@
+RMEX,,,,,,,,,,,
+RMIN,,,,,,,,,,,
+ , , ,BBAT, , , , , , , , 
+ , ,BLOK, , , , , , ,BLOK,BBAT, 
+ , , , , , ,BBAT, ,BBAT, , , 
+ , , , , , , , , , ,CMPS,BBAT
+ , , , , , ,BBAT, ,BBAT, , , 
+ , ,BLOK, , , , , , ,BLOK,BBAT, 
+ , , , , , , , , , , , 
+HDRT,1,,,,,,,,,,
+WALB,-1,,,,,,,,,,
+ODRL,1,,,,,,,,,,
+WALR,-1,,,,,,,,,,

@@ -1,0 +1,55 @@
+Blocks:
+TILE: Default Floor Tile
+BLOK: Generic Block
+RFSH: Right Facing Fish
+LFSH: Left Facing Fish
+SPOT: Spotted Block
+BLCK: Black Block
+DARK: Dark Blue Block
+STAR: Stairs
+STIP: Striped Block
+
+Enemies:
+BBAT: Blue Bat
+SKLN: Skeleton
+BOSS: Final Boss
+FIRE: Fire
+GELY: Gel
+GORY: Goriya
+HAND: Hand
+OLDM: Old Man NPC
+SPKE: Spike 
+
+Items:
+KEYI: Key
+BOWI: Bow
+CLCK: Clock
+CMPS: Compass
+FARY: Fairy
+HCON: Heart Container
+HART: Heart
+MAPI: Map
+RUPE: Rupee
+TRIF: Triforce
+
+Doors:
+WALT: Wall Top
+WALB: Wall Bottom
+WALL: Wall Left
+WALR: Wall Right
+ODRT: Open Door Top
+ODRB: Open Door Bottom
+ODRL: Open Door Left
+ODRR: Open Door Right
+CDRT: Closed Door Top
+CDRB: Closed Door Bottom
+CDRL: Closed Door Left
+CDRR: Closed Door Right
+LDRT: Locked Door Top
+LDRB: Locked Door Bottom
+LDRL: Locked Door Left
+LDRR: Locked Door Right
+HDRT: Hole Door Top
+HDRB: Hole Door Bottom
+HDRL: Hole Door Left
+HDRR: Hole Door Right

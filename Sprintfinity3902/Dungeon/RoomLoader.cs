@@ -93,6 +93,22 @@ namespace Sprintfinity3902.Dungeon
                 case "RMEX":
                     Room.blocks.Add(new RoomExterior(new Vector2(0, 64 * Global.Var.SCALE)));
                     //add all 8
+
+                    Room.blocks.Add(new VerticalWall(new Vector2 (0, 64 * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(0, 160 * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(224 * Global.Var.SCALE, 64 * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(224 * Global.Var.SCALE, 160 * Global.Var.SCALE)));
+
+                    Room.blocks.Add(new HorizontalWall(new Vector2(0, 64 * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(0, 208 * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(136 * Global.Var.SCALE, 64 * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(136 * Global.Var.SCALE, 208 * Global.Var.SCALE)));
+
+
+
+
+
+
                     break;
                 case "RMIN":
                     Room.blocks.Add(new RoomInterior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));

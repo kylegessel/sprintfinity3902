@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.SpriteFactories;
+using System;
 
 namespace Sprintfinity3902.Entities
 {
@@ -15,6 +16,10 @@ namespace Sprintfinity3902.Entities
         {
             Sprite = BlockSpriteFactory.Instance.CreateFloorBlock();
             Position = position;
+        }
+        public override Boolean IsCollidable()
+        {
+            return false;
         }
     }
 }

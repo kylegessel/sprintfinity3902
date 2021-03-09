@@ -13,6 +13,12 @@ namespace Sprintfinity3902.Collision
         Game1 gameInstance;
         Player link;
 
+        
+        ICollision blockCollision = new BlockCollisionHandler();
+        ICollision.CollisionSide side;
+        //Rectangle intersectionRect;
+        
+
         /* Singleton instance */
 
         private static CollisionDetector instance;
@@ -66,32 +72,37 @@ namespace Sprintfinity3902.Collision
         {
 
             Rectangle linkRect = link.GetBoundingRect();
+            Boolean alreadyMoved = false;
 
             foreach (AbstractEntity block in blocks)
             {
-
-                if (block.GetBoundingRect().Intersects(linkRect))
+                Rectangle blockRect = block.GetBoundingRect();
+                if (block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
-                    /*
-                     * TODO: link block collision handler
-                     */
+                    side = blockCollision.sideOfCollision(blockRect, linkRect);
+                    if (!alreadyMoved) //This will prevent it from moving back twice
+                    {
+                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                    }
                 }
-
             }
 
             foreach (AbstractEntity enemy in enemies)
             {
                 Rectangle enemyRect = enemy.GetBoundingRect();
+                alreadyMoved = false;
 
                 foreach (AbstractEntity block in blocks)
                 {
-                    if (block.GetBoundingRect().Intersects(enemyRect))
+                    Rectangle blockRect = block.GetBoundingRect();
+                    if (block.IsCollidable() && blockRect.Intersects(enemyRect))
                     {
-                        /*
-                         * TODO: enemy block collision handler
-                         */
+                        side = blockCollision.sideOfCollision(blockRect, enemyRect);
+                        if (!alreadyMoved) //This will prevent it from moving back twice
+                        {
+                            alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
+                        }
                     }
-
                 }
             }
 
@@ -158,8 +169,6 @@ namespace Sprintfinity3902.Collision
             }
           
         }
-
-
 
     }
 }

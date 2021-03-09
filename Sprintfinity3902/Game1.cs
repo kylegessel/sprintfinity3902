@@ -28,6 +28,7 @@ namespace Sprintfinity3902 {
         private IEntity boomerangItem;
         private IEntity bombItem;
         private IEntity movingSword;
+        private IEntity hitboxSword;
         private IEntity bombExplosion;
         private IDungeon dungeon;
         private List<IEntity> linkProj;
@@ -68,12 +69,14 @@ namespace Sprintfinity3902 {
             bombExplosion = new BombExplosionItem(new Vector2(-1000,-1000));
             bombItem = new BombItem(new Vector2(-1000, -1000), (BombExplosionItem) bombExplosion);
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
+            hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
 
             linkProj = new List<IEntity>();
 
             linkProj.Add(boomerangItem);
             linkProj.Add(bombExplosion);
             linkProj.Add(movingSword);
+            linkProj.Add(hitboxSword);
 
 
 
@@ -84,7 +87,7 @@ namespace Sprintfinity3902 {
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
             KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)playerCharacter, (BombItem)bombItem), Keys.D1);
             KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
@@ -123,6 +126,7 @@ namespace Sprintfinity3902 {
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
+            hitboxSword.Update(gameTime);
 
             CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj);
 

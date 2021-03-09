@@ -81,8 +81,15 @@ namespace Sprintfinity3902.Link
 
         public Rectangle getRectangle()
         {
-            return new Rectangle((int)X, (int)Y, 16*5, 16*5);
+            return new Rectangle((int)X, (int)Y, 16*Global.Var.SCALE, 16 * Global.Var.SCALE);
         }
+
+        /*
+        public Rectangle getRectangle()
+        {
+            return new Rectangle(X, Y, 16 * 5, 16 * 5);
+        }
+        */
 
         public void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position, color);

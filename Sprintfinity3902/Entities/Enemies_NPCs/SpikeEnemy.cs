@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
@@ -6,75 +7,70 @@ namespace Sprintfinity3902.Entities
     public class SpikeEnemy : AbstractEntity
     {
         private int count;
-        private int distance;
         private int rectangleCycle;
-        private bool movingLeft;
-        private bool wait;
+
+        private int wait;
+        private bool moving;
+        private int id; //1 - up left 2 - up right 3 - down left 4 - down right
         public SpikeEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSpikeEnemy();
             Position = new Vector2(750, 540);
 
-            movingLeft = true;
-            wait = false;
             count = 0;
             rectangleCycle = 1;
-            distance = 70;
         }
-        public SpikeEnemy(Vector2 pos)
+        public SpikeEnemy(Vector2 pos, int spikeId)
         {
             Sprite = EnemySpriteFactory.Instance.CreateSpikeEnemy();
             Position = pos;
+            id = spikeId;
 
-            movingLeft = true;
-            wait = false;
             count = 0;
-            distance = 70;
+            wait = 0;
         }
 
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
-            Move();
+            //Move();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if(id == 1)
+            {
+                Sprite.Draw(spriteBatch, Position, Color.White);
+            }
+            else if (id == 2)
+            {
+                Sprite.Draw(spriteBatch, Position, Color.Red);
+            }
+            else if (id == 3)
+            {
+                Sprite.Draw(spriteBatch, Position, Color.Blue);
+            }
+            else if (id == 4)
+            {
+                Sprite.Draw(spriteBatch, Position, Color.Green);
+            }
         }
 
         public override void Move()
         {
-            if(count == distance)
-            {
-                count = 0;
-                if (wait)
-                {
-                    movingLeft = !movingLeft;
-                }
-                wait = !wait;
-            }
 
-            if (wait)
-            {
-
-            }
-            else if (movingLeft)
-            {
-                X = X - 2 * Global.Var.SCALE;
-            }
-            else if (movingLeft == false)
-            {
-                X = X + 2 * Global.Var.SCALE ;
-            }
-            count++;
         }
 
         public override Rectangle GetBoundingRect()
         {
+            rectangleCycle++;
             if(rectangleCycle == 1)
             {
-                rectangleCycle++;
                 return new Rectangle((int)Position.X, (int)Position.Y, 161 * Global.Var.SCALE, 18 * Global.Var.SCALE);
             }
             else
             {
-                rectangleCycle = 1;
+                rectangleCycle = 0;
                 return new Rectangle((int)Position.X, (int)Position.Y, 24 * Global.Var.SCALE, 83 * Global.Var.SCALE);
             }
         }

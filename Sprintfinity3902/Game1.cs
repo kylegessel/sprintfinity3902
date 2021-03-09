@@ -29,7 +29,7 @@ namespace Sprintfinity3902
         public IDungeon dungeon;
         public PauseMenu pauseMenu;
         
-        private IEntity hitboxSword;
+        public IEntity hitboxSword;
         private List<IEntity> linkProj;
         //private IDetector detector;
 
@@ -131,9 +131,6 @@ namespace Sprintfinity3902
             }
 
             IRoom currentRoom = dungeon.GetCurrentRoom();
-
-            
-
 
             CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj);
 

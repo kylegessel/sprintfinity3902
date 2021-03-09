@@ -16,6 +16,7 @@ namespace Sprintfinity3902.Dungeon
         public Door DoorBottom { get; set; }
         public Door DoorLeft { get; set; }
         public Door DoorRight { get; set; }
+        int spikeNum;
 
         // Have this input a filename and then load the room.
         public RoomLoader(IRoom room)
@@ -23,6 +24,7 @@ namespace Sprintfinity3902.Dungeon
             // Really think there is a better way to list these files, just a demo for the time being though.
             Room = room;
             mapStream = new StreamReader(Room.path);
+            spikeNum = 1;
 
         }
 
@@ -201,7 +203,9 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(man);
                     break;
                 case "SPKE":
-                    Room.enemies.Add(new SpikeEnemy(Position));
+                    Room.enemies.Add(new SpikeEnemy(Position, spikeNum));
+                    spikeNum++;
+                    if(spikeNum > 4) { spikeNum = 1; }
                     break;
 
 

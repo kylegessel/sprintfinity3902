@@ -2,6 +2,7 @@
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
+using System;
 using System.Collections.Generic;
 
 namespace Sprintfinity3902.Collision
@@ -88,6 +89,7 @@ namespace Sprintfinity3902.Collision
 
             foreach (AbstractEntity enemy in enemies)
             {
+                // TODO: For some enemies, like the Spike, I don't want it to check for it's hit box
                 Rectangle enemyRect = enemy.GetBoundingRect();
                 alreadyMoved = false;
 

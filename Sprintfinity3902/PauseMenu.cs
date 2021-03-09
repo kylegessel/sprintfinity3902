@@ -91,7 +91,7 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
             KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Game.playerCharacter, (BombItem)Game.bombItem), Keys.D1);
             KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Game.playerCharacter, (BoomerangItem)Game.boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)Game.movingSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)Game.movingSword, (SwordHitboxItem)Game.hitboxSword), Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.dungeon.NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.dungeon.PreviousRoom, Keys.K);

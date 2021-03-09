@@ -14,6 +14,7 @@ namespace Sprintfinity3902.Entities
         int itemUseCount;
         ISprite Sprite2;
         IPlayerState firingState;
+        Direction swordDirection;
 
         public MovingSwordItem(Vector2 position)
         {
@@ -100,28 +101,31 @@ namespace Sprintfinity3902.Entities
             if (firingState == PlayerCharacter.facingDownAttack)
             {
                 Position = new Vector2(PlayerCharacter.X + 5 * Global.Var.SCALE, PlayerCharacter.Y + 10 * Global.Var.SCALE);
+                swordDirection = Direction.DOWN;
             }
             else if (firingState == PlayerCharacter.facingUpAttack)
             {
                 Position = new Vector2(PlayerCharacter.X + 6 * Global.Var.SCALE, PlayerCharacter.Y - 10 * Global.Var.SCALE);
+                swordDirection = Direction.UP;
             }
             else if (firingState == PlayerCharacter.facingLeftAttack)
             {
                 Position = new Vector2(PlayerCharacter.X - 4 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
+                swordDirection = Direction.LEFT;
             }
             else if (firingState == PlayerCharacter.facingRightAttack)
             {
                 Position = new Vector2(PlayerCharacter.X + 10 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
+                swordDirection = Direction.RIGHT;
             }
             itemUse = true;
         }
 
         public Boolean Collide(IEnemy enemy)
         {
-            enemy.CollideProjectile();
             // Code for removing sword on contact, needs to be replaced.
             Position = new Vector2(-1000, -1000);
-            return true;
+            return enemy.HitRegister(1, 0, swordDirection) <= 0;
         }
     }
 }

@@ -11,6 +11,17 @@ namespace Sprintfinity3902.Entities
         private Vector2 _position;
         private Boolean _collidable = true;
 
+        // Does this belong here and can we make better use of it elsewhere?
+        // Boggus mentioned a magic numbers cleanup, believe this could be useful.
+        public enum Direction
+        {
+            NONE,
+            UP,
+            DOWN,
+            LEFT,
+            RIGHT
+        }
+
         public ISprite Sprite
         {
             get

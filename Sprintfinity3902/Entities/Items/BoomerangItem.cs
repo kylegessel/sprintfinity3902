@@ -196,10 +196,17 @@ namespace Sprintfinity3902.Entities
                 MaxMoveUseCount = MoveUseCount * 2;
             }
 
-            enemy.CollideBoomerang();
-
-            return false;
+            // This will always be 0, but for consistency sake.
+            return enemy.HitRegister(0, 120, AbstractEntity.Direction.NONE) <= 0;
         }
-       
+
+        public void Collide()
+        {
+            if (MoveUseCount < 60)
+            {
+                bounce = true;
+                MaxMoveUseCount = MoveUseCount * 2;
+            }
+        }
     }
 }

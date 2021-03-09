@@ -12,6 +12,7 @@ namespace Sprintfinity3902.Entities
         private int count;
         private int direction;
         private int waitTime;
+        private int health;
 
         public BlueBatEnemy()
         {
@@ -19,6 +20,7 @@ namespace Sprintfinity3902.Entities
             Position = new Vector2(750, 540);
             direction = 0;
             count = 0;
+            health = 1;
         }
         public BlueBatEnemy(Vector2 pos)
         {
@@ -26,18 +28,21 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             direction = 0;
             count = 0;
+            health = 1;
         }
 
-        public void CollideBoomerang()
-        {
-            direction = 9;
-            count = 0;
-            waitTime = 120;
-        }
 
-        public void CollideProjectile()
+        public int HitRegister(int damage, int stunLength, Direction projDirection)
         {
-            
+            health = health - damage;
+            if(stunLength > 0)
+            {
+                direction = 9;
+                count = 0;
+                waitTime = stunLength;
+            }
+            // Typical enemy would have code for projectile direction and causing the enemy to move backwards a few times.
+            return health;
         }
 
         public override void Move()

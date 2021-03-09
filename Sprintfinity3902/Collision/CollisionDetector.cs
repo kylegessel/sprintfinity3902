@@ -112,12 +112,9 @@ namespace Sprintfinity3902.Collision
                      * TODO: enemy damage handler
                      */
 
-                    if (proj.GetBoundingRect().Intersects(enemy.GetBoundingRect()))
+                    if (proj != null && proj.GetBoundingRect().Intersects(enemy.GetBoundingRect()))
                     {
-                        /*
-                         * TODO: Replace with handler
-                         */
-                        IProjectile projectile = (IProjectile)proj;
+                         IProjectile projectile = (IProjectile)proj;
 
                         Boolean removeItem = projectile.Collide((IEnemy)enemy);
                         if (removeItem)

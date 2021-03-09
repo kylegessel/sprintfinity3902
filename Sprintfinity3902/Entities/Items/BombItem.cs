@@ -14,17 +14,9 @@ namespace Sprintfinity3902.Entities
         BombExplosionItem BombExplosion;
         Boolean itemUse;
         int itemUseCount;
-        ISprite Sprite2;
-        Vector2 Position2;
-        Vector2 Position3;
-        Vector2 Position4;
-        Vector2 Position5;
-        Vector2 Position6;
-        Vector2 Position7;
         public BombItem(Vector2 position, BombExplosionItem bombExplode)
         {
             Sprite = ItemSpriteFactory.Instance.CreateBombItem();
-            Sprite2 = ItemSpriteFactory.Instance.CreateSmokeItem();
             Position = position;
             BombExplosion = bombExplode;
             itemUse = false;
@@ -69,10 +61,10 @@ namespace Sprintfinity3902.Entities
                 itemUse = false;
                 itemUseCount = 0;
                 Position = new Vector2(-1000, -1000);
-                BombExplosion = null;
+                BombExplosion.Move(new Vector2(-1000, -1000));
             }else if (itemUseCount == 60)
             {
-                BombExplosion = new BombExplosionItem(Position);
+                BombExplosion.Move(Position);
             }
             itemUseCount++;
         }

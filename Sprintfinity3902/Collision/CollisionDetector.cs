@@ -12,6 +12,12 @@ namespace Sprintfinity3902.Collision
         Game1 gameInstance;
         Player link;
 
+        
+        ICollision blockCollision = new BlockCollisionHandler();
+        ICollision.CollisionSide side;
+        //Rectangle intersectionRect;
+        
+
         /* Singleton instance */
 
         private static CollisionDetector instance;
@@ -31,12 +37,14 @@ namespace Sprintfinity3902.Collision
         }
 
         /* 
-         * This method updates the Collision singleton
+         * This method updates the Collision singleton 
+         * 
+         * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> items) {
+        public void CheckCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> items, List<IEntity> linkProj) {
             DetectLinkDamage(enemies);
             DetectBlockCollision(enemies, blocks);
-            DetectEnemyDamage(enemies);
+            DetectEnemyDamage(enemies, linkProj);
             DetectItemPickup(items);
 
         }
@@ -63,49 +71,71 @@ namespace Sprintfinity3902.Collision
         {
 
             Rectangle linkRect = link.GetBoundingRect();
+            Boolean alreadyMoved = false;
 
             foreach (AbstractEntity block in blocks)
             {
-
-                if (block.GetBoundingRect().Intersects(linkRect))
+                Rectangle blockRect = block.GetBoundingRect();
+                if (block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
-                    /*
-                     * TODO: link block collision handler
-                     */
+                    side = blockCollision.sideOfCollision(blockRect, linkRect);
+                    if (!alreadyMoved) //This will prevent it from moving back twice
+                    {
+                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                    }
                 }
-
             }
 
             foreach (AbstractEntity enemy in enemies)
             {
                 Rectangle enemyRect = enemy.GetBoundingRect();
+                alreadyMoved = false;
 
                 foreach (AbstractEntity block in blocks)
                 {
-                    if (block.GetBoundingRect().Intersects(enemyRect))
+                    Rectangle blockRect = block.GetBoundingRect();
+                    if (block.IsCollidable() && blockRect.Intersects(enemyRect))
                     {
-                        /*
-                         * TODO: enemy block collision handler
-                         */
+                        side = blockCollision.sideOfCollision(blockRect, enemyRect);
+                        if (!alreadyMoved) //This will prevent it from moving back twice
+                        {
+                            alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
+                        }
                     }
-
                 }
             }
 
         }
 
-        private void DetectEnemyDamage(List<IEntity> enemies)
+        private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj)
         {
-            
+
+            List<IEntity> deletionList = new List<IEntity>();
             /*
              * TODO: implement link hurtboxes and pass to this function.
              */
-
-            foreach (AbstractEntity enemy in enemies)
+            foreach (AbstractEntity proj in linkProj)
             {
-                /*
-                 * TODO: enemy damage handler
-                 */
+                foreach (AbstractEntity enemy in enemies)
+                {
+                    /*
+                     * TODO: enemy damage handler
+                     */
+
+                    if (proj.GetBoundingRect().Intersects(enemy.GetBoundingRect()))
+                    {
+                        /*
+                         * TODO: Replace with handler
+                         */
+                        deletionList.Add(enemy);
+                    }
+
+                }
+            }
+
+            foreach (AbstractEntity pickup in deletionList)
+            {
+                enemies.Remove(pickup);
             }
         }
 
@@ -120,21 +150,19 @@ namespace Sprintfinity3902.Collision
                 if (item.GetBoundingRect().Intersects(linkRect))
                 {
                     /*
-                     * TODO: item pickup handler
+                     * TODO: Replace with handler
                      */
                     deletionList.Add(item);
                 }
             }
 
-            //how tf does this work
+            //how tf does this work, isn't items just a reference?
             foreach (AbstractEntity pickup in deletionList)
             {
                 items.Remove(pickup);
             }
           
         }
-
-
 
     }
 }

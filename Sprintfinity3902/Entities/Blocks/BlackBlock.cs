@@ -16,9 +16,5 @@ namespace Sprintfinity3902.Entities
             Sprite = BlockSpriteFactory.Instance.CreateBlackBlock();
             Position = pos;
         }
-        public override Boolean IsCollidable()
-        {
-            return false;
-        }
     }
 }

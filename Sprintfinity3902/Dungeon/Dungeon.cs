@@ -45,7 +45,14 @@ namespace Sprintfinity3902.Dungeon
         {
             foreach(IRoom room in dungeonRooms)
             {
-                room.loader.Build();
+                if(room.Id == 13)
+                {
+                    room.loader13.Build();
+                }
+                else
+                {
+                    room.loader.Build();
+                }
             }
         }
 

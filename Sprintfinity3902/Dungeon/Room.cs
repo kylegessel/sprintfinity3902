@@ -16,6 +16,7 @@ namespace Sprintfinity3902.Dungeon
 
         public string path { get; set; }
         public RoomLoader loader { get; set; }
+        public Room13Loader loader13 { get; set; }
         public bool Pause;
         public float startY;
         public int count;
@@ -29,7 +30,14 @@ namespace Sprintfinity3902.Dungeon
             Id = id;
             Pause = false;
 
-            loader = new RoomLoader(this);
+            if(this.Id == 13)
+            {
+                loader13 = new Room13Loader(this);
+            }
+            else
+            {
+                loader = new RoomLoader(this);
+            }
         }
 
         public void Update(GameTime gameTime)

@@ -14,6 +14,7 @@ namespace Sprintfinity3902.Interfaces
         List <IEntity> enemies { get; set; }
         string path { get; set; }
         RoomLoader loader { get; set; }
+        Room13Loader loader13 { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
         void ChangePosition(bool pause);

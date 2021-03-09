@@ -10,6 +10,7 @@ RFSH: Right Facing Fish
 LFSH: Left Facing Fish
 SPOT: Spotted Block
 BLCK: Black Block
+BRIK: Brick Block
 DARK: Dark Blue Block
 STAR: Stairs
 STIP: Striped Block

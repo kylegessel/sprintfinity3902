@@ -184,5 +184,9 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new Room8TextSprite(eagleDungeonSprite);
         }
+        public ISprite CreateRoom13()
+        {
+            return new Room13Sprite(blockSpriteSheet);
+        }
     }
 }

@@ -174,7 +174,9 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(new HandEnemy(Position));
                     break;
                 case "OLDM":
-                    Room.enemies.Add(new OldManNPC(Position));
+                    OldManNPC man = new OldManNPC(Position);
+                    man.X = man.Position.X + 8 * Global.Var.SCALE;
+                    Room.enemies.Add(man);
                     break;
                 case "SPKE":
                     Room.enemies.Add(new SpikeEnemy(Position));

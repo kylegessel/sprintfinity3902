@@ -2,6 +2,6 @@
 {
     public static class Var
     {
-        public static int SCALE = 4;
+        public static int SCALE = 1;
     }
 }

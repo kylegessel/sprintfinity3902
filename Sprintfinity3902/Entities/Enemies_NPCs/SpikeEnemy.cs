@@ -7,6 +7,7 @@ namespace Sprintfinity3902.Entities
     {
         private int count;
         private int distance;
+        private int rectangleCycle;
         private bool movingLeft;
         private bool wait;
         public SpikeEnemy()
@@ -17,6 +18,7 @@ namespace Sprintfinity3902.Entities
             movingLeft = true;
             wait = false;
             count = 0;
+            rectangleCycle = 1;
             distance = 70;
         }
         public SpikeEnemy(Vector2 pos)
@@ -61,6 +63,20 @@ namespace Sprintfinity3902.Entities
                 X = X + 2 * Global.Var.SCALE ;
             }
             count++;
+        }
+
+        public override Rectangle GetBoundingRect()
+        {
+            if(rectangleCycle == 1)
+            {
+                rectangleCycle++;
+                return new Rectangle((int)Position.X, (int)Position.Y, 161 * Global.Var.SCALE, 18 * Global.Var.SCALE);
+            }
+            else
+            {
+                rectangleCycle = 1;
+                return new Rectangle((int)Position.X, (int)Position.Y, 24 * Global.Var.SCALE, 83 * Global.Var.SCALE);
+            }
         }
     }
 }

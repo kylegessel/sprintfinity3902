@@ -112,7 +112,7 @@ namespace Sprintfinity3902.Entities
                 fireAttackDown.isMoving = false;
                 fireAttackCenter.isMoving = false;
             }
-            else
+            else if(attackCount != attackTime)
             {
                 fireAttackUp.Move();
                 fireAttackCenter.Move();

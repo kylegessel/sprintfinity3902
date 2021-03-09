@@ -173,14 +173,6 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new RoomInteriorSprite(blockSpriteSheet);
         }
-        public ISprite CreateRoom14Interior()
-        {
-            return new Room14InteriorSprite(blockSpriteSheet);
-        }
-        public ISprite CreateRoom18Interior()
-        {
-            return new Room18InteriorSprite(blockSpriteSheet);
-        }
         public ISprite CreateRoom8Interior()
         {
             return new Room8InteriorSprite(blockSpriteSheet);

@@ -89,7 +89,7 @@ namespace Sprintfinity3902.Collision
 
             foreach (AbstractEntity enemy in enemies)
             {
-                // TODO: For some enemies, like the Spike, I don't want it to check for it's hit box
+                // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
                 Rectangle enemyRect = enemy.GetBoundingRect();
                 alreadyMoved = false;
 

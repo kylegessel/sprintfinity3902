@@ -117,6 +117,7 @@ namespace Sprintfinity3902.Dungeon
                     break;
                 case "RM08":
                     Room.blocks.Add(new Room8Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                    Room.blocks.Add(new Room8Text(new Vector2(50 * Global.Var.SCALE, 105 * Global.Var.SCALE)));
                     break;
 
             }

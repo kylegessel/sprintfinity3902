@@ -19,6 +19,9 @@ namespace Sprintfinity3902.Dungeon
         private int NPCIndex;
 
         private IEntity goriyaBoomerang;
+        public FireAttack fireUp;
+        public FireAttack fireDown;
+        public FireAttack fireCenter;
         private SkeletonEnemy skele;
 
         public DefaultMap() {
@@ -31,6 +34,9 @@ namespace Sprintfinity3902.Dungeon
         public void Setup(Game1 gameInstance) {
 
             goriyaBoomerang = new BoomerangItem();
+            fireUp = new FireAttack(1);
+            fireDown = new FireAttack(2);
+            fireCenter = new FireAttack(0);
             skele = new SkeletonEnemy();
 
             cyclableBlocks = new List<IEntity>();
@@ -54,7 +60,7 @@ namespace Sprintfinity3902.Dungeon
             cyclableCharacters.Add(new BlueBatEnemy());
             cyclableCharacters.Add(new SpikeEnemy());
             cyclableCharacters.Add(new GoriyaEnemy((BoomerangItem)goriyaBoomerang));
-            cyclableCharacters.Add(new FinalBossEnemy());
+            cyclableCharacters.Add(new FinalBossEnemy(new Vector2(750, 540), fireUp, fireCenter, fireDown));
             cyclableCharacters.Add(new OldManNPC());
             cyclableCharacters.Add(new Fire());
 

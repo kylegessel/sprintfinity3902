@@ -154,7 +154,13 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(new SkeletonEnemy(Position));
                     break;
                 case "BOSS":
-                    Room.enemies.Add(new FinalBossEnemy(Position));
+                    FireAttack up = new FireAttack(1);
+                    FireAttack center = new FireAttack(0);
+                    FireAttack down = new FireAttack(2);
+                    Room.enemies.Add(up);
+                    Room.enemies.Add(down);
+                    Room.enemies.Add(center);
+                    Room.enemies.Add(new FinalBossEnemy(Position, up, center, down));
                     break;
                 case "FIRE":
                     Room.enemies.Add(new Fire(Position));

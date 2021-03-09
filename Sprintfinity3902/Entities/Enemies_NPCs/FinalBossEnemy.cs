@@ -10,7 +10,9 @@ namespace Sprintfinity3902.Entities
     {
         private ISprite ClosedMouth;
         private ISprite OpenedMouth;
-        private IEntity FireAttack;
+        public FireAttack fireAttackUp;
+        public FireAttack fireAttackCenter;
+        public FireAttack fireAttackDown;
 
         private int directionCount;
         private int direction;
@@ -21,12 +23,15 @@ namespace Sprintfinity3902.Entities
 
         private Random rd;
 
-        public FinalBossEnemy()
+        public FinalBossEnemy(Vector2 pos, FireAttack up, FireAttack center, FireAttack down)
         {
             ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
             OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
             Sprite = ClosedMouth;
-            Position = new Vector2(750, 540);
+            fireAttackUp = up;
+            fireAttackCenter = center;
+            fireAttackDown = down;
+            Position = pos;
 
             rd = new Random();
 
@@ -34,7 +39,7 @@ namespace Sprintfinity3902.Entities
             directionCount = 0;
 
             attack = rd.Next(1, 3);
-            attackTime = 70;
+            attackTime = 85;
         }
         public FinalBossEnemy(Vector2 pos)
         {
@@ -49,26 +54,18 @@ namespace Sprintfinity3902.Entities
             directionCount = 0;
 
             attack = rd.Next(1, 3);
-            attackTime = 70;
+            attackTime = 85;
         }
 
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
-            if (FireAttack != null) {
-                FireAttack.Update(gameTime);
-            }
-            
             Move();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch, Position, Color.White);
-            if (FireAttack != null) {
-                FireAttack.Draw(spriteBatch);
-            }
-                
+            Sprite.Draw(spriteBatch, Position, Color.White);                
         }
 
         public override void Move()
@@ -90,10 +87,10 @@ namespace Sprintfinity3902.Entities
             }
 
             // Handle Movement
-            if (direction == 1) //Forward
-                X = X - .2f*Global.Var.SCALE;
-            else if (direction == 2) //Backward
-                X = X + .2f*Global.Var.SCALE;
+            if (direction == 1 && X > 145*Global.Var.SCALE) //Forward
+                X = X - .15f*Global.Var.SCALE;
+            else if (direction == 2 && X < 180*Global.Var.SCALE) //Backward
+                X = X + .15f*Global.Var.SCALE;
             
             directionCount++;
 
@@ -102,12 +99,24 @@ namespace Sprintfinity3902.Entities
             {
                 Sprite = OpenedMouth;
                 attackCount = 0;
-                FireAttack = new FireAttack(Position);
+                fireAttackUp.StartOver(Position);
+                fireAttackDown.StartOver(Position);
+                fireAttackCenter.StartOver(Position);
+                
+
             }
             else if (attackCount == attackTime)
             {
                 Sprite = ClosedMouth;
-                FireAttack = null;
+                fireAttackUp.isMoving = false;
+                fireAttackDown.isMoving = false;
+                fireAttackCenter.isMoving = false;
+            }
+            else
+            {
+                fireAttackUp.Move();
+                fireAttackCenter.Move();
+                fireAttackDown.Move();
             }
 
             attackCount++;

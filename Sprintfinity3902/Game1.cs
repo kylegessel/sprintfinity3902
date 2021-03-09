@@ -143,7 +143,10 @@ namespace Sprintfinity3902
 
         public void Pause()
         {
-            pauseMenu.PauseGame();
+            if(pauseMenu.Transition == false)
+            {
+                pauseMenu.PauseGame();
+            }
         }
     }
 }

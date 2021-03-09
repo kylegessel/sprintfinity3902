@@ -81,7 +81,7 @@ namespace Sprintfinity3902
 
             //Store Link within Game, then reset to that Link
         }
-
+        
         public void ReregisterCommands()
         {
             KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand((Player)Game.playerCharacter), Keys.W, Keys.Up);

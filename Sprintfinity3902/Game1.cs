@@ -65,13 +65,14 @@ namespace Sprintfinity3902 {
 
             
             boomerangItem = new BoomerangItem();
+            bombExplosion = new BombExplosionItem(new Vector2(-1000,-1000));
             bombItem = new BombItem(new Vector2(-1000, -1000), (BombExplosionItem) bombExplosion);
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
 
             linkProj = new List<IEntity>();
 
             linkProj.Add(boomerangItem);
-            linkProj.Add(bombItem);
+            linkProj.Add(bombExplosion);
             linkProj.Add(movingSword);
 
 

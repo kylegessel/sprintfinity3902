@@ -6,18 +6,14 @@ namespace Sprintfinity3902.Entities
 {
     public class SpikeEnemy : AbstractEntity
     {
-        private int count;
         private int rectangleCycle;
 
-        private int wait;
-        private bool moving;
         private int id; //1 - up left 2 - up right 3 - down left 4 - down right
         public SpikeEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSpikeEnemy();
             Position = new Vector2(750, 540);
 
-            count = 0;
             rectangleCycle = 1;
         }
         public SpikeEnemy(Vector2 pos, int spikeId)
@@ -26,8 +22,6 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             id = spikeId;
 
-            count = 0;
-            wait = 0;
         }
 
         public override void Update(GameTime gameTime)

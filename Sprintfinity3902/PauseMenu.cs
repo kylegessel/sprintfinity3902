@@ -13,6 +13,7 @@ namespace Sprintfinity3902
     {
         private int count;
         private Game1 Game;
+        public Player Link;
         public Map Map { get; set; }
         public bool Pause { get; set; }
         public bool Transition { get; set; }
@@ -22,6 +23,7 @@ namespace Sprintfinity3902
             Transition = false;
             Pause = false;
             Game = game;
+            Link = Game.link;
             count = 0;
             Map = new Map(new Vector2(15*Global.Var.SCALE, -161 * Global.Var.SCALE));
         }
@@ -84,14 +86,14 @@ namespace Sprintfinity3902
         
         public void ReregisterCommands()
         {
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand((Player)Game.playerCharacter), Keys.W, Keys.Up);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand((Player)Game.playerCharacter), Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand((Player)Game.playerCharacter), Keys.S, Keys.Down);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand((Player)Game.playerCharacter), Keys.D, Keys.Right);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand((Player)Link), Keys.W, Keys.Up);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand((Player)Link), Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand((Player)Link), Keys.S, Keys.Down);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand((Player)Link), Keys.D, Keys.Right);
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Game.playerCharacter, (BombItem)Game.bombItem), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Game.playerCharacter, (BoomerangItem)Game.boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)Game.movingSword, (SwordHitboxItem)Game.hitboxSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Link, (BombItem)Game.bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Link, (BoomerangItem)Game.boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Link, (MovingSwordItem)Game.movingSword, (SwordHitboxItem)Game.hitboxSword), Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.dungeon.NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.dungeon.PreviousRoom, Keys.K);

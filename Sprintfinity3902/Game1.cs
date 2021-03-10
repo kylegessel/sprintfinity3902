@@ -60,12 +60,12 @@ namespace Sprintfinity3902
 
 
             dungeon.Build();
-            pauseMenu = new PauseMenu(this);
 
             playerCharacter = new Player();
             link = (Player)playerCharacter;
 
-            
+            pauseMenu = new PauseMenu(this);
+
             boomerangItem = new BoomerangItem();
             bombItem = new BombItem(new Vector2(-1000, -1000));
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));

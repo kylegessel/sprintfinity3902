@@ -49,10 +49,10 @@ namespace Sprintfinity3902.Entities
             this.X = X - 1.5f * Global.Var.SCALE;
 
             if(this.direction == 1) //UP
-                this.Y = Y - 1 * Global.Var.SCALE;
+                this.Y = Y - .7f * Global.Var.SCALE;
 
             if(this.direction == 2) //DOWN
-                this.Y = Y + 1 * Global.Var.SCALE;
+                this.Y = Y + .7f * Global.Var.SCALE;
         }
 
         public void StartOver(Vector2 position)

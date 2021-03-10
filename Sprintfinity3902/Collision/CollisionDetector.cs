@@ -15,6 +15,7 @@ namespace Sprintfinity3902.Collision
 
         
         ICollision blockCollision = new BlockCollisionHandler();
+        ICollision enemyCollision = new EnemyCollisionHandler();
         ICollision.CollisionSide side;
         //Rectangle intersectionRect;
         
@@ -54,11 +55,17 @@ namespace Sprintfinity3902.Collision
         {
 
             Rectangle linkRect = link.GetBoundingRect();
-
+            Boolean alreadyMoved = false;
             foreach (AbstractEntity enemy in enemies)
             {
-                if (enemy.IsCollidable() && enemy.GetBoundingRect().Intersects(linkRect))
+                Rectangle enemyRect = enemy.GetBoundingRect();
+                if (enemy.IsCollidable() && enemyRect.Intersects(linkRect))
                 {
+                    side = enemyCollision.sideOfCollision(enemyRect, linkRect);
+                    if (!alreadyMoved) //This will prevent it from moving back twice
+                    {
+                        alreadyMoved = enemyCollision.reflectMovingEntity(link, side);
+                    }
                     /*
                      * TODO: Replace with handler
                      */
@@ -74,48 +81,55 @@ namespace Sprintfinity3902.Collision
             Rectangle linkRect = link.GetBoundingRect();
             Boolean alreadyMoved = false;
 
-            foreach (AbstractEntity block in blocks)
+            foreach (AbstractBlock block in blocks)
             {
                 Rectangle blockRect = block.GetBoundingRect();
                 if (block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
                     side = blockCollision.sideOfCollision(blockRect, linkRect);
+
+                    //Create a movable block class?? But how to only let it move one full space in one direction?
                     if (!alreadyMoved) //This will prevent it from moving back twice
                     {
-                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
-                    }
-                }
-            }
+                        /*This allows link to push blocks. Enemies can not push blocks*/
+                        if (block.IsMovable() && ((block.PushSide() == side) || (block.PushSide2() == side)) )
+                       {
+                           block.MoveBlock(side); //Will need to edit this call so it slowly starts the block movement
+                       }
+                       alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                   }
+               }
+           }
 
-            foreach (AbstractEntity enemy in enemies)
-            {
-                Rectangle enemyRect = enemy.GetBoundingRect();
-                alreadyMoved = false;
+           foreach (AbstractEntity enemy in enemies)
+           {
+               Rectangle enemyRect = enemy.GetBoundingRect();
+               alreadyMoved = false;
 
-                foreach (AbstractEntity block in blocks)
-                {
-                    Rectangle blockRect = block.GetBoundingRect();
-                    if (block.IsCollidable() && blockRect.Intersects(enemyRect))
-                    {
-                        side = blockCollision.sideOfCollision(blockRect, enemyRect);
-                        if (!alreadyMoved) //This will prevent it from moving back twice
-                        {
-                            alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
-                        }
-                    }
-                }
-            }
+               foreach (AbstractEntity block in blocks)
+               {
+                   Rectangle blockRect = block.GetBoundingRect();
+                   if (block.IsCollidable() && blockRect.Intersects(enemyRect))
+                   {
+                       side = blockCollision.sideOfCollision(blockRect, enemyRect);
+                       if (!alreadyMoved) //This will prevent it from moving back twice
+                       {
+                           alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
+                       }
+                   }
+               }
+           }
 
-        }
+       }
 
-        private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj)
-        {
+       private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj)
+       {
 
-            List<IEntity> deletionList = new List<IEntity>();
-            /*
-             * TODO: implement link hurtboxes and pass to this function.
-             */
-            foreach (AbstractEntity proj in linkProj)
+           List<IEntity> deletionList = new List<IEntity>();
+           /*
+            * TODO: implement link hurtboxes and pass to this function.
+            */
+                        foreach (AbstractEntity proj in linkProj)
             {
                 foreach (AbstractEntity enemy in enemies)
                 {

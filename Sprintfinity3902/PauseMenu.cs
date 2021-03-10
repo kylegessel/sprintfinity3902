@@ -124,6 +124,14 @@ namespace Sprintfinity3902
                 else if (count != 176 * Global.Var.SCALE && Pause == false)
                     entity.Y = entity.Y - 2 * Global.Var.SCALE;
             }
+
+            foreach (IEntity proj in Game.linkProj)
+            {
+                if (count != 176 * Global.Var.SCALE && Pause)
+                    proj.Y = proj.Y + 2 * Global.Var.SCALE;
+                else if (count != 176 * Global.Var.SCALE && Pause == false)
+                    proj.Y = proj.Y - 2 * Global.Var.SCALE;
+            }
         }
     }
 }

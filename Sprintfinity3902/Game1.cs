@@ -30,7 +30,7 @@ namespace Sprintfinity3902
         public PauseMenu pauseMenu;
         
         public IEntity hitboxSword;
-        private List<IEntity> linkProj;
+        public List<IEntity> linkProj;
         //private IDetector detector;
 
         public Game1() {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
@@ -7,7 +8,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BombItem : AbstractEntity {
+    public class BombItem : AbstractItem {
 
         Player PlayerCharacter;
         Boolean itemUse;
@@ -26,6 +27,7 @@ namespace Sprintfinity3902.Entities
             Position = position;
             itemUse = false;
             itemUseCount = 0;
+            ID = IItem.ITEMS.BOMB;
         }
 
         public Boolean getItemUse()

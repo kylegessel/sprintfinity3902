@@ -35,7 +35,6 @@ namespace Sprintfinity3902.Dungeon
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room16.csv", 16));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room17.csv", 17));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room18.csv", 18));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\TestRoom.csv", 19));
 
             CurrentRoom = GetById(1);
             currentId = CurrentRoom.Id;
@@ -47,6 +46,17 @@ namespace Sprintfinity3902.Dungeon
         public void Build()
         {
             foreach(IRoom room in dungeonRooms)
+            {
+                if(room.Id == 13)
+                {
+                    room.loader13.Build();
+                }
+                else
+                {
+                    room.loader.Build();
+                }
+            }
+        }
                 room.loader.Build();
         }
 
@@ -69,7 +79,7 @@ namespace Sprintfinity3902.Dungeon
         public void NextRoom()
         {
             currentId = CurrentRoom.Id;
-            if(CurrentRoom.Id == 19)
+            if(CurrentRoom.Id == 18)
             {
                 CurrentRoom = GetById(1);
             }
@@ -87,7 +97,7 @@ namespace Sprintfinity3902.Dungeon
             currentId = CurrentRoom.Id;
             if (CurrentRoom.Id == 1)
             {
-                CurrentRoom = GetById(19);
+                CurrentRoom = GetById(18);
             }
             else
             {

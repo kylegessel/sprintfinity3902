@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
@@ -14,6 +15,10 @@ namespace Sprintfinity3902.Entities
         {
             Sprite = BlockSpriteFactory.Instance.CreateStairsBlock();
             Position = pos;
+        }
+        public override Boolean IsCollidable()
+        {
+            return false;
         }
     }
 }

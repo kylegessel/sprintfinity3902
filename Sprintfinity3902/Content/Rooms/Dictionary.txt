@@ -2,8 +2,6 @@ Walls and Floors:
 RMEX: Normal Room Exterior
 RMIN: Normal Room Interior
 RM08: Room 8 Interior
-RM14: Room 14 Interior
-RM18: Room 18 Interior
 
 Blocks:
 TILE: Default Floor Tile
@@ -12,6 +10,7 @@ RFSH: Right Facing Fish
 LFSH: Left Facing Fish
 SPOT: Spotted Block
 BLCK: Black Block
+BRIK: Brick Block
 DARK: Dark Blue Block
 STAR: Stairs
 STIP: Striped Block

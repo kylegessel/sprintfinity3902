@@ -4,26 +4,23 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
 using System;
-using Sprintfinity3902.Entities.Items;
 
 namespace Sprintfinity3902.Entities
 {
-    public class MovingSwordItem : AbstractItem
+    public class SwordHitboxItem : AbstractEntity
     {
         Player PlayerCharacter;
         Boolean itemUse;
         int itemUseCount;
-        ISprite Sprite2;
         IPlayerState firingState;
+        Vector2 currentRect;
 
-        public MovingSwordItem(Vector2 position)
+        public SwordHitboxItem(Vector2 position)
         {
-            Sprite = ItemSpriteFactory.Instance.CreateMovingSwordVerticalItem();
-            Sprite2 = ItemSpriteFactory.Instance.CreateMovingSwordHorizontalItem();
             Position = position;
+            currentRect = new Vector2(7, 12);
             itemUse = false;
             itemUseCount = 0;
-            ID = IItem.ITEMS.SWORD;
         }
 
         public Boolean getItemUse()
@@ -33,6 +30,11 @@ namespace Sprintfinity3902.Entities
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+
+
+            /*
+            
+            
             if (firingState != null)
             {
                 if (firingState == PlayerCharacter.facingDownAttack)
@@ -52,12 +54,13 @@ namespace Sprintfinity3902.Entities
                     Sprite2.Draw(spriteBatch, Position, Color.White);
                 }
             }
+            */
         }
 
         public override void Update(GameTime gameTime)
         {
-            Sprite.Update(gameTime);
-            Sprite2.Update(gameTime);
+            //Sprite.Update(gameTime);
+            //Sprite2.Update(gameTime);
             if (itemUse)
             {
                 MoveItem();
@@ -66,24 +69,10 @@ namespace Sprintfinity3902.Entities
 
         public void MoveItem()
         {
-            if (itemUseCount <= 60)
+            if (itemUseCount <= 5) //this time amount needs to be tweaked.
             {
-                if (firingState == PlayerCharacter.facingDownAttack)
-                {
-                    Position = new Vector2(Position.X, Position.Y + 2 * Global.Var.SCALE);
-                }
-                else if (firingState == PlayerCharacter.facingUpAttack)
-                {
-                    Position = new Vector2(Position.X, Position.Y - 2 * Global.Var.SCALE);
-                }
-                else if (firingState == PlayerCharacter.facingLeftAttack)
-                {
-                    Position = new Vector2(Position.X - 2 * Global.Var.SCALE, Position.Y);
-                }
-                else if (firingState == PlayerCharacter.facingRightAttack)
-                {
-                    Position = new Vector2(Position.X + 2 * Global.Var.SCALE, Position.Y);
-                }
+
+
             }
             else
             {
@@ -101,21 +90,33 @@ namespace Sprintfinity3902.Entities
 
             if (firingState == PlayerCharacter.facingDownAttack)
             {
-                Position = new Vector2(PlayerCharacter.X + 5 * Global.Var.SCALE, PlayerCharacter.Y + 10 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X + 5 * Global.Var.SCALE, PlayerCharacter.Y + 16 * Global.Var.SCALE);
+                //currentRect = new Vector2(7, 12);
+
             }
             else if (firingState == PlayerCharacter.facingUpAttack)
             {
-                Position = new Vector2(PlayerCharacter.X + 6 * Global.Var.SCALE, PlayerCharacter.Y - 10 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X + 6 * Global.Var.SCALE, PlayerCharacter.Y - 12 * Global.Var.SCALE);
+                //currentRect = new Vector2(7, 12);
             }
             else if (firingState == PlayerCharacter.facingLeftAttack)
             {
-                Position = new Vector2(PlayerCharacter.X - 4 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X - 12 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
+                //currentRect = new Vector2(12, 7);
             }
             else if (firingState == PlayerCharacter.facingRightAttack)
             {
-                Position = new Vector2(PlayerCharacter.X + 10 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X + 16 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
+                //currentRect = new Vector2(12, 7);
             }
             itemUse = true;
         }
+
+        //public override Rectangle GetBoundingRect()
+        //{
+
+        //   return new Rectangle((int)Position.X, (int)Position.Y, (int)currentRect.X, (int)currentRect.Y);
+        //}
+
     }
 }

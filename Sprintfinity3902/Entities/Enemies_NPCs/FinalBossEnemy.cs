@@ -100,24 +100,23 @@ namespace Sprintfinity3902.Entities
                 Sprite = OpenedMouth;
                 attackCount = 0;
                 fireAttackUp.StartOver(Position);
-                fireAttackDown.StartOver(Position);
                 fireAttackCenter.StartOver(Position);
-                
+                fireAttackDown.StartOver(Position);
+                fireAttackUp.StartMoving();
+                fireAttackCenter.StartMoving();
+                fireAttackDown.StartMoving();
+
 
             }
             else if (attackCount == attackTime)
             {
                 Sprite = ClosedMouth;
-                fireAttackUp.isMoving = false;
-                fireAttackDown.isMoving = false;
-                fireAttackCenter.isMoving = false;
+                fireAttackUp.StopMoving();
+                fireAttackCenter.StopMoving();
+                fireAttackDown.StopMoving();
+
             }
-            else
-            {
-                fireAttackUp.Move();
-                fireAttackCenter.Move();
-                fireAttackDown.Move();
-            }
+
 
             attackCount++;
         }

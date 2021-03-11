@@ -30,38 +30,44 @@ namespace Sprintfinity3902.Entities
 
         public override void Update(GameTime gameTime)
         {
+            Sprite.Update(gameTime);
+
             if (isMoving)
-            {
-                Sprite.Update(gameTime);
                 Move();
-            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (isMoving)
-            {
                 Sprite.Draw(spriteBatch, Position, Color.White);
-            }
         }
 
         public override void Move()
         {
             //Implement 2 count integers that handle spread
-            isMoving = true;
 
-            X = X - 1.5f * Global.Var.SCALE;
+            this.X = X - 1.5f * Global.Var.SCALE;
 
-            if(direction == 1) //UP
-                Y = Y - .7f * Global.Var.SCALE;
+            if(this.direction == 1) //UP
+                this.Y = Y - .7f * Global.Var.SCALE;
 
-            else if(direction == 2) //DOWN
-                Y = Y + .7f * Global.Var.SCALE;
+            if(this.direction == 2) //DOWN
+                this.Y = Y + .7f * Global.Var.SCALE;
         }
 
         public void StartOver(Vector2 position)
         {
             Position = position;
+        }
+
+        public void StartMoving()
+        {
+            this.isMoving = true;
+        }
+
+        public void StopMoving()
+        {
+            this.isMoving = false;
         }
     }
 }

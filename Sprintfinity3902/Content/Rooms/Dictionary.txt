@@ -1,7 +1,9 @@
 Walls and Floors:
 RMEX: Normal Room Exterior
+R13E: Room 13 Exterior
 RMIN: Normal Room Interior
 RM08: Room 8 Interior
+R13I: Room 13 Interior
 
 Blocks:
 TILE: Default Floor Tile

@@ -123,5 +123,6 @@ namespace Sprintfinity3902
                     entity.Y = entity.Y - 2 * Global.Var.SCALE;
             }
         }
+
     }
 }

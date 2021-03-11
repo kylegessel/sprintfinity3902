@@ -8,12 +8,13 @@ namespace Sprintfinity3902.Dungeon
 {
     public class Dungeon : IDungeon
     {
+        private Game1 Game;
         private List<IRoom> dungeonRooms;
         public IRoom CurrentRoom { get; set; }
         private int currentId;
         public int NextId { get; set; }
 
-        public Dungeon()
+        public Dungeon(Game1 game)
         {
             dungeonRooms = new List<IRoom>();
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room1.csv", 1));
@@ -39,14 +40,14 @@ namespace Sprintfinity3902.Dungeon
             CurrentRoom = GetById(1);
             currentId = CurrentRoom.Id;
             NextId = CurrentRoom.Id;
+
+            Game = game;
         }
 
         public void Build()
         {
             foreach(IRoom room in dungeonRooms)
-            {
                 room.loader.Build();
-            }
         }
 
         public void Update(GameTime gameTime)
@@ -78,6 +79,7 @@ namespace Sprintfinity3902.Dungeon
                 CurrentRoom = GetById(currentId);
             }
             NextId = CurrentRoom.Id;
+            SetLinkPosition();
         }
 
         public void PreviousRoom()
@@ -93,6 +95,7 @@ namespace Sprintfinity3902.Dungeon
                 CurrentRoom = GetById(currentId);
             }
             NextId = CurrentRoom.Id;
+            SetLinkPosition();
         }
 
         public IRoom GetCurrentRoom()
@@ -103,7 +106,22 @@ namespace Sprintfinity3902.Dungeon
         public void SetCurrentRoom(int id)
         {
             NextId = id;
+        }
 
+        //SET UP FOR SPRINT 3 ONLY. WILL BE REMOVED UPON SUBMITTING.
+        public void SetLinkPosition()
+        {
+            IRoom room = GetCurrentRoom();
+            if(room.Id == 13)
+            {
+                Game.playerCharacter.X = 100 * Global.Var.SCALE;
+                Game.playerCharacter.Y = 100 * Global.Var.SCALE;
+            }
+            else
+            {
+                Game.playerCharacter.X = 120 * Global.Var.SCALE;
+                Game.playerCharacter.Y = 180 * Global.Var.SCALE;
+            }
         }
     }
 }

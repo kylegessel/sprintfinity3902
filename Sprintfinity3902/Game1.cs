@@ -58,12 +58,6 @@ namespace Sprintfinity3902
             
             //basicMap.Setup(this);
 
-
-            dungeon = new Dungeon.Dungeon();
-
-
-
-
             dungeon = new Dungeon.Dungeon(this);
             dungeon.Build();
 

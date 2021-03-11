@@ -57,11 +57,11 @@ namespace Sprintfinity3902.Dungeon
                 }
             }
         }
-                room.loader.Build();
-        }
 
         public void Update(GameTime gameTime)
         {
+            if(CurrentRoom.Id != NextId)
+                SetLinkPosition();
             CurrentRoom = GetById(NextId);
             CurrentRoom.Update(gameTime);
         }
@@ -122,15 +122,15 @@ namespace Sprintfinity3902.Dungeon
         public void SetLinkPosition()
         {
             IRoom room = GetCurrentRoom();
-            if(room.Id == 13)
+            if(NextId == 13)
             {
-                Game.playerCharacter.X = 100 * Global.Var.SCALE;
-                Game.playerCharacter.Y = 100 * Global.Var.SCALE;
+                Game.link.X = 48 * Global.Var.SCALE;
+                Game.link.Y = 97 * Global.Var.SCALE;
             }
             else
             {
-                Game.playerCharacter.X = 120 * Global.Var.SCALE;
-                Game.playerCharacter.Y = 180 * Global.Var.SCALE;
+                Game.link.X = 120 * Global.Var.SCALE;
+                Game.link.Y = 193 * Global.Var.SCALE;
             }
         }
     }

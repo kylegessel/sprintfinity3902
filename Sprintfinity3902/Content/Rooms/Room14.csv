@@ -1,12 +1,12 @@
 RMEX,,,,,,,,,,,
-RM14,,,,,,,,,,,
- , , , , , , , , , , , 
- ,SKLN, , , , , , , , ,KEYI, 
- , , , , , , , , , ,SKLN, 
- , , ,SKLN, , , , , , , , 
- , , , , , , , , , , , 
- , , , , , , , , , , , 
- , , , , , , , , , , , 
+RMIN,,,,,,,,,,,
+DARK,DARK,DARK,DARK,DARK, , ,DARK,DARK,DARK,DARK,DARK
+DARK,SKLN, , ,DARK, , , , ,DARK,KEYI,DARK
+DARK, ,DARK, ,DARK, ,DARK,DARK, ,DARK,SKLN,DARK
+ , ,DARK,SKLN,DARK, , ,DARK, ,DARK, , 
+DARK, ,DARK, ,DARK,DARK, ,DARK, ,DARK, ,DARK
+DARK, ,DARK, ,,, ,DARK, , , ,DARK
+DARK,DARK,DARK,DARK,DARK, ,,DARK,DARK,DARK,DARK,DARK
 LDRT,-1,,,,,,,,,,
 ODRB,1,,,,,,,,,,
 WALL,-1,,,,,,,,,,

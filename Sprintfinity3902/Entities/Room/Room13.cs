@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Sprintfinity3902.Entities
 {
-    public class Room14Interior : AbstractEntity
+    public class Room13 : AbstractEntity
     {
-        public Room14Interior(Vector2 pos)
+        public Room13(Vector2 pos)
         {
-            Sprite = BlockSpriteFactory.Instance.CreateRoom14Interior();
+            Sprite = BlockSpriteFactory.Instance.CreateRoom13();
             Position = pos;
         }
     }

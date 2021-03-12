@@ -2,6 +2,6 @@
 {
     public interface IController : IUpdateable
     {
-
+        void GiveGame(Game1 game);
     }
 }

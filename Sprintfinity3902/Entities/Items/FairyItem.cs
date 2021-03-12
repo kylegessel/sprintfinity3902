@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.SpriteFactories;
 using System;
+using Sprintfinity3902.Entities.Items;
 using System.Collections.Generic;
 using System.Text;
+using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Entities
 {
-    public class FairyItem : AbstractEntity
+    public class FairyItem : AbstractItem
     {
         private Random rand = new Random();
         private int count;
@@ -17,12 +19,14 @@ namespace Sprintfinity3902.Entities
         {
             Sprite = ItemSpriteFactory.Instance.CreateFairyItem();
             Position = new Vector2(400, 600);
+            ID = IItem.ITEMS.FAIRY;
         }
 
         public FairyItem(Vector2 pos)
         {
             Sprite = ItemSpriteFactory.Instance.CreateFairyItem();
             Position = pos;
+            ID = IItem.ITEMS.FAIRY;
         }
 
         public override void Update(GameTime gameTime)

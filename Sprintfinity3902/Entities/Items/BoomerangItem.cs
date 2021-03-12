@@ -2,6 +2,7 @@
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
+using Sprintfinity3902.Entities.Items;
 using System;
 
 namespace Sprintfinity3902.Entities
@@ -38,6 +39,7 @@ namespace Sprintfinity3902.Entities
             ItemUse = false;
             bounce = false;
             MoveUseCount = 1;
+            ID = IItem.ITEMS.BOOMERANG;
             MaxMoveUseCount = 120;
         }
 

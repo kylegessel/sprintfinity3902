@@ -1,12 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.SpriteFactories;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace Sprintfinity3902.Dungeon
 {
@@ -21,6 +16,10 @@ namespace Sprintfinity3902.Dungeon
 
         public string path { get; set; }
         public RoomLoader loader { get; set; }
+        public Room13Loader loader13 { get; set; }
+        public bool Pause;
+        public float startY;
+        public int count;
 
         public Room(string fileLocation, int id)
         {
@@ -29,70 +28,86 @@ namespace Sprintfinity3902.Dungeon
             items = new List<IEntity>();
             path = fileLocation;
             Id = id;
+            Pause = false;
 
-            loader = new RoomLoader(this);
+            if(this.Id == 13)
+            {
+                loader13 = new Room13Loader(this);
+            }
+            else
+            {
+                loader = new RoomLoader(this);
+            }
         }
 
         public void Update(GameTime gameTime)
-        {
-            
+        { 
             foreach (IEntity entity in blocks)
-            {
                 entity.Update(gameTime);
-            }
 
             foreach (IEntity entity in enemies)
-            {
                 entity.Update(gameTime);
-            }
 
             foreach (IEntity entity in items)
-            {
                 entity.Update(gameTime);
-            }
-
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            
             foreach (IEntity entity in blocks)
-            {
                 entity.Draw(spriteBatch);
-            }
-            //Change position of all entities in the room when you enter the 
-            //pause menu or inventory screen
 
             foreach (IEntity entity in enemies)
-            {
                 entity.Draw(spriteBatch);
-            }
 
             foreach (IEntity entity in items)
-            {
                 entity.Draw(spriteBatch);
-            }
-
-
         }
 
-        public void ChangePosition()
+        public void ChangePosition(bool pause)
         {
+            Pause = pause;
             foreach (IEntity entity in blocks)
             {
-                //Change position of all entities in the room when you enter the 
-                //pause menu or inventory screen
+                if(count != 176 * Global.Var.SCALE && pause)
+                {
+                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                }
+                else if (count != 176 * Global.Var.SCALE && pause == false)
+                {
+                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                }
             }
 
             foreach (IEntity entity in enemies)
             {
-
+                if (count != 176 * Global.Var.SCALE && pause)
+                {
+                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                }
+                else if (count != 176 * Global.Var.SCALE && pause == false)
+                {
+                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                }
             }
 
             foreach (IEntity entity in items)
             {
-
+                if (count != 176 * Global.Var.SCALE && pause)
+                {
+                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                }
+                else if (count != 176 * Global.Var.SCALE && pause == false)
+                {
+                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                }
             }
+            count = count + 2*Global.Var.SCALE;
+        }
+
+        public void SetPauseCount()
+        {
+            count = 0;
         }
     }
 }

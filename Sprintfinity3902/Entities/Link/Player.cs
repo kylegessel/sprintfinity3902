@@ -4,6 +4,7 @@ using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.States;
 using System;
+using System.Collections.Generic;
 
 namespace Sprintfinity3902.Link
 {
@@ -39,9 +40,11 @@ namespace Sprintfinity3902.Link
 
         public Color color;
 
+        private Dictionary<IItem.ITEMS, int> itemcount;
+
         public Player()
         {
-            Position = new Vector2(60 *Global.Var.SCALE, 120*Global.Var.SCALE);
+            Position = new Vector2(120 * Global.Var.SCALE, 193 * Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
             facingDown = CurrentState;
             facingLeft = new FacingLeftState(this);
@@ -57,6 +60,25 @@ namespace Sprintfinity3902.Link
             facingUpItem = new FacingUpItemState(this);
             color = Color.White;
             _collidable = true;
+
+            itemcount = new Dictionary<IItem.ITEMS, int>();
+        }
+
+        public void pickup(IItem.ITEMS item) {
+            if (itemcount.ContainsKey(item)) {
+                itemcount[item]++;
+                return ;
+            }
+            itemcount.Add(item, 1);
+        }
+
+        public void useItem(IItem.ITEMS item) {
+            if (itemcount.ContainsKey(item) && itemcount[item] > 0) {
+                itemcount[item]--;
+                return ;
+            } 
+            // Not enough quantity or any
+            /* TODO: Implmt err control */
         }
 
         public override void SetState(IPlayerState state) {
@@ -148,14 +170,13 @@ namespace Sprintfinity3902.Link
         public void BounceOfEnemy(ICollision.CollisionSide Side)
         {
             _side = Side;
-            //Pause animation;
-            //Stop accepting move input keys for link
             _bouncingOfEnemy = true;
-        }
-        //Can probably put this in removeDecorator
-        public void removeInvincibility()
-        {
-            
+            /*
+             * May need to:
+             * Pause animation;
+             * Stop accepting move input keys for link
+             */
+
         }
         public void RemoveDecorator()
         {

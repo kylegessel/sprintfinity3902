@@ -1,19 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Collision;
+using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
+using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Dungeon;
+using Sprintfinity3902.Link;
 using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
-using Sprintfinity3902.Link;
-using Sprintfinity3902.Commands;
-using Sprintfinity3902.Entities;
-using Sprintfinity3902.Collision;
 using System.Collections.Generic;
 
-namespace Sprintfinity3902 {
-    public class Game1 : Game {
+namespace Sprintfinity3902
+{
+    public class Game1 : Game
+    {
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch SpriteBatch;
@@ -21,48 +22,50 @@ namespace Sprintfinity3902 {
         public static int ScaleWindow = Global.Var.SCALE;
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
-
         public ILink playerCharacter;
-        private Player link;
-        private IEntity boomerangItem;
-        private IEntity bombItem;
-        private IEntity movingSword;
-        private IEntity hitboxSword;
-        private IDungeon dungeon;
-        private List<IEntity> linkProj;
+        public Player link;
+        public IEntity boomerangItem;
+        public IEntity bombItem;
+        public IEntity movingSword;
+        public IDungeon dungeon;
+        public PauseMenu pauseMenu;
+        
+        public IEntity hitboxSword;
+        public List<IEntity> linkProj;
         //private IDetector detector;
 
-
-        //private IMap basicMap; 
-
-        public Game1() {
+        public Game1()
+        {
             graphics = new GraphicsDeviceManager(this);
             Window.Title = "The Legend of Zelda";
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
             Camera.Instance.SetWindowBounds(graphics);
-            dungeon = new Dungeon.Dungeon();
             //basicMap = new DefaultMap();
 
             Graphics.ApplyChanges();
         }
 
-        protected override void Initialize() {
+        protected override void Initialize()
+        {
             base.Initialize();
         }
 
-        protected void Reset() {
+        protected void Reset()
+        {
             KeyboardManager.Instance.Reset();
             
             //basicMap.Setup(this);
 
+            dungeon = new Dungeon.Dungeon(this);
             dungeon.Build();
 
             playerCharacter = new Player();
             link = (Player)playerCharacter;
 
-            
+            pauseMenu = new PauseMenu(this);
+
             boomerangItem = new BoomerangItem();
             bombItem = new BombItem(new Vector2(-1000, -1000));
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
@@ -78,6 +81,7 @@ namespace Sprintfinity3902 {
 
 
             KeyboardManager.Instance.Initialize(link);
+            InputMouse.Instance.GiveGame(this);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
 
@@ -90,11 +94,13 @@ namespace Sprintfinity3902 {
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
             KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.PreviousRoom, Keys.K);
+            KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
 
             CollisionDetector.Instance.setup(this);
         }
 
-        protected override void LoadContent() {
+        protected override void LoadContent()
+        {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             Camera.Instance.LoadAllTextures(Content);
@@ -106,24 +112,27 @@ namespace Sprintfinity3902 {
             Reset();
         }
 
-        protected override void Update(GameTime gameTime) {
+        protected override void Update(GameTime gameTime)
+        {
             KeyboardManager.Instance.Update(gameTime);
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
+            if (pauseMenu.Pause || pauseMenu.Transition)
+            {
+                pauseMenu.Update(gameTime);
+            }
+            else
+            {
+                dungeon.Update(gameTime);
 
-
-
-            dungeon.Update(gameTime);
-            //basicMap.Update(gameTime);
+                playerCharacter.Update(gameTime);
+                boomerangItem.Update(gameTime);
+                bombItem.Update(gameTime);
+                movingSword.Update(gameTime);
+                hitboxSword.Update(gameTime);
+            }
 
             IRoom currentRoom = dungeon.GetCurrentRoom();
-
-
-            playerCharacter.Update(gameTime);
-            boomerangItem.Update(gameTime);
-            bombItem.Update(gameTime);
-            movingSword.Update(gameTime);
-            hitboxSword.Update(gameTime);
 
             CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj);
 
@@ -131,14 +140,15 @@ namespace Sprintfinity3902 {
             base.Update(gameTime);
         }
 
-        protected override void Draw(GameTime gameTime) {
+        protected override void Draw(GameTime gameTime)
+        {
             GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             //This will be used for the Sprint 3 and is not needed for Sprint 2
             //Camera.Instance.Draw(SpriteBatch);
             dungeon.Draw(SpriteBatch);
-            //basicMap.Draw(SpriteBatch);
+            pauseMenu.Draw(SpriteBatch);
 
             playerCharacter.Draw(SpriteBatch, Color.White);
 
@@ -149,8 +159,16 @@ namespace Sprintfinity3902 {
             SpriteBatch.End();
 
             base.Draw(gameTime);
+
+
         }
 
-
+        public void Pause()
+        {
+            if (pauseMenu.Transition == false)
+            {
+                pauseMenu.PauseGame();
+            }
+        }
     }
 }

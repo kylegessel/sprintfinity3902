@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Sprintfinity3902.Global
+﻿namespace Sprintfinity3902.Global
 {
     public static class Var
     {

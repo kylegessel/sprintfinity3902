@@ -2,11 +2,12 @@
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
+using Sprintfinity3902.Entities.Items;
 using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BoomerangItem : AbstractEntity
+    public class BoomerangItem : AbstractItem
     {
 
         Player PlayerCharacter;
@@ -35,6 +36,7 @@ namespace Sprintfinity3902.Entities
             Position = new Vector2(-1000, -1000);
             ItemUse = false;
             MoveUseCount = 1;
+            ID = IItem.ITEMS.BOOMERANG;
         }
 
         public Boolean getItemUse()

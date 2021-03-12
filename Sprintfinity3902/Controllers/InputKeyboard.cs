@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Sprintfinity3902.Controllers
 {
@@ -10,6 +9,7 @@ namespace Sprintfinity3902.Controllers
 
         // This is an ordered list of the pressed keys
         private static List<Keys> orderedKeyPress;
+        private Game1 Game; 
 
         /* Singleton instance */
 
@@ -55,6 +55,11 @@ namespace Sprintfinity3902.Controllers
 
             // Executes commands by giving list of pressed keys to KeyboardManager
             KeyboardManager.Instance.CallCommands(orderedKeyPress);
+        }
+
+        public void GiveGame(Game1 game)
+        {
+            Game = game;
         }
 
     }

@@ -4,10 +4,11 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
 using System;
+using Sprintfinity3902.Entities.Items;
 
 namespace Sprintfinity3902.Entities
 {
-    public class MovingSwordItem : AbstractEntity
+    public class MovingSwordItem : AbstractItem
     {
         Player PlayerCharacter;
         Boolean itemUse;
@@ -22,6 +23,7 @@ namespace Sprintfinity3902.Entities
             Position = position;
             itemUse = false;
             itemUseCount = 0;
+            ID = IItem.ITEMS.SWORD;
         }
 
         public Boolean getItemUse()

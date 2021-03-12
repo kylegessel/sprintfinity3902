@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Dungeon;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace Sprintfinity3902.Interfaces
 {
@@ -17,7 +14,10 @@ namespace Sprintfinity3902.Interfaces
         List <IEntity> enemies { get; set; }
         string path { get; set; }
         RoomLoader loader { get; set; }
+        Room13Loader loader13 { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
+        void ChangePosition(bool pause);
+        void SetPauseCount();
     }
 }

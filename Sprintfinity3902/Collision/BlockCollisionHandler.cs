@@ -13,9 +13,7 @@ namespace Sprintfinity3902.Collision
         {
             //Not sure what I need here
         }
-        public void handleCollision(IEntity entity, ICollision.CollisionSide side)
-        {
-        }
+
         public ICollision.CollisionSide sideOfCollision(Rectangle blockRect, Rectangle characterRect)
         {
                 intersectionRect = Rectangle.Intersect(characterRect, blockRect);

@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Link
         Player decoratedLink;
         Color linkColor;
         int counter;
-        int timer = 150;
+        int timer = 200;
         private ISprite _sprite;
         private Vector2 _position;
 

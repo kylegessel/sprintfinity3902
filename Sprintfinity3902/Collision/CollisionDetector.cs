@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using System;
@@ -59,7 +60,7 @@ namespace Sprintfinity3902.Collision
             foreach (AbstractEntity enemy in enemies)
             {
                 Rectangle enemyRect = enemy.GetBoundingRect();
-                if (enemy.IsCollidable() && link.IsCollidable() && enemyRect.Intersects(linkRect))
+                if (enemy.IsCollidable() && link.IsCollidable()  && enemyRect.Intersects(linkRect)) 
                 {
                     side = enemyCollision.sideOfCollision(enemyRect, linkRect);
                     if (!alreadyMoved) //This will prevent it from moving back twice
@@ -67,11 +68,7 @@ namespace Sprintfinity3902.Collision
                         /*Have initial reflection so Link can't move through enemy, then continue to move him back*/
                         alreadyMoved = blockCollision.reflectMovingEntity(link, side);
                         ((ILink)link).BounceOfEnemy(side);
-                        //enemyCollision.handleCollision(link, side);
                     }
-                    /*
-                     * TODO: Replace with handler
-                     */
 
                     link.TakeDamage();
                     ILink damagedLink = new DamagedLink(link, gameInstance);
@@ -108,6 +105,7 @@ namespace Sprintfinity3902.Collision
 
             foreach (AbstractEntity enemy in enemies)
             {
+                // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
                 Rectangle enemyRect = enemy.GetBoundingRect();
                 alreadyMoved = false;
 
@@ -169,6 +167,7 @@ namespace Sprintfinity3902.Collision
             {
                 if (item.GetBoundingRect().Intersects(linkRect))
                 {
+                    link.pickup(((AbstractItem)item).ID);
                     /*
                      * TODO: Replace with handler
                      */

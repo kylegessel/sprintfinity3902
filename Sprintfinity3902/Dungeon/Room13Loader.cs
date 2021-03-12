@@ -3,23 +3,21 @@ using Sprintfinity3902.Entities;
 using Sprintfinity3902.Entities.Doors;
 using Sprintfinity3902.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Sprintfinity3902.Dungeon
 {
-    public class RoomLoader
+    public class Room13Loader
     {
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
-        public Door DoorTop { get; set; }
-        public Door DoorBottom { get; set; }
-        public Door DoorLeft { get; set; }
-        public Door DoorRight { get; set; }
         int spikeNum;
 
         // Have this input a filename and then load the room.
-        public RoomLoader(IRoom room)
+        public Room13Loader(IRoom room)
         {
             // Really think there is a better way to list these files, just a demo for the time being though.
             Room = room;
@@ -31,8 +29,8 @@ namespace Sprintfinity3902.Dungeon
         public void Build()
         {
             string line;
-            int currX = 32*Global.Var.SCALE;
-            int currY = 96*Global.Var.SCALE;
+            int currX = 16 * Global.Var.SCALE;
+            int currY = 80 * Global.Var.SCALE;
             Position = new Vector2(currX, currY);
 
             for (int i = 0; i < 2; i++)
@@ -46,46 +44,26 @@ namespace Sprintfinity3902.Dungeon
             }
 
             // add fake entitities
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 9; i++)
             {
                 line = mapStream.ReadLine();
                 if (!string.IsNullOrWhiteSpace(line))
                 {
                     string[] lineValues = line.Split(',');
-                    for(int j = 0; j < 12; j++)
+                    for (int j = 0; j < 14; j++)
                     {
                         BuildBlocks(lineValues[j]);
-                        currX += 16*Global.Var.SCALE;
-                        if(currX == 16*Global.Var.SCALE * 12 + 32*Global.Var.SCALE)
+                        currX += 16 * Global.Var.SCALE;
+                        if (currX == 16 * Global.Var.SCALE * 14 + 16 * Global.Var.SCALE)
                         {
-                            currX = 32*Global.Var.SCALE;
-                            currY += 16*Global.Var.SCALE;
+                            currX = 16 * Global.Var.SCALE;
+                            currY += 16 * Global.Var.SCALE;
                         }
                         Position = new Vector2(currX, currY);
                     }
                 }
             }
-
-            if(Room.Id != 13)
-            {
-                DoorTop = new Door(new Vector2(112 * Global.Var.SCALE, 64 * Global.Var.SCALE));
-                DoorBottom = new Door(new Vector2(112 * Global.Var.SCALE, 208 * Global.Var.SCALE));
-                DoorLeft = new Door(new Vector2(0, 136 * Global.Var.SCALE));
-                DoorRight = new Door(new Vector2(224 * Global.Var.SCALE, 136 * Global.Var.SCALE));
-                Room.blocks.Add(DoorTop);
-                Room.blocks.Add(DoorBottom);
-                Room.blocks.Add(DoorLeft);
-                Room.blocks.Add(DoorRight);
-                for (int i = 0; i < 4; i++)
-                {
-                    line = mapStream.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(line))
-                    {
-                        string[] lineValues = line.Split(',');
-                        BuildDoors(lineValues[0], lineValues[1]);
-                    }
-                }
-            }
+            
         }
 
         public void BuildWallAndFloor(string input)
@@ -97,7 +75,7 @@ namespace Sprintfinity3902.Dungeon
                     Room.blocks.Add(new RoomExterior(new Vector2(0, 64 * Global.Var.SCALE)));
                     //add all 8
 
-                    Room.blocks.Add(new VerticalWall(new Vector2 (0, 64 * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(0, 64 * Global.Var.SCALE)));
                     Room.blocks.Add(new VerticalWall(new Vector2(0, 160 * Global.Var.SCALE)));
                     Room.blocks.Add(new VerticalWall(new Vector2(224 * Global.Var.SCALE, 64 * Global.Var.SCALE)));
                     Room.blocks.Add(new VerticalWall(new Vector2(224 * Global.Var.SCALE, 160 * Global.Var.SCALE)));
@@ -106,12 +84,19 @@ namespace Sprintfinity3902.Dungeon
                     Room.blocks.Add(new HorizontalWall(new Vector2(0, 208 * Global.Var.SCALE)));
                     Room.blocks.Add(new HorizontalWall(new Vector2(136 * Global.Var.SCALE, 64 * Global.Var.SCALE)));
                     Room.blocks.Add(new HorizontalWall(new Vector2(136 * Global.Var.SCALE, 208 * Global.Var.SCALE)));
+                    break;
+                case "R13E":
+                    Room.blocks.Add(new VerticalWall(new Vector2(-32 * Global.Var.SCALE, 80 * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(-32 * Global.Var.SCALE, 160 * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(256 * Global.Var.SCALE, 80 * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(256 * Global.Var.SCALE, 160 * Global.Var.SCALE)));
 
-
-
-
-
-
+                    Room.blocks.Add(new HorizontalWall(new Vector2(0 * Global.Var.SCALE, 48 * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(120 * Global.Var.SCALE, 48 * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(240 * Global.Var.SCALE, 48 * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(0 * Global.Var.SCALE, 240 * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(120 * Global.Var.SCALE, 240 * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(240 * Global.Var.SCALE, 240 * Global.Var.SCALE)));
                     break;
                 case "RMIN":
                     Room.blocks.Add(new RoomInterior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
@@ -120,7 +105,7 @@ namespace Sprintfinity3902.Dungeon
                     Room.blocks.Add(new Room8Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
                     Room.blocks.Add(new Room8Text(new Vector2(50 * Global.Var.SCALE, 105 * Global.Var.SCALE)));
                     break;
-                case "RM13":
+                case "R13I":
                     Room.blocks.Add(new Room13(new Vector2(0 * Global.Var.SCALE, 80 * Global.Var.SCALE)));
                     break;
                 case " ":
@@ -164,12 +149,6 @@ namespace Sprintfinity3902.Dungeon
                 case "STIP":
                     Room.blocks.Add(new StripeBlock(Position));
                     break;
-                case "MVBK":
-                    Room.blocks.Add(new MovingVertBlock(Position));
-                    break;
-                case "MLBK":
-                    Room.blocks.Add(new MovingLeftBlock(Position));
-                    break;
 
                 //ENEMIES
                 case "BBAT":
@@ -212,7 +191,7 @@ namespace Sprintfinity3902.Dungeon
                 case "SPKE":
                     Room.enemies.Add(new SpikeEnemy(Position, spikeNum));
                     spikeNum++;
-                    if(spikeNum > 4) { spikeNum = 1; }
+                    if (spikeNum > 4) { spikeNum = 1; }
                     break;
 
 
@@ -265,93 +244,5 @@ namespace Sprintfinity3902.Dungeon
             }
         }
 
-        public void BuildDoors(string input, string destination)
-        {
-            switch (input)
-            {
-                // DOORS
-                case "WALT":
-                    DoorTop.SetState(DoorBottom.wallTop);
-                    DoorTop.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "WALB":
-                    DoorBottom.SetState(DoorBottom.wallBottom);
-                    DoorBottom.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "WALL":
-                    DoorLeft.SetState(DoorBottom.wallLeft);
-                    DoorLeft.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "WALR":
-                    DoorRight.SetState(DoorBottom.wallRight);
-                    DoorRight.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "ODRT":
-                    DoorTop.SetState(DoorTop.openDoorTop);
-                    DoorTop.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "ODRB":
-                    DoorBottom.SetState(DoorTop.openDoorBottom);
-                    DoorBottom.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "ODRL":
-                    DoorLeft.SetState(DoorTop.openDoorLeft);
-                    DoorLeft.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "ODRR":
-                    DoorRight.SetState(DoorRight.openDoorRight);
-                    DoorRight.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "CDRT":
-                    DoorTop.SetState(DoorTop.closedDoorTop);
-                    DoorTop.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "CDRB":
-                    DoorBottom.SetState(DoorTop.closedDoorBottom);
-                    DoorBottom.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "CDRL":
-                    DoorLeft.SetState(DoorTop.closedDoorLeft);
-                    DoorLeft.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "CDRR":
-                    DoorRight.SetState(DoorRight.closedDoorRight);
-                    DoorRight.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "LDRT":
-                    DoorTop.SetState(DoorTop.lockedDoorTop);
-                    DoorTop.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "LDRB":
-                    DoorBottom.SetState(DoorTop.lockedDoorBottom);
-                    DoorBottom.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "LDRL":
-                    DoorLeft.SetState(DoorTop.lockedDoorLeft);
-                    DoorLeft.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "LDRR":
-                    DoorRight.SetState(DoorRight.lockedDoorRight);
-                    DoorRight.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "HDRT":
-                    DoorTop.SetState(DoorTop.holeDoorTop);
-                    DoorTop.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "HDRB":
-                    DoorBottom.SetState(DoorTop.holeDoorBottom);
-                    DoorBottom.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "HDRL":
-                    DoorLeft.SetState(DoorTop.holeDoorLeft);
-                    DoorLeft.DoorDestination = Int16.Parse(destination);
-                    break;
-                case "HDRR":
-                    DoorRight.SetState(DoorRight.holeDoorRight);
-                    DoorRight.DoorDestination = Int16.Parse(destination);
-                    break;
-            }
-
-        }
     }
 }

@@ -93,8 +93,6 @@ namespace Sprintfinity3902.Collision
         public Boolean reflectMovingEntity(IEntity movingEntity, ICollision.CollisionSide side) // had this previously. May be needed in future (Rectangle collisionRect)
         {
             Boolean moved = false;
-            /*May need to have a count here and keep increasing it little by little. Not sure if that would work properly
-             * Pause animation at beginiing and play it at the end*/
             if (side == ICollision.CollisionSide.TOP) //Entity would be moving down
             {
                 movingEntity.Y -= Global.Var.SCALE;
@@ -120,11 +118,5 @@ namespace Sprintfinity3902.Collision
             return moved;
         }
         
-        public void handleCollision(IEntity movingEntity, ICollision.CollisionSide side)
-        {
-            ILink link = (ILink)movingEntity;
-
-            link.BounceOfEnemy(side);
-        }
     }
 }

@@ -59,21 +59,21 @@ namespace Sprintfinity3902.Collision
             foreach (AbstractEntity enemy in enemies)
             {
                 Rectangle enemyRect = enemy.GetBoundingRect();
-                if (enemy.IsCollidable() && enemyRect.Intersects(linkRect))
+                if (enemy.IsCollidable() && link.IsCollidable() && enemyRect.Intersects(linkRect))
                 {
                     side = enemyCollision.sideOfCollision(enemyRect, linkRect);
                     if (!alreadyMoved) //This will prevent it from moving back twice
                     {
                         /*Have initial reflection so Link can't move through enemy, then continue to move him back*/
                         alreadyMoved = blockCollision.reflectMovingEntity(link, side);
-                        link.BounceOfEnemy(side);
+                        ((ILink)link).BounceOfEnemy(side);
                         //enemyCollision.handleCollision(link, side);
                     }
                     /*
                      * TODO: Replace with handler
                      */
 
-                    //link.TakeDamage();
+                    link.TakeDamage();
                     ILink damagedLink = new DamagedLink(link, gameInstance);
                     gameInstance.playerCharacter = damagedLink;
                 }

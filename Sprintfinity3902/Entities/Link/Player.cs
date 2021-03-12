@@ -14,6 +14,7 @@ namespace Sprintfinity3902.Link
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
+        private Boolean _collidable;
 
         public IPlayerState CurrentState {
             get {
@@ -55,6 +56,7 @@ namespace Sprintfinity3902.Link
             facingRightItem = new FacingRightItemState(this);
             facingUpItem = new FacingUpItemState(this);
             color = Color.White;
+            _collidable = true;
         }
 
         public override void SetState(IPlayerState state) {
@@ -86,7 +88,7 @@ namespace Sprintfinity3902.Link
                 MoveLink();
                 _bouncingOfEnemyCount++;
             }
-            if (_bouncingOfEnemyCount > 20)
+            if (_bouncingOfEnemyCount > 15)
             {
                 StopMoving();
             }
@@ -96,29 +98,31 @@ namespace Sprintfinity3902.Link
         public void StopMoving()
         {
             _bouncingOfEnemy = false;
+            _bouncingOfEnemyCount = 0;
             //resume animation
             //allow move commands to start again
         }
+
+        //Will probably need to insert logic to prevent going through walls.
         public void MoveLink()
         {
                 //start moving
-
                 if (_side == ICollision.CollisionSide.BOTTOM)
                 {
                     //Will want this to be an animation. So slower!
-                    this.Y -= Global.Var.SCALE;
+                    this.Y += (float)1.5 * Global.Var.SCALE;
                 }
                 else if (_side == ICollision.CollisionSide.LEFT)
                 {
-                    this.X -= Global.Var.SCALE;
+                    this.X -= (float)1.5 * Global.Var.SCALE;
                 }
                 else if (_side == ICollision.CollisionSide.TOP)
                 {
-                    this.Y += Global.Var.SCALE;
+                    this.Y -= (float)1.5 * Global.Var.SCALE;
                 }
                 else
                 {
-                    this.X -=  Global.Var.SCALE;
+                    this.X += (float)1.5 * Global.Var.SCALE;
                 }
         }
         public Rectangle getRectangle()
@@ -131,6 +135,7 @@ namespace Sprintfinity3902.Link
         }
         public void TakeDamage()
         {
+            _collidable = false;
             /*
             BecomeInvincible();
             if (!_invincible) //Do nothing if he is invincible
@@ -147,9 +152,18 @@ namespace Sprintfinity3902.Link
             //Stop accepting move input keys for link
             _bouncingOfEnemy = true;
         }
+        //Can probably put this in removeDecorator
+        public void removeInvincibility()
+        {
+            
+        }
         public void RemoveDecorator()
         {
-            //NULL
+            _collidable = true;
+        }
+        public override Boolean IsCollidable()
+        {
+            return _collidable;
         }
     }
 }

@@ -98,6 +98,8 @@ namespace Sprintfinity3902.Link
             decoratedLink.Update(gameTime);
 
         }
+
+
         public void Draw(SpriteBatch spriteBatch, Color Ignorecolor)
         {
             decoratedLink.Draw(spriteBatch, linkColor);
@@ -106,6 +108,7 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.Move();
         }
+
         public void SetState(IPlayerState state)
         {
             decoratedLink.SetState(state);
@@ -120,6 +123,7 @@ namespace Sprintfinity3902.Link
         }
         public void RemoveDecorator()
         {
+            decoratedLink.RemoveDecorator();
             game.playerCharacter = decoratedLink;
         }
     }

@@ -33,14 +33,7 @@ namespace Sprintfinity3902
         
         public IEntity hitboxSword;
         public List<IEntity> linkProj;
-        private Player link;
-        private IEntity boomerangItem;
-        private IEntity bombItem;
-        private IEntity movingSword;
-        private IEntity hitboxSword;
         private IEntity bombExplosion;
-        private IDungeon dungeon;
-        private List<IEntity> linkProj;
         //private IDetector detector;
 
         public Game1()

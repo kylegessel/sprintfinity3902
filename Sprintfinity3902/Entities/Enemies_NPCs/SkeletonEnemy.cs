@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
 using System;
 
@@ -13,6 +15,10 @@ namespace Sprintfinity3902.Entities
         private int waitTime;
         private int health;
         private float speed;
+        private Color color;
+        private int timer;
+        private int counter;
+        private Boolean damaged;
         public SkeletonEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
@@ -21,6 +27,9 @@ namespace Sprintfinity3902.Entities
             count = 0;
             health = 2;
             speed = 0.4f;
+            color = Color.White;
+            timer = 30;
+            damaged = true;
         }
         public SkeletonEnemy(Vector2 pos)
         {
@@ -30,6 +39,9 @@ namespace Sprintfinity3902.Entities
             count = 0;
             health = 2;
             speed = 0.4f;
+            color = Color.White;
+            timer = 30;
+            damaged = true;
         }
 
         public Direction intToDirection(int dir)
@@ -49,9 +61,13 @@ namespace Sprintfinity3902.Entities
         }
         public override void Update(GameTime gameTime) {
             Sprite.Update(gameTime);
+            if (damaged) TakeDamage();
             Move();
         }
-
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            Sprite.Draw(spriteBatch, Position, color);
+        }
         public override void Move()
         {
             
@@ -93,8 +109,14 @@ namespace Sprintfinity3902.Entities
             count = 0;
             waitTime = 30;
             direction = projDirection;
+            damaged = true;
             speed = 1f;
             return health;
+        }
+
+        public void TakeDamage()
+        {
+            color = Color.Red;
         }
     }
 }

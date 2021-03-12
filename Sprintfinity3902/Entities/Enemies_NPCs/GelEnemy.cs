@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class GelEnemy : AbstractEntity {
+    public class GelEnemy : AbstractEntity, IEnemy {
         private static int CELL_WIDTH = 16 * Global.Var.SCALE;
         private static int MOVEMENT_DURATION_MS = 200;
 
@@ -12,6 +13,7 @@ namespace Sprintfinity3902.Entities
         private int _waitTime;
         private double _totalElapsedTime;
         private int _direction;
+        private int _health;
         private Vector2 _storedPos;
 
         private bool _isMoving;
@@ -22,6 +24,7 @@ namespace Sprintfinity3902.Entities
             _waitTime = 1200; // In milliseconds
             _totalElapsedTime = 0;
             _isMoving = false;
+            _health = 1;
 
             Sprite = EnemySpriteFactory.Instance.CreateGelEnemy();
             Position = new Vector2(750, 540);
@@ -32,6 +35,7 @@ namespace Sprintfinity3902.Entities
             _waitTime = 1200; // In milliseconds
             _totalElapsedTime = 0;
             _isMoving = false;
+            _health = 1;
 
             Sprite = EnemySpriteFactory.Instance.CreateGelEnemy();
             Position = pos;
@@ -80,6 +84,18 @@ namespace Sprintfinity3902.Entities
                     Y = (int)(_storedPos.Y - percent * CELL_WIDTH);
                     break;
             }
+        }
+        public int HitRegister(int damage, int stunLength, Direction projDirection)
+        {
+            _health = _health - damage;
+            if (stunLength > 0)
+            {
+                _totalElapsedTime = 0.0;
+                // convert from frames to milliseconds.
+                _waitTime = stunLength * 60;
+            }
+            // Typical enemy would have code for projectile direction and causing the enemy to move backwards a few times.
+            return _health;
         }
     }
 }

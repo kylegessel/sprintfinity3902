@@ -7,12 +7,13 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class SwordHitboxItem : AbstractEntity
+    public class SwordHitboxItem : AbstractEntity, IProjectile
     {
         Player PlayerCharacter;
         Boolean itemUse;
         int itemUseCount;
         IPlayerState firingState;
+        Direction swordDirection;
         Vector2 currentRect;
 
         public SwordHitboxItem(Vector2 position)
@@ -27,40 +28,21 @@ namespace Sprintfinity3902.Entities
         {
             return itemUse;
         }
-
+        public Boolean Collide(IEnemy enemy)
+        {
+            // Code for removing sword on contact, needs to be replaced.
+            Position = new Vector2(-1000, -1000);
+            // This can be improved...
+            if (itemUseCount < 20) return false;
+            return enemy.HitRegister(1, 0, swordDirection) <= 0;
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
 
-
-            /*
-            
-            
-            if (firingState != null)
-            {
-                if (firingState == PlayerCharacter.facingDownAttack)
-                {
-                    spriteBatch.Draw(Sprite.Animation.CurrentFrame.Sprite.Texture, Position, Sprite.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), Global.Var.SCALE, SpriteEffects.FlipVertically, 0.0f);
-                }
-                else if (firingState == PlayerCharacter.facingUpAttack)
-                {
-                    Sprite.Draw(spriteBatch, Position, Color.White);
-                }
-                else if (firingState == PlayerCharacter.facingLeftAttack)
-                {
-                    spriteBatch.Draw(Sprite2.Animation.CurrentFrame.Sprite.Texture, Position, Sprite2.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), Global.Var.SCALE, SpriteEffects.FlipHorizontally, 0.0f);
-                }
-                else if (firingState == PlayerCharacter.facingRightAttack)
-                {
-                    Sprite2.Draw(spriteBatch, Position, Color.White);
-                }
-            }
-            */
         }
 
         public override void Update(GameTime gameTime)
         {
-            //Sprite.Update(gameTime);
-            //Sprite2.Update(gameTime);
             if (itemUse)
             {
                 MoveItem();
@@ -92,22 +74,27 @@ namespace Sprintfinity3902.Entities
             {
                 Position = new Vector2(PlayerCharacter.X + 5 * Global.Var.SCALE, PlayerCharacter.Y + 16 * Global.Var.SCALE);
                 //currentRect = new Vector2(7, 12);
+                swordDirection = Direction.DOWN;
 
             }
             else if (firingState == PlayerCharacter.facingUpAttack)
             {
                 Position = new Vector2(PlayerCharacter.X + 6 * Global.Var.SCALE, PlayerCharacter.Y - 12 * Global.Var.SCALE);
                 //currentRect = new Vector2(7, 12);
+                swordDirection = Direction.UP;
+
             }
             else if (firingState == PlayerCharacter.facingLeftAttack)
             {
                 Position = new Vector2(PlayerCharacter.X - 12 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
                 //currentRect = new Vector2(12, 7);
+                swordDirection = Direction.LEFT;
             }
             else if (firingState == PlayerCharacter.facingRightAttack)
             {
                 Position = new Vector2(PlayerCharacter.X + 16 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
                 //currentRect = new Vector2(12, 7);
+                swordDirection = Direction.RIGHT;
             }
             itemUse = true;
         }

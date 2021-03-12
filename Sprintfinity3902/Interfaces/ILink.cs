@@ -26,7 +26,7 @@ namespace Sprintfinity3902.Interfaces
         void Move();
         void SetState(IPlayerState state);
         void TakeDamage();
-
+        void BounceOfEnemy(ICollision.CollisionSide Side);
         void RemoveDecorator();
     }
 }

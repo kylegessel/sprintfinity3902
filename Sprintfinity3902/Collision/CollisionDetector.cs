@@ -64,11 +64,16 @@ namespace Sprintfinity3902.Collision
                     side = enemyCollision.sideOfCollision(enemyRect, linkRect);
                     if (!alreadyMoved) //This will prevent it from moving back twice
                     {
-                        alreadyMoved = enemyCollision.reflectMovingEntity(link, side);
+                        /*Have initial reflection so Link can't move through enemy, then continue to move him back*/
+                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                        link.BounceOfEnemy(side);
+                        //enemyCollision.handleCollision(link, side);
                     }
                     /*
                      * TODO: Replace with handler
                      */
+
+                    //link.TakeDamage();
                     ILink damagedLink = new DamagedLink(link, gameInstance);
                     gameInstance.playerCharacter = damagedLink;
                 }
@@ -92,35 +97,35 @@ namespace Sprintfinity3902.Collision
                     if (!alreadyMoved) //This will prevent it from moving back twice
                     {
                         /*This allows link to push blocks. Enemies can not push blocks*/
-                        if (block.IsMovable() && ((block.PushSide() == side) || (block.PushSide2() == side)) )
+                       if ( block.IsMovable() && ((block.PushSide() == side) || (block.PushSide2() == side)) )
                        {
-                           block.MoveBlock(side); //Will need to edit this call so it slowly starts the block movement
+                            block.StartMoving(side);
                        }
                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
-                   }
-               }
-           }
+                    }
+                }
+            }
 
-           foreach (AbstractEntity enemy in enemies)
-           {
-               Rectangle enemyRect = enemy.GetBoundingRect();
-               alreadyMoved = false;
+            foreach (AbstractEntity enemy in enemies)
+            {
+                Rectangle enemyRect = enemy.GetBoundingRect();
+                alreadyMoved = false;
 
-               foreach (AbstractEntity block in blocks)
-               {
-                   Rectangle blockRect = block.GetBoundingRect();
-                   if (block.IsCollidable() && blockRect.Intersects(enemyRect))
-                   {
-                       side = blockCollision.sideOfCollision(blockRect, enemyRect);
-                       if (!alreadyMoved) //This will prevent it from moving back twice
-                       {
-                           alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
-                       }
-                   }
-               }
-           }
+                foreach (AbstractEntity block in blocks)
+                {
+                    Rectangle blockRect = block.GetBoundingRect();
+                    if (block.IsCollidable() && blockRect.Intersects(enemyRect))
+                    {
+                        side = blockCollision.sideOfCollision(blockRect, enemyRect);
+                        if (!alreadyMoved) //This will prevent it from moving back twice
+                        {
+                            alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
+                        }
+                    }
+                }
+            }
 
-       }
+        }
 
        private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj)
        {

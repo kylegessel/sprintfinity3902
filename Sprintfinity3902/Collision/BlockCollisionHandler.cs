@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.SpriteFactories;
 using System;
 
 namespace Sprintfinity3902.Collision
@@ -16,7 +13,9 @@ namespace Sprintfinity3902.Collision
         {
             //Not sure what I need here
         }
-
+        public void handleCollision(IEntity entity, ICollision.CollisionSide side)
+        {
+        }
         public ICollision.CollisionSide sideOfCollision(Rectangle blockRect, Rectangle characterRect)
         {
                 intersectionRect = Rectangle.Intersect(characterRect, blockRect);

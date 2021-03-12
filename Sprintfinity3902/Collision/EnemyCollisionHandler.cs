@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.SpriteFactories;
 using System;
 
 namespace Sprintfinity3902.Collision
@@ -20,7 +17,7 @@ namespace Sprintfinity3902.Collision
         public ICollision.CollisionSide sideOfCollision(Rectangle enemyRect, Rectangle characterRect)
         {
             intersectionRect = Rectangle.Intersect(characterRect, enemyRect);
-            //Insert logic to determine where the overlap is
+            //Logic to determine where the overlap is
             if (intersectionRect.Top == enemyRect.Top)
             {
                 if (intersectionRect.Left == enemyRect.Left)
@@ -45,7 +42,7 @@ namespace Sprintfinity3902.Collision
                         side = ICollision.CollisionSide.TOP;
                     }
                 }
-                else //Only intersects top (Not sure if this is possible) -- Will be with the walls
+                else //Link only intersects top. Will happen with bottom wall
                 {
                     side = ICollision.CollisionSide.TOP;
                 }
@@ -76,7 +73,7 @@ namespace Sprintfinity3902.Collision
                         side = ICollision.CollisionSide.BOTTOM;
                     }
                 }
-                else //Only intersects Bot (Don't think this is possible)
+                else //Link only intersects Bottom. Will happen with top wall
                 {
                     side = ICollision.CollisionSide.BOTTOM;
                 }
@@ -92,6 +89,7 @@ namespace Sprintfinity3902.Collision
             return side;
         }
 
+        
         public Boolean reflectMovingEntity(IEntity movingEntity, ICollision.CollisionSide side) // had this previously. May be needed in future (Rectangle collisionRect)
         {
             Boolean moved = false;
@@ -99,27 +97,34 @@ namespace Sprintfinity3902.Collision
              * Pause animation at beginiing and play it at the end*/
             if (side == ICollision.CollisionSide.TOP) //Entity would be moving down
             {
-                movingEntity.Y -= 5 * Global.Var.SCALE;
+                movingEntity.Y -= Global.Var.SCALE;
                 //movingEntity.Y -= collisionRect.Height;
                 moved = true;
             }
             else if (side == ICollision.CollisionSide.RIGHT) //Entity would be moving left
             {
-                movingEntity.X += 5 * Global.Var.SCALE;
+                movingEntity.X += Global.Var.SCALE;
                 moved = true;
             }
             else if (side == ICollision.CollisionSide.BOTTOM) //Entity would be moving up
             {
-                movingEntity.Y += 5 * Global.Var.SCALE;
+                movingEntity.Y += Global.Var.SCALE;
                 moved = true;
             }
             else if (side == ICollision.CollisionSide.LEFT) //Entity would be moving right
             {
-                movingEntity.X -= 5 * Global.Var.SCALE;
+                movingEntity.X -= Global.Var.SCALE;
                 moved = true;
             }
             //If this call is made we know there is a collision so an else condition is not needed
             return moved;
+        }
+        
+        public void handleCollision(IEntity movingEntity, ICollision.CollisionSide side)
+        {
+            ILink link = (ILink)movingEntity;
+
+            link.BounceOfEnemy(side);
         }
     }
 }

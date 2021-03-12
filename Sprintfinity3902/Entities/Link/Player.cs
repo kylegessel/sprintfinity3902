@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.States;
+using System;
 
 namespace Sprintfinity3902.Link
 {
@@ -10,6 +11,9 @@ namespace Sprintfinity3902.Link
     {
 
         private IPlayerState _currentState;
+        private ICollision.CollisionSide _side;
+        private int _bouncingOfEnemyCount;
+        private Boolean _bouncingOfEnemy;
 
         public IPlayerState CurrentState {
             get {
@@ -76,32 +80,76 @@ namespace Sprintfinity3902.Link
         public override void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);  //can this pass out size?
             CurrentState.Update();
-            //return new Rectangle(0,0,0,0);
-        } 
 
+            if (_bouncingOfEnemy)
+            {
+                MoveLink();
+                _bouncingOfEnemyCount++;
+            }
+            if (_bouncingOfEnemyCount > 20)
+            {
+                StopMoving();
+            }
+            //return new Rectangle(0,0,0,0);
+        }
+
+        public void StopMoving()
+        {
+            _bouncingOfEnemy = false;
+            //resume animation
+            //allow move commands to start again
+        }
+        public void MoveLink()
+        {
+                //start moving
+
+                if (_side == ICollision.CollisionSide.BOTTOM)
+                {
+                    //Will want this to be an animation. So slower!
+                    this.Y -= Global.Var.SCALE;
+                }
+                else if (_side == ICollision.CollisionSide.LEFT)
+                {
+                    this.X -= Global.Var.SCALE;
+                }
+                else if (_side == ICollision.CollisionSide.TOP)
+                {
+                    this.Y += Global.Var.SCALE;
+                }
+                else
+                {
+                    this.X -=  Global.Var.SCALE;
+                }
+        }
         public Rectangle getRectangle()
         {
             return new Rectangle((int)X, (int)Y, 16*Global.Var.SCALE, 16 * Global.Var.SCALE);
         }
-
-        /*
-        public Rectangle getRectangle()
-        {
-            return new Rectangle(X, Y, 16 * 5, 16 * 5);
-        }
-        */
 
         public void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position, color);
         }
         public void TakeDamage()
         {
-            //Will be needed in future to take away health?
+            /*
+            BecomeInvincible();
+            if (!_invincible) //Do nothing if he is invincible
+            {
+                //TODO: Remove Health from Link
+            }
+            */
+        }
+
+        public void BounceOfEnemy(ICollision.CollisionSide Side)
+        {
+            _side = Side;
+            //Pause animation;
+            //Stop accepting move input keys for link
+            _bouncingOfEnemy = true;
         }
         public void RemoveDecorator()
         {
             //NULL
         }
-
     }
 }

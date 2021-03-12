@@ -8,11 +8,21 @@ namespace Sprintfinity3902.Entities
     public abstract class AbstractBlock : AbstractEntity, IBlock
     {
         private Boolean _movable = false;
+        //private Boolean _isMoving = false;
+        //private ICollision.CollisionSide _side;
         private ICollision.CollisionSide _pushSide = ICollision.CollisionSide.NONE;
 
+        public virtual void Update()
+        {
+            //Do nothing for all still blocks
+        }
         public virtual Boolean IsMovable()
         {
             return _movable;
+        }
+        public virtual void StartMoving(ICollision.CollisionSide Side)
+        {
+            //
         }
         public virtual ICollision.CollisionSide PushSide()
         {
@@ -22,7 +32,7 @@ namespace Sprintfinity3902.Entities
         {
             return _pushSide;
         }
-        public virtual void MoveBlock(ICollision.CollisionSide side)
+        public virtual void MoveBlock()
         {
             //Most blocks don't move so do nothing
         }

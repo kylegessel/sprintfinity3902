@@ -28,6 +28,8 @@ namespace Sprintfinity3902 {
         private IEntity bombItem;
         private IEntity movingSword;
         private IEntity hitboxSword;
+        private IEntity movingVertBlock;
+        private IEntity movingLeftBlock;
         private IDungeon dungeon;
         private List<IEntity> linkProj;
         //private IDetector detector;
@@ -67,6 +69,8 @@ namespace Sprintfinity3902 {
             bombItem = new BombItem(new Vector2(-1000, -1000));
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
             hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
+            movingVertBlock = new MovingVertBlock(new Vector2(-1000, -1000));
+            movingLeftBlock = new MovingLeftBlock(new Vector2(-1000, -1000));
 
             linkProj = new List<IEntity>();
 
@@ -118,12 +122,14 @@ namespace Sprintfinity3902 {
 
             IRoom currentRoom = dungeon.GetCurrentRoom();
 
-            
+
             playerCharacter.Update(gameTime);
             boomerangItem.Update(gameTime);
             bombItem.Update(gameTime);
             movingSword.Update(gameTime);
             hitboxSword.Update(gameTime);
+            movingVertBlock.Update(gameTime);
+            movingLeftBlock.Update(gameTime);
 
             CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj);
 
@@ -145,6 +151,8 @@ namespace Sprintfinity3902 {
             boomerangItem.Draw(SpriteBatch);
             bombItem.Draw(SpriteBatch);
             movingSword.Draw(SpriteBatch);
+            movingVertBlock.Draw(SpriteBatch);
+            movingLeftBlock.Draw(SpriteBatch);
 
             SpriteBatch.End();
 

@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Link
         Player decoratedLink;
         Color linkColor;
         int counter;
-        int timer = 400;
+        int timer = 150;
         private ISprite _sprite;
         private Vector2 _position;
 
@@ -110,9 +110,13 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.SetState(state);
         }
+        public void BounceOfEnemy(ICollision.CollisionSide Side)
+        {
+            //
+        }
         public void TakeDamage()
         {
-            //doesn't take damage in damagedLink
+            //doesn't take damage in damagedLink (Invincible state)
         }
         public void RemoveDecorator()
         {

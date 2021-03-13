@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.SpriteFactories;
 using System;
 
 namespace Sprintfinity3902.Collision
@@ -92,28 +89,30 @@ namespace Sprintfinity3902.Collision
                 return side;
         }
 
+        /*Have a property in AbstractEntity called stepSize. And then have this reflection use the movement size as a scaler!*/
         public Boolean reflectMovingEntity(IEntity movingEntity, ICollision.CollisionSide side) // had this previously. May be needed in future (Rectangle collisionRect)
         {
             Boolean moved = false;
+            float scaler = movingEntity.GetStepSize(); /*Adjust this to be whatever movingEntity.stepSize is!*/
             if (side == ICollision.CollisionSide.TOP) //Entity would be moving down
             {
-                movingEntity.Y -= Global.Var.SCALE;
+                movingEntity.Y -= scaler * Global.Var.SCALE;
                 //movingEntity.Y -= collisionRect.Height;
                 moved = true;
             }
             else if (side == ICollision.CollisionSide.RIGHT) //Entity would be moving left
             {
-                movingEntity.X += Global.Var.SCALE;
+                movingEntity.X += scaler * Global.Var.SCALE;
                 moved = true;
             }
             else if (side == ICollision.CollisionSide.BOTTOM) //Entity would be moving up
             {
-                movingEntity.Y += Global.Var.SCALE;
+                movingEntity.Y += scaler * Global.Var.SCALE;
                 moved = true;
             }
             else if (side == ICollision.CollisionSide.LEFT) //Entity would be moving right
             {
-                movingEntity.X -= Global.Var.SCALE;
+                movingEntity.X -= scaler * Global.Var.SCALE;
                 moved = true;  
             }
             //If this call is made we know there is a collision so an else condition is not needed

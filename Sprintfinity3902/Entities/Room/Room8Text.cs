@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Entities
 {
-    public class Room8Text : AbstractEntity
+    public class Room8Text : AbstractBlock
     {
         public Room8Text(Vector2 pos)
         {

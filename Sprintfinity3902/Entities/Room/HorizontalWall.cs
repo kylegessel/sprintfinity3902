@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Entities
 {
-    public class HorizontalWall : AbstractEntity
+    public class HorizontalWall : AbstractBlock
     {
         public HorizontalWall(Vector2 pos)
         {

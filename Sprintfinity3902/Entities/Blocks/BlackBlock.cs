@@ -4,7 +4,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BlackBlock : AbstractEntity
+    public class BlackBlock : AbstractBlock
     {
         public BlackBlock()
         {

@@ -4,7 +4,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class FloorBlock : AbstractEntity
+    public class FloorBlock : AbstractBlock
     {
         public FloorBlock()
         {

@@ -166,6 +166,12 @@ namespace Sprintfinity3902.Dungeon
                 case "STIP":
                     Room.blocks.Add(new StripeBlock(Position));
                     break;
+                case "MVBK":
+                    Room.blocks.Add(new MovingVertBlock(Position));
+                    break;
+                case "MLBK":
+                    Room.blocks.Add(new MovingLeftBlock(Position));
+                    break;
 
                 //ENEMIES
                 case "BBAT":

@@ -5,7 +5,7 @@ using Sprintfinity3902.States.Door;
 
 namespace Sprintfinity3902.Entities.Doors
 {
-    public class Door : AbstractEntity
+    public class Door : AbstractBlock
     {
         private IDoorState _currentState;
 

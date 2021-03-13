@@ -34,8 +34,6 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
 
-        public Color color;
-
         private Dictionary<IItem.ITEMS, int> itemcount;
 
         public Player()
@@ -114,7 +112,7 @@ namespace Sprintfinity3902.Link
         }
         */
 
-        public void Draw(SpriteBatch spriteBatch, Color color) {
+        public override void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position, color);
         }
         public void TakeDamage()

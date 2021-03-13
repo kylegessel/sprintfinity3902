@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Collision;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
@@ -15,10 +16,8 @@ namespace Sprintfinity3902.Entities
         private int waitTime;
         private int health;
         private float speed;
-        private Color color;
-        private int timer;
-        private int counter;
-        private Boolean damaged;
+        private Boolean decorated;
+        private int enemyID;
         public SkeletonEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
@@ -27,9 +26,8 @@ namespace Sprintfinity3902.Entities
             count = 0;
             health = 2;
             speed = 0.4f;
+            decorated = false;
             color = Color.White;
-            timer = 30;
-            damaged = true;
         }
         public SkeletonEnemy(Vector2 pos)
         {
@@ -39,9 +37,8 @@ namespace Sprintfinity3902.Entities
             count = 0;
             health = 2;
             speed = 0.4f;
+            decorated = false;
             color = Color.White;
-            timer = 30;
-            damaged = true;
         }
 
         public Direction intToDirection(int dir)
@@ -61,10 +58,9 @@ namespace Sprintfinity3902.Entities
         }
         public override void Update(GameTime gameTime) {
             Sprite.Update(gameTime);
-            if (damaged) TakeDamage();
             Move();
         }
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             Sprite.Draw(spriteBatch, Position, color);
         }
@@ -81,6 +77,11 @@ namespace Sprintfinity3902.Entities
                 direction = intToDirection(rd1.Next(1, 5));
                 count = 0;
                 speed = 0.4f;
+                if (decorated)
+                {
+                    CollisionDetector.undecorateList.Add(enemyID);
+                    decorated = false; 
+                }
             }
 
             if (direction == Direction.LEFT) //Left
@@ -102,21 +103,17 @@ namespace Sprintfinity3902.Entities
             count++;
         }
 
-        public int HitRegister(int damage, int stunLength, Direction projDirection)
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
         {
             health = health - damage;
+            this.enemyID = enemyID;
             // This is rough and probably needs to be decorated.
             count = 0;
             waitTime = 30;
+            decorated = true;
             direction = projDirection;
-            damaged = true;
             speed = 1f;
             return health;
-        }
-
-        public void TakeDamage()
-        {
-            color = Color.Red;
         }
     }
 }

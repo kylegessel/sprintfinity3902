@@ -1,83 +1,34 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Link
 {
-    class DamagedEntity : IEntity
+    class DamagedEntity : AbstractEntity, IEnemy, ICollidable
     {
         IRoom room;
-        IEntity decoratedEntity;
+        AbstractEntity decoratedEntity;
+        int entityID;
         Color Color;
         int counter;
         int timer = 400;
-        private ISprite _sprite;
-        private Vector2 _position;
-
-        public ISprite Sprite
-        {
-            get
-            {
-                return _sprite;
-            }
-            set
-            {
-                _sprite = value;
-            }
-        }
-
-        public Vector2 Position
-        {
-            get
-            {
-                return _position;
-            }
-            set
-            {
-                _position = value;
-            }
-        }
-        public float X
-        {
-            get
-            {
-                return (int)Position.X;
-            }
-            set
-            {
-                _position.X = value;
-                //Position = new Vector2(value, Position.Y);
-            }
-        }
-        public float Y
-        {
-            get
-            {
-                return (int)Position.Y;
-            }
-            set
-            {
-                _position.Y = value;
-                //Position = new Vector2(Position.X, value);
-            }
-        }
 
         // pass room as well?
-        public DamagedEntity(IEntity decoratedEntity, IRoom room)
+        public DamagedEntity(int entityID, AbstractEntity decoratedEntity, IRoom room)
         {
+            this.entityID = entityID;
             this.decoratedEntity = decoratedEntity;
             this.room = room;
-            room.enemies.Add(decoratedEntity);
+            Position = decoratedEntity.Position;
+            Sprite = decoratedEntity.Sprite;
             Color = Color.Red;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             timer--;
-            if (timer == 0)
-            {
-
-            }
+            // No remove decorator here as we'll have that happen when the enemy is done with it's "hit."
             //Implement logic to determine color
             counter = timer % 12;
             if (counter < 3)
@@ -99,41 +50,42 @@ namespace Sprintfinity3902.Link
 
             decoratedEntity.Update(gameTime);
         }
-        public void Draw(SpriteBatch spriteBatch, Color Ignorecolor)
+
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            
+            decoratedEntity.Draw(spriteBatch, Color);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Draw(spriteBatch);
-        }
-
-        public void Move()
+        public override void Move()
         {
             decoratedEntity.Move();
         }
 
-        public void Attack()
+        public override void Attack()
         {
             decoratedEntity.Attack();
         }
 
-        public void SetState(IPlayerState state)
+        public override void SetState(IPlayerState state)
         {
             decoratedEntity.SetState(state);
         }
 
-        public Rectangle GetBoundingRect()
+        public override Rectangle GetBoundingRect()
         {
             return decoratedEntity.GetBoundingRect();
         }
 
         // How do I remove decorator?
-        public void RemoveDecorator()
+        public IEntity GetUnDecorated()
         {
-            // game.playerCharacter = decoratedLink;
-            room.enemies.Remove(decoratedEntity);
+            return decoratedEntity;
+        }
+
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        {
+            IEnemy enemy = (IEnemy)decoratedEntity;
+            return enemy.HitRegister(enemyID, damage, stunLength, projDirection);
         }
     }
 }

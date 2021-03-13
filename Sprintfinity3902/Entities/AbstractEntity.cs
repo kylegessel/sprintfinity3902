@@ -10,6 +10,7 @@ namespace Sprintfinity3902.Entities
         private ISprite _sprite;
         private Vector2 _position;
         private Boolean _collidable = true;
+        private Color _color;
 
         // Does this belong here and can we make better use of it elsewhere?
         // Boggus mentioned a magic numbers cleanup, believe this could be useful.
@@ -22,6 +23,17 @@ namespace Sprintfinity3902.Entities
             RIGHT
         }
 
+        public Color color
+        {
+            get
+            {
+                return _color;
+            }
+            set
+            {
+                _color = value;
+            }
+        }
         public ISprite Sprite
         {
             get
@@ -68,7 +80,7 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
             Sprite.Draw(spriteBatch, Position, Color.White);
         }

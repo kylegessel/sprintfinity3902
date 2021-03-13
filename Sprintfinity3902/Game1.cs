@@ -155,9 +155,9 @@ namespace Sprintfinity3902
 
             playerCharacter.Draw(SpriteBatch, Color.White);
 
-            boomerangItem.Draw(SpriteBatch);
-            bombItem.Draw(SpriteBatch);
-            movingSword.Draw(SpriteBatch);
+            boomerangItem.Draw(SpriteBatch, Color.White);
+            bombItem.Draw(SpriteBatch, Color.White);
+            movingSword.Draw(SpriteBatch, Color.White);
 
             SpriteBatch.End();
 

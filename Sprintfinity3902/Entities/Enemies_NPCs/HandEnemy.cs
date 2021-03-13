@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class HandEnemy : AbstractEntity
+    public class HandEnemy : AbstractEntity, IEnemy
     {
         private int count;
         private int direction;
@@ -19,6 +20,12 @@ namespace Sprintfinity3902.Entities
             Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
             Position = pos;
         }
+
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        {
+            return 1;
+        }
+
         public override void Move()
         {
 

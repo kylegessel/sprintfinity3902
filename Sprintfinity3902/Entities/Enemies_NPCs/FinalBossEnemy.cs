@@ -6,7 +6,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class FinalBossEnemy : AbstractEntity
+    public class FinalBossEnemy : AbstractEntity, IEnemy
     {
         private ISprite ClosedMouth;
         private ISprite OpenedMouth;
@@ -32,6 +32,7 @@ namespace Sprintfinity3902.Entities
             fireAttackCenter = center;
             fireAttackDown = down;
             Position = pos;
+            color = Color.White;
 
             rd = new Random();
 
@@ -63,9 +64,9 @@ namespace Sprintfinity3902.Entities
             Move();
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            Sprite.Draw(spriteBatch, Position, Color.White);                
+            Sprite.Draw(spriteBatch, Position, color);                
         }
 
         public override void Move()
@@ -119,6 +120,11 @@ namespace Sprintfinity3902.Entities
 
 
             attackCount++;
+        }
+
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        {
+            return 1;
         }
     }
 }

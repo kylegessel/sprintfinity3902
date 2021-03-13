@@ -7,7 +7,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class GoriyaEnemy : AbstractEntity
+    public class GoriyaEnemy : AbstractEntity, IEnemy
     {
 
         private IGoriyaState _currentState;
@@ -40,7 +40,6 @@ namespace Sprintfinity3902.Entities
         public IGoriyaState idleRight { get; set; }
         public IGoriyaState idleUp { get; set; }
         public bool done { get; set; }
-        public Color color;
 
         public GoriyaEnemy(BoomerangItem boomerang)
         {
@@ -108,10 +107,10 @@ namespace Sprintfinity3902.Entities
 
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             CurrentState.Sprite.Draw(spriteBatch, Position, color);
-            Boomerang.Draw(spriteBatch);
+            Boomerang.Draw(spriteBatch, Color.White);
         }
 
         public void SetState(IGoriyaState state)
@@ -149,5 +148,9 @@ namespace Sprintfinity3902.Entities
             CurrentState.Wait();
         }
 
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        {
+            return 1;
+        }
     }
 }

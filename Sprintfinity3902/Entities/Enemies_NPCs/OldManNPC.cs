@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class OldManNPC : AbstractEntity
+    public class OldManNPC : AbstractEntity, IEnemy
     {
         public OldManNPC()
         {
@@ -14,6 +15,12 @@ namespace Sprintfinity3902.Entities
         {
             Sprite = EnemySpriteFactory.Instance.CreateOldManNPC();
             Position = pos;
+        }
+
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        {
+            // eventually enable the fire attack
+            return 1;
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Sprintfinity3902.Entities
                 Move();
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             if (isMoving)
                 Sprite.Draw(spriteBatch, Position, Color.White);

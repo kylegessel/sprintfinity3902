@@ -63,7 +63,7 @@ namespace Sprintfinity3902.Collision
                 if (enemy.IsCollidable() && link.IsCollidable()  && enemyRect.Intersects(linkRect)) 
                 {
                     side = enemyCollision.sideOfCollision(enemyRect, linkRect);
-                    if (!alreadyMoved) //This will prevent it from moving back twice
+                    if (!alreadyMoved) //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
                     {
                         /*Have initial reflection so Link can't move through enemy, then continue to move him back*/
                         alreadyMoved = blockCollision.reflectMovingEntity(link, side);

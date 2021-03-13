@@ -11,7 +11,7 @@ namespace Sprintfinity3902.Interfaces
         //List<IEntity> roomEntities { get; set; }
         List<IEntity> blocks { get; set; }
         List<IEntity> items { get; set; }
-        List <IEntity> enemies { get; set; }
+        Dictionary <int, IEntity> enemies { get; set; }
         string path { get; set; }
         RoomLoader loader { get; set; }
         Room13Loader loader13 { get; set; }

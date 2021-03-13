@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Dungeon
         public int Id { get; set; }
         //public List<IEntity> roomEntities { get; set; }
         public List<IEntity> blocks { get; set; }
-        public List<IEntity> enemies { get; set; }
+        public Dictionary<int, IEntity> enemies { get; set; }
         public List<IEntity> items { get; set; }
         //projectiles may have to be added here later.
 
@@ -24,7 +24,7 @@ namespace Sprintfinity3902.Dungeon
         public Room(string fileLocation, int id)
         {
             blocks = new List<IEntity>();
-            enemies = new List<IEntity>();
+            enemies = new Dictionary<int, IEntity>();
             items = new List<IEntity>();
             path = fileLocation;
             Id = id;
@@ -45,7 +45,7 @@ namespace Sprintfinity3902.Dungeon
             foreach (IEntity entity in blocks)
                 entity.Update(gameTime);
 
-            foreach (IEntity entity in enemies)
+            foreach (IEntity entity in enemies.Values)
                 entity.Update(gameTime);
 
             foreach (IEntity entity in items)
@@ -55,13 +55,13 @@ namespace Sprintfinity3902.Dungeon
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (IEntity entity in blocks)
-                entity.Draw(spriteBatch);
+                entity.Draw(spriteBatch, Color.White);
 
-            foreach (IEntity entity in enemies)
-                entity.Draw(spriteBatch);
+            foreach (IEntity entity in enemies.Values)
+                entity.Draw(spriteBatch, Color.White);
 
             foreach (IEntity entity in items)
-                entity.Draw(spriteBatch);
+                entity.Draw(spriteBatch, Color.White);
         }
 
         public void ChangePosition(bool pause)
@@ -79,7 +79,7 @@ namespace Sprintfinity3902.Dungeon
                 }
             }
 
-            foreach (IEntity entity in enemies)
+            foreach (IEntity entity in enemies.Values)
             {
                 if (count != 176 * Global.Var.SCALE && pause)
                 {

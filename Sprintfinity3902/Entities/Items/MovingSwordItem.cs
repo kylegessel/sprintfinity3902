@@ -5,10 +5,11 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
 using System;
 using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.Collision;
 
 namespace Sprintfinity3902.Entities
 {
-    public class MovingSwordItem : AbstractEntity, IProjectile
+    public class MovingSwordItem : AbstractItem, IProjectile
     {
         Player PlayerCharacter;
         Boolean itemUse;
@@ -32,7 +33,7 @@ namespace Sprintfinity3902.Entities
             return itemUse;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             if (firingState != null)
             {
@@ -123,11 +124,12 @@ namespace Sprintfinity3902.Entities
             itemUse = true;
         }
 
-        public Boolean Collide(IEnemy enemy)
+        public Boolean Collide(int enemyID, IEnemy enemy)
         {
             // Code for removing sword on contact, needs to be replaced.
             Position = new Vector2(-1000, -1000);
-            return enemy.HitRegister(1, 0, swordDirection) <= 0;
+            CollisionDetector.decorateList.Add(enemyID);
+            return enemy.HitRegister(enemyID, 1, 0, swordDirection) <= 0;
         }
     }
 }

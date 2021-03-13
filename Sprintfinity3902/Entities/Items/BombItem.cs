@@ -29,7 +29,7 @@ namespace Sprintfinity3902.Entities
             return itemUse;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             if (itemUseCount <= 60)
             {
@@ -38,7 +38,7 @@ namespace Sprintfinity3902.Entities
 
             if (BombExplosion != null)
             {
-                BombExplosion.Draw(spriteBatch);
+                BombExplosion.Draw(spriteBatch, Color.White);
             }
         }
         public override void Update(GameTime gameTime)

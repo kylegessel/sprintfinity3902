@@ -40,7 +40,7 @@ namespace Sprintfinity3902.Entities.Items
             Position7 = new Vector2(Position.X - 11 * Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             Sprite.Draw(spriteBatch, Position1, Color.White);
             Sprite.Draw(spriteBatch, Position2, Color.White);
@@ -57,9 +57,9 @@ namespace Sprintfinity3902.Entities.Items
 
         }
 
-        public bool Collide(IEnemy enemy)
+        public bool Collide(int enemyID, IEnemy enemy)
         {
-            return enemy.HitRegister(3, 30, Direction.NONE) <= 0;
+            return enemy.HitRegister(enemyID, 3, 30, Direction.NONE) <= 0;
         }
     }
 }

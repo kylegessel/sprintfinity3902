@@ -16,6 +16,7 @@ namespace Sprintfinity3902.Dungeon
         public Door DoorBottom { get; set; }
         public Door DoorLeft { get; set; }
         public Door DoorRight { get; set; }
+        int enemyID;
         int spikeNum;
 
         // Have this input a filename and then load the room.
@@ -25,6 +26,7 @@ namespace Sprintfinity3902.Dungeon
             Room = room;
             mapStream = new StreamReader(Room.path);
             spikeNum = 1;
+            enemyID = 0;
 
         }
 
@@ -167,44 +169,57 @@ namespace Sprintfinity3902.Dungeon
 
                 //ENEMIES
                 case "BBAT":
-                    Room.enemies.Add(new BlueBatEnemy(Position));
+                    Room.enemies.Add(enemyID, new BlueBatEnemy(Position));
+                    enemyID++;
                     break;
                 case "SKLN":
-                    Room.enemies.Add(new SkeletonEnemy(Position));
+                    Room.enemies.Add(enemyID, new SkeletonEnemy(Position));
+                    enemyID++;
                     break;
                 case "BOSS":
                     FireAttack up = new FireAttack(1);
                     FireAttack center = new FireAttack(0);
                     FireAttack down = new FireAttack(2);
-                    Room.enemies.Add(up);
-                    Room.enemies.Add(down);
-                    Room.enemies.Add(center);
-                    Room.enemies.Add(new FinalBossEnemy(Position, up, center, down));
+                    Room.enemies.Add(enemyID, up);
+                    enemyID++;
+                    Room.enemies.Add(enemyID, down);
+                    enemyID++;
+                    Room.enemies.Add(enemyID, center);
+                    enemyID++;
+                    Room.enemies.Add(enemyID, new FinalBossEnemy(Position, up, center, down));
+                    enemyID++;
                     break;
                 case "FIRE":
-                    Room.enemies.Add(new Fire(Position));
+                    Room.enemies.Add(enemyID, new Fire(Position));
+                    enemyID++;
                     break;
                 case "GELY":
                     GelEnemy gel = new GelEnemy(Position);
                     gel.X = gel.Position.X + 4 * Global.Var.SCALE;
                     gel.Y = gel.Position.Y + 4 * Global.Var.SCALE;
-                    Room.enemies.Add(gel);
+                    Room.enemies.Add(enemyID, gel);
+                    enemyID++;
                     break;
                 case "GORY":
                     BoomerangItem goriyaBoomerang = new BoomerangItem();
-                    Room.enemies.Add(goriyaBoomerang);
-                    Room.enemies.Add(new GoriyaEnemy(goriyaBoomerang, Position));
+                    Room.enemies.Add(enemyID, goriyaBoomerang);
+                    enemyID++;
+                    Room.enemies.Add(enemyID, new GoriyaEnemy(goriyaBoomerang, Position));
+                    enemyID++;
                     break;
                 case "HAND":
-                    Room.enemies.Add(new HandEnemy(Position));
+                    Room.enemies.Add(enemyID, new HandEnemy(Position));
+                    enemyID++;
                     break;
                 case "OLDM":
                     OldManNPC man = new OldManNPC(Position);
                     man.X = man.Position.X + 8 * Global.Var.SCALE;
-                    Room.enemies.Add(man);
+                    Room.enemies.Add(enemyID, man);
+                    enemyID++;
                     break;
                 case "SPKE":
-                    Room.enemies.Add(new SpikeEnemy(Position, spikeNum));
+                    Room.enemies.Add(enemyID, new SpikeEnemy(Position, spikeNum));
+                    enemyID++;
                     spikeNum++;
                     if(spikeNum > 4) { spikeNum = 1; }
                     break;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Collision;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
@@ -28,15 +29,16 @@ namespace Sprintfinity3902.Entities
         {
             return itemUse;
         }
-        public Boolean Collide(IEnemy enemy)
+        public Boolean Collide(int enemyID, IEnemy enemy)
         {
             // Code for removing sword on contact, needs to be replaced.
             Position = new Vector2(-1000, -1000);
-            // This can be improved...
+            CollisionDetector.decorateList.Add(enemyID);
+            // This can be improved, not long term.
             if (itemUseCount < 20) return false;
-            return enemy.HitRegister(1, 0, swordDirection) <= 0;
+            return enemy.HitRegister(enemyID, 1, 0, swordDirection) <= 0;
         }
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
 
         }

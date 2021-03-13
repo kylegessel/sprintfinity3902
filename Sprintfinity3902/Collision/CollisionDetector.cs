@@ -17,6 +17,8 @@ namespace Sprintfinity3902.Collision
         
         ICollision blockCollision = new BlockCollisionHandler();
         ICollision.CollisionSide side;
+        public static List<int> decorateList;
+        public static List<int> undecorateList;
         //Rectangle intersectionRect;
         
 
@@ -36,6 +38,8 @@ namespace Sprintfinity3902.Collision
         {
             gameInstance = game;
             link = (Player)game.playerCharacter;
+            decorateList = new List<int>();
+            undecorateList = new List<int>();
         }
 
         /* 
@@ -43,7 +47,7 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> items, List<IEntity> linkProj) {
+        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IEntity> blocks, List<IEntity> items, List<IEntity> linkProj) {
             DetectLinkDamage(enemies);
             DetectBlockCollision(enemies, blocks);
             DetectEnemyDamage(enemies, linkProj, items);
@@ -51,14 +55,18 @@ namespace Sprintfinity3902.Collision
 
         }
 
-        private void DetectLinkDamage(List<IEntity> enemies)
+        private void DetectLinkDamage(Dictionary<int, IEntity> enemies)
         {
 
             Rectangle linkRect = link.GetBoundingRect();
 
-            foreach (AbstractEntity enemy in enemies)
+            foreach (int enemy in enemies.Keys)
             {
-                if (enemy.IsCollidable() && enemy.GetBoundingRect().Intersects(linkRect))
+                IEntity currentEnemy;
+                enemies.TryGetValue(enemy, out currentEnemy);
+                AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
+                Rectangle enemyRect = currentEnemy.GetBoundingRect();
+                if (cEnemy.IsCollidable() && currentEnemy.GetBoundingRect().Intersects(linkRect))
                 {
                     /*
                      * TODO: Replace with handler
@@ -69,7 +77,7 @@ namespace Sprintfinity3902.Collision
             }
         }
 
-        private void DetectBlockCollision(List<IEntity> enemies, List<IEntity> blocks)
+        private void DetectBlockCollision(Dictionary<int, IEntity> enemies, List<IEntity> blocks)
         {
 
             Rectangle linkRect = link.GetBoundingRect();
@@ -88,10 +96,12 @@ namespace Sprintfinity3902.Collision
                 }
             }
 
-            foreach (AbstractEntity enemy in enemies)
+            foreach (int enemy in enemies.Keys)
             {
                 // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
-                Rectangle enemyRect = enemy.GetBoundingRect();
+                IEntity currentEnemy;
+                enemies.TryGetValue(enemy, out currentEnemy);
+                Rectangle enemyRect = currentEnemy.GetBoundingRect();
                 alreadyMoved = false;
 
                 foreach (AbstractEntity block in blocks)
@@ -102,7 +112,7 @@ namespace Sprintfinity3902.Collision
                         side = blockCollision.sideOfCollision(blockRect, enemyRect);
                         if (!alreadyMoved) //This will prevent it from moving back twice
                         {
-                            alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
+                            alreadyMoved = blockCollision.reflectMovingEntity(currentEnemy, side);
                         }
                     }
                 }
@@ -110,41 +120,63 @@ namespace Sprintfinity3902.Collision
 
         }
 
-        private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj, List<IEntity> items)
+        private void DetectEnemyDamage(Dictionary<int, IEntity> enemies, List<IEntity> linkProj, List<IEntity> items)
         {
 
-            List<IEntity> deletionList = new List<IEntity>();
+            List<int> deletionList = new List<int>();
             /*
              * TODO: implement link hurtboxes and pass to this function.
              */
             foreach (AbstractEntity proj in linkProj)
             {
-                foreach (AbstractEntity enemy in enemies)
+                foreach (int enemy in enemies.Keys)
                 {
+                    IEntity currentEnemy;
+                    enemies.TryGetValue(enemy, out currentEnemy);
+                    Rectangle enemyRect = currentEnemy.GetBoundingRect();
                     /*
                      * TODO: enemy damage handler
                      */
 
-                    if (proj != null && proj.GetBoundingRect().Intersects(enemy.GetBoundingRect()))
+                    if (proj != null && proj.GetBoundingRect().Intersects(currentEnemy.GetBoundingRect()))
                     {
                          IProjectile projectile = (IProjectile)proj;
 
-                        Boolean removeItem = projectile.Collide((IEnemy)enemy);
+                        Boolean removeItem = projectile.Collide(enemy, (IEnemy)currentEnemy);
+                        //CollisionDetector.decorateList.Add(enemy);
                         if (removeItem)
                         {
                             deletionList.Add(enemy);
-                            items.Add(new RupeeItem(enemy.Position));
+                            items.Add(new RupeeItem(currentEnemy.Position));
                         }
 
                     }
 
                 }
             }
-
-            foreach (AbstractEntity pickup in deletionList)
+            foreach (int enemyID in decorateList)
             {
-                enemies.Remove(pickup);
+                IEntity currEnemy;
+                enemies.TryGetValue(enemyID, out currEnemy);
+                enemies.Remove(enemyID);
+                enemies.Add(enemyID, new DamagedEntity(enemyID, (AbstractEntity)currEnemy, gameInstance.dungeon.CurrentRoom));
             }
+            decorateList.Clear();
+            foreach (int enemyID in undecorateList)
+            {
+                IEntity decoratedEnemy;
+                enemies.TryGetValue(enemyID, out decoratedEnemy);
+                enemies.Remove(enemyID);
+                DamagedEntity damagedEnemy = (DamagedEntity)decoratedEnemy;
+                enemies.Add(enemyID, damagedEnemy.GetUnDecorated());
+            }
+            undecorateList.Clear();
+            foreach (int enemyID in deletionList)
+            {
+                enemies.Remove(enemyID);
+            }
+
+
         }
 
         private void DetectItemPickup(List<IEntity> items)

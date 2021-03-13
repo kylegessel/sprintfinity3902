@@ -7,7 +7,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BoomerangItem : AbstractEntity, IProjectile
+    public class BoomerangItem : AbstractItem,IProjectile, IEnemy
     {
 
         Player PlayerCharacter;
@@ -24,13 +24,6 @@ namespace Sprintfinity3902.Entities
         float XDiff;
         float YDiff;
         float BoomerangOutChange;
-        enum Direction
-        {
-            Up,
-            Down,
-            Left,
-            Right
-        }
         Direction FireDirection;
         public BoomerangItem()
         {
@@ -89,19 +82,19 @@ namespace Sprintfinity3902.Entities
         {
             // Calcuate how much we want the boomerang to change by, slowing down over time.
             BoomerangOutChange = (13 - (MoveUseCount / 6));
-            if (FireDirection == Direction.Down)
+            if (FireDirection == Direction.DOWN)
             {
                 Position = new Vector2(Position.X, Position.Y + BoomerangOutChange);
             }
-            else if (FireDirection == Direction.Up)
+            else if (FireDirection == Direction.UP)
             {
                 Position = new Vector2(Position.X, Position.Y - BoomerangOutChange);
             }
-            else if (FireDirection == Direction.Left)
+            else if (FireDirection == Direction.LEFT)
             {
                 Position = new Vector2(Position.X - BoomerangOutChange, Position.Y);
             }
-            else if (FireDirection == Direction.Right)
+            else if (FireDirection == Direction.RIGHT)
             {
                 Position = new Vector2(Position.X + BoomerangOutChange, Position.Y);
             }
@@ -136,22 +129,22 @@ namespace Sprintfinity3902.Entities
             if (FiringStatePlayer == PlayerCharacter.facingDownItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 4*Global.Var.SCALE, PlayerCharacter.Y + 16 * Global.Var.SCALE);
-                FireDirection = Direction.Down;
+                FireDirection = Direction.DOWN;
             }
             else if (FiringStatePlayer == PlayerCharacter.facingUpItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 3 * Global.Var.SCALE, PlayerCharacter.Y - 10 * Global.Var.SCALE);
-                FireDirection = Direction.Up;
+                FireDirection = Direction.UP;
             }
             else if (FiringStatePlayer == PlayerCharacter.facingLeftItem)
             {
                 Position = new Vector2(PlayerCharacter.X - 10 * Global.Var.SCALE, PlayerCharacter.Y + 4 * Global.Var.SCALE);
-                FireDirection = Direction.Left;
+                FireDirection = Direction.LEFT;
             }
             else if (FiringStatePlayer == PlayerCharacter.facingRightItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 13.2f * Global.Var.SCALE, PlayerCharacter.Y + 4 * Global.Var.SCALE);
-                FireDirection = Direction.Right;
+                FireDirection = Direction.RIGHT;
             }
             ItemUse = true;
             PlayerUse = true;
@@ -167,30 +160,30 @@ namespace Sprintfinity3902.Entities
             if (FiringStateGoriya == Goriya.itemDown)
             {
                 Position = new Vector2(Goriya.X + 4 * Global.Var.SCALE, Goriya.Y + 16 * Global.Var.SCALE);
-                FireDirection = Direction.Down;
+                FireDirection = Direction.DOWN;
             }
             else if (FiringStateGoriya == Goriya.itemUp)
             {
                 Position = new Vector2(Goriya.X + 3 * Global.Var.SCALE, Goriya.Y - 10 * Global.Var.SCALE); ;
-                FireDirection = Direction.Up;
+                FireDirection = Direction.UP;
             }
             else if (FiringStateGoriya == Goriya.itemLeft)
 
             {
                 Position = new Vector2(Goriya.X - 10 * Global.Var.SCALE, Goriya.Y + 4 * Global.Var.SCALE);
-                FireDirection = Direction.Left;
+                FireDirection = Direction.LEFT;
             }
             else if (FiringStateGoriya == Goriya.itemRight)
             {
                 Position = new Vector2(Goriya.X + 13.2f * Global.Var.SCALE, Goriya.Y + 4 * Global.Var.SCALE);
-                FireDirection = Direction.Right;
+                FireDirection = Direction.RIGHT;
             }
             ItemUse = true;
             PlayerUse = false;
             GoriyaUse = true;
         }
 
-        public Boolean Collide(IEnemy enemy)
+        public Boolean Collide(int enemyID, IEnemy enemy)
         {
             if (MoveUseCount < 60)
             {
@@ -199,7 +192,7 @@ namespace Sprintfinity3902.Entities
             }
 
             // This will always be 0, but for consistency sake.
-            return enemy.HitRegister(0, 120, AbstractEntity.Direction.NONE) <= 0;
+            return enemy.HitRegister(enemyID, 0, 120, AbstractEntity.Direction.NONE) <= 0;
         }
 
         public void Collide()
@@ -209,6 +202,11 @@ namespace Sprintfinity3902.Entities
                 bounce = true;
                 MaxMoveUseCount = MoveUseCount * 2;
             }
+        }
+
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        {
+            return 1;
         }
     }
 }

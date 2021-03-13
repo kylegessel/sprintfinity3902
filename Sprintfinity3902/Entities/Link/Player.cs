@@ -60,6 +60,7 @@ namespace Sprintfinity3902.Link
             facingUpItem = new FacingUpItemState(this);
             color = Color.White;
             _collidable = true;
+            SetStepSize((float)1.5);
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -133,19 +134,19 @@ namespace Sprintfinity3902.Link
                 if (_side == ICollision.CollisionSide.BOTTOM)
                 {
                     //Will want this to be an animation. So slower!
-                    this.Y += (float)1.0 * Global.Var.SCALE;
+                    this.Y += (float)1.5 * Global.Var.SCALE;
                 }
                 else if (_side == ICollision.CollisionSide.LEFT)
                 {
-                    this.X -= (float)1.0 * Global.Var.SCALE;
+                    this.X -= (float)1.5 * Global.Var.SCALE;
                 }
                 else if (_side == ICollision.CollisionSide.TOP)
                 {
-                    this.Y -= (float)1.0 * Global.Var.SCALE;
+                    this.Y -= (float)1.5 * Global.Var.SCALE;
                 }
                 else
                 {
-                    this.X += (float)1.0 * Global.Var.SCALE;
+                    this.X += (float)1.5 * Global.Var.SCALE;
                 }
         }
         public Rectangle getRectangle()

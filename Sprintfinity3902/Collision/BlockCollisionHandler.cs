@@ -92,8 +92,8 @@ namespace Sprintfinity3902.Collision
         /*Have a property in AbstractEntity called stepSize. And then have this reflection use the movement size as a scaler!*/
         public Boolean reflectMovingEntity(IEntity movingEntity, ICollision.CollisionSide side) // had this previously. May be needed in future (Rectangle collisionRect)
         {
-            float scaler = 1; /*Adjust this to be whatever movingEntity.stepSize is!*/
             Boolean moved = false;
+            float scaler = movingEntity.GetStepSize(); /*Adjust this to be whatever movingEntity.stepSize is!*/
             if (side == ICollision.CollisionSide.TOP) //Entity would be moving down
             {
                 movingEntity.Y -= scaler * Global.Var.SCALE;

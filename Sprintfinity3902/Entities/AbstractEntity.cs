@@ -10,6 +10,7 @@ namespace Sprintfinity3902.Entities
         private ISprite _sprite;
         private Vector2 _position;
         private Boolean _collidable = true;
+        private float _stepSize = 1; //Will want to set this individually for each entity. Set for now
 
         public ISprite Sprite
         {
@@ -95,13 +96,20 @@ namespace Sprintfinity3902.Entities
             return _collidable;
         }
 
-
-
         public virtual Rectangle GetBoundingRect()
         {
             //Sprite.Animation.CurrentFrame.Width
             return new Rectangle((int)Position.X, (int)Position.Y, 16 * Global.Var.SCALE, 16 * Global.Var.SCALE);
+        }
 
+
+        public virtual void SetStepSize(float size)
+        {
+            _stepSize = size;
+        }
+        public virtual float GetStepSize()
+        {
+            return _stepSize;
         }
     }
 }

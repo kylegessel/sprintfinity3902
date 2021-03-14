@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Entities
 {
-    public class VerticalWall : AbstractEntity
+    public class VerticalWall : AbstractBlock
     {
         public VerticalWall(Vector2 pos)
         {

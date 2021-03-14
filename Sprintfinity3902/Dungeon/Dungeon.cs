@@ -1,22 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Sprites;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Sprintfinity3902.Dungeon
 {
     public class Dungeon : IDungeon
     {
+        private Game1 Game;
         private List<IRoom> dungeonRooms;
-        private IRoom currentRoom;
+        public IRoom CurrentRoom { get; set; }
         private int currentId;
-        public int Id { get; set; }
+        public int NextId { get; set; }
 
-        public Dungeon()
+        public Dungeon(Game1 game)
         {
             dungeonRooms = new List<IRoom>();
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room1.csv", 1));
@@ -37,28 +35,40 @@ namespace Sprintfinity3902.Dungeon
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room16.csv", 16));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room17.csv", 17));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room18.csv", 18));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\TestRoom.csv", 19));
 
-            currentRoom = GetById(1);
-            currentId = 1;
+            CurrentRoom = GetById(1);
+            currentId = CurrentRoom.Id;
+            NextId = CurrentRoom.Id;
+
+            Game = game;
         }
 
         public void Build()
         {
             foreach(IRoom room in dungeonRooms)
             {
-                room.loader.Build();
+                if(room.Id == 13)
+                {
+                    room.loader13.Build();
+                }
+                else
+                {
+                    room.loader.Build();
+                }
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            currentRoom.Update(gameTime);
+            if(CurrentRoom.Id != NextId)
+                SetLinkPosition();
+            CurrentRoom = GetById(NextId);
+            CurrentRoom.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            currentRoom.Draw(spriteBatch);
+            CurrentRoom.Draw(spriteBatch);
         }
 
         public IRoom GetById(int id)
@@ -68,35 +78,60 @@ namespace Sprintfinity3902.Dungeon
 
         public void NextRoom()
         {
-            currentId = currentRoom.Id;
-            if(currentRoom.Id == 19)
+            currentId = CurrentRoom.Id;
+            if(CurrentRoom.Id == 18)
             {
-                currentRoom = GetById(1);
+                CurrentRoom = GetById(1);
             }
             else
             {
                 currentId++;
-                currentRoom = GetById(currentId);
+                CurrentRoom = GetById(currentId);
             }
+            NextId = CurrentRoom.Id;
+            SetLinkPosition();
         }
 
         public void PreviousRoom()
         {
-            currentId = currentRoom.Id;
-            if (currentRoom.Id == 1)
+            currentId = CurrentRoom.Id;
+            if (CurrentRoom.Id == 1)
             {
-                currentRoom = GetById(19);
+                CurrentRoom = GetById(18);
             }
             else
             {
                 currentId--;
-                currentRoom = GetById(currentId);
+                CurrentRoom = GetById(currentId);
             }
+            NextId = CurrentRoom.Id;
+            SetLinkPosition();
         }
 
         public IRoom GetCurrentRoom()
         {
-            return currentRoom;
+            return CurrentRoom;
+        }
+
+        public void SetCurrentRoom(int id)
+        {
+            NextId = id;
+        }
+
+        //SET UP FOR SPRINT 3 ONLY. WILL BE REMOVED UPON SUBMITTING.
+        public void SetLinkPosition()
+        {
+            IRoom room = GetCurrentRoom();
+            if(NextId == 13)
+            {
+                Game.link.X = 48 * Global.Var.SCALE;
+                Game.link.Y = 97 * Global.Var.SCALE;
+            }
+            else
+            {
+                Game.link.X = 120 * Global.Var.SCALE;
+                Game.link.Y = 193 * Global.Var.SCALE;
+            }
         }
     }
 }

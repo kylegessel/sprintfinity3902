@@ -3,8 +3,9 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class RegularBlock :AbstractEntity
+    public class RegularBlock : AbstractBlock
     {
+        /*Can this constructor be deleted?? */
         public RegularBlock()
         {
             Sprite = BlockSpriteFactory.Instance.CreateRegularBlock();

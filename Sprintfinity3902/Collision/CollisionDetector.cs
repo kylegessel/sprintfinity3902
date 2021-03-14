@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
+using System;
 using System.Collections.Generic;
 
 namespace Sprintfinity3902.Collision
@@ -12,6 +14,13 @@ namespace Sprintfinity3902.Collision
         Game1 gameInstance;
         Player link;
         Rectangle RoomInteriorBounds = new Rectangle(32,96,192,112);
+
+        
+        ICollision blockCollision = new BlockCollisionHandler();
+        ICollision enemyCollision = new EnemyCollisionHandler();
+        ICollision.CollisionSide side;
+        //Rectangle intersectionRect;
+        
 
         /* Singleton instance */
 
@@ -48,14 +57,21 @@ namespace Sprintfinity3902.Collision
         {
 
             Rectangle linkRect = link.GetBoundingRect();
-
+            Boolean alreadyMoved = false;
             foreach (AbstractEntity enemy in enemies)
             {
-                if (enemy.IsCollidable() && enemy.GetBoundingRect().Intersects(linkRect))
+                Rectangle enemyRect = enemy.GetBoundingRect();
+                if (enemy.IsCollidable() && link.IsCollidable()  && enemyRect.Intersects(linkRect)) 
                 {
-                    /*
-                     * TODO: Replace with handler
-                     */
+                    side = enemyCollision.sideOfCollision(enemyRect, linkRect);
+                    if (!alreadyMoved) //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
+                    {
+                        /*Have initial reflection so Link can't move through enemy, then continue to move him back*/
+                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                        ((ILink)link).BounceOfEnemy(side);
+                    }
+
+                    link.TakeDamage();
                     ILink damagedLink = new DamagedLink(link, gameInstance);
                     gameInstance.playerCharacter = damagedLink;
                 }
@@ -66,48 +82,58 @@ namespace Sprintfinity3902.Collision
         {
 
             Rectangle linkRect = link.GetBoundingRect();
+            Boolean alreadyMoved = false;
 
-            foreach (AbstractEntity block in blocks)
+            foreach (AbstractBlock block in blocks)
             {
-
-                if (block.IsCollidable() && block.GetBoundingRect().Intersects(linkRect))
+                Rectangle blockRect = block.GetBoundingRect();
+                if (block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
+                    side = blockCollision.sideOfCollision(blockRect, linkRect);
 
-                    ILink damagedLink = new DamagedLink(link, gameInstance);
-                    gameInstance.playerCharacter = damagedLink;
-                    /*
-                     * TODO: link block collision handler
-                     */
+                    //Create a movable block class?? But how to only let it move one full space in one direction?
+                    if (!alreadyMoved) //This will prevent it from moving back twice
+                    {
+                        /*This allows link to push blocks. Enemies can not push blocks*/
+                       if ( block.IsMovable() && ((block.PushSide() == side) || (block.PushSide2() == side)) )
+                       {
+                            block.StartMoving(side);
+                       }
+                       alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                    }
                 }
-
             }
 
             foreach (AbstractEntity enemy in enemies)
             {
+                // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
                 Rectangle enemyRect = enemy.GetBoundingRect();
+                alreadyMoved = false;
 
                 foreach (AbstractEntity block in blocks)
                 {
-                    if (block.GetBoundingRect().Intersects(enemyRect))
+                    Rectangle blockRect = block.GetBoundingRect();
+                    if (block.IsCollidable() && blockRect.Intersects(enemyRect))
                     {
-                        /*
-                         * TODO: enemy block collision handler
-                         */
+                        side = blockCollision.sideOfCollision(blockRect, enemyRect);
+                        if (!alreadyMoved) //This will prevent it from moving back twice
+                        {
+                            alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
+                        }
                     }
-
                 }
             }
 
         }
 
-        private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj)
-        {
+       private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj)
+       {
 
-            List<IEntity> deletionList = new List<IEntity>();
-            /*
-             * TODO: implement link hurtboxes and pass to this function.
-             */
-            foreach (AbstractEntity proj in linkProj)
+           List<IEntity> deletionList = new List<IEntity>();
+           /*
+            * TODO: implement link hurtboxes and pass to this function.
+            */
+                        foreach (AbstractEntity proj in linkProj)
             {
                 foreach (AbstractEntity enemy in enemies)
                 {
@@ -142,6 +168,7 @@ namespace Sprintfinity3902.Collision
             {
                 if (item.GetBoundingRect().Intersects(linkRect))
                 {
+                    link.pickup(((AbstractItem)item).ID);
                     /*
                      * TODO: Replace with handler
                      */
@@ -156,8 +183,6 @@ namespace Sprintfinity3902.Collision
             }
           
         }
-
-
 
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.SpriteFactories;
+using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class SpottedBlock : AbstractEntity
+    public class SpottedBlock : AbstractBlock
     {
         public SpottedBlock()
         {
@@ -14,6 +15,11 @@ namespace Sprintfinity3902.Entities
         {
             Sprite = BlockSpriteFactory.Instance.CreateSpottedBlock();
             Position = pos;
+        }
+
+        public override Boolean IsCollidable()
+        {
+            return false;
         }
     }
 }

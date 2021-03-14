@@ -1,9 +1,9 @@
-﻿using System.IO;
-using Sprintfinity3902.Interfaces;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Entities.Doors;
+using Sprintfinity3902.Interfaces;
 using System;
+using System.IO;
 
 namespace Sprintfinity3902.Dungeon
 {
@@ -16,6 +16,7 @@ namespace Sprintfinity3902.Dungeon
         public Door DoorBottom { get; set; }
         public Door DoorLeft { get; set; }
         public Door DoorRight { get; set; }
+        int spikeNum;
 
         // Have this input a filename and then load the room.
         public RoomLoader(IRoom room)
@@ -23,6 +24,7 @@ namespace Sprintfinity3902.Dungeon
             // Really think there is a better way to list these files, just a demo for the time being though.
             Room = room;
             mapStream = new StreamReader(Room.path);
+            spikeNum = 1;
 
         }
 
@@ -64,25 +66,26 @@ namespace Sprintfinity3902.Dungeon
                 }
             }
 
-            DoorTop = new Door(new Vector2(112 * Global.Var.SCALE, 64 * Global.Var.SCALE));
-            DoorBottom = new Door(new Vector2(112 * Global.Var.SCALE, 208 * Global.Var.SCALE));
-            DoorLeft = new Door(new Vector2(0, 136 * Global.Var.SCALE));
-            DoorRight = new Door(new Vector2(224 * Global.Var.SCALE, 136 * Global.Var.SCALE));
-            Room.blocks.Add(DoorTop);
-            Room.blocks.Add(DoorBottom);
-            Room.blocks.Add(DoorLeft);
-            Room.blocks.Add(DoorRight);
-            for (int i = 0; i < 4; i++)
+            if(Room.Id != 13)
             {
-                line = mapStream.ReadLine();
-                if (!string.IsNullOrWhiteSpace(line))
+                DoorTop = new Door(new Vector2(112 * Global.Var.SCALE, 64 * Global.Var.SCALE));
+                DoorBottom = new Door(new Vector2(112 * Global.Var.SCALE, 208 * Global.Var.SCALE));
+                DoorLeft = new Door(new Vector2(0, 136 * Global.Var.SCALE));
+                DoorRight = new Door(new Vector2(224 * Global.Var.SCALE, 136 * Global.Var.SCALE));
+                Room.blocks.Add(DoorTop);
+                Room.blocks.Add(DoorBottom);
+                Room.blocks.Add(DoorLeft);
+                Room.blocks.Add(DoorRight);
+                for (int i = 0; i < 4; i++)
                 {
-                    string[] lineValues = line.Split(',');
-                    BuildDoors(lineValues[0], lineValues[1]);
+                    line = mapStream.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(line))
+                    {
+                        string[] lineValues = line.Split(',');
+                        BuildDoors(lineValues[0], lineValues[1]);
+                    }
                 }
-
             }
-
         }
 
         public void BuildWallAndFloor(string input)
@@ -115,12 +118,12 @@ namespace Sprintfinity3902.Dungeon
                     break;
                 case "RM08":
                     Room.blocks.Add(new Room8Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                    Room.blocks.Add(new Room8Text(new Vector2(50 * Global.Var.SCALE, 105 * Global.Var.SCALE)));
                     break;
-                case "RM14":
-                    Room.blocks.Add(new Room14Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                case "RM13":
+                    Room.blocks.Add(new Room13(new Vector2(0 * Global.Var.SCALE, 80 * Global.Var.SCALE)));
                     break;
-                case "RM18":
-                    Room.blocks.Add(new Room18Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
+                case " ":
                     break;
 
             }
@@ -161,6 +164,12 @@ namespace Sprintfinity3902.Dungeon
                 case "STIP":
                     Room.blocks.Add(new StripeBlock(Position));
                     break;
+                case "MVBK":
+                    Room.blocks.Add(new MovingVertBlock(Position));
+                    break;
+                case "MLBK":
+                    Room.blocks.Add(new MovingLeftBlock(Position));
+                    break;
 
                 //ENEMIES
                 case "BBAT":
@@ -170,13 +179,22 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(new SkeletonEnemy(Position));
                     break;
                 case "BOSS":
-                    Room.enemies.Add(new FinalBossEnemy(Position));
+                    FireAttack up = new FireAttack(1);
+                    FireAttack center = new FireAttack(0);
+                    FireAttack down = new FireAttack(2);
+                    Room.enemies.Add(up);
+                    Room.enemies.Add(down);
+                    Room.enemies.Add(center);
+                    Room.enemies.Add(new FinalBossEnemy(Position, up, center, down));
                     break;
                 case "FIRE":
                     Room.enemies.Add(new Fire(Position));
                     break;
                 case "GELY":
-                    Room.enemies.Add(new GelEnemy(Position));
+                    GelEnemy gel = new GelEnemy(Position);
+                    gel.X = gel.Position.X + 4 * Global.Var.SCALE;
+                    gel.Y = gel.Position.Y + 4 * Global.Var.SCALE;
+                    Room.enemies.Add(gel);
                     break;
                 case "GORY":
                     BoomerangItem goriyaBoomerang = new BoomerangItem();
@@ -187,17 +205,23 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(new HandEnemy(Position));
                     break;
                 case "OLDM":
-                    Room.enemies.Add(new OldManNPC(Position));
+                    OldManNPC man = new OldManNPC(Position);
+                    man.X = man.Position.X + 8 * Global.Var.SCALE;
+                    Room.enemies.Add(man);
                     break;
                 case "SPKE":
-                    Room.enemies.Add(new SpikeEnemy(Position));
+                    Room.enemies.Add(new SpikeEnemy(Position, spikeNum));
+                    spikeNum++;
+                    if(spikeNum > 4) { spikeNum = 1; }
                     break;
 
 
                 //ITEMS
                 // Probably could use a static bomb and boomerang object now that I think of it.
                 case "KEYI":
-                    Room.items.Add(new KeyItem(Position));
+                    KeyItem key = new KeyItem(Position);
+                    key.X = key.Position.X + 4 * Global.Var.SCALE;
+                    Room.items.Add(key);
                     break;
                 case "BOWI":
                     Room.items.Add(new BowItem(Position));
@@ -206,25 +230,36 @@ namespace Sprintfinity3902.Dungeon
                     Room.items.Add(new ClockItem(Position));
                     break;
                 case "CMPS":
-                    Room.items.Add(new CompassItem(Position));
+                    CompassItem compass = new CompassItem(Position);
+                    compass.X = compass.Position.X + 2 * Global.Var.SCALE;
+                    compass.Y = compass.Position.Y + 2 * Global.Var.SCALE;
+                    Room.items.Add(compass);
                     break;
                 case "FARY":
                     Room.items.Add(new FairyItem(Position));
                     break;
                 case "HCON":
-                    Room.items.Add(new HeartContainerItem(Position));
+                    HeartContainerItem hcont = new HeartContainerItem(Position);
+                    hcont.X = hcont.Position.X + 1 * Global.Var.SCALE;
+                    hcont.Y = hcont.Position.Y + 1 * Global.Var.SCALE;
+                    Room.items.Add(hcont);
                     break;
                 case "HART":
                     Room.items.Add(new HeartItem(Position));
                     break;
                 case "MAPI":
-                    Room.items.Add(new MapItem(Position));
+                    MapItem map = new MapItem(Position);
+                    map.X = map.Position.X + 4 * Global.Var.SCALE;
+                    Room.items.Add(map);
                     break;
                 case "RUPE":
                     Room.items.Add(new RupeeItem(Position));
                     break;
                 case "TRIF":
-                    Room.items.Add(new TriforceItem(Position));
+                    TriforceItem triforce = new TriforceItem(Position);
+                    triforce.X = triforce.Position.X + 11 * Global.Var.SCALE;
+                    triforce.Y = triforce.Position.Y + 11 * Global.Var.SCALE;
+                    Room.items.Add(triforce);
                     break;
 
             }

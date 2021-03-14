@@ -3,7 +3,7 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class Face1Block : AbstractEntity
+    public class Face1Block : AbstractBlock
     {
         public Face1Block()
         {

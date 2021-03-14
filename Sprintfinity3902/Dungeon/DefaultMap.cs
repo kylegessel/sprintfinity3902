@@ -6,7 +6,8 @@ using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
 
-namespace Sprintfinity3902.Dungeon {
+namespace Sprintfinity3902.Dungeon
+{
     public class DefaultMap : IMap {
 
         private List<IEntity> cyclableBlocks;
@@ -18,7 +19,11 @@ namespace Sprintfinity3902.Dungeon {
         private int NPCIndex;
 
         private IEntity goriyaBoomerang;
+        public FireAttack fireUp;
+        public FireAttack fireDown;
+        public FireAttack fireCenter;
         private SkeletonEnemy skele;
+        private RegularBlock regBlock;
 
         public DefaultMap() {
 
@@ -30,7 +35,11 @@ namespace Sprintfinity3902.Dungeon {
         public void Setup(Game1 gameInstance) {
 
             goriyaBoomerang = new BoomerangItem();
+            fireUp = new FireAttack(1);
+            fireDown = new FireAttack(2);
+            fireCenter = new FireAttack(0);
             skele = new SkeletonEnemy();
+            regBlock = new RegularBlock();
 
             cyclableBlocks = new List<IEntity>();
             cyclableItems = new List<IEntity>();
@@ -53,11 +62,11 @@ namespace Sprintfinity3902.Dungeon {
             cyclableCharacters.Add(new BlueBatEnemy());
             cyclableCharacters.Add(new SpikeEnemy());
             cyclableCharacters.Add(new GoriyaEnemy((BoomerangItem)goriyaBoomerang));
-            cyclableCharacters.Add(new FinalBossEnemy());
+            cyclableCharacters.Add(new FinalBossEnemy(new Vector2(750, 540), fireUp, fireCenter, fireDown));
             cyclableCharacters.Add(new OldManNPC());
             cyclableCharacters.Add(new Fire());
 
-            cyclableBlocks.Add(new RegularBlock());
+            cyclableBlocks.Add(regBlock);
             cyclableBlocks.Add(new Face1Block());
             cyclableBlocks.Add(new Face2Block());
             cyclableBlocks.Add(new StairsBlock());
@@ -87,9 +96,13 @@ namespace Sprintfinity3902.Dungeon {
             cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Draw(spriteBatch);
             cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Draw(spriteBatch);
 
-
         }
 
-
+        /*
+        public Rectangle getRectangle()
+        {
+            return regBlock.getRectangle();
+        }
+        */
     }
 }

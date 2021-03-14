@@ -1,11 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Commands;
-using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using IUpdateable = Sprintfinity3902.Interfaces.IUpdateable;
 
 namespace Sprintfinity3902.Controllers
@@ -153,6 +151,14 @@ namespace Sprintfinity3902.Controllers
             }
         }
 
+        public void RemoveKeyUpCallback(params Keys[] keys)
+        {
+            foreach(Keys key in keys)
+            {
+                keyUpHandlers.Remove(key);
+            }
+        }
+
         public void UnregisterListeners() {
             keyUpHandlers.Clear();
         }
@@ -169,6 +175,7 @@ namespace Sprintfinity3902.Controllers
         public void Update(GameTime gameTime) {
             InputKeyboard.Instance.Update(gameTime);
         }
+
 
     }
 }

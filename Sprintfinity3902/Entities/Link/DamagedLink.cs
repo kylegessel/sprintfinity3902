@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Link
         Player decoratedLink;
         Color linkColor;
         int counter;
-        int timer = 400;
+        int timer = 200;
         private ISprite _sprite;
         private Vector2 _position;
 
@@ -98,6 +98,8 @@ namespace Sprintfinity3902.Link
             decoratedLink.Update(gameTime);
 
         }
+
+
         public void Draw(SpriteBatch spriteBatch, Color Ignorecolor)
         {
             decoratedLink.Draw(spriteBatch, linkColor);
@@ -106,16 +108,22 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.Move();
         }
+
         public void SetState(IPlayerState state)
         {
             decoratedLink.SetState(state);
         }
+        public void BounceOfEnemy(ICollision.CollisionSide Side)
+        {
+            //
+        }
         public void TakeDamage()
         {
-            //doesn't take damage in damagedLink
+            //doesn't take damage in damagedLink (Invincible state)
         }
         public void RemoveDecorator()
         {
+            decoratedLink.RemoveDecorator();
             game.playerCharacter = decoratedLink;
         }
     }

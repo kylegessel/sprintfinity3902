@@ -16,8 +16,8 @@ namespace Sprintfinity3902.Entities
         private int waitTime;
         private int health;
         private float speed;
-        private Boolean decorated;
-        private int enemyID;
+        private int counter;
+        private bool decorate;
         public SkeletonEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
@@ -26,8 +26,8 @@ namespace Sprintfinity3902.Entities
             count = 0;
             health = 2;
             speed = 0.4f;
-            decorated = false;
             color = Color.White;
+            decorate = false;
         }
         public SkeletonEnemy(Vector2 pos)
         {
@@ -37,17 +37,40 @@ namespace Sprintfinity3902.Entities
             count = 0;
             health = 2;
             speed = 0.4f;
-            decorated = false;
             color = Color.White;
+            decorate = false;
+        }
+        public void Decorate()
+        {
+            counter = count % 12;
+            if (counter < 3)
+            {
+                color = Color.Aqua;
+            }
+            else if (counter < 6)
+            {
+                color = Color.Red;
+            }
+            else if (counter < 9)
+            {
+                color = Color.White;
+            }
+            else
+            {
+                color = Color.Blue;
+            }
         }
         public override void Update(GameTime gameTime) {
             Sprite.Update(gameTime);
             Move();
+            // We have an implementation for a entity decorator, but I had trouble getting them to collide.
+            // This isn't how we will continue to do this, but for the time being this works.
+            if (decorate) Decorate();
             SetStepSize(speed);
         }
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            Sprite.Draw(spriteBatch, Position, color);
+            Sprite.Draw(spriteBatch, Position, this.color);
         }
         public override void Move()
         {
@@ -62,11 +85,7 @@ namespace Sprintfinity3902.Entities
                 direction = intToDirection(rd1.Next(1, 5));
                 count = 0;
                 speed = 0.4f;
-                if (decorated)
-                {
-                    CollisionDetector.undecorateList.Add(enemyID);
-                    decorated = false; 
-                }
+                decorate = false;
             }
 
             if (direction == Direction.LEFT) //Left
@@ -88,16 +107,14 @@ namespace Sprintfinity3902.Entities
             count++;
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
             health = health - damage;
-            this.enemyID = enemyID;
-            // This is rough and probably needs to be decorated.
-            count = 0;
+            count = 1;
             waitTime = 30;
-            decorated = true;
             direction = projDirection;
             speed = 1f;
+            decorate = true;
             return health;
         }
     }

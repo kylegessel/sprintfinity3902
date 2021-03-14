@@ -13,8 +13,9 @@ namespace Sprintfinity3902.Entities
         private Direction direction;
         private int waitTime;
         private int health;
+        private int counter;
         private float speed;
-        private Boolean decorated;
+        private Boolean decorate;
         private int enemyID;
         public HandEnemy()
         {
@@ -22,6 +23,7 @@ namespace Sprintfinity3902.Entities
             Position = new Vector2(750, 540);
             health = 3;
             speed = .2f;
+            color = Color.White;
         }
         public HandEnemy(Vector2 pos)
         {
@@ -29,28 +31,58 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             health = 3;
             speed = .2f;
+            color = Color.White;
+
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            Sprite.Draw(spriteBatch, Position, color);
+            Sprite.Draw(spriteBatch, Position, this.color);
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
             this.enemyID = enemyID;
-            // This is rough and probably needs to be decorated.
-            count = 0;
+            health = health - damage;
+            count = 1;
             waitTime = 30;
-            decorated = true;
+            decorate = true;
             direction = projDirection;
             speed = 1f;
             return health;
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            Sprite.Update(gameTime);
+            Move();
+            SetStepSize(speed);
+            if (decorate) Decorate();
+        }
+
+        public void Decorate()
+        {
+            counter = count % 12;
+            if (counter < 3)
+            {
+                color = Color.Aqua;
+            }
+            else if (counter < 6)
+            {
+                color = Color.Red;
+            }
+            else if (counter < 9)
+            {
+                color = Color.White;
+            }
+            else
+            {
+                color = Color.Blue;
+            }
+        }
+
         public override void Move()
         {
-            SetStepSize(speed);
             if (count == 0)
             {
                 waitTime = new Random().Next(60, 220);
@@ -61,10 +93,10 @@ namespace Sprintfinity3902.Entities
                 direction = intToDirection(new Random().Next(1, 5));
                 speed = 0.2f;
                 count = 0;
-                if (decorated)
+                if (decorate)
                 {
-                    CollisionDetector.undecorateList.Add(enemyID);
-                    decorated = false;
+                    decorate = false;
+                    color = Color.White;
                 }
             }
 

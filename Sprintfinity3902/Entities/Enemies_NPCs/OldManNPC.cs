@@ -17,7 +17,7 @@ namespace Sprintfinity3902.Entities
             Position = pos;
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
             // eventually enable the fire attack
             return 1;

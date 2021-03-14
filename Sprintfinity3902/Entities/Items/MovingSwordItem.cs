@@ -124,12 +124,12 @@ namespace Sprintfinity3902.Entities
             itemUse = true;
         }
 
-        public Boolean Collide(int enemyID, IEnemy enemy)
+        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room)
         {
             // Code for removing sword on contact, needs to be replaced.
             Position = new Vector2(-1000, -1000);
             CollisionDetector.decorateList.Add(enemyID);
-            return enemy.HitRegister(enemyID, 1, 0, swordDirection) <= 0;
+            return enemy.HitRegister(enemyID, 1, 0, swordDirection, room) <= 0;
         }
     }
 }

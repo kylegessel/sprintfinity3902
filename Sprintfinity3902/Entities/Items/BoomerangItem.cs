@@ -7,7 +7,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BoomerangItem : AbstractItem,IProjectile, IEnemy
+    public class BoomerangItem : AbstractItem, IProjectile, IEnemy
     {
 
         Player PlayerCharacter;
@@ -183,7 +183,7 @@ namespace Sprintfinity3902.Entities
             GoriyaUse = true;
         }
 
-        public Boolean Collide(int enemyID, IEnemy enemy)
+        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room)
         {
             if (MoveUseCount < 60)
             {
@@ -192,7 +192,7 @@ namespace Sprintfinity3902.Entities
             }
 
             // This will always be 0, but for consistency sake.
-            return enemy.HitRegister(enemyID, 0, 120, AbstractEntity.Direction.NONE) <= 0;
+            return enemy.HitRegister(enemyID, 0, 120, AbstractEntity.Direction.NONE, room) <= 0;
         }
 
         public void Collide()
@@ -204,7 +204,7 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
             return 1;
         }

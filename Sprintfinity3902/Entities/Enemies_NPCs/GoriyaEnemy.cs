@@ -40,6 +40,11 @@ namespace Sprintfinity3902.Entities
         public IGoriyaState idleRight { get; set; }
         public IGoriyaState idleUp { get; set; }
         public bool done { get; set; }
+        private int health;
+        private bool decorate;
+        private int decorateCount;
+        private int decorateTime;
+        private int counter;
 
         public GoriyaEnemy(BoomerangItem boomerang)
         {
@@ -48,7 +53,8 @@ namespace Sprintfinity3902.Entities
             color = Color.White;
             Boomerang = boomerang;
             goriyaAI = new GoriyaAI(this);
-
+            health = 3;
+            decorate = false;
             movingDown = new GoriyaDownMovingState(this);
             movingLeft = new GoriyaLeftMovingState(this);
             movingRight = new GoriyaRightMovingState(this);
@@ -61,6 +67,9 @@ namespace Sprintfinity3902.Entities
             idleLeft = new GoriyaLeftIdleState(this);
             idleRight = new GoriyaRightIdleState(this);
             idleUp = new GoriyaUpIdleState(this);
+
+            decorateCount = 0;
+            decorateTime = 30;
 
             CurrentState = movingLeft;
             CurrentState.Start = true;
@@ -72,7 +81,8 @@ namespace Sprintfinity3902.Entities
             color = Color.White;
             Boomerang = boomerang;
             goriyaAI = new GoriyaAI(this);
-
+            health = 3;
+            decorate = false;
             movingDown = new GoriyaDownMovingState(this);
             movingLeft = new GoriyaLeftMovingState(this);
             movingRight = new GoriyaRightMovingState(this);
@@ -85,6 +95,10 @@ namespace Sprintfinity3902.Entities
             idleLeft = new GoriyaLeftIdleState(this);
             idleRight = new GoriyaRightIdleState(this);
             idleUp = new GoriyaUpIdleState(this);
+
+            decorateCount = 0;
+            decorateTime = 30;
+
 
             CurrentState = movingLeft;
             CurrentState.Start = true;
@@ -105,12 +119,48 @@ namespace Sprintfinity3902.Entities
                 Boomerang.Update(gameTime);
             }
 
+            if (decorate)
+            {
+                if(decorateCount == decorateTime)
+                {
+                    decorate = false;
+                    color = Color.White;
+                    decorateCount = 0;
+                }
+                else
+                {
+                    Decorate();
+                    decorateCount++;
+                }
+            }
+
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            CurrentState.Sprite.Draw(spriteBatch, Position, color);
+            CurrentState.Sprite.Draw(spriteBatch, Position, this.color);
             Boomerang.Draw(spriteBatch, Color.White);
+        }
+
+        public void Decorate()
+        {
+            counter = decorateCount % 12;
+            if (counter < 3)
+            {
+                color = Color.Aqua;
+            }
+            else if (counter < 6)
+            {
+                color = Color.Red;
+            }
+            else if (counter < 9)
+            {
+                color = Color.White;
+            }
+            else
+            {
+                color = Color.Blue;
+            }
         }
 
         public void SetState(IGoriyaState state)
@@ -148,9 +198,11 @@ namespace Sprintfinity3902.Entities
             CurrentState.Wait();
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
-            return 1;
+            health = health - damage;
+            decorate = true;
+            return health;
         }
     }
 }

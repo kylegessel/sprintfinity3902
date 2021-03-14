@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
+using System;
 
 namespace Sprintfinity3902.Link
 {
@@ -12,7 +13,7 @@ namespace Sprintfinity3902.Link
         int entityID;
         Color Color;
         int counter;
-        int timer = 400;
+        int timer = 30;
 
         // pass room as well?
         public DamagedEntity(int entityID, AbstractEntity decoratedEntity, IRoom room)
@@ -48,6 +49,7 @@ namespace Sprintfinity3902.Link
                 Color = Color.Blue;
             }
 
+            Position = decoratedEntity.Position;
             decoratedEntity.Update(gameTime);
         }
 
@@ -76,16 +78,20 @@ namespace Sprintfinity3902.Link
             return decoratedEntity.GetBoundingRect();
         }
 
-        // How do I remove decorator?
-        public IEntity GetUnDecorated()
+        public override Boolean IsCollidable()
         {
-            return decoratedEntity;
+            return decoratedEntity.IsCollidable();
+        }
+        // How do I remove decorator?
+        public void RemoveDecorator()
+        {
+            room.enemies[entityID] = decoratedEntity;
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
             IEnemy enemy = (IEnemy)decoratedEntity;
-            return enemy.HitRegister(enemyID, damage, stunLength, projDirection);
+            return enemy.HitRegister(enemyID, damage, stunLength, projDirection, room);
         }
     }
 }

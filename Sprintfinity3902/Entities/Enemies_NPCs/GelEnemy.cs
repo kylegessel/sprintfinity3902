@@ -85,7 +85,7 @@ namespace Sprintfinity3902.Entities
 
             count++;
         }
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
             health = health - damage;
             if (stunLength > 0)

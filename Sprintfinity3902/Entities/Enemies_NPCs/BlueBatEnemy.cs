@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
-using Sprintfinity3902.Entities.Enemies_NPCs;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BlueBatEnemy : AbstractEnemy
+    public class BlueBatEnemy : AbstractEntity, IEnemy
     {
 
         private Random rand = new Random();
@@ -21,8 +20,6 @@ namespace Sprintfinity3902.Entities
             direction = 0;
             count = 0;
             SetStepSize(.4f);
-            health = 1;
-
         }
         public BlueBatEnemy(Vector2 pos)
         {
@@ -31,26 +28,13 @@ namespace Sprintfinity3902.Entities
             direction = 0;
             count = 0;
             SetStepSize(.4f);
-            health = 1;
         }
 
 
-        public override int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
             // Bats die on any amount of interaction so we can just return 0.
             return 0;
-            // The rest of this is redundant.
-            /*
-            health = health - damage;
-            
-            if(stunLength > 0)
-            {
-                direction = 9;
-                count = 0;
-                waitTime = stunLength;
-            }
-            // Typical enemy would have code for projectile direction and causing the enemy to move backwards a few times.
-            return health; */
         }
 
         public override void Move()

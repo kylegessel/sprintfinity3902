@@ -99,6 +99,11 @@ namespace Sprintfinity3902.Entities.Doors
         {
             CurrentState.Sprite.Update(gameTime);
         }
+
+        public override Rectangle GetBoundingRect()
+        {
+            return new Rectangle((int)X, (int)Y, 32 * Global.Var.SCALE, 32 * Global.Var.SCALE);
+        }
     }
 }
 

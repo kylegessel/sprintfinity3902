@@ -1,19 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities.Enemies_NPCs;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class FinalBossEnemy : AbstractEntity, IEnemy
+    public class FinalBossEnemy : AbstractEnemy
     {
         private ISprite ClosedMouth;
         private ISprite OpenedMouth;
         public FireAttack fireAttackUp;
         public FireAttack fireAttackCenter;
         public FireAttack fireAttackDown;
-
         private int directionCount;
         private int direction;
         private int attackCount;
@@ -33,6 +33,7 @@ namespace Sprintfinity3902.Entities
             fireAttackDown = down;
             Position = pos;
             color = Color.White;
+            health = 5;
 
             rd = new Random();
 
@@ -48,6 +49,7 @@ namespace Sprintfinity3902.Entities
             OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
             Sprite = ClosedMouth;
             Position = pos;
+            health = 5;
 
             rd = new Random();
 
@@ -56,12 +58,6 @@ namespace Sprintfinity3902.Entities
 
             attack = rd.Next(1, 3);
             attackTime = 85;
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            Sprite.Update(gameTime);
-            Move();
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
@@ -120,11 +116,6 @@ namespace Sprintfinity3902.Entities
 
 
             attackCount++;
-        }
-
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
-        {
-            return 1;
         }
     }
 }

@@ -40,25 +40,10 @@ namespace Sprintfinity3902.Entities
             decorated = false;
             color = Color.White;
         }
-
-        public Direction intToDirection(int dir)
-        {
-            switch (rd1.Next(1, 5))
-            {
-                case 1:
-                    return Direction.LEFT;
-                case 2:
-                    return Direction.RIGHT;
-                case 3:
-                    return Direction.UP;
-                case 4:
-                    return Direction.DOWN;
-            }
-            return Direction.NONE;
-        }
         public override void Update(GameTime gameTime) {
             Sprite.Update(gameTime);
             Move();
+            SetStepSize(speed);
         }
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {

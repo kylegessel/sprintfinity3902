@@ -5,7 +5,7 @@ using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Link
 {
-    class DamagedEntity : AbstractEntity, IEnemy, ICollidable
+    class DamagedEntity : AbstractEntity, IEnemy
     {
         IRoom room;
         AbstractEntity decoratedEntity;

@@ -1,18 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Entities.Enemies_NPCs;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BlueBatEnemy : AbstractEntity, IEnemy
+    public class BlueBatEnemy : AbstractEnemy
     {
 
         private Random rand = new Random();
         private int count;
         private int direction;
         private int waitTime;
-        private int health;
 
         public BlueBatEnemy()
         {
@@ -20,7 +20,9 @@ namespace Sprintfinity3902.Entities
             Position = new Vector2(750, 540);
             direction = 0;
             count = 0;
+            SetStepSize(.4f);
             health = 1;
+
         }
         public BlueBatEnemy(Vector2 pos)
         {
@@ -28,13 +30,19 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             direction = 0;
             count = 0;
+            SetStepSize(.4f);
             health = 1;
         }
 
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
+        public override int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection)
         {
+            // Bats die on any amount of interaction so we can just return 0.
+            return 0;
+            // The rest of this is redundant.
+            /*
             health = health - damage;
+            
             if(stunLength > 0)
             {
                 direction = 9;
@@ -42,7 +50,7 @@ namespace Sprintfinity3902.Entities
                 waitTime = stunLength;
             }
             // Typical enemy would have code for projectile direction and causing the enemy to move backwards a few times.
-            return health;
+            return health; */
         }
 
         public override void Move()
@@ -53,7 +61,7 @@ namespace Sprintfinity3902.Entities
             }else if( count == waitTime)
             {
                 // States for left, right, up, down, up right, up left, down left, down right.
-               direction = rand.Next(1, 9);
+               direction = rand.Next(1, 4 );
                 // If the Sprite animation was previously stopped, begin playing it again.
                 if (!Sprite.Animation.IsPlaying) {
                     Sprite.Animation.Play();

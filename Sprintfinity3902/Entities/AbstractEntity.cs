@@ -24,6 +24,23 @@ namespace Sprintfinity3902.Entities
             RIGHT
         }
 
+        public Direction intToDirection(int dir)
+        {
+            switch (dir)
+            {
+                case 1:
+                    return Direction.LEFT;
+                case 2:
+                    return Direction.RIGHT;
+                case 3:
+                    return Direction.UP;
+                case 4:
+                    return Direction.DOWN;
+                default:
+                    return Direction.NONE;
+            }
+        }
+
         public Color color
         {
             get

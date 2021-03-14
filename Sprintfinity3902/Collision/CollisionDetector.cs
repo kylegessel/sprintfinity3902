@@ -156,7 +156,7 @@ namespace Sprintfinity3902.Collision
                     {
                          IProjectile projectile = (IProjectile)proj;
 
-                        Boolean removeItem = projectile.Collide(enemy, (IEnemy)currentEnemy);
+                        Boolean removeItem = projectile.Collide(enemy, (IEnemy)currentEnemy, gameInstance.dungeon.CurrentRoom);
                         //CollisionDetector.decorateList.Add(enemy);
                         if (removeItem)
                         {
@@ -168,23 +168,6 @@ namespace Sprintfinity3902.Collision
 
                 }
             }
-            foreach (int enemyID in decorateList)
-            {
-                IEntity currEnemy;
-                enemies.TryGetValue(enemyID, out currEnemy);
-                enemies.Remove(enemyID);
-                enemies.Add(enemyID, new DamagedEntity(enemyID, (AbstractEntity)currEnemy, gameInstance.dungeon.CurrentRoom));
-            }
-            decorateList.Clear();
-            foreach (int enemyID in undecorateList)
-            {
-                IEntity decoratedEnemy;
-                enemies.TryGetValue(enemyID, out decoratedEnemy);
-                enemies.Remove(enemyID);
-                DamagedEntity damagedEnemy = (DamagedEntity)decoratedEnemy;
-                enemies.Add(enemyID, damagedEnemy.GetUnDecorated());
-            }
-            undecorateList.Clear();
             foreach (int enemyID in deletionList)
             {
                 enemies.Remove(enemyID);

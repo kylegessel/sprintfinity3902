@@ -6,14 +6,15 @@ namespace Sprintfinity3902.Sprites
     {
         public Texture2D Texture { get; set; }
 
-        private const int LINK_UP1_POS_X = 71;
+        //These are adjusted to be TWO pixels wider to the left for the sake of a clearer link and hitbox
+        private const int LINK_UP1_POS_X = 69;
         private const int LINK_UP1_POS_Y = 11;
-        private const int LINK_UP1_WIDTH = 12;
+        private const int LINK_UP1_WIDTH = 14;
         private const int LINK_UP1_HEIGHT = 16;
 
-        private const int LINK_UP2_POS_X = 88;
+        private const int LINK_UP2_POS_X = 86;
         private const int LINK_UP2_POS_Y = 11;
-        private const int LINK_UP2_WIDTH = 12;
+        private const int LINK_UP2_WIDTH = 14;
         private const int LINK_UP2_HEIGHT = 16;
 
         public LinkUpSprite(Texture2D texture)

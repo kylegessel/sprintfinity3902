@@ -11,9 +11,9 @@ namespace Sprintfinity3902.Sprites
         private const int LINK_DOWN1_WIDTH = 15;
         private const int LINK_DOWN1_HEIGHT = 16;
 
-        private const int LINK_DOWN2_POS_X = 19;
+        private const int LINK_DOWN2_POS_X = 18;
         private const int LINK_DOWN2_POS_Y = 11;
-        private const int LINK_DOWN2_WIDTH = 13;
+        private const int LINK_DOWN2_WIDTH = 14;
         private const int LINK_DOWN2_HEIGHT = 16;
 
         public LinkDownSprite(Texture2D texture)

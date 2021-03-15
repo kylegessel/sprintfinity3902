@@ -30,6 +30,11 @@ namespace Sprintfinity3902.Entities
             return new Rectangle((int)Position.X, (int)Position.Y, 32*Global.Var.SCALE, 80*Global.Var.SCALE);
         }
 
+        public override bool IsTall()
+        {
+            return true;
+        }
+
 
     }
 }

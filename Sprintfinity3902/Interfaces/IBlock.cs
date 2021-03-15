@@ -4,9 +4,11 @@ using System.Text;
 
 namespace Sprintfinity3902.Interfaces
 {
-    interface IBlock
+    public interface IBlock : IEntity
     {
         Boolean IsMovable();
+
+        bool IsTall();
         void StartMoving(ICollision.CollisionSide Side);
         ICollision.CollisionSide PushSide();
         ICollision.CollisionSide PushSide2();

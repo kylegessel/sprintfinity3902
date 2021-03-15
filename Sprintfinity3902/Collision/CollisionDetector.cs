@@ -15,6 +15,7 @@ namespace Sprintfinity3902.Collision
         Game1 gameInstance;
         Player link;
 
+
         
         ICollision blockCollision = new BlockCollisionHandler();
         ICollision enemyCollision = new EnemyCollisionHandler();
@@ -45,9 +46,9 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IEntity> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> garbage) {
+        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> garbage) {
             DetectLinkDamage(enemies);
-            DetectBlockCollision(enemies, blocks);
+            DetectBlockCollision(enemies, blocks, linkProj);
             DetectEnemyDamage(enemies, linkProj, items, garbage);
             DetectItemPickup(items);
 
@@ -81,7 +82,7 @@ namespace Sprintfinity3902.Collision
             }
         }
 
-        private void DetectBlockCollision(Dictionary<int, IEntity> enemies, List<IEntity> blocks)
+        private void DetectBlockCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> linkProj)
         {
 
             Rectangle linkRect = link.GetBoundingRect();
@@ -90,6 +91,8 @@ namespace Sprintfinity3902.Collision
             foreach (AbstractBlock block in blocks)
             {
                 Rectangle blockRect = block.GetBoundingRect();
+
+                //link vs blocks
                 if (block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
                     side = blockCollision.sideOfCollision(blockRect, linkRect);
@@ -105,7 +108,6 @@ namespace Sprintfinity3902.Collision
                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
                     }
                 }
-            }
 
             foreach (int enemy in enemies.Keys)
             {
@@ -115,10 +117,7 @@ namespace Sprintfinity3902.Collision
                 Rectangle enemyRect = currentEnemy.GetBoundingRect();
                 alreadyMoved = false;
 
-                foreach (AbstractEntity block in blocks)
-                {
-                    Rectangle blockRect = block.GetBoundingRect();
-                    if (block.IsCollidable() && blockRect.Intersects(enemyRect))
+                    if (((block.IsCollidable() && enemy.IsCollidable())||block.IsTall()) && blockRect.Intersects(enemyRect))
                     {
                         side = blockCollision.sideOfCollision(blockRect, enemyRect);
                         if (!alreadyMoved) //This will prevent it from moving back twice
@@ -127,7 +126,22 @@ namespace Sprintfinity3902.Collision
                         }
                     }
                 }
+
+                //proj vs blocks
+                foreach (AbstractEntity proj in linkProj)
+                {
+
+                    if (block.IsTall() && blockRect.Intersects(proj.GetBoundingRect()))
+                    {
+                        //deletionList.Add(proj);
+                        ILink damagedLink = new DamagedLink(link, gameInstance);
+                        gameInstance.playerCharacter = damagedLink;
+                    }
+                }
+
+
             }
+           
 
         }
 
@@ -174,7 +188,7 @@ namespace Sprintfinity3902.Collision
                 }
             }
 
-            //how tf does this work, isn't items just a reference?
+            //how does this work, isn't items just a reference?
             foreach (AbstractEntity pickup in deletionList)
             {
                 items.Remove(pickup);

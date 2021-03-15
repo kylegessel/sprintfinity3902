@@ -139,7 +139,16 @@ namespace Sprintfinity3902.Entities
         public virtual Rectangle GetBoundingRect()
         {
             //Sprite.Animation.CurrentFrame.Width
-            return new Rectangle((int)Position.X, (int)Position.Y, 16 * Global.Var.SCALE, 16 * Global.Var.SCALE);
+            //return new Rectangle((int)Position.X, (int)Position.Y, 16 * Global.Var.SCALE, 16 * Global.Var.SCALE);
+            if (Sprite != null)
+            {
+                return new Rectangle((int)Position.X, (int)Position.Y, Sprite.Animation.CurrentFrame.Width * Global.Var.SCALE, Sprite.Animation.CurrentFrame.Height * Global.Var.SCALE);
+            } 
+            else
+            {
+                return new Rectangle((int)Position.X, (int)Position.Y, 16 * Global.Var.SCALE, 16 * Global.Var.SCALE);
+            }
+
         }
 
 

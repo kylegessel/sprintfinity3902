@@ -9,7 +9,7 @@ namespace Sprintfinity3902.Dungeon
     {
         public int Id { get; set; }
         //public List<IEntity> roomEntities { get; set; }
-        public List<IEntity> blocks { get; set; }
+        public List<IBlock> blocks { get; set; }
         public Dictionary<int, IEntity> enemies { get; set; }
         public List<IEntity> items { get; set; }
 
@@ -25,7 +25,7 @@ namespace Sprintfinity3902.Dungeon
 
         public Room(string fileLocation, int id)
         {
-            blocks = new List<IEntity>();
+            blocks = new List<IBlock>();
             enemies = new Dictionary<int, IEntity>();
             items = new List<IEntity>();
             garbage = new List<IEntity>();
@@ -45,7 +45,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void Update(GameTime gameTime)
         { 
-            foreach (IEntity entity in blocks)
+            foreach (IBlock entity in blocks)
                 entity.Update(gameTime);
 
             foreach (IEntity entity in enemies.Values)
@@ -60,7 +60,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (IEntity entity in blocks)
+            foreach (IBlock entity in blocks)
                 entity.Draw(spriteBatch, Color.White);
 
             foreach (IEntity entity in enemies.Values)
@@ -76,7 +76,7 @@ namespace Sprintfinity3902.Dungeon
         public void ChangePosition(bool pause)
         {
             Pause = pause;
-            foreach (IEntity entity in blocks)
+            foreach (IBlock entity in blocks)
             {
                 if(count != 176 * Global.Var.SCALE && pause)
                 {

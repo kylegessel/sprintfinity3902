@@ -16,49 +16,51 @@ namespace Sprintfinity3902.Link
 
         public ISprite Sprite
         {
-            get
-            {
+            get {
                 return _sprite;
             }
-            set
-            {
+            set {
                 _sprite = value;
             }
         }
 
         public Vector2 Position
         {
-            get
-            {
+            get {
                 return _position;
             }
-            set
-            {
+            set {
                 _position = value;
             }
         }
         public float X
         {
-            get
-            {
+            get {
                 return (int)Position.X;
             }
-            set
-            {
+            set {
                 _position.X = value;
                 //Position = new Vector2(value, Position.Y);
             }
         }
         public float Y
         {
-            get
-            {
+            get {
                 return (int)Position.Y;
             }
-            set
-            {
+            set {
                 _position.Y = value;
                 //Position = new Vector2(Position.X, value);
+            }
+        }
+
+        public int Health
+        {
+            get {
+                return decoratedLink.Health;
+            }
+            set {
+                decoratedLink.Health = value;
             }
         }
         
@@ -108,7 +110,6 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.Move();
         }
-
         public void SetState(IPlayerState state)
         {
             decoratedLink.SetState(state);
@@ -117,14 +118,16 @@ namespace Sprintfinity3902.Link
         {
             //
         }
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             //doesn't take damage in damagedLink (Invincible state)
+            decoratedLink.TakeDamage(damage);
         }
         public void RemoveDecorator()
         {
             decoratedLink.RemoveDecorator();
             game.playerCharacter = decoratedLink;
         }
+
     }
 }

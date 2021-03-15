@@ -16,6 +16,9 @@ namespace Sprintfinity3902.Link
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
+        private int health;
+
+
 
         public IPlayerState CurrentState {
             get {
@@ -37,6 +40,7 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingLeftItem { get; set; }
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
+        public int Health { get { return health; } set { health = value;  } }
 
         public Color color;
 
@@ -157,14 +161,10 @@ namespace Sprintfinity3902.Link
         public void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position, color);
         }
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             _collidable = false;
-            /*
-            {
-                //TODO: Remove Health from Link
-            }
-            */
+            Health -= damage;
         }
 
         public void BounceOfEnemy(ICollision.CollisionSide Side)

@@ -21,11 +21,12 @@ namespace Sprintfinity3902.Interfaces
         {
             get; set;
         }
+        int Health { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Color color);
         void Move();
         void SetState(IPlayerState state);
-        void TakeDamage();
+        void TakeDamage(int damage);
         void BounceOfEnemy(ICollision.CollisionSide Side);
         void RemoveDecorator();
         //void MoveLink();

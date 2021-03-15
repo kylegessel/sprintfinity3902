@@ -36,6 +36,11 @@ namespace Sprintfinity3902.Entities
                 Move();
         }
 
+        public override bool IsCollidable()
+        {
+            return false;
+        }
+
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             if (isMoving)

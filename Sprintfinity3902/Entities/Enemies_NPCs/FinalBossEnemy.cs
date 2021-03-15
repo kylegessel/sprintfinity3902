@@ -99,6 +99,12 @@ namespace Sprintfinity3902.Entities
                 color = Color.Blue;
             }
         }
+
+        public override bool IsCollidable()
+        {
+            return false;
+        }
+
         public override void Move()
         {
             // Movement of dragon

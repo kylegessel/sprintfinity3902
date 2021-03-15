@@ -157,9 +157,10 @@ namespace Sprintfinity3902.Link
                 if (this.X > right) this.X = right;
             }
         }
-        public Rectangle getRectangle()
+        public override Rectangle GetBoundingRect()
         {
-            return new Rectangle((int)X, (int)Y, 16*Global.Var.SCALE, 16 * Global.Var.SCALE);
+            //Choose a consistent hitbox for link so that his sword is never counted as a hurtbox.
+            return new Rectangle((int)X+Global.Var.SCALE, (int)Y+Global.Var.SCALE, 14 * Global.Var.SCALE, 13 * Global.Var.SCALE);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {

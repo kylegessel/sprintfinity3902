@@ -10,5 +10,10 @@ namespace Sprintfinity3902.Entities
             Sprite = BlockSpriteFactory.Instance.CreateRoom8Interior();
             Position = pos;
         }
+
+        public override bool IsCollidable()
+        {
+            return false;
+        }
     }
 }

@@ -59,8 +59,6 @@ namespace Sprintfinity3902
 
             dungeon = new Dungeon.Dungeon(this);
 
-            dungeon = new Dungeon.Dungeon();
-
             dungeon.Build();
 
             playerCharacter = new Player();

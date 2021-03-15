@@ -14,6 +14,8 @@ namespace Sprintfinity3902.Dungeon
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
+        int enemyID;
+
 
         // Have this input a filename and then load the room.
         public Room13Loader(IRoom room)

@@ -1,0 +1,25 @@
+﻿Author: Benjamin Hobson
+Date: 3/15/21
+Sprint 3
+
+Reviewed Class: PauseMenu.cs Functionality
+Written by: Bailey Ardrey
+
+Reviewed by: Benjamin Hobson
+
+Reviewing commit: 7094093811a8acfe1102eb5cc38be87f0dfb0af0
+
+Reviewing empahsis: Readability
+
+Time Spent: 20min
+
+Review:
+
+This code is adequately readable... I found some parts tough. Overall the code has good indentation
+structure, however, braces are missing throughout the code. Sometimes these do help readability,
+and it's subjective as to whether or not they do, but when they are compacted together between lines
+122-125 it becomes a little more difficult to understand--this is why the indentation helps and steps in
+for the braces. Also, some magic numbers are included which have no accompanying comment to explain them.
+The indentation of braces matches what the group has unspokenly decided upon for formatting, and the methods
+are spaced out evenly. The code looks pretty good overall, especially variable naming convention. I'm happy
+with how it looks and don't think it needs further modification.

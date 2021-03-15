@@ -100,7 +100,6 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-
         public override bool IsCollidable()
         {
             return false;

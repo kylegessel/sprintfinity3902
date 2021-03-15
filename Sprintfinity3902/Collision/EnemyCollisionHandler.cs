@@ -14,7 +14,7 @@ namespace Sprintfinity3902.Collision
             //Not sure what I need here
         }
 
-        public ICollision.CollisionSide sideOfCollision(Rectangle enemyRect, Rectangle characterRect)
+        public ICollision.CollisionSide SideOfCollision(Rectangle enemyRect, Rectangle characterRect)
         {
             intersectionRect = Rectangle.Intersect(characterRect, enemyRect);
             //Logic to determine where the overlap is
@@ -90,7 +90,7 @@ namespace Sprintfinity3902.Collision
         }
 
         
-        public Boolean reflectMovingEntity(IEntity movingEntity, ICollision.CollisionSide side) // had this previously. May be needed in future (Rectangle collisionRect)
+        public Boolean ReflectMovingEntity(IEntity movingEntity, ICollision.CollisionSide side) // had this previously. May be needed in future (Rectangle collisionRect)
         {
             Boolean moved = false;
             if (side == ICollision.CollisionSide.TOP) //Entity would be moving down
@@ -117,6 +117,20 @@ namespace Sprintfinity3902.Collision
             //If this call is made we know there is a collision so an else condition is not needed
             return moved;
         }
-        
+
+        /*This currently is not used. But want to move the "MoveLink" method from player class to here and use this. */
+        public void UpdatePosition(IEntity link)
+        {
+            int top = 96 * Global.Var.SCALE;
+            int bot = 194 * Global.Var.SCALE;
+            int left = 32 * Global.Var.SCALE;
+            int right = 224 * Global.Var.SCALE;
+
+            if (link.X > right) link.X = right;
+            if (link.X < left) link.X = left;
+            if (link.Y > bot) link.Y = bot;
+            if (link.Y < top) link.Y = top;
+        }
+
     }
 }

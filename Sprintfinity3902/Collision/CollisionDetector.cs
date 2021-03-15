@@ -61,7 +61,7 @@ namespace Sprintfinity3902.Collision
             foreach (AbstractEntity enemy in enemies)
             {
                 Rectangle enemyRect = enemy.GetBoundingRect();
-                if (enemy.IsCollidable() && link.IsCollidable()  && enemyRect.Intersects(linkRect)) 
+                if (link.IsCollidable()  && enemyRect.Intersects(linkRect)) 
                 {
                     side = enemyCollision.sideOfCollision(enemyRect, linkRect);
                     if (!alreadyMoved) //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
@@ -87,6 +87,8 @@ namespace Sprintfinity3902.Collision
             foreach (AbstractBlock block in blocks)
             {
                 Rectangle blockRect = block.GetBoundingRect();
+
+                //link vs blocks
                 if (block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
                     side = blockCollision.sideOfCollision(blockRect, linkRect);
@@ -103,16 +105,14 @@ namespace Sprintfinity3902.Collision
                     }
                 }
 
-
-
-
+                //enemy vs blocks
                 foreach (AbstractEntity enemy in enemies)
                 {
                     // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
                     Rectangle enemyRect = enemy.GetBoundingRect();
                     alreadyMoved = false;
 
-                    if (block.IsCollidable() && blockRect.Intersects(enemyRect))
+                    if (((block.IsCollidable() && enemy.IsCollidable())||block.IsTall()) && blockRect.Intersects(enemyRect))
                     {
                         side = blockCollision.sideOfCollision(blockRect, enemyRect);
                         if (!alreadyMoved) //This will prevent it from moving back twice
@@ -122,6 +122,7 @@ namespace Sprintfinity3902.Collision
                     }
                 }
 
+                //proj vs blocks
                 foreach (AbstractEntity proj in linkProj)
                 {
 

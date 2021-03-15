@@ -68,6 +68,11 @@ namespace Sprintfinity3902.Entities
             Sprite.Draw(spriteBatch, Position, Color.White);                
         }
 
+        public override bool IsCollidable()
+        {
+            return false;
+        }
+
         public override void Move()
         {
             // Movement of dragon

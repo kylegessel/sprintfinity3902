@@ -132,6 +132,21 @@ namespace Sprintfinity3902
                 else if (count != 176 * Global.Var.SCALE && Pause == false)
                     proj.Y = proj.Y - 2 * Global.Var.SCALE;
             }
+            
+            foreach(IEntity garbage in Game.dungeon.GetCurrentRoom().garbage)
+            {
+                if (count != 176 * Global.Var.SCALE && Pause)
+                    garbage.Y = garbage.Y + 2 * Global.Var.SCALE;
+                else if (count != 176 * Global.Var.SCALE && Pause == false)
+                    garbage.Y = garbage.Y - 2 * Global.Var.SCALE;
+            }
+
+            // Case for the bomb as it doesn't work similarly to other projectiles.
+
+            if (count != 176 * Global.Var.SCALE && Pause)
+                Game.bombItem.Y = Game.bombItem.Y + 2 * Global.Var.SCALE;
+            else if (count != 176 * Global.Var.SCALE && Pause == false)
+                Game.bombItem.Y = Game.bombItem.Y - 2 * Global.Var.SCALE;
         }
 
     }

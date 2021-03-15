@@ -14,7 +14,6 @@ namespace Sprintfinity3902.Dungeon
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
-        int spikeNum;
 
         // Have this input a filename and then load the room.
         public Room13Loader(IRoom room)
@@ -22,7 +21,6 @@ namespace Sprintfinity3902.Dungeon
             // Really think there is a better way to list these files, just a demo for the time being though.
             Room = room;
             mapStream = new StreamReader(Room.path);
-            spikeNum = 1;
 
         }
 
@@ -118,7 +116,6 @@ namespace Sprintfinity3902.Dungeon
                 case "BBAT":
                     Room.enemies.Add(new BlueBatEnemy(Position));
                     break;
-
 
                 //ITEMS
                 // Probably could use a static bomb and boomerang object now that I think of it.

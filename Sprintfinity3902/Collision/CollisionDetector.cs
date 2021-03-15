@@ -19,7 +19,6 @@ namespace Sprintfinity3902.Collision
         ICollision blockCollision = new BlockCollisionHandler();
         ICollision enemyCollision = new EnemyCollisionHandler();
         ICollision.CollisionSide side;
-        //Rectangle intersectionRect;
         
 
         /* Singleton instance */
@@ -57,44 +56,28 @@ namespace Sprintfinity3902.Collision
 
             Rectangle linkRect = link.GetBoundingRect();
             Boolean alreadyMoved = false;
+            IEntity currentEnemy;
             foreach (int enemy in enemies.Keys)
             {
-                IEntity currentEnemy;
+                
                 enemies.TryGetValue(enemy, out currentEnemy);
                 AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
                 Rectangle enemyRect = cEnemy.GetBoundingRect();
-                if (link.IsCollidable() && enemyRect.Intersects(linkRect)) 
-                {
-                    side = enemyCollision.SideOfCollision(enemyRect, linkRect);
-                    if (!alreadyMoved) //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
-                    {
-                        /*Have initial reflection so Link can't move through enemy, then continue to move him back*/
-                        alreadyMoved = blockCollision.ReflectMovingEntity(link, side);
-                        ((ILink)link).BounceOfEnemy(side);
-                    }
 
-                    link.TakeDamage();
-                    ILink damagedLink = new DamagedLink(link, gameInstance);
-                    gameInstance.playerCharacter = damagedLink;
+                if (link.IsCollidable() && enemyRect.Intersects(linkRect) && !alreadyMoved) 
+                {
+                    //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
+                    alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
+                        
                 }
             }
 
             foreach(IEntity proj in enemyProj)
             {
                 Rectangle enemyRect = proj.GetBoundingRect();
-                if (link.IsCollidable() && enemyRect.Intersects(linkRect))
+                if (link.IsCollidable() && enemyRect.Intersects(linkRect) && alreadyMoved)
                 {
-                    side = enemyCollision.SideOfCollision(enemyRect, linkRect);
-                    if (!alreadyMoved) //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
-                    {
-                        /*Have initial reflection so Link can't move through enemy, then continue to move him back*/
-                        alreadyMoved = blockCollision.ReflectMovingEntity(link, side);
-                        ((ILink)link).BounceOfEnemy(side);
-                    }
-
-                    link.TakeDamage();
-                    ILink damagedLink = new DamagedLink(link, gameInstance);
-                    gameInstance.playerCharacter = damagedLink;
+                    alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
                 }
             }
         }
@@ -175,9 +158,6 @@ namespace Sprintfinity3902.Collision
         {
 
             List<int> deletionList = new List<int>();
-            /*
-             * TODO: implement link hurtboxes and pass to this function.
-             */
             foreach (AbstractEntity proj in linkProj)
             {
                 foreach (int enemy in enemies.Keys)
@@ -208,15 +188,10 @@ namespace Sprintfinity3902.Collision
                 if (item.GetBoundingRect().Intersects(linkRect))
                 {
                     link.pickup(((AbstractItem)item).ID);
-
-                    /*
-                     * TODO: Replace with handler
-                     */
                     deletionList.Add(item);
                 }
             }
 
-            //how does this work, isn't items just a reference?
             foreach (AbstractEntity pickup in deletionList)
             {
                 items.Remove(pickup);

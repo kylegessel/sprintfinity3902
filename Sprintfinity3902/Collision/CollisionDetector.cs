@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Entities.Enemies_NPCs;
 using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
@@ -48,10 +49,10 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IEntity> blocks, List<IEntity> items, List<IEntity> linkProj) {
+        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IEntity> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> garbage) {
             DetectLinkDamage(enemies);
             DetectBlockCollision(enemies, blocks);
-            DetectEnemyDamage(enemies, linkProj, items);
+            DetectEnemyDamage(enemies, linkProj, items, garbage);
             DetectItemPickup(items);
 
         }
@@ -134,7 +135,7 @@ namespace Sprintfinity3902.Collision
 
         }
 
-        private void DetectEnemyDamage(Dictionary<int, IEntity> enemies, List<IEntity> linkProj, List<IEntity> items)
+        private void DetectEnemyDamage(Dictionary<int, IEntity> enemies, List<IEntity> linkProj, List<IEntity> items, List<IEntity> garbage)
         {
 
             List<int> deletionList = new List<int>();
@@ -161,7 +162,7 @@ namespace Sprintfinity3902.Collision
                         if (removeItem)
                         {
                             deletionList.Add(enemy);
-                            items.Add(new RupeeItem(currentEnemy.Position));
+                            garbage.Add(new EnemyDeath(currentEnemy.Position));
                         }
 
                     }

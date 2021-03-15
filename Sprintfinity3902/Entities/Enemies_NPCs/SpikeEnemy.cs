@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class SpikeEnemy : AbstractEntity
+    public class SpikeEnemy : AbstractEntity, IEnemy
     {
         private int rectangleCycle;
 
@@ -30,7 +31,7 @@ namespace Sprintfinity3902.Entities
             //Move();
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             if(id == 1)
             {
@@ -67,6 +68,11 @@ namespace Sprintfinity3902.Entities
                 rectangleCycle = 0;
                 return new Rectangle((int)Position.X, (int)Position.Y, 24 * Global.Var.SCALE, 83 * Global.Var.SCALE);
             }
+        }
+
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        {
+            return 1;
         }
     }
 }

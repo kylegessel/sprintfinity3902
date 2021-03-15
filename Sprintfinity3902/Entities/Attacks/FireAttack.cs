@@ -5,7 +5,7 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class FireAttack : AbstractEntity
+    public class FireAttack : AbstractEntity, IEnemy
     {
 
         public bool isMoving { get; set; }
@@ -36,7 +36,7 @@ namespace Sprintfinity3902.Entities
                 Move();
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             if (isMoving)
                 Sprite.Draw(spriteBatch, Position, Color.White);
@@ -68,6 +68,12 @@ namespace Sprintfinity3902.Entities
         public void StopMoving()
         {
             this.isMoving = false;
+        }
+
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        {
+            // If any type of hit, delete the attack.
+            return 0;
         }
     }
 }

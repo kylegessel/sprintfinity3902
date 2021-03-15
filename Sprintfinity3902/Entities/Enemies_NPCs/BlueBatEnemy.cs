@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BlueBatEnemy : AbstractEntity
+    public class BlueBatEnemy : AbstractEntity, IEnemy
     {
 
         private Random rand = new Random();
@@ -18,6 +19,7 @@ namespace Sprintfinity3902.Entities
             Position = new Vector2(750, 540);
             direction = 0;
             count = 0;
+            SetStepSize(.4f);
         }
         public BlueBatEnemy(Vector2 pos)
         {
@@ -25,6 +27,14 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             direction = 0;
             count = 0;
+            SetStepSize(.4f);
+        }
+
+
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        {
+            // Bats die on any amount of interaction so we can just return 0.
+            return 0;
         }
 
         public override void Move()
@@ -35,7 +45,7 @@ namespace Sprintfinity3902.Entities
             }else if( count == waitTime)
             {
                 // States for left, right, up, down, up right, up left, down left, down right.
-               direction = rand.Next(1, 9);
+               direction = rand.Next(1, 4 );
                 // If the Sprite animation was previously stopped, begin playing it again.
                 if (!Sprite.Animation.IsPlaying) {
                     Sprite.Animation.Play();

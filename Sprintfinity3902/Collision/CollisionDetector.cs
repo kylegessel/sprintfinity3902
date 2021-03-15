@@ -102,17 +102,16 @@ namespace Sprintfinity3902.Collision
                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
                     }
                 }
-            }
 
-            foreach (AbstractEntity enemy in enemies)
-            {
-                // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
-                Rectangle enemyRect = enemy.GetBoundingRect();
-                alreadyMoved = false;
 
-                foreach (AbstractEntity block in blocks)
+
+
+                foreach (AbstractEntity enemy in enemies)
                 {
-                    Rectangle blockRect = block.GetBoundingRect();
+                    // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
+                    Rectangle enemyRect = enemy.GetBoundingRect();
+                    alreadyMoved = false;
+
                     if (block.IsCollidable() && blockRect.Intersects(enemyRect))
                     {
                         side = blockCollision.sideOfCollision(blockRect, enemyRect);
@@ -122,21 +121,21 @@ namespace Sprintfinity3902.Collision
                         }
                     }
                 }
-            }
 
-            foreach (AbstractBlock block in blocks)
-            {
                 foreach (AbstractEntity proj in linkProj)
                 {
 
-                    if (block.IsTall() && block.GetBoundingRect().Intersects(proj.GetBoundingRect()))
+                    if (block.IsTall() && blockRect.Intersects(proj.GetBoundingRect()))
                     {
                         //deletionList.Add(proj);
                         ILink damagedLink = new DamagedLink(link, gameInstance);
                         gameInstance.playerCharacter = damagedLink;
                     }
                 }
+
+
             }
+           
 
         }
 
@@ -190,7 +189,7 @@ namespace Sprintfinity3902.Collision
                 }
             }
 
-            //how tf does this work, isn't items just a reference?
+            //how does this work, isn't items just a reference?
             foreach (AbstractEntity pickup in deletionList)
             {
                 items.Remove(pickup);

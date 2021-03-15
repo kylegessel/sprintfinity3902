@@ -34,7 +34,7 @@ namespace Sprintfinity3902.States
                 }
                 else if (count > 40)
                 {
-                    Spike.X = Spike.X - .5f * Global.Var.SCALE;
+                    Spike.X = Spike.X - .8f * Global.Var.SCALE;
                 }
             }
             else if (Spike.Id == 2 || Spike.Id == 4)
@@ -46,7 +46,7 @@ namespace Sprintfinity3902.States
                 }
                 else if (count > 40)
                 {
-                    Spike.X = Spike.X + .5f * Global.Var.SCALE;
+                    Spike.X = Spike.X + .8f * Global.Var.SCALE;
                 }
             }
         }

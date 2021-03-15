@@ -27,11 +27,15 @@ namespace Sprintfinity3902.Entities
         public IEnemyState idleState { get; set; }
 
         public int Id { get; set; }
+
+        private SpikeAI spikeAI;
+
         public SpikeEnemy(Vector2 pos, int spikeId)
         {
             Sprite = EnemySpriteFactory.Instance.CreateSpikeEnemy();
             Position = pos;
             Id = spikeId;
+            spikeAI = new SpikeAI(this);
 
             horizontalMovingForward = new SpikeHorizontalMovingForwardState(this);
             horizontalMovingBackward = new SpikeHorizontalMovingBackwardState(this);
@@ -39,7 +43,7 @@ namespace Sprintfinity3902.Entities
             verticalMovingBackward = new SpikeVerticalMovingBackwardState(this);
             idleState = new SpikeIdleState(this);
 
-            CurrentState = verticalMovingForward;
+            CurrentState = idleState;
 
         }
 
@@ -47,27 +51,12 @@ namespace Sprintfinity3902.Entities
         {
             CurrentState.Sprite.Update(gameTime);
             CurrentState.Update();
-            //Move();
+            spikeAI.Update();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if(Id == 1)
-            {
-                Sprite.Draw(spriteBatch, Position, Color.White);
-            }
-            else if (Id == 2)
-            {
-                Sprite.Draw(spriteBatch, Position, Color.Red);
-            }
-            else if (Id == 3)
-            {
-                Sprite.Draw(spriteBatch, Position, Color.Blue);
-            }
-            else if (Id == 4)
-            {
-                Sprite.Draw(spriteBatch, Position, Color.Green);
-            }
+            Sprite.Draw(spriteBatch, Position, Color.White);
         }
 
         public void SetState(IEnemyState state)

@@ -34,7 +34,7 @@ namespace Sprintfinity3902.States
                 }
                 else
                 {
-                    Spike.Y = Spike.Y - .5f * Global.Var.SCALE;
+                    Spike.Y = Spike.Y - .7f * Global.Var.SCALE;
                 }
             }
             else if(Spike.Id == 3 || Spike.Id == 4)
@@ -46,7 +46,7 @@ namespace Sprintfinity3902.States
                 }
                 else
                 {
-                    Spike.Y = Spike.Y + .5f * Global.Var.SCALE;
+                    Spike.Y = Spike.Y + .7f * Global.Var.SCALE;
                 }
             }
         }

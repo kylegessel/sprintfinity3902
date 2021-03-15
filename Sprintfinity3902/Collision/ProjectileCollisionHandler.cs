@@ -16,5 +16,10 @@ namespace Sprintfinity3902.Collision
                 garbage.Add(new EnemyDeath(currentEnemy.Position));
             }
         }
+
+        public static void ProjectileWallHit(IProjectile projectile, IRoom room)
+        {
+            projectile.Collide(room);
+        }
     }
 }

@@ -195,7 +195,7 @@ namespace Sprintfinity3902.Entities
             return enemy.HitRegister(enemyID, 0, 120, AbstractEntity.Direction.NONE, room) <= 0;
         }
 
-        public void Collide()
+        public void Collide(IRoom room)
         {
             if (MoveUseCount < 60)
             {

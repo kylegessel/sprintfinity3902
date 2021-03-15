@@ -47,5 +47,9 @@ namespace Sprintfinity3902.Entities.Items
         {
             return enemy.HitRegister(enemyID, 3, 30, Direction.NONE, room) <= 0;
         }
+        public void Collide(IRoom room)
+        {
+            // Do nothing.
+        }
     }
 }

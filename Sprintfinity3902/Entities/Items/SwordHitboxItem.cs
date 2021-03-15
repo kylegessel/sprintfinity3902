@@ -37,6 +37,11 @@ namespace Sprintfinity3902.Entities
             if (itemUseCount < 20) return false;
             return enemy.HitRegister(enemyID, 1, 0, swordDirection, room) <= 0;
         }
+
+        public void Collide(IRoom room)
+        {
+            // Do nothing
+        }
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
 

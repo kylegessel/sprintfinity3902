@@ -131,5 +131,11 @@ namespace Sprintfinity3902.Entities
             Position = new Vector2(-1000, -1000);
             return enemy.HitRegister(enemyID, 1, 0, swordDirection, room) <= 0;
         }
+
+        public void Collide(IRoom room)
+        {
+            room.garbage.Add(new MovingSwordSplitItem(Position));
+            Position = new Vector2(-1000, -1000);
+        }
     }
 }

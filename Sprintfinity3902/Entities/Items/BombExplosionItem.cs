@@ -39,7 +39,7 @@ namespace Sprintfinity3902.Entities.Items
 
         public override Rectangle GetBoundingRect()
         {
-            return new Rectangle((int)Position5.X, (int)Position5.Y, 32 * Global.Var.SCALE, 48 * Global.Var.SCALE);
+            return new Rectangle((int)Position.X + 5, (int)Position.Y - 16, 32 * Global.Var.SCALE, 48 * Global.Var.SCALE);
 
         }
 

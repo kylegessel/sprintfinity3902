@@ -92,9 +92,9 @@ namespace Sprintfinity3902.Dungeon
 
         public void Draw(SpriteBatch spriteBatch) {
 
-            cyclableBlocks[KeyboardManager.Instance.GetCountDeltaKey(blockIndex, cyclableBlocks.Count)].Draw(spriteBatch);
-            cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Draw(spriteBatch);
-            cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Draw(spriteBatch);
+            cyclableBlocks[KeyboardManager.Instance.GetCountDeltaKey(blockIndex, cyclableBlocks.Count)].Draw(spriteBatch, Color.White);
+            cyclableItems[KeyboardManager.Instance.GetCountDeltaKey(itemIndex, cyclableItems.Count)].Draw(spriteBatch, Color.White);
+            cyclableCharacters[KeyboardManager.Instance.GetCountDeltaKey(NPCIndex, cyclableCharacters.Count)].Draw(spriteBatch, Color.White);
 
         }
 

@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class Fire : AbstractEntity
+    public class Fire : AbstractEntity, IEnemy
     {
         public Fire()
         {
@@ -16,6 +17,11 @@ namespace Sprintfinity3902.Entities
         {
             Sprite = EnemySpriteFactory.Instance.CreateFire();
             Position = pos;
+        }
+
+        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        {
+            return 1;
         }
     }
 }

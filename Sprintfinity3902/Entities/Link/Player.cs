@@ -10,12 +10,13 @@ namespace Sprintfinity3902.Link
 {
     public class Player : AbstractEntity, ILink
     {
-
+        private int MAX_HEALTH = 6; //May need to be public for projectiles
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
+        private int linkHealth;
 
         public IPlayerState CurrentState {
             get {
@@ -38,8 +39,6 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
 
-        public Color color;
-
         private Dictionary<IItem.ITEMS, int> itemcount;
 
         public Player()
@@ -60,7 +59,8 @@ namespace Sprintfinity3902.Link
             facingUpItem = new FacingUpItemState(this);
             color = Color.White;
             _collidable = true;
-            SetStepSize((float)1.5);
+            SetStepSize(1);
+            linkHealth = MAX_HEALTH;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -69,6 +69,19 @@ namespace Sprintfinity3902.Link
             if (itemcount.ContainsKey(item)) {
                 itemcount[item]++;
                 return ;
+            }
+            if (item == IItem.ITEMS.HEART)
+            {
+                if (linkHealth < MAX_HEALTH)
+                {
+                    linkHealth++;
+                }
+            }
+            else if (item == IItem.ITEMS.HEARTCONTAINER)
+            {
+                //Not sure what exactly is supposed to happen when picking up heart container.
+                MAX_HEALTH += 2;
+                linkHealth += 2;
             }
             itemcount.Add(item, 1);
         }
@@ -129,25 +142,33 @@ namespace Sprintfinity3902.Link
         //Will probably need to insert logic to prevent going through walls.
         public void MoveLink()
         {
-                //If you change the scaler to something larger than 1 Link can get pushed back through walls. 
-                //start moving
-                if (_side == ICollision.CollisionSide.BOTTOM)
-                {
-                    //Will want this to be an animation. So slower!
-                    this.Y += (float)1.5 * Global.Var.SCALE;
-                }
-                else if (_side == ICollision.CollisionSide.LEFT)
-                {
-                    this.X -= (float)1.5 * Global.Var.SCALE;
-                }
-                else if (_side == ICollision.CollisionSide.TOP)
-                {
-                    this.Y -= (float)1.5 * Global.Var.SCALE;
-                }
-                else
-                {
-                    this.X += (float)1.5 * Global.Var.SCALE;
-                }
+            int top = 96 * Global.Var.SCALE;
+            int bot = 194 * Global.Var.SCALE;
+            int left = 32 * Global.Var.SCALE;
+            int right = 224 * Global.Var.SCALE;
+            //If you change the scaler to something larger than 1 Link can get pushed back through walls. 
+            //start moving
+            if (_side == ICollision.CollisionSide.BOTTOM)
+            {
+                //Will want this to be an animation. So slower!
+                this.Y += (float)1.5 * Global.Var.SCALE;
+                if (this.Y > bot) this.Y = bot;
+            }
+            else if (_side == ICollision.CollisionSide.LEFT)
+            {
+                this.X -= (float)1.5 * Global.Var.SCALE;
+                if (this.X < left) this.X = left;
+            }
+            else if (_side == ICollision.CollisionSide.TOP)
+            {
+                this.Y -= (float)1.5 * Global.Var.SCALE;
+                if (this.Y < top) this.Y = top;
+            }
+            else
+            {
+                this.X += (float)1.5 * Global.Var.SCALE;
+                if (this.X > right) this.X = right;
+            }
         }
         public override Rectangle GetBoundingRect()
         {
@@ -155,17 +176,13 @@ namespace Sprintfinity3902.Link
             return new Rectangle((int)X+Global.Var.SCALE, (int)Y+Global.Var.SCALE, 14 * Global.Var.SCALE, 13 * Global.Var.SCALE);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Color color) {
+        public override void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position, color);
         }
         public void TakeDamage()
         {
             _collidable = false;
-            /*
-            {
-                //TODO: Remove Health from Link
-            }
-            */
+            linkHealth--;
         }
 
         public void BounceOfEnemy(ICollision.CollisionSide Side)

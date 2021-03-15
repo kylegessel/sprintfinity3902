@@ -10,8 +10,48 @@ namespace Sprintfinity3902.Entities
         private ISprite _sprite;
         private Vector2 _position;
         private Boolean _collidable = true;
+        private Color _color;
         private float _stepSize = 1; //Will want to set this individually for each entity. Set for now
 
+        // Does this belong here and can we make better use of it elsewhere?
+        // Boggus mentioned a magic numbers cleanup, believe this could be useful.
+        public enum Direction
+        {
+            NONE,
+            UP,
+            DOWN,
+            LEFT,
+            RIGHT
+        }
+
+        public Direction intToDirection(int dir)
+        {
+            switch (dir)
+            {
+                case 1:
+                    return Direction.LEFT;
+                case 2:
+                    return Direction.RIGHT;
+                case 3:
+                    return Direction.UP;
+                case 4:
+                    return Direction.DOWN;
+                default:
+                    return Direction.NONE;
+            }
+        }
+
+        public Color color
+        {
+            get
+            {
+                return _color;
+            }
+            set
+            {
+                _color = value;
+            }
+        }
         public ISprite Sprite
         {
             get
@@ -58,7 +98,7 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
             Sprite.Draw(spriteBatch, Position, Color.White);
         }

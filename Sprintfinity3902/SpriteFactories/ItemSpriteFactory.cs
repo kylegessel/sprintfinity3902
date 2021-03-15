@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sprites;
+using Sprintfinity3902.Sprites.Items;
 
 namespace Sprintfinity3902.SpriteFactories
 {
@@ -95,6 +96,22 @@ namespace Sprintfinity3902.SpriteFactories
             return new ClockItemSprite(itemSpriteSheet);
         }
 
+        public ISprite CreateSwordSplitTopLeft()
+        {
+            return new SwordSplitTopLeftSprite(linkItemSpriteSheet);
+        }
+        public ISprite CreateSwordSplitTopRight()
+        {
+            return new SwordSplitTopRightSprite(linkItemSpriteSheet);
+        }
+        public ISprite CreateSwordSplitBottomLeft()
+        {
+            return new SwordSplitBottomLeftSprite(linkItemSpriteSheet);
+        }
+        public ISprite CreateSwordSplitBottomRight()
+        {
+            return new SwordSplitBottomRightSprite(linkItemSpriteSheet);
+        }
         public ISprite CreateBoomerangItem()
         {
             return new BoomerangItemSprite(linkItemSpriteSheet);

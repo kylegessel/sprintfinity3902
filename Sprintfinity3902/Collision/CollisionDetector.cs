@@ -19,8 +19,6 @@ namespace Sprintfinity3902.Collision
         ICollision blockCollision = new BlockCollisionHandler();
         ICollision enemyCollision = new EnemyCollisionHandler();
         ICollision.CollisionSide side;
-        public static List<int> decorateList;
-        public static List<int> undecorateList;
         //Rectangle intersectionRect;
         
 
@@ -40,8 +38,6 @@ namespace Sprintfinity3902.Collision
         {
             gameInstance = game;
             link = (Player)game.playerCharacter;
-            decorateList = new List<int>();
-            undecorateList = new List<int>();
         }
 
         /* 
@@ -148,33 +144,16 @@ namespace Sprintfinity3902.Collision
                 {
                     IEntity currentEnemy;
                     enemies.TryGetValue(enemy, out currentEnemy);
-                    Rectangle enemyRect = currentEnemy.GetBoundingRect();
-                    /*
-                     * TODO: enemy damage handler
-                     */
-
                     if (proj != null && proj.GetBoundingRect().Intersects(currentEnemy.GetBoundingRect()))
                     {
-                         IProjectile projectile = (IProjectile)proj;
-
-                        Boolean removeItem = projectile.Collide(enemy, (IEnemy)currentEnemy, gameInstance.dungeon.CurrentRoom);
-                        //CollisionDetector.decorateList.Add(enemy);
-                        if (removeItem)
-                        {
-                            deletionList.Add(enemy);
-                            garbage.Add(new EnemyDeath(currentEnemy.Position));
-                        }
-
+                        ProjectileCollisionHandler.ProjectileEnemyHit(enemy, currentEnemy, (IProjectile)proj, deletionList, garbage, gameInstance);
                     }
-
                 }
             }
             foreach (int enemyID in deletionList)
             {
                 enemies.Remove(enemyID);
             }
-
-
         }
 
         private void DetectItemPickup(List<IEntity> items)

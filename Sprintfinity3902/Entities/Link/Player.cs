@@ -12,6 +12,10 @@ namespace Sprintfinity3902.Link
     {
 
         private IPlayerState _currentState;
+        private ICollision.CollisionSide _side;
+        private int _bouncingOfEnemyCount;
+        private Boolean _bouncingOfEnemy;
+        private Boolean _collidable;
 
         public IPlayerState CurrentState {
             get {
@@ -55,6 +59,8 @@ namespace Sprintfinity3902.Link
             facingRightItem = new FacingRightItemState(this);
             facingUpItem = new FacingUpItemState(this);
             color = Color.White;
+            _collidable = true;
+            SetStepSize((float)1.5);
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -99,32 +105,87 @@ namespace Sprintfinity3902.Link
         public override void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);  //can this pass out size?
             CurrentState.Update();
+
+            if (_bouncingOfEnemy)
+            {
+                MoveLink();
+                _bouncingOfEnemyCount++;
+            }
+            if (_bouncingOfEnemyCount > 15)
+            {
+                StopMoving();
+            }
             //return new Rectangle(0,0,0,0);
-        } 
-
-        public Rectangle getRectangle()
-        {
-            return new Rectangle((int)X, (int)Y, 16*Global.Var.SCALE, 16 * Global.Var.SCALE);
         }
 
-        /*
-        public Rectangle getRectangle()
+        public void StopMoving()
         {
-            return new Rectangle(X, Y, 16 * 5, 16 * 5);
+            _bouncingOfEnemy = false;
+            _bouncingOfEnemyCount = 0;
+            //resume animation
+            //allow move commands to start again
         }
-        */
+
+        //Will probably need to insert logic to prevent going through walls.
+        public void MoveLink()
+        {
+                //If you change the scaler to something larger than 1 Link can get pushed back through walls. 
+                //start moving
+                if (_side == ICollision.CollisionSide.BOTTOM)
+                {
+                    //Will want this to be an animation. So slower!
+                    this.Y += (float)1.5 * Global.Var.SCALE;
+                }
+                else if (_side == ICollision.CollisionSide.LEFT)
+                {
+                    this.X -= (float)1.5 * Global.Var.SCALE;
+                }
+                else if (_side == ICollision.CollisionSide.TOP)
+                {
+                    this.Y -= (float)1.5 * Global.Var.SCALE;
+                }
+                else
+                {
+                    this.X += (float)1.5 * Global.Var.SCALE;
+                }
+        }
+        public override Rectangle GetBoundingRect()
+        {
+            //Choose a consistent hitbox for link so that his sword is never counted as a hurtbox.
+            return new Rectangle((int)X+Global.Var.SCALE, (int)Y+Global.Var.SCALE, 14 * Global.Var.SCALE, 13 * Global.Var.SCALE);
+        }
 
         public void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position, color);
         }
         public void TakeDamage()
         {
-            //Will be needed in future to take away health?
+            _collidable = false;
+            /*
+            {
+                //TODO: Remove Health from Link
+            }
+            */
+        }
+
+        public void BounceOfEnemy(ICollision.CollisionSide Side)
+        {
+            _side = Side;
+            _bouncingOfEnemy = true;
+            /*
+             * May need to:
+             * Pause animation;
+             * Stop accepting move input keys for link
+             */
+
         }
         public void RemoveDecorator()
         {
-            //NULL
+            _collidable = true;
         }
-
+        public override Boolean IsCollidable()
+        {
+            return _collidable;
+        }
     }
 }

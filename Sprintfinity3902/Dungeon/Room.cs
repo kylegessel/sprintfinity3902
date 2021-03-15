@@ -9,7 +9,7 @@ namespace Sprintfinity3902.Dungeon
     {
         public int Id { get; set; }
         //public List<IEntity> roomEntities { get; set; }
-        public List<IEntity> blocks { get; set; }
+        public List<IBlock> blocks { get; set; }
         public List<IEntity> enemies { get; set; }
         public List<IEntity> items { get; set; }
         //projectiles may have to be added here later.
@@ -23,7 +23,7 @@ namespace Sprintfinity3902.Dungeon
 
         public Room(string fileLocation, int id)
         {
-            blocks = new List<IEntity>();
+            blocks = new List<IBlock>();
             enemies = new List<IEntity>();
             items = new List<IEntity>();
             path = fileLocation;
@@ -42,7 +42,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void Update(GameTime gameTime)
         { 
-            foreach (IEntity entity in blocks)
+            foreach (IBlock entity in blocks)
                 entity.Update(gameTime);
 
             foreach (IEntity entity in enemies)
@@ -54,7 +54,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach (IEntity entity in blocks)
+            foreach (IBlock entity in blocks)
                 entity.Draw(spriteBatch);
 
             foreach (IEntity entity in enemies)
@@ -67,7 +67,7 @@ namespace Sprintfinity3902.Dungeon
         public void ChangePosition(bool pause)
         {
             Pause = pause;
-            foreach (IEntity entity in blocks)
+            foreach (IBlock entity in blocks)
             {
                 if(count != 176 * Global.Var.SCALE && pause)
                 {

@@ -4,7 +4,7 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class StairsBlock : AbstractEntity
+    public class StairsBlock : AbstractBlock
     {
         public StairsBlock()
         {

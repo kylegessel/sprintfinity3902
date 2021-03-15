@@ -5,7 +5,7 @@ using Sprintfinity3902.States.Door;
 
 namespace Sprintfinity3902.Entities.Doors
 {
-    public class Door : AbstractEntity
+    public class Door : AbstractBlock
     {
         private IDoorState _currentState;
 
@@ -98,6 +98,16 @@ namespace Sprintfinity3902.Entities.Doors
         public override void Update(GameTime gameTime)
         {
             CurrentState.Sprite.Update(gameTime);
+        }
+
+        public override Rectangle GetBoundingRect()
+        {
+            return new Rectangle((int)X, (int)Y, 32 * Global.Var.SCALE, 32 * Global.Var.SCALE);
+        }
+
+        public override bool IsTall()
+        {
+            return true;
         }
     }
 }

@@ -27,6 +27,11 @@ namespace Sprintfinity3902.Entities
             count = 0;
         }
 
+        public override bool IsCollidable()
+        {
+            return false;
+        }
+
         public override void Move()
         {
             if(count == 0)

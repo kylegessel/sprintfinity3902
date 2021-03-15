@@ -4,7 +4,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class RoomInterior : AbstractEntity
+    public class RoomInterior : AbstractBlock
     {
         public RoomInterior(Vector2 pos)
         {

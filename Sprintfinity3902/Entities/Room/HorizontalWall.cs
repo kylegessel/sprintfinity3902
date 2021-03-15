@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Entities
 {
-    public class HorizontalWall : AbstractEntity
+    public class HorizontalWall : AbstractBlock
     {
         public HorizontalWall(Vector2 pos)
         {
@@ -30,6 +30,10 @@ namespace Sprintfinity3902.Entities
             return new Rectangle((int)Position.X, (int)Position.Y, 120*Global.Var.SCALE, 32*Global.Var.SCALE);
         }
 
+        public override bool IsTall()
+        {
+            return true;
+        }
 
     }
 }

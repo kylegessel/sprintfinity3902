@@ -3,7 +3,7 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class DarkBlueBlock : AbstractEntity
+    public class DarkBlueBlock : AbstractBlock
     {
         public DarkBlueBlock()
         {

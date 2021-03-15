@@ -21,9 +21,15 @@ namespace Sprintfinity3902.Sprites
 
         public float TimeStamp { get; set; }
 
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
         public AnimationFrame(SpriteFrame sprite, float timeStamp) {
             Sprite = sprite;
             TimeStamp = timeStamp;
+            Width = sprite.Width;
+            Height = sprite.Height;
         }
 
     }

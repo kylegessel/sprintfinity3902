@@ -10,6 +10,7 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
+using Sprintfinity3902.Entities.Items;
 
 namespace Sprintfinity3902
 {
@@ -32,6 +33,7 @@ namespace Sprintfinity3902
         
         public IEntity hitboxSword;
         public List<IEntity> linkProj;
+        private IEntity bombExplosion;
         //private IDetector detector;
 
         public Game1()
@@ -67,14 +69,15 @@ namespace Sprintfinity3902
             pauseMenu = new PauseMenu(this);
 
             boomerangItem = new BoomerangItem();
-            bombItem = new BombItem(new Vector2(-1000, -1000));
+            bombExplosion = new BombExplosionItem(new Vector2(-1000,-1000));
+            bombItem = new BombItem(new Vector2(-1000, -1000), (BombExplosionItem) bombExplosion);
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
             hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
 
             linkProj = new List<IEntity>();
 
             linkProj.Add(boomerangItem);
-            linkProj.Add(bombItem);
+            linkProj.Add(bombExplosion);
             linkProj.Add(movingSword);
             linkProj.Add(hitboxSword);
 
@@ -132,7 +135,7 @@ namespace Sprintfinity3902
 
             IRoom currentRoom = dungeon.GetCurrentRoom();
 
-            CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj);
+            CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj, currentRoom.garbage);
 
 
             base.Update(gameTime);
@@ -148,9 +151,9 @@ namespace Sprintfinity3902
 
             playerCharacter.Draw(SpriteBatch, Color.White);
 
-            boomerangItem.Draw(SpriteBatch);
-            bombItem.Draw(SpriteBatch);
-            movingSword.Draw(SpriteBatch);
+            boomerangItem.Draw(SpriteBatch, Color.White);
+            bombItem.Draw(SpriteBatch, Color.White);
+            movingSword.Draw(SpriteBatch, Color.White);
 
             SpriteBatch.End();
 

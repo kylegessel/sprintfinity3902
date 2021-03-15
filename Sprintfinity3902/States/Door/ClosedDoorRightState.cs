@@ -17,7 +17,7 @@ namespace Sprintfinity3902.States.Door
 
         public void Open()
         {
-            //NULL
+            CurrentDoor.SetState(CurrentDoor.openDoorRight);
         }
 
         // To be implemented when room first entered, door starts opened then closes.

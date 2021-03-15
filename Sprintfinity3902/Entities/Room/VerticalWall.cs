@@ -15,7 +15,7 @@ namespace Sprintfinity3902.Entities
             Position = pos;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
 
         }

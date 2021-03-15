@@ -61,7 +61,7 @@ namespace Sprintfinity3902
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Map.Draw(spriteBatch);
+            Map.Draw(spriteBatch, Color.White);
         }
 
         public void PauseGame()
@@ -109,7 +109,7 @@ namespace Sprintfinity3902
                     entity.Y = entity.Y - 2 * Global.Var.SCALE;
             }
 
-            foreach (IEntity entity in Game.dungeon.GetCurrentRoom().enemies)
+            foreach (IEntity entity in Game.dungeon.GetCurrentRoom().enemies.Values)
             {
                 if (count != 176 * Global.Var.SCALE && Pause)
                     entity.Y = entity.Y + 2 * Global.Var.SCALE;
@@ -132,6 +132,21 @@ namespace Sprintfinity3902
                 else if (count != 176 * Global.Var.SCALE && Pause == false)
                     proj.Y = proj.Y - 2 * Global.Var.SCALE;
             }
+            
+            foreach(IEntity garbage in Game.dungeon.GetCurrentRoom().garbage)
+            {
+                if (count != 176 * Global.Var.SCALE && Pause)
+                    garbage.Y = garbage.Y + 2 * Global.Var.SCALE;
+                else if (count != 176 * Global.Var.SCALE && Pause == false)
+                    garbage.Y = garbage.Y - 2 * Global.Var.SCALE;
+            }
+
+            // Case for the bomb as it doesn't work similarly to other projectiles.
+
+            if (count != 176 * Global.Var.SCALE && Pause)
+                Game.bombItem.Y = Game.bombItem.Y + 2 * Global.Var.SCALE;
+            else if (count != 176 * Global.Var.SCALE && Pause == false)
+                Game.bombItem.Y = Game.bombItem.Y - 2 * Global.Var.SCALE;
         }
 
     }

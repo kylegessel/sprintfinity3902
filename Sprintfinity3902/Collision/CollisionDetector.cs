@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Entities.Enemies_NPCs;
 using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
@@ -13,7 +14,6 @@ namespace Sprintfinity3902.Collision
 
         Game1 gameInstance;
         Player link;
-
 
         
         ICollision blockCollision = new BlockCollisionHandler();
@@ -45,29 +45,32 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(List<IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj) {
+        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> garbage) {
             DetectLinkDamage(enemies);
             DetectBlockCollision(enemies, blocks, linkProj);
-            DetectEnemyDamage(enemies, linkProj);
+            DetectEnemyDamage(enemies, linkProj, items, garbage);
             DetectItemPickup(items);
 
         }
 
-        private void DetectLinkDamage(List<IEntity> enemies)
+        private void DetectLinkDamage(Dictionary<int, IEntity> enemies)
         {
 
             Rectangle linkRect = link.GetBoundingRect();
             Boolean alreadyMoved = false;
-            foreach (AbstractEntity enemy in enemies)
+            foreach (int enemy in enemies.Keys)
             {
-                Rectangle enemyRect = enemy.GetBoundingRect();
-                if (link.IsCollidable()  && enemyRect.Intersects(linkRect)) 
+                IEntity currentEnemy;
+                enemies.TryGetValue(enemy, out currentEnemy);
+                AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
+                Rectangle enemyRect = cEnemy.GetBoundingRect();
+                if (link.IsCollidable() && enemyRect.Intersects(linkRect)) 
                 {
-                    side = enemyCollision.sideOfCollision(enemyRect, linkRect);
+                    side = enemyCollision.SideOfCollision(enemyRect, linkRect);
                     if (!alreadyMoved) //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
                     {
                         /*Have initial reflection so Link can't move through enemy, then continue to move him back*/
-                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                        alreadyMoved = blockCollision.ReflectMovingEntity(link, side);
                         ((ILink)link).BounceOfEnemy(side);
                     }
 
@@ -78,7 +81,7 @@ namespace Sprintfinity3902.Collision
             }
         }
 
-        private void DetectBlockCollision(List<IEntity> enemies, List<IBlock> blocks, List<IEntity> linkProj)
+        private void DetectBlockCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> linkProj)
         {
 
             Rectangle linkRect = link.GetBoundingRect();
@@ -91,35 +94,39 @@ namespace Sprintfinity3902.Collision
                 //link vs blocks
                 if (block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
-                    side = blockCollision.sideOfCollision(blockRect, linkRect);
+                    side = blockCollision.SideOfCollision(blockRect, linkRect);
 
                     //Create a movable block class?? But how to only let it move one full space in one direction?
                     if (!alreadyMoved) //This will prevent it from moving back twice
                     {
                         /*This allows link to push blocks. Enemies can not push blocks*/
-                       if ( block.IsMovable() && ((block.PushSide() == side) || (block.PushSide2() == side)) )
-                       {
-                            block.StartMoving(side);
-                       }
-                       alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                        if ( block.IsMovable() && ((block.PushSide() == side) || (block.PushSide2() == side)) )
+                        {
+                             block.StartMoving(side);
+                        }
+                        alreadyMoved = blockCollision.ReflectMovingEntity(link, side); 
                     }
                 }
 
                 //enemy vs blocks
-                foreach (AbstractEntity enemy in enemies)
+                foreach (int enemy in enemies.Keys)
                 {
                     // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
-                    Rectangle enemyRect = enemy.GetBoundingRect();
+                    IEntity currentEnemy;
+                    enemies.TryGetValue(enemy, out currentEnemy);
+                    AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
+                    Rectangle enemyRect = cEnemy.GetBoundingRect();
                     alreadyMoved = false;
 
-                    if (((block.IsCollidable() && enemy.IsCollidable())||block.IsTall()) && blockRect.Intersects(enemyRect))
+                    if (((block.IsCollidable() && cEnemy.IsCollidable())||block.IsTall()) && blockRect.Intersects(enemyRect))
                     {
-                        side = blockCollision.sideOfCollision(blockRect, enemyRect);
+                        side = blockCollision.SideOfCollision(blockRect, enemyRect);
                         if (!alreadyMoved) //This will prevent it from moving back twice
                         {
-                            alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
+                            alreadyMoved = blockCollision.ReflectMovingEntity(currentEnemy, side);
                         }
                     }
+                    blockCollision.UpdatePosition(cEnemy); //Add a Update Position method like the one in abstract Enemy to enemy handler class!
                 }
 
                 //proj vs blocks
@@ -128,47 +135,38 @@ namespace Sprintfinity3902.Collision
 
                     if (block.IsTall() && blockRect.Intersects(proj.GetBoundingRect()))
                     {
-                        //deletionList.Add(proj);
-                        ILink damagedLink = new DamagedLink(link, gameInstance);
-                        gameInstance.playerCharacter = damagedLink;
+                        ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
                     }
                 }
 
-
             }
-           
+
+
 
         }
 
-       private void DetectEnemyDamage(List<IEntity> enemies, List<IEntity> linkProj)
-       {
+        private void DetectEnemyDamage(Dictionary<int, IEntity> enemies, List<IEntity> linkProj, List<IEntity> items, List<IEntity> garbage)
+        {
 
-           List<IEntity> deletionList = new List<IEntity>();
-           /*
-            * TODO: implement link hurtboxes and pass to this function.
-            */
-                        foreach (AbstractEntity proj in linkProj)
+            List<int> deletionList = new List<int>();
+            /*
+             * TODO: implement link hurtboxes and pass to this function.
+             */
+            foreach (AbstractEntity proj in linkProj)
             {
-                foreach (AbstractEntity enemy in enemies)
+                foreach (int enemy in enemies.Keys)
                 {
-                    /*
-                     * TODO: enemy damage handler
-                     */
-
-                    if (proj.GetBoundingRect().Intersects(enemy.GetBoundingRect()))
+                    IEntity currentEnemy;
+                    enemies.TryGetValue(enemy, out currentEnemy);
+                    if (proj != null && proj.GetBoundingRect().Intersects(currentEnemy.GetBoundingRect()))
                     {
-                        /*
-                         * TODO: Replace with handler
-                         */
-                        deletionList.Add(enemy);
+                        ProjectileCollisionHandler.ProjectileEnemyHit(enemy, currentEnemy, (IProjectile)proj, deletionList, garbage, gameInstance);
                     }
-
                 }
             }
-
-            foreach (AbstractEntity pickup in deletionList)
+            foreach (int enemyID in deletionList)
             {
-                enemies.Remove(pickup);
+                enemies.Remove(enemyID);
             }
         }
 
@@ -183,6 +181,7 @@ namespace Sprintfinity3902.Collision
                 if (item.GetBoundingRect().Intersects(linkRect))
                 {
                     link.pickup(((AbstractItem)item).ID);
+
                     /*
                      * TODO: Replace with handler
                      */

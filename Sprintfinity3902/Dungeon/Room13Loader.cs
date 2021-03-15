@@ -114,7 +114,8 @@ namespace Sprintfinity3902.Dungeon
 
                 //ENEMIES
                 case "BBAT":
-                    Room.enemies.Add(new BlueBatEnemy(Position));
+                    Room.enemies.Add(enemyID, new BlueBatEnemy(Position));
+                    enemyID++;
                     break;
 
                 //ITEMS

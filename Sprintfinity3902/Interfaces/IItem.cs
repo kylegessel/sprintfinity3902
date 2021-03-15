@@ -14,6 +14,7 @@ namespace Sprintfinity3902.Interfaces
             COMPASS,
             FAIRY,
             HEART,
+            HEARTCONTAINER,
             KEY,
             MAP,
             SWORD,

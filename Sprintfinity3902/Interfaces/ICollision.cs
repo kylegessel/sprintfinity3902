@@ -16,8 +16,9 @@ namespace Sprintfinity3902.Interfaces
             NONE
         }
 
-        Boolean reflectMovingEntity(IEntity movingEntity, CollisionSide side); //, Rectangle intersectionRect);
+        Boolean ReflectMovingEntity(IEntity movingEntity, CollisionSide side); //, Rectangle intersectionRect);
 
-        CollisionSide sideOfCollision(Rectangle block, Rectangle characterRect);
+        CollisionSide SideOfCollision(Rectangle block, Rectangle characterRect);
+        void UpdatePosition(IEntity entity);
     }
 }

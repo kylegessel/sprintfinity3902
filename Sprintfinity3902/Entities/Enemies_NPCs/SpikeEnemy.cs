@@ -6,7 +6,7 @@ using Sprintfinity3902.States;
 
 namespace Sprintfinity3902.Entities
 {
-    public class SpikeEnemy : AbstractEntity
+    public class SpikeEnemy : AbstractEntity, IEnemy
     {
         private IEnemyState _currentState;
         public IEnemyState CurrentState
@@ -54,7 +54,7 @@ namespace Sprintfinity3902.Entities
             spikeAI.Update();
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             Sprite.Draw(spriteBatch, Position, Color.White);
         }

@@ -60,8 +60,10 @@ namespace Sprintfinity3902.Dungeon
 
         public void Update(GameTime gameTime)
         {
-            if(CurrentRoom.Id != NextId)
-                SetLinkPosition();
+            if (CurrentRoom.Id != NextId) {
+            SetLinkPosition();
+            CurrentRoom.garbage.Clear();
+        }
             CurrentRoom = GetById(NextId);
             CurrentRoom.Update(gameTime);
         }

@@ -1,0 +1,25 @@
+﻿Author: Benjamin Hobson
+Date: 3/15/21
+Sprint 3
+
+Reviewed: Room.cs Class
+Written by: Bailey Ardrey
+
+Reviewed by: Benjamin Hobson
+
+Reviewing commit: 7094093811a8acfe1102eb5cc38be87f0dfb0af0 
+
+Reviewing empahsis: Maintainability
+
+Time Spent: 15min
+
+Review:
+
+Bailey wrote this class in such a way that it can be easily maintained. He made use of public get/set 
+properties which help with code longevity. Additionally. Bailey made use of the Global class which 
+means he did not hard code values into the class--this is a great and simple feature that goes a long 
+way for maintaining code. The class is pretty simple; one suggestion might be to extract the repeated logic
+in 67-105. Since the logic  is multi-line and repeated, it could shorten the class... however from a 
+maintainabiltiy standpoint, Bailey's current implementation may be best so that he can change a specific
+implementation for any of the repeated groups of entities. Bailey did a good job making this code 
+maintainable. My hypothetical change would be to use ternary operators where appropriate.

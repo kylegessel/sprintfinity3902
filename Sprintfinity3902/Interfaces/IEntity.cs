@@ -22,7 +22,7 @@ namespace Sprintfinity3902.Interfaces
             get; set;
         }
         void Update(GameTime gameTime);
-        void Draw(SpriteBatch spriteBatch);
+        void Draw(SpriteBatch spriteBatch, Color color);
         void Move();
         void Attack();
         void SetState(IPlayerState state);

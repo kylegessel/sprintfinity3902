@@ -19,7 +19,7 @@ namespace Sprintfinity3902.Entities
         int MoveUseCount;
         int MaxMoveUseCount;
         IPlayerState FiringStatePlayer;
-        IGoriyaState FiringStateGoriya;
+        IEnemyState FiringStateGoriya;
         IEntity Entity;
         float XDiff;
         float YDiff;

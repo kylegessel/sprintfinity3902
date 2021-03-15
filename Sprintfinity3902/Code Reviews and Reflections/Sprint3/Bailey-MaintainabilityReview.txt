@@ -1,0 +1,37 @@
+﻿Reviewed by: Bailey Ardrey
+Reviewed on: 3/15/2021
+Sprint 3
+Reviewed Class: MovingLeftBlock.cs and MovingVertBlock.cs
+File written by: Casey Vancauwenbergh
+Time Spent: 20min
+
+Reviewing commit: 27f149d1192c7708899eb6e80ebecfd562dfb15e 
+Reviewing empahsis: Maintainability
+
+Casey did a fantastic job on the movable block implementation. The methods
+are small and simple, and thus easy to understand and maintain into the future. 
+The class variables and methods have meaningful names that will make working with
+it later on much easier, contributing to high maintainability and longevity.
+Additionally, the class encapsulates all the necessary implementation details
+for moving the block, thus giving the class a clear and defined responsibility. The
+classes also don't reinvent the wheel when it comes to collision. Instead, the
+class smartly uses the ICollision interface to denote what side the player
+is colliding with.
+
+One area where these two specfic classes might be able to be improved, however, is
+in the area of code reuse. Taking a look at both classes side by side, it is clear
+that most of the code for the two blocks are the same. Having two different moving
+block classes could be a bit confusing, and also limits options for later on in
+the course when we have to implement our own feature. As they stand now, blocks can
+only be moved vertically or left, and these are achieved through seperate classes
+rather than one multifaceted class to manage moving blocks. Perhaps maintainability
+and code reuse could be improved by combining the classes. Perhaps upon creation,
+the directions in which the block can be moved could be designated through a
+boolean or integer passed in. Then in the move block function, if functions could
+limit what directions the block could be moved in based on that Id value. Having
+a single "MovableBlock" class with this kind of functionality might be more 
+maintainable and usable into the future.
+
+Overall though, Casey has two fine pieces of code here that are easy to read
+and maintain due to strong variable names, clear and simple methods, a
+nice layout, and encapsulation of responsibility.

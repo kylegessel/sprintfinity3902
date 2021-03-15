@@ -104,6 +104,11 @@ namespace Sprintfinity3902.Entities.Doors
         {
             return new Rectangle((int)X, (int)Y, 32 * Global.Var.SCALE, 32 * Global.Var.SCALE);
         }
+
+        public override bool IsTall()
+        {
+            return true;
+        }
     }
 }
 

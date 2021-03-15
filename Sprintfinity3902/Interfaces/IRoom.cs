@@ -9,7 +9,7 @@ namespace Sprintfinity3902.Interfaces
     {
         int Id { get; set; }
         //List<IEntity> roomEntities { get; set; }
-        List<IEntity> blocks { get; set; }
+        List<IBlock> blocks { get; set; }
         List<IEntity> items { get; set; }
         List <IEntity> enemies { get; set; }
         string path { get; set; }

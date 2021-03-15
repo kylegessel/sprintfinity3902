@@ -13,7 +13,7 @@ namespace Sprintfinity3902.Collision
 
         Game1 gameInstance;
         Player link;
-        Rectangle RoomInteriorBounds = new Rectangle(32 * Global.Var.SCALE, 96 * Global.Var.SCALE, 192 * Global.Var.SCALE, 112 * Global.Var.SCALE);
+
 
         
         ICollision blockCollision = new BlockCollisionHandler();
@@ -45,7 +45,7 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> items, List<IEntity> linkProj) {
+        public void CheckCollision(List<IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj) {
             DetectLinkDamage(enemies);
             DetectBlockCollision(enemies, blocks, linkProj);
             DetectEnemyDamage(enemies, linkProj);
@@ -78,12 +78,11 @@ namespace Sprintfinity3902.Collision
             }
         }
 
-        private void DetectBlockCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> linkProj)
+        private void DetectBlockCollision(List<IEntity> enemies, List<IBlock> blocks, List<IEntity> linkProj)
         {
 
             Rectangle linkRect = link.GetBoundingRect();
             Boolean alreadyMoved = false;
-            List<IEntity> deletionList = new List<IEntity>();
 
             foreach (AbstractBlock block in blocks)
             {
@@ -125,19 +124,18 @@ namespace Sprintfinity3902.Collision
                 }
             }
 
-            foreach (AbstractEntity proj in linkProj)
+            foreach (AbstractBlock block in blocks)
             {
-                if (proj.GetBoundingRect() == Rectangle.Intersect(proj.GetBoundingRect(), RoomInteriorBounds))
+                foreach (AbstractEntity proj in linkProj)
                 {
-                    //deletionList.Add(proj);
-                    ILink damagedLink = new DamagedLink(link, gameInstance);
-                    gameInstance.playerCharacter = damagedLink;
-                }
-            }
 
-            foreach (AbstractEntity OOBproj in deletionList)
-            {
-                linkProj.Remove(OOBproj);
+                    if (block.IsTall() && block.GetBoundingRect().Intersects(proj.GetBoundingRect()))
+                    {
+                        //deletionList.Add(proj);
+                        ILink damagedLink = new DamagedLink(link, gameInstance);
+                        gameInstance.playerCharacter = damagedLink;
+                    }
+                }
             }
 
         }

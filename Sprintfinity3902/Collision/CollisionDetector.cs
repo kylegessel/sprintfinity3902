@@ -13,7 +13,7 @@ namespace Sprintfinity3902.Collision
 
         Game1 gameInstance;
         Player link;
-        Rectangle RoomInteriorBounds = new Rectangle(32,96,192,112);
+        Rectangle RoomInteriorBounds = new Rectangle(32 * Global.Var.SCALE, 96 * Global.Var.SCALE, 192 * Global.Var.SCALE, 112 * Global.Var.SCALE);
 
         
         ICollision blockCollision = new BlockCollisionHandler();
@@ -47,7 +47,7 @@ namespace Sprintfinity3902.Collision
          */
         public void CheckCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> items, List<IEntity> linkProj) {
             DetectLinkDamage(enemies);
-            DetectBlockCollision(enemies, blocks);
+            DetectBlockCollision(enemies, blocks, linkProj);
             DetectEnemyDamage(enemies, linkProj);
             DetectItemPickup(items);
 
@@ -78,11 +78,12 @@ namespace Sprintfinity3902.Collision
             }
         }
 
-        private void DetectBlockCollision(List<IEntity> enemies, List<IEntity> blocks)
+        private void DetectBlockCollision(List<IEntity> enemies, List<IEntity> blocks, List<IEntity> linkProj)
         {
 
             Rectangle linkRect = link.GetBoundingRect();
             Boolean alreadyMoved = false;
+            List<IEntity> deletionList = new List<IEntity>();
 
             foreach (AbstractBlock block in blocks)
             {
@@ -122,6 +123,21 @@ namespace Sprintfinity3902.Collision
                         }
                     }
                 }
+            }
+
+            foreach (AbstractEntity proj in linkProj)
+            {
+                if (proj.GetBoundingRect() == Rectangle.Intersect(proj.GetBoundingRect(), RoomInteriorBounds))
+                {
+                    //deletionList.Add(proj);
+                    ILink damagedLink = new DamagedLink(link, gameInstance);
+                    gameInstance.playerCharacter = damagedLink;
+                }
+            }
+
+            foreach (AbstractEntity OOBproj in deletionList)
+            {
+                linkProj.Remove(OOBproj);
             }
 
         }

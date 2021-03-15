@@ -11,13 +11,10 @@ namespace Sprintfinity3902.Entities.Items
         ISprite Sprite3;
         ISprite Sprite4;
 
-        Vector2 Position2;
-        Vector2 Position3;
-        Vector2 Position4;
-
         private int count;
         private int totalTime;
         private float speed;
+        private float shiftAmount;
         public MovingSwordSplitItem(Vector2 position)
         {
             Sprite = ItemSpriteFactory.Instance.CreateSwordSplitTopLeft();
@@ -25,9 +22,8 @@ namespace Sprintfinity3902.Entities.Items
             Sprite3 = ItemSpriteFactory.Instance.CreateSwordSplitBottomLeft();
             Sprite4 = ItemSpriteFactory.Instance.CreateSwordSplitBottomRight();
             Position = position;
-            Position2 = position;
-            Position3 = position;
-            Position4 = position;
+            // Creating a position 1 so things will hold on pause.
+            // Position will act as a store of starting position and we will change based on that.
             speed = 1.0f;
             count = 0;
             totalTime = 16;
@@ -38,10 +34,10 @@ namespace Sprintfinity3902.Entities.Items
         {
             if (count <= totalTime)
             {
-                Sprite.Draw(spriteBatch, Position, color);
-                Sprite2.Draw(spriteBatch, Position2, color);
-                Sprite3.Draw(spriteBatch, Position3, color);
-                Sprite4.Draw(spriteBatch, Position4, color);
+                Sprite.Draw(spriteBatch, new Vector2(Position.X - shiftAmount * Global.Var.SCALE, Position.Y - shiftAmount * Global.Var.SCALE), color);
+                Sprite2.Draw(spriteBatch, new Vector2(Position.X + shiftAmount * Global.Var.SCALE, Position.Y - shiftAmount * Global.Var.SCALE), color);
+                Sprite3.Draw(spriteBatch, new Vector2(Position.X - shiftAmount * Global.Var.SCALE, Position.Y + shiftAmount * Global.Var.SCALE), color);
+                Sprite4.Draw(spriteBatch, new Vector2(Position.X + shiftAmount * Global.Var.SCALE, Position.Y + shiftAmount * Global.Var.SCALE), color);
             }
         }
 
@@ -53,7 +49,6 @@ namespace Sprintfinity3902.Entities.Items
                 Sprite2.Update(gameTime);
                 Sprite3.Update(gameTime);
                 Sprite4.Update(gameTime);
-
                 Move();
                 count++;
             }
@@ -61,10 +56,8 @@ namespace Sprintfinity3902.Entities.Items
 
         public override void Move()
         {
-            Position = new Vector2(Position.X - speed * Global.Var.SCALE, Position.Y - speed * Global.Var.SCALE);
-            Position2 = new Vector2(Position2.X + speed * Global.Var.SCALE, Position2.Y - speed * Global.Var.SCALE);
-            Position3 = new Vector2(Position3.X - speed * Global.Var.SCALE, Position3.Y + speed * Global.Var.SCALE);
-            Position4 = new Vector2(Position4.X + speed * Global.Var.SCALE, Position4.Y + speed * Global.Var.SCALE);
+            // We should update the positions in draw as they need to update dependent on the position.
+            shiftAmount = speed * count;
         }
     }
 }

@@ -19,36 +19,22 @@ namespace Sprintfinity3902.Entities.Items
         {
             Position = position;
             Sprite = ItemSpriteFactory.Instance.CreateSmokeItem();
-            Position1 = new Vector2(Position.X - 3 * Global.Var.SCALE, Position.Y);
-            Position2 = new Vector2(Position.X - 19 * Global.Var.SCALE, Position.Y);
-            Position3 = new Vector2(Position.X + 13 * Global.Var.SCALE, Position.Y);
-            Position4 = new Vector2(Position.X + 5 * Global.Var.SCALE, Position.Y - 16 * Global.Var.SCALE);
-            Position5 = new Vector2(Position.X - 11 * Global.Var.SCALE, Position.Y - 16 * Global.Var.SCALE);
-            Position6 = new Vector2(Position.X + 5 * Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE);
-            Position7 = new Vector2(Position.X - 11 * Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE);
         }
 
         public void Move(Vector2 position)
         {
             Position = position;
-            Position1 = new Vector2(Position.X - 3 * Global.Var.SCALE, Position.Y);
-            Position2 = new Vector2(Position.X - 19 * Global.Var.SCALE, Position.Y);
-            Position3 = new Vector2(Position.X + 13 * Global.Var.SCALE, Position.Y);
-            Position4 = new Vector2(Position.X + 5 * Global.Var.SCALE, Position.Y - 16 * Global.Var.SCALE);
-            Position5 = new Vector2(Position.X - 11 * Global.Var.SCALE, Position.Y - 16 * Global.Var.SCALE);
-            Position6 = new Vector2(Position.X + 5 * Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE);
-            Position7 = new Vector2(Position.X - 11 * Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            Sprite.Draw(spriteBatch, Position1, Color.White);
-            Sprite.Draw(spriteBatch, Position2, Color.White);
-            Sprite.Draw(spriteBatch, Position3, Color.White);
-            Sprite.Draw(spriteBatch, Position4, Color.White);
-            Sprite.Draw(spriteBatch, Position5, Color.White);
-            Sprite.Draw(spriteBatch, Position6, Color.White);
-            Sprite.Draw(spriteBatch, Position7, Color.White);
+            Sprite.Draw(spriteBatch, new Vector2(Position.X - 3 * Global.Var.SCALE, Position.Y), Color.White);
+            Sprite.Draw(spriteBatch, new Vector2(Position.X - 19 * Global.Var.SCALE, Position.Y), Color.White);
+            Sprite.Draw(spriteBatch, new Vector2(Position.X + 13 * Global.Var.SCALE, Position.Y), Color.White);
+            Sprite.Draw(spriteBatch, new Vector2(Position.X + 5 * Global.Var.SCALE, Position.Y - 16 * Global.Var.SCALE), Color.White);
+            Sprite.Draw(spriteBatch, new Vector2(Position.X - 11 * Global.Var.SCALE, Position.Y - 16 * Global.Var.SCALE), Color.White);
+            Sprite.Draw(spriteBatch, new Vector2(Position.X + 5 * Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE), Color.White);
+            Sprite.Draw(spriteBatch, new Vector2(Position.X - 11 * Global.Var.SCALE, Position.Y + 16 * Global.Var.SCALE), Color.White);
         }
 
         public override Rectangle GetBoundingRect()

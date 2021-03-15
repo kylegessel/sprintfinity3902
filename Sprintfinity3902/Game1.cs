@@ -40,7 +40,6 @@ namespace Sprintfinity3902
             IsMouseVisible = true;
 
             Camera.Instance.SetWindowBounds(graphics);
-            //basicMap = new DefaultMap();
 
             Graphics.ApplyChanges();
         }
@@ -51,13 +50,8 @@ namespace Sprintfinity3902
 
         protected void Reset() {
             KeyboardManager.Instance.Reset();
-            
-            //basicMap.Setup(this);
-
 
             dungeon = new Dungeon.Dungeon();
-
-
 
             dungeon.Build();
 
@@ -77,8 +71,6 @@ namespace Sprintfinity3902
             linkProj.Add(bombItem);
             linkProj.Add(movingSword);
             linkProj.Add(hitboxSword);
-
-
 
             KeyboardManager.Instance.Initialize(link);
             InputMouse.Instance.GiveGame(this);
@@ -142,8 +134,6 @@ namespace Sprintfinity3902
             GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            //This will be used for the Sprint 3 and is not needed for Sprint 2
-            //Camera.Instance.Draw(SpriteBatch);
             dungeon.Draw(SpriteBatch);
             pauseMenu.Draw(SpriteBatch);
 

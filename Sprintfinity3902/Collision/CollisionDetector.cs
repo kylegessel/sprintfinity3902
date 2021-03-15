@@ -67,8 +67,8 @@ namespace Sprintfinity3902.Collision
                 IEntity currentEnemy;
                 enemies.TryGetValue(enemy, out currentEnemy);
                 AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
-                Rectangle enemyRect = currentEnemy.GetBoundingRect();
-                if (cEnemy.IsCollidable() && currentEnemy.GetBoundingRect().Intersects(linkRect))
+                Rectangle enemyRect = cEnemy.GetBoundingRect();
+                if (cEnemy.IsCollidable() && link.IsCollidable() && enemyRect.Intersects(linkRect)) 
                 {
                     side = enemyCollision.sideOfCollision(enemyRect, linkRect);
                     if (!alreadyMoved) //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)

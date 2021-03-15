@@ -7,14 +7,6 @@ namespace Sprintfinity3902.Entities.Items
 {
     public class BombExplosionItem : AbstractEntity, IProjectile
     {
-        Vector2 Position1;
-        Vector2 Position2;
-        Vector2 Position3;
-        Vector2 Position4;
-        Vector2 Position5;
-        Vector2 Position6;
-        Vector2 Position7;
-
         public BombExplosionItem(Vector2 position)
         {
             Position = position;

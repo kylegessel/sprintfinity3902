@@ -62,11 +62,11 @@ namespace Sprintfinity3902.Collision
                 Rectangle enemyRect = enemy.GetBoundingRect();
                 if (enemy.IsCollidable() && link.IsCollidable()  && enemyRect.Intersects(linkRect)) 
                 {
-                    side = enemyCollision.sideOfCollision(enemyRect, linkRect);
+                    side = enemyCollision.SideOfCollision(enemyRect, linkRect);
                     if (!alreadyMoved) //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
                     {
                         /*Have initial reflection so Link can't move through enemy, then continue to move him back*/
-                        alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                        alreadyMoved = blockCollision.ReflectMovingEntity(link, side);
                         ((ILink)link).BounceOfEnemy(side);
                     }
 
@@ -88,7 +88,7 @@ namespace Sprintfinity3902.Collision
                 Rectangle blockRect = block.GetBoundingRect();
                 if (block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
-                    side = blockCollision.sideOfCollision(blockRect, linkRect);
+                    side = blockCollision.SideOfCollision(blockRect, linkRect);
 
                     //Create a movable block class?? But how to only let it move one full space in one direction?
                     if (!alreadyMoved) //This will prevent it from moving back twice
@@ -98,7 +98,7 @@ namespace Sprintfinity3902.Collision
                         {
                              block.StartMoving(side);
                         }
-                        alreadyMoved = blockCollision.reflectMovingEntity(link, side); 
+                        alreadyMoved = blockCollision.ReflectMovingEntity(link, side); 
                     }
                 }
             }
@@ -114,13 +114,14 @@ namespace Sprintfinity3902.Collision
                     Rectangle blockRect = block.GetBoundingRect();
                     if (block.IsCollidable() && blockRect.Intersects(enemyRect))
                     {
-                        side = blockCollision.sideOfCollision(blockRect, enemyRect);
+                        side = blockCollision.SideOfCollision(blockRect, enemyRect);
                         if (!alreadyMoved) //This will prevent it from moving back twice
                         {
-                            alreadyMoved = blockCollision.reflectMovingEntity(enemy, side);
+                            alreadyMoved = blockCollision.ReflectMovingEntity(enemy, side);
                         }
                     }
                 }
+                blockCollision.UpdatePosition(enemy); //Add a Update Position method like the one in abstract Enemy to enemy handler class!
             }
 
         }

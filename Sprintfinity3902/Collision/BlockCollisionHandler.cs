@@ -14,7 +14,7 @@ namespace Sprintfinity3902.Collision
             //Not sure what I need here
         }
 
-        public ICollision.CollisionSide sideOfCollision(Rectangle blockRect, Rectangle characterRect)
+        public ICollision.CollisionSide SideOfCollision(Rectangle blockRect, Rectangle characterRect)
         {
                 intersectionRect = Rectangle.Intersect(characterRect, blockRect);
                 //Insert logic to determine where the overlap is
@@ -90,7 +90,7 @@ namespace Sprintfinity3902.Collision
         }
 
         /*Have a property in AbstractEntity called stepSize. And then have this reflection use the movement size as a scaler!*/
-        public Boolean reflectMovingEntity(IEntity movingEntity, ICollision.CollisionSide side) // had this previously. May be needed in future (Rectangle collisionRect)
+        public Boolean ReflectMovingEntity(IEntity movingEntity, ICollision.CollisionSide side) // had this previously. May be needed in future (Rectangle collisionRect)
         {
             Boolean moved = false;
             float scaler = movingEntity.GetStepSize(); /*Adjust this to be whatever movingEntity.stepSize is!*/
@@ -117,6 +117,20 @@ namespace Sprintfinity3902.Collision
             }
             //If this call is made we know there is a collision so an else condition is not needed
             return moved;
+        }
+
+        //Only used for enemies. Link needs to be able to 
+        public void UpdatePosition(IEntity enemy)
+        {
+            int top = 96 * Global.Var.SCALE;
+            int bot = 194 * Global.Var.SCALE;
+            int left = 32 * Global.Var.SCALE;
+            int right = 224 * Global.Var.SCALE;
+
+            if (enemy.X > right) enemy.X = right;
+            if (enemy.X < left) enemy.X = left;
+            if (enemy.Y > bot) enemy.Y = bot;
+            if (enemy.Y < top) enemy.Y = top;
         }
     }
 }

@@ -14,16 +14,15 @@ namespace Sprintfinity3902.Dungeon
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
-        int spikeNum;
         int enemyID;
+
+
         // Have this input a filename and then load the room.
         public Room13Loader(IRoom room)
         {
             // Really think there is a better way to list these files, just a demo for the time being though.
             Room = room;
             mapStream = new StreamReader(Room.path);
-            spikeNum = 1;
-            enemyID = 0;
 
         }
 
@@ -72,20 +71,6 @@ namespace Sprintfinity3902.Dungeon
             switch (input)
             {
                 //WALLS AND FLOORS
-                case "RMEX":
-                    Room.blocks.Add(new RoomExterior(new Vector2(0, 64 * Global.Var.SCALE)));
-                    //add all 8
-
-                    Room.blocks.Add(new VerticalWall(new Vector2(0, 64 * Global.Var.SCALE)));
-                    Room.blocks.Add(new VerticalWall(new Vector2(0, 160 * Global.Var.SCALE)));
-                    Room.blocks.Add(new VerticalWall(new Vector2(224 * Global.Var.SCALE, 64 * Global.Var.SCALE)));
-                    Room.blocks.Add(new VerticalWall(new Vector2(224 * Global.Var.SCALE, 160 * Global.Var.SCALE)));
-
-                    Room.blocks.Add(new HorizontalWall(new Vector2(0, 64 * Global.Var.SCALE)));
-                    Room.blocks.Add(new HorizontalWall(new Vector2(0, 208 * Global.Var.SCALE)));
-                    Room.blocks.Add(new HorizontalWall(new Vector2(136 * Global.Var.SCALE, 64 * Global.Var.SCALE)));
-                    Room.blocks.Add(new HorizontalWall(new Vector2(136 * Global.Var.SCALE, 208 * Global.Var.SCALE)));
-                    break;
                 case "R13E":
                     Room.blocks.Add(new VerticalWall(new Vector2(-32 * Global.Var.SCALE, 80 * Global.Var.SCALE)));
                     Room.blocks.Add(new VerticalWall(new Vector2(-32 * Global.Var.SCALE, 160 * Global.Var.SCALE)));
@@ -98,13 +83,6 @@ namespace Sprintfinity3902.Dungeon
                     Room.blocks.Add(new HorizontalWall(new Vector2(0 * Global.Var.SCALE, 240 * Global.Var.SCALE)));
                     Room.blocks.Add(new HorizontalWall(new Vector2(120 * Global.Var.SCALE, 240 * Global.Var.SCALE)));
                     Room.blocks.Add(new HorizontalWall(new Vector2(240 * Global.Var.SCALE, 240 * Global.Var.SCALE)));
-                    break;
-                case "RMIN":
-                    Room.blocks.Add(new RoomInterior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
-                    break;
-                case "RM08":
-                    Room.blocks.Add(new Room8Interior(new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE)));
-                    Room.blocks.Add(new Room8Text(new Vector2(50 * Global.Var.SCALE, 105 * Global.Var.SCALE)));
                     break;
                 case "R13I":
                     Room.blocks.Add(new Room13(new Vector2(0 * Global.Var.SCALE, 80 * Global.Var.SCALE)));
@@ -120,21 +98,6 @@ namespace Sprintfinity3902.Dungeon
             switch (input)
             {
                 //BLOCKS
-                case "TILE":
-                    Room.blocks.Add(new FloorBlock(Position));
-                    break;
-                case "BLOK":
-                    Room.blocks.Add(new RegularBlock(Position));
-                    break;
-                case "RFSH":
-                    Room.blocks.Add(new Face1Block(Position));
-                    break;
-                case "LFSH":
-                    Room.blocks.Add(new Face2Block(Position));
-                    break;
-                case "SPOT":
-                    Room.blocks.Add(new SpottedBlock(Position));
-                    break;
                 case "BLCK":
                     Room.blocks.Add(new BlackBlock(Position));
                     break;
@@ -156,103 +119,11 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(enemyID, new BlueBatEnemy(Position));
                     enemyID++;
                     break;
-                case "SKLN":
-                    Room.enemies.Add(enemyID, new SkeletonEnemy(Position));
-                    enemyID++;
-                    break;
-                case "BOSS":
-                    FireAttack up = new FireAttack(1);
-                    FireAttack center = new FireAttack(0);
-                    FireAttack down = new FireAttack(2);
-                    Room.enemies.Add(enemyID, up);
-                    enemyID++;
-                    Room.enemies.Add(enemyID, down);
-                    enemyID++;
-                    Room.enemies.Add(enemyID, center);
-                    enemyID++;
-                    Room.enemies.Add(enemyID, new FinalBossEnemy(Position, up, center, down));
-                    enemyID++;
-                    break;
-                case "FIRE":
-                    Room.enemies.Add(enemyID, new Fire(Position));
-                    enemyID++;
-                    break;
-                case "GELY":
-                    GelEnemy gel = new GelEnemy(Position);
-                    gel.X = gel.Position.X + 4 * Global.Var.SCALE;
-                    gel.Y = gel.Position.Y + 4 * Global.Var.SCALE;
-                    Room.enemies.Add(enemyID, gel);
-                    enemyID++;
-                    break;
-                case "GORY":
-                    BoomerangItem goriyaBoomerang = new BoomerangItem();
-                    Room.enemies.Add(enemyID, goriyaBoomerang);
-                    enemyID++;
-                    Room.enemies.Add(enemyID, new GoriyaEnemy(goriyaBoomerang, Position));
-                    enemyID++;
-                    break;
-                case "HAND":
-                    Room.enemies.Add(enemyID, new HandEnemy(Position));
-                    enemyID++;
-                    break;
-                case "OLDM":
-                    OldManNPC man = new OldManNPC(Position);
-                    man.X = man.Position.X + 8 * Global.Var.SCALE;
-                    Room.enemies.Add(enemyID, man);
-                    enemyID++;
-                    break;
-                case "SPKE":
-                    Room.enemies.Add(enemyID, new SpikeEnemy(Position, spikeNum));
-                    enemyID++;
-                    spikeNum++;
-                    if (spikeNum > 4) { spikeNum = 1; }
-                    break;
-
 
                 //ITEMS
                 // Probably could use a static bomb and boomerang object now that I think of it.
-                case "KEYI":
-                    KeyItem key = new KeyItem(Position);
-                    key.X = key.Position.X + 4 * Global.Var.SCALE;
-                    Room.items.Add(key);
-                    break;
                 case "BOWI":
                     Room.items.Add(new BowItem(Position));
-                    break;
-                case "CLCK":
-                    Room.items.Add(new ClockItem(Position));
-                    break;
-                case "CMPS":
-                    CompassItem compass = new CompassItem(Position);
-                    compass.X = compass.Position.X + 2 * Global.Var.SCALE;
-                    compass.Y = compass.Position.Y + 2 * Global.Var.SCALE;
-                    Room.items.Add(compass);
-                    break;
-                case "FARY":
-                    Room.items.Add(new FairyItem(Position));
-                    break;
-                case "HCON":
-                    HeartContainerItem hcont = new HeartContainerItem(Position);
-                    hcont.X = hcont.Position.X + 1 * Global.Var.SCALE;
-                    hcont.Y = hcont.Position.Y + 1 * Global.Var.SCALE;
-                    Room.items.Add(hcont);
-                    break;
-                case "HART":
-                    Room.items.Add(new HeartItem(Position));
-                    break;
-                case "MAPI":
-                    MapItem map = new MapItem(Position);
-                    map.X = map.Position.X + 4 * Global.Var.SCALE;
-                    Room.items.Add(map);
-                    break;
-                case "RUPE":
-                    Room.items.Add(new RupeeItem(Position));
-                    break;
-                case "TRIF":
-                    TriforceItem triforce = new TriforceItem(Position);
-                    triforce.X = triforce.Position.X + 11 * Global.Var.SCALE;
-                    triforce.Y = triforce.Position.Y + 11 * Global.Var.SCALE;
-                    Room.items.Add(triforce);
                     break;
 
             }

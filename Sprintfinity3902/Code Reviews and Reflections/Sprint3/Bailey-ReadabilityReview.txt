@@ -1,0 +1,30 @@
+﻿Reviewed by: Bailey Ardrey
+Reviewed on: 3/15/2021
+Sprint 3
+Reviewed Class: SkeletonEnemy.cs
+File written by: Brad Knez
+Time Spent: 15min
+
+Reviewing commit: 27f149d1192c7708899eb6e80ebecfd562dfb15e 
+Reviewing empahsis: Readability
+
+Brad did a great job making updates to the SkeletonEnemy class. At first glance,
+variables and methods names are clear and to the point, which helps the reader
+determine their function. For instance, there are variables like waitTime, heath,
+and speed accompanied by methods such as Decorate, Move, and HitRegister which 
+have names that help denote function. This style of coding negates the need for
+comments within the code, and generally helps with readability and comprehension.
+
+One area where the SkeletonEnemy class might be improved is with regard to length
+and trying to pull things out that could go elsewhere. For instance, the Decorate
+method is a good candidate. Since all enemies need to decorate upon taking damage,
+Decorate could live in AbstractEntity along with its functionality. This would not
+only allow the functionality to scale across multiple enemies, but it would also
+free up space within the class - shortening it and making it easier to read and
+understand. Additionally, the counter could be taken out to AbstractEntity as well
+as the Decorator class will need a counter. Perhaps this counter could be renamed
+DecoratorCounter or something similar to also help the reader understand what the
+counter is being used for.
+
+Overall though, Brad could ship the class just as is and have a very readable piece
+of code!

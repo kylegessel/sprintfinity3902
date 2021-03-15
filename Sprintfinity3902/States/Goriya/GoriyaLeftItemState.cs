@@ -5,7 +5,7 @@ using System;
 
 namespace Sprintfinity3902.States
 {
-    public class GoriyaLeftItemState : IGoriyaState
+    public class GoriyaLeftItemState : IEnemyState
     {
         public GoriyaEnemy Goriya { get; set; }
         public ISprite Sprite { get; set; }

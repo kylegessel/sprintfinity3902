@@ -10,12 +10,12 @@ namespace Sprintfinity3902.Entities
     public class GoriyaEnemy : AbstractEntity, IEnemy
     {
 
-        private IGoriyaState _currentState;
+        private IEnemyState _currentState;
         private int direction;
         public BoomerangItem Boomerang;
         private GoriyaAI goriyaAI;
 
-        public IGoriyaState CurrentState
+        public IEnemyState CurrentState
         {
             get
             {
@@ -27,18 +27,18 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public IGoriyaState movingDown { get; set; }
-        public IGoriyaState movingLeft { get; set; }
-        public IGoriyaState movingRight { get; set; }
-        public IGoriyaState movingUp { get; set; }
-        public IGoriyaState itemDown { get; set; }
-        public IGoriyaState itemLeft { get; set; }
-        public IGoriyaState itemRight { get; set; }
-        public IGoriyaState itemUp { get; set; }
-        public IGoriyaState idleDown { get; set; }
-        public IGoriyaState idleLeft { get; set; }
-        public IGoriyaState idleRight { get; set; }
-        public IGoriyaState idleUp { get; set; }
+        public IEnemyState movingDown { get; set; }
+        public IEnemyState movingLeft { get; set; }
+        public IEnemyState movingRight { get; set; }
+        public IEnemyState movingUp { get; set; }
+        public IEnemyState itemDown { get; set; }
+        public IEnemyState itemLeft { get; set; }
+        public IEnemyState itemRight { get; set; }
+        public IEnemyState itemUp { get; set; }
+        public IEnemyState idleDown { get; set; }
+        public IEnemyState idleLeft { get; set; }
+        public IEnemyState idleRight { get; set; }
+        public IEnemyState idleUp { get; set; }
         public bool done { get; set; }
         private int health;
         private bool decorate;
@@ -162,7 +162,7 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public void SetState(IGoriyaState state)
+        public void SetState(IEnemyState state)
         {
             Vector2 pos = Position;
             CurrentState = state;

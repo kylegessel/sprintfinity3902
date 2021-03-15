@@ -1,6 +1,6 @@
 ﻿namespace Sprintfinity3902.Interfaces
 {
-    public interface IGoriyaState
+    public interface IEnemyState
     {
         ISprite Sprite { get; set; }
 

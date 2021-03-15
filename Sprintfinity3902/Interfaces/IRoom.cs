@@ -17,6 +17,8 @@ namespace Sprintfinity3902.Interfaces
         Room13Loader loader13 { get; set; }
         List<IEntity> garbage { get; set; }
 
+        List<IEntity> enemyProj { get; set; }
+
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
         void ChangePosition(bool pause);

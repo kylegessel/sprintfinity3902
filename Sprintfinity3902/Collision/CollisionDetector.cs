@@ -45,15 +45,14 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> garbage) {
-            DetectLinkDamage(enemies);
-            DetectBlockCollision(enemies, blocks, linkProj);
+        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> enemyProj, List<IEntity> garbage) {
+            DetectLinkDamage(enemies, enemyProj);
+            DetectBlockCollision(enemies, blocks, linkProj, enemyProj);
             DetectEnemyDamage(enemies, linkProj, items, garbage);
             DetectItemPickup(items);
-
         }
 
-        private void DetectLinkDamage(Dictionary<int, IEntity> enemies)
+        private void DetectLinkDamage(Dictionary<int, IEntity> enemies, List<IEntity> enemyProj)
         {
 
             Rectangle linkRect = link.GetBoundingRect();
@@ -79,9 +78,28 @@ namespace Sprintfinity3902.Collision
                     gameInstance.playerCharacter = damagedLink;
                 }
             }
+
+            foreach(IEntity proj in enemyProj)
+            {
+                Rectangle enemyRect = proj.GetBoundingRect();
+                if (link.IsCollidable() && enemyRect.Intersects(linkRect))
+                {
+                    side = enemyCollision.SideOfCollision(enemyRect, linkRect);
+                    if (!alreadyMoved) //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
+                    {
+                        /*Have initial reflection so Link can't move through enemy, then continue to move him back*/
+                        alreadyMoved = blockCollision.ReflectMovingEntity(link, side);
+                        ((ILink)link).BounceOfEnemy(side);
+                    }
+
+                    link.TakeDamage();
+                    ILink damagedLink = new DamagedLink(link, gameInstance);
+                    gameInstance.playerCharacter = damagedLink;
+                }
+            }
         }
 
-        private void DetectBlockCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> linkProj)
+        private void DetectBlockCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> linkProj, List<IEntity> enemyProj)
         {
 
             Rectangle linkRect = link.GetBoundingRect();
@@ -126,11 +144,19 @@ namespace Sprintfinity3902.Collision
                             alreadyMoved = blockCollision.ReflectMovingEntity(currentEnemy, side);
                         }
                     }
-                    blockCollision.UpdatePosition(cEnemy); //Add a Update Position method like the one in abstract Enemy to enemy handler class!
                 }
 
                 //proj vs blocks
                 foreach (AbstractEntity proj in linkProj)
+                {
+
+                    if (block.IsTall() && blockRect.Intersects(proj.GetBoundingRect()))
+                    {
+                        ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
+                    }
+                }
+
+                foreach(AbstractEntity proj in enemyProj)
                 {
 
                     if (block.IsTall() && blockRect.Intersects(proj.GetBoundingRect()))
@@ -164,6 +190,7 @@ namespace Sprintfinity3902.Collision
                     }
                 }
             }
+
             foreach (int enemyID in deletionList)
             {
                 enemies.Remove(enemyID);

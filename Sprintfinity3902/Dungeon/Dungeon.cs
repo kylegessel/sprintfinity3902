@@ -8,12 +8,13 @@ namespace Sprintfinity3902.Dungeon
 {
     public class Dungeon : IDungeon
     {
+        private Game1 Game;
         private List<IRoom> dungeonRooms;
         public IRoom CurrentRoom { get; set; }
         private int currentId;
         public int NextId { get; set; }
 
-        public Dungeon()
+        public Dungeon(Game1 game)
         {
             dungeonRooms = new List<IRoom>();
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room1.csv", 1));
@@ -38,6 +39,8 @@ namespace Sprintfinity3902.Dungeon
             CurrentRoom = GetById(1);
             currentId = CurrentRoom.Id;
             NextId = CurrentRoom.Id;
+
+            Game = game;
         }
 
         public void Build()
@@ -57,6 +60,8 @@ namespace Sprintfinity3902.Dungeon
 
         public void Update(GameTime gameTime)
         {
+            if(CurrentRoom.Id != NextId)
+                SetLinkPosition();
             CurrentRoom = GetById(NextId);
             CurrentRoom.Update(gameTime);
         }
@@ -84,6 +89,7 @@ namespace Sprintfinity3902.Dungeon
                 CurrentRoom = GetById(currentId);
             }
             NextId = CurrentRoom.Id;
+            SetLinkPosition();
         }
 
         public void PreviousRoom()
@@ -99,6 +105,7 @@ namespace Sprintfinity3902.Dungeon
                 CurrentRoom = GetById(currentId);
             }
             NextId = CurrentRoom.Id;
+            SetLinkPosition();
         }
 
         public IRoom GetCurrentRoom()
@@ -109,7 +116,22 @@ namespace Sprintfinity3902.Dungeon
         public void SetCurrentRoom(int id)
         {
             NextId = id;
+        }
 
+        //SET UP FOR SPRINT 3 ONLY. WILL BE REMOVED UPON SUBMITTING.
+        public void SetLinkPosition()
+        {
+            IRoom room = GetCurrentRoom();
+            if(NextId == 13)
+            {
+                Game.link.X = 48 * Global.Var.SCALE;
+                Game.link.Y = 97 * Global.Var.SCALE;
+            }
+            else
+            {
+                Game.link.X = 120 * Global.Var.SCALE;
+                Game.link.Y = 193 * Global.Var.SCALE;
+            }
         }
     }
 }

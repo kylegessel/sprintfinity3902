@@ -13,7 +13,8 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902
 {
-    public class Game1 : Game {
+    public class Game1 : Game
+    {
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch SpriteBatch;
@@ -33,7 +34,8 @@ namespace Sprintfinity3902
         public List<IEntity> linkProj;
         //private IDetector detector;
 
-        public Game1() {
+        public Game1()
+        {
             graphics = new GraphicsDeviceManager(this);
             Window.Title = "The Legend of Zelda";
             Content.RootDirectory = "Content";
@@ -44,12 +46,18 @@ namespace Sprintfinity3902
             Graphics.ApplyChanges();
         }
 
-        protected override void Initialize() {
+        protected override void Initialize()
+        {
             base.Initialize();
         }
 
-        protected void Reset() {
+        protected void Reset()
+        {
             KeyboardManager.Instance.Reset();
+            
+            //basicMap.Setup(this);
+
+            dungeon = new Dungeon.Dungeon(this);
 
             dungeon = new Dungeon.Dungeon();
 
@@ -91,7 +99,8 @@ namespace Sprintfinity3902
             CollisionDetector.Instance.setup(this);
         }
 
-        protected override void LoadContent() {
+        protected override void LoadContent()
+        {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             Camera.Instance.LoadAllTextures(Content);
@@ -103,7 +112,8 @@ namespace Sprintfinity3902
             Reset();
         }
 
-        protected override void Update(GameTime gameTime) {
+        protected override void Update(GameTime gameTime)
+        {
             KeyboardManager.Instance.Update(gameTime);
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
@@ -130,7 +140,8 @@ namespace Sprintfinity3902
             base.Update(gameTime);
         }
 
-        protected override void Draw(GameTime gameTime) {
+        protected override void Draw(GameTime gameTime)
+        {
             GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
@@ -152,7 +163,7 @@ namespace Sprintfinity3902
 
         public void Pause()
         {
-            if(pauseMenu.Transition == false)
+            if (pauseMenu.Transition == false)
             {
                 pauseMenu.PauseGame();
             }

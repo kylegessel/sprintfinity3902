@@ -40,7 +40,7 @@ namespace Sprintfinity3902.Link
 
         public Player()
         {
-            Position = new Vector2(60 * Global.Var.SCALE, 120 * Global.Var.SCALE);
+            Position = new Vector2(120 * Global.Var.SCALE, 193 * Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
             facingDown = CurrentState;
             facingLeft = new FacingLeftState(this);

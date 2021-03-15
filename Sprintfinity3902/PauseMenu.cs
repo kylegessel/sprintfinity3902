@@ -133,5 +133,6 @@ namespace Sprintfinity3902
                     proj.Y = proj.Y - 2 * Global.Var.SCALE;
             }
         }
+
     }
 }

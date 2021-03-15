@@ -94,11 +94,11 @@ namespace Sprintfinity3902.Collision
                     if (!alreadyMoved) //This will prevent it from moving back twice
                     {
                         /*This allows link to push blocks. Enemies can not push blocks*/
-                       if ( block.IsMovable() && ((block.PushSide() == side) || (block.PushSide2() == side)) )
-                       {
-                            block.StartMoving(side);
-                       }
-                       alreadyMoved = blockCollision.reflectMovingEntity(link, side);
+                        if ( block.IsMovable() && ((block.PushSide() == side) || (block.PushSide2() == side)) )
+                        {
+                             block.StartMoving(side);
+                        }
+                        alreadyMoved = blockCollision.reflectMovingEntity(link, side); 
                     }
                 }
             }

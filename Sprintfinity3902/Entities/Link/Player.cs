@@ -10,12 +10,13 @@ namespace Sprintfinity3902.Link
 {
     public class Player : AbstractEntity, ILink
     {
-
+        int MAX_HEALTH = 6; //May want this as global variable for other logic in future. (Like projectiles/ getting more health)
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
+        private int linkHealth;
 
         public IPlayerState CurrentState {
             get {
@@ -60,7 +61,8 @@ namespace Sprintfinity3902.Link
             facingUpItem = new FacingUpItemState(this);
             color = Color.White;
             _collidable = true;
-            SetStepSize((float)1.5);
+            SetStepSize(1);
+            linkHealth = MAX_HEALTH;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -160,11 +162,7 @@ namespace Sprintfinity3902.Link
         public void TakeDamage()
         {
             _collidable = false;
-            /*
-            {
-                //TODO: Remove Health from Link
-            }
-            */
+            linkHealth--;
         }
 
         public void BounceOfEnemy(ICollision.CollisionSide Side)

@@ -200,6 +200,7 @@ namespace Sprintfinity3902.Collision
                 if (item.GetBoundingRect().Intersects(linkRect))
                 {
                     link.pickup(((AbstractItem)item).ID);
+
                     /*
                      * TODO: Replace with handler
                      */

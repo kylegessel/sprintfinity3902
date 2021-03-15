@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Link
 {
     public class Player : AbstractEntity, ILink
     {
-        int MAX_HEALTH = 6; //May want this as global variable for other logic in future. (Like projectiles/ getting more health)
+        private int MAX_HEALTH = 6; //May need to be public for projectiles
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
@@ -69,6 +69,19 @@ namespace Sprintfinity3902.Link
             if (itemcount.ContainsKey(item)) {
                 itemcount[item]++;
                 return ;
+            }
+            if (item == IItem.ITEMS.HEART)
+            {
+                if (linkHealth < MAX_HEALTH)
+                {
+                    linkHealth++;
+                }
+            }
+            else if (item == IItem.ITEMS.HEARTCONTAINER)
+            {
+                //Not sure what exactly is supposed to happen when picking up heart container.
+                MAX_HEALTH += 2;
+                linkHealth += 2;
             }
             itemcount.Add(item, 1);
         }

@@ -48,10 +48,7 @@ namespace Sprintfinity3902
             Graphics.ApplyChanges();
         }
 
-        protected override void Initialize()
-        {
-            base.Initialize();
-        }
+        protected override void Initialize() => base.Initialize();
 
         protected void Reset()
         {
@@ -109,6 +106,9 @@ namespace Sprintfinity3902
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
+
+            Sound.Sound.Instance.LoadContent(Content);
+
 
             Reset();
         }

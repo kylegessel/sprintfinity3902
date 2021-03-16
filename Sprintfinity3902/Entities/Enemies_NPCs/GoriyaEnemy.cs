@@ -116,7 +116,6 @@ namespace Sprintfinity3902.Entities
             {
                 CurrentState.Sprite.Update(gameTime);
                 CurrentState.Update();
-                Boomerang.Update(gameTime);
             }
 
             if (decorate)

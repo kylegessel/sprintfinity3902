@@ -91,6 +91,7 @@ namespace Sprintfinity3902.Dungeon
                 CurrentRoom = GetById(currentId);
             }
             NextId = CurrentRoom.Id;
+            CurrentRoom.garbage.Clear();
             SetLinkPosition();
         }
 
@@ -107,6 +108,7 @@ namespace Sprintfinity3902.Dungeon
                 CurrentRoom = GetById(currentId);
             }
             NextId = CurrentRoom.Id;
+            CurrentRoom.garbage.Clear();
             SetLinkPosition();
         }
 

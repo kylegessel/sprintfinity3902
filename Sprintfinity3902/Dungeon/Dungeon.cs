@@ -45,7 +45,7 @@ namespace Sprintfinity3902.Dungeon
 
             Game = game;
 
-            backgroundMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon));
+            backgroundMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon), 0.02f, true);
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }

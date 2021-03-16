@@ -40,10 +40,33 @@ namespace Sprintfinity3902.Sound
             return ID;
         }
 
+        private void setSoundEffectInstanceAttributes(SoundEffectInstance se, float vol, bool looped) {
+            
+            se.Volume = vol;
+            se.IsLooped = looped;
+        }
+
         public string RegisterSoundEffectInst(SoundEffect se)
         {
             SoundEffectInstance sei = se.CreateInstance();
-            sei.Volume = 0.02f;
+
+            setSoundEffectInstanceAttributes(sei, 0.02f, true);
+            return RegisterSoundEffectInst(sei);
+        }
+
+        public string RegisterSoundEffectInst(SoundEffect se, float vol)
+        {
+            SoundEffectInstance sei = se.CreateInstance();
+
+            setSoundEffectInstanceAttributes(sei, vol, true);
+            return RegisterSoundEffectInst(sei);
+        }
+
+        public string RegisterSoundEffectInst(SoundEffect se, float vol, bool looped)
+        {
+            SoundEffectInstance sei = se.CreateInstance();
+
+            setSoundEffectInstanceAttributes(sei, vol, looped);
             return RegisterSoundEffectInst(sei);
         }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sound;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,6 +14,8 @@ namespace Sprintfinity3902.Dungeon
         public IRoom CurrentRoom { get; set; }
         private int currentId;
         public int NextId { get; set; }
+
+        private string backgroundMusicInstanceID;
 
         public Dungeon(Game1 game)
         {
@@ -41,6 +44,10 @@ namespace Sprintfinity3902.Dungeon
             NextId = CurrentRoom.Id;
 
             Game = game;
+
+            backgroundMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon));
+
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Build()
@@ -136,6 +143,11 @@ namespace Sprintfinity3902.Dungeon
                 Game.link.X = 120 * Global.Var.SCALE;
                 Game.link.Y = 193 * Global.Var.SCALE;
             }
+        }
+
+        public void CleanUp() {
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Stop();
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Dispose();
         }
     }
 }

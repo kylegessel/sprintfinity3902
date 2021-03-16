@@ -36,7 +36,6 @@ namespace Sprintfinity3902
         public IEntity hitboxSword;
         public List<IEntity> linkProj;
         private IEntity bombExplosion;
-        private SoundEffectInstance bgMusic;
 
         //private IDetector detector;
 
@@ -56,20 +55,14 @@ namespace Sprintfinity3902
 
         protected void Reset()
         {
-            if (bgMusic != null) {
-                bgMusic.Stop();
-                bgMusic.Dispose();
+            
+            KeyboardManager.Instance.Reset();
+
+            if (dungeon != null) {
+                dungeon.CleanUp();
             }
 
-            bgMusic = SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon).CreateInstance();
-            bgMusic.Volume = Global.Var.VOLUME;
-            bgMusic.Play();
-            KeyboardManager.Instance.Reset();
-            
-            //basicMap.Setup(this);
-
             dungeon = new Dungeon.Dungeon(this);
-
             dungeon.Build();
 
             playerCharacter = new Player();

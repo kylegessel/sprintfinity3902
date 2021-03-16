@@ -1,0 +1,22 @@
+﻿Reviewed by: Kyle Gessel
+Reviewed on: 3/15/2021
+Sprint 3
+Reviewed Class:  Collision/BlockCollisionHandler
+File written by: Casey VanCauwenbergh
+Time Spent: 20min
+
+This part of the code along with Enemy Collision Handler work almost the same
+way to accomplish handling of strictly colliding hitboxes.
+
+The method names describe the function of the code very well, however the
+nested if statements do make the code hard to read and understand upon first
+look. I personally think this is just a consequence of complex code, but there
+may to simplify this using object oriented strategies.
+
+Overall it makes sense, you are trying to decide which direction to move the
+offending entity based solely on how it interacts with other blocks. Thus you
+HAVE to figure out which direction the overlap is in to appropriately displace
+entity. You have to evaluate every scenario.
+
+Once the direction of intersection is determined the enetity is shifted
+appropriately. This section is clear.

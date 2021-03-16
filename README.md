@@ -22,14 +22,12 @@ screen.
 
 'e' key shows a demo of what Link looks like in his damaged state.
 
-'t' and 'y' can be used to cycle through the various block types implemented.
+'l' and 'k' allows you to cycle through each of the rooms in the dungeon.
 
-'u' and 'i' can be used to cycle through the various item types implemented.
+'p' pauses the game and gives you a map menu. On this map menu, you can click
+on a room to go there.
 
-'o' and 'p' can be used to cycle through the various enemy and characters
- implemented.
-
-'r' resets the program to its origingal state and 'q' quits the program.
+'r' resets the program to its original state and 'q' quits the program.
 
 ## Authors
 

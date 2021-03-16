@@ -1,0 +1,32 @@
+﻿Sprint 3 Reflection
+
+We are really proud of how Sprint 3 turned out. Its actually starting to look
+and feel like a game! Many of the struggles we had in Sprint 1 we improved upon
+and many of the things we did well stayed the same.
+
+One thing we did we have done consistently well is communication and teamwork.
+Last sprint was a great start for teamwork, but this sprint was even more
+complicated. Many of the classes and tasks we had to accomplish had
+dependencies between each other. This took extra coordination on our parts to
+ensure each task was completed, but thanks to good communication we didn't
+encounter many problems here.
+
+During this sprint we struggled with time managment. We really worked on code
+almost all the way up to the deadline. This is new to this team, sprint 2 was
+completed almost a week in advance. Some reasons for the worse time management
+was a slower first week of coding and personal sprint objectives that were too
+ambitious. We hope that the extra implementations in THIS sprint will give us
+more time in the next sprint to review code.
+
+We had a massive improvement in our overall git skills. After the initial
+learning curve of the first sprint, we had very few issues involving broken
+master branches or version control. Many members even started to use more
+advanced git methods like checking out branches and merging non master
+branches.
+
+Another improvement was a much cleaner project board. The tasks that had to
+completed were outlined much earlier in this project than they were in the last
+project. Furthermore, it was updated much more frequently. This led to a much
+more streamlined design process.
+
+We are excited to finish the game in the next sprint!

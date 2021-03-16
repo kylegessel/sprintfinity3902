@@ -1,0 +1,73 @@
+﻿Code Review
+Maintainability on CollisionDetector.cs by Brad Knez
+3/15/2021
+Sprint 3
+Code written by Kyle Gessel
+Time Spent: 30 minutes
+
+Quick notes on the class: 
+
+Starts by creating a singleton instance of itself.
+Then there's a setup method that takes the game and link and assigns them.
+
+The method CheckCollision seems to call all of the possible types of collision.
+
+DetectLinkDamage takes in a dictionary of enemies and there projectiles.
+It then starts by reading link's rectnagle and setting basic variables.
+It then begins a foreach loop with the enemies. There's some weirdness here
+with decorating the enemies but that's my own fault and will be changed if 
+I properly create the Decorator. It then checks if they intersect, link is 
+collidable and has not already moves and calls a handler.
+The method then repeats this for the projectile's of the enemy's.
+
+DetectBlockCollision takes in enemies, blocks, link projectiles, and 
+enemy projectiles. It starts by getting link's bounding rectangle and alreadyMoved.
+It then loops over the blocks and checks if they are collidable and if link
+intersects the block. It then finds the side of collision and checks variables 
+of the block to see if it's movable. It then repeats this with enemies. My 
+concern immediately is could this code be thrown into another class. Since this
+class is the detector I feel that it should be after it actually finds the
+collision. It then checks if projectiles and enemy's are hitting the walls and
+calls a method in ProjectileCollisoionHandler to react. Could we standardize this?
+
+DetectEnemyDamage takes in the enemies, links projectiles, items, and garbage.
+Then it loops over the projectiles and enemies to check when they collide and
+calls a handler. After this is finished it goes to the deletion list and 
+removes enemies that are supposed to be deleted.
+
+DetectItemPickup checks to see when link collides with items and then adds that
+item to the deletion list. It also has link pickup the item.
+
+CheckSpecificCollision checks to see if link's rectangle collides with a 
+certain rectangle. This could just return rec.Intersects(linkRect). 
+I went ahead and made this change since I've yet to make a PR.
+(Before this change it returned true if it was true, else false)
+
+Actual Maintainability Review:
+
+Starting with what I know I did wrong here in that we have a useless dictionary of
+the enemies. The goal with this is to eventually properly use the decorator.
+Just a discussion for the next Sprint, I'm more than glad to change it back if
+we decide to keep this implementation of the enemy decorator.
+
+With the setup method, could we just create this as a variable that
+takes in game in Game1.cs? It feels weird to me to have a setup when every 
+other object intializes with certain variables. This could be me not knowing
+how singleton's work though.
+
+My main concern is how much handling we have in the actual detectors. It feels
+like we have certain handlers built partly within the detectors. I imagine all
+we should have is the actual detection and then whatever needs to be handled in
+a different method/class entirely? This just makes it super vague as to where
+something should be changed/added.
+
+Outside of that, I don't mind having different lists of objects but there's a 
+LOT of type casting done. I personally had to do this a lot with the projectiles.
+I don't know if this is a super large maintainability issue as we are only
+filling the lists with things that we are sure can be typecasted there.
+Something we should look into fixing. Little code smelly regardless.
+
+Overall, this class does accomplish it's goal and does detect the collision, but
+there is a lot of cleanup that could be done that makes sense longterm. It's a
+bit of an ugly class in general. The detection logic will always be a bit big
+but hopefully by cleaning up the handling it makes a bit more sense.

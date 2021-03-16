@@ -1,0 +1,52 @@
+﻿Code Review
+Readability on Dungeon.cs by Brad Knez
+3/15/2021
+Sprint 3
+Code written by Bailey Ardrey 
+Time Spent: 20 minutes
+
+Quick notes on the class: 
+
+Starts by adding all of the rooms to a list and creates them with IDs.
+
+Then sets the curernt room's ID to 1 and the next room's. Additionallly sets 
+Game to the game.
+
+There's additionally a method called build to build all of these rooms
+similarly except for 13 which uses it's own roomloader (makes sense).
+
+Update checks if the Current room is the next one, if not it resets link's
+position and clears the current room's garbage.
+
+Draw draws the current room.
+
+GetByID returns the current by it's id. not entirely sure how this works, but
+makes sense. Just don't understand what FirstOrDefault does.
+
+NextRoom makes a loop of the rooms, nice!
+
+PreviousRoom additionally makes a loop of the rooms.
+
+GetCurrentRoom returns the current room.
+
+And SetCurrentRoom sets the current room.
+
+SetLinkPosition additionally tells link where he should be in the rooms.
+
+Actual Readability Review:
+
+This code is very readable. All of the methods are descriptively named and
+short. Understanding what they do is additionally very simple on a read through
+
+My only concern with this code is the build method. I don't think this is
+necesarilly bad, but should we load each room immediately? Maybe this becomes
+more apparent as we add doors? Perhaps do it on initial entry. This doesn't
+change much though as you'll have every room loaded at the end of the dungeon.
+Just something to think about for the future.
+
+Overall, there's nothing that's not super unapparent based on this. The class
+does what it says and makes the "Dungeon." It controls which room link is in 
+and how it's drawn. The only concern I had was with FirstOrDefault, but after
+a read of the method contract it was apparent. 
+
+Well done!

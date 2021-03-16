@@ -2,6 +2,7 @@
 
 This is a public repository for an Ohio State class. The end goal is to
 recreate the first dungeon from the classic NES game, *The Legend of Zelda*.
+This README specifically addresses the Code base during Sprint 3.
 
 ## Initial Startup and Execution
 
@@ -32,3 +33,15 @@ on a room to go there.
 ## Authors
 
 Bailey Ardrey, Kyle Gessel, Ben Hobson, Brad Knez, and Casey Vancauwenbergh
+
+##Things to be implemented next sprint
+* Inventory and Health Systems
+* Smooth transitions between rooms
+* Interactions with doors and exploding walls
+
+
+##Known bugs
+* Goriya does not always decorate.
+* Link sometimes "jiggles" when running into two block's hitboxes.
+* Link may be able to escape bounds of room.
+* Dragon projectile collides with walls and can be destroyed.

@@ -105,6 +105,8 @@ namespace Sprintfinity3902.Entities
             itemUse = true;
         }
 
+
+        /* will be used in sprint 4 for a clearer hitbox */
         //public override Rectangle GetBoundingRect()
         //{
 

@@ -2,6 +2,7 @@
 
 This is a public repository for an Ohio State class. The end goal is to
 recreate the first dungeon from the classic NES game, *The Legend of Zelda*.
+This README specifically addresses the Code base during Sprint 3.
 
 ## Initial Startup and Execution
 
@@ -22,15 +23,25 @@ screen.
 
 'e' key shows a demo of what Link looks like in his damaged state.
 
-'t' and 'y' can be used to cycle through the various block types implemented.
+'l' and 'k' allows you to cycle through each of the rooms in the dungeon.
 
-'u' and 'i' can be used to cycle through the various item types implemented.
+'p' pauses the game and gives you a map menu. On this map menu, you can click
+on a room to go there.
 
-'o' and 'p' can be used to cycle through the various enemy and characters
- implemented.
-
-'r' resets the program to its origingal state and 'q' quits the program.
+'r' resets the program to its original state and 'q' quits the program.
 
 ## Authors
 
 Bailey Ardrey, Kyle Gessel, Ben Hobson, Brad Knez, and Casey Vancauwenbergh
+
+##Things to be implemented next sprint
+* Inventory and Health Systems
+* Smooth transitions between rooms
+* Interactions with doors and exploding walls
+
+
+##Known bugs
+* Goriya does not always decorate.
+* Link sometimes "jiggles" when running into two block's hitboxes.
+* Link may be able to escape bounds of room.
+* Dragon projectile collides with walls and can be destroyed.

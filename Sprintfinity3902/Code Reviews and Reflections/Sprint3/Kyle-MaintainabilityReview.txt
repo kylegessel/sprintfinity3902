@@ -1,0 +1,21 @@
+﻿Reviewed by: Kyle Gessel
+Reviewed on: 3/15/2021
+Sprint 3
+Reviewed Class: Entities/Link/Player.cs (Specifically pickup and useItem)
+File written by: Ben Hobson
+Time Spent: 25min
+
+This code helps us form the basis of a player inventory system.
+
+By giving each item a slot in a dictionary, we can simplify most of the 
+inventory management in the future. Now we will be able to know exactly how
+many items link has and whether he has them available to him. This also gives
+us the basis for his health.
+
+Both the pickup method and use item can have functions in the future that call
+directly to the item class to determine what to do, possibly evading if
+statements all together. This would be easily added to the current 
+implementation.
+
+This section of code will be critical during our next sprint and I think this
+gives us a really solid starting point.

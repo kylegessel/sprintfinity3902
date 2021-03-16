@@ -11,6 +11,8 @@ using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
 using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.Sound;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Sprintfinity3902
 {
@@ -34,6 +36,8 @@ namespace Sprintfinity3902
         public IEntity hitboxSword;
         public List<IEntity> linkProj;
         private IEntity bombExplosion;
+        private SoundEffectInstance bgMusic;
+
         //private IDetector detector;
 
         public Game1()
@@ -52,6 +56,14 @@ namespace Sprintfinity3902
 
         protected void Reset()
         {
+            if (bgMusic != null) {
+                bgMusic.Stop();
+                bgMusic.Dispose();
+            }
+
+            bgMusic = SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon).CreateInstance();
+            bgMusic.Volume = Global.Var.VOLUME;
+            bgMusic.Play();
             KeyboardManager.Instance.Reset();
             
             //basicMap.Setup(this);
@@ -107,7 +119,7 @@ namespace Sprintfinity3902
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
 
-            Sound.Sound.Instance.LoadContent(Content);
+            Sound.SoundLoader.Instance.LoadContent(Content);
 
 
             Reset();

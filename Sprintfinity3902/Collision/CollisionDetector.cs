@@ -202,14 +202,7 @@ namespace Sprintfinity3902.Collision
         public bool CheckSpecificCollision(Rectangle rec)
         {
             Rectangle linkRect = link.GetBoundingRect();
-            if (rec.Intersects(linkRect))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return rec.Intersects(linkRect);
         }
 
     }

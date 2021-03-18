@@ -33,6 +33,7 @@ namespace Sprintfinity3902.SpriteFactories
             hudSpriteSheet = content.Load<Texture2D>(HUD_FILE_NAME);
         }
 
+        //HUD MENUS
         public ISprite CreateInGameHud()
         {
             return new InGameHudSprite(hudSpriteSheet);
@@ -40,12 +41,20 @@ namespace Sprintfinity3902.SpriteFactories
 
         public ISprite CreateDungeonHud()
         {
-            return new InGameHudSprite(hudSpriteSheet);
+            return new DungeonHudSprite(hudSpriteSheet);
         }
 
         public ISprite CreateInventoryHud()
         {
             return new InventoryHudSprite(hudSpriteSheet);
         }
+
+        public ISprite CreateMiniMap()
+        {
+            return new MiniMapSprite(hudSpriteSheet);
+        }
+
+        //HUD ICONS
+
     }
 }

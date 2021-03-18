@@ -8,19 +8,19 @@ using System.Text;
 
 namespace Sprintfinity3902.HudMenu
 {
-    public class DungeonHud : IHud
+    public class MiniMapHud : IHud
     {
         private Game1 Game;
         private Player Link;
         public List<IEntity> Icons { get; set; }
 
-        public DungeonHud(Game1 game)
+        public MiniMapHud(Game1 game)
         {
             Game = game;
             Link = Game.link;
             Icons = new List<IEntity>();
 
-            Icons.Add(new DungeonHudEntity(new Vector2(0, -88 * Global.Var.SCALE)));
+            Icons.Add(new MiniMapEntity(new Vector2(16 * Global.Var.SCALE, 8 * Global.Var.SCALE)));
 
         }
     }

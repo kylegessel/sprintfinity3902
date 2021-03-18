@@ -109,6 +109,7 @@ namespace Sprintfinity3902
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
+            HudSpriteFactory.Instance.LoadAllTextures(Content);
 
             Reset();
         }

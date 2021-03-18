@@ -104,6 +104,18 @@
 /processorParam:TextureFormat=Color
 /build:Zelda_Eagle-Map.png
 
+#begin Zelda_HudElements_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_HudElements_Transparent.png
+
 #begin Zelda_Items_and_Weapons_Transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor

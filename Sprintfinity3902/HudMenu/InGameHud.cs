@@ -24,5 +24,11 @@ namespace Sprintfinity3902.HudMenu
             Icons.Add(new InGameHudEntity(new Vector2(0, 0)));
 
         }
+
+        public void AddIcons()
+        {
+            //Private method calls to initialize black boxes at start
+            //Private method calls to check conditionals and add new icons as needed
+        }
     }
 }

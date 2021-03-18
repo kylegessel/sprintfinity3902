@@ -8,6 +8,6 @@ namespace Sprintfinity3902.Interfaces
     {
         List<IEntity> Icons { get; set; }
 
-
+        void AddIcons();
     }
 }

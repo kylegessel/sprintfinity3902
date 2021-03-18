@@ -23,5 +23,11 @@ namespace Sprintfinity3902.HudMenu
             Icons.Add(new MiniMapEntity(new Vector2(16 * Global.Var.SCALE, 8 * Global.Var.SCALE)));
 
         }
+
+        public void AddIcons()
+        {
+            //Private method calls to initialize black boxes at start
+            //Private method calls to check conditionals and add new icons as needed
+        }
     }
 }

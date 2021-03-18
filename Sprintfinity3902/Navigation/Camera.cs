@@ -41,7 +41,7 @@ namespace Sprintfinity3902.Navigation
         }
 
         public void Draw(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(map, Vector2.Zero, windowBounds, Color.White, Global.Var.ZERO, new Vector2(0,0), Game1.ScaleWindow, SpriteEffects.None, Global.Var.LAYER_DEPTH);
+            spriteBatch.Draw(map, Vector2.Zero, windowBounds, Color.White, Global.Var.ZERO, new Vector2(0,0), Game1.ScaleWindow, SpriteEffects.None, 0.0f);
         }
 
     }

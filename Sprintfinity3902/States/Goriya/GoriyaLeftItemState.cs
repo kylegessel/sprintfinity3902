@@ -7,6 +7,9 @@ namespace Sprintfinity3902.States
 {
     public class GoriyaLeftItemState : IEnemyState
     {
+
+        private static int UPPER_BOUND = 25;
+
         public GoriyaEnemy Goriya { get; set; }
         public ISprite Sprite { get; set; }
         public bool Start { get; set; }
@@ -47,7 +50,7 @@ namespace Sprintfinity3902.States
                 count = 0;
                 Start = false;
                 Sprite.Animation.Stop();
-                rnd = new Random().Next(0, 25);
+                rnd = new Random().Next(Global.Var.ZERO, UPPER_BOUND);
                 if (!Goriya.Boomerang.getItemUse())
                 {
                     Goriya.Boomerang.UseItem(Goriya);

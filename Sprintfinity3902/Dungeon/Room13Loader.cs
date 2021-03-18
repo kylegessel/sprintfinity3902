@@ -11,6 +11,16 @@ namespace Sprintfinity3902.Dungeon
 {
     public class Room13Loader
     {
+        /*MAGIC NUMBERS REFACTOR*/
+        private static int FOURTEEN = 14;
+        private static int THIRTY_TWO = 32;
+        private static int FORTY_EIGHT = 48;
+        private static int EIGHTY = 80;
+        private static int ONE_HUNDRED_TWENTY = 120;
+        private static int ONE_HUNDRED_SIXTY = 160;
+        private static int TWO_HUNDRED_FORTY = 240;
+        private static int TWO_HUNDRED_FIFTY_SIX = 256;
+
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
@@ -29,8 +39,8 @@ namespace Sprintfinity3902.Dungeon
         public void Build()
         {
             string line;
-            int currX = 16 * Global.Var.SCALE;
-            int currY = 80 * Global.Var.SCALE;
+            int currX = Global.Var.TILE_SIZE * Global.Var.SCALE;
+            int currY = EIGHTY * Global.Var.SCALE;
             Position = new Vector2(currX, currY);
 
             for (int i = 0; i < 2; i++)
@@ -53,11 +63,11 @@ namespace Sprintfinity3902.Dungeon
                     for (int j = 0; j < 14; j++)
                     {
                         BuildBlocks(lineValues[j]);
-                        currX += 16 * Global.Var.SCALE;
-                        if (currX == 16 * Global.Var.SCALE * 14 + 16 * Global.Var.SCALE)
+                        currX += Global.Var.TILE_SIZE * Global.Var.SCALE;
+                        if (currX == Global.Var.TILE_SIZE * Global.Var.SCALE * FOURTEEN + Global.Var.TILE_SIZE * Global.Var.SCALE)
                         {
-                            currX = 16 * Global.Var.SCALE;
-                            currY += 16 * Global.Var.SCALE;
+                            currX = Global.Var.TILE_SIZE * Global.Var.SCALE;
+                            currY += Global.Var.TILE_SIZE * Global.Var.SCALE;
                         }
                         Position = new Vector2(currX, currY);
                     }
@@ -66,26 +76,27 @@ namespace Sprintfinity3902.Dungeon
             
         }
 
+        /*MAGIC NUMBERS REFACTOR*/
         public void BuildWallAndFloor(string input)
         {
             switch (input)
             {
                 //WALLS AND FLOORS
                 case "R13E":
-                    Room.blocks.Add(new VerticalWall(new Vector2(-32 * Global.Var.SCALE, 80 * Global.Var.SCALE)));
-                    Room.blocks.Add(new VerticalWall(new Vector2(-32 * Global.Var.SCALE, 160 * Global.Var.SCALE)));
-                    Room.blocks.Add(new VerticalWall(new Vector2(256 * Global.Var.SCALE, 80 * Global.Var.SCALE)));
-                    Room.blocks.Add(new VerticalWall(new Vector2(256 * Global.Var.SCALE, 160 * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(-THIRTY_TWO * Global.Var.SCALE, EIGHTY * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(-THIRTY_TWO * Global.Var.SCALE, ONE_HUNDRED_SIXTY * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(TWO_HUNDRED_FIFTY_SIX * Global.Var.SCALE, EIGHTY * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(TWO_HUNDRED_FIFTY_SIX * Global.Var.SCALE, ONE_HUNDRED_SIXTY * Global.Var.SCALE)));
 
-                    Room.blocks.Add(new HorizontalWall(new Vector2(0 * Global.Var.SCALE, 48 * Global.Var.SCALE)));
-                    Room.blocks.Add(new HorizontalWall(new Vector2(120 * Global.Var.SCALE, 48 * Global.Var.SCALE)));
-                    Room.blocks.Add(new HorizontalWall(new Vector2(240 * Global.Var.SCALE, 48 * Global.Var.SCALE)));
-                    Room.blocks.Add(new HorizontalWall(new Vector2(0 * Global.Var.SCALE, 240 * Global.Var.SCALE)));
-                    Room.blocks.Add(new HorizontalWall(new Vector2(120 * Global.Var.SCALE, 240 * Global.Var.SCALE)));
-                    Room.blocks.Add(new HorizontalWall(new Vector2(240 * Global.Var.SCALE, 240 * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(Global.Var.ZERO * Global.Var.SCALE, FORTY_EIGHT * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, FORTY_EIGHT * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(TWO_HUNDRED_FORTY * Global.Var.SCALE, FORTY_EIGHT * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(Global.Var.ZERO * Global.Var.SCALE, TWO_HUNDRED_FORTY * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, TWO_HUNDRED_FORTY * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(TWO_HUNDRED_FORTY * Global.Var.SCALE, TWO_HUNDRED_FORTY * Global.Var.SCALE)));
                     break;
                 case "R13I":
-                    Room.blocks.Add(new Room13(new Vector2(0 * Global.Var.SCALE, 80 * Global.Var.SCALE)));
+                    Room.blocks.Add(new Room13(new Vector2(Global.Var.ZERO * Global.Var.SCALE, EIGHTY * Global.Var.SCALE)));
                     break;
                 case " ":
                     break;

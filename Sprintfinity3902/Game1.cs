@@ -57,8 +57,6 @@ namespace Sprintfinity3902
         {
             KeyboardManager.Instance.Reset();
             
-            //basicMap.Setup(this);
-
             dungeon = new Dungeon.Dungeon(this);
 
             dungeon.Build();

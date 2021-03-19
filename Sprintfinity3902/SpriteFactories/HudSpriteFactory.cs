@@ -55,6 +55,13 @@ namespace Sprintfinity3902.SpriteFactories
         }
 
         //HUD ICONS
-
+        public ISprite CreateBlackSquareIcon()
+        {
+            return new BlackSquareIconSprite(hudSpriteSheet);
+        }
+        public ISprite CreateBlackLongIcon()
+        {
+            return new BlackLongIconSprite(hudSpriteSheet);
+        }
     }
 }

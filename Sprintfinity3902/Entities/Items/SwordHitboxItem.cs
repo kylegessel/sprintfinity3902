@@ -10,12 +10,19 @@ namespace Sprintfinity3902.Entities
 {
     public class SwordHitboxItem : AbstractEntity, IProjectile
     {
+
+        private static int TWELVE = 12;
+        private static int FIVE = 5;
+        private static int SIX = 6;
+        private static int ONE_THOUSAND = 1000;
+
         Player PlayerCharacter;
         Boolean itemUse;
         int itemUseCount;
         IPlayerState firingState;
         Direction swordDirection;
         Vector2 currentRect;
+        
 
         public SwordHitboxItem(Vector2 position)
         {
@@ -32,7 +39,7 @@ namespace Sprintfinity3902.Entities
         public Boolean Collide(int enemyID, IEnemy enemy, IRoom room)
         {
             // Code for removing sword on contact, needs to be replaced.
-            Position = new Vector2(-1000, -1000);
+            Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
             // This can be improved, not long term.
             if (itemUseCount < 20) return false;
             return enemy.HitRegister(enemyID, 1, 0, swordDirection, room) <= 0;
@@ -66,7 +73,7 @@ namespace Sprintfinity3902.Entities
             {
                 itemUse = false;
                 itemUseCount = 0;
-                Position = new Vector2(-1000, -1000);
+                Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
             }
 
             itemUseCount++;
@@ -78,27 +85,27 @@ namespace Sprintfinity3902.Entities
 
             if (firingState == PlayerCharacter.facingDownAttack)
             {
-                Position = new Vector2(PlayerCharacter.X + 5 * Global.Var.SCALE, PlayerCharacter.Y + 16 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X + FIVE * Global.Var.SCALE, PlayerCharacter.Y + Global.Var.TILE_SIZE * Global.Var.SCALE);
                 //currentRect = new Vector2(7, 12);
                 swordDirection = Direction.DOWN;
 
             }
             else if (firingState == PlayerCharacter.facingUpAttack)
             {
-                Position = new Vector2(PlayerCharacter.X + 6 * Global.Var.SCALE, PlayerCharacter.Y - 12 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X + SIX * Global.Var.SCALE, PlayerCharacter.Y - TWELVE * Global.Var.SCALE);
                 //currentRect = new Vector2(7, 12);
                 swordDirection = Direction.UP;
 
             }
             else if (firingState == PlayerCharacter.facingLeftAttack)
             {
-                Position = new Vector2(PlayerCharacter.X - 12 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X - TWELVE * Global.Var.SCALE, PlayerCharacter.Y + FIVE * Global.Var.SCALE);
                 //currentRect = new Vector2(12, 7);
                 swordDirection = Direction.LEFT;
             }
             else if (firingState == PlayerCharacter.facingRightAttack)
             {
-                Position = new Vector2(PlayerCharacter.X + 16 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X + Global.Var.TILE_SIZE * Global.Var.SCALE, PlayerCharacter.Y + FIVE * Global.Var.SCALE);
                 //currentRect = new Vector2(12, 7);
                 swordDirection = Direction.RIGHT;
             }

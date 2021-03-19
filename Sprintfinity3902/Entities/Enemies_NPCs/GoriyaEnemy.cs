@@ -10,6 +10,11 @@ namespace Sprintfinity3902.Entities
     public class GoriyaEnemy : AbstractEntity, IEnemy
     {
 
+        private static int MOD_BOUND = 12;
+        private static int THREE = 3;
+        private static int SIX = 6;
+        private static int NINE = 9;
+
         private IEnemyState _currentState;
         private int direction;
         public BoomerangItem Boomerang;
@@ -143,16 +148,16 @@ namespace Sprintfinity3902.Entities
 
         public void Decorate()
         {
-            counter = decorateCount % 12;
-            if (counter < 3)
+            counter = decorateCount % MOD_BOUND;
+            if (counter < THREE)
             {
                 color = Color.Aqua;
             }
-            else if (counter < 6)
+            else if (counter < SIX)
             {
                 color = Color.Red;
             }
-            else if (counter < 9)
+            else if (counter < NINE)
             {
                 color = Color.White;
             }

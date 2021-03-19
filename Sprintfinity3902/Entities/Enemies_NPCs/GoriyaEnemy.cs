@@ -14,6 +14,10 @@ namespace Sprintfinity3902.Entities
         private static int THREE = 3;
         private static int SIX = 6;
         private static int NINE = 9;
+        private static int ONE = 1;
+        private static int FIVE = 5;
+        private static int TWO = 2;
+        private static int FOUR = 4;
 
         private IEnemyState _currentState;
         private int direction;
@@ -50,6 +54,7 @@ namespace Sprintfinity3902.Entities
         private int decorateCount;
         private int decorateTime;
         private int counter;
+        
 
         public GoriyaEnemy(BoomerangItem boomerang)
         {
@@ -129,7 +134,7 @@ namespace Sprintfinity3902.Entities
                 {
                     decorate = false;
                     color = Color.White;
-                    decorateCount = 0;
+                    decorateCount = Global.Var.ZERO;
                 }
                 else
                 {
@@ -176,14 +181,14 @@ namespace Sprintfinity3902.Entities
 
         public void ChangeDirection()
         {
-            direction = new Random().Next(1, 5);
-            if (direction == 1) //Left
+            direction = new Random().Next(ONE, FIVE);
+            if (direction == ONE) //Left
                 this.SetState(movingLeft);
-            else if (direction == 2) //Right
+            else if (direction == TWO) //Right
                 this.SetState(movingRight);
-            else if (direction == 3) //Up
+            else if (direction == THREE) //Up
                 this.SetState(movingUp);
-            else if (direction == 4) //Down
+            else if (direction == FOUR) //Down
                 this.SetState(movingDown);
         }
 

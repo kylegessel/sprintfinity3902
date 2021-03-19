@@ -19,7 +19,9 @@ namespace Sprintfinity3902.Link
         private static int NINETY_SIX = 96;
         private static float F_ONE_DOT_FIVE = 1.5f;
         private static int FOURTEEN = 14;
-        private static int THIRTEEN = 15;
+        private static int THIRTEEN = 13;
+        private static int ONE_HUNDRED_TWENTY = 120;
+        private static int ONE_HUNDRED_NINETY_THREE = 193;
 
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
@@ -48,8 +50,7 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingLeftItem { get; set; }
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
-        public int ONE_HUNDRED_TWENTY { get; private set; }
-        public int ONE_HUNDRED_NINETY_THREE { get; private set; }
+        
 
         private Dictionary<IItem.ITEMS, int> itemcount;
        

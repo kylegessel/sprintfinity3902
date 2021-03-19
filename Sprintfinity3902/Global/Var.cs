@@ -12,8 +12,7 @@
         /*Tile Size*/
         public static int TILE_SIZE = 16;
 
-
-
+        public static float F_ZERO = 0.0f;
     }
 }
 

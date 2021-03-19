@@ -8,11 +8,17 @@ namespace Sprintfinity3902.Entities
     public class BlueBatEnemy : AbstractEntity, IEnemy
     {
 
+        private static int TWO = 2;
+        private static int TWO_HUNDRED = 200;
+        private static int FORTY = 40;
+        private static int TEN = 10;
+
         private Random rand = new Random();
         private int count;
         private int direction;
         private int waitTime;
         private float speed;
+        
 
         public BlueBatEnemy()
         {
@@ -49,11 +55,11 @@ namespace Sprintfinity3902.Entities
         {
             if(count == 0)
             {
-                waitTime = rand.Next(40, 200);
+                waitTime = rand.Next(FORTY, TWO_HUNDRED);
             }else if( count == waitTime)
             {
                 // States for left, right, up, down, up right, up left, down left, down right.
-               direction = rand.Next(1, 10);
+               direction = rand.Next(1, TEN);
                 // If the Sprite animation was previously stopped, begin playing it again.
                 if (!Sprite.Animation.IsPlaying) {
                     Sprite.Animation.Play();
@@ -83,27 +89,27 @@ namespace Sprintfinity3902.Entities
                 case 5:
                     X = X + speed * Global.Var.SCALE;
                     Y = Y + speed * Global.Var.SCALE;
-                    SetStepSize((float)Math.Sqrt(Math.Pow(speed, 2) + Math.Pow(speed, 2)));
+                    SetStepSize((float)Math.Sqrt(Math.Pow(speed, TWO) + Math.Pow(speed, TWO)));
                     break;
                 case 6:
                     X = X - speed * Global.Var.SCALE;
                     Y = Y + speed * Global.Var.SCALE;
-                    SetStepSize((float)Math.Sqrt(Math.Pow(speed, 2) + Math.Pow(speed, 2)));
+                    SetStepSize((float)Math.Sqrt(Math.Pow(speed, TWO) + Math.Pow(speed, TWO)));
                     break;
                 case 7:
                     X = X - speed * Global.Var.SCALE;
                     Y = Y - speed * Global.Var.SCALE;
-                    SetStepSize((float)Math.Sqrt(Math.Pow(speed, 2) + Math.Pow(speed, 2)));
+                    SetStepSize((float)Math.Sqrt(Math.Pow(speed, TWO) + Math.Pow(speed, TWO)));
                     break;
                 case 8:
                     X = X + speed * Global.Var.SCALE;
                     Y = Y - speed * Global.Var.SCALE;
-                    SetStepSize((float)Math.Sqrt(Math.Pow(speed, 2) + Math.Pow(speed, 2)));
+                    SetStepSize((float)Math.Sqrt(Math.Pow(speed, TWO) + Math.Pow(speed, TWO)));
                     break;
                 case 9:
                     // Stop animation when not moving.
                     Sprite.Animation.Stop();
-                    SetStepSize(0f);
+                    SetStepSize(Global.Var.F_ZERO);
                     break;
             }
             count++;

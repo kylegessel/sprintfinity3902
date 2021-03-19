@@ -10,6 +10,18 @@ namespace Sprintfinity3902.Entities
 {
     public class SkeletonEnemy : AbstractEntity, IEnemy
     {
+
+        private static int ONE = 1;
+        private static int FIVE = 5;
+        private static int MOD_BOUND = 12;
+        private static int SIX = 6;
+        private static int NINE = 9;
+        private static int THIRTY = 30;
+        private static int THREE = 3;
+        private static int TWO_HUNDRED_FORTY  = 240;
+        private static int FORTY = 40;
+        private static float F_DOT_FOUR = .4f;
+
         private Random rd1 = new Random();
         private int count;
         private Direction direction;
@@ -18,6 +30,8 @@ namespace Sprintfinity3902.Entities
         private float speed;
         private int counter;
         private bool decorate;
+        
+
         public SkeletonEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateSkeletonEnemy();
@@ -42,16 +56,16 @@ namespace Sprintfinity3902.Entities
         }
         public void Decorate()
         {
-            counter = count % 12;
-            if (counter < 3)
+            counter = count % MOD_BOUND;
+            if (counter < THREE)
             {
                 color = Color.Aqua;
             }
-            else if (counter < 6)
+            else if (counter < SIX)
             {
                 color = Color.Red;
             }
-            else if (counter < 9)
+            else if (counter < NINE)
             {
                 color = Color.White;
             }
@@ -75,16 +89,16 @@ namespace Sprintfinity3902.Entities
         public override void Move()
         {
             
-            if(count == 0)
+            if(count == Global.Var.ZERO)
             {
-                waitTime = rd1.Next(40, 240);
+                waitTime = rd1.Next(FORTY, TWO_HUNDRED_FORTY);
                 count++;
             }
             else if(count == waitTime)
             {
-                direction = intToDirection(rd1.Next(1, 5));
-                count = 0;
-                speed = 0.4f;
+                direction = intToDirection(rd1.Next(ONE, FIVE));
+                count = Global.Var.ZERO;
+                speed = F_DOT_FOUR;
                 decorate = false;
             }
 
@@ -111,9 +125,9 @@ namespace Sprintfinity3902.Entities
         {
             health = health - damage;
             count = 1;
-            waitTime = 30;
+            waitTime = THIRTY;
             direction = projDirection;
-            speed = 1f;
+            speed = (float)ONE;
             decorate = true;
             return health;
         }

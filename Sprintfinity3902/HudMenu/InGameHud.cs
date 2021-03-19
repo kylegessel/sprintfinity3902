@@ -115,7 +115,7 @@ namespace Sprintfinity3902.HudMenu
             }
             else
             {
-                //Icons.Add(new HeartFullIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                Icons.Add(new HeartFullIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
             }
 
             for (i = currentHeart; i < maxHearts; i++)

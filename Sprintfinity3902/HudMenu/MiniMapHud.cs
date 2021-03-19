@@ -24,6 +24,11 @@ namespace Sprintfinity3902.HudMenu
 
         }
 
+        public void Update(GameTime gameTime)
+        {
+
+        }
+
         public void AddIcons()
         {
             //Private method calls to initialize black boxes at start

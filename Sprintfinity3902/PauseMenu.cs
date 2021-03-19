@@ -16,7 +16,7 @@ namespace Sprintfinity3902
         private int count;
         private Game1 Game;
         public Player Link;
-        public List<IHud> Huds { get; set; }
+        //public List<IHud> Huds { get; set; }
         public bool Pause { get; set; }
         public bool Transition { get; set; }
 
@@ -27,11 +27,11 @@ namespace Sprintfinity3902
             Game = game;
             Link = Game.link;
             count = 0;
-            Huds = new List<IHud>();
-            Huds.Add(new DungeonHud(Game));
-            Huds.Add(new InGameHud(Game));
-            Huds.Add(new InventoryHud(Game));
-            Huds.Add(new MiniMapHud(Game));
+            //Huds = new List<IHud>();
+            //Huds.Add(new DungeonHud(Game));
+            //Huds.Add(new InGameHud(Game));
+            //Huds.Add(new InventoryHud(Game));
+            //Huds.Add(new MiniMapHud(Game));
 
         }
 
@@ -66,6 +66,7 @@ namespace Sprintfinity3902
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            /*
             foreach(IHud hud in Huds)
             {
                 foreach(IEntity icon in hud.Icons)
@@ -73,6 +74,7 @@ namespace Sprintfinity3902
                     icon.Draw(spriteBatch, Color.White);
                 }
             }
+            */
         }
 
         public void PauseGame()
@@ -152,7 +154,7 @@ namespace Sprintfinity3902
                     garbage.Y = garbage.Y - 2 * Global.Var.SCALE;
             }
 
-            foreach (IHud hud in Huds)
+            foreach (IHud hud in Game.huds)
             {
                 foreach (IEntity icon in hud.Icons)
                 {

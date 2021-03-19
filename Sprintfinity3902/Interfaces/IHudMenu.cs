@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Interfaces
 {
-    public interface IHud
+    public interface IHud : IUpdateable
     {
         List<IEntity> Icons { get; set; }
 

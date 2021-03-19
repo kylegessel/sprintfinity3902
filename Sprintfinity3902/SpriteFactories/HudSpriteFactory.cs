@@ -63,5 +63,17 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new BlackLongIconSprite(hudSpriteSheet);
         }
+        public ISprite CreateHeartFullIcon()
+        {
+            return new HeartFullIconSprite(hudSpriteSheet);
+        }
+        public ISprite CreateHeartHalfIcon()
+        {
+            return new HeartHalfIconSprite(hudSpriteSheet);
+        }
+        public ISprite CreateHeartEmptyIcon()
+        {
+            return new HeartEmptyIconSprite(hudSpriteSheet);
+        }
     }
 }

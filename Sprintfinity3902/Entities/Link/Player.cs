@@ -10,13 +10,13 @@ namespace Sprintfinity3902.Link
 {
     public class Player : AbstractEntity, ILink
     {
-        private int MAX_HEALTH = 6; //May need to be public for projectiles
+        public int MAX_HEALTH = 6; //May need to be public for projectiles
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
-        private int linkHealth;
+        public int linkHealth;
 
         public IPlayerState CurrentState {
             get {
@@ -38,6 +38,7 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingLeftItem { get; set; }
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
+        public bool heartChanged { get; set; }
 
         private Dictionary<IItem.ITEMS, int> itemcount;
 
@@ -61,6 +62,7 @@ namespace Sprintfinity3902.Link
             _collidable = true;
             SetStepSize(1);
             linkHealth = MAX_HEALTH;
+            heartChanged = false;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -74,7 +76,8 @@ namespace Sprintfinity3902.Link
             {
                 if (linkHealth < MAX_HEALTH)
                 {
-                    linkHealth++;
+                    linkHealth += 2;
+                    heartChanged = true;
                 }
             }
             else if (item == IItem.ITEMS.HEARTCONTAINER)
@@ -82,6 +85,7 @@ namespace Sprintfinity3902.Link
                 //Not sure what exactly is supposed to happen when picking up heart container.
                 MAX_HEALTH += 2;
                 linkHealth += 2;
+                heartChanged = true;
             }
             itemcount.Add(item, 1);
         }
@@ -183,6 +187,7 @@ namespace Sprintfinity3902.Link
         {
             _collidable = false;
             linkHealth--;
+            heartChanged = true;
         }
 
         public void BounceOfEnemy(ICollision.CollisionSide Side)

@@ -14,6 +14,7 @@ namespace Sprintfinity3902.HudMenu
         private Player Link;
         private float x; private float y;
         private int i; private int j;
+        private HudNumberManager hudNumberManager;
         public List<IEntity> Icons { get; set; }
 
         public InGameHud(Game1 game)
@@ -21,6 +22,7 @@ namespace Sprintfinity3902.HudMenu
             Game = game;
             Link = Game.link;
             Icons = new List<IEntity>();
+            hudNumberManager = new HudNumberManager(this);
 
             AddIcons();
         }
@@ -31,6 +33,12 @@ namespace Sprintfinity3902.HudMenu
             {
                 UpdateHearts();
                 Link.heartChanged = false;
+            }
+
+            if (Link.itemPickedUp)
+            {
+                UpdateItems();
+                Link.itemPickedUp = false;
             }
         }
 
@@ -67,7 +75,14 @@ namespace Sprintfinity3902.HudMenu
                 x = 96;
                 for(j = 0; j < 3; j++)
                 {
-                    Icons.Add(new BlackSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    if(j == 0 && i != 1)
+                    {
+                        Icons.Add(new LetterX(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    }
+                    else
+                    {
+                        Icons.Add(new BlackSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    }
                     x = x + 8;
                 }
                 y = y + 8;
@@ -134,31 +149,28 @@ namespace Sprintfinity3902.HudMenu
 
         private void UpdateItems()
         {
-            Dictionary<IItem.ITEMS, int> items = Link.itemcount;
             int rupeeNum; int keyNum; int bombNum;
 
-            if (items.ContainsKey(IItem.ITEMS.RUPEE))
+            if (Link.itemcount.ContainsKey(IItem.ITEMS.RUPEE))
             {
-                rupeeNum = items[IItem.ITEMS.RUPEE];
-                DisplayNumbers(rupeeNum);
+                rupeeNum = Link.itemcount[IItem.ITEMS.RUPEE];
+                hudNumberManager.RupeeNumbers(rupeeNum);
             }
-            if (items.ContainsKey(IItem.ITEMS.KEY))
+
+            if (Link.itemcount.ContainsKey(IItem.ITEMS.KEY))
             {
-                keyNum = items[IItem.ITEMS.KEY];
-                DisplayNumbers(keyNum);
+                keyNum = Link.itemcount[IItem.ITEMS.KEY];
+                hudNumberManager.KeyNumbers(keyNum);
 
             }
-            if (items.ContainsKey(IItem.ITEMS.BOMB))
+
+            if (Link.itemcount.ContainsKey(IItem.ITEMS.BOMB))
             {
-                bombNum = items[IItem.ITEMS.BOMB];
-                DisplayNumbers(bombNum);
+                bombNum = Link.itemcount[IItem.ITEMS.BOMB];
+                //DisplayNumbers(bombNum);
 
             }
         }
 
-        private void DisplayNumbers(int itemNum)
-        {
-
-        }
     }
 }

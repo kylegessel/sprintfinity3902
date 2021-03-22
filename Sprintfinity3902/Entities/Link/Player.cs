@@ -39,6 +39,7 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
         public bool heartChanged { get; set; }
+        public bool itemPickedUp { get; set; }
 
         public Dictionary<IItem.ITEMS, int> itemcount;
 
@@ -63,6 +64,7 @@ namespace Sprintfinity3902.Link
             SetStepSize(1);
             linkHealth = MAX_HEALTH;
             heartChanged = false;
+            itemPickedUp = false;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -70,8 +72,12 @@ namespace Sprintfinity3902.Link
         public void pickup(IItem.ITEMS item) {
             if (itemcount.ContainsKey(item)) {
                 itemcount[item]++;
-                return ;
             }
+            else
+            {
+                itemcount.Add(item, 1);
+            }
+
             if (item == IItem.ITEMS.HEART)
             {
                 if (linkHealth < MAX_HEALTH)
@@ -86,7 +92,19 @@ namespace Sprintfinity3902.Link
                 linkHealth = MAX_HEALTH;
                 heartChanged = true;
             }
-            itemcount.Add(item, 1);
+            else if (item == IItem.ITEMS.BOMB)
+            {
+                itemPickedUp = true;
+            }
+            else if (item == IItem.ITEMS.KEY)
+            {
+                itemPickedUp = true;
+            }
+            else if (item == IItem.ITEMS.RUPEE)
+            {
+                itemPickedUp = true;
+            }
+
         }
 
         public void useItem(IItem.ITEMS item) {

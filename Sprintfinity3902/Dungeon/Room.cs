@@ -77,14 +77,14 @@ namespace Sprintfinity3902.Dungeon
 
             foreach (IEntity entity in items)
                 entity.Draw(spriteBatch, Color.White);
-
+            foreach (IDoor door in doors)
+                door.Draw(spriteBatch, Color.White);
             foreach (IEntity entity in garbage)
                 entity.Draw(spriteBatch, Color.White);
 
             foreach(IEntity entity in enemyProj)
                 entity.Draw(spriteBatch, Color.White);
-            foreach (IDoor door in doors)
-                door.Draw(spriteBatch, Color.White);
+
         }
 
         public void ChangePosition(bool pause)

@@ -50,17 +50,68 @@ namespace Sprintfinity3902.Collision
             DetectBlockCollision(enemies, blocks, linkProj, enemyProj);
             DetectEnemyDamage(enemies, linkProj, items, garbage);
             DetectItemPickup(items);
-            DetectDoorCollision(doors);
+            DetectDoorCollision(enemies, doors, linkProj, enemyProj);
         }
-        private void DetectDoorCollision(List<IDoor> doors)
+        private void DetectDoorCollision(Dictionary<int, IEntity> enemies, List<IDoor> doors, List<IEntity> linkProj, List<IEntity> enemyProj)
         {
             Rectangle linkRect = link.GetBoundingRect();
+            Boolean alreadyMoved = false;
+
             foreach (IDoor door in doors)
             {
                 Rectangle doorRect = door.GetBoundingRect();
                 if (doorRect.Intersects(linkRect))
                 {
-                    gameInstance.dungeon.SetCurrentRoom(door.DoorDestination);
+                    if (door.DoorDestination != -1)
+                    {
+                        // Add more complex logic here.
+                        gameInstance.dungeon.SetCurrentRoom(door.DoorDestination);
+                    }
+                    else
+                    {
+                        side = blockCollision.SideOfCollision(doorRect, linkRect);
+                        blockCollision.ReflectMovingEntity(link, side);
+                    }
+                }
+
+
+                //enemy vs blocks
+                foreach (int enemy in enemies.Keys)
+                {
+                    // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
+                    IEntity currentEnemy;
+                    enemies.TryGetValue(enemy, out currentEnemy);
+                    AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
+                    Rectangle enemyRect = cEnemy.GetBoundingRect();
+                    alreadyMoved = false;
+
+                    if (((cEnemy.IsCollidable()) || doorRect.Intersects(enemyRect)))
+                    {
+                        side = blockCollision.SideOfCollision(doorRect, enemyRect);
+                        if (!alreadyMoved) //This will prevent it from moving back twice
+                        {
+                            alreadyMoved = blockCollision.ReflectMovingEntity(currentEnemy, side);
+                        }
+                    }
+                }
+
+                //proj vs blocks
+                foreach (AbstractEntity proj in linkProj)
+                {
+
+                    if (doorRect.Intersects(proj.GetBoundingRect()))
+                    {
+                        ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
+                    }
+                }
+
+                foreach (AbstractEntity proj in enemyProj)
+                {
+
+                    if (doorRect.Intersects(proj.GetBoundingRect()))
+                    {
+                        ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
+                    }
                 }
             }
         }

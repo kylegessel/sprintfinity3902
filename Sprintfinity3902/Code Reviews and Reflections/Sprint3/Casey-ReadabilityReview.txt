@@ -1,0 +1,46 @@
+﻿Reviewed by: Casey VanCauwenbergh
+Reviewed on: 3/15/21
+Sprint 3
+Reviewed Concept: Hitbox implementation
+Reviewed Classes: AbstractEntity.cs, SwordHitBoxItem.cs, VerticalWall.cs
+File written by: Kyle Gessel
+Time Spent: 30 minutes
+
+Reviewing commit: ?
+Reviewing empahsis: Readability
+
+This review is looking at the overal implementation of hitboxes that was done
+by Kyle. I reviewed a couple specific classes to help make it easier to 
+understand. Overall, I like the implementation of hitboxes. 
+
+AbstractEntity:
+The hitboxes are created based on the size of the sprites that are used in the
+Animation class. In this class the method GetBoundingRect() is what is used to
+create the hitboxes for most objects in our game. This method is only a few 
+lines of code which makes it pretty easy to read. The only possible readability
+problem that I see here is the length of the first return statement call. To
+get the size for the return rectangle it calls to has to access a property that
+is many nested classes deep which can be confusing.
+
+SwordHitBoxItem:
+In this class the Collide method is slightly confusing when reading through.
+After looking though the code and determining what each lines purpose is, it 
+begins to make more sense but it takes time. For example this purpose of 
+itemUseCount is not very clear. Also, the MoveItem method contains an 
+unecessary if/else statement when it could just be an if statement. This is 
+initially confusing until further examination. Otherwise, I believe this class
+accomplishes its goal pretty well and is easy to follow. OVerall, the methods 
+are split up so that there is not an overwhelmin number of lines in a single 
+method. I think the UseItem method could easily have been confusing, but the 
+variables are clearly organized and each if else statement is clear to its 
+purpose.
+
+VerticleWalls:
+Finally, the VerticleWalls contains the IsTall() method which was added to
+allow some entities to fly over(not collide with) blocks but not walls. This
+class is well organized and easy to read. The methods are clearly labeled. The
+walls in our game use an invisible hit box so that the entities can not escape
+the room.
+
+While implementation of hitboxes can be a complicated concept, Kyle did a good
+job implementing it in a manner that is not too confusing to the reader.

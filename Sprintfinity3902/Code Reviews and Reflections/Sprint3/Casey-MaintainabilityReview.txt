@@ -1,0 +1,35 @@
+﻿Reviewed by: Casey VanCauwenbergh
+Reviewed on: 3/15/21
+Sprint 3
+Reviewed Class: BlueBatEnemy.cs (in Enities/Enemies_NPCs folder)
+File written by: Brad Knez
+Time Spent: 20 minutes
+
+Reviewing commit: ?
+Reviewing empahsis: Maintainability
+
+Overall, I think this class is very well written. Because of the abstract class
+that it inherets from (AbstractEntity) it helps make this class less cluttered 
+and minimal amount of things to implement. I think it will be easy to maintain
+this class as we continue to improve and add to our code.
+
+Two specific things quickly stick out to me that will help this code with 
+maintainability. The first is the use of the Global variable SCALE. In the move
+function, the distance moved is based on multiple things, one of which is this
+SCALE variable. If in the future we are required to change the size of the 
+game, this will only need to be changed in one location and will not mess up
+the bats movements. The second thing I noticed is the use of the speed
+variable. This is initialized when each bat is created and then is used to
+determine movement distance as well as used in the function SetStepSize which
+is needed for collision handling. If this was not initialized in one place, it
+could become confusing in the move function and when handling collisions. 
+Furthermore, the switch case makes it very easy if we need to add or take away
+a moving direction for the bat in the future. Other than the move function, 
+much of the properties and methods for the bat are stored in AbstractEntities. 
+There are no big changes that I see that would be hard to maintain in this 
+code.
+
+A hypothetical change that could be made to this game is changing the speed of
+the bats movements. If this were to happen, the only thing that would need to
+change in this class is the speed variable initialized in the constructors. So
+this class would handle that very well. 

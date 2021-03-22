@@ -131,5 +131,34 @@ namespace Sprintfinity3902.HudMenu
             }
 
         }
+
+        private void UpdateItems()
+        {
+            Dictionary<IItem.ITEMS, int> items = Link.itemcount;
+            int rupeeNum; int keyNum; int bombNum;
+
+            if (items.ContainsKey(IItem.ITEMS.RUPEE))
+            {
+                rupeeNum = items[IItem.ITEMS.RUPEE];
+                DisplayNumbers(rupeeNum);
+            }
+            if (items.ContainsKey(IItem.ITEMS.KEY))
+            {
+                keyNum = items[IItem.ITEMS.KEY];
+                DisplayNumbers(keyNum);
+
+            }
+            if (items.ContainsKey(IItem.ITEMS.BOMB))
+            {
+                bombNum = items[IItem.ITEMS.BOMB];
+                DisplayNumbers(bombNum);
+
+            }
+        }
+
+        private void DisplayNumbers(int itemNum)
+        {
+
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingUpItem { get; set; }
         public bool heartChanged { get; set; }
 
-        private Dictionary<IItem.ITEMS, int> itemcount;
+        public Dictionary<IItem.ITEMS, int> itemcount;
 
         public Player()
         {
@@ -82,9 +82,8 @@ namespace Sprintfinity3902.Link
             }
             else if (item == IItem.ITEMS.HEARTCONTAINER)
             {
-                //Not sure what exactly is supposed to happen when picking up heart container.
                 MAX_HEALTH += 2;
-                linkHealth += 2;
+                linkHealth = MAX_HEALTH;
                 heartChanged = true;
             }
             itemcount.Add(item, 1);

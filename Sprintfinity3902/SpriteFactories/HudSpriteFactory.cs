@@ -75,5 +75,49 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new HeartEmptyIconSprite(hudSpriteSheet);
         }
+        public ISprite CreateNumber1()
+        {
+            return new Number1Sprite(hudSpriteSheet);
+        }
+        public ISprite CreateNumber2()
+        {
+            return new Number2Sprite(hudSpriteSheet);
+        }
+        public ISprite CreateNumber3()
+        {
+            return new Number3Sprite(hudSpriteSheet);
+        }
+        public ISprite CreateNumber4()
+        {
+            return new Number4Sprite(hudSpriteSheet);
+        }
+        public ISprite CreateNumber5()
+        {
+            return new Number5Sprite(hudSpriteSheet);
+        }
+        public ISprite CreateNumber6()
+        {
+            return new Number6Sprite(hudSpriteSheet);
+        }
+        public ISprite CreateNumber7()
+        {
+            return new Number7Sprite(hudSpriteSheet);
+        }
+        public ISprite CreateNumber8()
+        {
+            return new Number8Sprite(hudSpriteSheet);
+        }
+        public ISprite CreateNumber9()
+        {
+            return new Number9Sprite(hudSpriteSheet);
+        }
+        public ISprite CreateNumber0()
+        {
+            return new Number0Sprite(hudSpriteSheet);
+        }
+        public ISprite CreateLetterX()
+        {
+            return new LetterXSprite(hudSpriteSheet);
+        }
     }
 }

@@ -79,6 +79,10 @@ namespace Sprintfinity3902.HudMenu
                     {
                         Icons.Add(new LetterX(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
+                    else if (j == 1 && i != 1)
+                    {
+                        Icons.Add(new Number0(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    }
                     else
                     {
                         Icons.Add(new BlackSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
@@ -109,7 +113,7 @@ namespace Sprintfinity3902.HudMenu
             }
 
             //SWORD
-
+            Icons.Add(new SwordIcon(new Vector2(152 * Global.Var.SCALE, 24 * Global.Var.SCALE)));
         }
 
         private void UpdateHearts()

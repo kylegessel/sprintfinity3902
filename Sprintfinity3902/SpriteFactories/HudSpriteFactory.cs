@@ -119,5 +119,9 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new LetterXSprite(hudSpriteSheet);
         }
+        public ISprite CreateSwordIcon()
+        {
+            return new SwordIconSprite(hudSpriteSheet);
+        }
     }
 }

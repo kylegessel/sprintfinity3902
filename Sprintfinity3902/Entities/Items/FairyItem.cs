@@ -1,10 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
-using Sprintfinity3902.Entities.Items;
-using System.Collections.Generic;
-using System.Text;
-using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Entities
 {

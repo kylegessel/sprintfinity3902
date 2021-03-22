@@ -4,10 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
-using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
-using System.Collections.Generic;
 
 namespace Sprintfinity3902
 {

@@ -1,7 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Sprintfinity3902.Collision;
 
 namespace Sprintfinity3902.Entities

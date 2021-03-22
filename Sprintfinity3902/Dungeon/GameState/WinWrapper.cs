@@ -11,16 +11,14 @@ namespace Sprintfinity3902.Dungeon.GameState
     public class WinWrapper : RoomWrapper
     {
 
-        private IDungeon dungeon;
-        private string music_id;
 
-        private double count;
+        private double this_count;
 
         public WinWrapper(IRoom room, IDungeon dung) : base(room) {
-            count = 0;
+            this_count = 0;
             dungeon = dung;
-            SoundManager.Instance.PauseAll();
 
+            SoundManager.Instance.PauseAll();
             music_id = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Triforce_Piece_Obtained));
             SoundManager.Instance.GetSoundEffectInstance(music_id).IsLooped = false;
             SoundManager.Instance.GetSoundEffectInstance(music_id).Play();
@@ -29,25 +27,36 @@ namespace Sprintfinity3902.Dungeon.GameState
 
         public override void Update(GameTime gameTime)
         {
-            count += gameTime.ElapsedGameTime.TotalSeconds;
-            base.Update(gameTime);
+            this_count = gameTime.TotalGameTime.TotalSeconds;
+            //base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            base.Draw(spriteBatch, Color.DarkOrchid);
-
-            if (count > 10) {
-                wrapup(); 
+            if (this_count > 10) {
+                wrapup();
             }
-            
-        }
 
-        private void wrapup() {
-            SoundManager.Instance.DestroySoundEffectInstance(music_id);
+            foreach (IBlock entity in blocks) {
+                if (blocks[1].Equals(entity)) {
+                    entity.Draw(spriteBatch, Color.Blue);
+                    continue;
+                }
+                entity.Draw(spriteBatch, Color.Green);
+            }
+                
+            foreach (IEntity entity in enemies.Values) { }
+            //entity.Draw(spriteBatch, color);
 
-            SoundManager.Instance.PlayAll();
-            dungeon.CurrentRoom = CurrentState;
+            foreach (IEntity entity in items) { }
+            //entity.Draw(spriteBatch, color);
+
+            foreach (IEntity entity in garbage) {
+                entity.Draw(spriteBatch, Color.Brown);
+            }
+
+            foreach (IEntity entity in enemyProj) { }
+                //entity.Draw(spriteBatch, color);
         }
 
     }

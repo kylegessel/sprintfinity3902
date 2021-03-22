@@ -6,8 +6,6 @@ namespace Sprintfinity3902.Interfaces
     public interface IDungeon
     {
         public IRoom CurrentRoom { get; set; }
-        public int NextId { get; set; }
-
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
         void Build();

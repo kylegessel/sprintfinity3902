@@ -121,7 +121,7 @@ namespace Sprintfinity3902.Dungeon
                     Room.blocks.Add(new RoomExterior(new Vector2(0, SIXTY_FOUR * Global.Var.SCALE)));
                     //add all 8
 
-                    Room.blocks.Add(new VerticalWall(new Vector2 (0, SIXTY_FOUR * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(0, SIXTY_FOUR * Global.Var.SCALE)));
                     Room.blocks.Add(new VerticalWall(new Vector2(0, ONE_HUNDRED_SIXTY * Global.Var.SCALE)));
                     Room.blocks.Add(new VerticalWall(new Vector2(TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE, SIXTY_FOUR * Global.Var.SCALE)));
                     Room.blocks.Add(new VerticalWall(new Vector2(TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE, ONE_HUNDRED_SIXTY * Global.Var.SCALE)));
@@ -130,11 +130,6 @@ namespace Sprintfinity3902.Dungeon
                     Room.blocks.Add(new HorizontalWall(new Vector2(0, TWO_HUNDRED_EIGHT * Global.Var.SCALE)));
                     Room.blocks.Add(new HorizontalWall(new Vector2(ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE, SIXTY_FOUR * Global.Var.SCALE)));
                     Room.blocks.Add(new HorizontalWall(new Vector2(ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE, TWO_HUNDRED_EIGHT * Global.Var.SCALE)));
-
-
-
-
-
 
                     break;
                 case "RMIN":

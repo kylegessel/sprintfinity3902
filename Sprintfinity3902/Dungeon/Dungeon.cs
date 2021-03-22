@@ -20,8 +20,6 @@ namespace Sprintfinity3902.Dungeon
         private Game1 Game;
         private List<IRoom> dungeonRooms;
         public IRoom CurrentRoom { get; set; }
-        private int currentId;
-        public int NextId { get; set; }
 
         private string backgroundMusicInstanceID;
 
@@ -51,8 +49,6 @@ namespace Sprintfinity3902.Dungeon
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room18.csv", 18));
 
             CurrentRoom = GetById(1);
-            currentId = CurrentRoom.Id;
-            NextId = CurrentRoom.Id;
 
             Game = game;
 
@@ -68,11 +64,9 @@ namespace Sprintfinity3902.Dungeon
                 if(room.Id == 13)
                 {
                     room.loader13.Build();
+                    continue;
                 }
-                else
-                {
-                    room.loader.Build();
-                }
+                room.loader.Build();
             }
         }
 
@@ -86,15 +80,14 @@ namespace Sprintfinity3902.Dungeon
 
         public void Update(GameTime gameTime)
         {
-            if (CurrentRoom.Id != NextId) {
-                SetLinkPosition();
-                CurrentRoom.garbage.Clear();
-            }
-            CurrentRoom = GetById(NextId);
+            
             CurrentRoom.Update(gameTime);
 
-            if (!gamestateupdatefinished && gameTime.TotalGameTime.TotalSeconds > 5) {
-                GameStateUpdate(true);
+            /* Artificial call to gamewin */
+            if (gamestateupdatefinished) return;
+
+            if (gameTime.TotalGameTime.TotalSeconds > 2) {
+                GameStateUpdate(false);
                 gamestateupdatefinished = true;
             }
         }
@@ -111,36 +104,14 @@ namespace Sprintfinity3902.Dungeon
 
         public void NextRoom()
         {
-            currentId = CurrentRoom.Id;
-            if(CurrentRoom.Id == 18)
-            {
-                CurrentRoom = GetById(1);
-            }
-            else
-            {
-                currentId++;
-                CurrentRoom = GetById(currentId);
-            }
-            NextId = CurrentRoom.Id;
-            CurrentRoom.garbage.Clear();
-            SetLinkPosition();
+            int currentId = (CurrentRoom.Id + 1) % 19 == 0 ? 1 : CurrentRoom.Id + 1;
+            SetCurrentRoom(currentId);
         }
 
         public void PreviousRoom()
         {
-            currentId = CurrentRoom.Id;
-            if (CurrentRoom.Id == 1)
-            {
-                CurrentRoom = GetById(18);
-            }
-            else
-            {
-                currentId--;
-                CurrentRoom = GetById(currentId);
-            }
-            NextId = CurrentRoom.Id;
-            CurrentRoom.garbage.Clear();
-            SetLinkPosition();
+            int currentId = (CurrentRoom.Id - 1) < 1 ? 18 : CurrentRoom.Id - 1;
+            SetCurrentRoom(currentId);
         }
 
         public IRoom GetCurrentRoom()
@@ -150,7 +121,9 @@ namespace Sprintfinity3902.Dungeon
 
         public void SetCurrentRoom(int id)
         {
-            NextId = id;
+            CurrentRoom.garbage.Clear();
+            CurrentRoom = GetById(id);
+            SetLinkPosition();
         }
 
         /*MAGIC NUMBERS REFACTOR*/
@@ -158,7 +131,7 @@ namespace Sprintfinity3902.Dungeon
         public void SetLinkPosition()
         {
             IRoom room = GetCurrentRoom();
-            if(NextId == 13)
+            if(room.Id == 13)
             {
                 Game.link.X = FORTY_EIGHT * Global.Var.SCALE;
                 Game.link.Y = NINETY_SEVEN * Global.Var.SCALE;
@@ -171,8 +144,7 @@ namespace Sprintfinity3902.Dungeon
         }
 
         public void CleanUp() {
-            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Stop();
-            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Dispose();
+            SoundManager.Instance.DestroySoundEffectInstance(backgroundMusicInstanceID);
         }
     }
 }

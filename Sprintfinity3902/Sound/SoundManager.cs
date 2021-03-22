@@ -98,10 +98,12 @@ namespace Sprintfinity3902.Sound
         }
 
         public void DestroySoundEffectInstance(string id) {
+
             if (soundEffectInstances.ContainsKey(id)) {
                 soundEffectInstances[id].Stop();
                 soundEffectInstances[id].Dispose();
                 soundEffectInstances.Remove(id);
+                return;
             }
 
             throw new KeyNotFoundException();

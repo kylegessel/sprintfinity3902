@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sound;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,10 +14,10 @@ namespace Sprintfinity3902.Dungeon.GameState
             get {
                 return CurrentState.Id;
             }
-            
+
             set {
                 CurrentState.Id = value;
-            } 
+            }
         }
 
         public List<IBlock> blocks {
@@ -124,6 +125,13 @@ namespace Sprintfinity3902.Dungeon.GameState
             }
         }
 
+        public string music_id {
+            get;
+            protected set;
+        }
+
+        public IDungeon dungeon { get; protected set;}
+
         protected IRoom CurrentState;
         
         public RoomWrapper(IRoom currentRoom) {
@@ -148,6 +156,14 @@ namespace Sprintfinity3902.Dungeon.GameState
         public virtual void Update(GameTime gameTime)
         {
             CurrentState.Update(gameTime);
+        }
+
+        public virtual void wrapup()
+        {
+            SoundManager.Instance.DestroySoundEffectInstance(music_id);
+            SoundManager.Instance.PlayAll();
+
+            dungeon.CurrentRoom = CurrentState;
         }
     }
 }

@@ -65,7 +65,7 @@ namespace Sprintfinity3902.Collision
                     if (door.DoorDestination != -1)
                     {
                         // Add more complex logic here.
-                        gameInstance.dungeon.SetCurrentRoom(door.DoorDestination);
+                        gameInstance.dungeon.ChangeRoom(door);
                     }
                     else
                     {
@@ -85,7 +85,7 @@ namespace Sprintfinity3902.Collision
                     Rectangle enemyRect = cEnemy.GetBoundingRect();
                     alreadyMoved = false;
 
-                    if (((cEnemy.IsCollidable()) || doorRect.Intersects(enemyRect)))
+                    if (doorRect.Intersects(enemyRect))
                     {
                         side = blockCollision.SideOfCollision(doorRect, enemyRect);
                         if (!alreadyMoved) //This will prevent it from moving back twice

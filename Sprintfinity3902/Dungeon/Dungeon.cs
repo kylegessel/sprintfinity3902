@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
+using Sprintfinity3902.States.Door;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -128,11 +129,27 @@ namespace Sprintfinity3902.Dungeon
         {
             NextId = id;
         }
-
+        public void ChangeRoom(IDoor door)
+        {
+            switch (door.CurrentState.doorDirection)
+            {
+                case DoorDirection.UP:
+                    // Set links position to the bottom of the floor.
+                    break;
+                case DoorDirection.DOWN:
+                    break;
+                case DoorDirection.LEFT:
+                    break;
+                case DoorDirection.RIGHT:
+                    break;
+            }
+            SetCurrentRoom(door.DoorDestination);
+        }
         //SET UP FOR SPRINT 3 ONLY. WILL BE REMOVED UPON SUBMITTING.
         public void SetLinkPosition()
         {
             IRoom room = GetCurrentRoom();
+            /*
             if(NextId == 13)
             {
                 Game.link.X = 48 * Global.Var.SCALE;
@@ -142,7 +159,7 @@ namespace Sprintfinity3902.Dungeon
             {
                 Game.link.X = 120 * Global.Var.SCALE;
                 Game.link.Y = 193 * Global.Var.SCALE;
-            }
+            } */
         }
 
         public void CleanUp() {

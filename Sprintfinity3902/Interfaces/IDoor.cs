@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Sprintfinity3902.Interfaces
+﻿namespace Sprintfinity3902.Interfaces
 {
     public interface IDoor: IEntity
     {
+        public IDoorState CurrentState { get; set; }
         public IDoorState wallTop { get; set; }
         public IDoorState wallBottom { get; set; }
         public IDoorState wallLeft { get; set; }

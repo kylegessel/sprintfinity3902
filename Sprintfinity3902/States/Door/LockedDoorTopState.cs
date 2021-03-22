@@ -8,11 +8,17 @@ namespace Sprintfinity3902.States.Door
 
         public Entities.Doors.Door CurrentDoor { get; set; }
         public ISprite Sprite { get; set; }
+        public bool IsOpen { get; set; }
+        public DoorDirection doorDirection { get; set; }
+
+
 
         public LockedDoorTopState(Entities.Doors.Door currentDoor)
         {
             CurrentDoor = currentDoor;
             Sprite = BlockSpriteFactory.Instance.CreateLockedDoorTop();
+            IsOpen = false;
+            doorDirection = DoorDirection.UP;
         }
 
         public void Open()

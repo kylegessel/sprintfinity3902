@@ -8,11 +8,16 @@ namespace Sprintfinity3902.States.Door
 
         public Entities.Doors.Door CurrentDoor { get; set; }
         public ISprite Sprite { get; set; }
+        public bool IsOpen { get; set; }
+        public DoorDirection doorDirection { get; set; }
+
 
         public HoleDoorRightState(Entities.Doors.Door currentDoor)
         {
             CurrentDoor = currentDoor;
             Sprite = BlockSpriteFactory.Instance.CreateHoleDoorRight();
+            IsOpen = true;
+            doorDirection = DoorDirection.RIGHT;
         }
 
         public void Open()

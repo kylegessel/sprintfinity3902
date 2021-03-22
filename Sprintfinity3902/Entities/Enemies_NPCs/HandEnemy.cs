@@ -9,6 +9,18 @@ namespace Sprintfinity3902.Entities
 {
     public class HandEnemy : AbstractEntity, IEnemy
     {
+
+        private static float F_DOT_TWO = .2f;
+        private static int ONE = 1;
+        private static  int FIVE = 5;
+        private static int TWO_HUNDRED_TWENTY = 220;
+        private static int SIXTY =  60;
+        private static int MOD_BOUND  = 12;
+        private static int SIX = 6;
+        private static int NINE = 9;
+        private static int THIRTY = 30;
+        private static int THREE = 3;
+
         private int count;
         private Direction direction;
         private int waitTime;
@@ -17,6 +29,8 @@ namespace Sprintfinity3902.Entities
         private float speed;
         private Boolean decorate;
         private int enemyID;
+        
+
         public HandEnemy()
         {
             Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
@@ -44,11 +58,11 @@ namespace Sprintfinity3902.Entities
         {
             this.enemyID = enemyID;
             health = health - damage;
-            count = 1;
-            waitTime = 30;
+            count = ONE;
+            waitTime = THIRTY;
             decorate = true;
             direction = projDirection;
-            speed = 1f;
+            speed = (float)ONE;
             return health;
         }
 
@@ -62,16 +76,16 @@ namespace Sprintfinity3902.Entities
 
         public void Decorate()
         {
-            counter = count % 12;
-            if (counter < 3)
+            counter = count % MOD_BOUND;
+            if (counter < THREE)
             {
                 color = Color.Aqua;
             }
-            else if (counter < 6)
+            else if (counter < SIX)
             {
                 color = Color.Red;
             }
-            else if (counter < 9)
+            else if (counter < NINE)
             {
                 color = Color.White;
             }
@@ -85,14 +99,14 @@ namespace Sprintfinity3902.Entities
         {
             if (count == 0)
             {
-                waitTime = new Random().Next(60, 220);
+                waitTime = new Random().Next(SIXTY, TWO_HUNDRED_TWENTY);
                 count++;
             }
             else if (count == waitTime)
             {
-                direction = intToDirection(new Random().Next(1, 5));
-                speed = 0.2f;
-                count = 0;
+                direction = intToDirection(new Random().Next(ONE, FIVE));
+                speed = F_DOT_TWO;
+                count = Global.Var.ZERO;
                 if (decorate)
                 {
                     decorate = false;

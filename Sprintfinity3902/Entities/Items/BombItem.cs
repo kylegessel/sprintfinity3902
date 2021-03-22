@@ -8,12 +8,23 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BombItem : AbstractItem {
+    public class BombItem : AbstractItem 
+    {
+
+        private static int ONE_THOUSAND = 1000;
+        private static int SIXTY = 60;
+        private static int FOUR = 4;
+        private static int TWO = 2;
+        private static int ELEVEN = 11;
+        private static int FIFTEEN = 15;
+        private static int NINE = 9;
 
         Player PlayerCharacter;
         BombExplosionItem BombExplosion;
         Boolean itemUse;
         int itemUseCount;
+        
+
         public BombItem(Vector2 position, BombExplosionItem bombExplode)
         {
             Sprite = ItemSpriteFactory.Instance.CreateBombItem();
@@ -31,7 +42,7 @@ namespace Sprintfinity3902.Entities
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            if (itemUseCount <= 60)
+            if (itemUseCount <= SIXTY)
             {
                 Sprite.Draw(spriteBatch, Position, Color.White);
             }
@@ -61,9 +72,9 @@ namespace Sprintfinity3902.Entities
             {
                 itemUse = false;
                 itemUseCount = 0;
-                Position = new Vector2(-1000, -1000);
-                BombExplosion.Move(new Vector2(-1000, -1000));
-            }else if (itemUseCount == 60)
+                Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
+                BombExplosion.Move(new Vector2(-ONE_THOUSAND, -ONE_THOUSAND));
+            }else if (itemUseCount == SIXTY)
             {
                 BombExplosion.Move(Position);
             }
@@ -76,19 +87,19 @@ namespace Sprintfinity3902.Entities
             itemUse = true;
             if (PlayerCharacter.CurrentState == PlayerCharacter.facingDownItem)
             {
-                Position = new Vector2(player.X + 4*Global.Var.SCALE, player.Y + 11*Global.Var.SCALE);
+                Position = new Vector2(player.X + FOUR*Global.Var.SCALE, player.Y + ELEVEN*Global.Var.SCALE);
             }
             else if (PlayerCharacter.CurrentState == PlayerCharacter.facingUpItem)
             {
-                Position = new Vector2(player.X + 2*Global.Var.SCALE, player.Y - 15*Global.Var.SCALE);
+                Position = new Vector2(player.X + TWO*Global.Var.SCALE, player.Y - FIFTEEN*Global.Var.SCALE);
             }
             else if (PlayerCharacter.CurrentState == PlayerCharacter.facingLeftItem)
             {
-                Position = new Vector2(player.X - 9*Global.Var.SCALE, player.Y);
+                Position = new Vector2(player.X - NINE*Global.Var.SCALE, player.Y);
             }
             else if (PlayerCharacter.CurrentState == PlayerCharacter.facingRightItem)
             {
-                Position = new Vector2(player.X + 16*Global.Var.SCALE, player.Y);
+                Position = new Vector2(player.X + Global.Var.TILE_SIZE*Global.Var.SCALE, player.Y);
             }
         }
 

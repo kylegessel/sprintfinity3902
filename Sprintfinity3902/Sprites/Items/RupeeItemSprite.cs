@@ -17,6 +17,8 @@ namespace Sprintfinity3902.Sprites
         private const int RUPEE_B_WIDTH = 8;
         private const int RUPEE_B_HEIGHT = 16;
 
+        private const int RESET_THRESHOLD = 150;
+
         private int count;
 
         public RupeeItemSprite(Texture2D texture)
@@ -34,7 +36,7 @@ namespace Sprintfinity3902.Sprites
         public override void Update(GameTime gameTime)
         {
             count++;
-            if (count == 150)
+            if (count == RESET_THRESHOLD)
             {
                 Animation.ChangeSpeed(1, 1 / 2f);
                 Animation.ChangeSpeed(2, 1);

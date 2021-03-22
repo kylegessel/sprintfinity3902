@@ -141,6 +141,14 @@ namespace Sprintfinity3902
                     garbage.Y = garbage.Y - 2 * Global.Var.SCALE;
             }
 
+            foreach (IEntity door in Game.dungeon.GetCurrentRoom().doors)
+            {
+                if (count != 176 * Global.Var.SCALE && Pause)
+                    door.Y = door.Y + 2 * Global.Var.SCALE;
+                else if (count != 176 * Global.Var.SCALE && Pause == false)
+                    door.Y = door.Y - 2 * Global.Var.SCALE;
+            }
+
             // Case for the bomb as it doesn't work similarly to other projectiles.
 
             if (count != 176 * Global.Var.SCALE && Pause)

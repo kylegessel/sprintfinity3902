@@ -24,9 +24,9 @@ namespace Sprintfinity3902.Dungeon
         public string path { get; set; }
         public RoomLoader loader { get; set; }
         public Room13Loader loader13 { get; set; }
-        public bool Pause;
-        public float startY;
-        public int count;
+        public bool Pause { get; set; }
+        public float startY { get; set; }
+        public int count { get; set; }
 
         public Room(string fileLocation, int id)
         {
@@ -67,22 +67,22 @@ namespace Sprintfinity3902.Dungeon
                 entity.Update(gameTime);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
             foreach (IBlock entity in blocks)
-                entity.Draw(spriteBatch, Color.White);
+                entity.Draw(spriteBatch, color);
 
             foreach (IEntity entity in enemies.Values)
-                entity.Draw(spriteBatch, Color.White);
+                entity.Draw(spriteBatch, color);
 
             foreach (IEntity entity in items)
-                entity.Draw(spriteBatch, Color.White);
+                entity.Draw(spriteBatch, color);
 
             foreach (IEntity entity in garbage)
-                entity.Draw(spriteBatch, Color.White);
+                entity.Draw(spriteBatch, color);
 
             foreach(IEntity entity in enemyProj)
-                entity.Draw(spriteBatch, Color.White);
+                entity.Draw(spriteBatch, color);
         }
 
         /*MAGIC NUMBERS REFACTOR*/

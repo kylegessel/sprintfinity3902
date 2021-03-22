@@ -123,6 +123,8 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.Update(gameTime);
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
+
+
             if (pauseMenu.Pause || pauseMenu.Transition)
             {
                 pauseMenu.Update(gameTime);

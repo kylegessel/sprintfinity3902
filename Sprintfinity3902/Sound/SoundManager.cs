@@ -83,5 +83,28 @@ namespace Sprintfinity3902.Sound
 
             throw new KeyNotFoundException();
         }
+
+        public void PauseAll() {
+            foreach (SoundEffectInstance sei in soundEffectInstances.Values) {
+                sei.Stop();
+            }
+        }
+
+        public void PlayAll()
+        {
+            foreach (SoundEffectInstance sei in soundEffectInstances.Values) {
+                sei.Play();
+            }
+        }
+
+        public void DestroySoundEffectInstance(string id) {
+            if (soundEffectInstances.ContainsKey(id)) {
+                soundEffectInstances[id].Stop();
+                soundEffectInstances[id].Dispose();
+                soundEffectInstances.Remove(id);
+            }
+
+            throw new KeyNotFoundException();
+        }
     }
 }

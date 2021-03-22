@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Dungeon.GameState;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 using System.Collections.Generic;
 using System.Linq;
+using Sprintfinity3902.Dungeon.GameState;
 
 namespace Sprintfinity3902.Dungeon
 {
@@ -22,6 +24,9 @@ namespace Sprintfinity3902.Dungeon
         public int NextId { get; set; }
 
         private string backgroundMusicInstanceID;
+
+        /* TODO: For demo only to show death and win state*/
+        private bool gamestateupdatefinished = false;
 
         public Dungeon(Game1 game)
         {
@@ -71,19 +76,32 @@ namespace Sprintfinity3902.Dungeon
             }
         }
 
+        public void GameStateUpdate(bool didWin) {
+            if (didWin) {
+                CurrentRoom = new WinWrapper(CurrentRoom, this);
+            } else {
+                CurrentRoom = new LoseWrapper(CurrentRoom, this);
+            }
+        }
+
         public void Update(GameTime gameTime)
         {
             if (CurrentRoom.Id != NextId) {
-            SetLinkPosition();
-            CurrentRoom.garbage.Clear();
-        }
+                SetLinkPosition();
+                CurrentRoom.garbage.Clear();
+            }
             CurrentRoom = GetById(NextId);
             CurrentRoom.Update(gameTime);
+
+            if (!gamestateupdatefinished && gameTime.TotalGameTime.TotalSeconds > 5) {
+                GameStateUpdate(true);
+                gamestateupdatefinished = true;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            CurrentRoom.Draw(spriteBatch);
+            CurrentRoom.Draw(spriteBatch, Color.White);
         }
 
         public IRoom GetById(int id)

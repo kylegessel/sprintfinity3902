@@ -19,8 +19,12 @@ namespace Sprintfinity3902.Interfaces
 
         List<IEntity> enemyProj { get; set; }
 
+        public bool Pause { get; set; }
+        public float startY { get; set; }
+        public int count { get; set; }
+
         void Update(GameTime gameTime);
-        void Draw(SpriteBatch spriteBatch);
+        void Draw(SpriteBatch spriteBatch, Color color);
         void ChangePosition(bool pause);
         void SetPauseCount();
     }

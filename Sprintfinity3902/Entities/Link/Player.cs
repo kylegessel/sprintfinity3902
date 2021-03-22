@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sound;
 using Sprintfinity3902.States;
 using System;
 using System.Collections.Generic;
@@ -84,6 +85,13 @@ namespace Sprintfinity3902.Link
                 itemcount[item]++;
                 return ;
             }
+
+            if (item == IItem.ITEMS.TRIFORCE) {
+                // TODO: Call victory
+                SoundManager.Instance.PauseAll();
+                SoundLoader.Instance.GetSound(SoundLoader.Sounds.Triforce_Piece_Obtained).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            }
+
             if (item == IItem.ITEMS.HEART)
             {
                 if (linkHealth < MAX_HEALTH)
@@ -197,6 +205,10 @@ namespace Sprintfinity3902.Link
         {
             _collidable = false;
             linkHealth--;
+
+            if (linkHealth <= 0) {
+                // TODO: Call loss
+            }
         }
 
         public void BounceOfEnemy(ICollision.CollisionSide Side)

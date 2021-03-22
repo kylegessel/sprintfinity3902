@@ -120,5 +120,21 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new SwordIconSprite(hudSpriteSheet);
         }
+        public ISprite CreateItemSelectIcon()
+        {
+            return new ItemSelectIconSprite(hudSpriteSheet);
+        }
+        public ISprite CreateBoomerangIcon()
+        {
+            return new BoomerangIconSprite(hudSpriteSheet);
+        }
+        public ISprite CreateBombIcon()
+        {
+            return new BombIconSprite(hudSpriteSheet);
+        }
+        public ISprite CreateBowIcon()
+        {
+            return new BowIconSprite(hudSpriteSheet);
+        }
     }
 }

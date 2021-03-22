@@ -45,13 +45,25 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> enemyProj, List<IEntity> garbage) {
+        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> enemyProj, List<IDoor> doors, List<IEntity> garbage) {
             DetectLinkDamage(enemies, enemyProj);
             DetectBlockCollision(enemies, blocks, linkProj, enemyProj);
             DetectEnemyDamage(enemies, linkProj, items, garbage);
             DetectItemPickup(items);
+            DetectDoorCollision(doors);
         }
-
+        private void DetectDoorCollision(List<IDoor> doors)
+        {
+            Rectangle linkRect = link.GetBoundingRect();
+            foreach (IDoor door in doors)
+            {
+                Rectangle doorRect = door.GetBoundingRect();
+                if (doorRect.Intersects(linkRect))
+                {
+                    gameInstance.dungeon.SetCurrentRoom(door.DoorDestination);
+                }
+            }
+        }
         private void DetectLinkDamage(Dictionary<int, IEntity> enemies, List<IEntity> enemyProj)
         {
 

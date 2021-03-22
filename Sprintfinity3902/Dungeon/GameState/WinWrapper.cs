@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities.Doors;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Sprintfinity3902.Dungeon.GameState
@@ -38,11 +40,14 @@ namespace Sprintfinity3902.Dungeon.GameState
             }
 
             foreach (IBlock entity in blocks) {
-                if (blocks[1].Equals(entity)) {
-                    entity.Draw(spriteBatch, Color.Blue);
-                    continue;
+                try {
+                    Door door = (Door)entity;
+                    door.Draw(spriteBatch, Color.Blue);
+                    Debug.WriteLine("Found door");
+                } catch (Exception e) {
+                    entity.Draw(spriteBatch, Color.Green);
                 }
-                entity.Draw(spriteBatch, Color.Green);
+                
             }
                 
             foreach (IEntity entity in enemies.Values) { }

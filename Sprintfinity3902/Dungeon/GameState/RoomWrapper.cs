@@ -79,24 +79,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                 CurrentState.path = value;
             }
         }
-        public RoomLoader loader {
-            get {
-                return CurrentState.loader;
-            }
-
-            set {
-                CurrentState.loader = value;
-            }
-        }
-        public Room13Loader loader13 {
-            get {
-                return CurrentState.loader13;
-            }
-
-            set {
-                CurrentState.loader13 = value;
-            }
-        }
+        
         public bool Pause {
             get {
                 return CurrentState.Pause;

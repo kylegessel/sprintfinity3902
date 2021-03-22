@@ -22,8 +22,6 @@ namespace Sprintfinity3902.Dungeon
         //projectiles may have to be added here later.
 
         public string path { get; set; }
-        public RoomLoader loader { get; set; }
-        public Room13Loader loader13 { get; set; }
         public bool Pause { get; set; }
         public float startY { get; set; }
         public int count { get; set; }
@@ -39,14 +37,6 @@ namespace Sprintfinity3902.Dungeon
             Id = id;
             Pause = false;
 
-            if(this.Id == 13)
-            {
-                loader13 = new Room13Loader(this);
-            }
-            else
-            {
-                loader = new RoomLoader(this);
-            }
         }
 
         public void Update(GameTime gameTime)

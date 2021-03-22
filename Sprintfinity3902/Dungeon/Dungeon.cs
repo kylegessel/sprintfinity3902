@@ -59,14 +59,11 @@ namespace Sprintfinity3902.Dungeon
 
         public void Build()
         {
+            IRoomLoader rload = new RoomLoader();
             foreach(IRoom room in dungeonRooms)
             {
-                if(room.Id == 13)
-                {
-                    room.loader13.Build();
-                    continue;
-                }
-                room.loader.Build();
+                rload.Initialize(room);
+                rload.Build();
             }
         }
 

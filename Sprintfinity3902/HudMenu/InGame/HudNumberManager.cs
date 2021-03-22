@@ -33,11 +33,13 @@ namespace Sprintfinity3902.HudMenu
                 {
                     if(j == 0)
                     {
-                        Hud.Icons.Add(GetDoubleDigit(rupeeNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        int doubleDigit = (rupeeNum / 10) % 10;
+                        Hud.Icons.Add(GetDigit(doubleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
                     else if (j == 1)
                     {
-                        Hud.Icons.Add(GetDigit(rupeeNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        int singleDigit = rupeeNum % 10;
+                        Hud.Icons.Add(GetDigit(singleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
                 }
                 else if(digits == 1)
@@ -78,10 +80,9 @@ namespace Sprintfinity3902.HudMenu
 
         public IEntity GetDigit(int num, Vector2 pos)
         {
-            int digit = num % 10;
             IEntity returnEntity = new Number0(pos);
 
-            switch (digit)
+            switch (num)
             {
                 case 0:
                     returnEntity = new Number0(pos);
@@ -120,47 +121,5 @@ namespace Sprintfinity3902.HudMenu
 
         }
 
-        public IEntity GetDoubleDigit(int num, Vector2 pos)
-        {
-            int doubleDigit = (num / 10) % 10;
-
-            IEntity returnEntity = new Number0(pos);
-
-            switch (doubleDigit)
-            {
-                case 0:
-                    returnEntity = new Number0(pos);
-                    break;
-                case 1:
-                    returnEntity = new Number1(pos);
-                    break;
-                case 2:
-                    returnEntity = new Number2(pos);
-                    break;
-                case 3:
-                    returnEntity = new Number3(pos);
-                    break;
-                case 4:
-                    returnEntity = new Number4(pos);
-                    break;
-                case 5:
-                    returnEntity = new Number5(pos);
-                    break;
-                case 6:
-                    returnEntity = new Number6(pos);
-                    break;
-                case 7:
-                    returnEntity = new Number7(pos);
-                    break;
-                case 8:
-                    returnEntity = new Number8(pos);
-                    break;
-                case 9:
-                    returnEntity = new Number9(pos);
-                    break;
-            }
-
-            return returnEntity;
-        }
     }
 }

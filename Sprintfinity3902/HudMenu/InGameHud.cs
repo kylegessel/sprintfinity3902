@@ -15,6 +15,7 @@ namespace Sprintfinity3902.HudMenu
         private float x; private float y;
         private int i; private int j;
         private HudNumberManager hudNumberManager;
+        private HudHeartManager hudHeartManager;
         public List<IEntity> Icons { get; set; }
 
         public InGameHud(Game1 game)

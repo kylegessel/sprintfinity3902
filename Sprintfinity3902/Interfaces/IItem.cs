@@ -21,5 +21,7 @@ namespace Sprintfinity3902.Interfaces
             RUPEE,
             TRIFORCE
         };
+
+        public IPickup GetPickup();
     }
 }

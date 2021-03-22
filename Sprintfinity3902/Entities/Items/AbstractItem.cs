@@ -13,5 +13,10 @@ namespace Sprintfinity3902.Entities.Items
             get { return id; }
             set { id = value; }
         }
+
+        public IPickup GetPickup()
+        {
+            return new BowPickup();
+        }
     }
 }

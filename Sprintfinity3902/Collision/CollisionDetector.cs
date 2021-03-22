@@ -189,7 +189,7 @@ namespace Sprintfinity3902.Collision
             {
                 if (item.GetBoundingRect().Intersects(linkRect))
                 {
-                    link.pickup(((AbstractItem)item).ID);
+                    link.pickup(((AbstractItem)item));
                     deletionList.Add(item);
                 }
             }

@@ -65,7 +65,14 @@ namespace Sprintfinity3902.Link
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
 
-        public void pickup(IItem.ITEMS item) {
+        public void pickup(IItem item) {
+
+
+            IPickup itemPickup = item.GetPickup();
+            itemPickup.PickupItem();
+            
+            //item.PickupItem(this);
+            /*
             if (itemcount.ContainsKey(item)) {
                 itemcount[item]++;
                 return ;
@@ -84,6 +91,7 @@ namespace Sprintfinity3902.Link
                 linkHealth += 2;
             }
             itemcount.Add(item, 1);
+            */
         }
 
         public void useItem(IItem.ITEMS item) {

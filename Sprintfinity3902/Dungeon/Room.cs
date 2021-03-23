@@ -16,7 +16,6 @@ namespace Sprintfinity3902.Dungeon
         public List<IBlock> blocks { get; set; }
         public Dictionary<int, IEntity> enemies { get; set; }
         public List<IEntity> items { get; set; }
-
         public List<IEntity> enemyProj { get; set; }
         public List<IEntity> garbage { get; set; }
         //projectiles may have to be added here later.

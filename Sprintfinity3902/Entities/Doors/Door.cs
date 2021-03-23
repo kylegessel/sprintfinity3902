@@ -96,7 +96,7 @@ namespace Sprintfinity3902.Entities.Doors
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            CurrentState.Sprite.Draw(spriteBatch, Position, Color.White);
+            CurrentState.Sprite.Draw(spriteBatch, Position, color);
         }
         public override void Update(GameTime gameTime)
         {

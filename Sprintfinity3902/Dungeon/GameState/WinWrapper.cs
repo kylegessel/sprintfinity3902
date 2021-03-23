@@ -40,14 +40,7 @@ namespace Sprintfinity3902.Dungeon.GameState
             }
 
             foreach (IBlock entity in blocks) {
-                try {
-                    Door door = (Door)entity;
-                    door.Draw(spriteBatch, Color.Blue);
-                    Debug.WriteLine("Found door");
-                } catch (Exception e) {
-                    entity.Draw(spriteBatch, Color.Green);
-                }
-                
+                entity.Draw(spriteBatch, Color.Green);
             }
                 
             foreach (IEntity entity in enemies.Values) { }

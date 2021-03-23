@@ -11,7 +11,6 @@ namespace Sprintfinity3902.Link
     public class Player : AbstractEntity, ILink
     {
         /*MAGIC NUMBERS REFACTOR*/
-        private static int MAX_HEALTH = 6; //May need to be public for projectiles
         private static int FIFTEEN = 15;
         private static int TWO_HUNDRED_TWENTY_FOUR  =  224;
         private static int THIRTY_TWO = 32;
@@ -51,11 +50,6 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingLeftItem { get; set; }
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
-        
-
-        private Dictionary<IItem.ITEMS, int> itemcount;
-       
-
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
 

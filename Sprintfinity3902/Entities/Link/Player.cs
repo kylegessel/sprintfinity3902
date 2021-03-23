@@ -94,7 +94,11 @@ namespace Sprintfinity3902.Link
             {
                 if (linkHealth < MAX_HEALTH)
                 {
-                    linkHealth += 2;
+                    linkHealth++;
+                    if(linkHealth != MAX_HEALTH)
+                    {
+                        linkHealth++;
+                    }
                     heartChanged = true;
                 }
             }

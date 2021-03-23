@@ -119,37 +119,10 @@ namespace Sprintfinity3902.HudMenu
 
         private void UpdateHearts()
         {
-            int maxHearts = Link.MAX_HEALTH / 2;
-            int currentHeart = (int)Math.Round((double)Link.linkHealth / 2, MidpointRounding.AwayFromZero);
+            double maxHealth = Link.MAX_HEALTH;
+            double currentHealth = Link.linkHealth;
 
-            x = 176;
-            y = 40;
-            for(i = 1; i < currentHeart; i++)
-            {
-                x = x + 8;
-            }
-
-            if(Link.linkHealth % 2 != 0)
-            {
-                Icons.Add(new HeartHalfIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
-            }
-            else
-            {
-                Icons.Add(new HeartFullIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
-            }
-
-            for (i = currentHeart; i < maxHearts; i++)
-            {
-                x = x + 8;
-                Icons.Add(new HeartEmptyIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
-            }
-            x = x - 8;
-            for (i = currentHeart - 1; i > 1; i--)
-            {
-                x = x - 8;
-                Icons.Add(new HeartFullIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
-            }
-
+            hudHeartManager.UpdateHearts(maxHealth, currentHealth);
         }
 
         private void UpdateItems()

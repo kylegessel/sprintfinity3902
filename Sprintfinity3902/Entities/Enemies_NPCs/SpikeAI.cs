@@ -5,6 +5,13 @@ namespace Sprintfinity3902.Entities
 {
     public class SpikeAI
     {
+
+        private static int ONE_HUNDRED_SIXTY = 160;
+        private static int NINETY_SIX = 96;
+        private static int SEVENTEEN  = 17;
+        private static int ONE_HUNDRED_SEVENTY_FOUR = 174;
+        private static int EIGHTY = 80;
+
         public SpikeEnemy Spike { get; set; }
         public Rectangle rightRec;
         public Rectangle leftRec;
@@ -17,17 +24,17 @@ namespace Sprintfinity3902.Entities
         private bool collideDown;
 
         public Vector2 hitBoxPos;
-
+        
 
         public SpikeAI(SpikeEnemy spike)
         {
             Spike = spike;
             hitBoxPos = Spike.Position;
 
-            rightRec = new Rectangle((int)hitBoxPos.X, (int)hitBoxPos.Y, 174 * Global.Var.SCALE, 17 * Global.Var.SCALE);
-            leftRec = new Rectangle((int)hitBoxPos.X-160*Global.Var.SCALE, (int)hitBoxPos.Y, 160 * Global.Var.SCALE, 17 * Global.Var.SCALE);
-            upRec = new Rectangle((int)hitBoxPos.X, (int)hitBoxPos.Y-96*Global.Var.SCALE, 17 * Global.Var.SCALE, 96 * Global.Var.SCALE);
-            downRec = new Rectangle((int)hitBoxPos.X, (int)hitBoxPos.Y, 17 * Global.Var.SCALE, 80 * Global.Var.SCALE);
+            rightRec = new Rectangle((int)hitBoxPos.X, (int)hitBoxPos.Y, ONE_HUNDRED_SEVENTY_FOUR * Global.Var.SCALE, SEVENTEEN * Global.Var.SCALE);
+            leftRec = new Rectangle((int)hitBoxPos.X- ONE_HUNDRED_SIXTY * Global.Var.SCALE, (int)hitBoxPos.Y, ONE_HUNDRED_SIXTY * Global.Var.SCALE, SEVENTEEN * Global.Var.SCALE);
+            upRec = new Rectangle((int)hitBoxPos.X, (int)hitBoxPos.Y-NINETY_SIX*Global.Var.SCALE, SEVENTEEN * Global.Var.SCALE, NINETY_SIX * Global.Var.SCALE);
+            downRec = new Rectangle((int)hitBoxPos.X, (int)hitBoxPos.Y, SEVENTEEN * Global.Var.SCALE, EIGHTY * Global.Var.SCALE);
 
             collideRight = false;
             collideLeft = false;
@@ -42,11 +49,11 @@ namespace Sprintfinity3902.Entities
             rightRec.X = (int)hitBoxPos.X;
             rightRec.Y = (int)hitBoxPos.Y;
 
-            leftRec.X = (int)hitBoxPos.X - 160 * Global.Var.SCALE;
+            leftRec.X = (int)hitBoxPos.X - ONE_HUNDRED_SIXTY * Global.Var.SCALE;
             leftRec.Y = (int)hitBoxPos.Y;
 
             upRec.X = (int)hitBoxPos.X;
-            upRec.Y = (int)hitBoxPos.Y - 96 * Global.Var.SCALE;
+            upRec.Y = (int)hitBoxPos.Y - NINETY_SIX * Global.Var.SCALE;
 
             downRec.X = (int)hitBoxPos.X;
             downRec.Y = (int)hitBoxPos.Y;

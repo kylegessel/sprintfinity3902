@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sound;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,11 +9,19 @@ namespace Sprintfinity3902.Dungeon
 {
     public class Dungeon : IDungeon
     {
+        /*MAGIC NUMBERS REFACTOR*/
+        private static int FORTY_EIGHT = 48;
+        private static int NINETY_SEVEN = 97;
+        private static int ONE_HUNDRED_TWENTY = 120;
+        private static int ONE_HUNDRED_NINETY_THREE = 193;
+
         private Game1 Game;
         private List<IRoom> dungeonRooms;
         public IRoom CurrentRoom { get; set; }
         private int currentId;
         public int NextId { get; set; }
+
+        private string backgroundMusicInstanceID;
 
         public Dungeon(Game1 game)
         {
@@ -41,6 +50,10 @@ namespace Sprintfinity3902.Dungeon
             NextId = CurrentRoom.Id;
 
             Game = game;
+
+            backgroundMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon), 0.02f, true);
+
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Build()
@@ -122,20 +135,26 @@ namespace Sprintfinity3902.Dungeon
             NextId = id;
         }
 
+        /*MAGIC NUMBERS REFACTOR*/
         //SET UP FOR SPRINT 3 ONLY. WILL BE REMOVED UPON SUBMITTING.
         public void SetLinkPosition()
         {
             IRoom room = GetCurrentRoom();
             if(NextId == 13)
             {
-                Game.link.X = 48 * Global.Var.SCALE;
-                Game.link.Y = 97 * Global.Var.SCALE;
+                Game.link.X = FORTY_EIGHT * Global.Var.SCALE;
+                Game.link.Y = NINETY_SEVEN * Global.Var.SCALE;
             }
             else
             {
-                Game.link.X = 120 * Global.Var.SCALE;
-                Game.link.Y = 193 * Global.Var.SCALE;
+                Game.link.X = ONE_HUNDRED_TWENTY * Global.Var.SCALE;
+                Game.link.Y = ONE_HUNDRED_NINETY_THREE * Global.Var.SCALE;
             }
+        }
+
+        public void CleanUp() {
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Stop();
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Dispose();
         }
     }
 }

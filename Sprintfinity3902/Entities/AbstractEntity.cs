@@ -146,7 +146,7 @@ namespace Sprintfinity3902.Entities
             } 
             else
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, 16 * Global.Var.SCALE, 16 * Global.Var.SCALE);
+                return new Rectangle((int)Position.X, (int)Position.Y, Global.Var.TILE_SIZE * Global.Var.SCALE, Global.Var.TILE_SIZE * Global.Var.SCALE);
             }
 
         }

@@ -10,6 +10,19 @@ namespace Sprintfinity3902.Link
 {
     public class Player : AbstractEntity, ILink
     {
+        /*MAGIC NUMBERS REFACTOR*/
+        private static int MAX_HEALTH = 6; //May need to be public for projectiles
+        private static int FIFTEEN = 15;
+        private static int TWO_HUNDRED_TWENTY_FOUR  =  224;
+        private static int THIRTY_TWO = 32;
+        private static int ONE_HUNDRED_NINETY_FOUR = 194;
+        private static int NINETY_SIX = 96;
+        private static float F_ONE_DOT_FIVE = 1.5f;
+        private static int FOURTEEN = 14;
+        private static int THIRTEEN = 13;
+        private static int ONE_HUNDRED_TWENTY = 120;
+        private static int ONE_HUNDRED_NINETY_THREE = 193;
+
         public int MAX_HEALTH = 6; //May need to be public for projectiles
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
@@ -38,6 +51,11 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingLeftItem { get; set; }
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
+        
+
+        private Dictionary<IItem.ITEMS, int> itemcount;
+       
+
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
 
@@ -45,7 +63,7 @@ namespace Sprintfinity3902.Link
 
         public Player()
         {
-            Position = new Vector2(120 * Global.Var.SCALE, 193 * Global.Var.SCALE);
+            Position = new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, ONE_HUNDRED_NINETY_THREE * Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
             facingDown = CurrentState;
             facingLeft = new FacingLeftState(this);
@@ -145,7 +163,7 @@ namespace Sprintfinity3902.Link
                 MoveLink();
                 _bouncingOfEnemyCount++;
             }
-            if (_bouncingOfEnemyCount > 15)
+            if (_bouncingOfEnemyCount > FIFTEEN)
             {
                 StopMoving();
             }
@@ -163,38 +181,38 @@ namespace Sprintfinity3902.Link
         //Will probably need to insert logic to prevent going through walls.
         public void MoveLink()
         {
-            int top = 96 * Global.Var.SCALE;
-            int bot = 194 * Global.Var.SCALE;
-            int left = 32 * Global.Var.SCALE;
-            int right = 224 * Global.Var.SCALE;
+            int top = NINETY_SIX * Global.Var.SCALE;
+            int bot = ONE_HUNDRED_NINETY_FOUR * Global.Var.SCALE;
+            int left = THIRTY_TWO * Global.Var.SCALE;
+            int right = TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE;
             //If you change the scaler to something larger than 1 Link can get pushed back through walls. 
             //start moving
             if (_side == ICollision.CollisionSide.BOTTOM)
             {
                 //Will want this to be an animation. So slower!
-                this.Y += (float)1.5 * Global.Var.SCALE;
+                this.Y += F_ONE_DOT_FIVE * Global.Var.SCALE;
                 if (this.Y > bot) this.Y = bot;
             }
             else if (_side == ICollision.CollisionSide.LEFT)
             {
-                this.X -= (float)1.5 * Global.Var.SCALE;
+                this.X -= F_ONE_DOT_FIVE * Global.Var.SCALE;
                 if (this.X < left) this.X = left;
             }
             else if (_side == ICollision.CollisionSide.TOP)
             {
-                this.Y -= (float)1.5 * Global.Var.SCALE;
+                this.Y -= F_ONE_DOT_FIVE * Global.Var.SCALE;
                 if (this.Y < top) this.Y = top;
             }
             else
             {
-                this.X += (float)1.5 * Global.Var.SCALE;
+                this.X += F_ONE_DOT_FIVE * Global.Var.SCALE;
                 if (this.X > right) this.X = right;
             }
         }
         public override Rectangle GetBoundingRect()
         {
             //Choose a consistent hitbox for link so that his sword is never counted as a hurtbox.
-            return new Rectangle((int)X+Global.Var.SCALE, (int)Y+Global.Var.SCALE, 14 * Global.Var.SCALE, 13 * Global.Var.SCALE);
+            return new Rectangle((int)X+Global.Var.SCALE, (int)Y+Global.Var.SCALE, FOURTEEN * Global.Var.SCALE, THIRTEEN * Global.Var.SCALE);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {

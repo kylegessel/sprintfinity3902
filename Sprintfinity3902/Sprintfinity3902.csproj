@@ -25,4 +25,60 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Bomb Apearance and Selfdrestruction\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Boss Defeated\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Boss Roaring\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Boss Zapped\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Door Opened\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Enemy Shrinking\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Enemy Zapped\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Flames Shot\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Health Heart\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Item Obtained\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Item Received\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Key Appearance\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Magic Whistle Tune\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Magical Boomerang Thrown\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Magical\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Master Sword Sword Zap\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Player Hurt\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Power Zap\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Rupees Decreasing\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Shield Deflecting\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Shiney\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Sword Zap SFX\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects The Triforce Reveals Ganon\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Triforce Piece Obtained\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Two Zap Bolts\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Upgraded Magical Boomerang Thrown\" />
+    <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Walking on Stairs\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Bomb Apearance and Selfdrestruction\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Boss Defeated\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Boss Roaring\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Boss Zapped\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Door Opened\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Enemy Shrinking\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Enemy Zapped\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Flames Shot\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Health Heart\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Item Obtained\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Item Received\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Key Appearance\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Magic Whistle Tune\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Magical Boomerang Thrown\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Magical\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Master Sword Sword Zap\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Player Hurt\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Power Zap\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Rupees Decreasing\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Shield Deflecting\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Shiney\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Sword Zap SFX\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects The Triforce Reveals Ganon\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Triforce Piece Obtained\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Two Zap Bolts\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Upgraded Magical Boomerang Thrown\" />
+    <Folder Include="Content\Sounds\obj\Windows\The Legend of Zelda Cartoon Sound Effects Walking on Stairs\" />
+  </ItemGroup>
 </Project>

@@ -8,6 +8,23 @@ namespace Sprintfinity3902.Entities
 {
     public class FinalBossEnemy : AbstractEntity, IEnemy
     {
+
+        private static int EIGHTY_FIVE = 85;
+        private static int THIRTY = 30;
+        private static int FIVE = 5;
+        private static int ONE = 1;
+        private static int ONE_HUNDRED_FORTY_FIVE = 145;
+        private static int TWO =  2;
+        private static float F_DOT_FIFTEEN = .15f;
+        private static int ONE_HUNDRED_EIGHTY = 180;
+        private static int FOUR  = 4;
+        private static int THREE  = 3;
+        private static int SIXTY = 60;
+        private static int ONE_HUNDRED_TWENTY = 120;
+        private static int SIX = 6;
+        private static int MOD_BOUND = 12;
+        private static int NINE = 9;
+
         private ISprite ClosedMouth;
         private ISprite OpenedMouth;
         public FireAttack fireAttackUp;
@@ -26,6 +43,10 @@ namespace Sprintfinity3902.Entities
         private bool decorate;
         private Random rd;
 
+        
+
+        
+
         public FinalBossEnemy(Vector2 pos, FireAttack up, FireAttack center, FireAttack down)
         {
             ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
@@ -36,18 +57,18 @@ namespace Sprintfinity3902.Entities
             fireAttackDown = down;
             Position = pos;
             color = Color.White;
-            health = 5;
+            health = FIVE;
 
-            decorateTime = 30;
+            decorateTime = THIRTY;
             decorate = false;
 
             rd = new Random();
 
-            direction = rd.Next(1, 4);
-            directionCount = 0;
+            direction = rd.Next(ONE, FOUR);
+            directionCount = Global.Var.ZERO;
 
-            attack = rd.Next(1, 3);
-            attackTime = 85;
+            attack = rd.Next(ONE, THREE);
+            attackTime = EIGHTY_FIVE;
         }
         public FinalBossEnemy(Vector2 pos)
         {
@@ -55,18 +76,18 @@ namespace Sprintfinity3902.Entities
             OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
             Sprite = ClosedMouth;
             Position = pos;
-            health = 5;
+            health = FIVE;
 
-            decorateTime = 30;
+            decorateTime = THIRTY;
             decorate = false;
 
             rd = new Random();
 
-            direction = rd.Next(1, 4);
+            direction = rd.Next(ONE, FOUR);
             directionCount = 0;
 
-            attack = rd.Next(1, 3);
-            attackTime = 85;
+            attack = rd.Next(ONE, THREE);
+            attackTime = EIGHTY_FIVE;
         }
         public override void Update(GameTime gameTime)
         {
@@ -80,16 +101,16 @@ namespace Sprintfinity3902.Entities
         }
         public void Decorate()
         {
-            counter = directionCount % 12;
-            if (counter < 3)
+            counter = directionCount % MOD_BOUND;
+            if (counter < THREE)
             {
                 color = Color.Aqua;
             }
-            else if (counter < 6)
+            else if (counter < SIX)
             {
                 color = Color.Red;
             }
-            else if (counter < 9)
+            else if (counter < NINE)
             {
                 color = Color.White;
             }
@@ -109,32 +130,32 @@ namespace Sprintfinity3902.Entities
             // Movement of dragon
             if (directionCount == 0)
             {
-                waitTime = rd.Next(60, 120);
+                waitTime = rd.Next(SIXTY, ONE_HUNDRED_TWENTY);
                 directionCount++;
             }
             else if (directionCount == waitTime)
             {
-                direction = rd.Next(1, 4);
-                if (attack == 1)
-                    attack = 2;
+                direction = rd.Next(ONE, FOUR);
+                if (attack == ONE)
+                    attack = TWO;
                 else
-                    attack = rd.Next(1, 3);
-                directionCount = 0;
+                    attack = rd.Next(ONE, THREE);
+                directionCount = Global.Var.ZERO;
             }
 
             // Handle Movement
-            if (direction == 1 && X > 145*Global.Var.SCALE) //Forward
-                X = X - .15f*Global.Var.SCALE;
-            else if (direction == 2 && X < 180*Global.Var.SCALE) //Backward
-                X = X + .15f*Global.Var.SCALE;
+            if (direction == ONE && X > ONE_HUNDRED_FORTY_FIVE*Global.Var.SCALE) //Forward
+                X = X - F_DOT_FIFTEEN*Global.Var.SCALE;
+            else if (direction == TWO && X < ONE_HUNDRED_EIGHTY*Global.Var.SCALE) //Backward
+                X = X + F_DOT_FIFTEEN*Global.Var.SCALE;
             
             directionCount++;
 
             // Handle Attack
-            if (attack == 1)
+            if (attack == ONE)
             {
                 Sprite = OpenedMouth;
-                attackCount = 0;
+                attackCount = Global.Var.ZERO;
                 fireAttackUp.StartOver(Position);
                 fireAttackCenter.StartOver(Position);
                 fireAttackDown.StartOver(Position);
@@ -160,7 +181,7 @@ namespace Sprintfinity3902.Entities
                 if(decorateCount == decorateTime)
                 {
                     decorate = false;
-                    decorateCount = 0;
+                    decorateCount = Global.Var.ZERO;
                     color = Color.White;
                 }
                 decorateCount++;
@@ -171,7 +192,7 @@ namespace Sprintfinity3902.Entities
         {
             health = health - damage;
             decorate = true;
-            decorateCount = 0;
+            decorateCount = Global.Var.ZERO;
             return health;
         }
     }

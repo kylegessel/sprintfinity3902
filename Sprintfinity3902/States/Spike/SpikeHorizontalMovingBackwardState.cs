@@ -7,10 +7,17 @@ namespace Sprintfinity3902.States
 {
     public class SpikeHorizontalMovingBackwardState : IEnemyState
     {
+
+        private static float F_DOT_EIGHT = .8f;
+        private static int FORTY = 40;
+        private static int TWO_HUNDRED_SEVEN = 207;
+        private static int THIRTY_FOUR = 34;
+
         public ISprite Sprite { get; set; }
         public SpikeEnemy Spike { get; set; }
         public bool Start { get; set; }
         private int count;
+        
 
         public SpikeHorizontalMovingBackwardState(SpikeEnemy spike)
         {
@@ -25,26 +32,26 @@ namespace Sprintfinity3902.States
 
             if (Spike.Id == 1 || Spike.Id == 3)
             {
-                if (Spike.X < 34 * Global.Var.SCALE)
+                if (Spike.X < THIRTY_FOUR * Global.Var.SCALE)
                 {
                     Spike.SetState(Spike.idleState);
                     Spike.CurrentState.Start = true;
                 }
-                else if (count > 40)
+                else if (count > FORTY)
                 {
-                    Spike.X = Spike.X - .8f * Global.Var.SCALE;
+                    Spike.X = Spike.X - F_DOT_EIGHT * Global.Var.SCALE;
                 }
             }
             else if (Spike.Id == 2 || Spike.Id == 4)
             {
-                if (Spike.X > 207 * Global.Var.SCALE)
+                if (Spike.X > TWO_HUNDRED_SEVEN * Global.Var.SCALE)
                 {
                     Spike.SetState(Spike.idleState);
                     Spike.CurrentState.Start = true;
                 }
-                else if (count > 40)
+                else if (count > FORTY)
                 {
-                    Spike.X = Spike.X + .8f * Global.Var.SCALE;
+                    Spike.X = Spike.X + F_DOT_EIGHT * Global.Var.SCALE;
                 }
             }
         }
@@ -56,11 +63,11 @@ namespace Sprintfinity3902.States
                 Start = false;
                 count = 0;
             }
-            if (count > 40)
+            if (count > FORTY)
             {
                 Move();
             }
-            else if (count < 40)
+            else if (count < FORTY)
             {
                 Wait();
             }

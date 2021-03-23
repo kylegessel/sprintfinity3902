@@ -12,6 +12,9 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
+using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.Sound;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Sprintfinity3902
 {
@@ -36,6 +39,7 @@ namespace Sprintfinity3902
         public List<IEntity> linkProj;
         public List<IHud> huds;
         private IEntity bombExplosion;
+
         //private IDetector detector;
 
         public Game1()
@@ -50,18 +54,20 @@ namespace Sprintfinity3902
             Graphics.ApplyChanges();
         }
 
-        protected override void Initialize()
-        {
-            base.Initialize();
-        }
+        protected override void Initialize() => base.Initialize();
 
         protected void Reset()
         {
+            
             KeyboardManager.Instance.Reset();
 
             
-            dungeon = new Dungeon.Dungeon(this);
 
+            if (dungeon != null) {
+                dungeon.CleanUp();
+            }
+
+            dungeon = new Dungeon.Dungeon(this);
             dungeon.Build();
 
             playerCharacter = new Player();
@@ -118,6 +124,9 @@ namespace Sprintfinity3902
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             HudSpriteFactory.Instance.LoadAllTextures(Content);
+
+            Sound.SoundLoader.Instance.LoadContent(Content);
+
 
             Reset();
         }

@@ -12,7 +12,6 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
-using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Sound;
 using Microsoft.Xna.Framework.Audio;
 

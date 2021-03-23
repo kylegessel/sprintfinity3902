@@ -23,6 +23,7 @@ namespace Sprintfinity3902.HudMenu
             Link = Game.link;
             Icons = new List<IEntity>();
             hudNumberManager = new HudNumberManager(this);
+            hudHeartManager = new HudHeartManager(this);
 
             AddIcons();
         }

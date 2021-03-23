@@ -75,7 +75,7 @@ namespace Sprintfinity3902.Link
             _collidable = true;
             SetStepSize(1);
             linkHealth = MAX_HEALTH;
-            heartChanged = false;
+            heartChanged = true;
             itemPickedUp = false;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();

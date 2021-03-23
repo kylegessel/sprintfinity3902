@@ -1,13 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.HudMenu
 {
     public class HudHeartManager
     {
-        private InGameHud Hud;
+        private IHud Hud;
         private float x; private float y;
-        private int i; private int j;
+        private int i;
 
         public HudHeartManager(InGameHud hud)
         {

@@ -6,7 +6,7 @@ namespace Sprintfinity3902.HudMenu
 {
     public class HudNumberManager
     {
-        private InGameHud Hud;
+        private IHud Hud;
         private float x; private float y;
         private int i; private int j;
         private int digits;

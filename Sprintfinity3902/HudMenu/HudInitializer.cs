@@ -67,5 +67,23 @@ namespace Sprintfinity3902.HudMenu
             //SWORD
             Hud.Icons.Add(new SwordIcon(new Vector2(152 * Global.Var.SCALE, 24 * Global.Var.SCALE)));
         }
+
+        public void InitializeMiniMap()
+        {
+            Hud.Icons.Add(new MiniMapEntity(new Vector2(16 * Global.Var.SCALE, 8 * Global.Var.SCALE)));
+            Hud.Icons.Add(new Number1(new Vector2(64 * Global.Var.SCALE, 8 * Global.Var.SCALE)));
+
+            y = 16;
+            for (i = 0; i < 4; i++)
+            {
+                x = 16;
+                for (j = 0; j < 8; j++)
+                {
+                    Hud.Icons.Add(new BlackSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    x = x + 8;
+                }
+                y = y + 8;
+            }
+        }
     }
 }

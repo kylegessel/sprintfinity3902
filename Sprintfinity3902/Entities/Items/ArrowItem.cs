@@ -40,19 +40,19 @@ namespace Sprintfinity3902.Entities
         {
             if (firingState != null)
             {
-                if (firingState == PlayerCharacter.facingDownAttack)
+                if (arrowDirection == Direction.DOWN)
                 {
                     spriteBatch.Draw(Sprite.Animation.CurrentFrame.Sprite.Texture, Position, Sprite.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), Global.Var.SCALE, SpriteEffects.FlipVertically, 0.0f);
                 }
-                else if (firingState == PlayerCharacter.facingUpAttack)
+                else if (arrowDirection == Direction.UP)
                 {
                     Sprite.Draw(spriteBatch, Position, Color.White);
                 }
-                else if (firingState == PlayerCharacter.facingLeftAttack)
+                else if (arrowDirection == Direction.LEFT)
                 {
                     spriteBatch.Draw(Sprite2.Animation.CurrentFrame.Sprite.Texture, Position, Sprite2.Animation.CurrentFrame.Sprite.SourceRectangle, Color.White, 0.0f, new Vector2(0, 0), Global.Var.SCALE, SpriteEffects.FlipHorizontally, 0.0f);
                 }
-                else if (firingState == PlayerCharacter.facingRightAttack)
+                else if (arrowDirection == Direction.RIGHT)
                 {
                     Sprite2.Draw(spriteBatch, Position, Color.White);
                 }
@@ -73,19 +73,19 @@ namespace Sprintfinity3902.Entities
         {
             if (itemUseCount <= 60)
             {
-                if (firingState == PlayerCharacter.facingDownAttack)
+                if (arrowDirection == Direction.DOWN)
                 {
                     Position = new Vector2(Position.X, Position.Y + 2 * Global.Var.SCALE);
                 }
-                else if (firingState == PlayerCharacter.facingUpAttack)
+                else if (arrowDirection == Direction.UP)
                 {
                     Position = new Vector2(Position.X, Position.Y - 2 * Global.Var.SCALE);
                 }
-                else if (firingState == PlayerCharacter.facingLeftAttack)
+                else if (arrowDirection == Direction.LEFT)
                 {
                     Position = new Vector2(Position.X - 2 * Global.Var.SCALE, Position.Y);
                 }
-                else if (firingState == PlayerCharacter.facingRightAttack)
+                else if (arrowDirection == Direction.RIGHT)
                 {
                     Position = new Vector2(Position.X + 2 * Global.Var.SCALE, Position.Y);
                 }
@@ -103,26 +103,25 @@ namespace Sprintfinity3902.Entities
         {
             PlayerCharacter = player;
             firingState = PlayerCharacter.CurrentState;
-
-            if (firingState == PlayerCharacter.facingDownAttack)
+            if (firingState == PlayerCharacter.facingDownItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 5 * Global.Var.SCALE, PlayerCharacter.Y + 10 * Global.Var.SCALE);
                 arrowDirection = Direction.DOWN;
                 currentRect = new Vector2(5 * Global.Var.SCALE, 16 * Global.Var.SCALE);
             }
-            else if (firingState == PlayerCharacter.facingUpAttack)
+            else if (firingState == PlayerCharacter.facingUpItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 6 * Global.Var.SCALE, PlayerCharacter.Y - 10 * Global.Var.SCALE);
                 arrowDirection = Direction.UP;
                 currentRect = new Vector2(5 * Global.Var.SCALE, 16 * Global.Var.SCALE);
             }
-            else if (firingState == PlayerCharacter.facingLeftAttack)
+            else if (firingState == PlayerCharacter.facingLeftItem)
             {
                 Position = new Vector2(PlayerCharacter.X - 4 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
                 arrowDirection = Direction.LEFT;
                 currentRect = new Vector2(16 * Global.Var.SCALE, 5 * Global.Var.SCALE);
             }
-            else if (firingState == PlayerCharacter.facingRightAttack)
+            else if (firingState == PlayerCharacter.facingRightItem)
             {
                 Position = new Vector2(PlayerCharacter.X + 10 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
                 arrowDirection = Direction.RIGHT;

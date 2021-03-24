@@ -26,9 +26,6 @@ namespace Sprintfinity3902.Dungeon
 
         private string backgroundMusicInstanceID;
 
-        /* TODO: For demo only to show death and win state*/
-        private IDungeon.GameState state;
-
         public Dungeon(Game1 game)
         {
 
@@ -71,31 +68,23 @@ namespace Sprintfinity3902.Dungeon
             }
         }
 
-        public void GameStateUpdate(IDungeon.GameState local_state) {
-            state = local_state;
+        public void GameStateUpdate(IDungeon.GameState state) {
             switch (state) {
                 case IDungeon.GameState.WIN:
-                    CurrentRoom = new WinWrapper(CurrentRoom, this);
+                    CurrentRoom = new WinWrapper(CurrentRoom, this, Game.playerCharacter);
                     break;
                 case IDungeon.GameState.LOSE:
-                    CurrentRoom = new LoseWrapper(CurrentRoom, this);
+                    CurrentRoom = new LoseWrapper(CurrentRoom, this, Game.playerCharacter);
                     break;
                 case IDungeon.GameState.RETURN:
-                    // TODO - Return to game and show options
+                    Game.UpdateState(Game1.GameState.OPTIONS);
                     break;
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            
             CurrentRoom.Update(gameTime);
-
-            /* Artificial call to gamewin */
-           
-            if (state.Equals(IDungeon.GameState.NULL) && gameTime.TotalGameTime.TotalSeconds > 2) {
-                GameStateUpdate(IDungeon.GameState.LOSE);
-            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

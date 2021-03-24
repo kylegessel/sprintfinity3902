@@ -30,7 +30,7 @@ namespace Sprintfinity3902.Dungeon.GameState
         private Vector2 pos_left_pane, pos_right_pane;
         private float delta_x_percent;
 
-        public WinWrapper(IRoom room, IDungeon dung) : base(room)
+        public WinWrapper(IRoom room, IDungeon dung, ILink link) : base(room)
         {
 
             dungeon = dung;

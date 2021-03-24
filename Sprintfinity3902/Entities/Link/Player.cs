@@ -56,8 +56,11 @@ namespace Sprintfinity3902.Link
 
         public Dictionary<IItem.ITEMS, int> itemcount;
 
-        public Player()
+        private Game1 game;
+
+        public Player(Game1 _game)
         {
+            game = _game;
             Position = new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, ONE_HUNDRED_NINETY_THREE * Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
             facingDown = CurrentState;
@@ -93,8 +96,7 @@ namespace Sprintfinity3902.Link
 
             if (item == IItem.ITEMS.TRIFORCE) {
                 // TODO: Call victory
-                SoundManager.Instance.PauseAll();
-                SoundLoader.Instance.GetSound(SoundLoader.Sounds.Triforce_Piece_Obtained).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+                game.UpdateState(Game1.GameState.WIN);
             }
 
             if (item == IItem.ITEMS.HEART)
@@ -230,7 +232,7 @@ namespace Sprintfinity3902.Link
             heartChanged = true;
 
             if (linkHealth <= 0) {
-                // TODO: Call loss
+                game.UpdateState(Game1.GameState.LOSE);
             }
         }
 

@@ -42,7 +42,8 @@ namespace Sprintfinity3902
         public IEntity movingSword;
         public IDungeon dungeon;
         public PauseMenu pauseMenu;
-        
+        public OptionMenu optionMenu;
+
         public IEntity hitboxSword;
         public List<IEntity> linkProj;
         public List<IHud> huds;
@@ -73,10 +74,11 @@ namespace Sprintfinity3902
             dungeon = new Dungeon.Dungeon(this);
             dungeon.Build();
 
-            playerCharacter = new Player();
+            playerCharacter = new Player(this);
             link = (Player)playerCharacter;
 
             pauseMenu = new PauseMenu(this);
+            optionMenu = new OptionMenu(this);
 
             huds = new List<IHud>();
 
@@ -134,6 +136,8 @@ namespace Sprintfinity3902
 
         protected override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             KeyboardManager.Instance.Update(gameTime);
             InputMouse.Instance.Update(gameTime);
 
@@ -141,6 +145,10 @@ namespace Sprintfinity3902
                 case GameState.PAUSED:
                 case GameState.PAUSED_TRANSITION:
                     pauseMenu.Update(gameTime);
+                    break;
+                case GameState.LOSE:
+                case GameState.WIN:
+                    dungeon.Update(gameTime);
                     break;
                 case GameState.PLAYING:
                     dungeon.Update(gameTime);
@@ -150,6 +158,9 @@ namespace Sprintfinity3902
                     bombItem.Update(gameTime);
                     movingSword.Update(gameTime);
                     hitboxSword.Update(gameTime);
+                    break;
+                case GameState.OPTIONS:
+                    optionMenu.Update(gameTime);
                     break;
             }
 
@@ -163,41 +174,47 @@ namespace Sprintfinity3902
             CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj,currentRoom.enemyProj, currentRoom.garbage);
 
 
-            base.Update(gameTime);
+            
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
+
             GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
-            dungeon.Draw(SpriteBatch);
+            switch (State) {
+                case GameState.PAUSED:
+                case GameState.PAUSED_TRANSITION:
+                case GameState.LOSE:
+                case GameState.WIN:
+                case GameState.PLAYING:
+                    dungeon.Draw(SpriteBatch);
 
-            foreach (IHud hud in huds)
-            {
-                foreach (IEntity icon in hud.Icons)
-                {
-                    icon.Draw(SpriteBatch, Color.White);
-                }
+                    foreach (IHud hud in huds) {
+                        foreach (IEntity icon in hud.Icons) {
+                            icon.Draw(SpriteBatch, Color.White);
+                        }
+                    }
+
+                    playerCharacter.Draw(SpriteBatch, Color.White);
+
+                    boomerangItem.Draw(SpriteBatch, Color.White);
+                    bombItem.Draw(SpriteBatch, Color.White);
+                    movingSword.Draw(SpriteBatch, Color.White);
+                    break;
+                case GameState.OPTIONS:
+                    optionMenu.Draw(SpriteBatch);
+                    break;
             }
 
-            playerCharacter.Draw(SpriteBatch, Color.White);
-
-            boomerangItem.Draw(SpriteBatch, Color.White);
-            bombItem.Draw(SpriteBatch, Color.White);
-            movingSword.Draw(SpriteBatch, Color.White);
-
             SpriteBatch.End();
-
-            base.Draw(gameTime);
-
-
         }
 
         public void Pause()
         {
-            if (!State.Equals(GameState.PAUSED_TRANSITION))
-            {
+            if (!State.Equals(GameState.PAUSED_TRANSITION)) {
                 UpdateState(GameState.PAUSED_TRANSITION);
             }
         }
@@ -210,8 +227,10 @@ namespace Sprintfinity3902
                     pauseMenu.UnregisterCommands();
                     break;
                 case GameState.WIN:
+                    dungeon.GameStateUpdate(IDungeon.GameState.WIN);
                     break;
                 case GameState.OPTIONS:
+                    optionMenu.Start();
                     break;
                 case GameState.PLAYING:
                     if (IsInState(GameState.PAUSED_TRANSITION)) {
@@ -219,6 +238,7 @@ namespace Sprintfinity3902
                     }
                     break;
                 case GameState.LOSE:
+                    dungeon.GameStateUpdate(IDungeon.GameState.LOSE);
                     break;
             }
 

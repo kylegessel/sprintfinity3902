@@ -25,15 +25,13 @@ namespace Sprintfinity3902.Dungeon.GameState
         private double this_count;
         private Color blockColor;
         private Color[] cycleColors;
-        private double animation_color_duration;
 
         
         
-        public LoseWrapper(IRoom room, IDungeon dung) : base(room)
+        public LoseWrapper(IRoom room, IDungeon dung, ILink link) : base(room)
         {
-
+            state = animation_state.DELAY;
             dungeon = dung;
-            animation_color_duration = 2700.0;
             cycleColors = new Color[] {
                 new Color(0, 200, 0, 255),
                 new Color(0, 130, 0, 255),

@@ -34,9 +34,8 @@ namespace Sprintfinity3902
         {
 
             if ((game).IsInState(Game1.GameState.PAUSED_TRANSITION)) {
-                count = count + 2 * Global.Var.SCALE;
-
                 ChangePosition();
+                count = count + 2 * Global.Var.SCALE;
                 game.link.Y = game.link.Y + 2 * Global.Var.SCALE * (direction ? 1 : -1);
 
                 /* Crucial Global.Var.SCALE remains an int so this equality is valid */

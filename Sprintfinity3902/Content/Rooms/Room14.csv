@@ -7,7 +7,7 @@ DARK, ,DARK, ,DARK, ,DARK,DARK, ,DARK,SKLN,DARK
 DARK, ,DARK, ,DARK,DARK, ,DARK, ,DARK, ,DARK
 DARK, ,DARK, ,,, ,DARK, , , ,DARK
 DARK,DARK,DARK,DARK,DARK, ,,DARK,DARK,DARK,DARK,DARK
-LDRT,-1,,,,,,,,,,
-ODRB,1,,,,,,,,,,
+LDRT,18,,,,,,,,,,
+ODRB,10,,,,,,,,,,
 WALL,-1,,,,,,,,,,
 WALR,-1,,,,,,,,,,

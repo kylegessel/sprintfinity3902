@@ -1,8 +1,10 @@
-﻿namespace Sprintfinity3902.Interfaces
+﻿using Sprintfinity3902.Link;
+
+namespace Sprintfinity3902.Interfaces
 {
     public interface IPickup
 
     {
-        void PickupItem();
+        void Pickup(Player Link);
     }
 }

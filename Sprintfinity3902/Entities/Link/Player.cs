@@ -16,9 +16,78 @@ namespace Sprintfinity3902.Link
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
-        private int linkHealth;
 
-        public IPlayerState CurrentState {
+        public int LinkHealth
+        {
+            get
+            {
+                return LinkHealth;
+            }
+            set
+            {
+                LinkHealth = value;
+            }
+        }
+
+        public int MaxHealth
+        {
+            get
+            {
+                return MaxHealth;
+            }
+            set
+            {
+                MaxHealth = value;
+            }
+        }
+
+        public int RupeeAmount
+        {
+            get
+            {
+                return RupeeAmount;
+            }
+            set
+            {
+                RupeeAmount = value;
+            }
+        }
+
+        public int KeyAmount
+        {
+            get
+            {
+                return KeyAmount;
+            }
+            set
+            {
+                KeyAmount = value;
+            }
+        }
+
+        public int BombAmount
+        {
+            get
+            {
+                return BombAmount;
+            }
+            set
+            {
+                BombAmount = value;
+            }
+        }
+        /*{
+            get
+            {
+                return linkHealth;
+           }
+            set
+            {
+                linkHealth = value;
+            }
+        }*/
+
+public IPlayerState CurrentState {
             get {
                 return _currentState;
             }
@@ -60,7 +129,8 @@ namespace Sprintfinity3902.Link
             color = Color.White;
             _collidable = true;
             SetStepSize(1);
-            linkHealth = MAX_HEALTH;
+            MaxHealth = 6;
+            LinkHealth = MaxHealth;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -69,8 +139,9 @@ namespace Sprintfinity3902.Link
 
 
             IPickup itemPickup = item.GetPickup();
-            itemPickup.PickupItem();
-            
+            itemPickup.Pickup(this);
+
+            Console.WriteLine(LinkHealth);
             //item.PickupItem(this);
             /*
             if (itemcount.ContainsKey(item)) {
@@ -190,7 +261,7 @@ namespace Sprintfinity3902.Link
         public void TakeDamage()
         {
             _collidable = false;
-            linkHealth--;
+            LinkHealth--;
         }
 
         public void BounceOfEnemy(ICollision.CollisionSide Side)

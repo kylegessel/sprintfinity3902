@@ -7,6 +7,10 @@ namespace Sprintfinity3902.States
 {
     public class GoriyaRightIdleState : IEnemyState
     {
+
+        private static int LOWER_BOUND = 50;
+        private static int UPPER_BOUND = 90;
+
         public GoriyaEnemy Goriya { get; set; }
         public ISprite Sprite { get; set; }
         public bool Start { get; set; }
@@ -39,7 +43,7 @@ namespace Sprintfinity3902.States
                 count = 0;
                 Start = false;
                 Sprite.Animation.Stop();
-                rnd = new Random().Next(50, 90);
+                rnd = new Random().Next(LOWER_BOUND, UPPER_BOUND);
             }
 
             if (count == rnd)

@@ -4,6 +4,13 @@ namespace Sprintfinity3902.Entities
 {
     public class GoriyaAI
     {
+
+        private static int TWO =2;
+        private static int THREE=3;
+        private static int ONE =1;
+        private static int FOUR = 4;
+        private static int FIVE = 5;
+
         private bool justMoved;
         private bool justTurned;
         private bool choiceMade;
@@ -11,6 +18,7 @@ namespace Sprintfinity3902.Entities
         private int waitCounter;
         private int throwCounter;
         private int choice;
+        
 
         public GoriyaEnemy Goriya { get; set; }
 
@@ -28,32 +36,32 @@ namespace Sprintfinity3902.Entities
         public void Choose()
         {
             choiceMade = false;
-            choice = new Random().Next(1, 5);
+            choice = new Random().Next(ONE, FIVE);
             while (choiceMade == false)
             {
-                if (choice == 1 && justMoved == false)
+                if (choice == ONE && justMoved == false)
                 {
                     choiceMade = true;
                     Goriya.Move();
                 }
-                else if (choice == 2 && throwCounter == 0)
+                else if (choice == TWO && throwCounter == Global.Var.ZERO)
                 {
                     choiceMade = true;
                     Goriya.UseItem();
                 }
-                else if (choice == 3 && waitCounter == 0)
+                else if (choice == THREE && waitCounter == Global.Var.ZERO)
                 {
                     choiceMade = true;
                     Goriya.Wait();
                 }
-                else if (choice == 4 && justTurned == false)
+                else if (choice == FOUR && justTurned == false)
                 {
                     choiceMade = true;
                     Goriya.ChangeDirection();
                 }
                 else
                 {
-                    choice = new Random().Next(1, 5);
+                    choice = new Random().Next(ONE, FIVE);
                 }
             }
             SetCounters();
@@ -62,45 +70,45 @@ namespace Sprintfinity3902.Entities
 
         public void SetCounters()
         {
-            if(choice == 1) //Moved
+            if(choice == ONE) //Moved
             {
                 moveCounter++;
-                if (moveCounter == 3)
+                if (moveCounter == THREE)
                 {
-                    moveCounter = 0;
+                    moveCounter = Global.Var.ZERO;
                     justMoved = true;
                 }
                 else
                     justMoved = false;
-                if (waitCounter > 0)
+                if (waitCounter > Global.Var.ZERO)
                     waitCounter--;
                 justTurned = false;
-                if (throwCounter > 0)
+                if (throwCounter > Global.Var.ZERO)
                     throwCounter--;
             }
-            else if(choice == 2) //UsedItem
+            else if(choice == TWO) //UsedItem
             {
                 justMoved = false;
-                if (waitCounter > 0)
+                if (waitCounter > Global.Var.ZERO)
                     waitCounter--;
                 justTurned = false;
-                throwCounter = 2;
+                throwCounter = TWO;
             }
-            else if (choice == 3) //Waited
+            else if (choice == THREE) //Waited
             {
                 justMoved = false;
-                waitCounter = 3;
+                waitCounter = THREE;
                 justTurned = false;
-                if (throwCounter > 0)
+                if (throwCounter > Global.Var.ZERO)
                     throwCounter--;
             }
-            else if (choice == 4) //ChangedDirection
+            else if (choice == FOUR) //ChangedDirection
             {
                 justMoved = false;
-                if (waitCounter > 0)
+                if (waitCounter > Global.Var.ZERO)
                     waitCounter--;
                 justTurned = true;
-                if (throwCounter > 0)
+                if (throwCounter > Global.Var.ZERO)
                     throwCounter--;
             }
         }

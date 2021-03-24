@@ -22,7 +22,16 @@ namespace Sprintfinity3902.States
             if (!Sprite.Animation.IsPlaying) {
                 Sprite.Animation.Play();
             }
+            /*MAGIC NUMBERS REFACTOR
+             the line  here used to be:
+
             PlayerCharacter.X = PlayerCharacter.X - 1 * Global.Var.SCALE;
+
+            but now is below because this simplifies with pemdas.
+            If OP wanted to subtract one before multiplying use braces and 
+            optionally add Magic number for 1
+             */
+            PlayerCharacter.X = PlayerCharacter.X - Global.Var.SCALE;
         }
 
         public void Attack()

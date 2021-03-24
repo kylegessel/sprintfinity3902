@@ -8,10 +8,16 @@ namespace Sprintfinity3902.Sound
     public class SoundManager
     {
 
+        private static int A_ASCII = 65;
+        private static int Z_ASCII = 90;
+        private static int NINE_HUNDRED_NINETY_NINE = 999;
+        private static int ONE = 1;
+
+
         private static Dictionary<string, SoundEffectInstance> soundEffectInstances;
 
         private static SoundManager instance;
-
+        
         public static SoundManager Instance
         {
             get {
@@ -30,9 +36,9 @@ namespace Sprintfinity3902.Sound
             Random r = new Random();
             String ID;
 
-            se.Volume = 0.02f;
+            se.Volume = Global.Var.VOLUME;
 
-            do { ID = r.Next(65, 91) + r.Next(65, 91) + r.Next(65, 91) + r.Next(1000).ToString(); }
+            do { ID = r.Next(A_ASCII, Z_ASCII + ONE) + r.Next(A_ASCII, Z_ASCII + ONE) + r.Next(A_ASCII, Z_ASCII + ONE) + r.Next(ONE + NINE_HUNDRED_NINETY_NINE).ToString(); }
             while (soundEffectInstances.ContainsKey(ID));
 
             soundEffectInstances.Add(ID, se);
@@ -50,7 +56,7 @@ namespace Sprintfinity3902.Sound
         {
             SoundEffectInstance sei = se.CreateInstance();
 
-            setSoundEffectInstanceAttributes(sei, 0.02f, true);
+            setSoundEffectInstanceAttributes(sei, Global.Var.VOLUME, true);
             return RegisterSoundEffectInst(sei);
         }
 

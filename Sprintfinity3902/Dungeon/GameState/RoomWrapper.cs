@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Collision;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 using System;
@@ -145,8 +146,9 @@ namespace Sprintfinity3902.Dungeon.GameState
         {
             SoundManager.Instance.DestroySoundEffectInstance(music_id);
             SoundManager.Instance.PlayAll();
-
+            CollisionDetector.Instance.Pause();
             dungeon.CurrentRoom = CurrentState;
+            dungeon.GameStateUpdate(IDungeon.GameState.RETURN);
         }
     }
 }

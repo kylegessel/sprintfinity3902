@@ -6,11 +6,14 @@ using Sprintfinity3902.Sound;
 using System.Collections.Generic;
 using System.Linq;
 using Sprintfinity3902.Dungeon.GameState;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Dungeon
 {
     public class Dungeon : IDungeon
     {
+        
+
         /*MAGIC NUMBERS REFACTOR*/
         private static int FORTY_EIGHT = 48;
         private static int NINETY_SEVEN = 97;
@@ -24,10 +27,11 @@ namespace Sprintfinity3902.Dungeon
         private string backgroundMusicInstanceID;
 
         /* TODO: For demo only to show death and win state*/
-        private bool gamestateupdatefinished = false;
+        private IDungeon.GameState state;
 
         public Dungeon(Game1 game)
         {
+
             dungeonRooms = new List<IRoom>();
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room1.csv", 1));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room2.csv", 2));
@@ -67,11 +71,18 @@ namespace Sprintfinity3902.Dungeon
             }
         }
 
-        public void GameStateUpdate(bool didWin) {
-            if (didWin) {
-                CurrentRoom = new WinWrapper(CurrentRoom, this);
-            } else {
-                CurrentRoom = new LoseWrapper(CurrentRoom, this);
+        public void GameStateUpdate(IDungeon.GameState local_state) {
+            state = local_state;
+            switch (state) {
+                case IDungeon.GameState.WIN:
+                    CurrentRoom = new WinWrapper(CurrentRoom, this);
+                    break;
+                case IDungeon.GameState.LOSE:
+                    CurrentRoom = new LoseWrapper(CurrentRoom, this);
+                    break;
+                case IDungeon.GameState.RETURN:
+                    // TODO - Return to game and show options
+                    break;
             }
         }
 
@@ -81,11 +92,9 @@ namespace Sprintfinity3902.Dungeon
             CurrentRoom.Update(gameTime);
 
             /* Artificial call to gamewin */
-            if (gamestateupdatefinished) return;
-
-            if (gameTime.TotalGameTime.TotalSeconds > 2) {
-                GameStateUpdate(false);
-                gamestateupdatefinished = true;
+           
+            if (state.Equals(IDungeon.GameState.NULL) && gameTime.TotalGameTime.TotalSeconds > 2) {
+                GameStateUpdate(IDungeon.GameState.WIN);
             }
         }
 

@@ -19,6 +19,8 @@ namespace Sprintfinity3902.Collision
         ICollision blockCollision = new BlockCollisionHandler();
         ICollision enemyCollision = new EnemyCollisionHandler();
         ICollision.CollisionSide side;
+
+        private static bool shouldCheck;
         
 
         /* Singleton instance */
@@ -31,6 +33,10 @@ namespace Sprintfinity3902.Collision
                 }
                 return instance;
             }
+        }
+
+        private CollisionDetector() {
+            shouldCheck = true;
         }
 
         public void setup(Game1 game)
@@ -53,6 +59,7 @@ namespace Sprintfinity3902.Collision
 
         private void DetectLinkDamage(Dictionary<int, IEntity> enemies, List<IEntity> enemyProj)
         {
+            if (!shouldCheck) return;
 
             Rectangle linkRect = link.GetBoundingRect();
             Boolean alreadyMoved = false;
@@ -156,6 +163,7 @@ namespace Sprintfinity3902.Collision
 
         private void DetectEnemyDamage(Dictionary<int, IEntity> enemies, List<IEntity> linkProj, List<IEntity> items, List<IEntity> garbage)
         {
+            if (!shouldCheck) return;
 
             List<int> deletionList = new List<int>();
             foreach (AbstractEntity proj in linkProj)
@@ -180,6 +188,7 @@ namespace Sprintfinity3902.Collision
 
         private void DetectItemPickup(List<IEntity> items)
         {
+            if (!shouldCheck) return;
 
             Rectangle linkRect = link.GetBoundingRect();
             List<IEntity> deletionList = new List<IEntity>();
@@ -204,6 +213,10 @@ namespace Sprintfinity3902.Collision
         {
             Rectangle linkRect = link.GetBoundingRect();
             return rec.Intersects(linkRect);
+        }
+
+        public void Pause() {
+            shouldCheck = !shouldCheck;
         }
 
     }

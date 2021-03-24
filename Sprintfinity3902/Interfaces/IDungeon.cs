@@ -5,6 +5,14 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface IDungeon
     {
+        public enum GameState
+        {
+            NULL,
+            WIN,
+            LOSE,
+            RETURN
+        }
+
         public IRoom CurrentRoom { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
@@ -14,6 +22,6 @@ namespace Sprintfinity3902.Interfaces
         IRoom GetCurrentRoom();
         void SetCurrentRoom(int id);
         void CleanUp();
-        public void GameStateUpdate(bool didWin);
+        void GameStateUpdate(GameState state);
     }
 }

@@ -94,7 +94,7 @@ namespace Sprintfinity3902.Dungeon
             /* Artificial call to gamewin */
            
             if (state.Equals(IDungeon.GameState.NULL) && gameTime.TotalGameTime.TotalSeconds > 2) {
-                GameStateUpdate(IDungeon.GameState.WIN);
+                GameStateUpdate(IDungeon.GameState.LOSE);
             }
         }
 

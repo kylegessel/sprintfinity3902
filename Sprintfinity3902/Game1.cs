@@ -9,7 +9,6 @@ using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
-using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
 using Sprintfinity3902.Sound;
@@ -20,10 +19,23 @@ namespace Sprintfinity3902
     public class Game1 : Game
     {
 
+        public enum GameState { 
+            PLAYING,
+            PAUSED,
+            PAUSED_TRANSITION,
+            WIN,
+            LOSE,
+            OPTIONS
+        };
+
+        public GameState State { get; private set; }
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch SpriteBatch;
 
         public static int ScaleWindow = Global.Var.SCALE;
+
+        private static Rectangle windowBounds = new Rectangle(1, 1, 256, 240);
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
         public ILink playerCharacter;
@@ -48,7 +60,8 @@ namespace Sprintfinity3902
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            Camera.Instance.SetWindowBounds(graphics);
+            graphics.PreferredBackBufferWidth = windowBounds.Width * ScaleWindow;
+            graphics.PreferredBackBufferHeight = windowBounds.Height * ScaleWindow;
 
             Graphics.ApplyChanges();
         }
@@ -59,8 +72,6 @@ namespace Sprintfinity3902
         {
             
             KeyboardManager.Instance.Reset();
-
-            
 
             if (dungeon != null) {
                 dungeon.CleanUp();
@@ -117,7 +128,6 @@ namespace Sprintfinity3902
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Camera.Instance.LoadAllTextures(Content);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
@@ -134,21 +144,21 @@ namespace Sprintfinity3902
         {
             KeyboardManager.Instance.Update(gameTime);
             InputMouse.Instance.Update(gameTime);
-            Camera.Instance.Update(gameTime);
 
-            if (pauseMenu.Pause || pauseMenu.Transition)
-            {
-                pauseMenu.Update(gameTime);
-            }
-            else
-            {
-                dungeon.Update(gameTime);
+            switch (State) {
+                case GameState.PAUSED:
+                case GameState.PAUSED_TRANSITION:
+                    pauseMenu.Update(gameTime);
+                    break;
+                case GameState.PLAYING:
+                    dungeon.Update(gameTime);
 
-                playerCharacter.Update(gameTime);
-                boomerangItem.Update(gameTime);
-                bombItem.Update(gameTime);
-                movingSword.Update(gameTime);
-                hitboxSword.Update(gameTime);
+                    playerCharacter.Update(gameTime);
+                    boomerangItem.Update(gameTime);
+                    bombItem.Update(gameTime);
+                    movingSword.Update(gameTime);
+                    hitboxSword.Update(gameTime);
+                    break;
             }
 
             foreach (IHud hud in huds)
@@ -170,7 +180,6 @@ namespace Sprintfinity3902
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             dungeon.Draw(SpriteBatch);
-            pauseMenu.Draw(SpriteBatch);
 
             foreach (IHud hud in huds)
             {
@@ -195,10 +204,37 @@ namespace Sprintfinity3902
 
         public void Pause()
         {
-            if (pauseMenu.Transition == false)
+            if (!State.Equals(GameState.PAUSED_TRANSITION))
             {
-                pauseMenu.PauseGame();
+                UpdateState(GameState.PAUSED_TRANSITION);
             }
+        }
+
+        public void UpdateState(GameState state) {
+            switch (state) {
+                case GameState.PAUSED:
+                    break;
+                case GameState.PAUSED_TRANSITION:
+                    pauseMenu.UnregisterCommands();
+                    break;
+                case GameState.WIN:
+                    break;
+                case GameState.OPTIONS:
+                    break;
+                case GameState.PLAYING:
+                    if (IsInState(GameState.PAUSED_TRANSITION)) {
+                        pauseMenu.ReregisterCommands();
+                    }
+                    break;
+                case GameState.LOSE:
+                    break;
+            }
+
+            State = state;
+        }
+
+        public bool IsInState(GameState state) {
+            return State.Equals(state);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Sprintfinity3902.Controllers
             ms = Mouse.GetState();
             mouseLocation = new Point(ms.X, ms.Y);
 
-            if (Game.pauseMenu.Pause && Game.pauseMenu.Transition == false)
+            if (Game.IsInState(Game1.GameState.PAUSED) )
                 MouseMapInput();
         }
 

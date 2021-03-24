@@ -38,7 +38,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                 new Color(0, 200, 0, 255),
                 new Color(0, 130, 0, 255),
                 new Color(0, 60, 0, 255),
-                new Color(0, 0, 0, 255),
+                new Color(0, 0, 0, 255)
             };
 
             updateState(animation_state.DELAY);
@@ -134,6 +134,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                     }
                     break;
                 case animation_state.OPTIONS:
+
                     break;
             }
         }

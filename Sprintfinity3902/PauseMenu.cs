@@ -6,89 +6,54 @@ using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
+using System;
+using System.Diagnostics;
 
 namespace Sprintfinity3902
 {
-    public class PauseMenu : Interfaces.IDrawable, Interfaces.IUpdateable
+    public class PauseMenu :  Interfaces.IUpdateable
     {
         private int count;
-        private Game1 Game;
-        public Player Link;
-        //public List<IHud> Huds { get; set; }
-        public bool Pause { get; set; }
-        public bool Transition { get; set; }
+        private Game1 game;
+        private Player Link;
+        private static int HUD_HEIGHT = 176;
 
-        public PauseMenu(Game1 game)
+        private bool direction;
+
+        public PauseMenu(Game1 _game)
         {
-            Transition = false;
-            Pause = false;
-            Game = game;
-            Link = Game.link;
+            /* We should ask him about casting game or if we can code to concrete instead of interface. */
+            this.game = _game;
+            Link = _game.link;
+            direction = true;
             count = 0;
-            //Huds = new List<IHud>();
-            //Huds.Add(new DungeonHud(Game));
-            //Huds.Add(new InGameHud(Game));
-            //Huds.Add(new InventoryHud(Game));
-            //Huds.Add(new MiniMapHud(Game));
 
         }
 
         public void Update(GameTime gameTime)
         {
-            if (Transition)
-            {
-                if (Pause)
-                {
-                    ChangePosition();
-                    Game.link.Y = Game.link.Y + 2 * Global.Var.SCALE;
 
-                    if (count == 176 * Global.Var.SCALE)
-                    {
-                        Transition = false;
-                    }
-                }
-                if(Pause == false)
-                {
-                    ChangePosition();
-                    Game.link.Y = Game.link.Y - 2 * Global.Var.SCALE;
+            if (((Game1)game).IsInState(Game1.GameState.PAUSED_TRANSITION)) {
+                count = count + 2 * Global.Var.SCALE;
 
-                    if (count == 176 * Global.Var.SCALE)
-                    {
-                        Transition = false;
-                        ReregisterCommands();
-                    }
+                ChangePosition();
+                game.link.Y = game.link.Y + 2 * Global.Var.SCALE * (direction ? 1 : -1);
+
+                /* Crucial Global.Var.SCALE remains an int so this equality is valid */
+                if (count == HUD_HEIGHT * Global.Var.SCALE) {
+                    ((Game1)game).UpdateState(direction ? Game1.GameState.PAUSED : Game1.GameState.PLAYING);
+                    direction = !direction;
+                    count = 0;
                 }
+
             }
-            count = count + 2 * Global.Var.SCALE;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            /*
-            foreach(IHud hud in Huds)
-            {
-                foreach(IEntity icon in hud.Icons)
-                {
-                    icon.Draw(spriteBatch, Color.White);
-                }
-            }
-            */
-        }
-
-        public void PauseGame()
-        {
-            Pause = !Pause;
-            Transition = true;
-            count = 0;
-
-            if (Pause)
-                UnregisterCommands();
+            
         }
 
         public void UnregisterCommands()
         {
-            KeyboardManager.Instance.RegisterCommand(new DoNothingCommand(Game), Keys.W, Keys.Up, Keys.S, Keys.Down, Keys.A, Keys.Left, Keys.D, Keys.Right);
-            KeyboardManager.Instance.RegisterCommand(new DoNothingCommand(Game), Keys.E, Keys.D1, Keys.D2, Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new DoNothingCommand(game), Keys.W, Keys.Up, Keys.S, Keys.Down, Keys.A, Keys.Left, Keys.D, Keys.Right);
+            KeyboardManager.Instance.RegisterCommand(new DoNothingCommand(game), Keys.E, Keys.D1, Keys.D2, Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RemoveKeyUpCallback(Keys.L, Keys.K);
 
@@ -101,74 +66,57 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand((Player)Link), Keys.A, Keys.Left);
             KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand((Player)Link), Keys.S, Keys.Down);
             KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand((Player)Link), Keys.D, Keys.Right);
-            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Link, (BombItem)Game.bombItem), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Link, (BoomerangItem)Game.boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Link, (MovingSwordItem)Game.movingSword, (SwordHitboxItem)Game.hitboxSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(game), Keys.E);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Link, (BombItem)game.bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Link, (BoomerangItem)game.boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Link, (MovingSwordItem)game.movingSword, (SwordHitboxItem)game.hitboxSword), Keys.Z, Keys.N);
 
-            KeyboardManager.Instance.RegisterKeyUpCallback(Game.dungeon.NextRoom, Keys.L);
-            KeyboardManager.Instance.RegisterKeyUpCallback(Game.dungeon.PreviousRoom, Keys.K);
+            KeyboardManager.Instance.RegisterKeyUpCallback(game.dungeon.NextRoom, Keys.L);
+            KeyboardManager.Instance.RegisterKeyUpCallback(game.dungeon.PreviousRoom, Keys.K);
         }
 
         public void ChangePosition()
         {
-            foreach (IEntity entity in Game.dungeon.GetCurrentRoom().blocks)
+            if (count == HUD_HEIGHT * Global.Var.SCALE) return ;
+
+            int shiftAmount = 2 * Global.Var.SCALE * (direction ? 1 : -1);
+
+            foreach (IEntity entity in game.dungeon.GetCurrentRoom().blocks)
             {
-                if (count != 176 * Global.Var.SCALE && Pause)
-                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
-                else if (count != 176 * Global.Var.SCALE && Pause == false)
-                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                entity.Y = entity.Y + shiftAmount;
             }
 
-            foreach (IEntity entity in Game.dungeon.GetCurrentRoom().enemies.Values)
+            foreach (IEntity entity in game.dungeon.GetCurrentRoom().enemies.Values)
             {
-                if (count != 176 * Global.Var.SCALE && Pause)
-                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
-                else if (count != 176 * Global.Var.SCALE && Pause == false)
-                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                entity.Y = entity.Y + shiftAmount;
             }
 
-            foreach (IEntity entity in Game.dungeon.GetCurrentRoom().items)
+            foreach (IEntity entity in game.dungeon.GetCurrentRoom().items)
             {
-                if (count != 176 * Global.Var.SCALE && Pause)
-                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
-                else if (count != 176 * Global.Var.SCALE && Pause == false)
-                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                entity.Y = entity.Y + shiftAmount;
             }
 
-            foreach (IEntity proj in Game.linkProj)
+            foreach (IEntity proj in game.linkProj)
             {
-                if (count != 176 * Global.Var.SCALE && Pause)
-                    proj.Y = proj.Y + 2 * Global.Var.SCALE;
-                else if (count != 176 * Global.Var.SCALE && Pause == false)
-                    proj.Y = proj.Y - 2 * Global.Var.SCALE;
+                proj.Y = proj.Y + shiftAmount;
             }
             
-            foreach(IEntity garbage in Game.dungeon.GetCurrentRoom().garbage)
+            foreach(IEntity garbage in game.dungeon.GetCurrentRoom().garbage)
             {
-                if (count != 176 * Global.Var.SCALE && Pause)
-                    garbage.Y = garbage.Y + 2 * Global.Var.SCALE;
-                else if (count != 176 * Global.Var.SCALE && Pause == false)
-                    garbage.Y = garbage.Y - 2 * Global.Var.SCALE;
+                garbage.Y = garbage.Y + shiftAmount;
             }
 
-            foreach (IHud hud in Game.huds)
+            foreach (IHud hud in game.huds)
             {
                 foreach (IEntity icon in hud.Icons)
                 {
-                    if (count != 176 * Global.Var.SCALE && Pause)
-                        icon.Y = icon.Y + 2 * Global.Var.SCALE;
-                    else if (count != 176 * Global.Var.SCALE && Pause == false)
-                        icon.Y = icon.Y - 2 * Global.Var.SCALE;
+                    icon.Y = icon.Y + shiftAmount;
                 }
             }
 
             // Case for the bomb as it doesn't work similarly to other projectiles.
 
-            if (count != 176 * Global.Var.SCALE && Pause)
-                Game.bombItem.Y = Game.bombItem.Y + 2 * Global.Var.SCALE;
-            else if (count != 176 * Global.Var.SCALE && Pause == false)
-                Game.bombItem.Y = Game.bombItem.Y - 2 * Global.Var.SCALE;
+            game.bombItem.Y = game.bombItem.Y + shiftAmount;
         }
 
     }

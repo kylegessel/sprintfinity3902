@@ -16,10 +16,10 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace Sprintfinity3902
 {
-    public class Game1 : Game
+    public class Game1 : Game, IGame<Game1.GameState>
     {
-
-        public enum GameState { 
+        public enum GameState
+        {
             PLAYING,
             PAUSED,
             PAUSED_TRANSITION,
@@ -28,14 +28,11 @@ namespace Sprintfinity3902
             OPTIONS
         };
 
-        public GameState State { get; private set; }
-
         private GraphicsDeviceManager graphics;
         private SpriteBatch SpriteBatch;
 
-        public static int ScaleWindow = Global.Var.SCALE;
-
         private static Rectangle windowBounds = new Rectangle(1, 1, 256, 240);
+        public GameState State { get; private set; }
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
         public ILink playerCharacter;
@@ -51,8 +48,6 @@ namespace Sprintfinity3902
         public List<IHud> huds;
         private IEntity bombExplosion;
 
-        //private IDetector detector;
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -60,15 +55,13 @@ namespace Sprintfinity3902
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            graphics.PreferredBackBufferWidth = windowBounds.Width * ScaleWindow;
-            graphics.PreferredBackBufferHeight = windowBounds.Height * ScaleWindow;
-
+            Graphics.PreferredBackBufferWidth = windowBounds.Width * Global.Var.SCALE;
+            Graphics.PreferredBackBufferHeight = windowBounds.Height * Global.Var.SCALE;
             Graphics.ApplyChanges();
         }
 
-        protected override void Initialize() => base.Initialize();
-
-        protected void Reset()
+        
+        public void Reset()
         {
             
             KeyboardManager.Instance.Reset();
@@ -135,7 +128,6 @@ namespace Sprintfinity3902
             HudSpriteFactory.Instance.LoadAllTextures(Content);
 
             Sound.SoundLoader.Instance.LoadContent(Content);
-
 
             Reset();
         }

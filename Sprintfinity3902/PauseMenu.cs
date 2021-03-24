@@ -23,7 +23,7 @@ namespace Sprintfinity3902
         public PauseMenu(Game1 _game)
         {
             /* We should ask him about casting game or if we can code to concrete instead of interface. */
-            this.game = _game;
+            game = _game;
             Link = _game.link;
             direction = true;
             count = 0;
@@ -33,7 +33,7 @@ namespace Sprintfinity3902
         public void Update(GameTime gameTime)
         {
 
-            if (((Game1)game).IsInState(Game1.GameState.PAUSED_TRANSITION)) {
+            if ((game).IsInState(Game1.GameState.PAUSED_TRANSITION)) {
                 count = count + 2 * Global.Var.SCALE;
 
                 ChangePosition();
@@ -41,7 +41,7 @@ namespace Sprintfinity3902
 
                 /* Crucial Global.Var.SCALE remains an int so this equality is valid */
                 if (count == HUD_HEIGHT * Global.Var.SCALE) {
-                    ((Game1)game).UpdateState(direction ? Game1.GameState.PAUSED : Game1.GameState.PLAYING);
+                    (game).UpdateState(direction ? Game1.GameState.PAUSED : Game1.GameState.PLAYING);
                     direction = !direction;
                     count = 0;
                 }

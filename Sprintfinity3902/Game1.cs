@@ -74,7 +74,7 @@ namespace Sprintfinity3902
             link = (Player)playerCharacter;
             */
             link = new Player();
-            //playerCharacter = (Player)link;
+            playerCharacter = (Player)link;
 
             pauseMenu = new PauseMenu(this);
 

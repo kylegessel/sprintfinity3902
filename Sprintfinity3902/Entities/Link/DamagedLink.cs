@@ -7,7 +7,7 @@ namespace Sprintfinity3902.Link
     public class DamagedLink : ILink
     {
         Game1 game;
-        Player decoratedLink;
+        ILink decoratedLink;
         Color linkColor;
         int counter;
         int timer = 200;
@@ -64,7 +64,7 @@ namespace Sprintfinity3902.Link
         }
 
 
-        public DamagedLink(Player decoratedLink, Game1 game)
+        public DamagedLink(ILink decoratedLink, Game1 game)
         {
             this.decoratedLink = decoratedLink;
             this.game = game;

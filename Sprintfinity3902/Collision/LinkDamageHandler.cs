@@ -12,13 +12,13 @@ namespace Sprintfinity3902.Collision
         private static ICollision.CollisionSide side;
         private static bool alreadyMoved;
 
-        public static bool LinkDamaged(Game1 gameInstance, Player link, Rectangle linkRect, Rectangle enemyRect)
+        public static bool LinkDamaged(Game1 gameInstance, ILink link, Rectangle linkRect, Rectangle enemyRect)
         {
             side = enemyCollision.SideOfCollision(enemyRect, linkRect);
 
             /*Have initial reflection so Link can't move through enemy, then continue to move him back */
-            alreadyMoved = blockCollision.ReflectMovingEntity(link, side);
-            ((ILink)link).BounceOfEnemy(side);
+            alreadyMoved = blockCollision.ReflectMovingEntity((IEntity)link, side);
+            link.BounceOfEnemy(side);
 
             link.TakeDamage();
             ILink damagedLink = new DamagedLink(link, gameInstance);

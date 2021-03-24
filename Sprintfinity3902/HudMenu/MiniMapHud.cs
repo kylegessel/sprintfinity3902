@@ -21,7 +21,7 @@ namespace Sprintfinity3902.HudMenu
             Icons = new List<IEntity>();
             hudInitializer = new HudInitializer(this);
 
-            AddIcons();
+            Initialize();
         }
 
         public void Update(GameTime gameTime)
@@ -29,14 +29,7 @@ namespace Sprintfinity3902.HudMenu
 
         }
 
-        public void AddIcons()
-        {
-            Initialize();
-            //Private method calls to initialize black boxes at start
-            //Private method calls to check conditionals and add new icons as needed
-        }
-
-        private void Initialize()
+        public void Initialize()
         {
             hudInitializer.InitializeMiniMap();
         }

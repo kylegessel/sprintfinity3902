@@ -9,57 +9,64 @@ namespace Sprintfinity3902.HudMenu
         private IHud Hud;
         private float x; private float y;
         private int i; private int j;
-        private int digits;
+        private int digitColumns;
+
+        private const int HUD_SQUARE_WIDTH = 8;
+        private const int DOUBLE_DIGIT_COLUMNS = 2;
+        private const int SINGLE_DIGIT_COLUMNS = 1;
+        private const int SINGLES_PLACE = 1;
+        private const int DOUBLES_PLACE = 0;
+        private const int ITEM_COUNT_X = 104;
+        private const int RUPEE_COUNT_Y = 16;
+        private const int KEY_COUNT_Y = 32;
         
         public HudNumberManager(InGameHud hud)
         {
             Hud = hud;
-            x = 0;
-            y = 0;
         }
 
         public void RupeeNumbers(int rupeeNum)
         {
-            x = 104;
-            y = 16;
-            digits = isDoubleDigit(rupeeNum);
+            x = ITEM_COUNT_X;
+            y = RUPEE_COUNT_Y;
+            digitColumns = isDoubleDigit(rupeeNum);
 
-            for (j = 0; j < digits; j++)
+            for (j = 0; j < digitColumns; j++)
             {
-                if(digits == 2)
+                if(digitColumns == DOUBLE_DIGIT_COLUMNS)
                 {
-                    if(j == 0)
+                    if(j == DOUBLES_PLACE)
                     {
                         int doubleDigit = (rupeeNum / 10) % 10;
                         Hud.Icons.Add(GetDigit(doubleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
-                    else if (j == 1)
+                    else if (j == SINGLES_PLACE)
                     {
                         int singleDigit = rupeeNum % 10;
                         Hud.Icons.Add(GetDigit(singleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
                 }
-                else if(digits == 1)
+                else if(digitColumns == SINGLE_DIGIT_COLUMNS)
                 {
                     Hud.Icons.Add(GetDigit(rupeeNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                 }
-                x = x + 8;
+                x = x + HUD_SQUARE_WIDTH;
             }
-            y = y + 8;
+            y = y + HUD_SQUARE_WIDTH;
         }
 
         public void KeyNumbers(int keyNum)
         {
-            y = 32;
-            for (i = 0; i < 1; i++)
+            y = KEY_COUNT_Y;
+            for (i = 0; i < SINGLE_DIGIT_COLUMNS; i++)
             {
-                x = 104;
-                for (j = 0; j < 1; j++)
+                x = ITEM_COUNT_X;
+                for (j = 0; j < SINGLE_DIGIT_COLUMNS; j++)
                 {
                     Hud.Icons.Add(GetDigit(keyNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
-                    x = x + 8;
+                    x = x + HUD_SQUARE_WIDTH;
                 }
-                y = y + 8;
+                y = y + HUD_SQUARE_WIDTH;
             }
         }
 
@@ -67,11 +74,11 @@ namespace Sprintfinity3902.HudMenu
         {
             if(num - 10 >= 0)
             {
-                return 2;
+                return DOUBLE_DIGIT_COLUMNS;
             }
             else
             {
-                return 1;
+                return SINGLE_DIGIT_COLUMNS;
             }
         }
 

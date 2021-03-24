@@ -37,7 +37,7 @@ namespace Sprintfinity3902.Collision
         public void setup(Game1 game)
         {
             gameInstance = game;
-            link = (Player)game.playerCharacter;
+            link = (Player)game.link;
         }
 
         /* 

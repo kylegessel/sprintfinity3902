@@ -8,12 +8,14 @@ namespace Sprintfinity3902.Commands
 
     public class UseBombCommand : ICommand
     {
-        Player PlayerCharacter;
+        /*Player PlayerCharacter;*/
+        ILink link;
         BombItem Bomb;
 
-        public UseBombCommand(Player player, BombItem bomb)
+        public UseBombCommand(ILink player, BombItem bomb)
         {
-            PlayerCharacter = player;
+            /*PlayerCharacter = player;*/
+            link = player;
             Bomb = bomb;
         }
 
@@ -22,9 +24,13 @@ namespace Sprintfinity3902.Commands
             //Eventually this should all live within player, this should become a call to use item.
             if (!Bomb.getItemUse())
             {
+                link.UseItem();
+                Bomb.UseItem(link);
+                /*
                 PlayerCharacter.UseItem();
                 Bomb.UseItem(PlayerCharacter);
                 //PlayerCharacter.UseItem();
+                */
             }
         }
     }

@@ -4,7 +4,7 @@ using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Link
 {
-    class DamagedLink : ILink
+    public class DamagedLink : ILink
     {
         Game1 game;
         Player decoratedLink;
@@ -13,6 +13,7 @@ namespace Sprintfinity3902.Link
         int timer = 200;
         private ISprite _sprite;
         private Vector2 _position;
+
 
         public ISprite Sprite
         {
@@ -61,9 +62,9 @@ namespace Sprintfinity3902.Link
                 //Position = new Vector2(Position.X, value);
             }
         }
-        
 
-        public DamagedLink (Player decoratedLink,Game1 game)
+
+        public DamagedLink(Player decoratedLink, Game1 game)
         {
             this.decoratedLink = decoratedLink;
             this.game = game;
@@ -72,7 +73,7 @@ namespace Sprintfinity3902.Link
         public void Update(GameTime gameTime)
         {
             timer--;
-            if(timer == 0)
+            if (timer == 0)
             {
                 RemoveDecorator();
             }
@@ -108,6 +109,10 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.Move();
         }
+        public void Attack()
+        {
+            decoratedLink.Attack();
+        }
 
         public void SetState(IPlayerState state)
         {
@@ -124,7 +129,28 @@ namespace Sprintfinity3902.Link
         public void RemoveDecorator()
         {
             decoratedLink.RemoveDecorator();
-            game.playerCharacter = decoratedLink;
+            game.link = decoratedLink;
+        }
+
+        public void useItem(IItem.ITEMS item)
+        {
+            decoratedLink.useItem(item);
+        }
+        public void UseItem()
+        {
+            decoratedLink.UseItem();
+        }
+        public void StopMoving()
+        {
+            decoratedLink.StopMoving();
+        }
+        public void MoveLink()
+        {
+            decoratedLink.MoveLink();
+        }
+        public void pickup(IItem.ITEMS item)
+        {
+            decoratedLink.pickup(item);
         }
     }
 }

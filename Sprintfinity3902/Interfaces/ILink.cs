@@ -5,31 +5,24 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface ILink
     {
-        ISprite Sprite
-        {
-            get; set;
-        }
-        Vector2 Position
-        {
-            get; set;
-        }
-        float X
-        {
-            get; set;
-        }
-        float Y
-        {
-            get; set;
-        }
+        ISprite Sprite { get; set; }
+        Vector2 Position { get; set; }
+        float X { get; set; }
+        float Y { get; set; }
+
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Color color);
         void Move();
+        void Attack();
         void SetState(IPlayerState state);
         void TakeDamage();
         void BounceOfEnemy(ICollision.CollisionSide Side);
         void RemoveDecorator();
-        //void MoveLink();
-        //void StopMoving();
+        void useItem(IItem.ITEMS item);
+        public void UseItem();
+        void pickup(IItem.ITEMS item);
+        void MoveLink();
+        void StopMoving();
     }
 }
 

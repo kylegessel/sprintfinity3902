@@ -13,7 +13,7 @@ namespace Sprintfinity3902
     {
         private int count;
         private Game1 Game;
-        public Player Link;
+        public ILink Link;
         public Map Map { get; set; }
         public bool Pause { get; set; }
         public bool Transition { get; set; }

@@ -120,9 +120,9 @@ namespace Sprintfinity3902.Entities
             // Calculate the new position based on how many times the MoveItem function has been called.
             Position = new Vector2(Position.X - (XDiff / (MaxMoveUseCount - MoveUseCount)), Position.Y - (YDiff / (MaxMoveUseCount - MoveUseCount)));
         }
-        public void UseItem(Player player)
+        public void UseItem(ILink player)
         {
-            PlayerCharacter = player;
+            PlayerCharacter = (Player)player;
             FiringStatePlayer = PlayerCharacter.CurrentState;
             Entity = PlayerCharacter;
 

@@ -98,9 +98,9 @@ namespace Sprintfinity3902.Entities
 
             itemUseCount++;
         }
-        public void UseItem(Player player)
+        public void UseItem(ILink player)
         {
-            PlayerCharacter = player;
+            PlayerCharacter = (Player)player;
             firingState = PlayerCharacter.CurrentState;
 
             if (firingState == PlayerCharacter.facingDownAttack)

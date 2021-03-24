@@ -6,11 +6,11 @@ namespace Sprintfinity3902.Commands
 {
     public class SetLinkAttackCommand: ICommand
     {
-        Player PlayerCharacter;
+        ILink PlayerCharacter;
         MovingSwordItem MovingSword;
         SwordHitboxItem Sword;
 
-        public SetLinkAttackCommand(Player player, MovingSwordItem movingSword, SwordHitboxItem sword)
+        public SetLinkAttackCommand(ILink player, MovingSwordItem movingSword, SwordHitboxItem sword)
         {
             PlayerCharacter = player;
             MovingSword = movingSword;

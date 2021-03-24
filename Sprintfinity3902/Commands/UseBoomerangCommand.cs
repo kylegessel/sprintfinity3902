@@ -8,10 +8,10 @@ namespace Sprintfinity3902.Commands
 
     public class UseBoomerangCommand : ICommand
     {
-        Player PlayerCharacter;
+        ILink PlayerCharacter;
         BoomerangItem Boomerang;
 
-        public UseBoomerangCommand(Player player, BoomerangItem boomerang)
+        public UseBoomerangCommand(ILink player, BoomerangItem boomerang)
         {
             PlayerCharacter = player;
             Boomerang = boomerang;

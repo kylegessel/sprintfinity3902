@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Entities
 {
     public class BombItem : AbstractItem {
 
-        Player PlayerCharacter;
+        ILink PlayerCharacter;
         BombExplosionItem BombExplosion;
         Boolean itemUse;
         int itemUseCount;
@@ -70,23 +70,23 @@ namespace Sprintfinity3902.Entities
             itemUseCount++;
         }
 
-        public void UseItem(Player player)
+        public void UseItem(ILink player)
         {
             PlayerCharacter = player;
             itemUse = true;
-            if (PlayerCharacter.CurrentState == PlayerCharacter.facingDownItem)
+            if ( ((Player)PlayerCharacter).CurrentState == ((Player)PlayerCharacter).facingDownItem)
             {
                 Position = new Vector2(player.X + 4*Global.Var.SCALE, player.Y + 11*Global.Var.SCALE);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingUpItem)
+            else if ( ((Player)PlayerCharacter).CurrentState == ((Player)PlayerCharacter).facingUpItem)
             {
                 Position = new Vector2(player.X + 2*Global.Var.SCALE, player.Y - 15*Global.Var.SCALE);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingLeftItem)
+            else if ( ((Player)PlayerCharacter).CurrentState == ((Player)PlayerCharacter).facingLeftItem)
             {
                 Position = new Vector2(player.X - 9*Global.Var.SCALE, player.Y);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingRightItem)
+            else if ( ((Player)PlayerCharacter).CurrentState == ((Player)PlayerCharacter).facingRightItem)
             {
                 Position = new Vector2(player.X + 16*Global.Var.SCALE, player.Y);
             }

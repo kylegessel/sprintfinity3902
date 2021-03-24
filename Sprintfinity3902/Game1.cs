@@ -25,8 +25,12 @@ namespace Sprintfinity3902
         public static int ScaleWindow = Global.Var.SCALE;
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
+        /*
         public ILink playerCharacter;
         public Player link;
+        */
+        public ILink link;
+        public Player playerCharacter;
         public IEntity boomerangItem;
         public IEntity bombItem;
         public IEntity movingSword;
@@ -65,8 +69,12 @@ namespace Sprintfinity3902
             dungeon = new Dungeon.Dungeon(this);
             dungeon.Build();
 
+            /*
             playerCharacter = new Player();
             link = (Player)playerCharacter;
+            */
+            link = new Player();
+            //playerCharacter = (Player)link;
 
             pauseMenu = new PauseMenu(this);
 
@@ -86,12 +94,12 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.Initialize(link);
             InputMouse.Instance.GiveGame(this);
 
-            KeyboardManager.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
+            KeyboardManager.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
 
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)playerCharacter, (BombItem)bombItem), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand( link, (BombItem)bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand(link, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
@@ -131,7 +139,7 @@ namespace Sprintfinity3902
             {
                 dungeon.Update(gameTime);
 
-                playerCharacter.Update(gameTime);
+                link.Update(gameTime);
                 boomerangItem.Update(gameTime);
                 bombItem.Update(gameTime);
                 movingSword.Update(gameTime);
@@ -154,7 +162,7 @@ namespace Sprintfinity3902
             dungeon.Draw(SpriteBatch);
             pauseMenu.Draw(SpriteBatch);
 
-            playerCharacter.Draw(SpriteBatch, Color.White);
+            link.Draw(SpriteBatch, Color.White);
 
             boomerangItem.Draw(SpriteBatch, Color.White);
             bombItem.Draw(SpriteBatch, Color.White);

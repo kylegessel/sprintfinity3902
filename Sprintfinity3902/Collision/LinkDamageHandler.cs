@@ -22,7 +22,7 @@ namespace Sprintfinity3902.Collision
 
             link.TakeDamage();
             ILink damagedLink = new DamagedLink(link, gameInstance);
-            gameInstance.playerCharacter = damagedLink;
+            gameInstance.link = damagedLink;
 
             return alreadyMoved;
         }

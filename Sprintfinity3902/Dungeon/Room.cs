@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
 
@@ -23,6 +24,7 @@ namespace Sprintfinity3902.Dungeon
         public bool Pause;
         public float startY;
         public int count;
+        public IEntity decoratedGoryia;
 
         public Room(string fileLocation, int id)
         {
@@ -150,6 +152,14 @@ namespace Sprintfinity3902.Dungeon
         public void SetPauseCount()
         {
             count = 0;
+        }
+
+        public void DamageGoryia(int enemyID)
+        {
+            decoratedGoryia = enemies[enemyID];
+
+            enemies.Remove(enemyID);
+            enemies.Add(enemyID, new DamagedGoryia(decoratedGoryia, this, enemyID)); 
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Sprintfinity3902.Entities;
 using System;
 
 namespace Sprintfinity3902.Interfaces

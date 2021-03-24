@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using Sprintfinity3902.Entities;
-using Sprintfinity3902.Entities.Enemies_NPCs;
 using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;

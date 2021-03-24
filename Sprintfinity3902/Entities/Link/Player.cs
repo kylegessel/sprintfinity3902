@@ -11,7 +11,6 @@ namespace Sprintfinity3902.Link
     public class Player : AbstractEntity, ILink
     {
         /*MAGIC NUMBERS REFACTOR*/
-        private static int MAX_HEALTH = 6; //May need to be public for projectiles
         private static int FIFTEEN = 15;
         private static int TWO_HUNDRED_TWENTY_FOUR  =  224;
         private static int THIRTY_TWO = 32;
@@ -23,12 +22,13 @@ namespace Sprintfinity3902.Link
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
 
+        public int MAX_HEALTH = 6; //May need to be public for projectiles
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
-        private int linkHealth;
+        public int linkHealth;
 
         public IPlayerState CurrentState {
             get {
@@ -50,10 +50,10 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingLeftItem { get; set; }
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
-        
+        public bool heartChanged { get; set; }
+        public bool itemPickedUp { get; set; }
 
-        private Dictionary<IItem.ITEMS, int> itemcount;
-       
+        public Dictionary<IItem.ITEMS, int> itemcount;
 
         public Player()
         {
@@ -75,6 +75,8 @@ namespace Sprintfinity3902.Link
             _collidable = true;
             SetStepSize(1);
             linkHealth = MAX_HEALTH;
+            heartChanged = true;
+            itemPickedUp = false;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -82,22 +84,43 @@ namespace Sprintfinity3902.Link
         public void pickup(IItem.ITEMS item) {
             if (itemcount.ContainsKey(item)) {
                 itemcount[item]++;
-                return ;
             }
+            else
+            {
+                itemcount.Add(item, 1);
+            }
+
             if (item == IItem.ITEMS.HEART)
             {
                 if (linkHealth < MAX_HEALTH)
                 {
                     linkHealth++;
+                    if(linkHealth != MAX_HEALTH)
+                    {
+                        linkHealth++;
+                    }
+                    heartChanged = true;
                 }
             }
             else if (item == IItem.ITEMS.HEARTCONTAINER)
             {
-                //Not sure what exactly is supposed to happen when picking up heart container.
                 MAX_HEALTH += 2;
-                linkHealth += 2;
+                linkHealth = MAX_HEALTH;
+                heartChanged = true;
             }
-            itemcount.Add(item, 1);
+            else if (item == IItem.ITEMS.BOMB)
+            {
+                itemPickedUp = true;
+            }
+            else if (item == IItem.ITEMS.KEY)
+            {
+                itemPickedUp = true;
+            }
+            else if (item == IItem.ITEMS.RUPEE)
+            {
+                itemPickedUp = true;
+            }
+
         }
 
         public void useItem(IItem.ITEMS item) {
@@ -197,6 +220,7 @@ namespace Sprintfinity3902.Link
         {
             _collidable = false;
             linkHealth--;
+            heartChanged = true;
         }
 
         public void BounceOfEnemy(ICollision.CollisionSide Side)

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Sprintfinity3902.Interfaces;
+﻿using Sprintfinity3902.Interfaces;
+using System;
 
 namespace Sprintfinity3902.Entities
 {

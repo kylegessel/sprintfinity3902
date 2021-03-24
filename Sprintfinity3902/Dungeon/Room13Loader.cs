@@ -1,11 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
-using Sprintfinity3902.Entities.Doors;
 using Sprintfinity3902.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Sprintfinity3902.Dungeon
 {

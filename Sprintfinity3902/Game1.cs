@@ -30,6 +30,7 @@ namespace Sprintfinity3902
         public IEntity boomerangItem;
         public IEntity bombItem;
         public IEntity movingSword;
+        public IEntity bowArrow;
         public IDungeon dungeon;
         public PauseMenu pauseMenu;
         
@@ -75,6 +76,7 @@ namespace Sprintfinity3902
             bombItem = new BombItem(new Vector2(-1000, -1000), (BombExplosionItem) bombExplosion);
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
             hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
+            bowArrow = new ArrowItem(new Vector2(-1000, -1000));
 
             linkProj = new List<IEntity>();
 
@@ -82,6 +84,7 @@ namespace Sprintfinity3902
             linkProj.Add(bombExplosion);
             linkProj.Add(movingSword);
             linkProj.Add(hitboxSword);
+            linkProj.Add(bowArrow);
 
             KeyboardManager.Instance.Initialize(link);
             InputMouse.Instance.GiveGame(this);
@@ -91,6 +94,7 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
             KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)playerCharacter, (BombItem)bombItem), Keys.D1);
             KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new UseBowCommand((Player)playerCharacter, (ArrowItem)bowArrow), Keys.D3);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
@@ -134,6 +138,7 @@ namespace Sprintfinity3902
                 playerCharacter.Update(gameTime);
                 boomerangItem.Update(gameTime);
                 bombItem.Update(gameTime);
+                bowArrow.Update(gameTime);
                 movingSword.Update(gameTime);
                 hitboxSword.Update(gameTime);
             }
@@ -159,6 +164,7 @@ namespace Sprintfinity3902
             boomerangItem.Draw(SpriteBatch, Color.White);
             bombItem.Draw(SpriteBatch, Color.White);
             movingSword.Draw(SpriteBatch, Color.White);
+            bowArrow.Draw(SpriteBatch, Color.White);
 
             SpriteBatch.End();
 

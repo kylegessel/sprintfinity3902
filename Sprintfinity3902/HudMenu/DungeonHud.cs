@@ -18,8 +18,7 @@ namespace Sprintfinity3902.HudMenu
             Link = Game.link;
             Icons = new List<IEntity>();
 
-            Icons.Add(new DungeonHudEntity(new Vector2(0, -88 * Global.Var.SCALE)));
-
+            Initialize();
         }
 
         public void Update(GameTime gameTime)
@@ -27,10 +26,9 @@ namespace Sprintfinity3902.HudMenu
 
         }
 
-        public void AddIcons()
+        public void Initialize()
         {
-            //Private method calls to initialize black boxes at start
-            //Private method calls to check conditionals and add new icons as needed
+            Icons.Add(new DungeonHudEntity(new Vector2(0, -88 * Global.Var.SCALE)));
         }
     }
 }

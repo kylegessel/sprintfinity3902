@@ -174,7 +174,6 @@ namespace Sprintfinity3902.Collision
             foreach (int enemyID in deletionList)
             {
                 enemies.Remove(enemyID);
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.Boss_Defeated).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
         }
 

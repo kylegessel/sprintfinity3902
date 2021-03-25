@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sound;
 using Sprintfinity3902.States;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace Sprintfinity3902.Link
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
         public int linkHealth;
+        private string linkHurtInstanceID;
 
         public IPlayerState CurrentState {
             get {
@@ -77,6 +79,7 @@ namespace Sprintfinity3902.Link
             linkHealth = MAX_HEALTH;
             heartChanged = true;
             itemPickedUp = false;
+            linkHurtInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Link_Hurt), 0.02f, false);
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -220,6 +223,7 @@ namespace Sprintfinity3902.Link
         {
             _collidable = false;
             linkHealth--;
+            SoundManager.Instance.GetSoundEffectInstance(linkHurtInstanceID).Play();
             heartChanged = true;
         }
 

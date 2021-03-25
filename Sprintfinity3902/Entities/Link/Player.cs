@@ -30,7 +30,7 @@ namespace Sprintfinity3902.Link
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
         public int linkHealth;
-        private string linkHurtInstanceID;
+        private string lowHealthInstanceID;
 
         public IPlayerState CurrentState {
             get {
@@ -79,7 +79,7 @@ namespace Sprintfinity3902.Link
             linkHealth = MAX_HEALTH;
             heartChanged = true;
             itemPickedUp = false;
-            linkHurtInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Link_Hurt), 0.02f, false);
+            lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -103,6 +103,8 @@ namespace Sprintfinity3902.Link
                         linkHealth++;
                     }
                     heartChanged = true;
+                    if (linkHealth > 2)
+                        stopLowHealth();
                 }
                 Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
@@ -231,8 +233,10 @@ namespace Sprintfinity3902.Link
         {
             _collidable = false;
             linkHealth--;
-            SoundManager.Instance.GetSoundEffectInstance(linkHurtInstanceID).Play();
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             heartChanged = true;
+            if(linkHealth <= 2)
+                playLowHealth();
         }
 
         public void BounceOfEnemy(ICollision.CollisionSide Side)
@@ -253,6 +257,14 @@ namespace Sprintfinity3902.Link
         public override Boolean IsCollidable()
         {
             return _collidable;
+        }
+        private void playLowHealth()
+        {
+            SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Play();
+        }
+        private void stopLowHealth()
+        {
+            SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
         }
     }
 }

@@ -142,7 +142,7 @@ namespace Sprintfinity3902.Dungeon.GameState
             CurrentState.Update(gameTime);
         }
 
-        public virtual void wrapup()
+        public virtual void Wrapup()
         {
             SoundManager.Instance.DestroySoundEffectInstance(music_id);
             SoundManager.Instance.PlayAll();

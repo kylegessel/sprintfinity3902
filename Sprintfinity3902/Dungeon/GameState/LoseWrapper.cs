@@ -26,12 +26,15 @@ namespace Sprintfinity3902.Dungeon.GameState
         private Color blockColor;
         private Color[] cycleColors;
 
+        private ILink player;
+
         
         
         public LoseWrapper(IRoom room, IDungeon dung, ILink link) : base(room)
         {
             state = animation_state.DELAY;
             dungeon = dung;
+            player = link;
             cycleColors = new Color[] {
                 new Color(0, 200, 0, 255),
                 new Color(0, 130, 0, 255),
@@ -78,7 +81,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                     /* TODO - Since once the player gets to the options screen
                      there is no HUD, it may make sense for this to be handled in dungeon*/
                     if (this_count > 400) {
-                        wrapup();
+                        Wrapup();
                     }
                     break;
             }
@@ -98,13 +101,13 @@ namespace Sprintfinity3902.Dungeon.GameState
                     music_id = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Game_Over));
                     SoundManager.Instance.GetSoundEffectInstance(music_id).IsLooped = false;
                     SoundManager.Instance.GetSoundEffectInstance(music_id).Play();
+                    player.DeathSpin(false);
                     break;
                 case animation_state.BACKGROUND_ANIMATE:
-
                     
-
                     break;
                 case animation_state.OPTIONS:
+                    player.DeathSpin(true);
                     break;
             }
         }

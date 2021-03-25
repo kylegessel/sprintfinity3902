@@ -133,5 +133,9 @@ namespace Sprintfinity3902.Link
             decoratedLink.RemoveDecorator();
             game.playerCharacter = decoratedLink;
         }
+
+        public void DeathSpin(bool end) {
+            decoratedLink.DeathSpin(end);
+        }
     }
 }

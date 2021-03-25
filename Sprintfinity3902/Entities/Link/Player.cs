@@ -6,6 +6,7 @@ using Sprintfinity3902.Sound;
 using Sprintfinity3902.States;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Link
 {
@@ -30,6 +31,7 @@ namespace Sprintfinity3902.Link
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
         public int linkHealth;
+        private double _deathSpinCount;
 
         public IPlayerState CurrentState {
             get {
@@ -81,6 +83,7 @@ namespace Sprintfinity3902.Link
             linkHealth = MAX_HEALTH;
             heartChanged = true;
             itemPickedUp = false;
+            _deathSpinCount = 0.0;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
@@ -132,6 +135,10 @@ namespace Sprintfinity3902.Link
 
         }
 
+        public bool IsCurrentState(IPlayerState state) {
+            return state.Equals(CurrentState);
+        }
+
         public void useItem(IItem.ITEMS item) {
             if (itemcount.ContainsKey(item) && itemcount[item] > 0) {
                 itemcount[item]--;
@@ -142,6 +149,7 @@ namespace Sprintfinity3902.Link
         }
 
         public override void SetState(IPlayerState state) {
+            if (state.Equals(CurrentState)) return;
             Vector2 pos = Position;
             CurrentState = state;
             Position = pos;
@@ -164,6 +172,28 @@ namespace Sprintfinity3902.Link
         public override void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);  //can this pass out size?
             CurrentState.Update();
+
+            if (_deathSpinCount != 0.0) { 
+                _deathSpinCount += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                Debug.WriteLine(_deathSpinCount);
+
+                switch (((int)(_deathSpinCount / 100.0)) % 4) {
+                    case 0:
+                        SetState(facingDown);
+                        break;
+                    case 1:
+                        SetState(facingRight);
+                        break;
+                    case 2:
+                        SetState(facingUp);
+                        break;
+                    case 3:
+                        SetState(facingLeft);
+                        break;
+                }
+                return;
+            }
 
             if (_bouncingOfEnemy)
             {
@@ -254,6 +284,12 @@ namespace Sprintfinity3902.Link
         public override Boolean IsCollidable()
         {
             return _collidable;
+        }
+
+        public void DeathSpin(bool end)
+        {
+            if (end) SetState(facingDown);
+            _deathSpinCount = end ? 0.0 : 0.01;
         }
     }
 }

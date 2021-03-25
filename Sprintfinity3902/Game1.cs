@@ -149,6 +149,7 @@ namespace Sprintfinity3902
                 case GameState.LOSE:
                 case GameState.WIN:
                     dungeon.Update(gameTime);
+                    playerCharacter.Update(gameTime);
                     break;
                 case GameState.PLAYING:
                     dungeon.Update(gameTime);
@@ -198,8 +199,6 @@ namespace Sprintfinity3902
                         }
                     }
 
-                    playerCharacter.Draw(SpriteBatch, Color.White);
-
                     boomerangItem.Draw(SpriteBatch, Color.White);
                     bombItem.Draw(SpriteBatch, Color.White);
                     movingSword.Draw(SpriteBatch, Color.White);
@@ -208,6 +207,8 @@ namespace Sprintfinity3902
                     optionMenu.Draw(SpriteBatch);
                     break;
             }
+
+            playerCharacter.Draw(SpriteBatch, Color.White);
 
             SpriteBatch.End();
         }

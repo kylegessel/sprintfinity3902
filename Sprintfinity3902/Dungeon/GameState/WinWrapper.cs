@@ -135,7 +135,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                     /* TODO - Since once the player gets to the options screen
                      there is no HUD, it may make sense for this to be handled in dungeon*/
                     if (this_count > 400) {
-                        wrapup();
+                        Wrapup();
                     }
                     break;
             }

@@ -104,6 +104,7 @@ namespace Sprintfinity3902.Link
                     }
                     heartChanged = true;
                 }
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
             else if (item == IItem.ITEMS.HEARTCONTAINER)
             {
@@ -114,14 +115,21 @@ namespace Sprintfinity3902.Link
             else if (item == IItem.ITEMS.BOMB)
             {
                 itemPickedUp = true;
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
             else if (item == IItem.ITEMS.KEY)
             {
                 itemPickedUp = true;
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
             else if (item == IItem.ITEMS.RUPEE)
             {
                 itemPickedUp = true;
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            }
+            else
+            {
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
 
         }

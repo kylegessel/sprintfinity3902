@@ -60,7 +60,7 @@ namespace Sprintfinity3902.Entities
                 ExplodeBomb();
             }
 
-            if(BombExplosion != null)
+            if (BombExplosion != null)
             {
                 BombExplosion.Update(gameTime);
             }
@@ -77,6 +77,7 @@ namespace Sprintfinity3902.Entities
             }else if (itemUseCount == SIXTY)
             {
                 BombExplosion.Move(Position);
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Bomb_Blow).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
             itemUseCount++;
         }

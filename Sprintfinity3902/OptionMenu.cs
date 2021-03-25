@@ -5,6 +5,7 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Sprintfinity3902
@@ -25,7 +26,7 @@ namespace Sprintfinity3902
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            
+            Debug.WriteLine("Waiting to be implemented");
         }
 
         public void Start() {

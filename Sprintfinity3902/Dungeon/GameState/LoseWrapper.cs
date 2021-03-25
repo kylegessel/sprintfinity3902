@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Collision;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 using System;
@@ -16,6 +17,7 @@ namespace Sprintfinity3902.Dungeon.GameState
         private enum animation_state {
             DELAY,
             BACKGROUND,
+            EXPLODE,
             BACKGROUND_ANIMATE,
             OPTIONS
         }
@@ -25,16 +27,17 @@ namespace Sprintfinity3902.Dungeon.GameState
         private double this_count;
         private Color blockColor;
         private Color[] cycleColors;
+        private IEntity explode;
 
-        private ILink player;
+        private Game1 game;
 
-        
-        
-        public LoseWrapper(IRoom room, IDungeon dung, ILink link) : base(room)
+
+        public LoseWrapper(IRoom room, IDungeon dung, Game1 _game) : base(room)
         {
+            game = _game;
             state = animation_state.DELAY;
             dungeon = dung;
-            player = link;
+            
             cycleColors = new Color[] {
                 new Color(0, 200, 0, 255),
                 new Color(0, 130, 0, 255),
@@ -73,9 +76,16 @@ namespace Sprintfinity3902.Dungeon.GameState
                     blockColor = cycleColors[col_pos];
 
                     if (col_pos == cycleColors.Length - 1) {
-                        updateState(animation_state.OPTIONS);
+                        updateState(animation_state.EXPLODE);
                     }
 
+                    break;
+                case animation_state.EXPLODE:
+                    explode.Update(gameTime);
+
+                    if (this_count > 400) {
+                        updateState(animation_state.OPTIONS);
+                    }
                     break;
                 case animation_state.OPTIONS:
                     /* TODO - Since once the player gets to the options screen
@@ -101,13 +111,16 @@ namespace Sprintfinity3902.Dungeon.GameState
                     music_id = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Game_Over));
                     SoundManager.Instance.GetSoundEffectInstance(music_id).IsLooped = false;
                     SoundManager.Instance.GetSoundEffectInstance(music_id).Play();
-                    player.DeathSpin(false);
+                    game.playerCharacter.DeathSpin(false);
                     break;
                 case animation_state.BACKGROUND_ANIMATE:
                     
                     break;
+                case animation_state.EXPLODE:
+                    game.playerCharacter.DeathSpin(true);
+                    explode = new BombExplosionItem(game.playerCharacter.Position);
+                    break;
                 case animation_state.OPTIONS:
-                    player.DeathSpin(true);
                     break;
             }
         }
@@ -133,6 +146,9 @@ namespace Sprintfinity3902.Dungeon.GameState
                     foreach (IEntity entity in garbage) {
                         entity.Draw(spriteBatch, blockColor);
                     }
+                    break;
+                case animation_state.EXPLODE:
+                    explode.Draw(spriteBatch, Color.White);
                     break;
                 case animation_state.OPTIONS:
 

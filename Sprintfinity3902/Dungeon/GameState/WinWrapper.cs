@@ -29,10 +29,11 @@ namespace Sprintfinity3902.Dungeon.GameState
 
         private Vector2 pos_left_pane, pos_right_pane;
         private float delta_x_percent;
+        private Game1 game;
 
-        public WinWrapper(IRoom room, IDungeon dung, ILink link) : base(room)
+        public WinWrapper(IRoom room, IDungeon dung, Game1 _game) : base(room)
         {
-
+            game = _game;
             dungeon = dung;
             animation_color_duration = 2700.0;
             cycleColors = new Color[] {

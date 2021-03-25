@@ -174,8 +174,6 @@ namespace Sprintfinity3902
 
             CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj,currentRoom.enemyProj, currentRoom.garbage);
 
-
-            
         }
 
         protected override void Draw(GameTime gameTime)
@@ -202,14 +200,15 @@ namespace Sprintfinity3902
                     boomerangItem.Draw(SpriteBatch, Color.White);
                     bombItem.Draw(SpriteBatch, Color.White);
                     movingSword.Draw(SpriteBatch, Color.White);
+                    playerCharacter.Draw(SpriteBatch, Color.White);
+
                     break;
                 case GameState.OPTIONS:
                     optionMenu.Draw(SpriteBatch);
                     break;
             }
 
-            playerCharacter.Draw(SpriteBatch, Color.White);
-
+            
             SpriteBatch.End();
         }
 

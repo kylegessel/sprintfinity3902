@@ -80,7 +80,7 @@ namespace Sprintfinity3902.Link
             color = Color.White;
             _collidable = true;
             SetStepSize(1);
-            linkHealth = MAX_HEALTH;
+            linkHealth = 1;
             heartChanged = true;
             itemPickedUp = false;
             _deathSpinCount = 0.0;
@@ -280,6 +280,7 @@ namespace Sprintfinity3902.Link
         public void RemoveDecorator()
         {
             _collidable = true;
+            game.playerCharacter = this;
         }
         public override Boolean IsCollidable()
         {

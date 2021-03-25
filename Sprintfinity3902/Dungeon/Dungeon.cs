@@ -71,10 +71,10 @@ namespace Sprintfinity3902.Dungeon
         public void GameStateUpdate(IDungeon.GameState state) {
             switch (state) {
                 case IDungeon.GameState.WIN:
-                    CurrentRoom = new WinWrapper(CurrentRoom, this, Game.playerCharacter);
+                    CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.LOSE:
-                    CurrentRoom = new LoseWrapper(CurrentRoom, this, Game.playerCharacter);
+                    CurrentRoom = new LoseWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.RETURN:
                     Game.UpdateState(Game1.GameState.OPTIONS);

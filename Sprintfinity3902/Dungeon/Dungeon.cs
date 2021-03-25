@@ -5,7 +5,6 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 using System.Collections.Generic;
 using System.Linq;
-using Sprintfinity3902.Dungeon.GameState;
 using System.Diagnostics;
 
 namespace Sprintfinity3902.Dungeon

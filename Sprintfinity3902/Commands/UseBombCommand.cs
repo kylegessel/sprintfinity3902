@@ -26,11 +26,6 @@ namespace Sprintfinity3902.Commands
             {
                 link.UseItem();
                 Bomb.UseItem(link);
-                /*
-                PlayerCharacter.UseItem();
-                Bomb.UseItem(PlayerCharacter);
-                //PlayerCharacter.UseItem();
-                */
             }
         }
     }

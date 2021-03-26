@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902.Link
 {
-    public class Player : AbstractEntity, ILink
+    public class Player : AbstractEntity, IPlayer
     {
         private int MAX_HEALTH = 6; //May need to be public for projectiles
         private IPlayerState _currentState;
@@ -26,6 +26,7 @@ namespace Sprintfinity3902.Link
                 _currentState = value;
             }
         }
+
         public IPlayerState facingDown { get; set; }
         public IPlayerState facingLeft { get; set; }
         public IPlayerState facingRight { get; set; }

@@ -15,14 +15,11 @@ namespace Sprintfinity3902.Interfaces
         void Move();
         void Attack();
         void SetState(IPlayerState state);
-        void TakeDamage();
-        void BounceOfEnemy(ICollision.CollisionSide Side);
         void RemoveDecorator();
         void useItem(IItem.ITEMS item);
         public void UseItem();
         void pickup(IItem.ITEMS item);
-        void MoveLink();
-        void StopMoving();
+        
     }
 }
 

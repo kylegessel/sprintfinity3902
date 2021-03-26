@@ -11,7 +11,7 @@ namespace Sprintfinity3902.Entities
 {
     public class MovingSwordItem : AbstractItem, IProjectile
     {
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
         Boolean itemUse;
         int itemUseCount;
         ISprite Sprite2;
@@ -100,7 +100,7 @@ namespace Sprintfinity3902.Entities
         }
         public void UseItem(ILink player)
         {
-            PlayerCharacter = (Player)player;
+            PlayerCharacter = (IPlayer)player;
             firingState = PlayerCharacter.CurrentState;
 
             if (firingState == PlayerCharacter.facingDownAttack)

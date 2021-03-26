@@ -25,12 +25,8 @@ namespace Sprintfinity3902
         public static int ScaleWindow = Global.Var.SCALE;
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
-        /*
-        public ILink playerCharacter;
-        public Player link;
-        */
         public ILink link;
-        public Player playerCharacter;
+        public IPlayer playerCharacter;
         public IEntity boomerangItem;
         public IEntity bombItem;
         public IEntity movingSword;
@@ -69,12 +65,8 @@ namespace Sprintfinity3902
             dungeon = new Dungeon.Dungeon(this);
             dungeon.Build();
 
-            /*
-            playerCharacter = new Player();
-            link = (Player)playerCharacter;
-            */
             link = new Player();
-            playerCharacter = (Player)link;
+            playerCharacter = (IPlayer)link;
 
             pauseMenu = new PauseMenu(this);
 
@@ -91,9 +83,10 @@ namespace Sprintfinity3902
             linkProj.Add(movingSword);
             linkProj.Add(hitboxSword);
 
-            KeyboardManager.Instance.Initialize(link);
+            KeyboardManager.Instance.Initialize(playerCharacter);
             InputMouse.Instance.GiveGame(this);
 
+            /* Can't casat link here. Gives an error cant cast object DamagedLink to Player */
             KeyboardManager.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
 
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);

@@ -79,18 +79,18 @@ namespace Sprintfinity3902.Controllers
         }
 
         /* Sets up Listeners and Command mappings */
-        public void Initialize(ILink player) {
+        public void Initialize(IPlayer player) {
             foreach (Keys key in Enum.GetValues(typeof(Keys))) {
                 RegisterCommand(new DoNothingCommand(), key);
             }
 
-            RegisterCommand(new SetPlayerMoveUpCommand((Player)player), Keys.W, Keys.Up);
-            RegisterCommand(new SetPlayerMoveLeftCommand((Player)player), Keys.A, Keys.Left);
-            RegisterCommand(new SetPlayerMoveDownCommand((Player)player), Keys.S, Keys.Down);
-            RegisterCommand(new SetPlayerMoveRightCommand((Player)player), Keys.D, Keys.Right);
+            RegisterCommand(new SetPlayerMoveUpCommand(player), Keys.W, Keys.Up);
+            RegisterCommand(new SetPlayerMoveLeftCommand(player), Keys.A, Keys.Left);
+            RegisterCommand(new SetPlayerMoveDownCommand(player), Keys.S, Keys.Down);
+            RegisterCommand(new SetPlayerMoveRightCommand(player), Keys.D, Keys.Right);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(() => {
-                ((Player)player).CurrentState.Sprite.Animation.Stop();
+                player.CurrentState.Sprite.Animation.Stop();
             }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
 

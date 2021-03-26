@@ -118,6 +118,7 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.SetState(state);
         }
+        /*
         public void BounceOfEnemy(ICollision.CollisionSide Side)
         {
             //
@@ -126,6 +127,7 @@ namespace Sprintfinity3902.Link
         {
             //doesn't take damage in damagedLink (Invincible state)
         }
+        */
         public void RemoveDecorator()
         {
             decoratedLink.RemoveDecorator();
@@ -140,6 +142,7 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.UseItem();
         }
+        /*
         public void StopMoving()
         {
             decoratedLink.StopMoving();
@@ -148,6 +151,7 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.MoveLink();
         }
+        */
         public void pickup(IItem.ITEMS item)
         {
             decoratedLink.pickup(item);

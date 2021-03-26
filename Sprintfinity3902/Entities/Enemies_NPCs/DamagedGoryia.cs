@@ -148,6 +148,10 @@ namespace Sprintfinity3902.Entities
             //Do nothing
             return 0;
         }
+        public Boolean IsCollidable()
+        {
+            return decoratedGoryia.IsCollidable();
+        }
     }
 
 

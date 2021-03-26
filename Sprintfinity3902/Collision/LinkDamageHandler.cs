@@ -12,7 +12,7 @@ namespace Sprintfinity3902.Collision
         private static ICollision.CollisionSide side;
         private static bool alreadyMoved;
 
-        public static bool LinkDamaged(Game1 gameInstance, ILink link, Rectangle linkRect, Rectangle enemyRect)
+        public static bool LinkDamaged(Game1 gameInstance, IPlayer link, Rectangle linkRect, Rectangle enemyRect)
         {
             side = enemyCollision.SideOfCollision(enemyRect, linkRect);
 

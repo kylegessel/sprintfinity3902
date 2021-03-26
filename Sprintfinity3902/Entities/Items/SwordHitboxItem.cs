@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Entities
 {
     public class SwordHitboxItem : AbstractEntity, IProjectile
     {
-        ILink PlayerCharacter;
+        IPlayer PlayerCharacter;
         Boolean itemUse;
         int itemUseCount;
         IPlayerState firingState;
@@ -73,30 +73,30 @@ namespace Sprintfinity3902.Entities
         }
         public void UseItem(ILink player)
         {
-            PlayerCharacter = player;
-            firingState = ((Player)PlayerCharacter).CurrentState;
+            PlayerCharacter = (IPlayer)player;
+            firingState = PlayerCharacter.CurrentState;
 
-            if (firingState == ((Player)PlayerCharacter).facingDownAttack)
+            if (firingState == PlayerCharacter.facingDownAttack)
             {
                 Position = new Vector2(PlayerCharacter.X + 5 * Global.Var.SCALE, PlayerCharacter.Y + 16 * Global.Var.SCALE);
                 //currentRect = new Vector2(7, 12);
                 swordDirection = Direction.DOWN;
 
             }
-            else if (firingState == ((Player)PlayerCharacter).facingUpAttack)
+            else if (firingState == PlayerCharacter.facingUpAttack)
             {
                 Position = new Vector2(PlayerCharacter.X + 6 * Global.Var.SCALE, PlayerCharacter.Y - 12 * Global.Var.SCALE);
                 //currentRect = new Vector2(7, 12);
                 swordDirection = Direction.UP;
 
             }
-            else if (firingState == ((Player)PlayerCharacter).facingLeftAttack)
+            else if (firingState == PlayerCharacter.facingLeftAttack)
             {
                 Position = new Vector2(PlayerCharacter.X - 12 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
                 //currentRect = new Vector2(12, 7);
                 swordDirection = Direction.LEFT;
             }
-            else if (firingState == ((Player)PlayerCharacter).facingRightAttack)
+            else if (firingState == PlayerCharacter.facingRightAttack)
             {
                 Position = new Vector2(PlayerCharacter.X + 16 * Global.Var.SCALE, PlayerCharacter.Y + 5 * Global.Var.SCALE);
                 //currentRect = new Vector2(12, 7);

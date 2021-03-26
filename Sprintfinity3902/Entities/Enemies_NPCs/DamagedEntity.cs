@@ -9,14 +9,14 @@ namespace Sprintfinity3902.Link
     class DamagedEntity : AbstractEntity, IEnemy
     {
         IRoom room;
-        AbstractEntity decoratedEntity;
+        IEntity decoratedEntity;
         int entityID;
         Color Color;
         int counter;
         int timer = 30;
 
         // pass room as well?
-        public DamagedEntity(int entityID, AbstractEntity decoratedEntity, IRoom room)
+        public DamagedEntity(int entityID, IEntity decoratedEntity, IRoom room)
         {
             this.entityID = entityID;
             this.decoratedEntity = decoratedEntity;
@@ -82,6 +82,7 @@ namespace Sprintfinity3902.Link
         {
             return decoratedEntity.IsCollidable();
         }
+
         // How do I remove decorator?
         public void RemoveDecorator()
         {

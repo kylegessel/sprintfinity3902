@@ -5,19 +5,18 @@ namespace Sprintfinity3902.Commands
 {
     class SetDamageLinkCommand : ICommand
     {
-        Player decoratedLink;
+        IPlayer decoratedLink;
         ILink damagedLink;
         Game1 game;
 
         public SetDamageLinkCommand(Game1 game)
         {
             this.game = game;
-            decoratedLink = (Player)game.link;
+            decoratedLink = game.playerCharacter;
         }
 
         public void Execute()
         {
-            //game.playerCharacter.TakeDamage();
             damagedLink = new DamagedLink(decoratedLink, game);
             game.link = damagedLink;
         }

@@ -71,6 +71,17 @@ namespace Sprintfinity3902.Dungeon.GameState
         }
         //projectiles may have to be added here later.
 
+        public List<IDoor> doors
+        {
+            get {
+                return CurrentState.doors;
+            }
+
+            set {
+                CurrentState.doors = value;
+            }
+        }
+
         public string path {
             get {
                 return CurrentState.path;

@@ -3,17 +3,16 @@ using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Entities
 {
-    public class CompassPickup : IPickup
+    public class FairyPickup : IPickup
     {
-        public CompassPickup()
+        public FairyPickup()
         { 
 
         }
 
         public void Pickup(Player Link)
         {
-            //BuildCompassHUD();
-            //add compass HUD
+            Link.LinkHealth = Link.MaxHealth;
 
         }
 

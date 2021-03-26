@@ -50,8 +50,8 @@ namespace Sprintfinity3902.HudMenu
 
         private void UpdateHearts()
         {
-            double maxHealth = Link.MAX_HEALTH;
-            double currentHealth = Link.linkHealth;
+            double maxHealth = Link.MaxHealth;
+            double currentHealth = Link.LinkHealth;
 
             hudHeartManager.UpdateHearts(maxHealth, currentHealth);
         }

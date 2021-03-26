@@ -5,6 +5,7 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.States;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Link
 {
@@ -21,14 +22,14 @@ namespace Sprintfinity3902.Link
         private static int THIRTEEN = 13;
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
+        private static int INITIAL_HEALTH = 6;
 
-        public int MAX_HEALTH = 6; //May need to be public for projectiles
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
-        public int linkHealth;
+
 
 public IPlayerState CurrentState {
             get {
@@ -53,6 +54,10 @@ public IPlayerState CurrentState {
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
 
+        public int MaxHealth { get; set; }
+
+        public int LinkHealth { get; set; }
+
         public Dictionary<IItem.ITEMS, int> itemcount;
 
         public Player()
@@ -74,7 +79,8 @@ public IPlayerState CurrentState {
             color = Color.White;
             _collidable = true;
             SetStepSize(1);
-            linkHealth = MAX_HEALTH;
+            MaxHealth = INITIAL_HEALTH;
+            LinkHealth = MaxHealth;
             heartChanged = true;
             itemPickedUp = false;
 
@@ -87,7 +93,7 @@ public IPlayerState CurrentState {
             IPickup itemPickup = item.GetPickup();
             itemPickup.Pickup(this);
 
-            Console.WriteLine(LinkHealth);
+            Debug.WriteLine(LinkHealth);
             //item.PickupItem(this);
             /*
             if (itemcount.ContainsKey(item)) {
@@ -228,7 +234,7 @@ public IPlayerState CurrentState {
         public void TakeDamage()
         {
             _collidable = false;
-            linkHealth--;
+            LinkHealth--;
             heartChanged = true;
         }
 

@@ -9,10 +9,17 @@ namespace Sprintfinity3902.States.Door
         public Entities.Doors.Door CurrentDoor { get; set; }
         public ISprite Sprite { get; set; }
 
+        public bool IsOpen { get; set; }
+        public DoorDirection doorDirection { get; set; }
+
+
+
         public ClosedDoorLeftState(Entities.Doors.Door currentDoor)
         {
             CurrentDoor = currentDoor;
             Sprite = BlockSpriteFactory.Instance.CreateClosedDoorLeft();
+            IsOpen = false;
+            doorDirection = DoorDirection.LEFT;
         }
 
         public void Open()
@@ -20,10 +27,9 @@ namespace Sprintfinity3902.States.Door
             CurrentDoor.SetState(CurrentDoor.openDoorLeft);
         }
 
-        // To be implemented when room first entered, door starts opened then closes.
         public void Close()
         {
-            //NULL
+            //Door can't be closed.
         }
     }
 }

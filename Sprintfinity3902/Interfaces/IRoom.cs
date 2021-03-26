@@ -16,6 +16,7 @@ namespace Sprintfinity3902.Interfaces
         RoomLoader loader { get; set; }
         Room13Loader loader13 { get; set; }
         List<IEntity> garbage { get; set; }
+        List<IDoor> doors { get; set; }
 
         List<IEntity> enemyProj { get; set; }
 

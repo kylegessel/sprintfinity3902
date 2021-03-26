@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
+using Sprintfinity3902.States.Door;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -74,7 +75,7 @@ namespace Sprintfinity3902.Dungeon
         public void Update(GameTime gameTime)
         {
             if (CurrentRoom.Id != NextId) {
-            SetLinkPosition();
+            //SetLinkPosition();
             CurrentRoom.garbage.Clear();
         }
             CurrentRoom = GetById(NextId);
@@ -134,12 +135,56 @@ namespace Sprintfinity3902.Dungeon
         {
             NextId = id;
         }
+        public void ChangeRoom(IDoor door)
+        {
+            switch (door.CurrentState.doorDirection)
+            {
+                case DoorDirection.UP:
+                    // Set links position to the bottom of the next room.
+                    SetLinkPositionDown();
+                    break;
+                case DoorDirection.DOWN:
+                    // Set links position to the top of the next room.
+                    SetLinkPositionUp();
+                    break;
+                case DoorDirection.LEFT:
+                    // Set links position to the top of the next room.
+                    SetLinkPositionRight();
+                    break;
+                case DoorDirection.RIGHT:
+                    // Set links position to the top of the next room.
+                    SetLinkPositionLeft();
+                    break;
+            }
+            SetCurrentRoom(door.DoorDestination);
+        }
+        public void SetLinkPositionUp()
+        {
+            // 112 * Global.Var.SCALE, 64 * Global.Var.SCALE
+            Game.link.X = 120 * Global.Var.SCALE;
+            Game.link.Y = (64 + 35) * Global.Var.SCALE;
+        }
 
-        /*MAGIC NUMBERS REFACTOR*/
-        //SET UP FOR SPRINT 3 ONLY. WILL BE REMOVED UPON SUBMITTING.
+        public void SetLinkPositionDown()
+        {
+            Game.link.X = 120 * Global.Var.SCALE;
+            Game.link.Y = 193 * Global.Var.SCALE;
+        }
+        public void SetLinkPositionLeft()
+        {
+            Game.link.X = 35 * Global.Var.SCALE;
+            Game.link.Y = (136 + 8) * Global.Var.SCALE;
+        }
+        public void SetLinkPositionRight()
+        {
+            Game.link.X = (224 - 16) * Global.Var.SCALE;
+            Game.link.Y = (136+8) * Global.Var.SCALE;
+        }
+
         public void SetLinkPosition()
         {
             IRoom room = GetCurrentRoom();
+            
             if(NextId == 13)
             {
                 Game.link.X = FORTY_EIGHT * Global.Var.SCALE;

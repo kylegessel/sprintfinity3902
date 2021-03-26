@@ -128,7 +128,6 @@ namespace Sprintfinity3902.Dungeon
                     break;
 
                 //ITEMS
-                // Probably could use a static bomb and boomerang object now that I think of it.
                 case "BOWI":
                     Room.items.Add(new BowItem(Position));
                     break;

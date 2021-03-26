@@ -31,6 +31,7 @@ namespace Sprintfinity3902.Link
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
         public int linkHealth;
+        private string lowHealthInstanceID;
         private double _deathSpinCount;
 
         public IPlayerState CurrentState {
@@ -83,6 +84,7 @@ namespace Sprintfinity3902.Link
             linkHealth = 1;
             heartChanged = true;
             itemPickedUp = false;
+            lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
@@ -112,7 +114,10 @@ namespace Sprintfinity3902.Link
                         linkHealth++;
                     }
                     heartChanged = true;
+                    if (linkHealth > 2)
+                        stopLowHealth();
                 }
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
             else if (item == IItem.ITEMS.HEARTCONTAINER)
             {
@@ -123,14 +128,21 @@ namespace Sprintfinity3902.Link
             else if (item == IItem.ITEMS.BOMB)
             {
                 itemPickedUp = true;
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
             else if (item == IItem.ITEMS.KEY)
             {
                 itemPickedUp = true;
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
             else if (item == IItem.ITEMS.RUPEE)
             {
                 itemPickedUp = true;
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            }
+            else
+            {
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
 
         }
@@ -257,10 +269,16 @@ namespace Sprintfinity3902.Link
         {
             _collidable = false;
             linkHealth--;
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             heartChanged = true;
-
+            
             if (linkHealth <= 0) {
                 game.UpdateState(Game1.GameState.LOSE);
+                return;
+            }
+
+            if (linkHealth <= 2) {
+                playLowHealth();
             }
         }
 
@@ -283,6 +301,14 @@ namespace Sprintfinity3902.Link
         public override Boolean IsCollidable()
         {
             return _collidable;
+        }
+        private void playLowHealth()
+        {
+            SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Play();
+        }
+        private void stopLowHealth()
+        {
+            SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
         }
 
         public void DeathSpin(bool end)

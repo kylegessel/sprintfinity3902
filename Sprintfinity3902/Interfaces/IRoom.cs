@@ -14,6 +14,7 @@ namespace Sprintfinity3902.Interfaces
         Dictionary <int, IEntity> enemies { get; set; }
         string path { get; set; }
         List<IEntity> garbage { get; set; }
+        List<IDoor> doors { get; set; }
 
         List<IEntity> enemyProj { get; set; }
 

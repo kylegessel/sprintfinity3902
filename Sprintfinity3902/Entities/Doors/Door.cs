@@ -5,7 +5,7 @@ using Sprintfinity3902.States.Door;
 
 namespace Sprintfinity3902.Entities.Doors
 {
-    public class Door : AbstractBlock
+    public class Door : AbstractBlock, IDoor
     {
 
         private static int THIRTY_TWO = 32;

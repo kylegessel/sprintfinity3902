@@ -18,6 +18,7 @@ namespace Sprintfinity3902.Dungeon
         public List<IEntity> items { get; set; }
         public List<IEntity> enemyProj { get; set; }
         public List<IEntity> garbage { get; set; }
+        public List<IDoor> doors { get; set; }
         //projectiles may have to be added here later.
 
         public string path { get; set; }
@@ -32,6 +33,7 @@ namespace Sprintfinity3902.Dungeon
             items = new List<IEntity>();
             garbage = new List<IEntity>();
             enemyProj = new List<IEntity>();
+            doors = new List<IDoor>();
             path = fileLocation;
             Id = id;
             Pause = false;
@@ -54,6 +56,8 @@ namespace Sprintfinity3902.Dungeon
 
             foreach (IEntity entity in enemyProj)
                 entity.Update(gameTime);
+            foreach (IDoor door in doors)
+                door.Update(gameTime);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
@@ -66,7 +70,8 @@ namespace Sprintfinity3902.Dungeon
 
             foreach (IEntity entity in items)
                 entity.Draw(spriteBatch, color);
-
+            foreach (IDoor door in doors)
+                door.Draw(spriteBatch, color);
             foreach (IEntity entity in garbage)
                 entity.Draw(spriteBatch, color);
 
@@ -135,6 +140,18 @@ namespace Sprintfinity3902.Dungeon
                 else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
                 {
                     entity.Y = entity.Y - TWO * Global.Var.SCALE;
+                }
+            }
+
+            foreach (IEntity entity in doors)
+            {
+                if (count != 176 * Global.Var.SCALE && pause)
+                {
+                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                }
+                else if (count != 176 * Global.Var.SCALE && pause == false)
+                {
+                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
                 }
             }
 

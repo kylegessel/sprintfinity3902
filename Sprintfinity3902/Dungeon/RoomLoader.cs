@@ -38,10 +38,10 @@ namespace Sprintfinity3902.Dungeon
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
-        public Door DoorTop { get; set; }
-        public Door DoorBottom { get; set; }
-        public Door DoorLeft { get; set; }
-        public Door DoorRight { get; set; }
+        public IDoor DoorTop { get; set; }
+        public IDoor DoorBottom { get; set; }
+        public IDoor DoorLeft { get; set; }
+        public IDoor DoorRight { get; set; }
         int enemyID;
         int spikeNum;
         

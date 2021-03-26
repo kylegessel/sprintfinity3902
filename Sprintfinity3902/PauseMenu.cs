@@ -65,10 +65,11 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand((Player)Link), Keys.A, Keys.Left);
             KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand((Player)Link), Keys.S, Keys.Down);
             KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand((Player)Link), Keys.D, Keys.Right);
-            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(game), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Link, (BombItem)game.bombItem), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Link, (BoomerangItem)game.boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Link, (MovingSwordItem)game.movingSword, (SwordHitboxItem)game.hitboxSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Link, (BombItem)Game.bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Link, (BoomerangItem)Game.boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new UseBowCommand((Player)Link, (ArrowItem)Game.bowArrow), Keys.D3);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Link, (MovingSwordItem)Game.movingSword, (SwordHitboxItem)Game.hitboxSword), Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(game.dungeon.NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(game.dungeon.PreviousRoom, Keys.K);
@@ -111,6 +112,14 @@ namespace Sprintfinity3902
                 {
                     icon.Y = icon.Y + shiftAmount;
                 }
+            }
+
+            foreach (IEntity door in Game.dungeon.GetCurrentRoom().doors)
+            {
+                if (count != 176 * Global.Var.SCALE && Pause)
+                    door.Y = door.Y + 2 * Global.Var.SCALE;
+                else if (count != 176 * Global.Var.SCALE && Pause == false)
+                    door.Y = door.Y - 2 * Global.Var.SCALE;
             }
 
             // Case for the bomb as it doesn't work similarly to other projectiles.

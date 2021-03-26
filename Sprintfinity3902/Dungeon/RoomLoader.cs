@@ -210,17 +210,19 @@ namespace Sprintfinity3902.Dungeon
 
                 //ENEMIES
                 case "BBAT":
-                    Room.enemies.Add(enemyID, new BlueBatEnemy(Position));
+                    IEntity bat = new BlueBatEnemy(Position);
+                    Room.enemies.Add(enemyID, bat);
                     enemyID++;
                     break;
                 case "SKLN":
-                    Room.enemies.Add(enemyID, new SkeletonEnemy(Position));
+                    IEntity skel = new SkeletonEnemy(Position);
+                    Room.enemies.Add(enemyID, skel);
                     enemyID++;
                     break;
                 case "BOSS":
-                    FireAttack up = new FireAttack(1);
-                    FireAttack center = new FireAttack(0);
-                    FireAttack down = new FireAttack(2);
+                    IEntity up = new FireAttack(1);
+                    IEntity center = new FireAttack(0);
+                    IEntity down = new FireAttack(2);
                     Room.enemies.Add(enemyID, up);
                     enemyID++;
                     Room.enemies.Add(enemyID, down);
@@ -231,36 +233,37 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "FIRE":
-                    Room.enemies.Add(enemyID, new Fire(Position));
+                    IEntity fire = new Fire(Position);
+                    Room.enemies.Add(enemyID, fire);
                     enemyID++;
                     break;
                 case "GELY":
-                    //GelEnemy gel = new GelEnemy(Position);
-                    IEnemy gel = new GelEnemy(Position);
+                    IEntity gel = new GelEnemy(Position);
                     gel.X = gel.Position.X + FOUR * Global.Var.SCALE;
                     gel.Y = gel.Position.Y + FOUR * Global.Var.SCALE;
                     Room.enemies.Add(enemyID, gel);
                     enemyID++;
                     break;
-                case "GORY": /*Here we are adding a goriyaEnemy. This may be causing the problem when trying to use damaged enemy*/
-                    IBoomerang goriyaBoomerang = new BoomerangItem(); //Can I change this as well??
-                    IEnemy goriya = new GoriyaEnemy(goriyaBoomerang, Position);
+                case "GORY":
+                    IBoomerang goriyaBoomerang = new BoomerangItem();
                     Room.enemyProj.Add(goriyaBoomerang);
-                    Room.enemies.Add(enemyID, goriya);
+                    Room.enemies.Add(enemyID, new GoriyaEnemy(goriyaBoomerang, Position));
                     enemyID++;
                     break;
                 case "HAND":
-                    Room.enemies.Add(enemyID, new HandEnemy(Position));
+                    IEntity hand = new HandEnemy(Position);
+                    Room.enemies.Add(enemyID, hand);
                     enemyID++;
                     break;
                 case "OLDM":
-                    OldManNPC man = new OldManNPC(Position);
+                    IEntity man = new OldManNPC(Position);
                     man.X = man.Position.X + EIGHT * Global.Var.SCALE;
                     Room.enemies.Add(enemyID, man);
                     enemyID++;
                     break;
                 case "SPKE":
-                    Room.enemies.Add(enemyID, new SpikeEnemy(Position, spikeNum));
+                    IEntity spike = new SpikeEnemy(Position, spikeNum);
+                    Room.enemies.Add(enemyID, spike);
                     enemyID++;
                     spikeNum++;
                     if(spikeNum > 4) { spikeNum = 1; }
@@ -270,44 +273,49 @@ namespace Sprintfinity3902.Dungeon
                 //ITEMS
                 // Probably could use a static bomb and boomerang object now that I think of it.
                 case "KEYI":
-                    KeyItem key = new KeyItem(Position);
+                    IItem key = new KeyItem(Position);
                     key.X = key.Position.X + FOUR * Global.Var.SCALE;
                     Room.items.Add(key);
                     break;
                 case "BOWI":
-                    Room.items.Add(new BowItem(Position));
+                    IItem bow = new BowItem(Position);
+                    Room.items.Add(bow);
                     break;
                 case "CLCK":
-                    Room.items.Add(new ClockItem(Position));
+                    IItem clock = new ClockItem(Position);
+                    Room.items.Add(clock);
                     break;
                 case "CMPS":
-                    CompassItem compass = new CompassItem(Position);
+                    IItem compass = new CompassItem(Position);
                     compass.X = compass.Position.X + TWO * Global.Var.SCALE;
                     compass.Y = compass.Position.Y + TWO * Global.Var.SCALE;
                     Room.items.Add(compass);
                     break;
                 case "FARY":
-                    Room.items.Add(new FairyItem(Position));
+                    IItem fairy = new FairyItem(Position);
+                    Room.items.Add(fairy);
                     break;
                 case "HCON":
-                    HeartContainerItem hcont = new HeartContainerItem(Position);
+                    IItem hcont = new HeartContainerItem(Position);
                     hcont.X = hcont.Position.X + ONE * Global.Var.SCALE;
                     hcont.Y = hcont.Position.Y + ONE * Global.Var.SCALE;
                     Room.items.Add(hcont);
                     break;
                 case "HART":
-                    Room.items.Add(new HeartItem(Position));
+                    IItem heart = new HeartItem(Position);
+                    Room.items.Add(heart);
                     break;
                 case "MAPI":
-                    MapItem map = new MapItem(Position);
+                    IItem map = new MapItem(Position);
                     map.X = map.Position.X + FOUR * Global.Var.SCALE;
                     Room.items.Add(map);
                     break;
                 case "RUPE":
-                    Room.items.Add(new RupeeItem(Position));
+                    IItem rupee = new RupeeItem(Position);
+                    Room.items.Add(rupee);
                     break;
                 case "TRIF":
-                    TriforceItem triforce = new TriforceItem(Position);
+                    IItem triforce = new TriforceItem(Position);
                     triforce.X = triforce.Position.X + ELEVEN * Global.Var.SCALE;
                     triforce.Y = triforce.Position.Y + ELEVEN * Global.Var.SCALE;
                     Room.items.Add(triforce);

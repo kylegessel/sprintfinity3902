@@ -47,14 +47,14 @@ namespace Sprintfinity3902.Entities
 
         
 
-        public FinalBossEnemy(Vector2 pos, FireAttack up, FireAttack center, FireAttack down)
+        public FinalBossEnemy(Vector2 pos, IEntity up, IEntity center, IEntity down)
         {
             ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
             OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
             Sprite = ClosedMouth;
-            fireAttackUp = up;
-            fireAttackCenter = center;
-            fireAttackDown = down;
+            fireAttackUp = (FireAttack)up;
+            fireAttackCenter = (FireAttack)center;
+            fireAttackDown = (FireAttack)down;
             Position = pos;
             color = Color.White;
             health = FIVE;

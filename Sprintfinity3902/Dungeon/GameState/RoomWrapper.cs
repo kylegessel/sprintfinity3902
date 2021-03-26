@@ -148,7 +148,7 @@ namespace Sprintfinity3902.Dungeon.GameState
             SoundManager.Instance.PlayAll();
             CollisionDetector.Instance.Pause();
             dungeon.CurrentRoom = CurrentState;
-            dungeon.GameStateUpdate(IDungeon.GameState.RETURN);
+            dungeon.UpdateState(IDungeon.GameState.RETURN);
         }
     }
 }

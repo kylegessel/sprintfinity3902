@@ -18,7 +18,12 @@ namespace Sprintfinity3902.Sprites
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Color color) {
-            Animation.Draw(spriteBatch, position, color);
+            Animation.Draw(spriteBatch, position, color, 0.0f);
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, float order)
+        {
+            Animation.Draw(spriteBatch, position, color, order);
         }
 
         public virtual void Update(GameTime gameTime) {

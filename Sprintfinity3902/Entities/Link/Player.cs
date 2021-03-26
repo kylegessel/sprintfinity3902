@@ -150,9 +150,9 @@ namespace Sprintfinity3902.Link
 
         public override void SetState(IPlayerState state) {
             if (state.Equals(CurrentState)) return;
-            Vector2 pos = Position;
+            //Vector2 pos = Position;
             CurrentState = state;
-            Position = pos;
+            //Position = pos;
         }
 
         public override void Move() {
@@ -175,8 +175,6 @@ namespace Sprintfinity3902.Link
 
             if (_deathSpinCount != 0.0) { 
                 _deathSpinCount += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-                Debug.WriteLine(_deathSpinCount);
 
                 switch (((int)(_deathSpinCount / 100.0)) % 4) {
                     case 0:

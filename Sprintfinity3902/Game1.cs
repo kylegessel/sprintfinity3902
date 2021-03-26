@@ -227,7 +227,7 @@ namespace Sprintfinity3902
                     pauseMenu.UnregisterCommands();
                     break;
                 case GameState.WIN:
-                    dungeon.GameStateUpdate(IDungeon.GameState.WIN);
+                    dungeon.UpdateState(IDungeon.GameState.WIN);
                     break;
                 case GameState.OPTIONS:
                     optionMenu.Start();
@@ -238,7 +238,7 @@ namespace Sprintfinity3902
                     }
                     break;
                 case GameState.LOSE:
-                    dungeon.GameStateUpdate(IDungeon.GameState.LOSE);
+                    dungeon.UpdateState(IDungeon.GameState.LOSE);
                     break;
             }
 

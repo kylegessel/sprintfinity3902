@@ -100,8 +100,15 @@ namespace Sprintfinity3902.Entities
 
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
-            Sprite.Draw(spriteBatch, Position, color);
+            Draw(spriteBatch, color, 0.0f);
         }
+
+        public virtual void Draw(SpriteBatch spriteBatch, Color color, float depth)
+        {
+            Sprite.Draw(spriteBatch, Position, color, depth);
+        }
+
+
 
         public virtual void Update(GameTime gameTime)
         {

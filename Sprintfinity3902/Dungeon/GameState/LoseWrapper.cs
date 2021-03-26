@@ -4,6 +4,7 @@ using Sprintfinity3902.Collision;
 using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
+using Sprintfinity3902.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -118,7 +119,8 @@ namespace Sprintfinity3902.Dungeon.GameState
                     break;
                 case animation_state.EXPLODE:
                     game.playerCharacter.DeathSpin(true);
-                    explode = new BombExplosionItem(game.playerCharacter.Position);
+                    explode = new SingleExplosionCloud(game.playerCharacter.Position);
+                    //explode = new SmokeItemSprite(game.playerCharacter.Position);
                     break;
                 case animation_state.OPTIONS:
                     break;
@@ -148,7 +150,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                     }
                     break;
                 case animation_state.EXPLODE:
-                    explode.Draw(spriteBatch, Color.White);
+                    ((SingleExplosionCloud)explode).Draw(spriteBatch, Color.White, 1.1f);
                     break;
                 case animation_state.OPTIONS:
 

@@ -22,6 +22,6 @@ namespace Sprintfinity3902.Interfaces
         IRoom GetCurrentRoom();
         void SetCurrentRoom(int id);
         void CleanUp();
-        void GameStateUpdate(GameState state);
+        void UpdateState(GameState state);
     }
 }

@@ -7,13 +7,19 @@ using Sprintfinity3902.States.Door;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using Sprintfinity3902.Collision;
+using Sprintfinity3902.Entities;
+using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.Controllers;
+using Sprintfinity3902.Commands;
+using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.Dungeon
 {
     public class Dungeon : IDungeon
     {
         
-
         /*MAGIC NUMBERS REFACTOR*/
         private static int FORTY_EIGHT = 48;
         private static int NINETY_SEVEN = 97;
@@ -22,12 +28,28 @@ namespace Sprintfinity3902.Dungeon
 
         private Game1 Game;
         private List<IRoom> dungeonRooms;
+        private IEntity boomerangItem;
+        private IEntity bombItem;
+        private IEntity movingSword;
+        private IEntity bowArrow;
+        private IEntity bombExplosion;
+        private IEntity hitboxSword;
         public IRoom CurrentRoom { get; set; }
 
         private string backgroundMusicInstanceID;
 
+
+        public List<IEntity> linkProj;
+
         public Dungeon(Game1 game)
         {
+
+            boomerangItem = new BoomerangItem();
+            bombExplosion = new BombExplosionItem(new Vector2(-1000, -1000));
+            bombItem = new BombItem(new Vector2(-1000, -1000), (BombExplosionItem)bombExplosion);
+            movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
+            hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
+            bowArrow = new ArrowItem(new Vector2(-1000, -1000));
 
             dungeonRooms = new List<IRoom>();
 
@@ -36,16 +58,32 @@ namespace Sprintfinity3902.Dungeon
             }
 
             CurrentRoom = GetById(1);
-
             Game = game;
+
+            linkProj = new List<IEntity>();
+
+            linkProj.Add(boomerangItem);
+            linkProj.Add(bombExplosion);
+            linkProj.Add(movingSword);
+            linkProj.Add(hitboxSword);
+            linkProj.Add(bowArrow);
 
             backgroundMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon), 0.02f, true);
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
-        public void Build()
+        public void Initialize()
         {
+            CollisionDetector.Instance.Initialize(Game);
+            KeyboardManager.Instance.RegisterKeyUpCallback(NextRoom, Keys.L);
+            KeyboardManager.Instance.RegisterKeyUpCallback(PreviousRoom, Keys.K);
+            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Game.playerCharacter, (BombItem)bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Game.playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new UseBowCommand((Player)Game.playerCharacter, (ArrowItem)bowArrow), Keys.D3);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
+
             IRoomLoader rload = new RoomLoader();
             foreach(IRoom room in dungeonRooms)
             {
@@ -56,12 +94,19 @@ namespace Sprintfinity3902.Dungeon
 
         public void Update(GameTime gameTime)
         {
+            CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage);
+            foreach (IEntity entity in linkProj) {
+                entity.Update(gameTime);
+            }
             CurrentRoom.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             CurrentRoom.Draw(spriteBatch, Color.White);
+            foreach (IEntity entity in linkProj) {
+                entity.Draw(spriteBatch, Color.White);
+            }
         }
 
         public IRoom GetById(int id)
@@ -146,20 +191,19 @@ namespace Sprintfinity3902.Dungeon
             Game.link.Y = (room.Id == 13 ? NINETY_SEVEN : ONE_HUNDRED_NINETY_THREE) * Global.Var.SCALE;
         }
 
-        public void CleanUp() {
-            SoundManager.Instance.DestroySoundEffectInstance(backgroundMusicInstanceID);
-        }
-
         public void UpdateState(IDungeon.GameState state)
         {
             switch (state) {
                 case IDungeon.GameState.WIN:
+                    KeyboardManager.Instance.PushCommandMatrix();
                     CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.LOSE:
+                    KeyboardManager.Instance.PushCommandMatrix();
                     CurrentRoom = new LoseWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.RETURN:
+                    KeyboardManager.Instance.PopCommandMatrix();
                     Game.UpdateState(Game1.GameState.OPTIONS);
                     break;
             }

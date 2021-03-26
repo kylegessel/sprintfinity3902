@@ -155,9 +155,9 @@ namespace Sprintfinity3902.Dungeon.GameState
 
         public virtual void Wrapup()
         {
-            SoundManager.Instance.DestroySoundEffectInstance(music_id);
-            SoundManager.Instance.PlayAll();
-            CollisionDetector.Instance.Pause();
+            //SoundManager.Instance.DestroySoundEffectInstance(music_id);
+            //SoundManager.Instance.PlayAll();
+            //CollisionDetector.Instance.Pause();
             dungeon.CurrentRoom = CurrentState;
             dungeon.UpdateState(IDungeon.GameState.RETURN);
         }

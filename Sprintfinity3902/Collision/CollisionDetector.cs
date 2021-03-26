@@ -39,7 +39,11 @@ namespace Sprintfinity3902.Collision
             shouldCheck = true;
         }
 
-        public void setup(Game1 game)
+        public void Reset() {
+            instance = new CollisionDetector();
+        }
+
+        public void Initialize(Game1 game)
         {
             gameInstance = game;
             link = (Player)game.playerCharacter;

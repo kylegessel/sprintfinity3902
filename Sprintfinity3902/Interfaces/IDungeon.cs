@@ -16,13 +16,12 @@ namespace Sprintfinity3902.Interfaces
         public IRoom CurrentRoom { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
-        void Build();
+        void Initialize();
         void NextRoom();
         void PreviousRoom();
         IRoom GetCurrentRoom();
         void SetCurrentRoom(int id);
         void ChangeRoom(IDoor door);
-        void CleanUp();
         void UpdateState(GameState state);
     }
 }

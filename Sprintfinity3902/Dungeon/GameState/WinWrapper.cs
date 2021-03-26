@@ -150,7 +150,7 @@ namespace Sprintfinity3902.Dungeon.GameState
 
             switch (a) {
                 case animation_state.FLASH:
-                    SoundManager.Instance.PauseAll();
+                    SoundManager.Instance.Reset();
                     music_id = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Triforce_Piece_Obtained));
                     SoundManager.Instance.GetSoundEffectInstance(music_id).IsLooped = false;
                     SoundManager.Instance.GetSoundEffectInstance(music_id).Play();
@@ -175,6 +175,10 @@ namespace Sprintfinity3902.Dungeon.GameState
                     foreach (IEntity entity in garbage) {
                         entity.Draw(spriteBatch, blockColor);
                     }
+
+                    foreach (IEntity entity in doors) {
+                        entity.Draw(spriteBatch, blockColor);
+                    }
                     break;
                 case animation_state.BACKGROUND_ANIMATE:
                     foreach (IBlock entity in blocks) {
@@ -185,6 +189,11 @@ namespace Sprintfinity3902.Dungeon.GameState
                         entity.Draw(spriteBatch, blockColor);
                     }
 
+                    foreach (IEntity entity in doors) {
+                        entity.Draw(spriteBatch, blockColor);
+                    }
+
+                    /* Trying to implement screen closing */
 
                     Debug.WriteLine(-spriteBatch.GraphicsDevice.Viewport.Width / 2 + (spriteBatch.GraphicsDevice.Viewport.Width / 2) * delta_x_percent);
 

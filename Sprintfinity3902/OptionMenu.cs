@@ -1,11 +1,14 @@
 ﻿
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
+using Sprintfinity3902.SpriteFactories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Sprintfinity3902.Sprites.Fonts;
 using System.Text;
 
 namespace Sprintfinity3902
@@ -13,11 +16,12 @@ namespace Sprintfinity3902
     public class OptionMenu : Sprintfinity3902.Interfaces.IUpdateable, Sprintfinity3902.Interfaces.IDrawable
     {
         private string music_id;
+        private Font gameOver;
+
         public OptionMenu(Game1 game)
         {
-            
+            gameOver = new Font("Game Over");
         }
-
 
         public void Update(GameTime gameTime)
         {
@@ -26,14 +30,12 @@ namespace Sprintfinity3902
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Debug.WriteLine("Waiting to be implemented");
+            Viewport v = spriteBatch.GraphicsDevice.Viewport;
+
+            gameOver.Draw(spriteBatch, new Vector2((v.Width - gameOver.Width)/2, (v.Height - gameOver.Height) / 2));
         }
 
         public void Start() {
-            SoundManager.Instance.PauseAll();
-            music_id = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Ending));
-            SoundManager.Instance.GetSoundEffectInstance(music_id).IsLooped = false;
-            SoundManager.Instance.GetSoundEffectInstance(music_id).Play();
         }
 
     }

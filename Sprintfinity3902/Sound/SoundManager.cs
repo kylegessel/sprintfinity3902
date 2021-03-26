@@ -28,7 +28,12 @@ namespace Sprintfinity3902.Sound
             }
         }
 
-        public SoundManager() {
+        private SoundManager() {
+            Reset();
+        }
+
+        public void Reset() {
+            if (soundEffectInstances != null) { PauseAll(); }
             soundEffectInstances = new Dictionary<string, SoundEffectInstance>();
         }
 

@@ -37,18 +37,14 @@ namespace Sprintfinity3902
 
         public ILink playerCharacter;
         public Player link;
-        public IEntity boomerangItem;
-        public IEntity bombItem;
-        public IEntity movingSword;
-        public IEntity bowArrow;
+        
         public IDungeon dungeon;
         public PauseMenu pauseMenu;
         public OptionMenu optionMenu;
 
-        public IEntity hitboxSword;
-        public List<IEntity> linkProj;
+        
         public List<IHud> huds;
-        private IEntity bombExplosion;
+        
 
         public Game1()
         {
@@ -65,18 +61,15 @@ namespace Sprintfinity3902
         
         public void Reset()
         {
-            
             KeyboardManager.Instance.Reset();
-
-            if (dungeon != null) {
-                dungeon.CleanUp();
-            }
-
-            dungeon = new Dungeon.Dungeon(this);
-            dungeon.Build();
+            SoundManager.Instance.Reset();
+            CollisionDetector.Instance.Reset();
 
             playerCharacter = new Player(this);
             link = (Player)playerCharacter;
+
+            dungeon = new Dungeon.Dungeon(this);
+            dungeon.Initialize();
 
             pauseMenu = new PauseMenu(this);
             optionMenu = new OptionMenu(this);
@@ -88,39 +81,11 @@ namespace Sprintfinity3902
             huds.Add(new InventoryHud(this));
             huds.Add(new MiniMapHud(this));
 
-            boomerangItem = new BoomerangItem();
-            bombExplosion = new BombExplosionItem(new Vector2(-1000,-1000));
-            bombItem = new BombItem(new Vector2(-1000, -1000), (BombExplosionItem) bombExplosion);
-            movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
-            hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
-            bowArrow = new ArrowItem(new Vector2(-1000, -1000));
-
-            linkProj = new List<IEntity>();
-
-            linkProj.Add(boomerangItem);
-            linkProj.Add(bombExplosion);
-            linkProj.Add(movingSword);
-            linkProj.Add(hitboxSword);
-            linkProj.Add(bowArrow);
-
-            KeyboardManager.Instance.Initialize(link);
-            InputMouse.Instance.GiveGame(this);
-
-            KeyboardManager.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
-
-            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)playerCharacter, (BombItem)bombItem), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new UseBowCommand((Player)playerCharacter, (ArrowItem)bowArrow), Keys.D3);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
-
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
-            KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.NextRoom, Keys.L);
-            KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.PreviousRoom, Keys.K);
             KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
 
-            CollisionDetector.Instance.setup(this);
+            UpdateState(GameState.PLAYING);
         }
 
         protected override void LoadContent()
@@ -132,8 +97,9 @@ namespace Sprintfinity3902
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             HudSpriteFactory.Instance.LoadAllTextures(Content);
+            FontSpriteFactory.Instance.LoadAllTextures(Content);
 
-            Sound.SoundLoader.Instance.LoadContent(Content);
+            SoundLoader.Instance.LoadContent(Content);
 
             Reset();
         }
@@ -143,41 +109,35 @@ namespace Sprintfinity3902
             base.Update(gameTime);
 
             KeyboardManager.Instance.Update(gameTime);
-            InputMouse.Instance.Update(gameTime);
 
             switch (State) {
                 case GameState.PAUSED:
+                    break;
                 case GameState.PAUSED_TRANSITION:
                     pauseMenu.Update(gameTime);
+
                     break;
                 case GameState.LOSE:
                 case GameState.WIN:
                     dungeon.Update(gameTime);
                     playerCharacter.Update(gameTime);
+                    foreach (IHud hud in huds) {
+                        hud.Update(gameTime);
+                    }
                     break;
                 case GameState.PLAYING:
-                    dungeon.Update(gameTime);
+                    foreach (IHud hud in huds) {
+                        hud.Update(gameTime);
+                    }
 
+                    dungeon.Update(gameTime);
                     playerCharacter.Update(gameTime);
-                    boomerangItem.Update(gameTime);
-                    bombItem.Update(gameTime);
-                    movingSword.Update(gameTime);
-                    hitboxSword.Update(gameTime);
+                    
                     break;
                 case GameState.OPTIONS:
                     optionMenu.Update(gameTime);
                     break;
             }
-
-            foreach (IHud hud in huds)
-            {
-                hud.Update(gameTime);
-            }
-
-            IRoom currentRoom = dungeon.GetCurrentRoom();
-
-            CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj,currentRoom.enemyProj,currentRoom.doors, currentRoom.garbage);
-
         }
 
         protected override void Draw(GameTime gameTime)
@@ -201,10 +161,6 @@ namespace Sprintfinity3902
                         }
                     }
 
-                    boomerangItem.Draw(SpriteBatch, Color.White);
-                    bombItem.Draw(SpriteBatch, Color.White);
-                    movingSword.Draw(SpriteBatch, Color.White);
-                    bowArrow.Draw(SpriteBatch, Color.White);
                     playerCharacter.Draw(SpriteBatch, Color.White);
 
                     break;
@@ -229,7 +185,10 @@ namespace Sprintfinity3902
                 case GameState.PAUSED:
                     break;
                 case GameState.PAUSED_TRANSITION:
-                    pauseMenu.UnregisterCommands();
+                    if (State.Equals(GameState.PLAYING)) {
+                        KeyboardManager.Instance.PushCommandMatrix();
+                        KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
+                    }
                     break;
                 case GameState.WIN:
                     dungeon.UpdateState(IDungeon.GameState.WIN);
@@ -238,8 +197,8 @@ namespace Sprintfinity3902
                     optionMenu.Start();
                     break;
                 case GameState.PLAYING:
-                    if (IsInState(GameState.PAUSED_TRANSITION)) {
-                        pauseMenu.ReregisterCommands();
+                    if (State.Equals(GameState.PAUSED_TRANSITION)) {
+                        KeyboardManager.Instance.PopCommandMatrix();
                     }
                     break;
                 case GameState.LOSE:

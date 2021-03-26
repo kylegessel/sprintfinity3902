@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Commands;
+using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
@@ -88,6 +91,15 @@ namespace Sprintfinity3902.Link
             _deathSpinCount = 0.0;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
+
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(this), Keys.W, Keys.Up);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(this), Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(this), Keys.S, Keys.Down);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(this), Keys.D, Keys.Right);
+
+            KeyboardManager.Instance.RegisterKeyUpCallback(() => {
+                CurrentState.Sprite.Animation.Stop();
+            }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
 
         public void pickup(IItem.ITEMS item) {

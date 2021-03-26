@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Collision;
+using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
@@ -19,8 +20,7 @@ namespace Sprintfinity3902.Dungeon.GameState
             DELAY,
             BACKGROUND,
             EXPLODE,
-            BACKGROUND_ANIMATE,
-            OPTIONS
+            BACKGROUND_ANIMATE
         }
 
         private animation_state state;
@@ -49,6 +49,7 @@ namespace Sprintfinity3902.Dungeon.GameState
             updateState(animation_state.DELAY);
 
             CollisionDetector.Instance.Pause();
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -85,13 +86,6 @@ namespace Sprintfinity3902.Dungeon.GameState
                     explode.Update(gameTime);
 
                     if (this_count > 400) {
-                        updateState(animation_state.OPTIONS);
-                    }
-                    break;
-                case animation_state.OPTIONS:
-                    /* TODO - Since once the player gets to the options screen
-                     there is no HUD, it may make sense for this to be handled in dungeon*/
-                    if (this_count > 400) {
                         Wrapup();
                     }
                     break;
@@ -108,7 +102,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                     blockColor = cycleColors[0];
                     break;
                 case animation_state.BACKGROUND:
-                    SoundManager.Instance.PauseAll();
+                    SoundManager.Instance.Reset();
                     music_id = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Game_Over));
                     SoundManager.Instance.GetSoundEffectInstance(music_id).IsLooped = false;
                     SoundManager.Instance.GetSoundEffectInstance(music_id).Play();
@@ -121,8 +115,6 @@ namespace Sprintfinity3902.Dungeon.GameState
                     game.playerCharacter.DeathSpin(true);
                     explode = new SingleExplosionCloud(game.playerCharacter.Position);
                     //explode = new SmokeItemSprite(game.playerCharacter.Position);
-                    break;
-                case animation_state.OPTIONS:
                     break;
             }
         }
@@ -138,6 +130,10 @@ namespace Sprintfinity3902.Dungeon.GameState
                     foreach (IEntity entity in garbage) {
                         entity.Draw(spriteBatch, color);
                     }
+
+                    foreach (IEntity entity in doors) {
+                        entity.Draw(spriteBatch, color);
+                    }
                     break;
                 case animation_state.BACKGROUND_ANIMATE: 
                 case animation_state.BACKGROUND:
@@ -148,12 +144,13 @@ namespace Sprintfinity3902.Dungeon.GameState
                     foreach (IEntity entity in garbage) {
                         entity.Draw(spriteBatch, blockColor);
                     }
+
+                    foreach (IEntity entity in doors) {
+                        entity.Draw(spriteBatch, blockColor);
+                    }
                     break;
                 case animation_state.EXPLODE:
-                    ((SingleExplosionCloud)explode).Draw(spriteBatch, Color.White, 1.1f);
-                    break;
-                case animation_state.OPTIONS:
-
+                    ((SingleExplosionCloud)explode).Draw(spriteBatch, Color.White, 1.0f);
                     break;
             }
         }

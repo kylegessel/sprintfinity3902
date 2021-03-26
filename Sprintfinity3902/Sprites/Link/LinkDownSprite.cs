@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprintfinity3902.Sprites
 {
@@ -28,6 +29,9 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite1, 1 / 5f);
         }
 
-
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, float order)
+        {
+            base.Draw(spriteBatch, position, color, 0.5f);
+        }
     }
 }

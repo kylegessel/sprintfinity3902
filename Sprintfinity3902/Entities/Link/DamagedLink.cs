@@ -13,7 +13,7 @@ namespace Sprintfinity3902.Link
         private static int NINE = 9;
 
         Game1 game;
-        ILink decoratedLink;
+        IPlayer decoratedLink;
         Color linkColor;
         int counter;
         int timer = 200;
@@ -71,7 +71,7 @@ namespace Sprintfinity3902.Link
         }
 
 
-        public DamagedLink(ILink decoratedLink, Game1 game)
+        public DamagedLink(IPlayer decoratedLink, Game1 game)
         {
             this.decoratedLink = decoratedLink;
             this.game = game;

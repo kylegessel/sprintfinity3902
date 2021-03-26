@@ -53,7 +53,6 @@ namespace Sprintfinity3902.Link
         public bool itemPickedUp { get; set; }
         public int MAX_HEALTH { get; set; }
         public int linkHealth { get; set; }
-
         public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
         public Player()

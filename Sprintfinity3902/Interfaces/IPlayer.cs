@@ -5,24 +5,25 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface IPlayer : ILink
     {
-        public IPlayerState CurrentState { get; set; }
-        public IPlayerState facingDown { get; set; }
-        public IPlayerState facingLeft { get; set; }
-        public IPlayerState facingRight { get; set; }
-        public IPlayerState facingUp { get; set; }
-        public IPlayerState facingDownAttack { get; set; }
-        public IPlayerState facingLeftAttack { get; set; }
-        public IPlayerState facingRightAttack { get; set; }
-        public IPlayerState facingUpAttack { get; set; }
-        public IPlayerState facingDownItem { get; set; }
-        public IPlayerState facingLeftItem { get; set; }
-        public IPlayerState facingRightItem { get; set; }
-        public IPlayerState facingUpItem { get; set; }
+        IPlayerState CurrentState { get; set; }
+        IPlayerState facingDown { get; set; }
+        IPlayerState facingLeft { get; set; }
+        IPlayerState facingRight { get; set; }
+        IPlayerState facingUp { get; set; }
+        IPlayerState facingDownAttack { get; set; }
+        IPlayerState facingLeftAttack { get; set; }
+        IPlayerState facingRightAttack { get; set; }
+        IPlayerState facingUpAttack { get; set; }
+        IPlayerState facingDownItem { get; set; }
+        IPlayerState facingLeftItem { get; set; }
+        IPlayerState facingRightItem { get; set; }
+        IPlayerState facingUpItem { get; set; }
         bool heartChanged { get; set; }
         bool itemPickedUp { get; set; }
         int MAX_HEALTH { get; set; }
         int linkHealth { get; set; }
         Dictionary<IItem.ITEMS, int> itemcount { get; set; }
+
 
         /*These methods are only used when link is not invinsible (damaged state)*/
         void MoveLink();

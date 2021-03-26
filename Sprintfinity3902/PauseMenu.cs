@@ -13,7 +13,7 @@ namespace Sprintfinity3902
     {
         private int count;
         private Game1 Game;
-        public ILink Link;
+        public IPlayer Link;
         //public List<IHud> Huds { get; set; }
         public bool Pause { get; set; }
         public bool Transition { get; set; }
@@ -23,7 +23,7 @@ namespace Sprintfinity3902
             Transition = false;
             Pause = false;
             Game = game;
-            Link = Game.link;
+            Link = Game.playerCharacter;
             count = 0;
             //Huds = new List<IHud>();
             //Huds.Add(new DungeonHud(Game));
@@ -40,7 +40,7 @@ namespace Sprintfinity3902
                 if (Pause)
                 {
                     ChangePosition();
-                    Game.link.Y = Game.link.Y + 2 * Global.Var.SCALE;
+                    Link.Y = Link.Y + 2 * Global.Var.SCALE;
 
                     if (count == 176 * Global.Var.SCALE)
                     {
@@ -50,7 +50,7 @@ namespace Sprintfinity3902
                 if(Pause == false)
                 {
                     ChangePosition();
-                    Game.link.Y = Game.link.Y - 2 * Global.Var.SCALE;
+                    Link.Y = Link.Y - 2 * Global.Var.SCALE;
 
                     if (count == 176 * Global.Var.SCALE)
                     {
@@ -97,14 +97,14 @@ namespace Sprintfinity3902
         
         public void ReregisterCommands()
         {
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand((IPlayer)Link), Keys.W, Keys.Up);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand((IPlayer)Link), Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand((IPlayer)Link), Keys.S, Keys.Down);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand((IPlayer)Link), Keys.D, Keys.Right);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(Link), Keys.W, Keys.Up);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(Link), Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(Link), Keys.S, Keys.Down);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(Link), Keys.D, Keys.Right);
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((IPlayer)Link, (BombItem)Game.bombItem), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((IPlayer)Link, (BoomerangItem)Game.boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((IPlayer)Link, (MovingSwordItem)Game.movingSword, (SwordHitboxItem)Game.hitboxSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand(Link, (BombItem)Game.bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand(Link, (BoomerangItem)Game.boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand(Link, (MovingSwordItem)Game.movingSword, (SwordHitboxItem)Game.hitboxSword), Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.dungeon.NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.dungeon.PreviousRoom, Keys.K);

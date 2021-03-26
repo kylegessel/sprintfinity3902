@@ -155,44 +155,57 @@ namespace Sprintfinity3902.Dungeon
 
         public void BuildBlocks(string input)
         {
+            /*This is all implimenting class objects instead on interface. Do i need to change this?*/
             switch (input)
             {
                 //BLOCKS
                 case "TILE":
-                    Room.blocks.Add(new FloorBlock(Position));
+                    IBlock tile = new FloorBlock(Position);
+                    Room.blocks.Add(tile);
                     break;
                 case "BLOK":
-                    Room.blocks.Add(new RegularBlock(Position));
+                    IBlock blok = new RegularBlock(Position);
+                    Room.blocks.Add(blok);
                     break;
                 case "RFSH":
-                    Room.blocks.Add(new Face1Block(Position));
+                    IBlock rfsh = new Face1Block(Position);
+                    Room.blocks.Add(rfsh);
                     break;
                 case "LFSH":
-                    Room.blocks.Add(new Face2Block(Position));
+                    IBlock lfsh = new Face2Block(Position);
+                    Room.blocks.Add(lfsh);
                     break;
                 case "SPOT":
-                    Room.blocks.Add(new SpottedBlock(Position));
+                    IBlock spot = new SpottedBlock(Position);
+                    Room.blocks.Add(spot);
                     break;
                 case "BLCK":
-                    Room.blocks.Add(new BlackBlock(Position));
+                    IBlock blck = new BlackBlock(Position);
+                    Room.blocks.Add(blck);
                     break;
                 case "BRIK":
-                    Room.blocks.Add(new BrickBlock(Position));
+                    IBlock brik = new BrickBlock(Position);
+                    Room.blocks.Add(brik);
                     break;
                 case "DARK":
-                    Room.blocks.Add(new DarkBlueBlock(Position));
+                    IBlock dark = new DarkBlueBlock(Position);
+                    Room.blocks.Add(dark);
                     break;
                 case "STAR":
-                    Room.blocks.Add(new StairsBlock(Position));
+                    IBlock star = new StairsBlock(Position);
+                    Room.blocks.Add(star);
                     break;
                 case "STIP":
-                    Room.blocks.Add(new StripeBlock(Position));
+                    IBlock stip = new StripeBlock(Position);
+                    Room.blocks.Add(stip);
                     break;
                 case "MVBK":
-                    Room.blocks.Add(new MovingVertBlock(Position));
+                    IBlock mvbk = new MovingVertBlock(Position);
+                    Room.blocks.Add(mvbk);
                     break;
                 case "MLBK":
-                    Room.blocks.Add(new MovingLeftBlock(Position));
+                    IBlock mlbk = new MovingLeftBlock(Position);
+                    Room.blocks.Add(mlbk);
                     break;
 
                 //ENEMIES
@@ -222,16 +235,18 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "GELY":
-                    GelEnemy gel = new GelEnemy(Position);
+                    //GelEnemy gel = new GelEnemy(Position);
+                    IEnemy gel = new GelEnemy(Position);
                     gel.X = gel.Position.X + FOUR * Global.Var.SCALE;
                     gel.Y = gel.Position.Y + FOUR * Global.Var.SCALE;
                     Room.enemies.Add(enemyID, gel);
                     enemyID++;
                     break;
-                case "GORY":
-                    BoomerangItem goriyaBoomerang = new BoomerangItem();
+                case "GORY": /*Here we are adding a goriyaEnemy. This may be causing the problem when trying to use damaged enemy*/
+                    IBoomerang goriyaBoomerang = new BoomerangItem(); //Can I change this as well??
+                    IEnemy goriya = new GoriyaEnemy(goriyaBoomerang, Position);
                     Room.enemyProj.Add(goriyaBoomerang);
-                    Room.enemies.Add(enemyID, new GoriyaEnemy(goriyaBoomerang, Position));
+                    Room.enemies.Add(enemyID, goriya);
                     enemyID++;
                     break;
                 case "HAND":

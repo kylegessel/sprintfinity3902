@@ -7,6 +7,10 @@ namespace Sprintfinity3902.Dungeon
 {
     public class Room : IRoom
     {
+        /*MAGIC NUMBERS REFACTOR*/
+        private static int ONE_HUNDRED_SEVENTY_SIX = 176;
+        private static int TWO = 2;
+
         public int Id { get; set; }
         //public List<IEntity> roomEntities { get; set; }
         public List<IBlock> blocks { get; set; }
@@ -87,66 +91,67 @@ namespace Sprintfinity3902.Dungeon
 
         }
 
+        /*MAGIC NUMBERS REFACTOR*/
         public void ChangePosition(bool pause)
         {
             Pause = pause;
             foreach (IBlock entity in blocks)
             {
-                if(count != 176 * Global.Var.SCALE && pause)
+                if(count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y + TWO * Global.Var.SCALE;
                 }
-                else if (count != 176 * Global.Var.SCALE && pause == false)
+                else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y - TWO * Global.Var.SCALE;
                 }
             }
 
             foreach (IEntity entity in enemies.Values)
             {
-                if (count != 176 * Global.Var.SCALE && pause)
+                if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y + TWO * Global.Var.SCALE;
                 }
-                else if (count != 176 * Global.Var.SCALE && pause == false)
+                else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y - TWO * Global.Var.SCALE;
                 }
             }
 
             foreach (IEntity entity in items)
             {
-                if (count != 176 * Global.Var.SCALE && pause)
+                if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y + TWO * Global.Var.SCALE;
                 }
-                else if (count != 176 * Global.Var.SCALE && pause == false)
+                else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y - TWO * Global.Var.SCALE;
                 }
             }
 
             foreach (IEntity entity in garbage)
             {
-                if (count != 176 * Global.Var.SCALE && pause)
+                if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y + TWO * Global.Var.SCALE;
                 }
-                else if (count != 176 * Global.Var.SCALE && pause == false)
+                else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y - TWO * Global.Var.SCALE;
                 }
             }
 
             foreach (IEntity entity in enemyProj)
             {
-                if (count != 176 * Global.Var.SCALE && pause)
+                if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y + TWO * Global.Var.SCALE;
                 }
-                else if (count != 176 * Global.Var.SCALE && pause == false)
+                else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y - TWO * Global.Var.SCALE;
                 }
             }
 
@@ -162,7 +167,7 @@ namespace Sprintfinity3902.Dungeon
                 }
             }
 
-            count = count + 2*Global.Var.SCALE;
+            count = count + TWO *Global.Var.SCALE;
         }
 
         public void SetPauseCount()

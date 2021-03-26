@@ -7,6 +7,11 @@ namespace Sprintfinity3902.States
 {
     public class GoriyaLeftMovingState : IEnemyState
     {
+
+        private static float F_DOT_TWO = .2f;
+        private static int LOWER_BOUND = 80;
+        private static int UPPER_BOUND = 150;
+
         public GoriyaEnemy Goriya { get; set; }
         public ISprite Sprite { get; set; }
         public bool Start { get; set; }
@@ -30,7 +35,7 @@ namespace Sprintfinity3902.States
             {
                 count = 0;
                 Start = false;
-                rnd = new Random().Next(80, 150);
+                rnd = new Random().Next(LOWER_BOUND, UPPER_BOUND);
                 if (!Sprite.Animation.IsPlaying)
                 {
                     Sprite.Animation.Play();
@@ -43,7 +48,7 @@ namespace Sprintfinity3902.States
             }
             else
             {
-                Goriya.X = Goriya.X - .2f * Global.Var.SCALE;
+                Goriya.X = Goriya.X - F_DOT_TWO * Global.Var.SCALE;
                 count++;
             }
         }

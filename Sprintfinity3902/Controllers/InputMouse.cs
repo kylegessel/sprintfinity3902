@@ -2,11 +2,29 @@
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
-using Sprintfinity3902;
 
 namespace Sprintfinity3902.Controllers
 {
     public class InputMouse : IController {
+
+        /*MAGIC NUMBERS REFACTOR*/
+        private static int SIXTEEN = 16;
+        private static int EIGHTEEN = 18;
+        private static int FORTY_TWO = 42;
+        private static int FORTY_FOUR = 44;
+        private static int SEVENTY = 70;
+        private static int NINETY_SIX = 96;
+        private static int FIFTY_FOUR = 54;
+        private static int NINETY_ONE = 91;
+
+        private static int ONE_HUNDRED_TWENTY_TWO = 122;
+        private static int ONE_HUNDRED_TWENTY_NINE = 129;
+        private static int ONE_HUNDRED_FORTY_EIGHT = 148;
+        private static int ONE_HUNDRED_SIXTY_SEVEN = 167;
+        private static int ONE_HUNDRED_SEVENTY_FOUR = 174;
+
+        private static int TWO_HUNDRED_FIVE = 205;
+        private static int TWO_HUNDRED_FORTY_TWO = 242;
 
         private static Dictionary<Keys, Interfaces.ICommand> controllerMappings;
 
@@ -59,9 +77,10 @@ namespace Sprintfinity3902.Controllers
         }
 
         //FOR SPRINT 3 ONLY
+        /*MAGIC NUMBERS REFACTOR*/
         public void MouseMapInput()
         {
-            if (mouseLocation.X > 54 * Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 148 * Global.Var.SCALE && mouseLocation.Y < 174 * Global.Var.SCALE)
+            if (mouseLocation.X > FIFTY_FOUR * Global.Var.SCALE && mouseLocation.X < NINETY_ONE * Global.Var.SCALE && mouseLocation.Y > ONE_HUNDRED_FORTY_EIGHT * Global.Var.SCALE && mouseLocation.Y < ONE_HUNDRED_SEVENTY_FOUR * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -69,7 +88,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 148 * Global.Var.SCALE && mouseLocation.Y < 174 * Global.Var.SCALE)
+            else if (mouseLocation.X > NINETY_ONE * Global.Var.SCALE && mouseLocation.X <  ONE_HUNDRED_TWENTY_NINE * Global.Var.SCALE && mouseLocation.Y > ONE_HUNDRED_FORTY_EIGHT * Global.Var.SCALE && mouseLocation.Y < ONE_HUNDRED_SEVENTY_FOUR * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -77,7 +96,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 129 * Global.Var.SCALE && mouseLocation.X < 167 * Global.Var.SCALE && mouseLocation.Y > 148 * Global.Var.SCALE && mouseLocation.Y < 174 * Global.Var.SCALE)
+            else if (mouseLocation.X >  ONE_HUNDRED_TWENTY_NINE * Global.Var.SCALE && mouseLocation.X <  ONE_HUNDRED_SIXTY_SEVEN * Global.Var.SCALE && mouseLocation.Y > ONE_HUNDRED_FORTY_EIGHT * Global.Var.SCALE && mouseLocation.Y < ONE_HUNDRED_SEVENTY_FOUR * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -85,7 +104,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 122 * Global.Var.SCALE && mouseLocation.Y < 148 * Global.Var.SCALE)
+            else if (mouseLocation.X > NINETY_ONE * Global.Var.SCALE && mouseLocation.X <  ONE_HUNDRED_TWENTY_NINE * Global.Var.SCALE && mouseLocation.Y >  ONE_HUNDRED_TWENTY_TWO * Global.Var.SCALE && mouseLocation.Y < ONE_HUNDRED_FORTY_EIGHT * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -93,7 +112,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 54 * Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 96 * Global.Var.SCALE && mouseLocation.Y < 122 * Global.Var.SCALE)
+            else if (mouseLocation.X > FIFTY_FOUR * Global.Var.SCALE && mouseLocation.X < NINETY_ONE * Global.Var.SCALE && mouseLocation.Y >  NINETY_SIX * Global.Var.SCALE && mouseLocation.Y <  ONE_HUNDRED_TWENTY_TWO * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -101,7 +120,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 96 * Global.Var.SCALE && mouseLocation.Y < 122 * Global.Var.SCALE)
+            else if (mouseLocation.X > NINETY_ONE * Global.Var.SCALE && mouseLocation.X <  ONE_HUNDRED_TWENTY_NINE * Global.Var.SCALE && mouseLocation.Y >  NINETY_SIX * Global.Var.SCALE && mouseLocation.Y <  ONE_HUNDRED_TWENTY_TWO * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -109,7 +128,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 129 * Global.Var.SCALE && mouseLocation.X < 167 * Global.Var.SCALE && mouseLocation.Y > 96 * Global.Var.SCALE && mouseLocation.Y < 122 * Global.Var.SCALE)
+            else if (mouseLocation.X >  ONE_HUNDRED_TWENTY_NINE * Global.Var.SCALE && mouseLocation.X <  ONE_HUNDRED_SIXTY_SEVEN * Global.Var.SCALE && mouseLocation.Y >  NINETY_SIX * Global.Var.SCALE && mouseLocation.Y <  ONE_HUNDRED_TWENTY_TWO * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -117,7 +136,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 16 * Global.Var.SCALE && mouseLocation.X < 54 * Global.Var.SCALE && mouseLocation.Y > 70 * Global.Var.SCALE && mouseLocation.Y < 96 * Global.Var.SCALE)
+            else if (mouseLocation.X >  SIXTEEN * Global.Var.SCALE && mouseLocation.X < FIFTY_FOUR * Global.Var.SCALE && mouseLocation.Y >  SEVENTY * Global.Var.SCALE && mouseLocation.Y <  NINETY_SIX * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -125,7 +144,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 54 * Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 70 * Global.Var.SCALE && mouseLocation.Y < 96 * Global.Var.SCALE)
+            else if (mouseLocation.X > FIFTY_FOUR * Global.Var.SCALE && mouseLocation.X < NINETY_ONE * Global.Var.SCALE && mouseLocation.Y >  SEVENTY * Global.Var.SCALE && mouseLocation.Y <  NINETY_SIX * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -133,7 +152,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 70 * Global.Var.SCALE && mouseLocation.Y < 96 * Global.Var.SCALE)
+            else if (mouseLocation.X > NINETY_ONE * Global.Var.SCALE && mouseLocation.X <  ONE_HUNDRED_TWENTY_NINE * Global.Var.SCALE && mouseLocation.Y >  SEVENTY * Global.Var.SCALE && mouseLocation.Y <  NINETY_SIX * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -141,7 +160,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 129 * Global.Var.SCALE && mouseLocation.X < 167 * Global.Var.SCALE && mouseLocation.Y > 70 * Global.Var.SCALE && mouseLocation.Y < 96 * Global.Var.SCALE)
+            else if (mouseLocation.X >  ONE_HUNDRED_TWENTY_NINE * Global.Var.SCALE && mouseLocation.X <  ONE_HUNDRED_SIXTY_SEVEN * Global.Var.SCALE && mouseLocation.Y >  SEVENTY * Global.Var.SCALE && mouseLocation.Y <  NINETY_SIX * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -149,7 +168,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 167 * Global.Var.SCALE && mouseLocation.X < 205 * Global.Var.SCALE && mouseLocation.Y > 70 * Global.Var.SCALE && mouseLocation.Y < 96 * Global.Var.SCALE)
+            else if (mouseLocation.X >  ONE_HUNDRED_SIXTY_SEVEN * Global.Var.SCALE && mouseLocation.X <  TWO_HUNDRED_FIVE * Global.Var.SCALE && mouseLocation.Y >  SEVENTY * Global.Var.SCALE && mouseLocation.Y <  NINETY_SIX * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -157,7 +176,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 16 * Global.Var.SCALE && mouseLocation.X < 54 * Global.Var.SCALE && mouseLocation.Y > 18 * Global.Var.SCALE && mouseLocation.Y < 42 * Global.Var.SCALE)
+            else if (mouseLocation.X >  SIXTEEN * Global.Var.SCALE && mouseLocation.X < FIFTY_FOUR * Global.Var.SCALE && mouseLocation.Y >  EIGHTEEN * Global.Var.SCALE && mouseLocation.Y <  FORTY_TWO * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -165,7 +184,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 44 * Global.Var.SCALE && mouseLocation.Y < 70 * Global.Var.SCALE)
+            else if (mouseLocation.X > NINETY_ONE * Global.Var.SCALE && mouseLocation.X <  ONE_HUNDRED_TWENTY_NINE * Global.Var.SCALE && mouseLocation.Y >  FORTY_FOUR * Global.Var.SCALE && mouseLocation.Y <  SEVENTY * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -173,7 +192,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 167 * Global.Var.SCALE && mouseLocation.X < 205 * Global.Var.SCALE && mouseLocation.Y > 44 * Global.Var.SCALE && mouseLocation.Y < 70 * Global.Var.SCALE)
+            else if (mouseLocation.X >  ONE_HUNDRED_SIXTY_SEVEN * Global.Var.SCALE && mouseLocation.X <  TWO_HUNDRED_FIVE * Global.Var.SCALE && mouseLocation.Y >  FORTY_FOUR * Global.Var.SCALE && mouseLocation.Y <  SEVENTY * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -181,7 +200,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 205 * Global.Var.SCALE && mouseLocation.X < 242 * Global.Var.SCALE && mouseLocation.Y > 44 * Global.Var.SCALE && mouseLocation.Y < 70 * Global.Var.SCALE)
+            else if (mouseLocation.X >  TWO_HUNDRED_FIVE * Global.Var.SCALE && mouseLocation.X <  TWO_HUNDRED_FORTY_TWO * Global.Var.SCALE && mouseLocation.Y >  FORTY_FOUR * Global.Var.SCALE && mouseLocation.Y <  SEVENTY * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -189,7 +208,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 54 * Global.Var.SCALE && mouseLocation.X < 91 * Global.Var.SCALE && mouseLocation.Y > 18 * Global.Var.SCALE && mouseLocation.Y < 42 * Global.Var.SCALE)
+            else if (mouseLocation.X > FIFTY_FOUR * Global.Var.SCALE && mouseLocation.X < NINETY_ONE * Global.Var.SCALE && mouseLocation.Y >  EIGHTEEN * Global.Var.SCALE && mouseLocation.Y <  FORTY_TWO * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {
@@ -197,7 +216,7 @@ namespace Sprintfinity3902.Controllers
                     Game.Pause();
                 }
             }
-            else if (mouseLocation.X > 91 * Global.Var.SCALE && mouseLocation.X < 129 * Global.Var.SCALE && mouseLocation.Y > 18 * Global.Var.SCALE && mouseLocation.Y < 42 * Global.Var.SCALE)
+            else if (mouseLocation.X > NINETY_ONE * Global.Var.SCALE && mouseLocation.X <  ONE_HUNDRED_TWENTY_NINE * Global.Var.SCALE && mouseLocation.Y >  EIGHTEEN * Global.Var.SCALE && mouseLocation.Y <  FORTY_TWO * Global.Var.SCALE)
             {
                 if (ms.LeftButton == ButtonState.Pressed)
                 {

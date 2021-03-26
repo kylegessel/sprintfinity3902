@@ -1,19 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
-using Sprintfinity3902.Entities.Items;
-using System.Collections.Generic;
-using System.Text;
-using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Entities
 {
     public class FairyItem : AbstractItem
     {
+
+        private float F_DOT_FOUR = .4f;
+        private int THIRTY = 30;
+        private int NINETY  =  90;
+
         private Random rand = new Random();
         private int count;
         private int direction;
         private int waitTime;
+        
 
         public FairyItem()
         {
@@ -40,11 +44,12 @@ namespace Sprintfinity3902.Entities
 
             if (count == 0)
             {
-                waitTime = rand.Next(30, 90);
+                waitTime = rand.Next(THIRTY, NINETY);
             }
             else if (count == waitTime)
             {
                 // States for up, down, up right, up left, down left, down right.
+                /*Leaving this magic number because it may break code below if its value is changed*/
                 direction = rand.Next(1, 6);
 
                 count = 0;
@@ -54,26 +59,26 @@ namespace Sprintfinity3902.Entities
             {
 
                 case 1:
-                    Y = Y - .4f * Global.Var.SCALE;
+                    Y = Y - F_DOT_FOUR * Global.Var.SCALE;
                     break;
                 case 2:
-                    Y = Y + .4f * Global.Var.SCALE;
+                    Y = Y + F_DOT_FOUR * Global.Var.SCALE;
                     break;
                 case 3:
-                    X = X + .4f * Global.Var.SCALE;
-                    Y = Y + .4f * Global.Var.SCALE;
+                    X = X + F_DOT_FOUR * Global.Var.SCALE;
+                    Y = Y + F_DOT_FOUR * Global.Var.SCALE;
                     break;
                 case 4:
-                    X = X - .4f * Global.Var.SCALE;
-                    Y = Y + .4f * Global.Var.SCALE;
+                    X = X - F_DOT_FOUR * Global.Var.SCALE;
+                    Y = Y + F_DOT_FOUR * Global.Var.SCALE;
                     break;
                 case 5:
-                    X = X - .4f * Global.Var.SCALE;
-                    Y = Y - .4f * Global.Var.SCALE;
+                    X = X - F_DOT_FOUR * Global.Var.SCALE;
+                    Y = Y - F_DOT_FOUR * Global.Var.SCALE;
                     break;
                 case 6:
-                    X = X + .4f * Global.Var.SCALE;
-                    Y = Y - .4f * Global.Var.SCALE;
+                    X = X + F_DOT_FOUR * Global.Var.SCALE;
+                    Y = Y - F_DOT_FOUR * Global.Var.SCALE;
                     break;
 
             }

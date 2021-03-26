@@ -8,12 +8,19 @@ namespace Sprintfinity3902.Link
 {
     class DamagedEntity : AbstractEntity, IEnemy
     {
+
+        private static int NINE = 9;
+        private static int SIX = 6;
+        private static int THREE =  3;
+        private static int MOD_BOUND = 12;
+
         IRoom room;
         AbstractEntity decoratedEntity;
         int entityID;
         Color Color;
         int counter;
         int timer = 30;
+        
 
         // pass room as well?
         public DamagedEntity(int entityID, AbstractEntity decoratedEntity, IRoom room)
@@ -31,16 +38,16 @@ namespace Sprintfinity3902.Link
             timer--;
             // No remove decorator here as we'll have that happen when the enemy is done with it's "hit."
             //Implement logic to determine color
-            counter = timer % 12;
-            if (counter < 3)
+            counter = timer % MOD_BOUND;
+            if (counter < THREE)
             {
                 Color = Color.Aqua;
             }
-            else if (counter < 6)
+            else if (counter < SIX)
             {
                 Color = Color.Red;
             }
-            else if (counter < 9)
+            else if (counter < NINE)
             {
                 Color = Color.White;
             }

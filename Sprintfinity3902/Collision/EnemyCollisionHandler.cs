@@ -6,6 +6,13 @@ namespace Sprintfinity3902.Collision
 {
     public class EnemyCollisionHandler : ICollision
     {
+
+        /*MAGIC NUMBERS REFACTOR*/
+        private static int THIRTY_TWO = 32;
+        private static int NINETY_SIX = 96;
+        private static int ONE_HUNDRED_NINETY_FOUR = 194;
+        private static int TWO_HUNDRED_TWENTY_FOUR = 224;
+
         ICollision.CollisionSide side;
         Rectangle intersectionRect;
 
@@ -121,10 +128,11 @@ namespace Sprintfinity3902.Collision
         /*This currently is not used. But want to move the "MoveLink" method from player class to here and use this. */
         public void UpdatePosition(IEntity link)
         {
-            int top = 96 * Global.Var.SCALE;
-            int bot = 194 * Global.Var.SCALE;
-            int left = 32 * Global.Var.SCALE;
-            int right = 224 * Global.Var.SCALE;
+            /*MAGIC NUMBERS REFACTOR*/
+            int top = NINETY_SIX * Global.Var.SCALE;
+            int bot = ONE_HUNDRED_NINETY_FOUR * Global.Var.SCALE;
+            int left = THIRTY_TWO * Global.Var.SCALE;
+            int right = TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE;
 
             if (link.X > right) link.X = right;
             if (link.X < left) link.X = left;

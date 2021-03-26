@@ -2,13 +2,15 @@
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sprintfinity3902.States
 {
     public class SpikeHorizontalMovingForwardState : IEnemyState
     {
+        private static int ONE_HUNDRED_TWENTY_NINE = 129;
+        private static float F_ONE_DOT_FIVE = 1.5f;
+        private static int ONE_HUNDRED_ELEVEN = 111;
+
         public ISprite Sprite { get; set; }
         public SpikeEnemy Spike { get; set; }
         public bool Start { get; set; }
@@ -27,26 +29,26 @@ namespace Sprintfinity3902.States
 
             if (Spike.Id == 1 || Spike.Id == 3)
             {
-                if (Spike.X > 111 * Global.Var.SCALE)
+                if (Spike.X > ONE_HUNDRED_ELEVEN * Global.Var.SCALE)
                 {
                     Spike.SetState(Spike.horizontalMovingBackward);
                     Spike.CurrentState.Start = true;
                 }
                 else
                 {
-                    Spike.X = Spike.X + 1.5f * Global.Var.SCALE;
+                    Spike.X = Spike.X + F_ONE_DOT_FIVE * Global.Var.SCALE;
                 }
             }
             else if (Spike.Id == 2 || Spike.Id == 4)
             {
-                if (Spike.X < 129 * Global.Var.SCALE)
+                if (Spike.X < ONE_HUNDRED_TWENTY_NINE * Global.Var.SCALE)
                 {
                     Spike.SetState(Spike.horizontalMovingBackward);
                     Spike.CurrentState.Start = true;
                 }
                 else
                 {
-                    Spike.X = Spike.X - 1.5f * Global.Var.SCALE;
+                    Spike.X = Spike.X - F_ONE_DOT_FIVE * Global.Var.SCALE;
                 }
             }
         }

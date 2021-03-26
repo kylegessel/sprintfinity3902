@@ -10,6 +10,12 @@ namespace Sprintfinity3902.Dungeon
 {
     public class Dungeon : IDungeon
     {
+        /*MAGIC NUMBERS REFACTOR*/
+        private static int FORTY_EIGHT = 48;
+        private static int NINETY_SEVEN = 97;
+        private static int ONE_HUNDRED_TWENTY = 120;
+        private static int ONE_HUNDRED_NINETY_THREE = 193;
+
         private Game1 Game;
         private List<IRoom> dungeonRooms;
         public IRoom CurrentRoom { get; set; }
@@ -181,13 +187,13 @@ namespace Sprintfinity3902.Dungeon
             
             if(NextId == 13)
             {
-                Game.link.X = 48 * Global.Var.SCALE;
-                Game.link.Y = 97 * Global.Var.SCALE;
+                Game.link.X = FORTY_EIGHT * Global.Var.SCALE;
+                Game.link.Y = NINETY_SEVEN * Global.Var.SCALE;
             }
             else
             {
-                Game.link.X = 120 * Global.Var.SCALE;
-                Game.link.Y = 193 * Global.Var.SCALE;
+                Game.link.X = ONE_HUNDRED_TWENTY * Global.Var.SCALE;
+                Game.link.Y = ONE_HUNDRED_NINETY_THREE * Global.Var.SCALE;
             }
         }
 

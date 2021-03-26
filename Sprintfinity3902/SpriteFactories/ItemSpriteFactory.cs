@@ -117,6 +117,11 @@ namespace Sprintfinity3902.SpriteFactories
             return new BoomerangItemSprite(linkItemSpriteSheet);
         }
 
+        public ISprite CreateBoomerangStaticItem()
+        {
+            return new BoomerangStaticItemSprite(linkItemSpriteSheet);
+        }
+
         public ISprite CreateFairyItem()
         {
             return new FairyItemSprite(itemSpriteSheet);

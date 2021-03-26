@@ -3,9 +3,9 @@ using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Entities
 {
-    public class StopwatchPickup : IPickup
+    public class ClockPickup : IPickup
     {
-        public StopwatchPickup()
+        public ClockPickup()
         { 
 
         }

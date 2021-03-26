@@ -12,7 +12,16 @@ namespace Sprintfinity3902.Entities
 
         public void Pickup(Player Link)
         {
-            //Link.Rupee++;
+            if (Link.itemcount.ContainsKey(IItem.ITEMS.RUPEE))
+            {
+                Link.itemcount[IItem.ITEMS.RUPEE]++;
+            }
+            else
+            {
+                Link.itemcount.Add(IItem.ITEMS.RUPEE, 1);
+            }
+
+            Link.itemPickedUp = true;
 
         }
 

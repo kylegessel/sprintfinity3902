@@ -14,7 +14,6 @@ namespace Sprintfinity3902.Sprites
 
         private const int LINK_LEFT2_X = 52;
         private const int LINK_LEFT2_Y = 12;
-        //private const int LINK_LEFT2_WIDTH = 14;
         private const int LINK_LEFT2_WIDTH = 15;
         private const int LINK_LEFT2_HEIGHT = 15;
 

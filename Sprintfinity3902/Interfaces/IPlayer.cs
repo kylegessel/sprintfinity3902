@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+
 
 namespace Sprintfinity3902.Interfaces
 {
@@ -19,6 +18,11 @@ namespace Sprintfinity3902.Interfaces
         public IPlayerState facingLeftItem { get; set; }
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
+        bool heartChanged { get; set; }
+        bool itemPickedUp { get; set; }
+        int MAX_HEALTH { get; set; }
+        int linkHealth { get; set; }
+        Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
         /*These methods are only used when link is not invinsible (damaged state)*/
         void MoveLink();

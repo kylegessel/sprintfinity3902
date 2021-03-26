@@ -1,14 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
-using Sprintfinity3902.Entities.Items;
 using System;
 
 namespace Sprintfinity3902.Entities
 {
     public class BoomerangItem : AbstractItem, IProjectile, IEnemy
     {
+
+        private static int TWO = 2;
+        private static int SIXTY = 60;
+        private static int STUN_LENGTH = 120;
+        private float F_THIRTEEN_DOT_TWO =  13.2f;
+        private int FOUR  =  4;
+        private int TEN  = 10;
+        private int THREE  = 3;
+        private int ONE_THOUSAND  = 1000;
+        private int THIRTEEN = 13;
+        private int SIX  = 6;
 
         Player PlayerCharacter;
         GoriyaEnemy Goriya;
@@ -25,10 +36,12 @@ namespace Sprintfinity3902.Entities
         float YDiff;
         float BoomerangOutChange;
         Direction FireDirection;
+        
+
         public BoomerangItem()
         {
             Sprite = ItemSpriteFactory.Instance.CreateBoomerangItem();
-            Position = new Vector2(-1000, -1000);
+            Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
             ItemUse = false;
             bounce = false;
             MoveUseCount = 1;
@@ -61,11 +74,11 @@ namespace Sprintfinity3902.Entities
             XDiff = Position.X - Entity.Position.X;
             YDiff = Position.Y - Entity.Position.Y;
 
-            if (MoveUseCount <= 60 && !bounce)
+            if (MoveUseCount <= SIXTY && !bounce)
             {
                 FireItem();
             }
-            else if ((Math.Abs(XDiff) <= 16 * Global.Var.SCALE) && (Math.Abs(YDiff) <= 16 * Global.Var.SCALE))
+            else if ((Math.Abs(XDiff) <= Global.Var.TILE_SIZE * Global.Var.SCALE) && (Math.Abs(YDiff) <= Global.Var.TILE_SIZE * Global.Var.SCALE))
             {
                 // When the boomerang returns, reset to initial position.
                 ResetItem();
@@ -81,7 +94,7 @@ namespace Sprintfinity3902.Entities
         public void FireItem()
         {
             // Calcuate how much we want the boomerang to change by, slowing down over time.
-            BoomerangOutChange = (13 - (MoveUseCount / 6));
+            BoomerangOutChange = (THIRTEEN - (MoveUseCount / SIX));
             if (FireDirection == Direction.DOWN)
             {
                 Position = new Vector2(Position.X, Position.Y + BoomerangOutChange);
@@ -105,7 +118,7 @@ namespace Sprintfinity3902.Entities
             MoveUseCount = 0;
             MaxMoveUseCount = 120;
             bounce = false;
-            Position = new Vector2(-1000, -1000);
+            Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
             if (PlayerUse)
             {
                 PlayerCharacter.UseItem();
@@ -128,22 +141,22 @@ namespace Sprintfinity3902.Entities
 
             if (FiringStatePlayer == PlayerCharacter.facingDownItem)
             {
-                Position = new Vector2(PlayerCharacter.X + 4*Global.Var.SCALE, PlayerCharacter.Y + 16 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X + FOUR * Global.Var.SCALE, PlayerCharacter.Y + Global.Var.TILE_SIZE * Global.Var.SCALE);
                 FireDirection = Direction.DOWN;
             }
             else if (FiringStatePlayer == PlayerCharacter.facingUpItem)
             {
-                Position = new Vector2(PlayerCharacter.X + 3 * Global.Var.SCALE, PlayerCharacter.Y - 10 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X + THREE * Global.Var.SCALE, PlayerCharacter.Y - TEN * Global.Var.SCALE);
                 FireDirection = Direction.UP;
             }
             else if (FiringStatePlayer == PlayerCharacter.facingLeftItem)
             {
-                Position = new Vector2(PlayerCharacter.X - 10 * Global.Var.SCALE, PlayerCharacter.Y + 4 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X - TEN * Global.Var.SCALE, PlayerCharacter.Y + FOUR * Global.Var.SCALE);
                 FireDirection = Direction.LEFT;
             }
             else if (FiringStatePlayer == PlayerCharacter.facingRightItem)
             {
-                Position = new Vector2(PlayerCharacter.X + 13.2f * Global.Var.SCALE, PlayerCharacter.Y + 4 * Global.Var.SCALE);
+                Position = new Vector2(PlayerCharacter.X + F_THIRTEEN_DOT_TWO * Global.Var.SCALE, PlayerCharacter.Y + FOUR * Global.Var.SCALE);
                 FireDirection = Direction.RIGHT;
             }
             ItemUse = true;
@@ -159,23 +172,23 @@ namespace Sprintfinity3902.Entities
 
             if (FiringStateGoriya == Goriya.itemDown)
             {
-                Position = new Vector2(Goriya.X + 4 * Global.Var.SCALE, Goriya.Y + 16 * Global.Var.SCALE);
+                Position = new Vector2(Goriya.X + FOUR * Global.Var.SCALE, Goriya.Y + Global.Var.TILE_SIZE * Global.Var.SCALE);
                 FireDirection = Direction.DOWN;
             }
             else if (FiringStateGoriya == Goriya.itemUp)
             {
-                Position = new Vector2(Goriya.X + 3 * Global.Var.SCALE, Goriya.Y - 10 * Global.Var.SCALE); ;
+                Position = new Vector2(Goriya.X + THREE * Global.Var.SCALE, Goriya.Y - TEN * Global.Var.SCALE); ;
                 FireDirection = Direction.UP;
             }
             else if (FiringStateGoriya == Goriya.itemLeft)
 
             {
-                Position = new Vector2(Goriya.X - 10 * Global.Var.SCALE, Goriya.Y + 4 * Global.Var.SCALE);
+                Position = new Vector2(Goriya.X - TEN * Global.Var.SCALE, Goriya.Y + FOUR * Global.Var.SCALE);
                 FireDirection = Direction.LEFT;
             }
             else if (FiringStateGoriya == Goriya.itemRight)
             {
-                Position = new Vector2(Goriya.X + 13.2f * Global.Var.SCALE, Goriya.Y + 4 * Global.Var.SCALE);
+                Position = new Vector2(Goriya.X + F_THIRTEEN_DOT_TWO * Global.Var.SCALE, Goriya.Y + FOUR * Global.Var.SCALE);
                 FireDirection = Direction.RIGHT;
             }
             ItemUse = true;
@@ -185,22 +198,22 @@ namespace Sprintfinity3902.Entities
 
         public Boolean Collide(int enemyID, IEnemy enemy, IRoom room)
         {
-            if (MoveUseCount < 60)
+            if (MoveUseCount < SIXTY)
             {
                 bounce = true;
-                MaxMoveUseCount = MoveUseCount * 2;
+                MaxMoveUseCount = MoveUseCount * TWO;
             }
 
             // This will always be 0, but for consistency sake.
-            return enemy.HitRegister(enemyID, 0, 120, AbstractEntity.Direction.NONE, room) <= 0;
+            return enemy.HitRegister(enemyID, 0, STUN_LENGTH, AbstractEntity.Direction.NONE, room) <= 0;
         }
 
         public void Collide(IRoom room)
         {
-            if (MoveUseCount < 60)
+            if (MoveUseCount < SIXTY)
             {
                 bounce = true;
-                MaxMoveUseCount = MoveUseCount * 2;
+                MaxMoveUseCount = MoveUseCount * TWO;
             }
         }
 

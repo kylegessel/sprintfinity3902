@@ -1,12 +1,16 @@
-﻿using Sprintfinity3902.SpriteFactories;
-using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.SpriteFactories;
+using System;
 
 namespace Sprintfinity3902.Entities
 {
     class MovingLeftBlock : AbstractBlock
     {
+
+        private static int THIRTY_TWO = 32;
+        private static float F_DOT_FIVE = .5f;
+
         private ICollision.CollisionSide _pushSide = ICollision.CollisionSide.RIGHT;
         private ICollision.CollisionSide side;
         private Boolean alreadyMoved = false;
@@ -47,7 +51,7 @@ namespace Sprintfinity3902.Entities
             /*Blocks only move once*/
             if (!alreadyMoved)
             {
-                this.X -= (float)0.5 * Global.Var.SCALE;
+                this.X -= F_DOT_FIVE * Global.Var.SCALE;
             }
         }
 
@@ -59,7 +63,7 @@ namespace Sprintfinity3902.Entities
                 MoveBlock();
                 moveCount++;
             }
-            if (moveCount > 32)
+            if (moveCount > THIRTY_TWO)
             {
                 StopMoving();
                 alreadyMoved = true;

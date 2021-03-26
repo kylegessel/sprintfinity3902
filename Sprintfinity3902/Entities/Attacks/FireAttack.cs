@@ -8,8 +8,14 @@ namespace Sprintfinity3902.Entities
     public class FireAttack : AbstractEntity, IEnemy
     {
 
+        private static float F_DOT_SEVEN = .7f;
+        private static float F_ONE_DOT_FIVE = 1.5f;
+        private static int TWO = 2;
+        private static int ONE = 1;
+
         public bool isMoving { get; set; }
         private int direction;
+        
 
         public FireAttack(int moveDirection)
         {
@@ -51,13 +57,13 @@ namespace Sprintfinity3902.Entities
         {
             //Implement 2 count integers that handle spread
 
-            this.X = X - 1.5f * Global.Var.SCALE;
+            this.X = X - F_ONE_DOT_FIVE * Global.Var.SCALE;
 
-            if(this.direction == 1) //UP
-                this.Y = Y - .7f * Global.Var.SCALE;
+            if(this.direction == ONE) //UP
+                this.Y = Y - F_DOT_SEVEN * Global.Var.SCALE;
 
-            if(this.direction == 2) //DOWN
-                this.Y = Y + .7f * Global.Var.SCALE;
+            if(this.direction == TWO) //DOWN
+                this.Y = Y + F_DOT_SEVEN * Global.Var.SCALE;
         }
 
         public void StartOver(Vector2 position)

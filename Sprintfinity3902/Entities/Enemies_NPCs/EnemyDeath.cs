@@ -6,6 +6,8 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
     public class EnemyDeath : AbstractEntity
     {
 
+        private static int ONE_THOUSAND = 1000;
+
         public EnemyDeath(Vector2 position)
         {
             Position = position;
@@ -18,7 +20,7 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             Sprite.Update(gameTime);
             if (!Sprite.Animation.IsPlaying)
             {
-                Position = new Vector2(-1000, -1000);
+                Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
             }
         }
     }

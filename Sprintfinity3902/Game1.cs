@@ -5,12 +5,13 @@ using Sprintfinity3902.Collision;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Navigation;
 using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
-using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Sound;
 using Microsoft.Xna.Framework.Audio;
 
@@ -35,6 +36,7 @@ namespace Sprintfinity3902
         
         public IEntity hitboxSword;
         public List<IEntity> linkProj;
+        public List<IHud> huds;
         private IEntity bombExplosion;
 
         //private IDetector detector;
@@ -58,6 +60,8 @@ namespace Sprintfinity3902
             
             KeyboardManager.Instance.Reset();
 
+            
+
             if (dungeon != null) {
                 dungeon.CleanUp();
             }
@@ -69,6 +73,13 @@ namespace Sprintfinity3902
             playerCharacter = (IPlayer)link;
 
             pauseMenu = new PauseMenu(this);
+
+            huds = new List<IHud>();
+
+            huds.Add(new DungeonHud(this));
+            huds.Add(new InGameHud(this));
+            huds.Add(new InventoryHud(this));
+            huds.Add(new MiniMapHud(this));
 
             boomerangItem = new BoomerangItem();
             bombExplosion = new BombExplosionItem(new Vector2(-1000,-1000));
@@ -90,7 +101,7 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
 
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseBombCommand( link, (BombItem)bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
             KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand(link, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
 
@@ -112,6 +123,7 @@ namespace Sprintfinity3902
             ItemSpriteFactory.Instance.LoadAllTextures(Content);
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
+            HudSpriteFactory.Instance.LoadAllTextures(Content);
 
             Sound.SoundLoader.Instance.LoadContent(Content);
 
@@ -124,6 +136,7 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.Update(gameTime);
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
+
             if (pauseMenu.Pause || pauseMenu.Transition)
             {
                 pauseMenu.Update(gameTime);
@@ -137,6 +150,11 @@ namespace Sprintfinity3902
                 bombItem.Update(gameTime);
                 movingSword.Update(gameTime);
                 hitboxSword.Update(gameTime);
+            }
+
+            foreach (IHud hud in huds)
+            {
+                hud.Update(gameTime);
             }
 
             IRoom currentRoom = dungeon.GetCurrentRoom();
@@ -154,6 +172,14 @@ namespace Sprintfinity3902
 
             dungeon.Draw(SpriteBatch);
             pauseMenu.Draw(SpriteBatch);
+
+            foreach (IHud hud in huds)
+            {
+                foreach (IEntity icon in hud.Icons)
+                {
+                    icon.Draw(SpriteBatch, Color.White);
+                }
+            }
 
             link.Draw(SpriteBatch, Color.White);
 

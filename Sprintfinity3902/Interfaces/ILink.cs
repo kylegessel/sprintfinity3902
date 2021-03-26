@@ -9,7 +9,7 @@ namespace Sprintfinity3902.Interfaces
         Vector2 Position { get; set; }
         float X { get; set; }
         float Y { get; set; }
-
+        
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Color color);
         void Move();

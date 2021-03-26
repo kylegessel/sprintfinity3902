@@ -6,6 +6,12 @@ namespace Sprintfinity3902.Link
 {
     public class DamagedLink : ILink
     {
+
+        private static int MOD_BOUND = 12;
+        private static int THREE = 3;
+        private static int SIX = 6;
+        private static int NINE = 9;
+
         Game1 game;
         ILink decoratedLink;
         Color linkColor;
@@ -13,6 +19,7 @@ namespace Sprintfinity3902.Link
         int timer = 200;
         private ISprite _sprite;
         private Vector2 _position;
+        
 
 
         public ISprite Sprite
@@ -78,16 +85,16 @@ namespace Sprintfinity3902.Link
                 RemoveDecorator();
             }
             //Implement logic to determine color
-            counter = timer % 12;
-            if (counter < 3)
+            counter = timer % MOD_BOUND;
+            if (counter < THREE)
             {
                 linkColor = Color.Aqua;
             }
-            else if (counter < 6)
+            else if (counter < SIX)
             {
                 linkColor = Color.Red;
             }
-            else if (counter < 9)
+            else if (counter < NINE)
             {
                 linkColor = Color.White;
             }

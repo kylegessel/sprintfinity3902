@@ -7,6 +7,11 @@ namespace Sprintfinity3902.Entities
 {
     public class GelEnemy : AbstractEntity, IEnemy {
 
+        private static int SEVENTY_TWO = 72;
+        private static int EIGHT = 8;
+        private static int ONE = 1;
+        private static int FIVE = 5;
+
         private Random rand;
         private int moveTime;
         private double count;
@@ -14,6 +19,7 @@ namespace Sprintfinity3902.Entities
         private int health;
         private float speed;
         private Boolean wait;
+        
 
         public GelEnemy()
         {
@@ -44,24 +50,24 @@ namespace Sprintfinity3902.Entities
         }
 
         public override void Move() {
-            if(count == 0)
+            if(count == Global.Var.ZERO)
             {
-                moveTime = 8;
+                moveTime = EIGHT;
             }else if(count == moveTime)
             {
-                direction = intToDirection(rand.Next(1, 5));
-                count = 0;
+                direction = intToDirection(rand.Next(ONE, FIVE));
+                count = Global.Var.ZERO;
                 wait = !wait;
             }
 
             if (!wait)
             {
-                moveTime = 8;
+                moveTime = EIGHT;
             }
 
             if (wait)
             {
-                moveTime = 72;
+                moveTime = SEVENTY_TWO;
                 direction = Direction.NONE;
             }
 
@@ -88,7 +94,7 @@ namespace Sprintfinity3902.Entities
         public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
             health = health - damage;
-            if (stunLength > 0)
+            if (stunLength > Global.Var.ZERO)
             {
                 wait = true;
                 direction = Direction.NONE;

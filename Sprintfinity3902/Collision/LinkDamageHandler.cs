@@ -1,5 +1,5 @@
-﻿using Sprintfinity3902.Interfaces;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 
 

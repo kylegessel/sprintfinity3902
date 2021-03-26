@@ -14,7 +14,7 @@ namespace Sprintfinity3902
         private int count;
         private Game1 Game;
         public ILink Link;
-        public Map Map { get; set; }
+        //public List<IHud> Huds { get; set; }
         public bool Pause { get; set; }
         public bool Transition { get; set; }
 
@@ -25,7 +25,12 @@ namespace Sprintfinity3902
             Game = game;
             Link = Game.link;
             count = 0;
-            Map = new Map(new Vector2(15*Global.Var.SCALE, -161 * Global.Var.SCALE));
+            //Huds = new List<IHud>();
+            //Huds.Add(new DungeonHud(Game));
+            //Huds.Add(new InGameHud(Game));
+            //Huds.Add(new InventoryHud(Game));
+            //Huds.Add(new MiniMapHud(Game));
+
         }
 
         public void Update(GameTime gameTime)
@@ -36,7 +41,6 @@ namespace Sprintfinity3902
                 {
                     ChangePosition();
                     Game.link.Y = Game.link.Y + 2 * Global.Var.SCALE;
-                    Map.Y = Map.Y + 2 * Global.Var.SCALE;
 
                     if (count == 176 * Global.Var.SCALE)
                     {
@@ -47,7 +51,6 @@ namespace Sprintfinity3902
                 {
                     ChangePosition();
                     Game.link.Y = Game.link.Y - 2 * Global.Var.SCALE;
-                    Map.Y = Map.Y - 2 * Global.Var.SCALE;
 
                     if (count == 176 * Global.Var.SCALE)
                     {
@@ -61,7 +64,15 @@ namespace Sprintfinity3902
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Map.Draw(spriteBatch, Color.White);
+            /*
+            foreach(IHud hud in Huds)
+            {
+                foreach(IEntity icon in hud.Icons)
+                {
+                    icon.Draw(spriteBatch, Color.White);
+                }
+            }
+            */
         }
 
         public void PauseGame()
@@ -86,14 +97,14 @@ namespace Sprintfinity3902
         
         public void ReregisterCommands()
         {
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand((Player)Link), Keys.W, Keys.Up);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand((Player)Link), Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand((Player)Link), Keys.S, Keys.Down);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand((Player)Link), Keys.D, Keys.Right);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand((IPlayer)Link), Keys.W, Keys.Up);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand((IPlayer)Link), Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand((IPlayer)Link), Keys.S, Keys.Down);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand((IPlayer)Link), Keys.D, Keys.Right);
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Link, (BombItem)Game.bombItem), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Link, (BoomerangItem)Game.boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Link, (MovingSwordItem)Game.movingSword, (SwordHitboxItem)Game.hitboxSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((IPlayer)Link, (BombItem)Game.bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((IPlayer)Link, (BoomerangItem)Game.boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((IPlayer)Link, (MovingSwordItem)Game.movingSword, (SwordHitboxItem)Game.hitboxSword), Keys.Z, Keys.N);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.dungeon.NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.dungeon.PreviousRoom, Keys.K);
@@ -139,6 +150,17 @@ namespace Sprintfinity3902
                     garbage.Y = garbage.Y + 2 * Global.Var.SCALE;
                 else if (count != 176 * Global.Var.SCALE && Pause == false)
                     garbage.Y = garbage.Y - 2 * Global.Var.SCALE;
+            }
+
+            foreach (IHud hud in Game.huds)
+            {
+                foreach (IEntity icon in hud.Icons)
+                {
+                    if (count != 176 * Global.Var.SCALE && Pause)
+                        icon.Y = icon.Y + 2 * Global.Var.SCALE;
+                    else if (count != 176 * Global.Var.SCALE && Pause == false)
+                        icon.Y = icon.Y - 2 * Global.Var.SCALE;
+                }
             }
 
             // Case for the bomb as it doesn't work similarly to other projectiles.

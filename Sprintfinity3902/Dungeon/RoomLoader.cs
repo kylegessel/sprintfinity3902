@@ -131,11 +131,6 @@ namespace Sprintfinity3902.Dungeon
                     Room.blocks.Add(new HorizontalWall(new Vector2(ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE, SIXTY_FOUR * Global.Var.SCALE)));
                     Room.blocks.Add(new HorizontalWall(new Vector2(ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE, TWO_HUNDRED_EIGHT * Global.Var.SCALE)));
 
-
-
-
-
-
                     break;
                 case "RMIN":
                     Room.blocks.Add(new RoomInterior(new Vector2(THIRTY_TWO * Global.Var.SCALE, NINETY_SIX * Global.Var.SCALE)));
@@ -218,7 +213,7 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "FIRE":
-                    Room.enemies.Add(enemyID, new Fire(Position));
+                    Room.enemies.Add(enemyID, new FireEnemy(Position));
                     enemyID++;
                     break;
                 case "GELY":
@@ -242,6 +237,12 @@ namespace Sprintfinity3902.Dungeon
                     OldManNPC man = new OldManNPC(Position);
                     man.X = man.Position.X + EIGHT * Global.Var.SCALE;
                     Room.enemies.Add(enemyID, man);
+                    enemyID++;
+                    break;
+                case "MNFR":
+                    OldMan_FireEnemy manAndFire = new OldMan_FireEnemy(Position);
+                    manAndFire.X = manAndFire.Position.X + EIGHT * Global.Var.SCALE;
+                    Room.enemies.Add(enemyID, manAndFire);
                     enemyID++;
                     break;
                 case "SPKE":

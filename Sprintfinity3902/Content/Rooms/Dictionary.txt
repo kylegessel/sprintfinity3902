@@ -27,6 +27,7 @@ GORY: Goriya
 HAND: Hand
 OLDM: Old Man NPC
 SPKE: Spike 
+MNFR: Old Man and Fire Enemies
 
 Items:
 KEYI: Key

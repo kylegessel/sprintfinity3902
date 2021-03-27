@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Link;
+using Sprintfinity3902.Sound;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -48,6 +49,9 @@ namespace Sprintfinity3902.Controllers
             Dictionary<Keys, List<Action>> keyup = null) {
 
             controllerMappings = control == null ? new Dictionary<Keys, Interfaces.ICommand>() : control;
+            foreach (Keys key in Enum.GetValues(typeof(Keys))) {
+                RegisterCommand(new DoNothingCommand(), key);
+            }
             keyUpHandlers = keyup == null ? new Dictionary<Keys, List<Action>>() : keyup;
             if (!resetStack) return;
             keyBoardInstanceStack = new Stack<Tuple<Dictionary<Keys, Interfaces.ICommand>, Dictionary<Keys, List<Action>>>>();
@@ -74,6 +78,7 @@ namespace Sprintfinity3902.Controllers
 
                 foreach (Action listener in keyUpHandlers[key]) {
                     // Call listener
+
                     listener();
                 }
             }
@@ -121,8 +126,10 @@ namespace Sprintfinity3902.Controllers
             foreach (Keys key in keys) {
                 if (!keyUpHandlers.ContainsKey(key)) {
                     keyUpHandlers[key] = new List<Action>();
+                    Debug.WriteLine("Created new list of handlers");
                 }
                 keyUpHandlers[key].Add(callback);
+                Debug.WriteLine("Added callback to list" + keys[0]);
             }
         }
 

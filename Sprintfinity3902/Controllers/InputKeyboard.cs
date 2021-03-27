@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Controllers
 {
@@ -19,10 +20,14 @@ namespace Sprintfinity3902.Controllers
             get {
                 if (instance == null) {
                     instance = new InputKeyboard();
-                    orderedKeyPress = new List<Keys>();
+                    
                 }
                 return instance;
             }
+        }
+
+        private InputKeyboard() {
+            orderedKeyPress = new List<Keys>();
         }
 
         public List<Keys> GetOrderedKeyPress() {

@@ -84,18 +84,20 @@ namespace Sprintfinity3902.Link
             color = Color.White;
             _collidable = true;
             SetStepSize(1);
-            linkHealth = 1;
+            linkHealth = MAX_HEALTH;
             heartChanged = true;
             itemPickedUp = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
+        }
 
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(this), Keys.W, Keys.Up);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(this), Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(this), Keys.S, Keys.Down);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(this), Keys.D, Keys.Right);
+        public void Initialize() {
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(game.link), Keys.W, Keys.Up);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(game.link), Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(game.link), Keys.S, Keys.Down);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(game.link), Keys.D, Keys.Right);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(() => {
                 CurrentState.Sprite.Animation.Stop();

@@ -56,9 +56,25 @@ namespace Sprintfinity3902
             Graphics.PreferredBackBufferWidth = windowBounds.Width * Global.Var.SCALE;
             Graphics.PreferredBackBufferHeight = windowBounds.Height * Global.Var.SCALE;
             Graphics.ApplyChanges();
+            
         }
 
-        
+        protected override void LoadContent()
+        {
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+            BlockSpriteFactory.Instance.LoadAllTextures(Content);
+            HudSpriteFactory.Instance.LoadAllTextures(Content);
+            FontSpriteFactory.Instance.LoadAllTextures(Content);
+
+            SoundLoader.Instance.LoadContent(Content);
+
+            Reset();
+        }
+
         public void Reset()
         {
             KeyboardManager.Instance.Reset();
@@ -67,6 +83,8 @@ namespace Sprintfinity3902
 
             playerCharacter = new Player(this);
             link = (Player)playerCharacter;
+            link.Initialize();
+            
 
             dungeon = new Dungeon.Dungeon(this);
             dungeon.Initialize();
@@ -86,22 +104,6 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
 
             UpdateState(GameState.PLAYING);
-        }
-
-        protected override void LoadContent()
-        {
-            SpriteBatch = new SpriteBatch(GraphicsDevice);
-
-            EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            ItemSpriteFactory.Instance.LoadAllTextures(Content);
-            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
-            BlockSpriteFactory.Instance.LoadAllTextures(Content);
-            HudSpriteFactory.Instance.LoadAllTextures(Content);
-            FontSpriteFactory.Instance.LoadAllTextures(Content);
-
-            SoundLoader.Instance.LoadContent(Content);
-
-            Reset();
         }
 
         protected override void Update(GameTime gameTime)
@@ -153,13 +155,14 @@ namespace Sprintfinity3902
                 case GameState.LOSE:
                 case GameState.WIN:
                 case GameState.PLAYING:
-                    dungeon.Draw(SpriteBatch);
-
+                    
                     foreach (IHud hud in huds) {
                         foreach (IEntity icon in hud.Icons) {
                             icon.Draw(SpriteBatch, Color.White);
                         }
                     }
+
+                    dungeon.Draw(SpriteBatch);
 
                     playerCharacter.Draw(SpriteBatch, Color.White);
 

@@ -20,6 +20,7 @@ namespace Sprintfinity3902.Interfaces
         void NextRoom();
         void PreviousRoom();
         IRoom GetCurrentRoom();
+        IRoom GetById(int id);
         void SetCurrentRoom(int id);
         void ChangeRoom(IDoor door);
         void UpdateState(GameState state);

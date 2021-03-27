@@ -19,6 +19,7 @@ namespace Sprintfinity3902.Dungeon
 
         public List<IEntity> enemyProj { get; set; }
         public List<IEntity> garbage { get; set; }
+        public List<IDoor> doors { get; set; }
         //projectiles may have to be added here later.
 
         public string path { get; set; }
@@ -35,6 +36,7 @@ namespace Sprintfinity3902.Dungeon
             items = new List<IEntity>();
             garbage = new List<IEntity>();
             enemyProj = new List<IEntity>();
+            doors = new List<IDoor>();
             path = fileLocation;
             Id = id;
             Pause = false;
@@ -65,6 +67,8 @@ namespace Sprintfinity3902.Dungeon
 
             foreach (IEntity entity in enemyProj)
                 entity.Update(gameTime);
+            foreach (IDoor door in doors)
+                door.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -77,12 +81,14 @@ namespace Sprintfinity3902.Dungeon
 
             foreach (IEntity entity in items)
                 entity.Draw(spriteBatch, Color.White);
-
+            foreach (IDoor door in doors)
+                door.Draw(spriteBatch, Color.White);
             foreach (IEntity entity in garbage)
                 entity.Draw(spriteBatch, Color.White);
 
             foreach(IEntity entity in enemyProj)
                 entity.Draw(spriteBatch, Color.White);
+
         }
 
         /*MAGIC NUMBERS REFACTOR*/
@@ -149,7 +155,19 @@ namespace Sprintfinity3902.Dungeon
                 }
             }
 
-            count = count + TWO * Global.Var.SCALE;
+            foreach (IEntity entity in doors)
+            {
+                if (count != 176 * Global.Var.SCALE && pause)
+                {
+                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                }
+                else if (count != 176 * Global.Var.SCALE && pause == false)
+                {
+                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                }
+            }
+
+            count = count + TWO *Global.Var.SCALE;
         }
 
         public void SetPauseCount()

@@ -33,10 +33,10 @@ namespace Sprintfinity3902.Dungeon
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
-        public Door DoorTop { get; set; }
-        public Door DoorBottom { get; set; }
-        public Door DoorLeft { get; set; }
-        public Door DoorRight { get; set; }
+        public IDoor DoorTop { get; set; }
+        public IDoor DoorBottom { get; set; }
+        public IDoor DoorLeft { get; set; }
+        public IDoor DoorRight { get; set; }
         int enemyID;
         int spikeNum;
         
@@ -96,10 +96,10 @@ namespace Sprintfinity3902.Dungeon
                 DoorBottom = new Door(new Vector2(ONE_HUNDRED_TWELVE * Global.Var.SCALE, TWO_HUNDRED_EIGHT * Global.Var.SCALE));
                 DoorLeft = new Door(new Vector2(0, ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE));
                 DoorRight = new Door(new Vector2(TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE, ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE));
-                Room.blocks.Add(DoorTop);
-                Room.blocks.Add(DoorBottom);
-                Room.blocks.Add(DoorLeft);
-                Room.blocks.Add(DoorRight);
+                Room.doors.Add(DoorTop);
+                Room.doors.Add(DoorBottom);
+                Room.doors.Add(DoorLeft);
+                Room.doors.Add(DoorRight);
                 for (int i = 0; i < 4; i++)
                 {
                     line = mapStream.ReadLine();

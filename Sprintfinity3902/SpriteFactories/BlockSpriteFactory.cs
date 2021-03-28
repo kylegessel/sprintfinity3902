@@ -10,12 +10,14 @@ namespace Sprintfinity3902.SpriteFactories
         private Texture2D blockSpriteSheet;
         private Texture2D mapSprite;
         private Texture2D eagleDungeonSprite;
+        private Texture2D titleScreenSpriteSheet;
 
         private static BlockSpriteFactory instance;
 
         private static string BLOCK_FILE_NAME = "Zelda_Dungeon_Tileset_Transparent";
         private static string MAP_FILE_NAME = "Zelda_DungeonMap";
         private static string EAGLE_FILE_NAME = "Zelda_Eagle-Map";
+        private static string TITLE_SCREEN_SPRITE = "Zelda_FullTitleScreen_Transparent";
 
         public static BlockSpriteFactory Instance
         {
@@ -35,6 +37,7 @@ namespace Sprintfinity3902.SpriteFactories
             blockSpriteSheet = content.Load<Texture2D>(BLOCK_FILE_NAME);
             mapSprite = content.Load<Texture2D>(MAP_FILE_NAME);
             eagleDungeonSprite = content.Load<Texture2D>(EAGLE_FILE_NAME);
+            titleScreenSpriteSheet = content.Load<Texture2D>(TITLE_SCREEN_SPRITE);
         }
 
         public ISprite CreateMapSprite()
@@ -187,6 +190,12 @@ namespace Sprintfinity3902.SpriteFactories
         public ISprite CreateRoom13()
         {
             return new Room13Sprite(blockSpriteSheet);
+        }
+
+        /*TitleScreen*/
+        public ISprite CreateTitleScreen()
+        {
+            return new TitleScreenSprite(titleScreenSpriteSheet);
         }
     }
 }

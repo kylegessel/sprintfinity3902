@@ -44,6 +44,12 @@
 /processorParam:Quality=Best
 /build:Sounds/Game_Over.wav
 
+#begin Sounds/Intro.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Intro.wav
+
 #begin Sounds/LOZ_Arrow_Boomerang.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -314,6 +320,18 @@
 /processorParam:TextureFormat=Color
 /build:Zelda_Eagle-Map.png
 
+#begin Zelda_FullTitleScreen_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_FullTitleScreen_Transparent.png
+
 #begin Zelda_HudElements_Transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -362,7 +380,7 @@
 /processorParam:TextureFormat=Color
 /build:Zelda_NPCs_Transparent.png
 
-#begin Zelda_Title Screen_Transparent.png
+#begin Zelda_TitleScreen_Edited_Transparent_.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -372,5 +390,17 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Zelda_Title Screen_Transparent.png
+/build:Zelda_TitleScreen_Edited_Transparent_.png
+
+#begin Zelda_TitleScreen_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_TitleScreen_Transparent.png
 

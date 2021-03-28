@@ -14,6 +14,7 @@ using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
 using Sprintfinity3902.Sound;
 using Microsoft.Xna.Framework.Audio;
+using Sprintfinity3902.Sprites;
 
 namespace Sprintfinity3902
 {
@@ -40,6 +41,9 @@ namespace Sprintfinity3902
         public List<IHud> huds;
         private IEntity bombExplosion;
 
+        private ISprite titleScreen;
+        private string introInstanceID;
+
         //private IDetector detector;
 
         public Game1()
@@ -61,8 +65,9 @@ namespace Sprintfinity3902
             
             KeyboardManager.Instance.Reset();
 
-            
-
+            titleScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
+            introInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
+            /*
             if (dungeon != null) {
                 dungeon.CleanUp();
             }
@@ -96,10 +101,10 @@ namespace Sprintfinity3902
             linkProj.Add(movingSword);
             linkProj.Add(hitboxSword);
             linkProj.Add(bowArrow);
-
+            */
             KeyboardManager.Instance.Initialize(link);
             InputMouse.Instance.GiveGame(this);
-
+            /*
             KeyboardManager.Instance.RegisterKeyUpCallback(() => { link.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
 
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
@@ -115,6 +120,7 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
 
             CollisionDetector.Instance.setup(this);
+            */
         }
 
         protected override void LoadContent()
@@ -140,6 +146,9 @@ namespace Sprintfinity3902
             InputMouse.Instance.Update(gameTime);
             Camera.Instance.Update(gameTime);
 
+            titleScreen.Update(gameTime);
+            SoundManager.Instance.GetSoundEffectInstance(introInstanceID).Play();
+            /*
             if (pauseMenu.Pause || pauseMenu.Transition)
             {
                 pauseMenu.Update(gameTime);
@@ -164,7 +173,7 @@ namespace Sprintfinity3902
             IRoom currentRoom = dungeon.GetCurrentRoom();
 
             CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj,currentRoom.enemyProj,currentRoom.doors, currentRoom.garbage);
-
+            */
 
             base.Update(gameTime);
         }
@@ -173,7 +182,7 @@ namespace Sprintfinity3902
         {
             GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-
+            /*
             dungeon.Draw(SpriteBatch);
             pauseMenu.Draw(SpriteBatch);
 
@@ -191,6 +200,8 @@ namespace Sprintfinity3902
             bombItem.Draw(SpriteBatch, Color.White);
             movingSword.Draw(SpriteBatch, Color.White);
             bowArrow.Draw(SpriteBatch, Color.White);
+            */
+            titleScreen.Draw(SpriteBatch, new Vector2(0, 16 * Global.Var.SCALE), Color.White);
 
             SpriteBatch.End();
 

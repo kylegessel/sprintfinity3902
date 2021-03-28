@@ -89,7 +89,8 @@ namespace Sprintfinity3902
 
             // Case for the bomb as it doesn't work similarly to other projectiles.
 
-            //game.bombItem.Y = game.bombItem.Y + shiftAmount;
+            ((Dungeon.Dungeon)game.dungeon).bombItem.Y = ((Dungeon.Dungeon)game.dungeon).bombItem.Y + shiftAmount;
+            ((Dungeon.Dungeon)game.dungeon).bombExplosion.Y = ((Dungeon.Dungeon)game.dungeon).bombExplosion.Y + shiftAmount;
         }
 
     }

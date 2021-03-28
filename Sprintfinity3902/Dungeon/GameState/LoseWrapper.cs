@@ -113,7 +113,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                     break;
                 case animation_state.EXPLODE:
                     game.playerCharacter.DeathSpin(true);
-                    explode = new SingleExplosionCloud(game.playerCharacter.Position);
+                    explode = new CloudItem(game.playerCharacter.Position);
                     //explode = new SmokeItemSprite(game.playerCharacter.Position);
                     break;
             }

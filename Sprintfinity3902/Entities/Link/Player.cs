@@ -93,6 +93,8 @@ namespace Sprintfinity3902.Link
             itemcount = new Dictionary<IItem.ITEMS, int>();
         }
 
+        /*TODO: Move to Game1 class - and keep comment below*/
+        /*Don't move from Game1 class*/
         public void Initialize() {
             KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(game.link), Keys.W, Keys.Up);
             KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(game.link), Keys.A, Keys.Left);

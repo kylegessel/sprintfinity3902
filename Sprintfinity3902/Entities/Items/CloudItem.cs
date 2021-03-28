@@ -5,13 +5,13 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities.Items
 {
-    public class SingleExplosionCloud : AbstractEntity
+    public class CloudItem : AbstractEntity
     {
         private static int FORTY_EIGHT = 48;
         private static int THIRTY_TWO = 32;
         private static int FIVE = 5;
 
-        public SingleExplosionCloud(Vector2 position)
+        public CloudItem(Vector2 position)
         {
             Position = position;
             Sprite = ItemSpriteFactory.Instance.CreateSmokeItem();

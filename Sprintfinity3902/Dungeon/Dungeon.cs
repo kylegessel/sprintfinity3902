@@ -29,10 +29,10 @@ namespace Sprintfinity3902.Dungeon
         private Game1 Game;
         private List<IRoom> dungeonRooms;
         private IEntity boomerangItem;
-        private IEntity bombItem;
+        public IEntity bombItem;
         private IEntity movingSword;
         private IEntity bowArrow;
-        private IEntity bombExplosion;
+        public IEntity bombExplosion;
         public IEntity hitboxSword;
         public IRoom CurrentRoom { get; set; }
 
@@ -120,12 +120,14 @@ namespace Sprintfinity3902.Dungeon
         {
             int currentId = (CurrentRoom.Id + 1) % 19 == 0 ? 1 : CurrentRoom.Id + 1;
             SetCurrentRoom(currentId);
+            SetLinkPosition();
         }
 
         public void PreviousRoom()
         {
             int currentId = (CurrentRoom.Id - 1) < 1 ? 18 : CurrentRoom.Id - 1;
             SetCurrentRoom(currentId);
+            SetLinkPosition();
         }
 
         public IRoom GetCurrentRoom()
@@ -137,31 +139,15 @@ namespace Sprintfinity3902.Dungeon
         {
             CurrentRoom.garbage.Clear();
             CurrentRoom = GetById(id);
-            SetLinkPosition();
+            /*Asked to comment following line to fix bug @Brad thank you*/
+            //SetLinkPosition();
         }
         public void ChangeRoom(IDoor door)
         {
-            switch (door.CurrentState.doorDirection)
-            {
-                case DoorDirection.UP:
-                    // Set links position to the bottom of the next room.
-                    SetLinkPositionDown();
-                    break;
-                case DoorDirection.DOWN:
-                    // Set links position to the top of the next room.
-                    SetLinkPositionUp();
-                    break;
-                case DoorDirection.LEFT:
-                    // Set links position to the top of the next room.
-                    SetLinkPositionRight();
-                    break;
-                case DoorDirection.RIGHT:
-                    // Set links position to the top of the next room.
-                    SetLinkPositionLeft();
-                    break;
-            }
+            SetLinkPosition(door.CurrentState.doorDirection);
             SetCurrentRoom(door.DoorDestination);
         }
+        /*
         public void SetLinkPositionUp()
         {
             // 112 * Global.Var.SCALE, 64 * Global.Var.SCALE
@@ -184,14 +170,36 @@ namespace Sprintfinity3902.Dungeon
             Game.link.X = (224 - 16) * Global.Var.SCALE;
             Game.link.Y = (136+8) * Global.Var.SCALE;
         }
-
-        public void SetLinkPosition()
+        */
+        
+        public void SetLinkPosition(DoorDirection door = DoorDirection.UP)
         {
-            IRoom room = GetCurrentRoom();
+            if (CurrentRoom.Id == 13) {
+                Game.link.X = FORTY_EIGHT * Global.Var.SCALE;
+                Game.link.Y = NINETY_SEVEN * Global.Var.SCALE;
+                return;
+            }
 
-            Game.link.X = (room.Id == 13 ? FORTY_EIGHT : ONE_HUNDRED_TWENTY) * Global.Var.SCALE;
-            Game.link.Y = (room.Id == 13 ? NINETY_SEVEN : ONE_HUNDRED_NINETY_THREE) * Global.Var.SCALE;
+            switch (door) {
+                case DoorDirection.UP:
+                    Game.link.X = 120 * Global.Var.SCALE;
+                    Game.link.Y = 193 * Global.Var.SCALE;
+                    break;
+                case DoorDirection.DOWN:
+                    Game.link.X = 120 * Global.Var.SCALE;
+                    Game.link.Y = (64 + 35) * Global.Var.SCALE;
+                    break;
+                case DoorDirection.LEFT:
+                    Game.link.X = (224 - 16) * Global.Var.SCALE;
+                    Game.link.Y = (136 + 8) * Global.Var.SCALE;
+                    break;
+                case DoorDirection.RIGHT:
+                    Game.link.X = 35 * Global.Var.SCALE;
+                    Game.link.Y = (136 + 8) * Global.Var.SCALE;
+                    break;
+            }
         }
+        
 
         public void UpdateState(IDungeon.GameState state)
         {

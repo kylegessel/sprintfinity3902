@@ -162,9 +162,7 @@ namespace Sprintfinity3902
                 case GameState.PLAYING:
                     
                     foreach (IHud hud in huds) {
-                        foreach (IEntity icon in hud.Icons) {
-                            icon.Draw(SpriteBatch, Color.White);
-                        }
+                        hud.Draw(SpriteBatch, Color.White);
                     }
 
                     dungeon.Draw(SpriteBatch);

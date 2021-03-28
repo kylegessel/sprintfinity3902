@@ -33,7 +33,7 @@ namespace Sprintfinity3902.Dungeon
         private IEntity movingSword;
         private IEntity bowArrow;
         private IEntity bombExplosion;
-        private IEntity hitboxSword;
+        public IEntity hitboxSword;
         public IRoom CurrentRoom { get; set; }
 
         private string backgroundMusicInstanceID;

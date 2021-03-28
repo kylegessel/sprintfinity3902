@@ -122,14 +122,7 @@ namespace Sprintfinity3902.Entities
         {
 
         }
-        public virtual void SetState(IPlayerState state)
-        {
-            /* 
-             * Do Nothing at all
-             * Most Entities will not need a SetState method
-             * But they can choose to override this if they do
-             */
-        }
+        
 
         public virtual Boolean IsCollidable()
         {

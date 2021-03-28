@@ -174,7 +174,7 @@ namespace Sprintfinity3902.Link
             /* TODO: Implmt err control */
         }
 
-        public override void SetState(IPlayerState state) {
+        public void SetState(IPlayerState state) {
             if (state.Equals(CurrentState)) return;
             //Vector2 pos = Position;
             CurrentState = state;

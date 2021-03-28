@@ -110,14 +110,8 @@ namespace Sprintfinity3902.Collision
 
                     if (doorRect.Intersects(proj.GetBoundingRect()))
                     {
-                        IProjectile projectile = null;
-                        try {
-                            projectile = (IProjectile)proj;
-                            ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
-                        } catch (Exception e) {
-                            //ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
-                        }
-                        
+                        ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
+
                     }
                 }
 
@@ -216,13 +210,7 @@ namespace Sprintfinity3902.Collision
 
                     if (block.IsTall() && blockRect.Intersects(proj.GetBoundingRect()))
                     {
-                        IProjectile projectile = null;
-                        try {
-                            projectile = (IProjectile)proj;
-                            ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
-                        } catch (Exception e) {
-                            //ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
-                        }
+                        ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
                     }
                 }
 
@@ -254,13 +242,7 @@ namespace Sprintfinity3902.Collision
                     enemies.TryGetValue(enemy, out currentEnemy);
                     if (proj != null && proj.GetBoundingRect().Intersects(currentEnemy.GetBoundingRect()))
                     {
-                        IProjectile projectile = null;
-                        try {
-                            projectile = (IProjectile)proj;
-                            ProjectileCollisionHandler.ProjectileEnemyHit(enemy, currentEnemy, (IProjectile)proj, deletionList, garbage, gameInstance);
-                        } catch (Exception e) {
-                            //ProjectileCollisionHandler.ProjectileEnemyHit(enemy, currentEnemy, (IProjectile)proj, deletionList, garbage, gameInstance);
-                        }
+                        ProjectileCollisionHandler.ProjectileEnemyHit(enemy, currentEnemy, (IProjectile)proj, deletionList, garbage, gameInstance);
 
                     }
                 }

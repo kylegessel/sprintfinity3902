@@ -199,6 +199,7 @@ namespace Sprintfinity3902.Dungeon
                 case IDungeon.GameState.WIN:
                     KeyboardManager.Instance.PushCommandMatrix();
                     Game.link.SetState(Game.link.facingDown);
+                    Game.link.CurrentState.Sprite.Animation.Stop();
                     CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.LOSE:

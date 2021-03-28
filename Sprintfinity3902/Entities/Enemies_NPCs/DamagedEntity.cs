@@ -75,10 +75,11 @@ namespace Sprintfinity3902.Link
             decoratedEntity.Attack();
         }
 
+        /*
         public override void SetState(IPlayerState state)
         {
             decoratedEntity.SetState(state);
-        }
+        }*/
 
         public override Rectangle GetBoundingRect()
         {

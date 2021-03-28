@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Link
 {
@@ -131,7 +132,12 @@ namespace Sprintfinity3902.Link
         public void RemoveDecorator()
         {
             decoratedLink.RemoveDecorator();
-            game.playerCharacter = decoratedLink;
+        }
+
+        public void DeathSpin(bool end) {
+            RemoveDecorator();
+            decoratedLink.DeathSpin(end);
+           
         }
     }
 }

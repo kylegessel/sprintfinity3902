@@ -14,6 +14,11 @@ namespace Sprintfinity3902.Collision
             {
                 deletionList.Add(enemy);
                 garbage.Add(new EnemyDeath(currentEnemy.Position));
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Enemy_Die).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            }
+            else
+            {
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Enemy_Hit).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
         }
 

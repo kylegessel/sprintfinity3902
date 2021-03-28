@@ -24,6 +24,7 @@ namespace Sprintfinity3902.Commands
             {
                 PlayerCharacter.UseItem();
                 Bomb.UseItem(PlayerCharacter);
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Bomb_Drop).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
                 //PlayerCharacter.UseItem();
             }
         }

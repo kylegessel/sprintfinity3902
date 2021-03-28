@@ -8,7 +8,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BombItem : AbstractItem 
+    public class BombItem : AbstractItem, IBomb 
     {
 
         private static int ONE_THOUSAND = 1000;

@@ -27,9 +27,9 @@ namespace Sprintfinity3902.Entities
 
         private ISprite ClosedMouth;
         private ISprite OpenedMouth;
-        public FireAttack fireAttackUp;
-        public FireAttack fireAttackCenter;
-        public FireAttack fireAttackDown;
+        public IAttack fireAttackUp;
+        public IAttack fireAttackCenter;
+        public IAttack fireAttackDown;
         private int decorateCount;
         private int decorateTime;
         private int directionCount;
@@ -47,14 +47,14 @@ namespace Sprintfinity3902.Entities
 
         
 
-        public FinalBossEnemy(Vector2 pos, IEntity up, IEntity center, IEntity down)
+        public FinalBossEnemy(Vector2 pos, IAttack up, IAttack center, IAttack down)
         {
             ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
             OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
             Sprite = ClosedMouth;
-            fireAttackUp = (FireAttack)up;
-            fireAttackCenter = (FireAttack)center;
-            fireAttackDown = (FireAttack)down;
+            fireAttackUp = up;
+            fireAttackCenter = center;
+            fireAttackDown = down;
             Position = pos;
             color = Color.White;
             health = FIVE;

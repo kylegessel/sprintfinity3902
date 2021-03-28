@@ -39,7 +39,9 @@ namespace Sprintfinity3902.Controllers
         }
 
         private KeyboardManager() {
-            Reset();
+            controllerMappings = new Dictionary<Keys, Interfaces.ICommand>();
+            keyUpHandlers = new Dictionary<Keys, List<Action>>();
+            keyBoardInstanceStack = new Stack<Tuple<Dictionary<Keys, Interfaces.ICommand>, Dictionary<Keys, List<Action>>>>();
         }
 
         /* Resets Class values */
@@ -48,13 +50,22 @@ namespace Sprintfinity3902.Controllers
             Dictionary<Keys, Interfaces.ICommand> control = null,
             Dictionary<Keys, List<Action>> keyup = null) {
 
-            controllerMappings = control == null ? new Dictionary<Keys, Interfaces.ICommand>() : control;
-            foreach (Keys key in Enum.GetValues(typeof(Keys))) {
+            /*foreach (Keys key in Enum.GetValues(typeof(Keys))) {
                 RegisterCommand(new DoNothingCommand(), key);
+            }*/
+
+            if (resetStack) keyBoardInstanceStack.Clear();
+
+            if (control == null) {
+                controllerMappings = new Dictionary<Keys, Interfaces.ICommand>();
             }
-            keyUpHandlers = keyup == null ? new Dictionary<Keys, List<Action>>() : keyup;
-            if (!resetStack) return;
-            keyBoardInstanceStack = new Stack<Tuple<Dictionary<Keys, Interfaces.ICommand>, Dictionary<Keys, List<Action>>>>();
+            else controllerMappings = control;
+
+            if (keyup == null) {
+                keyUpHandlers = new Dictionary<Keys, List<Action>>();
+            } else keyUpHandlers = keyup;
+
+            
         }
 
 

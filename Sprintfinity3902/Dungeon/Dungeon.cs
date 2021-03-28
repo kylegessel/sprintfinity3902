@@ -53,7 +53,7 @@ namespace Sprintfinity3902.Dungeon
 
             dungeonRooms = new List<IRoom>();
 
-            for (int roomNum = 1; roomNum < 19; roomNum++) {
+            for (int roomNum = 1; roomNum <= 18; roomNum++) {
                 dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
             }
 
@@ -95,10 +95,11 @@ namespace Sprintfinity3902.Dungeon
         public void Update(GameTime gameTime)
         {
             CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage);
+            CurrentRoom.Update(gameTime);
             foreach (IEntity entity in linkProj) {
                 entity.Update(gameTime);
             }
-            CurrentRoom.Update(gameTime);
+            bombItem.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -107,6 +108,7 @@ namespace Sprintfinity3902.Dungeon
             foreach (IEntity entity in linkProj) {
                 entity.Draw(spriteBatch, Color.White);
             }
+            bombItem.Draw(spriteBatch, Color.White);
         }
 
         public IRoom GetById(int id)
@@ -196,6 +198,7 @@ namespace Sprintfinity3902.Dungeon
             switch (state) {
                 case IDungeon.GameState.WIN:
                     KeyboardManager.Instance.PushCommandMatrix();
+                    Game.link.SetState(Game.link.facingDown);
                     CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.LOSE:

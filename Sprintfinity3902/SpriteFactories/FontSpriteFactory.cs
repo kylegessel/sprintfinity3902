@@ -19,6 +19,7 @@ namespace Sprintfinity3902.SpriteFactories
         private static string FONT_FILE_NAME = "NES - The Legend of Zelda - Fonts";
         private static Dictionary<char, Rectangle> sourceRectangles;
         public static int ITEMS_PER_ROW = 16;
+        public static int NUM_ROWS = 3;
         public static int ITEM_WIDTH = 16;
         public static int ITEM_HEIGHT = 16;
         private static string ALPHABET = "0123456789abcdefghijklmnopqrstuvwxyz,!'&.\"?- ";
@@ -43,7 +44,7 @@ namespace Sprintfinity3902.SpriteFactories
 
             char[] alpha = ALPHABET.ToCharArray();
 
-            for (int j = 0; j < ITEMS_PER_ROW; j++) {
+            for (int j = 0; j < NUM_ROWS; j++) {
                 for (int i = 0; i < ITEMS_PER_ROW; i++) {
                     int flattenedArrayIndex = j * ITEMS_PER_ROW + i;
                     try {

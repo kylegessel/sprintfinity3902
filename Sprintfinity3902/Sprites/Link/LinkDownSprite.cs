@@ -29,9 +29,9 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite1, 1 / 5f);
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, float order)
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            base.Draw(spriteBatch, position, color, 0.5f);
+            base.Draw(spriteBatch, position, color);
         }
     }
 }

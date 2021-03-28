@@ -150,7 +150,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                     }
                     break;
                 case animation_state.EXPLODE:
-                    ((SingleExplosionCloud)explode).Draw(spriteBatch, Color.White, 1.0f);
+                    explode.Draw(spriteBatch, Color.White);
                     break;
             }
         }

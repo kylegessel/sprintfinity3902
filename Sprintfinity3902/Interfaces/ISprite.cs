@@ -10,8 +10,6 @@ namespace Sprintfinity3902.Interfaces
 
         void Draw(SpriteBatch spriteBatch, Vector2 position, Color color);
 
-        void Draw(SpriteBatch spriteBatch, Vector2 position, Color color, float order);
-
         void Update(GameTime gameTime);
     }
 }

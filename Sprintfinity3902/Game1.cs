@@ -13,6 +13,7 @@ using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
 using Sprintfinity3902.Sound;
 using Microsoft.Xna.Framework.Audio;
+using System.Diagnostics;
 
 namespace Sprintfinity3902
 {
@@ -41,10 +42,8 @@ namespace Sprintfinity3902
         public IDungeon dungeon;
         public PauseMenu pauseMenu;
         public OptionMenu optionMenu;
-
         
         public List<IHud> huds;
-        
 
         public Game1()
         {
@@ -84,7 +83,6 @@ namespace Sprintfinity3902
             playerCharacter = new Player(this);
             link = (Player)playerCharacter;
             link.Initialize();
-            
 
             dungeon = new Dungeon.Dungeon(this);
             dungeon.Initialize();
@@ -104,6 +102,13 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
 
             UpdateState(GameState.PLAYING);
+        }
+
+        public void Pause()
+        {
+            if (!State.Equals(GameState.PAUSED_TRANSITION)) {
+                UpdateState(GameState.PAUSED_TRANSITION);
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -171,16 +176,8 @@ namespace Sprintfinity3902
                     optionMenu.Draw(SpriteBatch);
                     break;
             }
-
             
             SpriteBatch.End();
-        }
-
-        public void Pause()
-        {
-            if (!State.Equals(GameState.PAUSED_TRANSITION)) {
-                UpdateState(GameState.PAUSED_TRANSITION);
-            }
         }
 
         public void UpdateState(GameState state) {

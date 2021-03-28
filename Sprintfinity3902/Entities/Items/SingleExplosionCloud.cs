@@ -22,16 +22,6 @@ namespace Sprintfinity3902.Entities.Items
             Position = position;
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Color color)
-        {
-            Sprite.Draw(spriteBatch, Position, Color.White, 0.0f);
-        }
-
-        public override void Draw(SpriteBatch spriteBatch, Color color, float depth)
-        {
-            Sprite.Draw(spriteBatch, Position, color, depth);
-        }
-
         public override Rectangle GetBoundingRect()
         {
             return new Rectangle((int)Position.X + FIVE, (int)Position.Y - Global.Var.TILE_SIZE, THIRTY_TWO * Global.Var.SCALE, FORTY_EIGHT * Global.Var.SCALE);

@@ -14,7 +14,7 @@ namespace Sprintfinity3902.Entities
         {
             //BuildCompassHUD();
             //add compass HUD
-
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             return false;
         }
 

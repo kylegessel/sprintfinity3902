@@ -30,7 +30,7 @@ namespace Sprintfinity3902.Commands
             //    PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
             //}
             //else
-            if (!MovingSword.getItemUse())
+            if (!MovingSword.getItemUse()  && PlayerCharacter.LinkHealth == PlayerCharacter.MaxHealth)
             {
                 PlayerCharacter.Attack();
                 Sword.UseItem(PlayerCharacter);

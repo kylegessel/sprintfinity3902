@@ -94,6 +94,10 @@ public IPlayerState CurrentState {
             _deathSpinCount = 0.0;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
+            foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
+            {
+                itemcount.Add(item, 0);
+            }
         }
 
         /*TODO: Move to Game1 class - and keep comment below*/

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
@@ -10,7 +11,7 @@ namespace Sprintfinity3902.HudMenu
     {
         private Game1 Game;
         private IPlayer Link;
-        public List<IEntity> Icons { get; set; }
+        public List<IEntity> Icons { get; private set; }
 
         public DungeonHud(Game1 game)
         {
@@ -29,6 +30,13 @@ namespace Sprintfinity3902.HudMenu
         public void Initialize()
         {
             Icons.Add(new DungeonHudEntity(new Vector2(0, -88 * Global.Var.SCALE)));
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Color color)
+        {
+            foreach (IEntity icon in Icons) {
+                icon.Draw(spriteBatch, color);
+            }
         }
     }
 }

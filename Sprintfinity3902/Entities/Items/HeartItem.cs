@@ -19,5 +19,10 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             ID = IItem.ITEMS.HEART;
         }
+
+        public override IPickup GetPickup()
+        {
+            return new HeartPickup();
+        }
     }
 }

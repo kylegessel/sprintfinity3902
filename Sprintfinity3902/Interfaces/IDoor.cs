@@ -32,5 +32,6 @@ namespace Sprintfinity3902.Interfaces
         void Open();
         void Close();
 
+        public void SetState(IDoorState doorState);
     }
 }

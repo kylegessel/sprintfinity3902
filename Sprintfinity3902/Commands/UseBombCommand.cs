@@ -8,24 +8,25 @@ namespace Sprintfinity3902.Commands
 
     public class UseBombCommand : ICommand
     {
-        /*Player PlayerCharacter;*/
-        ILink link;
+        ILink Link;
         BombItem Bomb;
 
         public UseBombCommand(ILink player, BombItem bomb)
         {
-            /*PlayerCharacter = player;*/
-            link = player;
+            Link = player;
             Bomb = bomb;
         }
 
         public void Execute()
         {
             //Eventually this should all live within player, this should become a call to use item.
-            if (!Bomb.getItemUse())
+            if (!Bomb.getItemUse() && Link.itemcount[IItem.ITEMS.BOMB]>0)
             {
-                link.UseItem();
-                Bomb.UseItem(link);
+                Link.UseItem(IItem.ITEMS.BOMB);
+                Bomb.UseItem(Link);
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Bomb_Drop).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+                Link.itemcount[IItem.ITEMS.BOMB]--;
             }
         }
     }

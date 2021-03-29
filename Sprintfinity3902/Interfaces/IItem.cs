@@ -17,5 +17,7 @@
             RUPEE,
             TRIFORCE
         };
+
+        public IPickup GetPickup();
     }
 }

@@ -8,7 +8,7 @@ using System.IO;
 namespace Sprintfinity3902.Dungeon
 {
     /*MAGIC NUMBERS REFACTOR*/
-    public class RoomLoader
+    public class RoomLoader : IRoomLoader
     {
 
         /*MAGIC NUMBERS REFACTOR*/
@@ -29,6 +29,14 @@ namespace Sprintfinity3902.Dungeon
         private static int ONE_HUNDRED_SIXTY = 160;
         private static int TWO_HUNDRED_EIGHT = 208;
         private static int TWO_HUNDRED_TWENTY_FOUR = 224;
+        private static int FOURTEEN = 14;
+        private static int FORTY_EIGHT = 48;
+        private static int ONE_HUNDRED_TWENTY = 120;
+        private static int TWO_HUNDRED_FORTY = 240;
+        private static int TWO_HUNDRED_FIFTY_SIX = 256;
+
+        private static int BMRG_X_OFFSET = 5;
+        private static int BMRG_Y_OFFSET = 4;
 
         StreamReader mapStream;
         private IRoom Room { get; set; }
@@ -45,15 +53,21 @@ namespace Sprintfinity3902.Dungeon
         public RoomLoader(IRoom room)
         {
             // Really think there is a better way to list these files, just a demo for the time being though.
+            Initialize(room);
+        }
+
+        public RoomLoader() { }
+
+        public void Initialize(IRoom room) {
             Room = room;
             mapStream = new StreamReader(Room.path);
             spikeNum = 1;
             enemyID = 0;
-
         }
 
         public void Build()
         {
+            if (Room.Id == 13) { build13(); return; }
             string line;
             int currX = THIRTY_TWO * Global.Var.SCALE;
             int currY = NINETY_SIX*Global.Var.SCALE;
@@ -90,30 +104,84 @@ namespace Sprintfinity3902.Dungeon
                 }
             }
 
-            if(Room.Id != 13)
-            {
-                DoorTop = new Door(new Vector2(ONE_HUNDRED_TWELVE * Global.Var.SCALE, SIXTY_FOUR * Global.Var.SCALE));
-                DoorBottom = new Door(new Vector2(ONE_HUNDRED_TWELVE * Global.Var.SCALE, TWO_HUNDRED_EIGHT * Global.Var.SCALE));
-                DoorLeft = new Door(new Vector2(0, ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE));
-                DoorRight = new Door(new Vector2(TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE, ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE));
-                Room.blocks.Add(DoorTop);
-                Room.blocks.Add(DoorBottom);
-                Room.blocks.Add(DoorLeft);
-                Room.blocks.Add(DoorRight);
-                for (int i = 0; i < 4; i++)
-                {
-                    line = mapStream.ReadLine();
-                    if (!string.IsNullOrWhiteSpace(line))
-                    {
-                        string[] lineValues = line.Split(',');
-                        BuildDoors(lineValues[0], lineValues[1]);
+            DoorTop = new Door(new Vector2(ONE_HUNDRED_TWELVE * Global.Var.SCALE, SIXTY_FOUR * Global.Var.SCALE));
+            DoorBottom = new Door(new Vector2(ONE_HUNDRED_TWELVE * Global.Var.SCALE, TWO_HUNDRED_EIGHT * Global.Var.SCALE));
+            DoorLeft = new Door(new Vector2(0, ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE));
+            DoorRight = new Door(new Vector2(TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE, ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE));
+            Room.doors.Add(DoorTop);
+            Room.doors.Add(DoorBottom);
+            Room.doors.Add(DoorLeft);
+            Room.doors.Add(DoorRight);
+            for (int i = 0; i < 4; i++) {
+                line = mapStream.ReadLine();
+                if (!string.IsNullOrWhiteSpace(line)) {
+                    string[] lineValues = line.Split(',');
+                    BuildDoors(lineValues[0], lineValues[1]);
+                }
+            }
+        }
+
+        private void build13() {
+            string line;
+            int currX = Global.Var.TILE_SIZE * Global.Var.SCALE;
+            int currY = EIGHTY * Global.Var.SCALE;
+            Position = new Vector2(currX, currY);
+
+            for (int i = 0; i < 2; i++) {
+                line = mapStream.ReadLine();
+                if (!string.IsNullOrWhiteSpace(line)) {
+                    string[] lineValues = line.Split(',');
+                    BuildWallAndFloor(lineValues[0]);
+                }
+            }
+
+            // add fake entitities
+            for (int i = 0; i < 9; i++) {
+                line = mapStream.ReadLine();
+                if (!string.IsNullOrWhiteSpace(line)) {
+                    string[] lineValues = line.Split(',');
+                    for (int j = 0; j < 14; j++) {
+                        BuildBlocks(lineValues[j]);
+                        currX += Global.Var.TILE_SIZE * Global.Var.SCALE;
+                        if (currX == Global.Var.TILE_SIZE * Global.Var.SCALE * FOURTEEN + Global.Var.TILE_SIZE * Global.Var.SCALE) {
+                            currX = Global.Var.TILE_SIZE * Global.Var.SCALE;
+                            currY += Global.Var.TILE_SIZE * Global.Var.SCALE;
+                        }
+                        Position = new Vector2(currX, currY);
                     }
                 }
             }
         }
 
+        private void build13WallAndFloor(string input)
+        {
+            switch (input) {
+                //WALLS AND FLOORS
+                case "R13E":
+                    Room.blocks.Add(new VerticalWall(new Vector2(-THIRTY_TWO * Global.Var.SCALE, EIGHTY * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(-THIRTY_TWO * Global.Var.SCALE, ONE_HUNDRED_SIXTY * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(TWO_HUNDRED_FIFTY_SIX * Global.Var.SCALE, EIGHTY * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(TWO_HUNDRED_FIFTY_SIX * Global.Var.SCALE, ONE_HUNDRED_SIXTY * Global.Var.SCALE)));
+
+                    Room.blocks.Add(new HorizontalWall(new Vector2(Global.Var.ZERO * Global.Var.SCALE, FORTY_EIGHT * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, FORTY_EIGHT * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(TWO_HUNDRED_FORTY * Global.Var.SCALE, FORTY_EIGHT * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(Global.Var.ZERO * Global.Var.SCALE, TWO_HUNDRED_FORTY * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, TWO_HUNDRED_FORTY * Global.Var.SCALE)));
+                    Room.blocks.Add(new HorizontalWall(new Vector2(TWO_HUNDRED_FORTY * Global.Var.SCALE, TWO_HUNDRED_FORTY * Global.Var.SCALE)));
+                    break;
+                case "R13I":
+                    Room.blocks.Add(new Room13(new Vector2(Global.Var.ZERO * Global.Var.SCALE, EIGHTY * Global.Var.SCALE)));
+                    break;
+                case " ":
+                    break;
+
+            }
+        }
+
         public void BuildWallAndFloor(string input)
         {
+            if (Room.Id == 13) { build13WallAndFloor(input); return; }
             switch (input)
             {
                 //WALLS AND FLOORS
@@ -121,7 +189,7 @@ namespace Sprintfinity3902.Dungeon
                     Room.blocks.Add(new RoomExterior(new Vector2(0, SIXTY_FOUR * Global.Var.SCALE)));
                     //add all 8
 
-                    Room.blocks.Add(new VerticalWall(new Vector2 (0, SIXTY_FOUR * Global.Var.SCALE)));
+                    Room.blocks.Add(new VerticalWall(new Vector2(0, SIXTY_FOUR * Global.Var.SCALE)));
                     Room.blocks.Add(new VerticalWall(new Vector2(0, ONE_HUNDRED_SIXTY * Global.Var.SCALE)));
                     Room.blocks.Add(new VerticalWall(new Vector2(TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE, SIXTY_FOUR * Global.Var.SCALE)));
                     Room.blocks.Add(new VerticalWall(new Vector2(TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE, ONE_HUNDRED_SIXTY * Global.Var.SCALE)));
@@ -130,11 +198,6 @@ namespace Sprintfinity3902.Dungeon
                     Room.blocks.Add(new HorizontalWall(new Vector2(0, TWO_HUNDRED_EIGHT * Global.Var.SCALE)));
                     Room.blocks.Add(new HorizontalWall(new Vector2(ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE, SIXTY_FOUR * Global.Var.SCALE)));
                     Room.blocks.Add(new HorizontalWall(new Vector2(ONE_HUNDRED_THIRTY_SIX * Global.Var.SCALE, TWO_HUNDRED_EIGHT * Global.Var.SCALE)));
-
-
-
-
-
 
                     break;
                 case "RMIN":
@@ -153,12 +216,45 @@ namespace Sprintfinity3902.Dungeon
             }
         }
 
+        private void buildblocks13(string input) {
+            switch (input) {
+                case "BLCK":
+                    Room.blocks.Add(new BlackBlock(Position));
+                    break;
+                case "BRIK":
+                    Room.blocks.Add(new BrickBlock(Position));
+                    break;
+                case "DARK":
+                    Room.blocks.Add(new DarkBlueBlock(Position));
+                    break;
+                case "STAR":
+                    Room.blocks.Add(new StairsBlock(Position));
+                    break;
+                case "STIP":
+                    Room.blocks.Add(new StripeBlock(Position));
+                    break;
+
+                //ENEMIES
+                case "BBAT":
+                    Room.enemies.Add(enemyID, new BlueBatEnemy(Position));
+                    enemyID++;
+                    break;
+
+                //ITEMS
+                // Probably could use a static bomb and boomerang object now that I think of it.
+                case "BOWI":
+                    Room.items.Add(new BowItem(Position));
+                    break;
+            }
+        }
+
         public void BuildBlocks(string input)
         {
-            /*This is all implimenting class objects instead on interface. Do i need to change this?*/
+            if (Room.Id == 13) { buildblocks13(input); return; }
             switch (input)
             {
                 //BLOCKS
+
                 case "TILE":
                     IBlock tile = new FloorBlock(Position);
                     Room.blocks.Add(tile);
@@ -233,7 +329,7 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "FIRE":
-                    IEntity fire = new Fire(Position);
+                    IEntity fire = new FireEnemy(Position);
                     Room.enemies.Add(enemyID, fire);
                     enemyID++;
                     break;
@@ -260,6 +356,12 @@ namespace Sprintfinity3902.Dungeon
                     IEntity man = new OldManNPC(Position);
                     man.X = man.Position.X + EIGHT * Global.Var.SCALE;
                     Room.enemies.Add(enemyID, man);
+                    enemyID++;
+                    break;
+                case "MNFR":
+                    IEntity manAndFire = new OldMan_FireEnemy(Position);
+                    manAndFire.X = manAndFire.Position.X + EIGHT * Global.Var.SCALE;
+                    Room.enemies.Add(enemyID, manAndFire);
                     enemyID++;
                     break;
                 case "SPKE":
@@ -314,6 +416,20 @@ namespace Sprintfinity3902.Dungeon
                 case "RUPE":
                     IItem rupee = new RupeeItem(Position);
                     Room.items.Add(rupee);
+                    break;
+                case "BOMB":
+                    IItem bomb = new BombStaticItem(Position);
+                    Room.items.Add(bomb);
+                    break;
+                case "BMRG":
+                    IItem boom = new BoomerangStaticItem(Position);
+                    boom.X = boom.Position.X + BMRG_X_OFFSET * Global.Var.SCALE;
+                    boom.Y = boom.Position.Y + BMRG_Y_OFFSET * Global.Var.SCALE;
+                    Room.items.Add(boom);
+                    break;
+                case "BRUP":
+                    IItem brup = new BlueRupeeItem(Position)
+                    Room.items.Add(brup);
                     break;
                 case "TRIF":
                     IItem triforce = new TriforceItem(Position);

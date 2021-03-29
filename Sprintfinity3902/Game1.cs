@@ -2,44 +2,47 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Collision;
-using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
-using Sprintfinity3902.Entities;
-using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
-using Sprintfinity3902.Navigation;
+using Sprintfinity3902.Sound;
 using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
-using Sprintfinity3902.Sound;
-using Microsoft.Xna.Framework.Audio;
 
 namespace Sprintfinity3902
 {
-    public class Game1 : Game
+    public class Game1 : Game, IGame<Game1.GameState>
     {
+        public enum GameState
+        {
+            INTRO,
+            PLAYING,
+            PAUSED,
+            PAUSED_TRANSITION,
+            WIN,
+            LOSE,
+            OPTIONS
+        };
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch SpriteBatch;
 
-        public static int ScaleWindow = Global.Var.SCALE;
+        private static Rectangle windowBounds = new Rectangle(1, 1, 256, 240);
+        public GameState State { get; private set; }
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
         public ILink link;
         public IPlayer playerCharacter;
-        public IEntity boomerangItem;
-        public IEntity bombItem;
-        public IEntity movingSword;
+
         public IDungeon dungeon;
         public PauseMenu pauseMenu;
+        public OptionMenu optionMenu;
         
-        public IEntity hitboxSword;
-        public List<IEntity> linkProj;
         public List<IHud> huds;
-        private IEntity bombExplosion;
 
-        //private IDetector detector;
+        private ISprite titleScreen;
+        private string introMusicInstanceID;
 
         public Game1()
         {
@@ -48,31 +51,46 @@ namespace Sprintfinity3902
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            Camera.Instance.SetWindowBounds(graphics);
-
+            Graphics.PreferredBackBufferWidth = windowBounds.Width * Global.Var.SCALE;
+            Graphics.PreferredBackBufferHeight = windowBounds.Height * Global.Var.SCALE;
             Graphics.ApplyChanges();
+            
         }
 
-        protected override void Initialize() => base.Initialize();
-
-        protected void Reset()
+        protected override void LoadContent()
         {
-            
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            ItemSpriteFactory.Instance.LoadAllTextures(Content);
+            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+            BlockSpriteFactory.Instance.LoadAllTextures(Content);
+            HudSpriteFactory.Instance.LoadAllTextures(Content);
+            FontSpriteFactory.Instance.LoadAllTextures(Content);
+
+            SoundLoader.Instance.LoadContent(Content);
+
+            Reset();
+        }
+
+        public void Reset()
+        {
             KeyboardManager.Instance.Reset();
+            SoundManager.Instance.Reset();
+            CollisionDetector.Instance.Reset();
 
-            
+            titleScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
+            introMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
 
-            if (dungeon != null) {
-                dungeon.CleanUp();
-            }
+            link = new Player(this);
+            playerCharacter = (IPlayer)link;
+            playerCharacter.Initialize();
 
             dungeon = new Dungeon.Dungeon(this);
-            dungeon.Build();
-
-            link = new Player();
-            playerCharacter = (IPlayer)link;
+            dungeon.Initialize();
 
             pauseMenu = new PauseMenu(this);
+            optionMenu = new OptionMenu(this);
 
             huds = new List<IHud>();
 
@@ -81,125 +99,137 @@ namespace Sprintfinity3902
             huds.Add(new InventoryHud(this));
             huds.Add(new MiniMapHud(this));
 
-            boomerangItem = new BoomerangItem();
-            bombExplosion = new BombExplosionItem(new Vector2(-1000,-1000));
-            bombItem = new BombItem(new Vector2(-1000, -1000), (BombExplosionItem) bombExplosion);
-            movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
-            hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
-
-            linkProj = new List<IEntity>();
-
-            linkProj.Add(boomerangItem);
-            linkProj.Add(bombExplosion);
-            linkProj.Add(movingSword);
-            linkProj.Add(hitboxSword);
-
-            KeyboardManager.Instance.Initialize(playerCharacter);
-            InputMouse.Instance.GiveGame(this);
-
-            /* Can't casat link here. Gives an error cant cast object DamagedLink to Player */
-            KeyboardManager.Instance.RegisterKeyUpCallback(() => { playerCharacter.CurrentState.Sprite.Animation.Stop(); }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
-
-            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(this), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseBombCommand(link, (BombItem)bombItem), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand(link, (BoomerangItem)boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand(link, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
-
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
-            KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.NextRoom, Keys.L);
-            KeyboardManager.Instance.RegisterKeyUpCallback(dungeon.PreviousRoom, Keys.K);
             KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
 
-            CollisionDetector.Instance.setup(this);
-        }
-
-        protected override void LoadContent()
-        {
-            SpriteBatch = new SpriteBatch(GraphicsDevice);
-
-            Camera.Instance.LoadAllTextures(Content);
-            EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            ItemSpriteFactory.Instance.LoadAllTextures(Content);
-            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
-            BlockSpriteFactory.Instance.LoadAllTextures(Content);
-            HudSpriteFactory.Instance.LoadAllTextures(Content);
-
-            Sound.SoundLoader.Instance.LoadContent(Content);
-
-
-            Reset();
-        }
-
-        protected override void Update(GameTime gameTime)
-        {
-            KeyboardManager.Instance.Update(gameTime);
-            InputMouse.Instance.Update(gameTime);
-            Camera.Instance.Update(gameTime);
-
-            if (pauseMenu.Pause || pauseMenu.Transition)
-            {
-                pauseMenu.Update(gameTime);
-            }
-            else
-            {
-                dungeon.Update(gameTime);
-
-                link.Update(gameTime);
-                boomerangItem.Update(gameTime);
-                bombItem.Update(gameTime);
-                movingSword.Update(gameTime);
-                hitboxSword.Update(gameTime);
-            }
-
-            foreach (IHud hud in huds)
-            {
-                hud.Update(gameTime);
-            }
-
-            IRoom currentRoom = dungeon.GetCurrentRoom();
-
-            CollisionDetector.Instance.CheckCollision(currentRoom.enemies, currentRoom.blocks, currentRoom.items, linkProj,currentRoom.enemyProj, currentRoom.garbage);
-
-
-            base.Update(gameTime);
-        }
-
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.Black);
-            SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-
-            dungeon.Draw(SpriteBatch);
-            pauseMenu.Draw(SpriteBatch);
-
-            foreach (IHud hud in huds)
-            {
-                foreach (IEntity icon in hud.Icons)
-                {
-                    icon.Draw(SpriteBatch, Color.White);
-                }
-            }
-
-            link.Draw(SpriteBatch, Color.White);
-
-            boomerangItem.Draw(SpriteBatch, Color.White);
-            bombItem.Draw(SpriteBatch, Color.White);
-            movingSword.Draw(SpriteBatch, Color.White);
-
-            SpriteBatch.End();
-
-            base.Draw(gameTime);
-
-
+            UpdateState(GameState.INTRO);
         }
 
         public void Pause()
         {
-            if (pauseMenu.Transition == false)
-            {
-                pauseMenu.PauseGame();
+            if (!State.Equals(GameState.PAUSED_TRANSITION)) {
+                UpdateState(GameState.PAUSED_TRANSITION);
             }
+        }
+
+        public void StartGame()
+        {
+            if (!State.Equals(GameState.PLAYING))
+            {
+                UpdateState(GameState.PLAYING);
+            }
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            KeyboardManager.Instance.Update(gameTime);
+
+            switch (State) {
+                case GameState.INTRO:
+                    titleScreen.Update(gameTime);
+                    break;
+                case GameState.PAUSED:
+                    break;
+                case GameState.PAUSED_TRANSITION:
+                    pauseMenu.Update(gameTime);
+
+                    break;
+                case GameState.LOSE:
+                case GameState.WIN:
+                    dungeon.Update(gameTime);
+                    link.Update(gameTime);
+                    foreach (IHud hud in huds) {
+                        hud.Update(gameTime);
+                    }
+                    break;
+                case GameState.PLAYING:
+                    foreach (IHud hud in huds) {
+                        hud.Update(gameTime);
+                    }
+
+                    dungeon.Update(gameTime);
+                    link.Update(gameTime);
+                    
+                    break;
+                case GameState.OPTIONS:
+                    optionMenu.Update(gameTime);
+                    break;
+            }
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+
+            GraphicsDevice.Clear(Color.Black);
+            SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
+
+            switch (State) {
+                case GameState.INTRO:
+                    titleScreen.Draw(SpriteBatch, new Vector2(0, 16 * Global.Var.SCALE), Color.White);
+                    break;
+                case GameState.PAUSED:
+                case GameState.PAUSED_TRANSITION:
+                case GameState.LOSE:
+                case GameState.WIN:
+                case GameState.PLAYING:
+                    
+                    foreach (IHud hud in huds) {
+                        hud.Draw(SpriteBatch, Color.White);
+                    }
+
+                    dungeon.Draw(SpriteBatch);
+
+                    link.Draw(SpriteBatch, Color.White);
+
+                    break;
+                case GameState.OPTIONS:
+                    optionMenu.Draw(SpriteBatch);
+                    break;
+            }
+            
+            SpriteBatch.End();
+        }
+
+        public void UpdateState(GameState state) {
+            switch (state) {
+                case GameState.INTRO:
+                    SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Play();
+                    KeyboardManager.Instance.RegisterKeyUpCallback(StartGame, Keys.Enter);
+                    break;
+                case GameState.PAUSED:
+                    break;
+                case GameState.PAUSED_TRANSITION:
+                    if (State.Equals(GameState.PLAYING)) {
+                        KeyboardManager.Instance.PushCommandMatrix();
+                        KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
+                    }
+                    break;
+                case GameState.WIN:
+                    dungeon.UpdateState(IDungeon.GameState.WIN);
+                    break;
+                case GameState.OPTIONS:
+                    optionMenu.Start();
+                    break;
+                case GameState.PLAYING:
+                    SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Stop();
+                    if (State.Equals(GameState.PAUSED_TRANSITION)) {
+                        KeyboardManager.Instance.PopCommandMatrix();
+                    }
+                    break;
+                case GameState.LOSE:
+                    dungeon.UpdateState(IDungeon.GameState.LOSE);
+                    break;
+            }
+
+            State = state;
+        }
+
+        public bool IsInState(GameState state) {
+            return State.Equals(state);
         }
     }
 }

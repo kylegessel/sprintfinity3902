@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sound;
 using Sprintfinity3902.SpriteFactories;
 using System;
 
@@ -42,10 +43,7 @@ namespace Sprintfinity3902.Entities
         private int counter;
         private bool decorate;
         private Random rd;
-
-        
-
-        
+        private string bossScreamInstanceID;
 
         public FinalBossEnemy(Vector2 pos, IAttack up, IAttack center, IAttack down)
         {
@@ -69,6 +67,8 @@ namespace Sprintfinity3902.Entities
 
             attack = rd.Next(ONE, THREE);
             attackTime = EIGHTY_FIVE;
+
+            bossScreamInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Boss_Scream1), 0.02f, false);
         }
         public FinalBossEnemy(Vector2 pos)
         {
@@ -140,7 +140,7 @@ namespace Sprintfinity3902.Entities
                     attack = TWO;
                 else
                     attack = rd.Next(ONE, THREE);
-                directionCount = Global.Var.ZERO;
+                directionCount = -1;
             }
 
             // Handle Movement
@@ -162,8 +162,7 @@ namespace Sprintfinity3902.Entities
                 fireAttackUp.StartMoving();
                 fireAttackCenter.StartMoving();
                 fireAttackDown.StartMoving();
-
-
+                SoundManager.Instance.GetSoundEffectInstance(bossScreamInstanceID).Play();
             }
             else if (attackCount == attackTime)
             {

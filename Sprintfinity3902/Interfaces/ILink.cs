@@ -19,6 +19,7 @@ namespace Sprintfinity3902.Interfaces
         void useItem(IItem.ITEMS item);
         public void UseItem();
         void pickup(IItem.ITEMS item);
+        void DeathSpin(bool end);
         
     }
 }

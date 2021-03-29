@@ -138,7 +138,6 @@ namespace Sprintfinity3902.Link
         public void RemoveDecorator()
         {
             decoratedLink.RemoveDecorator();
-            game.link = decoratedLink;
         }
 
         public void useItem(IItem.ITEMS item)
@@ -163,5 +162,9 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.pickup(item);
         }
-    }
+        public void DeathSpin(bool end)
+        {
+            RemoveDecorator();
+            decoratedLink.DeathSpin(end);
+        }
 }

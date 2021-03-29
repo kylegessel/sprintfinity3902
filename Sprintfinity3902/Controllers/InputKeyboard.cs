@@ -19,10 +19,14 @@ namespace Sprintfinity3902.Controllers
             get {
                 if (instance == null) {
                     instance = new InputKeyboard();
-                    orderedKeyPress = new List<Keys>();
+                    
                 }
                 return instance;
             }
+        }
+
+        private InputKeyboard() {
+            orderedKeyPress = new List<Keys>();
         }
 
         public List<Keys> GetOrderedKeyPress() {

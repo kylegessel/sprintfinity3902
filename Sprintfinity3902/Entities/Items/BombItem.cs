@@ -32,7 +32,6 @@ namespace Sprintfinity3902.Entities
             BombExplosion = bombExplode;
             itemUse = false;
             itemUseCount = 0;
-            ID = IItem.ITEMS.BOMB;
         }
 
         public Boolean getItemUse()
@@ -60,7 +59,7 @@ namespace Sprintfinity3902.Entities
                 ExplodeBomb();
             }
 
-            if(BombExplosion != null)
+            if (BombExplosion != null)
             {
                 BombExplosion.Update(gameTime);
             }
@@ -77,6 +76,7 @@ namespace Sprintfinity3902.Entities
             }else if (itemUseCount == SIXTY)
             {
                 BombExplosion.Move(Position);
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Bomb_Blow).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
             itemUseCount++;
         }

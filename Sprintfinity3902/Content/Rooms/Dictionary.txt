@@ -27,6 +27,7 @@ GORY: Goriya
 HAND: Hand
 OLDM: Old Man NPC
 SPKE: Spike 
+MNFR: Old Man and Fire Enemies
 
 Items:
 KEYI: Key
@@ -38,6 +39,9 @@ HCON: Heart Container
 HART: Heart
 MAPI: Map
 RUPE: Rupee
+BRUP: Blue Rupee
+BMRG: Boomerang
+BOMB: Bomb
 TRIF: Triforce
 
 Doors:

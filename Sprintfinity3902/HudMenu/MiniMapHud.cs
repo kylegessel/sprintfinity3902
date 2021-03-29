@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Sprintfinity3902.Entities;
+using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace Sprintfinity3902.HudMenu
         private IPlayer Link;
         private HudInitializer hudInitializer;
 
-        public List<IEntity> Icons { get; set; }
+        public List<IEntity> Icons { get; private set; }
 
         public MiniMapHud(Game1 game)
         {
@@ -27,6 +27,13 @@ namespace Sprintfinity3902.HudMenu
         public void Update(GameTime gameTime)
         {
 
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Color color)
+        {
+            foreach (IEntity icon in Icons) {
+                icon.Draw(spriteBatch, color);
+            }
         }
 
         public void Initialize()

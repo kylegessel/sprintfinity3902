@@ -11,7 +11,7 @@ namespace Sprintfinity3902.States.Door
         public bool IsOpen { get; set; }
         public DoorDirection doorDirection { get; set; }
 
-
+        public bool IsLocked { get; set; }
 
         public WallLeftState(Entities.Doors.Door currentDoor)
         {
@@ -19,6 +19,7 @@ namespace Sprintfinity3902.States.Door
             Sprite = BlockSpriteFactory.Instance.CreateWallLeft();
             IsOpen = false;
             doorDirection = DoorDirection.LEFT;
+            IsLocked = false;
         }
 
         public void Open()

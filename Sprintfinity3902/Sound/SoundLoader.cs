@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace Sprintfinity3902.Sound
 {
@@ -14,6 +12,7 @@ namespace Sprintfinity3902.Sound
         {
             Dungeon,
             Game_Over,
+            Intro,
             LOZ_Arrow_Boomerang,
             LOZ_Bomb_Blow,
             LOZ_Bomb_Drop,

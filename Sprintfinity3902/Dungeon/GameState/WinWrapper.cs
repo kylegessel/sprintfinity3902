@@ -4,9 +4,7 @@ using Sprintfinity3902.Collision;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace Sprintfinity3902.Dungeon.GameState
 {

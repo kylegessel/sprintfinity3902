@@ -1,15 +1,7 @@
 ﻿
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Sound;
-using Sprintfinity3902.SpriteFactories;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using Sprintfinity3902.Sprites.Fonts;
-using System.Text;
 
 namespace Sprintfinity3902
 {

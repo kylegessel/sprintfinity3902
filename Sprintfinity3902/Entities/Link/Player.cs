@@ -25,18 +25,17 @@ namespace Sprintfinity3902.Link
         private static int THIRTEEN = 13;
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
+        private static int INITIAL_HEALTH = 6;
 
-        public int MAX_HEALTH = 6; //May need to be public for projectiles
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
-        public int linkHealth;
         private string lowHealthInstanceID;
         private double _deathSpinCount;
 
-        public IPlayerState CurrentState {
+public IPlayerState CurrentState {
             get {
                 return _currentState;
             }
@@ -58,6 +57,9 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingUpItem { get; set; }
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
+
+        public int MaxHealth { get; set; }
+        public int LinkHealth { get; set; }
 
         public Dictionary<IItem.ITEMS, int> itemcount;
 
@@ -83,13 +85,18 @@ namespace Sprintfinity3902.Link
             color = Color.White;
             _collidable = true;
             SetStepSize(1);
-            linkHealth = MAX_HEALTH;
+            MaxHealth = INITIAL_HEALTH;
+            LinkHealth = MaxHealth;
             heartChanged = true;
             itemPickedUp = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
+            foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
+            {
+                itemcount.Add(item, 0);
+            }
         }
 
         /*TODO: Move to Game1 class - and keep comment below*/
@@ -105,74 +112,20 @@ namespace Sprintfinity3902.Link
             }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
 
-        public void pickup(IItem.ITEMS item) {
-            if (itemcount.ContainsKey(item)) {
-                itemcount[item]++;
-            }
-            else
-            {
-                itemcount.Add(item, 1);
-            }
+        public void Pickup(IItem item) {
 
-            if (item == IItem.ITEMS.TRIFORCE) {
-                // TODO: Call victory
+
+            IPickup itemPickup = item.GetPickup();
+            bool win = itemPickup.Pickup(this);
+
+            if (win)
+            {
                 game.UpdateState(Game1.GameState.WIN);
             }
-
-            if (item == IItem.ITEMS.HEART)
-            {
-                if (linkHealth < MAX_HEALTH)
-                {
-                    linkHealth++;
-                    if(linkHealth != MAX_HEALTH)
-                    {
-                        linkHealth++;
-                    }
-                    heartChanged = true;
-                    if (linkHealth > 2)
-                        stopLowHealth();
-                }
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else if (item == IItem.ITEMS.HEARTCONTAINER)
-            {
-                MAX_HEALTH += 2;
-                linkHealth = MAX_HEALTH;
-                heartChanged = true;
-            }
-            else if (item == IItem.ITEMS.BOMB)
-            {
-                itemPickedUp = true;
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else if (item == IItem.ITEMS.KEY)
-            {
-                itemPickedUp = true;
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else if (item == IItem.ITEMS.RUPEE)
-            {
-                itemPickedUp = true;
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else
-            {
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-
         }
 
         public bool IsCurrentState(IPlayerState state) {
             return state.Equals(CurrentState);
-        }
-
-        public void useItem(IItem.ITEMS item) {
-            if (itemcount.ContainsKey(item) && itemcount[item] > 0) {
-                itemcount[item]--;
-                return ;
-            } 
-            // Not enough quantity or any
-            /* TODO: Implmt err control */
         }
 
         public void SetState(IPlayerState state) {
@@ -194,6 +147,17 @@ namespace Sprintfinity3902.Link
         public void UseItem()
         {
             CurrentState.UseItem();
+        }
+
+        public void UseItem(IItem.ITEMS item)
+        {
+
+            CurrentState.UseItem();
+            if (itemcount.ContainsKey(item) && itemcount[item] > 0)
+            {
+                itemcount[item]--;
+                itemPickedUp = true;
+            }
         }
 
         public override void Update(GameTime gameTime) {
@@ -283,16 +247,16 @@ namespace Sprintfinity3902.Link
         public void TakeDamage()
         {
             _collidable = false;
-            linkHealth--;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            LinkHealth--;
             heartChanged = true;
             
-            if (linkHealth <= 0) {
+            if (LinkHealth <= 0) {
                 game.UpdateState(Game1.GameState.LOSE);
                 return;
             }
 
-            if (linkHealth <= 2) {
+            if (LinkHealth <= 2) {
                 playLowHealth();
             }
         }

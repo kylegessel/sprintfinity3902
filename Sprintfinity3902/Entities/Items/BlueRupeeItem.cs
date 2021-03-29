@@ -5,24 +5,24 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class RupeeItem : AbstractItem
+    public class BlueRupeeItem : AbstractItem
     {
-        public RupeeItem()
+        public BlueRupeeItem()
         {
-            Sprite = ItemSpriteFactory.Instance.CreateRupeeItem();
+            Sprite = ItemSpriteFactory.Instance.CreateBlueRupeeItem();
             Position = new Vector2(200, 600);
             ID = IItem.ITEMS.RUPEE;
         }
 
-        public RupeeItem(Vector2 pos) {
-            Sprite = ItemSpriteFactory.Instance.CreateRupeeItem();
+        public BlueRupeeItem(Vector2 pos) {
+            Sprite = ItemSpriteFactory.Instance.CreateBlueRupeeItem();
             Position = pos;
             ID = IItem.ITEMS.RUPEE;
         }
 
         public override IPickup GetPickup()
         {
-            return new RupeePickup();
+            return new BlueRupeePickup();
         }
     }
 }

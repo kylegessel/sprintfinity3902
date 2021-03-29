@@ -5,24 +5,24 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class KeyItem : AbstractItem
+    public class BombStaticItem : AbstractItem
     {
-        public KeyItem()
+        public BombStaticItem()
         {
-            Sprite = ItemSpriteFactory.Instance.CreateKeyItem();
+            Sprite = ItemSpriteFactory.Instance.CreateBombItem();
             Position = new Vector2(700, 600);
-            ID = IItem.ITEMS.KEY;
+            ID = IItem.ITEMS.BOMB;
         }
 
-        public KeyItem(Vector2 pos) {
-            Sprite = ItemSpriteFactory.Instance.CreateKeyItem();
+        public BombStaticItem(Vector2 pos) {
+            Sprite = ItemSpriteFactory.Instance.CreateBombItem();
             Position = pos;
-            ID = IItem.ITEMS.KEY;
+            ID = IItem.ITEMS.BOMB;
         }
 
         public override IPickup GetPickup()
         {
-            return new KeyPickup();
+            return new BombPickup();
         }
     }
 }

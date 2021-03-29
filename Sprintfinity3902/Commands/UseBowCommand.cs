@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Commands
         public void Execute()
         {
             //Eventually this should all live within player, this should become a call to use item.
-            if (!Arrow.getItemUse())
+            if (!Arrow.getItemUse() && PlayerCharacter.itemcount[IItem.ITEMS.BOW] > 0)
             {
                 PlayerCharacter.UseItem();
                 Arrow.UseItem(PlayerCharacter);

@@ -32,7 +32,6 @@ namespace Sprintfinity3902.Entities
             BombExplosion = bombExplode;
             itemUse = false;
             itemUseCount = 0;
-            ID = IItem.ITEMS.BOMB;
         }
 
         public Boolean getItemUse()

@@ -30,7 +30,7 @@ namespace Sprintfinity3902.Commands
             //    PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
             //}
             //else
-            if (!MovingSword.getItemUse())
+            if (!MovingSword.getItemUse()  && PlayerCharacter.LinkHealth == PlayerCharacter.MaxHealth)
             {
                 PlayerCharacter.Attack();
                 Sword.UseItem(PlayerCharacter);
@@ -38,7 +38,7 @@ namespace Sprintfinity3902.Commands
 
                 SoundManager.Instance.GetSoundEffectInstance(swordThrowInstanceID).Play();
             }
-            else
+            else if(!Sword.getItemUse())
             {
                 PlayerCharacter.Attack();
                 Sword.UseItem(PlayerCharacter);

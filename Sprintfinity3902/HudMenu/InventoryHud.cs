@@ -40,9 +40,9 @@ namespace Sprintfinity3902.HudMenu
             foreach (IEntity icon in Icons) {
                 icon.Draw(spriteBatch, color);
             }
-            spriteBatch.Draw(new Texture2D(spriteBatch.GraphicsDevice, 100, 100), 
-                WorldPoint,
-                Color.Pink);
+            //spriteBatch.Draw(new Texture2D(spriteBatch.GraphicsDevice, 100, 100), 
+            //    WorldPoint,
+            //    Color.Pink);
             popMatrix();
 
         }

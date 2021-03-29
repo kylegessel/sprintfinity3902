@@ -56,8 +56,8 @@ namespace Sprintfinity3902.HudMenu
 
         private void UpdateHearts()
         {
-            double maxHealth = Link.MAX_HEALTH;
-            double currentHealth = Link.linkHealth;
+            double maxHealth = Link.MaxHealth;
+            double currentHealth = Link.LinkHealth;
 
             hudHeartManager.UpdateHearts(maxHealth, currentHealth);
         }
@@ -81,7 +81,7 @@ namespace Sprintfinity3902.HudMenu
             if (Link.itemcount.ContainsKey(IItem.ITEMS.BOMB))
             {
                 bombNum = Link.itemcount[IItem.ITEMS.BOMB];
-                //DisplayNumbers(bombNum);
+                hudNumberManager.BombNumbers(bombNum);
             }
         }
     }

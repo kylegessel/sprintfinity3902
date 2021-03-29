@@ -20,5 +20,10 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             ID = IItem.ITEMS.BOW;
         }
+
+        public override IPickup GetPickup()
+        {
+            return new BowPickup();
+        }
     }
 }

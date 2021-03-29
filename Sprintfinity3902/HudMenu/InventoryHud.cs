@@ -10,10 +10,11 @@ using System;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.SpriteFactories;
 using System.Collections;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.HudMenu
 {
-    public class InventoryHud : IHud
+    public class InventoryHud : AbstractHud
     {
         private class OrderedSet<T> : IList<T>
         {
@@ -48,13 +49,12 @@ namespace Sprintfinity3902.HudMenu
 
 
 
-        private Game1 game;
-        private Player Link;
-        private Dictionary<Player.SelectableWeapons, ISprite> weaponEnumToEntity =
-            new Dictionary<Player.SelectableWeapons, ISprite>() {
-                {Player.SelectableWeapons.BOW , HudSpriteFactory.Instance.CreateBowIcon()},
-                {Player.SelectableWeapons.BOOMERANG , HudSpriteFactory.Instance.CreateBoomerangIcon()},
-                {Player.SelectableWeapons.BOMB , HudSpriteFactory.Instance.CreateBombIcon()}
+        
+        private Dictionary<Player.SelectableWeapons, IEntity> weaponEnumToEntity =
+            new Dictionary<Player.SelectableWeapons, IEntity>() {
+                {Player.SelectableWeapons.BOW , new BowIcon(new Vector2())},
+                {Player.SelectableWeapons.BOOMERANG , new BoomerangIcon(new Vector2())},
+                {Player.SelectableWeapons.BOMB , new BoomerangIcon(new Vector2())}
                 /*Add necessary mappings here for ALL possible enum to icons*/
 
             };
@@ -67,13 +67,13 @@ namespace Sprintfinity3902.HudMenu
         };
 
         //private static Player.SelectableWeapons[] values = (Player.SelectableWeapons[])Enum.GetValues(typeof(Player.SelectableWeapons));
-        private static ISprite blackTile = HudSpriteFactory.Instance.CreateBlackLongIcon();
+        private static int blackTileSquareWidth = 8;
 
         private OrderedSet<Player.SelectableWeapons> availableItems;
-        
+        private ISprite hudInventoryBaseSprite;
         private IEntity itemSelectedIcon;
-        public Vector2 WorldPoint { get; private set; }
-        public List<IEntity> Icons { get; private set; }
+        private Game1 game;
+        private Player Link;
 
         public InventoryHud(Game1 _game)
         {
@@ -82,6 +82,7 @@ namespace Sprintfinity3902.HudMenu
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, -176 * Global.Var.SCALE);
             itemSelectedIcon = new ItemSelectIcon(new Vector2());
+            hudInventoryBaseSprite = HudSpriteFactory.Instance.CreateInventoryHud();
             availableItems = new OrderedSet<Player.SelectableWeapons>();
             /*Add weapons to the inventory screen by doing this or calling method below,
              make sure to add these to the static dictionary above also*/
@@ -124,67 +125,55 @@ namespace Sprintfinity3902.HudMenu
             itemSelectedIcon.Position = new Vector2(selectPos.X - 20, selectPos.Y);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
         }
 
-        public void Draw(SpriteBatch spriteBatch, Color color)
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            pushMatrix();
+            pushMatrix(Icons.ToArray());
+
             foreach (IEntity icon in Icons) {
-                icon.Draw(spriteBatch, color);
+                icon.Draw(spriteBatch, Color.White);
             }
 
+            for (int i = 0; i< availableItems.Count; i++) {
+                IEntity usableItems = weaponEnumToEntity[availableItems[i]];
+                usableItems.Position = iconMatrix[i / 4, i % 4];
+                pushMatrix(usableItems);
+                usableItems.Draw(spriteBatch, Color.White);
+                popMatrix(usableItems);
+            }
+
+            if (availableItems.Count > 0) {
+                pushMatrix(itemSelectedIcon);
+                itemSelectedIcon.Draw(spriteBatch, Color.White);
+                popMatrix(itemSelectedIcon);
+            }
+
+            IEntity reference = weaponEnumToEntity[game.link.SelectedWeapon];
+            pushMatrix(reference);
+            reference.Draw(spriteBatch, Color.White);
+            popMatrix(reference);
+
+            popMatrix(Icons.ToArray());
+
+        }
+
+        public override void Initialize()
+        {
+            Icons.Add(new InventoryHudEntity(new Vector2(0, 0)));
             for (int i = 0; i < 13; i++) {
                 for (int j = 0; j < 2; j++) {
-                    blackTile.Draw(spriteBatch, new Vector2(500 + i * blackTile.Animation.CurrentFrame.Width * Global.Var.SCALE, 40 + j * blackTile.Animation.CurrentFrame.Height * Global.Var.SCALE), Color.Black);
+                    Icons.Add(new BlackSquareIcon(new Vector2(500 + i * blackTileSquareWidth * Global.Var.SCALE, 40 + j * blackTileSquareWidth * Global.Var.SCALE)));
                 }
             }
 
             for (int i = 0; i < 11; i++) {
                 for (int j = 0; j < 2; j++) {
-                    blackTile.Draw(spriteBatch, new Vector2(500 + i * blackTile.Animation.CurrentFrame.Width * Global.Var.SCALE, 192 + j * blackTile.Animation.CurrentFrame.Height * Global.Var.SCALE), Color.Black);
+                    Icons.Add(new BlackSquareIcon(new Vector2(500 + i * blackTileSquareWidth * Global.Var.SCALE, 192 + j * blackTileSquareWidth * Global.Var.SCALE)));
                 }
             }
-
-            for (int i = 0; i< availableItems.Count; i++) {
-                weaponEnumToEntity[availableItems[i]].Draw(spriteBatch, iconMatrix[i / 4, i % 4], Color.White);
-            }
-
-            if (availableItems.Count > 0) {
-                itemSelectedIcon.Draw(spriteBatch, Color.White);
-            }
-
-            weaponEnumToEntity[game.link.SelectedWeapon].Draw(spriteBatch, new Vector2(270, 194), Color.White);
-
-            popMatrix();
-
-        }
-
-        private void pushMatrix() {
-
-            foreach (IEntity icon in Icons) {
-                icon.Position = new Vector2(icon.Position.X + WorldPoint.X, icon.Position.Y + WorldPoint.Y);
-            }
-
-        }
-
-        private void popMatrix()
-        {
-
-            foreach (IEntity icon in Icons) {
-                icon.Position = new Vector2(icon.Position.X - WorldPoint.X, icon.Position.Y - WorldPoint.Y);
-            }
-
-        }
-
-        public void TranslateMatrix(Vector2 deltaVec) {
-            WorldPoint = new Vector2(WorldPoint.X + deltaVec.X, WorldPoint.Y + deltaVec.Y);
-        }
-
-        public void Initialize()
-        {
-            Icons.Add(new InventoryHudEntity(new Vector2(0, 0)));
         }
 
     }

@@ -9,6 +9,7 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.Dungeon;
 using System;
 using System.Diagnostics;
+using Sprintfinity3902.HudMenu;
 
 namespace Sprintfinity3902
 {
@@ -78,9 +79,7 @@ namespace Sprintfinity3902
             }
 
             foreach (IHud hud in game.huds) {
-                foreach (IEntity icon in hud.Icons) {
-                    icon.Y = icon.Y + shiftAmount;
-                }
+                hud.TranslateMatrix(new Vector2(0, shiftAmount));
             }
 
             foreach (IEntity door in game.dungeon.GetCurrentRoom().doors) {

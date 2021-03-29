@@ -28,6 +28,7 @@ namespace Sprintfinity3902.Interfaces
         void TakeDamage();
         void BounceOfEnemy(ICollision.CollisionSide Side);
         void RemoveDecorator();
+        void DeathSpin(bool end);
         //void MoveLink();
         //void StopMoving();
     }

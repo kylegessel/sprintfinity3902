@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902.Controllers
 {
+    /*THIS CLASS IS DEPRECATED*/
     public class InputMouse : IController {
 
         private static Dictionary<Keys, Interfaces.ICommand> controllerMappings;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
@@ -14,7 +15,7 @@ namespace Sprintfinity3902.HudMenu
         private HudNumberManager hudNumberManager;
         private HudHeartManager hudHeartManager;
         private HudInitializer hudInitializer;
-        public List<IEntity> Icons { get; set; }
+        public List<IEntity> Icons { get; private set; }
 
         public InGameHud(Game1 game)
         {
@@ -40,6 +41,13 @@ namespace Sprintfinity3902.HudMenu
             {
                 UpdateItems();
                 Link.itemPickedUp = false;
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Color color)
+        {
+            foreach (IEntity icon in Icons) {
+                icon.Draw(spriteBatch, color);
             }
         }
 

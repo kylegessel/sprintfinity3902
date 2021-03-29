@@ -25,7 +25,6 @@ namespace Sprintfinity3902.Interfaces
         void Draw(SpriteBatch spriteBatch, Color color);
         void Move();
         void Attack();
-        void SetState(IPlayerState state);
         Rectangle GetBoundingRect();
         void SetStepSize(float size);
         float GetStepSize();

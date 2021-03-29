@@ -1,11 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Commands;
+using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.States;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Link
 {
@@ -31,6 +35,7 @@ namespace Sprintfinity3902.Link
         private Boolean _collidable;
         public int linkHealth;
         private string lowHealthInstanceID;
+        private double _deathSpinCount;
 
         public IPlayerState CurrentState {
             get {
@@ -57,8 +62,11 @@ namespace Sprintfinity3902.Link
 
         public Dictionary<IItem.ITEMS, int> itemcount;
 
-        public Player()
+        private Game1 game;
+
+        public Player(Game1 _game)
         {
+            game = _game;
             Position = new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, ONE_HUNDRED_NINETY_THREE * Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
             facingDown = CurrentState;
@@ -80,8 +88,22 @@ namespace Sprintfinity3902.Link
             heartChanged = true;
             itemPickedUp = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
+            _deathSpinCount = 0.0;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
+        }
+
+        /*TODO: Move to Game1 class - and keep comment below*/
+        /*Don't move from Game1 class*/
+        public void Initialize() {
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(game.link), Keys.W, Keys.Up);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(game.link), Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(game.link), Keys.S, Keys.Down);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(game.link), Keys.D, Keys.Right);
+
+            KeyboardManager.Instance.RegisterKeyUpCallback(() => {
+                CurrentState.Sprite.Animation.Stop();
+            }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
 
         public void pickup(IItem.ITEMS item) {
@@ -91,6 +113,11 @@ namespace Sprintfinity3902.Link
             else
             {
                 itemcount.Add(item, 1);
+            }
+
+            if (item == IItem.ITEMS.TRIFORCE) {
+                // TODO: Call victory
+                game.UpdateState(Game1.GameState.WIN);
             }
 
             if (item == IItem.ITEMS.HEART)
@@ -136,6 +163,10 @@ namespace Sprintfinity3902.Link
 
         }
 
+        public bool IsCurrentState(IPlayerState state) {
+            return state.Equals(CurrentState);
+        }
+
         public void useItem(IItem.ITEMS item) {
             if (itemcount.ContainsKey(item) && itemcount[item] > 0) {
                 itemcount[item]--;
@@ -145,10 +176,11 @@ namespace Sprintfinity3902.Link
             /* TODO: Implmt err control */
         }
 
-        public override void SetState(IPlayerState state) {
-            Vector2 pos = Position;
+        public void SetState(IPlayerState state) {
+            if (state.Equals(CurrentState)) return;
+            //Vector2 pos = Position;
             CurrentState = state;
-            Position = pos;
+            //Position = pos;
         }
 
         public override void Move() {
@@ -168,6 +200,26 @@ namespace Sprintfinity3902.Link
         public override void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);  //can this pass out size?
             CurrentState.Update();
+
+            if (_deathSpinCount != 0.0) { 
+                _deathSpinCount += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                switch (((int)(_deathSpinCount / 100.0)) % 4) {
+                    case 0:
+                        SetState(facingDown);
+                        break;
+                    case 1:
+                        SetState(facingRight);
+                        break;
+                    case 2:
+                        SetState(facingUp);
+                        break;
+                    case 3:
+                        SetState(facingLeft);
+                        break;
+                }
+                return;
+            }
 
             if (_bouncingOfEnemy)
             {
@@ -235,8 +287,15 @@ namespace Sprintfinity3902.Link
             linkHealth--;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             heartChanged = true;
-            if(linkHealth <= 2)
+            
+            if (linkHealth <= 0) {
+                game.UpdateState(Game1.GameState.LOSE);
+                return;
+            }
+
+            if (linkHealth <= 2) {
                 playLowHealth();
+            }
         }
 
         public void BounceOfEnemy(ICollision.CollisionSide Side)
@@ -253,6 +312,7 @@ namespace Sprintfinity3902.Link
         public void RemoveDecorator()
         {
             _collidable = true;
+            game.playerCharacter = this;
         }
         public override Boolean IsCollidable()
         {
@@ -265,6 +325,12 @@ namespace Sprintfinity3902.Link
         private void stopLowHealth()
         {
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
+        }
+
+        public void DeathSpin(bool end)
+        {
+            if (end) SetState(facingDown);
+            _deathSpinCount = end ? 0.0 : 0.01;
         }
     }
 }

@@ -20,6 +20,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Font.spritefont
 
+#begin NES - The Legend of Zelda - Fonts.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:NES - The Legend of Zelda - Fonts.png
+
 #begin NES - The Legend of Zelda - Level 1 E.png
 /importer:TextureImporter
 /processor:TextureProcessor

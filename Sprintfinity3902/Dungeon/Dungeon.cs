@@ -69,8 +69,6 @@ namespace Sprintfinity3902.Dungeon
             linkProj.Add(bowArrow);
 
             backgroundMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon), 0.02f, true);
-
-            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Initialize()
@@ -100,6 +98,8 @@ namespace Sprintfinity3902.Dungeon
                 entity.Update(gameTime);
             }
             bombItem.Update(gameTime);
+
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Draw(SpriteBatch spriteBatch)

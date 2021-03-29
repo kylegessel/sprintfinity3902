@@ -21,6 +21,7 @@ namespace Sprintfinity3902
     {
         public enum GameState
         {
+            INTRO,
             PLAYING,
             PAUSED,
             PAUSED_TRANSITION,
@@ -44,6 +45,9 @@ namespace Sprintfinity3902
         public OptionMenu optionMenu;
         
         public List<IHud> huds;
+
+        private ISprite titleScreen;
+        private string introMusicInstanceID;
 
         public Game1()
         {
@@ -80,6 +84,9 @@ namespace Sprintfinity3902
             SoundManager.Instance.Reset();
             CollisionDetector.Instance.Reset();
 
+            titleScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
+            introMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
+
             playerCharacter = new Player(this);
             link = (Player)playerCharacter;
             link.Initialize();
@@ -101,13 +108,21 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
             KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
 
-            UpdateState(GameState.PLAYING);
+            UpdateState(GameState.INTRO);
         }
 
         public void Pause()
         {
             if (!State.Equals(GameState.PAUSED_TRANSITION)) {
                 UpdateState(GameState.PAUSED_TRANSITION);
+            }
+        }
+
+        public void StartGame()
+        {
+            if (!State.Equals(GameState.PLAYING))
+            {
+                UpdateState(GameState.PLAYING);
             }
         }
 
@@ -118,6 +133,9 @@ namespace Sprintfinity3902
             KeyboardManager.Instance.Update(gameTime);
 
             switch (State) {
+                case GameState.INTRO:
+                    titleScreen.Update(gameTime);
+                    break;
                 case GameState.PAUSED:
                     break;
                 case GameState.PAUSED_TRANSITION:
@@ -155,6 +173,9 @@ namespace Sprintfinity3902
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
 
             switch (State) {
+                case GameState.INTRO:
+                    titleScreen.Draw(SpriteBatch, new Vector2(0, 16 * Global.Var.SCALE), Color.White);
+                    break;
                 case GameState.PAUSED:
                 case GameState.PAUSED_TRANSITION:
                 case GameState.LOSE:
@@ -180,6 +201,10 @@ namespace Sprintfinity3902
 
         public void UpdateState(GameState state) {
             switch (state) {
+                case GameState.INTRO:
+                    SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Play();
+                    KeyboardManager.Instance.RegisterKeyUpCallback(StartGame, Keys.Enter);
+                    break;
                 case GameState.PAUSED:
                     break;
                 case GameState.PAUSED_TRANSITION:
@@ -195,6 +220,7 @@ namespace Sprintfinity3902
                     optionMenu.Start();
                     break;
                 case GameState.PLAYING:
+                    SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Stop();
                     if (State.Equals(GameState.PAUSED_TRANSITION)) {
                         KeyboardManager.Instance.PopCommandMatrix();
                     }

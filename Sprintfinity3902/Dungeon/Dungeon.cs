@@ -15,6 +15,7 @@ namespace Sprintfinity3902.Dungeon
         private static int NINETY_SEVEN = 97;
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
+        public ChangeRoom changeRoom { get; set; }
 
         private Game1 Game;
         private List<IRoom> dungeonRooms;
@@ -46,11 +47,12 @@ namespace Sprintfinity3902.Dungeon
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room17.csv", 17));
             dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room18.csv", 18));
 
-            CurrentRoom = GetById(1);
+            CurrentRoom = GetById(2);
             currentId = CurrentRoom.Id;
             NextId = CurrentRoom.Id;
 
             Game = game;
+            changeRoom = new ChangeRoom(Game);
 
             backgroundMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon), 0.02f, true);
 
@@ -79,12 +81,33 @@ namespace Sprintfinity3902.Dungeon
             CurrentRoom.garbage.Clear();
         }
             CurrentRoom = GetById(NextId);
-            CurrentRoom.Update(gameTime);
+
+
+            if (changeRoom.Change)
+            {
+                changeRoom.Update(gameTime);
+            }
+            else
+            {
+                CurrentRoom.Update(gameTime);
+            }
         }
+
+        
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            CurrentRoom.Draw(spriteBatch);
+
+            if (changeRoom.Change)
+            {
+                changeRoom.Draw(spriteBatch);
+            }
+            else
+            {
+                CurrentRoom.Draw(spriteBatch);
+
+            }
         }
 
         public IRoom GetById(int id)
@@ -137,48 +160,7 @@ namespace Sprintfinity3902.Dungeon
         }
         public void ChangeRoom(IDoor door)
         {
-            switch (door.CurrentState.doorDirection)
-            {
-                case DoorDirection.UP:
-                    // Set links position to the bottom of the next room.
-                    SetLinkPositionDown();
-                    break;
-                case DoorDirection.DOWN:
-                    // Set links position to the top of the next room.
-                    SetLinkPositionUp();
-                    break;
-                case DoorDirection.LEFT:
-                    // Set links position to the top of the next room.
-                    SetLinkPositionRight();
-                    break;
-                case DoorDirection.RIGHT:
-                    // Set links position to the top of the next room.
-                    SetLinkPositionLeft();
-                    break;
-            }
-            SetCurrentRoom(door.DoorDestination);
-        }
-        public void SetLinkPositionUp()
-        {
-            // 112 * Global.Var.SCALE, 64 * Global.Var.SCALE
-            Game.link.X = 120 * Global.Var.SCALE;
-            Game.link.Y = (64 + 35) * Global.Var.SCALE;
-        }
-
-        public void SetLinkPositionDown()
-        {
-            Game.link.X = 120 * Global.Var.SCALE;
-            Game.link.Y = 193 * Global.Var.SCALE;
-        }
-        public void SetLinkPositionLeft()
-        {
-            Game.link.X = 35 * Global.Var.SCALE;
-            Game.link.Y = (136 + 8) * Global.Var.SCALE;
-        }
-        public void SetLinkPositionRight()
-        {
-            Game.link.X = (224 - 16) * Global.Var.SCALE;
-            Game.link.Y = (136+8) * Global.Var.SCALE;
+            changeRoom.StartAnimation(door.DoorDestination, door.CurrentState.doorDirection);
         }
 
         public void SetLinkPosition()

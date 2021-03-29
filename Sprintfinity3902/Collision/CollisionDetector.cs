@@ -55,21 +55,22 @@ namespace Sprintfinity3902.Collision
         {
             Rectangle linkRect = link.GetBoundingRect();
             Boolean alreadyMoved = false;
-
             foreach (IDoor door in doors)
             {
                 Rectangle doorRect = door.GetBoundingRect();
-                if (doorRect.Intersects(linkRect))
-                {
-                    if (door.DoorDestination != -1)
+                if (!gameInstance.dungeon.changeRoom.Change) {
+                    if (doorRect.Intersects(linkRect))
                     {
-                        // Add more complex logic here.
-                        gameInstance.dungeon.ChangeRoom(door);
-                    }
-                    else
-                    {
-                        side = blockCollision.SideOfCollision(doorRect, linkRect);
-                        blockCollision.ReflectMovingEntity(link, side);
+                        if (door.DoorDestination != -1)
+                        {
+                            // Add more complex logic here.
+                            gameInstance.dungeon.ChangeRoom(door);
+                        }
+                        else
+                        {
+                            side = blockCollision.SideOfCollision(doorRect, linkRect);
+                            blockCollision.ReflectMovingEntity(link, side);
+                        }
                     }
                 }
 
@@ -154,9 +155,8 @@ namespace Sprintfinity3902.Collision
             foreach (AbstractBlock block in blocks)
             {
                 Rectangle blockRect = block.GetBoundingRect();
-
-                //link vs blocks
-                if (block.IsCollidable() && blockRect.Intersects(linkRect))
+                    //link vs blocks
+                    if (!gameInstance.dungeon.changeRoom.Change && block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
                     side = blockCollision.SideOfCollision(blockRect, linkRect);
 

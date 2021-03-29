@@ -48,16 +48,14 @@ namespace Sprintfinity3902.HudMenu
         }
 
 
+        public static IEntity createObjectByClassType(Type clazz, Vector2 pos)
+        {
+            // .. do construction work here
+            Object theObject = Activator.CreateInstance(clazz, pos);
+            return (IEntity)theObject;
+        }
 
-        
-        private Dictionary<Player.SelectableWeapons, IEntity> weaponEnumToEntity =
-            new Dictionary<Player.SelectableWeapons, IEntity>() {
-                {Player.SelectableWeapons.BOW , new BowIcon(new Vector2())},
-                {Player.SelectableWeapons.BOOMERANG , new BoomerangIcon(new Vector2())},
-                {Player.SelectableWeapons.BOMB , new BoomerangIcon(new Vector2())}
-                /*Add necessary mappings here for ALL possible enum to icons*/
-
-            };
+        private static Dictionary<Player.SelectableWeapons, Type> weaponEnumToEntity;
 
         private static float ICON_MARGIN = 1.5f;
 
@@ -70,7 +68,6 @@ namespace Sprintfinity3902.HudMenu
         private static int blackTileSquareWidth = 8;
 
         private OrderedSet<Player.SelectableWeapons> availableItems;
-        private ISprite hudInventoryBaseSprite;
         private IEntity itemSelectedIcon;
         private Game1 game;
         private Player Link;
@@ -81,9 +78,15 @@ namespace Sprintfinity3902.HudMenu
             Link = game.link;
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, -176 * Global.Var.SCALE);
-            itemSelectedIcon = new ItemSelectIcon(new Vector2());
-            hudInventoryBaseSprite = HudSpriteFactory.Instance.CreateInventoryHud();
+            itemSelectedIcon = new ItemSelectIcon(new Vector2(0, 0));
             availableItems = new OrderedSet<Player.SelectableWeapons>();
+            weaponEnumToEntity = new Dictionary<Player.SelectableWeapons, Type>() {
+                {Player.SelectableWeapons.BOW , typeof(BowIcon)},
+                {Player.SelectableWeapons.BOOMERANG , typeof(BoomerangIcon)},
+                {Player.SelectableWeapons.BOMB , typeof(BombIcon)}
+                /*Add necessary mappings here for ALL possible enum to icons*/
+
+            };
             /*Add weapons to the inventory screen by doing this or calling method below,
              make sure to add these to the static dictionary above also*/
             availableItems.Add(Player.SelectableWeapons.BOMB);
@@ -136,9 +139,9 @@ namespace Sprintfinity3902.HudMenu
             foreach (IEntity icon in Icons) {
                 icon.Draw(spriteBatch, Color.White);
             }
-
+            
             for (int i = 0; i< availableItems.Count; i++) {
-                IEntity usableItems = weaponEnumToEntity[availableItems[i]];
+                IEntity usableItems = createObjectByClassType(weaponEnumToEntity[availableItems[i]], new Vector2(270,195));
                 usableItems.Position = iconMatrix[i / 4, i % 4];
                 pushMatrix(usableItems);
                 usableItems.Draw(spriteBatch, Color.White);
@@ -151,10 +154,12 @@ namespace Sprintfinity3902.HudMenu
                 popMatrix(itemSelectedIcon);
             }
 
-            IEntity reference = weaponEnumToEntity[game.link.SelectedWeapon];
+            
+            IEntity reference = createObjectByClassType(weaponEnumToEntity[game.link.SelectedWeapon], new Vector2(270,195));
             pushMatrix(reference);
             reference.Draw(spriteBatch, Color.White);
             popMatrix(reference);
+            
 
             popMatrix(Icons.ToArray());
 
@@ -163,14 +168,14 @@ namespace Sprintfinity3902.HudMenu
         public override void Initialize()
         {
             Icons.Add(new InventoryHudEntity(new Vector2(0, 0)));
-            for (int i = 0; i < 13; i++) {
-                for (int j = 0; j < 2; j++) {
+            for (int i = 0; i < 12; i++) {
+                for (int j = 0; j < 4; j++) {
                     Icons.Add(new BlackSquareIcon(new Vector2(500 + i * blackTileSquareWidth * Global.Var.SCALE, 40 + j * blackTileSquareWidth * Global.Var.SCALE)));
                 }
             }
 
             for (int i = 0; i < 11; i++) {
-                for (int j = 0; j < 2; j++) {
+                for (int j = 0; j < 4; j++) {
                     Icons.Add(new BlackSquareIcon(new Vector2(500 + i * blackTileSquareWidth * Global.Var.SCALE, 192 + j * blackTileSquareWidth * Global.Var.SCALE)));
                 }
             }

@@ -10,9 +10,10 @@ namespace Sprintfinity3902.Entities
 
         }
 
-        public void Pickup(Player Link)
+        public bool Pickup(Player Link)
         {
             //Stopwatch
+            return false;
 
         }
 

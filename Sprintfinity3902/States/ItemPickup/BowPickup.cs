@@ -10,10 +10,12 @@ namespace Sprintfinity3902.Entities
 
         }
 
-        public void Pickup(Player link)
+        public bool Pickup(Player link)
         {
             //link.bow = true
             // add link bow to HUD AND allow to use
+
+            return false;
         }
 
     }

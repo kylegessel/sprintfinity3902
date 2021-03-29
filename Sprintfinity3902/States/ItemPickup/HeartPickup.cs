@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Entities
 
         }
 
-        public void Pickup(Player Link)
+        public bool Pickup(Player Link)
         {
             if (Link.LinkHealth < Link.MaxHealth)
             {
@@ -20,7 +20,12 @@ namespace Sprintfinity3902.Entities
                     Link.LinkHealth++;
                 }
                 Link.heartChanged = true;
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+                
             }
+
+            return false;
         }
 
     }

@@ -10,10 +10,12 @@ namespace Sprintfinity3902.Entities
 
         }
 
-        public void Pickup(Player Link)
+        public bool Pickup(Player Link)
         {
             //BuildMapHUD();
             //add Map HUD
+
+            return false;
 
         }
 

@@ -33,7 +33,6 @@ namespace Sprintfinity3902.Link
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
-        public int linkHealth;
         private string lowHealthInstanceID;
         private double _deathSpinCount;
 
@@ -61,7 +60,6 @@ public IPlayerState CurrentState {
         public bool itemPickedUp { get; set; }
 
         public int MaxHealth { get; set; }
-
         public int LinkHealth { get; set; }
 
         public Dictionary<IItem.ITEMS, int> itemcount;
@@ -115,67 +113,14 @@ public IPlayerState CurrentState {
 
 
             IPickup itemPickup = item.GetPickup();
-            itemPickup.Pickup(this);
+            bool win = itemPickup.Pickup(this);
 
             Debug.WriteLine(LinkHealth);
-            //item.PickupItem(this);
-            /*
-            if (itemcount.ContainsKey(item)) {
-                itemcount[item]++;
-            }
-            else
-            {
-                itemcount.Add(item, 1);
-            }
 
-            if (item == IItem.ITEMS.TRIFORCE) {
-                // TODO: Call victory
+            if (win)
+            {
                 game.UpdateState(Game1.GameState.WIN);
             }
-
-            if (item == IItem.ITEMS.HEART)
-            {
-                if (linkHealth < MAX_HEALTH)
-                {
-                    linkHealth++;
-                    if(linkHealth != MAX_HEALTH)
-                    {
-                        linkHealth++;
-                    }
-                    heartChanged = true;
-                    if (linkHealth > 2)
-                        stopLowHealth();
-                }
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else if (item == IItem.ITEMS.HEARTCONTAINER)
-            {
-                MAX_HEALTH += 2;
-                linkHealth = MAX_HEALTH;
-                heartChanged = true;
-            }
-            else if (item == IItem.ITEMS.BOMB)
-            {
-                itemPickedUp = true;
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else if (item == IItem.ITEMS.KEY)
-            {
-                itemPickedUp = true;
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else if (item == IItem.ITEMS.RUPEE)
-            {
-                itemPickedUp = true;
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else
-            {
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-
-            itemcount.Add(item, 1);
-            */
         }
 
         public bool IsCurrentState(IPlayerState state) {

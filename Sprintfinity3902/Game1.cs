@@ -38,7 +38,7 @@ namespace Sprintfinity3902
         public IEntity hitboxSword;
         public List<IEntity> linkProj;
         public List<IHud> huds;
-        private IEntity bombExplosion;
+        public IEntity bombExplosion;
 
         //private IDetector detector;
 

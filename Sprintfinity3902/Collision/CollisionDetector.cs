@@ -61,10 +61,15 @@ namespace Sprintfinity3902.Collision
                 if (!gameInstance.dungeon.changeRoom.Change) {
                     if (doorRect.Intersects(linkRect))
                     {
-                        if (door.DoorDestination != -1)
+                        if (door.DoorDestination != -1 && door.CurrentState.IsOpen)
                         {
                             // Add more complex logic here.
                             gameInstance.dungeon.ChangeRoom(door);
+                        }
+                        else if (door.CurrentState.IsLocked && gameInstance.link.itemcount[IItem.ITEMS.KEY] > 0)
+                        {
+                            door.Open();
+                            gameInstance.link.itemcount[IItem.ITEMS.KEY] -= 1;
                         }
                         else
                         {
@@ -99,9 +104,14 @@ namespace Sprintfinity3902.Collision
                 foreach (AbstractEntity proj in linkProj)
                 {
 
-                    if (doorRect.Intersects(proj.GetBoundingRect()))
+                    if (!proj.Equals(gameInstance.bombExplosion) && doorRect.Intersects(proj.GetBoundingRect()))
                     {
                         ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
+                    }
+                    // TODO: Add bombable property.
+                    else if(doorRect.Intersects(proj.GetBoundingRect()))
+                    {
+                        door.Open(); 
                     }
                 }
 

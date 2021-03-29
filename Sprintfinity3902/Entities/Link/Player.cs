@@ -77,8 +77,11 @@ namespace Sprintfinity3902.Link
             linkHealth = MAX_HEALTH;
             heartChanged = true;
             itemPickedUp = false;
+            
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
+            // temporary intialization
+            itemcount[IItem.ITEMS.KEY] = 0;
         }
 
         public void pickup(IItem.ITEMS item) {

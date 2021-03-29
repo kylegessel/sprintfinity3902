@@ -19,7 +19,7 @@ namespace Sprintfinity3902.HudMenu
             Game = game;
             Link = Game.link;
             Icons = new List<IEntity>();
-            WorldPoint = new Vector2(0, -176 * Global.Var.SCALE);
+            WorldPoint = new Vector2(0, 0 * Global.Var.SCALE);
             hudInitializer = new HudInitializer(this);
 
             Initialize();
@@ -30,12 +30,6 @@ namespace Sprintfinity3902.HudMenu
 
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Color color)
-        {
-            foreach (IEntity icon in Icons) {
-                icon.Draw(spriteBatch, color);
-            }
-        }
 
         public override void Initialize()
         {

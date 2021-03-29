@@ -113,13 +113,11 @@ public IPlayerState CurrentState {
             }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
 
-        public void pickup(IItem item) {
+        public void Pickup(IItem item) {
 
 
             IPickup itemPickup = item.GetPickup();
             bool win = itemPickup.Pickup(this);
-
-            Debug.WriteLine(LinkHealth);
 
             if (win)
             {
@@ -129,15 +127,6 @@ public IPlayerState CurrentState {
 
         public bool IsCurrentState(IPlayerState state) {
             return state.Equals(CurrentState);
-        }
-
-        public void useItem(IItem.ITEMS item) {
-            if (itemcount.ContainsKey(item) && itemcount[item] > 0) {
-                itemcount[item]--;
-                return ;
-            } 
-            // Not enough quantity or any
-            /* TODO: Implmt err control */
         }
 
         public void SetState(IPlayerState state) {
@@ -159,6 +148,17 @@ public IPlayerState CurrentState {
         public void UseItem()
         {
             CurrentState.UseItem();
+        }
+
+        public void UseItem(IItem.ITEMS item)
+        {
+
+            CurrentState.UseItem();
+            if (itemcount.ContainsKey(item) && itemcount[item] > 0)
+            {
+                itemcount[item]--;
+                itemPickedUp = true;
+            }
         }
 
         public override void Update(GameTime gameTime) {

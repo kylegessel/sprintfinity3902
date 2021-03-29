@@ -13,7 +13,7 @@ namespace Sprintfinity3902.Entities
         public bool Pickup(Player Link)
         {
             //ASDFASDF
-
+            Link.itemcount[IItem.ITEMS.BOOMERANG]++;
             return false;
         }
 

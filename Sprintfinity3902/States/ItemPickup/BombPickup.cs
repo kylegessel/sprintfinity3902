@@ -12,14 +12,8 @@ namespace Sprintfinity3902.Entities
 
         public bool Pickup(Player Link)
         {
-            if (Link.itemcount.ContainsKey(IItem.ITEMS.BOMB))
-            {
-                Link.itemcount[IItem.ITEMS.BOMB]++;
-            }
-            else
-            {
-                Link.itemcount.Add(IItem.ITEMS.BOMB, 1);
-            }
+            Link.itemcount[IItem.ITEMS.BOMB]++;
+
 
             Link.itemPickedUp = true;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);

@@ -35,6 +35,9 @@ namespace Sprintfinity3902.Dungeon
         private static int TWO_HUNDRED_FORTY = 240;
         private static int TWO_HUNDRED_FIFTY_SIX = 256;
 
+        private static int BMRG_X_OFFSET = 5;
+        private static int BMRG_Y_OFFSET = 4;
+
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
@@ -395,7 +398,10 @@ namespace Sprintfinity3902.Dungeon
                     Room.items.Add(new BombStaticItem(Position));
                     break;
                 case "BMRG":
-                    Room.items.Add(new BoomerangStaticItem(Position));
+                    BoomerangStaticItem boom = new BoomerangStaticItem(Position);
+                    boom.X = boom.Position.X + BMRG_X_OFFSET * Global.Var.SCALE;
+                    boom.Y = boom.Position.Y + BMRG_Y_OFFSET * Global.Var.SCALE;
+                    Room.items.Add(boom);
                     break;
                 case "BRUP":
                     Room.items.Add(new BlueRupeeItem(Position));

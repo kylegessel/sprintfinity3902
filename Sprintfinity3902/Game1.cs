@@ -67,11 +67,13 @@ namespace Sprintfinity3902
                 dungeon.CleanUp();
             }
 
-            dungeon = new Dungeon.Dungeon(this);
-            dungeon.Build();
+
 
             playerCharacter = new Player();
             link = (Player)playerCharacter;
+
+            dungeon = new Dungeon.Dungeon(this);
+            dungeon.Build();
 
             pauseMenu = new PauseMenu(this);
 

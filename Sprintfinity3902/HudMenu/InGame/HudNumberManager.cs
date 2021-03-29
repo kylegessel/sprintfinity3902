@@ -19,6 +19,7 @@ namespace Sprintfinity3902.HudMenu
         private const int ITEM_COUNT_X = 104;
         private const int RUPEE_COUNT_Y = 16;
         private const int KEY_COUNT_Y = 32;
+        private const int BOMB_COUNT_Y = 40;
         
         public HudNumberManager(InGameHud hud)
         {
@@ -58,6 +59,21 @@ namespace Sprintfinity3902.HudMenu
         public void KeyNumbers(int keyNum)
         {
             y = KEY_COUNT_Y;
+            for (i = 0; i < SINGLE_DIGIT_COLUMNS; i++)
+            {
+                x = ITEM_COUNT_X;
+                for (j = 0; j < SINGLE_DIGIT_COLUMNS; j++)
+                {
+                    Hud.Icons.Add(GetDigit(keyNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    x = x + HUD_SQUARE_WIDTH;
+                }
+                y = y + HUD_SQUARE_WIDTH;
+            }
+        }
+
+        public void BombNumbers(int keyNum)
+        {
+            y = BOMB_COUNT_Y;
             for (i = 0; i < SINGLE_DIGIT_COLUMNS; i++)
             {
                 x = ITEM_COUNT_X;

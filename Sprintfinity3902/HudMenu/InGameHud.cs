@@ -83,7 +83,7 @@ namespace Sprintfinity3902.HudMenu
             if (Link.itemcount.ContainsKey(IItem.ITEMS.BOMB))
             {
                 bombNum = Link.itemcount[IItem.ITEMS.BOMB];
-                //DisplayNumbers(bombNum);
+                hudNumberManager.BombNumbers(bombNum);
             }
         }
     }

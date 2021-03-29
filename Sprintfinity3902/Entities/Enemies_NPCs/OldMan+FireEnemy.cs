@@ -9,9 +9,11 @@ namespace Sprintfinity3902.Entities
     {
         private static int MOD_BOUND = 12;
         private static int WAIT_TIME = 40;
-        private static int THREE = 3;
-        private static int SIX = 6;
-        private static int NINE = 9;
+        private static int COLOR1_ID = 3;
+        private static int COLOR2_ID = 6;
+        private static int COLOR3_ID = 9;
+        private static int FIRE_ENEMY_POS_OFFSET = 48;
+        private static int RIGHT_FIRE_ENEMY_OFFSET = 16;
 
         private int counter;
         private int count;
@@ -28,9 +30,9 @@ namespace Sprintfinity3902.Entities
             Position = pos;
 
             fireEnemy1 = new FireEnemy(Position);
-            fireEnemy1.X = X + 48 * Global.Var.SCALE + 16 * Global.Var.SCALE;
+            fireEnemy1.X = X + FIRE_ENEMY_POS_OFFSET * Global.Var.SCALE + RIGHT_FIRE_ENEMY_OFFSET * Global.Var.SCALE;
             fireEnemy2 = new FireEnemy(Position);
-            fireEnemy2.X = X - 48 * Global.Var.SCALE;
+            fireEnemy2.X = X - FIRE_ENEMY_POS_OFFSET * Global.Var.SCALE;
             
             Position = pos;
             color = Color.White;
@@ -82,15 +84,15 @@ namespace Sprintfinity3902.Entities
         public void Decorate()
         {
             counter = count % MOD_BOUND;
-            if (counter < THREE)
+            if (counter < COLOR1_ID)
             {
                 color = Color.Aqua;
             }
-            else if (counter < SIX)
+            else if (counter < COLOR2_ID)
             {
                 color = Color.Red;
             }
-            else if (counter < NINE)
+            else if (counter < COLOR3_ID)
             {
                 color = Color.White;
             }

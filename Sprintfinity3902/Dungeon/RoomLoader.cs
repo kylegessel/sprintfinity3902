@@ -391,6 +391,9 @@ namespace Sprintfinity3902.Dungeon
                 case "BMRG":
                     Room.items.Add(new BoomerangStaticItem(Position));
                     break;
+                case "BRUP":
+                    Room.items.Add(new BlueRupeeItem(Position));
+                    break;
                 case "TRIF":
                     TriforceItem triforce = new TriforceItem(Position);
                     triforce.X = triforce.Position.X + ELEVEN * Global.Var.SCALE;

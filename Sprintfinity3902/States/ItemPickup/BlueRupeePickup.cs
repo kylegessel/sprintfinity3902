@@ -3,16 +3,17 @@ using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.Entities
 {
-    public class RupeePickup : IPickup
+    public class BlueRupeePickup : IPickup
     {
-        public RupeePickup()
+        private const int BLUE_RUPEE_VALUE = 5;
+        public BlueRupeePickup()
         { 
 
         }
 
         public bool Pickup(Player Link)
         {
-            Link.itemcount[IItem.ITEMS.RUPEE]++;
+            Link.itemcount[IItem.ITEMS.RUPEE]+=BLUE_RUPEE_VALUE;
 
             Link.itemPickedUp = true;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);

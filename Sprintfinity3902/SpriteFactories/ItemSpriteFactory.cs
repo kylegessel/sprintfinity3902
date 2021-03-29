@@ -70,6 +70,10 @@ namespace Sprintfinity3902.SpriteFactories
             return new RupeeItemSprite(itemSpriteSheet);
         }
 
+        public ISprite CreateBlueRupeeItem()
+        {
+            return new BlueRupeeItemSprite(itemSpriteSheet);
+        }
         public ISprite CreateHeartItem()
         {
             return new HeartItemSprite(itemSpriteSheet);

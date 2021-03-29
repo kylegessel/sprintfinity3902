@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902.Controllers
 {
+    /*THIS CLASS IS DEPRECATED*/
     public class InputMouse : IController {
 
         /*MAGIC NUMBERS REFACTOR*/
@@ -49,7 +50,7 @@ namespace Sprintfinity3902.Controllers
             ms = Mouse.GetState();
             mouseLocation = new Point(ms.X, ms.Y);
 
-            if (Game.pauseMenu.Pause && Game.pauseMenu.Transition == false)
+            if (Game.IsInState(Game1.GameState.PAUSED) )
                 MouseMapInput();
         }
 

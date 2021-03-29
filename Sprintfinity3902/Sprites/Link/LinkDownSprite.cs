@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprintfinity3902.Sprites
 {
@@ -27,7 +28,5 @@ namespace Sprintfinity3902.Sprites
             Animation.AddFrame(Sprite2, 1 / 10f);
             Animation.AddFrame(Sprite1, 1 / 5f);
         }
-
-
     }
 }

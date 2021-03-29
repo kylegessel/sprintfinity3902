@@ -100,7 +100,7 @@ namespace Sprintfinity3902.Entities
 
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
         {
-            Sprite.Draw(spriteBatch, Position, Color.White);
+            Sprite.Draw(spriteBatch, Position, color);
         }
 
         public virtual void Update(GameTime gameTime)
@@ -122,14 +122,7 @@ namespace Sprintfinity3902.Entities
         {
 
         }
-        public virtual void SetState(IPlayerState state)
-        {
-            /* 
-             * Do Nothing at all
-             * Most Entities will not need a SetState method
-             * But they can choose to override this if they do
-             */
-        }
+        
 
         public virtual Boolean IsCollidable()
         {

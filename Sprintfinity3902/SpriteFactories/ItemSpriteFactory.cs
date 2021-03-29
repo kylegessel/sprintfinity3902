@@ -50,6 +50,16 @@ namespace Sprintfinity3902.SpriteFactories
             return new MovingSwordVerticalSprite(linkItemSpriteSheet);
         }
 
+        public ISprite CreateArrowHorizontalItem()
+        {
+            return new ArrowHorizontalSprite(linkItemSpriteSheet);
+        }
+
+        public ISprite CreateArrowVerticalItem()
+        {
+            return new ArrowVerticalSprite(linkItemSpriteSheet);
+        }
+
         public ISprite CreateFireAttack()
         {
             return new FireAttackSprite(bossSpriteSheet);

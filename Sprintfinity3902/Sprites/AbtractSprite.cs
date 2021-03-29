@@ -21,6 +21,7 @@ namespace Sprintfinity3902.Sprites
             Animation.Draw(spriteBatch, position, color);
         }
 
+
         public virtual void Update(GameTime gameTime) {
             Animation.Update(gameTime);
         }

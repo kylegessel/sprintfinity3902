@@ -8,6 +8,6 @@ RMIN,,,,,,,,,,,
  , , , , , , , , ,BLOK,BLOK,BLOK
  , , , , , , ,BLOK,BLOK,BLOK,BLOK,BLOK
 WALT,-1,,,,,,,,,,
-LDRB,-1,,,,,,,,,,
+LDRB,12,,,,,,,,,,
 WALL,-1,,,,,,,,,,
-CDRR,-1,,,,,,,,,,
+CDRR,16,,,,,,,,,,

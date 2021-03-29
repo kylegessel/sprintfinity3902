@@ -24,6 +24,7 @@ namespace Sprintfinity3902.Commands
             {
                 PlayerCharacter.UseItem();
                 Boomerang.UseItem(PlayerCharacter);
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Arrow_Boomerang).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
         }
     }

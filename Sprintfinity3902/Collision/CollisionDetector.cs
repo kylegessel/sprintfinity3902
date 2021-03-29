@@ -19,6 +19,8 @@ namespace Sprintfinity3902.Collision
         ICollision blockCollision = new BlockCollisionHandler();
         ICollision enemyCollision = new EnemyCollisionHandler();
         ICollision.CollisionSide side;
+
+        private static bool shouldCheck;
         
 
         /* Singleton instance */
@@ -33,7 +35,15 @@ namespace Sprintfinity3902.Collision
             }
         }
 
-        public void setup(Game1 game)
+        private CollisionDetector() {
+            shouldCheck = true;
+        }
+
+        public void Reset() {
+            instance = new CollisionDetector();
+        }
+
+        public void Initialize(Game1 game)
         {
             gameInstance = game;
             link = (Player)game.playerCharacter;
@@ -44,15 +54,80 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> enemyProj, List<IEntity> garbage) {
+        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> enemyProj, List<IDoor> doors, List<IEntity> garbage) {
             DetectLinkDamage(enemies, enemyProj);
             DetectBlockCollision(enemies, blocks, linkProj, enemyProj);
             DetectEnemyDamage(enemies, linkProj, items, garbage);
             DetectItemPickup(items);
+            DetectDoorCollision(enemies, doors, linkProj, enemyProj);
         }
+        private void DetectDoorCollision(Dictionary<int, IEntity> enemies, List<IDoor> doors, List<IEntity> linkProj, List<IEntity> enemyProj)
+        {
+            Rectangle linkRect = link.GetBoundingRect();
+            Boolean alreadyMoved = false;
 
+            foreach (IDoor door in doors)
+            {
+                Rectangle doorRect = door.GetBoundingRect();
+                if (doorRect.Intersects(linkRect))
+                {
+                    if (door.DoorDestination != -1)
+                    {
+                        // Add more complex logic here.
+                        gameInstance.dungeon.ChangeRoom(door);
+                    }
+                    else
+                    {
+                        side = blockCollision.SideOfCollision(doorRect, linkRect);
+                        blockCollision.ReflectMovingEntity(link, side);
+                    }
+                }
+
+
+                //enemy vs blocks
+                foreach (int enemy in enemies.Keys)
+                {
+                    // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
+                    IEntity currentEnemy;
+                    enemies.TryGetValue(enemy, out currentEnemy);
+                    AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
+                    Rectangle enemyRect = cEnemy.GetBoundingRect();
+                    alreadyMoved = false;
+
+                    if (doorRect.Intersects(enemyRect))
+                    {
+                        side = blockCollision.SideOfCollision(doorRect, enemyRect);
+                        if (!alreadyMoved) //This will prevent it from moving back twice
+                        {
+                            alreadyMoved = blockCollision.ReflectMovingEntity(currentEnemy, side);
+                        }
+                    }
+                }
+
+                //proj vs blocks
+                foreach (AbstractEntity proj in linkProj)
+                {
+
+                    if (doorRect.Intersects(proj.GetBoundingRect()))
+                    {
+                        ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
+
+                    }
+                }
+
+                foreach (AbstractEntity proj in enemyProj)
+                {
+
+                    if (doorRect.Intersects(proj.GetBoundingRect()))
+                    {
+                        ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
+                    }
+                }
+            }
+        }
         private void DetectLinkDamage(Dictionary<int, IEntity> enemies, List<IEntity> enemyProj)
         {
+            if (!shouldCheck) return;
 
             Rectangle linkRect = link.GetBoundingRect();
             Boolean alreadyMoved = false;
@@ -156,6 +231,7 @@ namespace Sprintfinity3902.Collision
 
         private void DetectEnemyDamage(Dictionary<int, IEntity> enemies, List<IEntity> linkProj, List<IEntity> items, List<IEntity> garbage)
         {
+            if (!shouldCheck) return;
 
             List<int> deletionList = new List<int>();
             foreach (AbstractEntity proj in linkProj)
@@ -167,6 +243,7 @@ namespace Sprintfinity3902.Collision
                     if (proj != null && proj.GetBoundingRect().Intersects(currentEnemy.GetBoundingRect()))
                     {
                         ProjectileCollisionHandler.ProjectileEnemyHit(enemy, currentEnemy, (IProjectile)proj, deletionList, garbage, gameInstance);
+
                     }
                 }
             }
@@ -174,12 +251,12 @@ namespace Sprintfinity3902.Collision
             foreach (int enemyID in deletionList)
             {
                 enemies.Remove(enemyID);
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.Boss_Defeated).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
         }
 
         private void DetectItemPickup(List<IEntity> items)
         {
+            if (!shouldCheck) return;
 
             Rectangle linkRect = link.GetBoundingRect();
             List<IEntity> deletionList = new List<IEntity>();
@@ -204,6 +281,10 @@ namespace Sprintfinity3902.Collision
         {
             Rectangle linkRect = link.GetBoundingRect();
             return rec.Intersects(linkRect);
+        }
+
+        public void Pause() {
+            shouldCheck = !shouldCheck;
         }
 
     }

@@ -23,6 +23,5 @@ namespace Sprintfinity3902.Interfaces
         void Draw(SpriteBatch spriteBatch);
         void ChangePosition(bool pause);
         void SetPauseCount();
-        void DamageGoryia(int enemyID);
     }
 }

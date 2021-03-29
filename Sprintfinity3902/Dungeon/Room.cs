@@ -159,12 +159,5 @@ namespace Sprintfinity3902.Dungeon
             count = 0;
         }
 
-        public void DamageGoryia(int enemyID)
-        {
-            decoratedGoryia = enemies[enemyID];
-
-            enemies.Remove(enemyID);
-            enemies.Add(enemyID, new DamagedGoryia(decoratedGoryia, this, enemyID)); 
-        }
     }
 }

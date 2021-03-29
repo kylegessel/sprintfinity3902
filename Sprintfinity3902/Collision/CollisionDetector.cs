@@ -61,7 +61,7 @@ namespace Sprintfinity3902.Collision
             {
                 
                 enemies.TryGetValue(enemy, out currentEnemy);
-                AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
+                IEntity cEnemy = currentEnemy;
                 Rectangle enemyRect = cEnemy.GetBoundingRect();
 
                 if (link.IsCollidable() && enemyRect.Intersects(linkRect) && !alreadyMoved) 
@@ -115,7 +115,7 @@ namespace Sprintfinity3902.Collision
                     // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
                     IEntity currentEnemy;
                     enemies.TryGetValue(enemy, out currentEnemy);
-                    AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
+                    IEntity cEnemy = currentEnemy;
                     Rectangle enemyRect = cEnemy.GetBoundingRect();
                     alreadyMoved = false;
 
@@ -156,7 +156,6 @@ namespace Sprintfinity3902.Collision
 
         private void DetectEnemyDamage(Dictionary<int, IEntity> enemies, List<IEntity> linkProj, List<IEntity> items, List<IEntity> garbage)
         {
-
             List<int> deletionList = new List<int>();
             foreach (AbstractEntity proj in linkProj)
             {
@@ -168,7 +167,7 @@ namespace Sprintfinity3902.Collision
                     {
                         ProjectileCollisionHandler.ProjectileEnemyHit(enemy, currentEnemy, (IProjectile)proj, deletionList, garbage, gameInstance);
                     }
-                }
+                }   
             }
 
             foreach (int enemyID in deletionList)

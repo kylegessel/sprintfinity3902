@@ -246,8 +246,9 @@ namespace Sprintfinity3902.Dungeon
                     break;
                 case "GORY":
                     IBoomerang goriyaBoomerang = new BoomerangItem();
+                    IEntity goriya = new GoriyaEnemy(goriyaBoomerang, Position);
                     Room.enemyProj.Add(goriyaBoomerang);
-                    Room.enemies.Add(enemyID, new GoriyaEnemy(goriyaBoomerang, Position));
+                    Room.enemies.Add(enemyID, goriya);
                     enemyID++;
                     break;
                 case "HAND":

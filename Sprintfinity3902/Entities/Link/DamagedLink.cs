@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
-using System.Diagnostics;
 
 namespace Sprintfinity3902.Link
 {

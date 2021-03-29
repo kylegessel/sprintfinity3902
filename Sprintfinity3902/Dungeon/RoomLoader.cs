@@ -312,7 +312,7 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "FIRE":
-                    Room.enemies.Add(enemyID, new Fire(Position));
+                    Room.enemies.Add(enemyID, new FireEnemy(Position));
                     enemyID++;
                     break;
                 case "GELY":
@@ -336,6 +336,12 @@ namespace Sprintfinity3902.Dungeon
                     OldManNPC man = new OldManNPC(Position);
                     man.X = man.Position.X + EIGHT * Global.Var.SCALE;
                     Room.enemies.Add(enemyID, man);
+                    enemyID++;
+                    break;
+                case "MNFR":
+                    OldMan_FireEnemy manAndFire = new OldMan_FireEnemy(Position);
+                    manAndFire.X = manAndFire.Position.X + EIGHT * Global.Var.SCALE;
+                    Room.enemies.Add(enemyID, manAndFire);
                     enemyID++;
                     break;
                 case "SPKE":

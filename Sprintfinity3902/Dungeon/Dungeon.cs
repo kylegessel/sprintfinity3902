@@ -1,19 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Collision;
+using Sprintfinity3902.Commands;
+using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Dungeon.GameState;
+using Sprintfinity3902.Entities;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.States.Door;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
-using Sprintfinity3902.Collision;
-using Sprintfinity3902.Entities;
-using Sprintfinity3902.Entities.Items;
-using Sprintfinity3902.Controllers;
-using Sprintfinity3902.Commands;
-using Microsoft.Xna.Framework.Input;
-using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.Dungeon
 {
@@ -69,8 +68,6 @@ namespace Sprintfinity3902.Dungeon
             linkProj.Add(bowArrow);
 
             backgroundMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon), 0.02f, true);
-
-            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Initialize()
@@ -100,6 +97,8 @@ namespace Sprintfinity3902.Dungeon
                 entity.Update(gameTime);
             }
             bombItem.Update(gameTime);
+
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Draw(SpriteBatch spriteBatch)

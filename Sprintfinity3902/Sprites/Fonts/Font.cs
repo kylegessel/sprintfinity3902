@@ -1,11 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using IDrawable = Sprintfinity3902.Interfaces.IDrawable;
 
 namespace Sprintfinity3902.Sprites.Fonts
 {

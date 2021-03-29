@@ -140,7 +140,7 @@ namespace Sprintfinity3902.Entities
                     attack = TWO;
                 else
                     attack = rd.Next(ONE, THREE);
-                directionCount = Global.Var.ZERO;
+                directionCount = -1;
             }
 
             // Handle Movement

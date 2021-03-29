@@ -28,10 +28,10 @@ namespace Sprintfinity3902.Dungeon
 
         private Game1 Game;
         private List<IRoom> dungeonRooms;
-        private IEntity boomerangItem;
+        public IEntity boomerangItem;
         public IEntity bombItem;
         private IEntity movingSword;
-        private IEntity bowArrow;
+        public IEntity bowArrow;
         public IEntity bombExplosion;
         public IEntity hitboxSword;
         public IRoom CurrentRoom { get; set; }

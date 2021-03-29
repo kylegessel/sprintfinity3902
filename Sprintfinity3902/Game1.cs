@@ -93,6 +93,7 @@ namespace Sprintfinity3902
 
             huds = new List<IHud>();
 
+            /*Order of these now relevent*/
             huds.Add(new DungeonHud(this));
             huds.Add(new InGameHud(this));
             huds.Add(new InventoryHud(this));
@@ -185,6 +186,8 @@ namespace Sprintfinity3902
 
             switch (state) {
                 case GameState.PAUSED:
+                    KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)huds[2]).MoveSelectorLeft, Keys.A, Keys.Left);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)huds[2]).MoveSelectorRight, Keys.D, Keys.Right);
                     break;
                 case GameState.PAUSED_TRANSITION:
                     if (State.Equals(GameState.PLAYING)) {

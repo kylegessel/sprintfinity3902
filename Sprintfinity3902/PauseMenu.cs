@@ -91,6 +91,8 @@ namespace Sprintfinity3902
 
             ((Dungeon.Dungeon)game.dungeon).bombItem.Y = ((Dungeon.Dungeon)game.dungeon).bombItem.Y + shiftAmount;
             ((Dungeon.Dungeon)game.dungeon).bombExplosion.Y = ((Dungeon.Dungeon)game.dungeon).bombExplosion.Y + shiftAmount;
+            ((Dungeon.Dungeon)game.dungeon).boomerangItem.Y = ((Dungeon.Dungeon)game.dungeon).boomerangItem.Y + shiftAmount;
+            ((Dungeon.Dungeon)game.dungeon).bowArrow.Y = ((Dungeon.Dungeon)game.dungeon).bowArrow.Y + shiftAmount;
         }
 
     }

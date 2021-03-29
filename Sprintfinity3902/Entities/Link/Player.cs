@@ -37,6 +37,14 @@ namespace Sprintfinity3902.Link
         private string lowHealthInstanceID;
         private double _deathSpinCount;
 
+        public enum SelectableWeapons
+        {
+            BOMB,
+            BOOMERANG,
+            BOW,
+            MAP
+        }
+
         public IPlayerState CurrentState {
             get {
                 return _currentState;
@@ -59,6 +67,8 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingUpItem { get; set; }
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
+
+        public SelectableWeapons SelectedWeapon { get; set; }
 
         public Dictionary<IItem.ITEMS, int> itemcount;
 
@@ -105,6 +115,7 @@ namespace Sprintfinity3902.Link
                 CurrentState.Sprite.Animation.Stop();
             }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
+
 
         public void pickup(IItem.ITEMS item) {
             if (itemcount.ContainsKey(item)) {

@@ -26,7 +26,8 @@ namespace Sprintfinity3902
             PAUSED_TRANSITION,
             WIN,
             LOSE,
-            OPTIONS
+            OPTIONS,
+            RESET
         };
 
         private GraphicsDeviceManager graphics;
@@ -179,6 +180,9 @@ namespace Sprintfinity3902
         }
 
         public void UpdateState(GameState state) {
+
+            if (state.Equals(State)) return;
+
             switch (state) {
                 case GameState.PAUSED:
                     break;
@@ -192,7 +196,8 @@ namespace Sprintfinity3902
                     dungeon.UpdateState(IDungeon.GameState.WIN);
                     break;
                 case GameState.OPTIONS:
-                    optionMenu.Start();
+                    KeyboardManager.Instance.PushCommandMatrix();
+                    optionMenu.Initialize();
                     break;
                 case GameState.PLAYING:
                     if (State.Equals(GameState.PAUSED_TRANSITION)) {
@@ -202,6 +207,9 @@ namespace Sprintfinity3902
                 case GameState.LOSE:
                     dungeon.UpdateState(IDungeon.GameState.LOSE);
                     break;
+                case GameState.RESET:
+                    Reset();
+                    return;
             }
 
             State = state;

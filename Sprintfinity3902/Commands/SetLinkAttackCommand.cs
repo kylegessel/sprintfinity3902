@@ -38,7 +38,7 @@ namespace Sprintfinity3902.Commands
 
                 SoundManager.Instance.GetSoundEffectInstance(swordThrowInstanceID).Play();
             }
-            else
+            else if(!Sword.getItemUse())
             {
                 PlayerCharacter.Attack();
                 Sword.UseItem(PlayerCharacter);

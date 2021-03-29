@@ -1,4 +1,4 @@
-﻿using Sprintfinity3902 .States.Door;
+﻿using Sprintfinity3902.States.Door;
 
 namespace Sprintfinity3902.Interfaces
 {

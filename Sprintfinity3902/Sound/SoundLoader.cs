@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace Sprintfinity3902.Sound
 {

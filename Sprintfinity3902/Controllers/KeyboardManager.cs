@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Sprintfinity3902.Commands;
-using Sprintfinity3902.Link;
-using Sprintfinity3902.Sound;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

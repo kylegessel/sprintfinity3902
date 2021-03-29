@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprintfinity3902.Dungeon;
 using System.Collections.Generic;
 
 namespace Sprintfinity3902.Interfaces

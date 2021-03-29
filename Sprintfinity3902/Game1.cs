@@ -2,18 +2,13 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Collision;
-using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
-using Sprintfinity3902.Entities;
-using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
+using Sprintfinity3902.Sound;
 using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
-using Sprintfinity3902.Sound;
-using Microsoft.Xna.Framework.Audio;
-using System.Diagnostics;
 
 namespace Sprintfinity3902
 {

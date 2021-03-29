@@ -13,6 +13,7 @@ namespace Sprintfinity3902.Entities
         private static int FIVE = 5;
         private static int SIX = 6;
         private static int ONE_THOUSAND = 1000;
+        private static int SWORD_OUT_FRAMES = 30;
 
         Player PlayerCharacter;
         Boolean itemUse;
@@ -62,7 +63,7 @@ namespace Sprintfinity3902.Entities
 
         public void MoveItem()
         {
-            if (itemUseCount <= 30) //this time amount needs to be tweaked.
+            if (itemUseCount <= SWORD_OUT_FRAMES) //this time amount needs to be tweaked.
             {
 
 

@@ -20,8 +20,8 @@ namespace Sprintfinity3902.Interfaces
         IPlayerState facingUpItem { get; set; }
         bool heartChanged { get; set; }
         bool itemPickedUp { get; set; }
-        int MAX_HEALTH { get; set; }
-        int linkHealth { get; set; }
+        int MaxHealth { get; set; }
+        int LinkHealth { get; set; }
         Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
 
@@ -30,5 +30,6 @@ namespace Sprintfinity3902.Interfaces
         void StopMoving();
         void TakeDamage();
         void BounceOfEnemy(ICollision.CollisionSide Side);
+        void Initialize();
     }
 }

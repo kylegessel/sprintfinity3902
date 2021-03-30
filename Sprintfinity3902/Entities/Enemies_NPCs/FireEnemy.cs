@@ -11,7 +11,7 @@ namespace Sprintfinity3902.Entities
         private int count;
         private int waitTime;
         private Random rd;
-        private FireAttack attack;
+        private IAttack attack;
 
         public FireEnemy(Vector2 pos)
         {

@@ -8,12 +8,12 @@ namespace Sprintfinity3902.Commands
 
     public class UseBombCommand : ICommand
     {
-        ILink Link;
+        IPlayer Link;
         BombItem Bomb;
 
         public UseBombCommand(ILink player, BombItem bomb)
         {
-            Link = player;
+            Link = (IPlayer)player;
             Bomb = bomb;
         }
 

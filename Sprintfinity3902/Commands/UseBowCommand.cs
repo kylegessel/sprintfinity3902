@@ -8,10 +8,10 @@ namespace Sprintfinity3902.Commands
 
     public class UseBowCommand : ICommand
     {
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
         ArrowItem Arrow;
 
-        public UseBowCommand(Player player, ArrowItem arrow)
+        public UseBowCommand(IPlayer player, ArrowItem arrow)
         {
             PlayerCharacter = player;
             Arrow = arrow;

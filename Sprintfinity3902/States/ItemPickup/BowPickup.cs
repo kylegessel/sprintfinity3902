@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Entities
 
         }
 
-        public bool Pickup(Player Link)
+        public bool Pickup(IPlayer Link)
         {
             //link.bow = true
             // add link bow to HUD AND allow to use

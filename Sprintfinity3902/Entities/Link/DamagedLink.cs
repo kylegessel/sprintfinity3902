@@ -19,7 +19,7 @@ namespace Sprintfinity3902.Link
         int timer = 200;
         private ISprite _sprite;
         private Vector2 _position;
-        
+
 
 
         public ISprite Sprite
@@ -54,7 +54,6 @@ namespace Sprintfinity3902.Link
             set
             {
                 _position.X = value;
-                //Position = new Vector2(value, Position.Y);
             }
         }
         public float Y
@@ -66,7 +65,6 @@ namespace Sprintfinity3902.Link
             set
             {
                 _position.Y = value;
-                //Position = new Vector2(Position.X, value);
             }
         }
 
@@ -120,51 +118,31 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.Attack();
         }
-
         public void SetState(IPlayerState state)
         {
             decoratedLink.SetState(state);
         }
-        /*
-        public void BounceOfEnemy(ICollision.CollisionSide Side)
-        {
-            //
-        }
-        public void TakeDamage()
-        {
-            //doesn't take damage in damagedLink (Invincible state)
-        }
-        */
         public void RemoveDecorator()
         {
             decoratedLink.RemoveDecorator();
+            game.link = decoratedLink;
         }
-
-        public void useItem(IItem.ITEMS item)
+        public void UseItem(IItem.ITEMS item)
         {
-            decoratedLink.useItem(item);
+            decoratedLink.UseItem(item);
         }
         public void UseItem()
         {
             decoratedLink.UseItem();
         }
-        /*
-        public void StopMoving()
+        public void Pickup(IItem item)
         {
-            decoratedLink.StopMoving();
-        }
-        public void MoveLink()
-        {
-            decoratedLink.MoveLink();
-        }
-        */
-        public void pickup(IItem.ITEMS item)
-        {
-            decoratedLink.pickup(item);
+            decoratedLink.Pickup(item);
         }
         public void DeathSpin(bool end)
         {
             RemoveDecorator();
             decoratedLink.DeathSpin(end);
         }
+    }
 }

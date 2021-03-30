@@ -7,7 +7,7 @@ namespace Sprintfinity3902.Commands
 {
     public class SetLinkAttackCommand: ICommand
     {
-        ILink PlayerCharacter;
+        IPlayer PlayerCharacter;
         MovingSwordItem MovingSword;
         SwordHitboxItem Sword;
         private string swordThrowInstanceID;
@@ -15,7 +15,7 @@ namespace Sprintfinity3902.Commands
 
         public SetLinkAttackCommand(ILink player, MovingSwordItem movingSword, SwordHitboxItem sword)
         {
-            PlayerCharacter = player;
+            PlayerCharacter = (IPlayer)player;
             MovingSword = movingSword;
             Sword = sword;
 

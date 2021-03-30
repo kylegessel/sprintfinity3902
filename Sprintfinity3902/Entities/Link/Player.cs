@@ -62,7 +62,7 @@ public IPlayerState CurrentState {
         public int MaxHealth { get; set; }
         public int LinkHealth { get; set; }
 
-        public Dictionary<IItem.ITEMS, int> itemcount;
+        public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
         private Game1 game;
 
@@ -103,10 +103,10 @@ public IPlayerState CurrentState {
         /*TODO: Move to Game1 class - and keep comment below*/
         /*Don't move from Game1 class*/
         public void Initialize() {
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(game.link), Keys.W, Keys.Up);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(game.link), Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(game.link), Keys.S, Keys.Down);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(game.link), Keys.D, Keys.Right);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(game.playerCharacter), Keys.W, Keys.Up);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(game.playerCharacter), Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(game.playerCharacter), Keys.S, Keys.Down);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(game.playerCharacter), Keys.D, Keys.Right);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(() => {
                 CurrentState.Sprite.Animation.Stop();

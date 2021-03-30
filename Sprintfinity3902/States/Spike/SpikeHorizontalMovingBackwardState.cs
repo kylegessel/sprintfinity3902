@@ -14,7 +14,7 @@ namespace Sprintfinity3902.States
         private static int THIRTY_FOUR = 34;
 
         public ISprite Sprite { get; set; }
-        public SpikeEnemy Spike { get; set; }
+        public SpikeEnemy Spike { get; set; } /*Not sure if something like this needs to be of type ISpikeEnemy. For all Spike States*/
         public bool Start { get; set; }
         private int count;
         

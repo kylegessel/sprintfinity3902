@@ -10,15 +10,16 @@ namespace Sprintfinity3902.Interfaces
         float X { get; set; }
         float Y { get; set; }
         
+
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Color color);
         void Move();
         void Attack();
         void SetState(IPlayerState state);
         void RemoveDecorator();
-        void useItem(IItem.ITEMS item);
+        void UseItem(IItem.ITEMS item);
         public void UseItem();
-        void pickup(IItem.ITEMS item);
+        void Pickup(IItem item);
         void DeathSpin(bool end);
         
     }

@@ -428,7 +428,7 @@ namespace Sprintfinity3902.Dungeon
                     Room.items.Add(boom);
                     break;
                 case "BRUP":
-                    IItem brup = new BlueRupeeItem(Position)
+                    IItem brup = new BlueRupeeItem(Position);
                     Room.items.Add(brup);
                     break;
                 case "TRIF":

@@ -6,6 +6,7 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface IDoor : IBlock
     {
+        IDoorState CurrentState { get; set; }
         IDoorState wallTop { get; set; }
         IDoorState wallBottom { get; set; }
         IDoorState wallLeft { get; set; }
@@ -32,6 +33,6 @@ namespace Sprintfinity3902.Interfaces
         void Open();
         void Close();
 
-        public void SetState(IDoorState doorState);
+        //void SetState(IDoorState doorState);
     }
 }

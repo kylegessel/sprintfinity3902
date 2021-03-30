@@ -9,7 +9,7 @@ namespace Sprintfinity3902.HudMenu
     public class InGameHud : IHud
     {
         private Game1 Game;
-        private Player Link;
+        private IPlayer Link;
         private HudNumberManager hudNumberManager;
         private HudHeartManager hudHeartManager;
         private HudInitializer hudInitializer;
@@ -18,7 +18,7 @@ namespace Sprintfinity3902.HudMenu
         public InGameHud(Game1 game)
         {
             Game = game;
-            Link = Game.link;
+            Link = Game.playerCharacter;
             Icons = new List<IEntity>();
             hudNumberManager = new HudNumberManager(this);
             hudHeartManager = new HudHeartManager(this);

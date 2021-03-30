@@ -12,7 +12,7 @@ namespace Sprintfinity3902.Collision
 
 
         Game1 gameInstance;
-        Player link;
+        IPlayer link;
 
         
         ICollision blockCollision = new BlockCollisionHandler();
@@ -45,7 +45,7 @@ namespace Sprintfinity3902.Collision
         public void Initialize(Game1 game)
         {
             gameInstance = game;
-            link = (Player)game.playerCharacter;
+            link = (Player)game.link;
         }
 
         /* 
@@ -62,7 +62,7 @@ namespace Sprintfinity3902.Collision
         }
         private void DetectDoorCollision(Dictionary<int, IEntity> enemies, List<IDoor> doors, List<IEntity> linkProj, List<IEntity> enemyProj)
         {
-            Rectangle linkRect = link.GetBoundingRect();
+            Rectangle linkRect = ((IEntity)link).GetBoundingRect();
             Boolean alreadyMoved = false;
 
             foreach (IDoor door in doors)
@@ -78,7 +78,7 @@ namespace Sprintfinity3902.Collision
                     else
                     {
                         side = blockCollision.SideOfCollision(doorRect, linkRect);
-                        blockCollision.ReflectMovingEntity(link, side);
+                        blockCollision.ReflectMovingEntity((IEntity)link, side);
                     }
                 }
 
@@ -128,17 +128,17 @@ namespace Sprintfinity3902.Collision
         {
             if (!shouldCheck) return;
 
-            Rectangle linkRect = link.GetBoundingRect();
+            Rectangle linkRect = ((IEntity)link).GetBoundingRect();
             Boolean alreadyMoved = false;
             IEntity currentEnemy;
             foreach (int enemy in enemies.Keys)
             {
                 
                 enemies.TryGetValue(enemy, out currentEnemy);
-                AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
+                IEntity cEnemy = currentEnemy;
                 Rectangle enemyRect = cEnemy.GetBoundingRect();
 
-                if (link.IsCollidable() && enemyRect.Intersects(linkRect) && !alreadyMoved) 
+                if (((IEntity)link).IsCollidable() && enemyRect.Intersects(linkRect) && !alreadyMoved) 
                 {
                     //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
                     alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
@@ -149,7 +149,7 @@ namespace Sprintfinity3902.Collision
             foreach(IEntity proj in enemyProj)
             {
                 Rectangle enemyRect = proj.GetBoundingRect();
-                if (link.IsCollidable() && enemyRect.Intersects(linkRect) && alreadyMoved)
+                if ( ((IEntity)link).IsCollidable() && enemyRect.Intersects(linkRect) && alreadyMoved)
                 {
                     alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
                 }
@@ -159,7 +159,7 @@ namespace Sprintfinity3902.Collision
         private void DetectBlockCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> linkProj, List<IEntity> enemyProj)
         {
 
-            Rectangle linkRect = link.GetBoundingRect();
+            Rectangle linkRect = ((IEntity)link).GetBoundingRect();
             Boolean alreadyMoved = false;
 
             foreach (AbstractBlock block in blocks)
@@ -179,7 +179,7 @@ namespace Sprintfinity3902.Collision
                         {
                              block.StartMoving(side);
                         }
-                        alreadyMoved = blockCollision.ReflectMovingEntity(link, side); 
+                        alreadyMoved = blockCollision.ReflectMovingEntity( (IEntity)link, side); 
                     }
                 }
 
@@ -189,7 +189,7 @@ namespace Sprintfinity3902.Collision
                     // TODO: For some enemies, like the Spike and Final Boss, I don't want it to check for it's hit box
                     IEntity currentEnemy;
                     enemies.TryGetValue(enemy, out currentEnemy);
-                    AbstractEntity cEnemy = (AbstractEntity)currentEnemy;
+                    IEntity cEnemy = currentEnemy;
                     Rectangle enemyRect = cEnemy.GetBoundingRect();
                     alreadyMoved = false;
 
@@ -244,7 +244,7 @@ namespace Sprintfinity3902.Collision
                         ProjectileCollisionHandler.ProjectileEnemyHit(enemy, currentEnemy, (IProjectile)proj, deletionList, garbage, gameInstance);
 
                     }
-                }
+                }   
             }
 
             foreach (int enemyID in deletionList)
@@ -257,7 +257,7 @@ namespace Sprintfinity3902.Collision
         {
             if (!shouldCheck) return;
 
-            Rectangle linkRect = link.GetBoundingRect();
+            Rectangle linkRect = ((IEntity)link).GetBoundingRect();
             List<IEntity> deletionList = new List<IEntity>();
 
             foreach (AbstractEntity item in items)
@@ -278,7 +278,7 @@ namespace Sprintfinity3902.Collision
 
         public bool CheckSpecificCollision(Rectangle rec)
         {
-            Rectangle linkRect = link.GetBoundingRect();
+            Rectangle linkRect = ((IEntity)link).GetBoundingRect();
             return rec.Intersects(linkRect);
         }
 

@@ -9,7 +9,7 @@ namespace Sprintfinity3902.HudMenu
     public class MiniMapHud : IHud
     {
         private Game1 Game;
-        private Player Link;
+        private IPlayer Link;
         private HudInitializer hudInitializer;
 
         public List<IEntity> Icons { get; private set; }
@@ -17,7 +17,7 @@ namespace Sprintfinity3902.HudMenu
         public MiniMapHud(Game1 game)
         {
             Game = game;
-            Link = Game.link;
+            Link = Game.playerCharacter;
             Icons = new List<IEntity>();
             hudInitializer = new HudInitializer(this);
 

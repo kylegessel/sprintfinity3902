@@ -10,7 +10,7 @@ namespace Sprintfinity3902.HudMenu
     public class InventoryHud : IHud
     {
         private Game1 Game;
-        private Player Link;
+        private IPlayer Link;
         private IEntity selectedWeapon;
         public Vector2 WorldPoint;
         public List<IEntity> Icons { get; private set; }
@@ -18,7 +18,7 @@ namespace Sprintfinity3902.HudMenu
         public InventoryHud(Game1 game)
         {
             Game = game;
-            Link = Game.link;
+            Link = Game.playerCharacter;
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, -176 * Global.Var.SCALE);
 

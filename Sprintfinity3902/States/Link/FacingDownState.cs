@@ -6,10 +6,10 @@ namespace Sprintfinity3902.States
 {
     public class FacingDownState : IPlayerState
     {
-        public Player PlayerCharacter { get; set; }
+        public IPlayer PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }
 
-        public FacingDownState(Player currentPlayer)
+        public FacingDownState(IPlayer currentPlayer)
         {
             PlayerCharacter = currentPlayer;
             // Some type of if-else statement to get the damaged version?

@@ -15,7 +15,7 @@ namespace Sprintfinity3902.Entities
         private static int ONE_THOUSAND = 1000;
         private static int SWORD_OUT_FRAMES = 30;
 
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
         Boolean itemUse;
         int itemUseCount;
         IPlayerState firingState;
@@ -77,9 +77,9 @@ namespace Sprintfinity3902.Entities
 
             itemUseCount++;
         }
-        public void UseItem(Player player)
+        public void UseItem(ILink player)
         {
-            PlayerCharacter = player;
+            PlayerCharacter = (IPlayer)player;
             firingState = PlayerCharacter.CurrentState;
 
             if (firingState == PlayerCharacter.facingDownAttack)

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprintfinity3902.Interfaces
 {
-    public interface IEntity
+    public interface IEntity : ICollidable
     {
         ISprite Sprite
         {

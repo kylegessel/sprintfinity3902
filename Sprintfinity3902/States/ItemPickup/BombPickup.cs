@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Entities
 
         }
 
-        public bool Pickup(Player Link)
+        public bool Pickup(IPlayer Link)
         {
             Link.itemcount[IItem.ITEMS.BOMB]++;
 

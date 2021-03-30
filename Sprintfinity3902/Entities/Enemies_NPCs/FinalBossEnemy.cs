@@ -28,9 +28,9 @@ namespace Sprintfinity3902.Entities
 
         private ISprite ClosedMouth;
         private ISprite OpenedMouth;
-        public FireAttack fireAttackUp;
-        public FireAttack fireAttackCenter;
-        public FireAttack fireAttackDown;
+        public IAttack fireAttackUp;
+        public IAttack fireAttackCenter;
+        public IAttack fireAttackDown;
         private int decorateCount;
         private int decorateTime;
         private int directionCount;
@@ -45,7 +45,7 @@ namespace Sprintfinity3902.Entities
         private Random rd;
         private string bossScreamInstanceID;
 
-        public FinalBossEnemy(Vector2 pos, FireAttack up, FireAttack center, FireAttack down)
+        public FinalBossEnemy(Vector2 pos, IAttack up, IAttack center, IAttack down)
         {
             ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
             OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();

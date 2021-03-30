@@ -21,8 +21,8 @@ namespace Sprintfinity3902.Entities
         private bool decorate;
         private bool attacked;
 
-        private FireEnemy fireEnemy1;
-        private FireEnemy fireEnemy2;
+        private IEnemy fireEnemy1;
+        private IEnemy fireEnemy2;
 
         public OldMan_FireEnemy(Vector2 pos)
         {

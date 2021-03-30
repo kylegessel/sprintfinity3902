@@ -32,9 +32,9 @@ namespace Sprintfinity3902
         public GameState State { get; private set; }
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
-        public ILink playerCharacter;
-        public Player link;
-        
+        public ILink link;
+        public IPlayer playerCharacter;
+
         public IDungeon dungeon;
         public PauseMenu pauseMenu;
         public OptionMenu optionMenu;
@@ -82,9 +82,9 @@ namespace Sprintfinity3902
             titleScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
             introMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
 
-            playerCharacter = new Player(this);
-            link = (Player)playerCharacter;
-            link.Initialize();
+            link = new Player(this);
+            playerCharacter = (IPlayer)link;
+            playerCharacter.Initialize();
 
             dungeon = new Dungeon.Dungeon(this);
             dungeon.Initialize();
@@ -140,7 +140,7 @@ namespace Sprintfinity3902
                 case GameState.LOSE:
                 case GameState.WIN:
                     dungeon.Update(gameTime);
-                    playerCharacter.Update(gameTime);
+                    link.Update(gameTime);
                     foreach (IHud hud in huds) {
                         hud.Update(gameTime);
                     }
@@ -151,7 +151,7 @@ namespace Sprintfinity3902
                     }
 
                     dungeon.Update(gameTime);
-                    playerCharacter.Update(gameTime);
+                    link.Update(gameTime);
                     
                     break;
                 case GameState.OPTIONS:
@@ -183,7 +183,7 @@ namespace Sprintfinity3902
 
                     dungeon.Draw(SpriteBatch);
 
-                    playerCharacter.Draw(SpriteBatch, Color.White);
+                    link.Draw(SpriteBatch, Color.White);
 
                     break;
                 case GameState.OPTIONS:

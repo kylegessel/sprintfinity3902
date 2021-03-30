@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Entities
 {
     public class ArrowItem : AbstractItem, IProjectile
     {
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
         Boolean itemUse;
         int itemUseCount;
         ISprite Sprite2;
@@ -98,7 +98,7 @@ namespace Sprintfinity3902.Entities
 
             itemUseCount++;
         }
-        public void UseItem(Player player)
+        public void UseItem(IPlayer player)
         {
             PlayerCharacter = player;
             firingState = PlayerCharacter.CurrentState;

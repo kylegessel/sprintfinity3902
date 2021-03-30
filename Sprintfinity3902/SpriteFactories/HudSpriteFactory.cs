@@ -136,5 +136,10 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new BowIconSprite(hudSpriteSheet);
         }
+
+        public ISprite CreateMiniRoomIcon()
+        {
+            return new MiniRoomIconSprite(hudSpriteSheet);
+        }
     }
 }

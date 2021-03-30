@@ -97,7 +97,7 @@ namespace Sprintfinity3902
             huds.Add(new DungeonHud(this));
             huds.Add(new InGameHud(this));
             huds.Add(new InventoryHud(this));
-            huds.Add(new MiniMapHud(this));
+            huds.Add(new MiniMapHud(this,dungeon.RoomLocations));
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);

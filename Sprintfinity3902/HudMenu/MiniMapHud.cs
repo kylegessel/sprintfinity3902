@@ -11,14 +11,16 @@ namespace Sprintfinity3902.HudMenu
         private Game1 Game;
         private IPlayer Link;
         private HudInitializer hudInitializer;
+        private List<Point> RoomLocations;
 
         public List<IEntity> Icons { get; private set; }
 
-        public MiniMapHud(Game1 game)
+        public MiniMapHud(Game1 game, List<Point> roomLocations)
         {
             Game = game;
             Link = Game.playerCharacter;
             Icons = new List<IEntity>();
+            RoomLocations = roomLocations;
             hudInitializer = new HudInitializer(this);
 
             Initialize();
@@ -38,7 +40,7 @@ namespace Sprintfinity3902.HudMenu
 
         public void Initialize()
         {
-            hudInitializer.InitializeMiniMap();
+            hudInitializer.InitializeMiniMap(RoomLocations);
         }
     }
 }

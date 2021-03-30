@@ -27,6 +27,7 @@ namespace Sprintfinity3902.Dungeon
 
         private Game1 Game;
         private List<IRoom> dungeonRooms;
+        public List<Point> RoomLocations { get; set; }
         private IEntity boomerangItem;
         public IEntity bombItem;
         private IEntity movingSword;
@@ -51,6 +52,7 @@ namespace Sprintfinity3902.Dungeon
             bowArrow = new ArrowItem(new Vector2(-1000, -1000));
 
             dungeonRooms = new List<IRoom>();
+            RoomLocations = new List<Point>();
 
             for (int roomNum = 1; roomNum <= 18; roomNum++) {
                 dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
@@ -86,6 +88,11 @@ namespace Sprintfinity3902.Dungeon
             {
                 rload.Initialize(room);
                 rload.Build();
+                if (room.Id != 13)
+                { 
+                    RoomLocations.Add(room.RoomPos);
+                }
+                //RoomLocations.Add(room.RoomPos);
             }
         }
 

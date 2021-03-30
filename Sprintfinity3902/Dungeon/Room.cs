@@ -20,6 +20,7 @@ namespace Sprintfinity3902.Dungeon
         public List<IEntity> enemyProj { get; set; }
         public List<IEntity> garbage { get; set; }
         public List<IDoor> doors { get; set; }
+        public Point RoomPos { get; set; }
         //projectiles may have to be added here later.
 
         public string path { get; set; }
@@ -35,6 +36,7 @@ namespace Sprintfinity3902.Dungeon
             garbage = new List<IEntity>();
             enemyProj = new List<IEntity>();
             doors = new List<IDoor>();
+            RoomPos = new Point(2,7);
             path = fileLocation;
             Id = id;
             Pause = false;

@@ -78,6 +78,17 @@ namespace Sprintfinity3902.Dungeon.GameState
             }
         }
 
+        public Point RoomPos
+        {
+            get{
+                return CurrentState.RoomPos;
+            }
+
+            set{
+                CurrentState.RoomPos = value;
+            }
+        }
+
         public string path {
             get {
                 return CurrentState.path;

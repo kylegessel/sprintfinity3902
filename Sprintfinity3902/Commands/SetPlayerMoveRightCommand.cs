@@ -5,9 +5,9 @@ namespace Sprintfinity3902.Commands
 {
     public class SetPlayerMoveRightCommand: ICommand
     {
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
 
-        public SetPlayerMoveRightCommand(Player player)
+        public SetPlayerMoveRightCommand(IPlayer player)
         {
             PlayerCharacter = player;
         }

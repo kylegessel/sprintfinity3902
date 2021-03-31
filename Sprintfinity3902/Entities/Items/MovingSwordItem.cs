@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Entities
         private static int TWO = 2;
         private static int SIXTY = 60;
 
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
         Boolean itemUse;
         int itemUseCount;
         ISprite Sprite2;
@@ -108,9 +108,9 @@ namespace Sprintfinity3902.Entities
 
             itemUseCount++;
         }
-        public void UseItem(Player player)
+        public void UseItem(ILink player)
         {
-            PlayerCharacter = player;
+            PlayerCharacter = (IPlayer)player;
             firingState = PlayerCharacter.CurrentState;
 
             if (firingState == PlayerCharacter.facingDownAttack)

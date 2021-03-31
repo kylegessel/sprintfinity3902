@@ -18,5 +18,10 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             ID = IItem.ITEMS.COMPASS;
         }
+
+        public override IPickup GetPickup()
+        {
+            return new CompassPickup();
+        }
     }
 }

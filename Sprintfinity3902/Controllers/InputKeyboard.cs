@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Sprintfinity3902.Controllers
 {

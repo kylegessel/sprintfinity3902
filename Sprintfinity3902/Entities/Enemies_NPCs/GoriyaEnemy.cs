@@ -21,7 +21,7 @@ namespace Sprintfinity3902.Entities
 
         private IEnemyState _currentState;
         private int direction;
-        public BoomerangItem Boomerang;
+        public IBoomerang Boomerang;
         private GoriyaAI goriyaAI;
 
         public IEnemyState CurrentState
@@ -56,7 +56,7 @@ namespace Sprintfinity3902.Entities
         private int counter;
         
 
-        public GoriyaEnemy(BoomerangItem boomerang)
+        public GoriyaEnemy(IBoomerang boomerang)
         {
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
             Position = new Vector2(750, 540);
@@ -84,7 +84,7 @@ namespace Sprintfinity3902.Entities
             CurrentState = movingLeft;
             CurrentState.Start = true;
         }
-        public GoriyaEnemy(BoomerangItem boomerang, Vector2 pos)
+        public GoriyaEnemy(IBoomerang boomerang, Vector2 pos)
         {
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
             Position = pos;

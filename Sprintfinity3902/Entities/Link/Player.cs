@@ -9,11 +9,10 @@ using Sprintfinity3902.Sound;
 using Sprintfinity3902.States;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace Sprintfinity3902.Link
 {
-    public class Player : AbstractEntity, ILink
+    public class Player : AbstractEntity, IPlayer
     {
         /*MAGIC NUMBERS REFACTOR*/
         private static int FIFTEEN = 15;
@@ -26,14 +25,13 @@ namespace Sprintfinity3902.Link
         private static int THIRTEEN = 13;
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
+        private static int INITIAL_HEALTH = 6;
 
-        public int MAX_HEALTH = 6; //May need to be public for projectiles
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
-        public int linkHealth;
         private string lowHealthInstanceID;
         private double _deathSpinCount;
 
@@ -53,6 +51,7 @@ namespace Sprintfinity3902.Link
                 _currentState = value;
             }
         }
+
         public IPlayerState facingDown { get; set; }
         public IPlayerState facingLeft { get; set; }
         public IPlayerState facingRight { get; set; }
@@ -71,6 +70,10 @@ namespace Sprintfinity3902.Link
         public SelectableWeapons SelectedWeapon { get; set; }
 
         public Dictionary<IItem.ITEMS, int> itemcount;
+        public int MaxHealth { get; set; }
+        public int LinkHealth { get; set; }
+
+        public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
         private Game1 game;
 
@@ -94,97 +97,47 @@ namespace Sprintfinity3902.Link
             color = Color.White;
             _collidable = true;
             SetStepSize(1);
-            linkHealth = 1; //TODO: MAX_HEALTH undid for testing lose state
+            MaxHealth = INITIAL_HEALTH;
+            LinkHealth = 1;//TODO: MAX_HEALTH undid for testing lose state
             heartChanged = true;
             itemPickedUp = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
+            foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
+            {
+                itemcount.Add(item, 0);
+            }
         }
 
         /*TODO: Move to Game1 class - and keep comment below*/
         /*Don't move from Game1 class*/
         public void Initialize() {
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(game.link), Keys.W, Keys.Up);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(game.link), Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(game.link), Keys.S, Keys.Down);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(game.link), Keys.D, Keys.Right);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(game.playerCharacter), Keys.W, Keys.Up);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(game.playerCharacter), Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(game.playerCharacter), Keys.S, Keys.Down);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(game.playerCharacter), Keys.D, Keys.Right);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(() => {
                 CurrentState.Sprite.Animation.Stop();
             }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
 
+        public void Pickup(IItem item) {
 
-        public void pickup(IItem.ITEMS item) {
-            if (itemcount.ContainsKey(item)) {
-                itemcount[item]++;
-            }
-            else
+
+            IPickup itemPickup = item.GetPickup();
+            bool win = itemPickup.Pickup(this);
+
+            if (win)
             {
-                itemcount.Add(item, 1);
-            }
-
-            if (item == IItem.ITEMS.TRIFORCE) {
-                // TODO: Call victory
                 game.UpdateState(Game1.GameState.WIN);
             }
-
-            if (item == IItem.ITEMS.HEART)
-            {
-                if (linkHealth < MAX_HEALTH)
-                {
-                    linkHealth++;
-                    if(linkHealth != MAX_HEALTH)
-                    {
-                        linkHealth++;
-                    }
-                    heartChanged = true;
-                    if (linkHealth > 2)
-                        stopLowHealth();
-                }
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else if (item == IItem.ITEMS.HEARTCONTAINER)
-            {
-                MAX_HEALTH += 2;
-                linkHealth = MAX_HEALTH;
-                heartChanged = true;
-            }
-            else if (item == IItem.ITEMS.BOMB)
-            {
-                itemPickedUp = true;
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else if (item == IItem.ITEMS.KEY)
-            {
-                itemPickedUp = true;
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else if (item == IItem.ITEMS.RUPEE)
-            {
-                itemPickedUp = true;
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-            else
-            {
-                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            }
-
         }
 
         public bool IsCurrentState(IPlayerState state) {
             return state.Equals(CurrentState);
-        }
-
-        public void useItem(IItem.ITEMS item) {
-            if (itemcount.ContainsKey(item) && itemcount[item] > 0) {
-                itemcount[item]--;
-                return ;
-            } 
-            // Not enough quantity or any
-            /* TODO: Implmt err control */
         }
 
         public void SetState(IPlayerState state) {
@@ -206,6 +159,17 @@ namespace Sprintfinity3902.Link
         public void UseItem()
         {
             CurrentState.UseItem();
+        }
+
+        public void UseItem(IItem.ITEMS item)
+        {
+
+            CurrentState.UseItem();
+            if (itemcount.ContainsKey(item) && itemcount[item] > 0)
+            {
+                itemcount[item]--;
+                itemPickedUp = true;
+            }
         }
 
         public override void Update(GameTime gameTime) {
@@ -295,16 +259,16 @@ namespace Sprintfinity3902.Link
         public void TakeDamage()
         {
             _collidable = false;
-            linkHealth--;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            LinkHealth--;
             heartChanged = true;
             
-            if (linkHealth <= 0) {
+            if (LinkHealth <= 0) {
                 game.UpdateState(Game1.GameState.LOSE);
                 return;
             }
 
-            if (linkHealth <= 2) {
+            if (LinkHealth <= 2) {
                 playLowHealth();
             }
         }

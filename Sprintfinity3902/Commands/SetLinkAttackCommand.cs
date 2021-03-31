@@ -7,15 +7,15 @@ namespace Sprintfinity3902.Commands
 {
     public class SetLinkAttackCommand: ICommand
     {
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
         MovingSwordItem MovingSword;
         SwordHitboxItem Sword;
         private string swordThrowInstanceID;
         private string swordSlashInstanceID;
 
-        public SetLinkAttackCommand(Player player, MovingSwordItem movingSword, SwordHitboxItem sword)
+        public SetLinkAttackCommand(ILink player, MovingSwordItem movingSword, SwordHitboxItem sword)
         {
-            PlayerCharacter = player;
+            PlayerCharacter = (IPlayer)player;
             MovingSword = movingSword;
             Sword = sword;
 
@@ -30,7 +30,7 @@ namespace Sprintfinity3902.Commands
             //    PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
             //}
             //else
-            if (!MovingSword.getItemUse())
+            if (!MovingSword.getItemUse()  && PlayerCharacter.LinkHealth == PlayerCharacter.MaxHealth)
             {
                 PlayerCharacter.Attack();
                 Sword.UseItem(PlayerCharacter);
@@ -38,7 +38,7 @@ namespace Sprintfinity3902.Commands
 
                 SoundManager.Instance.GetSoundEffectInstance(swordThrowInstanceID).Play();
             }
-            else
+            else if(!Sword.getItemUse())
             {
                 PlayerCharacter.Attack();
                 Sword.UseItem(PlayerCharacter);

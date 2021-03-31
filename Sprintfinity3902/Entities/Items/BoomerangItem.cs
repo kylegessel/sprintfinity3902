@@ -7,7 +7,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BoomerangItem : AbstractItem, IProjectile, IEnemy
+    public class BoomerangItem : AbstractItem, IEnemy, IBoomerang
     {
 
         private static int TWO = 2;
@@ -21,7 +21,7 @@ namespace Sprintfinity3902.Entities
         private int THIRTEEN = 13;
         private int SIX  = 6;
 
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
         GoriyaEnemy Goriya;
         Boolean ItemUse;
         Boolean PlayerUse;
@@ -133,11 +133,11 @@ namespace Sprintfinity3902.Entities
             // Calculate the new position based on how many times the MoveItem function has been called.
             Position = new Vector2(Position.X - (XDiff / (MaxMoveUseCount - MoveUseCount)), Position.Y - (YDiff / (MaxMoveUseCount - MoveUseCount)));
         }
-        public void UseItem(Player player)
+        public void UseItem(ILink player)
         {
-            PlayerCharacter = player;
+            PlayerCharacter = (Player)player;
             FiringStatePlayer = PlayerCharacter.CurrentState;
-            Entity = PlayerCharacter;
+            Entity = (IEntity)PlayerCharacter;
 
             if (FiringStatePlayer == PlayerCharacter.facingDownItem)
             {

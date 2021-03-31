@@ -1,15 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Collision;
-using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
-using Sprintfinity3902.Sprites;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace Sprintfinity3902.Dungeon.GameState
 {

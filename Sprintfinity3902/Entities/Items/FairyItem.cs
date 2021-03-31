@@ -84,6 +84,11 @@ namespace Sprintfinity3902.Entities
             }
             count++;
         }
+
+        public override IPickup GetPickup()
+        {
+            return new FairyPickup();
+        }
     }
     
 }

@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
-using System;
 using System.Collections.Generic;
 
 namespace Sprintfinity3902.HudMenu
@@ -11,7 +9,7 @@ namespace Sprintfinity3902.HudMenu
     public class InGameHud : AbstractHud
     {
         private Game1 Game;
-        private Player Link;
+        private IPlayer Link;
         private HudNumberManager hudNumberManager;
         private HudHeartManager hudHeartManager;
         private HudInitializer hudInitializer;
@@ -19,7 +17,7 @@ namespace Sprintfinity3902.HudMenu
         public InGameHud(Game1 game)
         {
             Game = game;
-            Link = Game.link;
+            Link = Game.playerCharacter;
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, 0 * Global.Var.SCALE);
             hudNumberManager = new HudNumberManager(this);
@@ -51,8 +49,8 @@ namespace Sprintfinity3902.HudMenu
 
         private void UpdateHearts()
         {
-            double maxHealth = Link.MAX_HEALTH;
-            double currentHealth = Link.linkHealth;
+            double maxHealth = Link.MaxHealth;
+            double currentHealth = Link.LinkHealth;
 
             hudHeartManager.UpdateHearts(maxHealth, currentHealth);
         }
@@ -76,7 +74,7 @@ namespace Sprintfinity3902.HudMenu
             if (Link.itemcount.ContainsKey(IItem.ITEMS.BOMB))
             {
                 bombNum = Link.itemcount[IItem.ITEMS.BOMB];
-                //DisplayNumbers(bombNum);
+                hudNumberManager.BombNumbers(bombNum);
             }
         }
     }

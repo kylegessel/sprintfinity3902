@@ -1,19 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Collision;
+using Sprintfinity3902.Commands;
+using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Dungeon.GameState;
+using Sprintfinity3902.Entities;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.States.Door;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
-using Sprintfinity3902.Collision;
-using Sprintfinity3902.Entities;
-using Sprintfinity3902.Entities.Items;
-using Sprintfinity3902.Controllers;
-using Sprintfinity3902.Commands;
-using Microsoft.Xna.Framework.Input;
-using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902.Dungeon
 {
@@ -69,8 +68,6 @@ namespace Sprintfinity3902.Dungeon
             linkProj.Add(bowArrow);
 
             backgroundMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon), 0.02f, true);
-
-            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Initialize()
@@ -83,6 +80,8 @@ namespace Sprintfinity3902.Dungeon
             KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Game.playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
             KeyboardManager.Instance.RegisterCommand(new UseBowCommand((Player)Game.playerCharacter, (ArrowItem)bowArrow), Keys.D3);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
+
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
 
             IRoomLoader rload = new RoomLoader();
             foreach(IRoom room in dungeonRooms)
@@ -100,6 +99,12 @@ namespace Sprintfinity3902.Dungeon
                 entity.Update(gameTime);
             }
             bombItem.Update(gameTime);
+
+            /*Something like this should never go in update... not trying to be mean,
+             but this blatently does not belong here. If you have a question about it 
+            lmk... I have no idea who wrote this and it's not important. Glad we're 
+            learning together!*/
+            //SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -206,8 +211,8 @@ namespace Sprintfinity3902.Dungeon
             switch (state) {
                 case IDungeon.GameState.WIN:
                     KeyboardManager.Instance.PushCommandMatrix();
-                    Game.link.SetState(Game.link.facingDown);
-                    Game.link.CurrentState.Sprite.Animation.Stop();
+                    Game.playerCharacter.SetState(Game.playerCharacter.facingDown);
+                    Game.playerCharacter.CurrentState.Sprite.Animation.Stop();
                     CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.LOSE:

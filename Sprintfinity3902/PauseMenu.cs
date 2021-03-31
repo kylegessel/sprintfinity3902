@@ -1,15 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Sprintfinity3902.Commands;
-using Sprintfinity3902.Controllers;
-using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
-using Sprintfinity3902.Dungeon;
-using System;
-using System.Diagnostics;
-using Sprintfinity3902.HudMenu;
 
 namespace Sprintfinity3902
 {
@@ -17,7 +8,7 @@ namespace Sprintfinity3902
     {
         private int count;
         private Game1 game;
-        private Player Link;
+        private IPlayer Link;
         private static int HUD_HEIGHT = 176;
 
         private bool direction;
@@ -26,7 +17,7 @@ namespace Sprintfinity3902
         {
             /* We should ask him about casting game or if we can code to concrete instead of interface. */
             game = _game;
-            Link = _game.link;
+            Link = _game.playerCharacter;
             direction = true;
             count = 0;
 
@@ -38,7 +29,7 @@ namespace Sprintfinity3902
             if ((game).IsInState(Game1.GameState.PAUSED_TRANSITION)) {
                 ChangePosition();
                 count = count + 2 * Global.Var.SCALE;
-                game.link.Y = game.link.Y + 2 * Global.Var.SCALE * (direction ? 1 : -1);
+                Link.Y = Link.Y + 2 * Global.Var.SCALE * (direction ? 1 : -1);
 
                 /* Crucial Global.Var.SCALE remains an int so this equality is valid */
                 if (count == HUD_HEIGHT * Global.Var.SCALE) {

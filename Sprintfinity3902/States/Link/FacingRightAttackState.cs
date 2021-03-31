@@ -7,11 +7,11 @@ namespace Sprintfinity3902.States
 {
     public class FacingRightAttackState : IPlayerState
     {
-        public Player PlayerCharacter { get; set; }
+        public IPlayer PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }
 
         private Boolean AttackExecuted = false;
-        public FacingRightAttackState(Player currentPlayer)
+        public FacingRightAttackState(IPlayer currentPlayer)
         {
             PlayerCharacter = currentPlayer;
             Sprite = PlayerSpriteFactory.Instance.CreateLinkRightAttackSprite();

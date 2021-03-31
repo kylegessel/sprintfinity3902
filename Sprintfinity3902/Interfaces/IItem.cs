@@ -1,6 +1,6 @@
 ﻿namespace Sprintfinity3902.Interfaces
 {
-    public interface IItem
+    public interface IItem : IEntity
     {
         enum ITEMS {
             BOMB,
@@ -17,5 +17,7 @@
             RUPEE,
             TRIFORCE
         };
+
+        public IPickup GetPickup();
     }
 }

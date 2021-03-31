@@ -212,7 +212,9 @@ namespace Sprintfinity3902
                     dungeon.UpdateState(IDungeon.GameState.WIN);
                     break;
                 case GameState.OPTIONS:
+                    KeyboardManager.Instance.PushCommandMatrix();
                     optionMenu.Start();
+                    KeyboardManager.Instance.PushCommandMatrix();
                     break;
                 case GameState.PLAYING:
                     SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Stop();

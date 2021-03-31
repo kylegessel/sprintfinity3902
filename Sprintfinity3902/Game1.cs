@@ -80,14 +80,11 @@ namespace Sprintfinity3902
             CollisionDetector.Instance.Reset();
 
             titleScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
-            introMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
 
             link = new Player(this);
             playerCharacter = (IPlayer)link;
-            playerCharacter.Initialize();
 
             dungeon = new Dungeon.Dungeon(this);
-            dungeon.Initialize();
 
             pauseMenu = new PauseMenu(this);
             optionMenu = new OptionMenu(this);
@@ -197,7 +194,10 @@ namespace Sprintfinity3902
         public void UpdateState(GameState state) {
             switch (state) {
                 case GameState.INTRO:
+                    introMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
                     SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Play();
+
+                    KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
                     KeyboardManager.Instance.RegisterKeyUpCallback(StartGame, Keys.Enter);
                     break;
                 case GameState.PAUSED:
@@ -212,12 +212,19 @@ namespace Sprintfinity3902
                     dungeon.UpdateState(IDungeon.GameState.WIN);
                     break;
                 case GameState.OPTIONS:
+                    KeyboardManager.Instance.PushCommandMatrix();
                     optionMenu.Start();
+                    KeyboardManager.Instance.PushCommandMatrix();
                     break;
                 case GameState.PLAYING:
                     SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Stop();
+
                     if (State.Equals(GameState.PAUSED_TRANSITION)) {
                         KeyboardManager.Instance.PopCommandMatrix();
+                    } else if (State.Equals(GameState.INTRO)) {
+                        KeyboardManager.Instance.PopCommandMatrix();
+                        dungeon.Initialize();
+                        playerCharacter.Initialize();
                     }
                     break;
                 case GameState.LOSE:

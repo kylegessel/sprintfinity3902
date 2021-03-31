@@ -32,5 +32,10 @@ namespace Sprintfinity3902.HudMenu
             Icons.Add(new DungeonHudEntity(new Vector2(0, 0 * Global.Var.SCALE)));
         }
 
+        /*Method called on health change or item picked up from player*/
+        public override void UpdateSelf()
+        {
+            // Do nothing
+        }
     }
 }

@@ -36,64 +36,6 @@ namespace Sprintfinity3902.Dungeon.GameState
             animation_color_duration = 2700.0;
             cycleColors = new Color[] {
                 new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
-                new Color(255, 255, 255, 255),
-                new Color(100, 100, 100, 255),
                 new Color(255, 255, 255, 255)
             };
 
@@ -113,11 +55,12 @@ namespace Sprintfinity3902.Dungeon.GameState
                     /* TODO: Have no way of making player spin */
 
                     /* Do not remove "extra" parenthesis below -- computer does not know what it's saying */
-                    col_pos = Math.Min((int)((this_count / 4000) * (cycleColors.Length - 1)), cycleColors.Length - 1);
+
+                    col_pos = Math.Max(0, ((int)(this_count/70)) % cycleColors.Length);
 
                     blockColor = cycleColors[col_pos];
 
-                    if (col_pos == cycleColors.Length - 1) {
+                    if (this_count > 4000) {
                         updateState(animation_state.BACKGROUND_ANIMATE);
                     }
                     break;

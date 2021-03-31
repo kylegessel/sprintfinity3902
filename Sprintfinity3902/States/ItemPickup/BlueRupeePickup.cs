@@ -15,7 +15,6 @@ namespace Sprintfinity3902.Entities
         {
             Link.itemcount[IItem.ITEMS.RUPEE]+=BLUE_RUPEE_VALUE;
 
-            Link.itemPickedUp = true;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
 
             return false;

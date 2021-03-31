@@ -28,6 +28,12 @@ namespace Sprintfinity3902.HudMenu
 
         }
 
+        /*Method called on health change or item picked up from player*/
+        public override void UpdateSelf()
+        {
+            // Do nothing
+        }
+
 
         public override void Initialize()
         {

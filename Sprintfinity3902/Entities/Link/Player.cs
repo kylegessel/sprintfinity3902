@@ -56,8 +56,6 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingLeftItem { get; set; }
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
-        public bool heartChanged { get; set; }
-        public bool itemPickedUp { get; set; }
 
         public IPlayer.SelectableWeapons SelectedWeapon { get; set; }
 
@@ -90,8 +88,6 @@ namespace Sprintfinity3902.Link
             SetStepSize(1);
             MaxHealth = INITIAL_HEALTH;
             LinkHealth = 1;//TODO: MAX_HEALTH undid for testing lose state
-            heartChanged = true;
-            itemPickedUp = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
 
@@ -117,6 +113,9 @@ namespace Sprintfinity3902.Link
 
         public void Pickup(IItem item) {
 
+            foreach (IHud hud in game.huds) {
+                hud.UpdateSelf();
+            }
 
             IPickup itemPickup = item.GetPickup();
             bool win = itemPickup.Pickup(this);
@@ -125,6 +124,7 @@ namespace Sprintfinity3902.Link
             {
                 game.UpdateState(Game1.GameState.WIN);
             }
+
         }
 
         public bool IsCurrentState(IPlayerState state) {
@@ -159,7 +159,6 @@ namespace Sprintfinity3902.Link
             if (itemcount.ContainsKey(item) && itemcount[item] > 0)
             {
                 itemcount[item]--;
-                itemPickedUp = true;
             }
         }
 
@@ -252,7 +251,6 @@ namespace Sprintfinity3902.Link
             _collidable = false;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             LinkHealth--;
-            heartChanged = true;
             
             if (LinkHealth <= 0) {
                 game.UpdateState(Game1.GameState.LOSE);

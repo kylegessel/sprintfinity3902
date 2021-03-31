@@ -14,7 +14,6 @@ namespace Sprintfinity3902.Entities
         {
             Link.MaxHealth += 2;
             Link.LinkHealth += 2;
-            Link.heartChanged = true;
             
 
             return false;

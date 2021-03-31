@@ -102,6 +102,12 @@ namespace Sprintfinity3902.HudMenu
             availableItems.Add(weapon);
         }
 
+        /*Method called on health change or item picked up from player*/
+        public override void UpdateSelf()
+        {
+            // Do nothing
+        }
+
         public void MoveSelectorRight()
         {
             if (availableItems.Count == 0) return;

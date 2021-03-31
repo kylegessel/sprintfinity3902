@@ -13,6 +13,8 @@ namespace Sprintfinity3902.Interfaces
 
         void Initialize();
 
+        void UpdateSelf();
+
         void TranslateMatrix(Vector2 deltaVec);
 
         void Draw(SpriteBatch spriteBatch, Color color);

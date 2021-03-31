@@ -25,6 +25,8 @@ namespace Sprintfinity3902.HudMenu
         public abstract void Initialize();
 
         public abstract void Update(GameTime gameTime);
+
+        public abstract void UpdateSelf();
         protected void pushMatrix(params IEntity[] moveEntities)
         {
             foreach (IEntity entity in moveEntities) {

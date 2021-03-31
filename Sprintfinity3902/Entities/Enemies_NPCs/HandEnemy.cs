@@ -28,16 +28,9 @@ namespace Sprintfinity3902.Entities
         private float speed;
         private Boolean decorate;
         private int enemyID;
-        
+        private IPlayer link;
 
-        public HandEnemy()
-        {
-            Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
-            Position = new Vector2(750, 540);
-            health = 3;
-            speed = .2f;
-            color = Color.White;
-        }
+        
         public HandEnemy(Vector2 pos)
         {
             Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
@@ -45,6 +38,17 @@ namespace Sprintfinity3902.Entities
             health = 3;
             speed = .2f;
             color = Color.White;
+
+        }
+
+        public HandEnemy(Vector2 pos, IPlayer player)
+        {
+            Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
+            Position = pos;
+            health = 3;
+            speed = .2f;
+            color = Color.White;
+            link = player;
 
         }
 
@@ -94,20 +98,27 @@ namespace Sprintfinity3902.Entities
             }
         }
 
+        private Vector2 deltaVec(Vector2 a, Vector2 b) {
+            return new Vector2(a.X - b.X, a.Y - b.Y);
+        }
+
+        private int TrackPlayer() {
+            Vector2 dt = deltaVec(link.Position, Position);
+            bool i = Math.Max(Math.Abs(dt.X), Math.Abs(dt.Y)) == Math.Abs(dt.X);
+
+            return i ? (dt.X > 0 ? 2 : 1) : (dt.Y > 0 ? 3 : 4);
+        }
+
         public override void Move()
         {
-            if (count == 0)
-            {
+            if (count == 0) {
                 waitTime = new Random().Next(SIXTY, TWO_HUNDRED_TWENTY);
-                count++;
-            }
-            else if (count == waitTime)
-            {
-                direction = intToDirection(new Random().Next(ONE, FIVE));
+            } else if (count >= waitTime) {
+                
+                direction = link == null ? intToDirection(new Random().Next(ONE, FIVE)) : intToDirection(TrackPlayer());
                 speed = F_DOT_TWO;
-                count = Global.Var.ZERO;
-                if (decorate)
-                {
+                count = 0;
+                if (decorate) {
                     decorate = false;
                     color = Color.White;
                 }

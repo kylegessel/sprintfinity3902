@@ -29,22 +29,17 @@ namespace Sprintfinity3902.HudMenu
 
         public override void Update(GameTime gameTime)
         {
-            if (Link.heartChanged)
-            {
-                UpdateHearts();
-                Link.heartChanged = false;
-            }
-
-            if (Link.itemPickedUp)
-            {
-                UpdateItems();
-                Link.itemPickedUp = false;
-            }
         }
 
         public override void Initialize()
         {
             hudInitializer.InitializeInGameHud();
+        }
+
+        public override void UpdateSelf()
+        {
+            UpdateHearts();
+            UpdateItems();
         }
 
         private void UpdateHearts()

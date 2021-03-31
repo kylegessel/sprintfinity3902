@@ -13,9 +13,6 @@ namespace Sprintfinity3902.Entities
         public bool Pickup(IPlayer Link)
         {
             Link.LinkHealth = Link.MaxHealth;
-            Link.heartChanged = true;
-
-            
 
             return false;
         }

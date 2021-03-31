@@ -19,7 +19,6 @@ namespace Sprintfinity3902.Entities
                 {
                     Link.LinkHealth++;
                 }
-                Link.heartChanged = true;
                 
 
                 

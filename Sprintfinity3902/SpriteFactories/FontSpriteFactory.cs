@@ -45,11 +45,11 @@ namespace Sprintfinity3902.SpriteFactories
             for (int j = 0; j < NUM_ROWS; j++) {
                 for (int i = 0; i < ITEMS_PER_ROW; i++) {
                     int flattenedArrayIndex = j * ITEMS_PER_ROW + i;
-                    try {
-                        sourceRectangles.Add(alpha[flattenedArrayIndex], new Rectangle(330 + i*ITEM_WIDTH, 20 + j*ITEM_HEIGHT, ITEM_WIDTH, ITEM_HEIGHT));
-                    } catch (Exception e) {
+
+                    if (flattenedArrayIndex >= alpha.Length) {
                         break;
                     }
+                        sourceRectangles.Add(alpha[flattenedArrayIndex], new Rectangle(330 + i*ITEM_WIDTH, 20 + j*ITEM_HEIGHT, ITEM_WIDTH, ITEM_HEIGHT));
                     
                 }
             }

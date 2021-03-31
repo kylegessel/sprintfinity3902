@@ -69,11 +69,23 @@ namespace Sprintfinity3902.Controllers
         }
 
 
-        public void PushCommandMatrix() {
+        public void PushCommandMatrix(bool copyPreviousLayer = false) {
             Tuple<Dictionary<Keys, Interfaces.ICommand>, Dictionary<Keys, List<Action>>> snapshot;
             snapshot = new Tuple<Dictionary<Keys, Interfaces.ICommand>, Dictionary<Keys, List<Action>>>(controllerMappings, keyUpHandlers);
             keyBoardInstanceStack.Push(snapshot);
-            Reset(resetStack: false);
+            if (copyPreviousLayer) {
+                Dictionary<Keys, Interfaces.ICommand> dicRef = new Dictionary<Keys, ICommand>();
+                foreach (KeyValuePair<Keys, Interfaces.ICommand> item in snapshot.Item1) {
+                    dicRef.Add(item.Key, item.Value);
+                }
+                Dictionary<Keys, List<Action>> handRef = new Dictionary<Keys, List<Action>>();
+                foreach (KeyValuePair<Keys, List<Action>> item in snapshot.Item2) {
+                    handRef.Add(item.Key, item.Value);
+                }
+                Reset(resetStack: false, control: dicRef, keyup: handRef);
+            } else {
+                Reset(resetStack: false);
+            }
         }
 
         public void PopCommandMatrix() {

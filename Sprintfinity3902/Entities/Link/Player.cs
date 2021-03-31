@@ -35,14 +35,6 @@ namespace Sprintfinity3902.Link
         private string lowHealthInstanceID;
         private double _deathSpinCount;
 
-        public enum SelectableWeapons
-        {
-            BOMB,
-            BOOMERANG,
-            BOW,
-            MAP
-        }
-
         public IPlayerState CurrentState {
             get {
                 return _currentState;
@@ -67,9 +59,8 @@ namespace Sprintfinity3902.Link
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
 
-        public SelectableWeapons SelectedWeapon { get; set; }
+        public IPlayer.SelectableWeapons SelectedWeapon { get; set; }
 
-        public Dictionary<IItem.ITEMS, int> itemcount;
         public int MaxHealth { get; set; }
         public int LinkHealth { get; set; }
 

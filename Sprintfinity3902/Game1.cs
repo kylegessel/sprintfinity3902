@@ -100,7 +100,7 @@ namespace Sprintfinity3902
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
-            KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
+            
 
             UpdateState(GameState.INTRO);
         }
@@ -195,7 +195,10 @@ namespace Sprintfinity3902
 
         public void UpdateState(GameState state) {
 
-            if (state.Equals(State)) return;
+            /*This can't be here because enums default to initial value, thus the call to 
+             set state intro from reset will fail, because intro is first value. Only other
+            option if you want this line is to create a null enum value for first value.*/
+            //if (state.Equals(State)) return;
 
             switch (state) {
                 case GameState.INTRO:
@@ -206,6 +209,7 @@ namespace Sprintfinity3902
                     KeyboardManager.Instance.RegisterKeyUpCallback(StartGame, Keys.Enter);
                     break;
                 case GameState.PAUSED:
+                    KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
                     KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)huds[2]).MoveSelectorLeft, Keys.A, Keys.Left);
                     KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)huds[2]).MoveSelectorRight, Keys.D, Keys.Right);
                     break;
@@ -213,6 +217,8 @@ namespace Sprintfinity3902
                     if (State.Equals(GameState.PLAYING)) {
                         KeyboardManager.Instance.PushCommandMatrix();
                         KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
+                    } else if (State.Equals(GameState.PAUSED)) {
+                        KeyboardManager.Instance.PopCommandMatrix();
                     }
                     break;
                 case GameState.WIN:
@@ -220,8 +226,7 @@ namespace Sprintfinity3902
                     break;
                 case GameState.OPTIONS:
                     KeyboardManager.Instance.PushCommandMatrix();
-                    optionMenu.Start();
-                    KeyboardManager.Instance.PushCommandMatrix();
+                    optionMenu.Initialize();
                     break;
                 case GameState.PLAYING:
                     SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Stop();
@@ -230,6 +235,8 @@ namespace Sprintfinity3902
                         KeyboardManager.Instance.PopCommandMatrix();
                     } else if (State.Equals(GameState.INTRO)) {
                         KeyboardManager.Instance.PopCommandMatrix();
+                        KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
+                        KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
                         dungeon.Initialize();
                         playerCharacter.Initialize();
                     }

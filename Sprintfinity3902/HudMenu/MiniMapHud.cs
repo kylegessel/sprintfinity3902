@@ -12,7 +12,6 @@ namespace Sprintfinity3902.HudMenu
         private IPlayer Link;
         private HudInitializer hudInitializer;
 
-
         public MiniMapHud(Game1 game)
         {
             Game = game;

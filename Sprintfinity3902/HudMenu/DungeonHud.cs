@@ -11,7 +11,6 @@ namespace Sprintfinity3902.HudMenu
     {
         private Game1 Game;
         private IPlayer Link;
-        public List<IEntity> Icons { get; private set; }
 
         public DungeonHud(Game1 game)
         {

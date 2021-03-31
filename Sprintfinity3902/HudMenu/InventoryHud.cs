@@ -55,7 +55,7 @@ namespace Sprintfinity3902.HudMenu
             return (IEntity)theObject;
         }
 
-        private static Dictionary<Player.SelectableWeapons, Type> weaponEnumToEntity;
+        private static Dictionary<IPlayer.SelectableWeapons, Type> weaponEnumToEntity;
 
         private static float ICON_MARGIN = 1.5f;
 
@@ -67,37 +67,37 @@ namespace Sprintfinity3902.HudMenu
         //private static Player.SelectableWeapons[] values = (Player.SelectableWeapons[])Enum.GetValues(typeof(Player.SelectableWeapons));
         private static int blackTileSquareWidth = 8;
 
-        private OrderedSet<Player.SelectableWeapons> availableItems;
+        private OrderedSet<IPlayer.SelectableWeapons> availableItems;
         private IEntity itemSelectedIcon;
         private Game1 game;
-        private Player Link;
+        private IPlayer Link;
 
         public InventoryHud(Game1 _game)
         {
             game = _game;
-            Link = game.link;
+            Link = game.playerCharacter;
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, -176 * Global.Var.SCALE);
             itemSelectedIcon = new ItemSelectIcon(new Vector2(0, 0));
-            availableItems = new OrderedSet<Player.SelectableWeapons>();
-            weaponEnumToEntity = new Dictionary<Player.SelectableWeapons, Type>() {
-                {Player.SelectableWeapons.BOW , typeof(BowIcon)},
-                {Player.SelectableWeapons.BOOMERANG , typeof(BoomerangIcon)},
-                {Player.SelectableWeapons.BOMB , typeof(BombIcon)}
+            availableItems = new OrderedSet<IPlayer.SelectableWeapons>();
+            weaponEnumToEntity = new Dictionary<IPlayer.SelectableWeapons, Type>() {
+                {IPlayer.SelectableWeapons.BOW , typeof(BowIcon)},
+                {IPlayer.SelectableWeapons.BOOMERANG , typeof(BoomerangIcon)},
+                {IPlayer.SelectableWeapons.BOMB , typeof(BombIcon)}
                 /*Add necessary mappings here for ALL possible enum to icons*/
 
             };
             /*Add weapons to the inventory screen by doing this or calling method below,
              make sure to add these to the static dictionary above also*/
-            availableItems.Add(Player.SelectableWeapons.BOMB);
-            availableItems.Add(Player.SelectableWeapons.BOOMERANG);
-            availableItems.Add(Player.SelectableWeapons.BOW);
+            availableItems.Add(IPlayer.SelectableWeapons.BOMB);
+            availableItems.Add(IPlayer.SelectableWeapons.BOOMERANG);
+            availableItems.Add(IPlayer.SelectableWeapons.BOW);
             MoveSelector();
             Initialize();
 
         }
 
-        public void EnableItemInInventory(Player.SelectableWeapons weapon)
+        public void EnableItemInInventory(IPlayer.SelectableWeapons weapon)
         {
             availableItems.Add(weapon);
         }
@@ -105,8 +105,8 @@ namespace Sprintfinity3902.HudMenu
         public void MoveSelectorRight()
         {
             if (availableItems.Count == 0) return;
-            int currentPos = availableItems.IndexOf(game.link.SelectedWeapon);
-            game.link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
+            int currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            Link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
             MoveSelector();
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
         }
@@ -114,15 +114,15 @@ namespace Sprintfinity3902.HudMenu
         public void MoveSelectorLeft()
         {
             if (availableItems.Count == 0) return;
-            int currentPos = availableItems.IndexOf(game.link.SelectedWeapon);
-            game.link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
+            int currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            Link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
             MoveSelector();
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
         }
 
         private void MoveSelector() {
             if (availableItems.Count == 0) return;
-            int selectedIndex = availableItems.IndexOf(game.link.SelectedWeapon);
+            int selectedIndex = availableItems.IndexOf(Link.SelectedWeapon);
 
             Vector2 selectPos = iconMatrix[selectedIndex / 4, selectedIndex % 4];
             itemSelectedIcon.Position = new Vector2(selectPos.X - 20, selectPos.Y);
@@ -155,7 +155,7 @@ namespace Sprintfinity3902.HudMenu
             }
 
             
-            IEntity reference = createObjectByClassType(weaponEnumToEntity[game.link.SelectedWeapon], new Vector2(270,195));
+            IEntity reference = createObjectByClassType(weaponEnumToEntity[Link.SelectedWeapon], new Vector2(270,195));
             pushMatrix(reference);
             reference.Draw(spriteBatch, Color.White);
             popMatrix(reference);

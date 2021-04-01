@@ -156,7 +156,6 @@ namespace Sprintfinity3902.Dungeon
                     SetLinkPositionLeft();
                     break;
             }
-            Link.Position = new Vector2(500, 500);
             Change = false;
             ReregisterCommands();
         }
@@ -216,12 +215,6 @@ namespace Sprintfinity3902.Dungeon
                     break;
             }
         }
-
-
-
-
-
-
         public void SetLinkPositionUp()
         {
             // 112 * Global.Var.SCALE, 64 * Global.Var.SCALE

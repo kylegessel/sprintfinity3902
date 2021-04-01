@@ -109,11 +109,11 @@ namespace Sprintfinity3902.Collision
                     {
                         ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
                     }
-                    // TODO: Add bombable property.
-                    else if(doorRect.Intersects(proj.GetBoundingRect()) && door.CurrentState.IsBombable && door.DoorDestination != -1)
-                    {
-                        door.Open(); 
-                    }
+                }
+                AbstractEntity abstractBomb = (AbstractEntity)bombExplosion;
+                if (doorRect.Intersects(abstractBomb.GetBoundingRect()) && door.CurrentState.IsBombable && door.DoorDestination != -1)
+                {
+                    door.Open();
                 }
 
                 foreach (AbstractEntity proj in enemyProj)

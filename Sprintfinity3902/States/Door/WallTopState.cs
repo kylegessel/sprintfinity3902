@@ -26,7 +26,10 @@ namespace Sprintfinity3902.States.Door
 
         public void Open()
         {
-            //NULL
+            if (CurrentDoor.DoorDestination != -1)
+            {
+                CurrentDoor.SetState(CurrentDoor.holeDoorTop);
+            }
         }
 
         public void Close()

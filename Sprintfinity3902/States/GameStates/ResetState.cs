@@ -1,6 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Collision;
+using Sprintfinity3902.Controllers;
+using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Link;
+using Sprintfinity3902.Sound;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,7 +33,33 @@ namespace Sprintfinity3902.States.GameStates
 
         public void SetUp()
         {
+            KeyboardManager.Instance.Reset();
+            SoundManager.Instance.Reset();
+            CollisionDetector.Instance.Reset();
 
+            Game.link = new Player(Game);
+            Game.playerCharacter = (IPlayer)Game.link;
+
+            Game.dungeon = new Dungeon.Dungeon(Game);
+
+            Game.pauseMenu = new PauseMenu(Game);
+            Game.optionMenu = new OptionMenu(Game);
+
+            Game.huds = new List<IHud>();
+
+            /*Order of these now relevent*/
+            Game.huds.Add(new DungeonHud(Game));
+            Game.huds.Add(new InGameHud(Game));
+            Game.huds.Add(new InventoryHud(Game));
+            Game.huds.Add(new MiniMapHud(Game));
+
+            KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+            KeyboardManager.Instance.RegisterKeyUpCallback(Game.Reset, Keys.R);
+
+            Game.BuildStates();
+
+            Game.SetState(Game.INTRO);
         }
+
     }
 }

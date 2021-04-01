@@ -81,43 +81,17 @@ namespace Sprintfinity3902
 
             SoundLoader.Instance.LoadContent(Content);
 
+            RESET = new ResetState(this);
+            CurrentState = RESET;
             Reset();
         }
 
         public void Reset()
         {
-            KeyboardManager.Instance.Reset();
-            SoundManager.Instance.Reset();
-            CollisionDetector.Instance.Reset();
-
-            //titleScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
-
-            link = new Player(this);
-            playerCharacter = (IPlayer)link;
-
-            dungeon = new Dungeon.Dungeon(this);
-
-            pauseMenu = new PauseMenu(this);
-            optionMenu = new OptionMenu(this);
-
-            huds = new List<IHud>();
-
-            /*Order of these now relevent*/
-            huds.Add(new DungeonHud(this));
-            huds.Add(new InGameHud(this));
-            huds.Add(new InventoryHud(this));
-            huds.Add(new MiniMapHud(this));
-
-            KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
-            KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
-
-            BuildStates();
-
-            SetState(INTRO);
-            //UpdateState(GameState.INTRO);
+            SetState(RESET);
         }
 
-        private void BuildStates()
+        public void BuildStates()
         {
             INTRO = new IntroState(this);
             PLAYING = new PlayingState(this);
@@ -126,12 +100,11 @@ namespace Sprintfinity3902
             WIN = new WinState(this);
             LOSE = new LoseState(this);
             OPTIONS = new OptionsState(this);
-            RESET = new ResetState(this);
         }
 
         public void SetState(IGameState state)
         {
-            if (state.Equals(CurrentState)) return;
+            //if (state.Equals(CurrentState)) return;
             PreviousState = CurrentState;
             CurrentState = state;
             CurrentState.SetUp();

@@ -13,8 +13,9 @@ namespace Sprintfinity3902.Entities
         private static int FIVE = 5;
         private static int SIX = 6;
         private static int ONE_THOUSAND = 1000;
+        private static int SWORD_OUT_FRAMES = 30;
 
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
         Boolean itemUse;
         int itemUseCount;
         IPlayerState firingState;
@@ -39,7 +40,7 @@ namespace Sprintfinity3902.Entities
             // Code for removing sword on contact, needs to be replaced.
             Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
             // This can be improved, not long term.
-            if (itemUseCount < 20) return false;
+            //if (itemUseCount < 20) return false;
             return enemy.HitRegister(enemyID, 1, 0, swordDirection, room) <= 0;
         }
 
@@ -62,7 +63,7 @@ namespace Sprintfinity3902.Entities
 
         public void MoveItem()
         {
-            if (itemUseCount <= 5) //this time amount needs to be tweaked.
+            if (itemUseCount <= SWORD_OUT_FRAMES) //this time amount needs to be tweaked.
             {
 
 
@@ -76,9 +77,9 @@ namespace Sprintfinity3902.Entities
 
             itemUseCount++;
         }
-        public void UseItem(Player player)
+        public void UseItem(ILink player)
         {
-            PlayerCharacter = player;
+            PlayerCharacter = (IPlayer)player;
             firingState = PlayerCharacter.CurrentState;
 
             if (firingState == PlayerCharacter.facingDownAttack)
@@ -112,11 +113,12 @@ namespace Sprintfinity3902.Entities
 
 
         /* will be used in sprint 4 for a clearer hitbox */
-        //public override Rectangle GetBoundingRect()
-        //{
+        public override Rectangle GetBoundingRect()
+        {
 
+             return new Rectangle((int) Position.X, (int) Position.Y, Global.Var.TILE_SIZE* Global.Var.SCALE, Global.Var.TILE_SIZE* Global.Var.SCALE);
         //   return new Rectangle((int)Position.X, (int)Position.Y, (int)currentRect.X, (int)currentRect.Y);
-        //}
+        }
 
     }
 }

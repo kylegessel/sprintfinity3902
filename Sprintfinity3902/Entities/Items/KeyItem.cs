@@ -19,5 +19,10 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             ID = IItem.ITEMS.KEY;
         }
+
+        public override IPickup GetPickup()
+        {
+            return new KeyPickup();
+        }
     }
 }

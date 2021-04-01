@@ -1,33 +1,38 @@
-﻿namespace Sprintfinity3902.Interfaces
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Sprintfinity3902.Interfaces
 {
-    public interface IDoor: IEntity
+    public interface IDoor : IBlock
     {
-        public IDoorState CurrentState { get; set; }
-        public IDoorState wallTop { get; set; }
-        public IDoorState wallBottom { get; set; }
-        public IDoorState wallLeft { get; set; }
-        public IDoorState wallRight { get; set; }
-        public IDoorState openDoorTop { get; set; }
-        public IDoorState openDoorBottom { get; set; }
-        public IDoorState openDoorLeft { get; set; }
-        public IDoorState openDoorRight { get; set; }
-        public IDoorState closedDoorTop { get; set; }
-        public IDoorState closedDoorBottom { get; set; }
-        public IDoorState closedDoorLeft { get; set; }
-        public IDoorState closedDoorRight { get; set; }
-        public IDoorState lockedDoorTop { get; set; }
-        public IDoorState lockedDoorBottom { get; set; }
-        public IDoorState lockedDoorLeft { get; set; }
-        public IDoorState lockedDoorRight { get; set; }
-        public IDoorState holeDoorTop { get; set; }
-        public IDoorState holeDoorBottom { get; set; }
-        public IDoorState holeDoorLeft { get; set; }
-        public IDoorState holeDoorRight { get; set; }
-        public int DoorDestination { get; set; }
-        public void Open();
+        IDoorState CurrentState { get; set; }
+        IDoorState wallTop { get; set; }
+        IDoorState wallBottom { get; set; }
+        IDoorState wallLeft { get; set; }
+        IDoorState wallRight { get; set; }
+        IDoorState openDoorTop { get; set; }
+        IDoorState openDoorBottom { get; set; }
+        IDoorState openDoorLeft { get; set; }
+        IDoorState openDoorRight { get; set; }
+        IDoorState closedDoorTop { get; set; }
+        IDoorState closedDoorBottom { get; set; }
+        IDoorState closedDoorLeft { get; set; }
+        IDoorState closedDoorRight { get; set; }
+        IDoorState lockedDoorTop { get; set; }
+        IDoorState lockedDoorBottom { get; set; }
+        IDoorState lockedDoorLeft { get; set; }
+        IDoorState lockedDoorRight { get; set; }
+        IDoorState holeDoorTop { get; set; }
+        IDoorState holeDoorBottom { get; set; }
+        IDoorState holeDoorLeft { get; set; }
+        IDoorState holeDoorRight { get; set; }
+        int DoorDestination { get; set; }
 
-        public void Close();
+        void SetState(IDoorState state);
+        void Open();
+        void Close();
 
-        public void SetState(IDoorState doorState);
+        //void SetState(IDoorState doorState);
     }
 }

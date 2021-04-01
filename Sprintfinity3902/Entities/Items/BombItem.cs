@@ -8,7 +8,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class BombItem : AbstractItem 
+    public class BombItem : AbstractItem, IBomb 
     {
 
         private static int ONE_THOUSAND = 1000;
@@ -19,7 +19,7 @@ namespace Sprintfinity3902.Entities
         private static int FIFTEEN = 15;
         private static int NINE = 9;
 
-        Player PlayerCharacter;
+        ILink PlayerCharacter;
         BombExplosionItem BombExplosion;
         Boolean itemUse;
         int itemUseCount;
@@ -32,7 +32,6 @@ namespace Sprintfinity3902.Entities
             BombExplosion = bombExplode;
             itemUse = false;
             itemUseCount = 0;
-            ID = IItem.ITEMS.BOMB;
         }
 
         public Boolean getItemUse()
@@ -82,23 +81,23 @@ namespace Sprintfinity3902.Entities
             itemUseCount++;
         }
 
-        public void UseItem(Player player)
+        public void UseItem(ILink player)
         {
             PlayerCharacter = player;
             itemUse = true;
-            if (PlayerCharacter.CurrentState == PlayerCharacter.facingDownItem)
+            if ( ((Player)PlayerCharacter).CurrentState == ((Player)PlayerCharacter).facingDownItem)
             {
                 Position = new Vector2(player.X + FOUR*Global.Var.SCALE, player.Y + ELEVEN*Global.Var.SCALE);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingUpItem)
+            else if ( ((Player)PlayerCharacter).CurrentState == ((Player)PlayerCharacter).facingUpItem)
             {
                 Position = new Vector2(player.X + TWO*Global.Var.SCALE, player.Y - FIFTEEN*Global.Var.SCALE);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingLeftItem)
+            else if ( ((Player)PlayerCharacter).CurrentState == ((Player)PlayerCharacter).facingLeftItem)
             {
                 Position = new Vector2(player.X - NINE*Global.Var.SCALE, player.Y);
             }
-            else if (PlayerCharacter.CurrentState == PlayerCharacter.facingRightItem)
+            else if ( ((Player)PlayerCharacter).CurrentState == ((Player)PlayerCharacter).facingRightItem)
             {
                 Position = new Vector2(player.X + Global.Var.TILE_SIZE*Global.Var.SCALE, player.Y);
             }

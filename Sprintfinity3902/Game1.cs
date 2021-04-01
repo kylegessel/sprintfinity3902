@@ -22,7 +22,8 @@ namespace Sprintfinity3902
             PAUSED_TRANSITION,
             WIN,
             LOSE,
-            OPTIONS
+            OPTIONS,
+            RESET
         };
 
         private GraphicsDeviceManager graphics;
@@ -32,9 +33,9 @@ namespace Sprintfinity3902
         public GameState State { get; private set; }
         public GraphicsDeviceManager Graphics { get { return graphics; } }
 
-        public ILink playerCharacter;
-        public Player link;
-        
+        public ILink link;
+        public IPlayer playerCharacter;
+
         public IDungeon dungeon;
         public PauseMenu pauseMenu;
         public OptionMenu optionMenu;
@@ -80,20 +81,18 @@ namespace Sprintfinity3902
             CollisionDetector.Instance.Reset();
 
             titleScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
-            introMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
 
-            playerCharacter = new Player(this);
-            link = (Player)playerCharacter;
-            link.Initialize();
+            link = new Player(this);
+            playerCharacter = (IPlayer)link;
 
             dungeon = new Dungeon.Dungeon(this);
-            dungeon.Initialize();
 
             pauseMenu = new PauseMenu(this);
             optionMenu = new OptionMenu(this);
 
             huds = new List<IHud>();
 
+            /*Order of these now relevent*/
             huds.Add(new DungeonHud(this));
             huds.Add(new InGameHud(this));
             huds.Add(new InventoryHud(this));
@@ -101,7 +100,7 @@ namespace Sprintfinity3902
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
-            KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
+            
 
             UpdateState(GameState.INTRO);
         }
@@ -140,7 +139,7 @@ namespace Sprintfinity3902
                 case GameState.LOSE:
                 case GameState.WIN:
                     dungeon.Update(gameTime);
-                    playerCharacter.Update(gameTime);
+                    link.Update(gameTime);
                     foreach (IHud hud in huds) {
                         hud.Update(gameTime);
                     }
@@ -151,7 +150,7 @@ namespace Sprintfinity3902
                     }
 
                     dungeon.Update(gameTime);
-                    playerCharacter.Update(gameTime);
+                    link.Update(gameTime);
                     
                     break;
                 case GameState.OPTIONS:
@@ -183,7 +182,7 @@ namespace Sprintfinity3902
 
                     dungeon.Draw(SpriteBatch);
 
-                    playerCharacter.Draw(SpriteBatch, Color.White);
+                    link.Draw(SpriteBatch, Color.White);
 
                     break;
                 case GameState.OPTIONS:
@@ -195,34 +194,59 @@ namespace Sprintfinity3902
         }
 
         public void UpdateState(GameState state) {
+
+            /*This can't be here because enums default to initial value, thus the call to 
+             set state intro from reset will fail, because intro is first value. Only other
+            option if you want this line is to create a null enum value for first value.*/
+            //if (state.Equals(State)) return;
+
             switch (state) {
                 case GameState.INTRO:
+                    introMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
                     SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Play();
+
+                    KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
                     KeyboardManager.Instance.RegisterKeyUpCallback(StartGame, Keys.Enter);
                     break;
                 case GameState.PAUSED:
+                    KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)huds[2]).MoveSelectorLeft, Keys.A, Keys.Left);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)huds[2]).MoveSelectorRight, Keys.D, Keys.Right);
                     break;
                 case GameState.PAUSED_TRANSITION:
                     if (State.Equals(GameState.PLAYING)) {
                         KeyboardManager.Instance.PushCommandMatrix();
                         KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
+                    } else if (State.Equals(GameState.PAUSED)) {
+                        KeyboardManager.Instance.PopCommandMatrix();
                     }
                     break;
                 case GameState.WIN:
                     dungeon.UpdateState(IDungeon.GameState.WIN);
                     break;
                 case GameState.OPTIONS:
-                    optionMenu.Start();
+                    KeyboardManager.Instance.PushCommandMatrix();
+                    optionMenu.Initialize();
                     break;
                 case GameState.PLAYING:
                     SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Stop();
+
                     if (State.Equals(GameState.PAUSED_TRANSITION)) {
                         KeyboardManager.Instance.PopCommandMatrix();
+                    } else if (State.Equals(GameState.INTRO)) {
+                        KeyboardManager.Instance.PopCommandMatrix();
+                        KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
+                        KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
+                        dungeon.Initialize();
+                        playerCharacter.Initialize();
                     }
                     break;
                 case GameState.LOSE:
                     dungeon.UpdateState(IDungeon.GameState.LOSE);
                     break;
+                case GameState.RESET:
+                    Reset();
+                    return;
             }
 
             State = state;

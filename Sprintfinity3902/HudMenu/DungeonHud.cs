@@ -7,36 +7,30 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902.HudMenu
 {
-    public class DungeonHud : IHud
+    public class DungeonHud : AbstractHud
     {
         private Game1 Game;
-        private Player Link;
-        public List<IEntity> Icons { get; private set; }
+        private IPlayer Link;
 
         public DungeonHud(Game1 game)
         {
             Game = game;
-            Link = Game.link;
+            Link = Game.playerCharacter;
             Icons = new List<IEntity>();
+            WorldPoint = new Vector2(0, -88 * Global.Var.SCALE);
 
             Initialize();
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
-            Icons.Add(new DungeonHudEntity(new Vector2(0, -88 * Global.Var.SCALE)));
+            Icons.Add(new DungeonHudEntity(new Vector2(0, 0 * Global.Var.SCALE)));
         }
 
-        public void Draw(SpriteBatch spriteBatch, Color color)
-        {
-            foreach (IEntity icon in Icons) {
-                icon.Draw(spriteBatch, color);
-            }
-        }
     }
 }

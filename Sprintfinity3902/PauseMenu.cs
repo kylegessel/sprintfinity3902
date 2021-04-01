@@ -8,7 +8,7 @@ namespace Sprintfinity3902
     {
         private int count;
         private Game1 game;
-        private Player Link;
+        private IPlayer Link;
         private static int HUD_HEIGHT = 176;
 
         private bool direction;
@@ -17,7 +17,7 @@ namespace Sprintfinity3902
         {
             /* We should ask him about casting game or if we can code to concrete instead of interface. */
             game = _game;
-            Link = _game.link;
+            Link = _game.playerCharacter;
             direction = true;
             count = 0;
 
@@ -29,7 +29,7 @@ namespace Sprintfinity3902
             if ((game).IsInState(Game1.GameState.PAUSED_TRANSITION)) {
                 ChangePosition();
                 count = count + 2 * Global.Var.SCALE;
-                game.link.Y = game.link.Y + 2 * Global.Var.SCALE * (direction ? 1 : -1);
+                Link.Y = Link.Y + 2 * Global.Var.SCALE * (direction ? 1 : -1);
 
                 /* Crucial Global.Var.SCALE remains an int so this equality is valid */
                 if (count == HUD_HEIGHT * Global.Var.SCALE) {
@@ -70,9 +70,7 @@ namespace Sprintfinity3902
             }
 
             foreach (IHud hud in game.huds) {
-                foreach (IEntity icon in hud.Icons) {
-                    icon.Y = icon.Y + shiftAmount;
-                }
+                hud.TranslateMatrix(new Vector2(0, shiftAmount));
             }
 
             foreach (IEntity door in game.dungeon.GetCurrentRoom().doors) {
@@ -83,6 +81,8 @@ namespace Sprintfinity3902
 
             ((Dungeon.Dungeon)game.dungeon).bombItem.Y = ((Dungeon.Dungeon)game.dungeon).bombItem.Y + shiftAmount;
             ((Dungeon.Dungeon)game.dungeon).bombExplosion.Y = ((Dungeon.Dungeon)game.dungeon).bombExplosion.Y + shiftAmount;
+            ((Dungeon.Dungeon)game.dungeon).boomerangItem.Y = ((Dungeon.Dungeon)game.dungeon).boomerangItem.Y + shiftAmount;
+            ((Dungeon.Dungeon)game.dungeon).bowArrow.Y = ((Dungeon.Dungeon)game.dungeon).bowArrow.Y + shiftAmount;
         }
 
     }

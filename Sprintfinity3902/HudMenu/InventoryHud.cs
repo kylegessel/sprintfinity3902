@@ -4,69 +4,181 @@ using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using System.Collections.Generic;
+using Sprintfinity3902.Sprites.Fonts;
+using Sprintfinity3902.Sprites;
+using System;
+using Sprintfinity3902.Sound;
+using Sprintfinity3902.SpriteFactories;
+using System.Collections;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.HudMenu
 {
-    public class InventoryHud : IHud
+    public class InventoryHud : AbstractHud
     {
-        private Game1 Game;
-        private Player Link;
-        private IEntity selectedWeapon;
-        public Vector2 WorldPoint;
-        public List<IEntity> Icons { get; private set; }
-
-        public InventoryHud(Game1 game)
+        private class OrderedSet<T> : IList<T>
         {
-            Game = game;
-            Link = Game.link;
+            public T this[int index] { get => baseList[index]; set { baseList[index] = value; } }
+
+            public int Count => baseList.Count;
+
+            public bool IsReadOnly => false;
+
+            private List<T> baseList;
+            public OrderedSet()
+            {
+                baseList = new List<T>();
+            }
+
+            public void Add(T item)
+            {
+                if (baseList.Contains(item)) return;
+                baseList.Add(item);
+            }
+
+            public void Clear() => baseList.Clear();
+            public bool Contains(T item) => baseList.Contains(item);
+            public void CopyTo(T[] array, int arrayIndex) => baseList.CopyTo(array, arrayIndex);
+            public IEnumerator<T> GetEnumerator() => baseList.GetEnumerator();
+            public int IndexOf(T item) => baseList.IndexOf(item);
+            public void Insert(int index, T item) => baseList.Insert(index, item);
+            public bool Remove(T item) => baseList.Remove(item);
+            public void RemoveAt(int index) => baseList.RemoveAt(index);
+            IEnumerator IEnumerable.GetEnumerator() => baseList.GetEnumerator();
+        }
+
+
+        public static IEntity createObjectByClassType(Type clazz, Vector2 pos)
+        {
+            // .. do construction work here
+            Object theObject = Activator.CreateInstance(clazz, pos);
+            return (IEntity)theObject;
+        }
+
+        private static Dictionary<IPlayer.SelectableWeapons, Type> weaponEnumToEntity;
+
+        private static float ICON_MARGIN = 1.5f;
+
+        private static Vector2[,] iconMatrix = new Vector2[2, 4] {
+            {new Vector2(530,190), new Vector2(530 + Global.Var.TILE_SIZE*Global.Var.SCALE*ICON_MARGIN*1,190), new Vector2(530 + Global.Var.TILE_SIZE*Global.Var.SCALE*ICON_MARGIN*2,190), new Vector2(530 + Global.Var.TILE_SIZE*Global.Var.SCALE*ICON_MARGIN*3,190)},
+            {new Vector2(530,264), new Vector2(530 + Global.Var.TILE_SIZE*Global.Var.SCALE*ICON_MARGIN*1,264), new Vector2(530 + Global.Var.TILE_SIZE*Global.Var.SCALE*ICON_MARGIN*2,264), new Vector2(530 + Global.Var.TILE_SIZE*Global.Var.SCALE*ICON_MARGIN*3,264)}
+        };
+
+        //private static Player.SelectableWeapons[] values = (Player.SelectableWeapons[])Enum.GetValues(typeof(Player.SelectableWeapons));
+        private static int blackTileSquareWidth = 8;
+
+        private OrderedSet<IPlayer.SelectableWeapons> availableItems;
+        private IEntity itemSelectedIcon;
+        private Game1 game;
+        private IPlayer Link;
+
+        public InventoryHud(Game1 _game)
+        {
+            game = _game;
+            Link = game.playerCharacter;
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, -176 * Global.Var.SCALE);
+            itemSelectedIcon = new ItemSelectIcon(new Vector2(0, 0));
+            availableItems = new OrderedSet<IPlayer.SelectableWeapons>();
+            weaponEnumToEntity = new Dictionary<IPlayer.SelectableWeapons, Type>() {
+                {IPlayer.SelectableWeapons.BOW , typeof(BowIcon)},
+                {IPlayer.SelectableWeapons.BOOMERANG , typeof(BoomerangIcon)},
+                {IPlayer.SelectableWeapons.BOMB , typeof(BombIcon)}
+                /*Add necessary mappings here for ALL possible enum to icons*/
 
-            selectedWeapon = ((Dungeon.Dungeon)Game.dungeon).hitboxSword;
-
+            };
+            /*Add weapons to the inventory screen by doing this or calling method below,
+             make sure to add these to the static dictionary above also*/
+            availableItems.Add(IPlayer.SelectableWeapons.BOMB);
+            availableItems.Add(IPlayer.SelectableWeapons.BOOMERANG);
+            availableItems.Add(IPlayer.SelectableWeapons.BOW);
+            MoveSelector();
             Initialize();
 
+        }
+
+        public void EnableItemInInventory(IPlayer.SelectableWeapons weapon)
+        {
+            availableItems.Add(weapon);
+        }
+
+        public void MoveSelectorRight()
+        {
+            if (availableItems.Count == 0) return;
+            int currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            Link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
+            MoveSelector();
+            SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+        }
+
+        public void MoveSelectorLeft()
+        {
+            if (availableItems.Count == 0) return;
+            int currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            Link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
+            MoveSelector();
+            SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+        }
+
+        private void MoveSelector() {
+            if (availableItems.Count == 0) return;
+            int selectedIndex = availableItems.IndexOf(Link.SelectedWeapon);
+
+            Vector2 selectPos = iconMatrix[selectedIndex / 4, selectedIndex % 4];
+            itemSelectedIcon.Position = new Vector2(selectPos.X - 20, selectPos.Y);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, Color color)
+        {
+            pushMatrix(Icons.ToArray());
+
+            foreach (IEntity icon in Icons) {
+                icon.Draw(spriteBatch, Color.White);
+            }
             
-        }
-
-        public void Update(GameTime gameTime)
-        {
-
-        }
-
-        public void Draw(SpriteBatch spriteBatch, Color color)
-        {
-            pushMatrix();
-            foreach (IEntity icon in Icons) {
-                icon.Draw(spriteBatch, color);
-            }
-            spriteBatch.Draw(new Texture2D(spriteBatch.GraphicsDevice, 100, 100), 
-                WorldPoint,
-                Color.Pink);
-            popMatrix();
-
-        }
-
-        private void pushMatrix() {
-
-            foreach (IEntity icon in Icons) {
-                icon.Position = new Vector2(icon.Position.X + WorldPoint.X, icon.Position.Y + WorldPoint.Y);
+            for (int i = 0; i< availableItems.Count; i++) {
+                IEntity usableItems = createObjectByClassType(weaponEnumToEntity[availableItems[i]], new Vector2(270,195));
+                usableItems.Position = iconMatrix[i / 4, i % 4];
+                pushMatrix(usableItems);
+                usableItems.Draw(spriteBatch, Color.White);
+                popMatrix(usableItems);
             }
 
-        }
-
-        private void popMatrix()
-        {
-
-            foreach (IEntity icon in Icons) {
-                icon.Position = new Vector2(icon.Position.X - WorldPoint.X, icon.Position.Y - WorldPoint.Y);
+            if (availableItems.Count > 0) {
+                pushMatrix(itemSelectedIcon);
+                itemSelectedIcon.Draw(spriteBatch, Color.White);
+                popMatrix(itemSelectedIcon);
             }
 
+            
+            IEntity reference = createObjectByClassType(weaponEnumToEntity[Link.SelectedWeapon], new Vector2(270,195));
+            pushMatrix(reference);
+            reference.Draw(spriteBatch, Color.White);
+            popMatrix(reference);
+            
+
+            popMatrix(Icons.ToArray());
+
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             Icons.Add(new InventoryHudEntity(new Vector2(0, 0)));
+            for (int i = 0; i < 12; i++) {
+                for (int j = 0; j < 4; j++) {
+                    Icons.Add(new BlackSquareIcon(new Vector2(500 + i * blackTileSquareWidth * Global.Var.SCALE, 40 + j * blackTileSquareWidth * Global.Var.SCALE)));
+                }
+            }
+
+            for (int i = 0; i < 11; i++) {
+                for (int j = 0; j < 4; j++) {
+                    Icons.Add(new BlackSquareIcon(new Vector2(500 + i * blackTileSquareWidth * Global.Var.SCALE, 192 + j * blackTileSquareWidth * Global.Var.SCALE)));
+                }
+            }
         }
 
     }

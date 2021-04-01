@@ -5,9 +5,9 @@ namespace Sprintfinity3902.Commands
 {
     public class SetPlayerMoveDownCommand : ICommand
     {
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
 
-        public SetPlayerMoveDownCommand(Player player)
+        public SetPlayerMoveDownCommand(IPlayer player)
         {
             PlayerCharacter = player;
         }

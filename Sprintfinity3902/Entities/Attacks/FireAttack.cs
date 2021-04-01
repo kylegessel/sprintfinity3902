@@ -5,7 +5,7 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class FireAttack : AbstractEntity, IEnemy
+    public class FireAttack : AbstractEntity, IAttack
     {
 
         private static float F_DOT_SEVEN = .7f;

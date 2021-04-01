@@ -8,6 +8,7 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.SpriteFactories;
+using Sprintfinity3902.States.GameStates;
 using System.Collections.Generic;
 
 namespace Sprintfinity3902
@@ -25,6 +26,14 @@ namespace Sprintfinity3902
             OPTIONS,
             RESET
         };
+        public IGameState INTRO { get; set; }
+        public IGameState PLAYING { get; set; }
+        public IGameState PAUSED { get; set; }
+        public IGameState PAUSED_TRANSITION { get; set; }
+        public IGameState WIN { get; set; }
+        public IGameState LOSE { get; set; }
+        public IGameState OPTIONS { get; set; }
+        public IGameState RESET { get; set; }
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch SpriteBatch;
@@ -55,6 +64,15 @@ namespace Sprintfinity3902
             Graphics.PreferredBackBufferWidth = windowBounds.Width * Global.Var.SCALE;
             Graphics.PreferredBackBufferHeight = windowBounds.Height * Global.Var.SCALE;
             Graphics.ApplyChanges();
+
+            INTRO = new IntroState(this);
+            PLAYING = new PlayingState(this);
+            PAUSED = new PausedState(this);
+            PAUSED_TRANSITION = new Paused_TransitionState(this);
+            WIN = new WinState(this);
+            LOSE = new LoseState(this);
+            OPTIONS = new OptionsState(this);
+            RESET = new ResetState(this);
             
         }
 

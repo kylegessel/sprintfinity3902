@@ -69,7 +69,8 @@ namespace Sprintfinity3902.Collision
                         else if (door.CurrentState.IsLocked && gameInstance.link.itemcount[IItem.ITEMS.KEY] > 0)
                         {
                             door.Open();
-                            gameInstance.link.itemcount[IItem.ITEMS.KEY] -= 1;
+                            gameInstance.link.itemcount[IItem.ITEMS.KEY]--;
+                            gameInstance.link.itemPickedUp = true;
                         }
                         else
                         {

@@ -26,6 +26,9 @@ namespace Sprintfinity3902
             OPTIONS,
             RESET
         };
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch SpriteBatch;
+
         public IGameState INTRO { get; set; }
         public IGameState PLAYING { get; set; }
         public IGameState PAUSED { get; set; }
@@ -35,12 +38,9 @@ namespace Sprintfinity3902
         public IGameState OPTIONS { get; set; }
         public IGameState RESET { get; set; }
 
-        private GraphicsDeviceManager graphics;
-        private SpriteBatch SpriteBatch;
-
         private static Rectangle windowBounds = new Rectangle(1, 1, 256, 240);
         public GameState State { get; private set; }
-        public GraphicsDeviceManager Graphics { get { return graphics; } }
+        public GraphicsDeviceManager Graphics { get { return _graphics; } }
 
         public ILink link;
         public IPlayer playerCharacter;
@@ -51,12 +51,13 @@ namespace Sprintfinity3902
         
         public List<IHud> huds;
 
-        private ISprite titleScreen;
-        private string introMusicInstanceID;
+        public IGameState CurrentState;
+        public IGameState PreviousState;
 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
+
             Window.Title = "The Legend of Zelda";
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -65,15 +66,6 @@ namespace Sprintfinity3902
             Graphics.PreferredBackBufferHeight = windowBounds.Height * Global.Var.SCALE;
             Graphics.ApplyChanges();
 
-            INTRO = new IntroState(this);
-            PLAYING = new PlayingState(this);
-            PAUSED = new PausedState(this);
-            PAUSED_TRANSITION = new Paused_TransitionState(this);
-            WIN = new WinState(this);
-            LOSE = new LoseState(this);
-            OPTIONS = new OptionsState(this);
-            RESET = new ResetState(this);
-            
         }
 
         protected override void LoadContent()
@@ -98,7 +90,7 @@ namespace Sprintfinity3902
             SoundManager.Instance.Reset();
             CollisionDetector.Instance.Reset();
 
-            titleScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
+            //titleScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
 
             link = new Player(this);
             playerCharacter = (IPlayer)link;
@@ -118,9 +110,31 @@ namespace Sprintfinity3902
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
-            
 
-            UpdateState(GameState.INTRO);
+            BuildStates();
+
+            SetState(INTRO);
+            //UpdateState(GameState.INTRO);
+        }
+
+        private void BuildStates()
+        {
+            INTRO = new IntroState(this);
+            PLAYING = new PlayingState(this);
+            PAUSED = new PausedState(this);
+            PAUSED_TRANSITION = new Paused_TransitionState(this);
+            WIN = new WinState(this);
+            LOSE = new LoseState(this);
+            OPTIONS = new OptionsState(this);
+            RESET = new ResetState(this);
+        }
+
+        public void SetState(IGameState state)
+        {
+            if (state.Equals(CurrentState)) return;
+            PreviousState = CurrentState;
+            CurrentState = state;
+            CurrentState.SetUp();
         }
 
         public void Pause()
@@ -143,11 +157,12 @@ namespace Sprintfinity3902
             base.Update(gameTime);
 
             KeyboardManager.Instance.Update(gameTime);
-
+            CurrentState.Update(gameTime);
+            /*
             switch (State) {
-                case GameState.INTRO:
-                    titleScreen.Update(gameTime);
-                    break;
+                //case GameState.INTRO:
+                    //titleScreen.Update(gameTime);
+                    //break;
                 case GameState.PAUSED:
                     break;
                 case GameState.PAUSED_TRANSITION:
@@ -175,6 +190,7 @@ namespace Sprintfinity3902
                     optionMenu.Update(gameTime);
                     break;
             }
+            */
         }
 
         protected override void Draw(GameTime gameTime)
@@ -183,11 +199,12 @@ namespace Sprintfinity3902
 
             GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-
+            CurrentState.Draw(SpriteBatch, gameTime);
+            /*
             switch (State) {
-                case GameState.INTRO:
-                    titleScreen.Draw(SpriteBatch, new Vector2(0, 16 * Global.Var.SCALE), Color.White);
-                    break;
+                //case GameState.INTRO:
+                    //titleScreen.Draw(SpriteBatch, new Vector2(0, 16 * Global.Var.SCALE), Color.White);
+                    //break;
                 case GameState.PAUSED:
                 case GameState.PAUSED_TRANSITION:
                 case GameState.LOSE:
@@ -207,6 +224,7 @@ namespace Sprintfinity3902
                     optionMenu.Draw(SpriteBatch);
                     break;
             }
+            */
             
             SpriteBatch.End();
         }
@@ -219,13 +237,13 @@ namespace Sprintfinity3902
             //if (state.Equals(State)) return;
 
             switch (state) {
-                case GameState.INTRO:
-                    introMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
-                    SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Play();
+                //case GameState.INTRO:
+                    //introMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
+                    //SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Play();
 
-                    KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
-                    KeyboardManager.Instance.RegisterKeyUpCallback(StartGame, Keys.Enter);
-                    break;
+                    //KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
+                    //KeyboardManager.Instance.RegisterKeyUpCallback(StartGame, Keys.Enter);
+                    //break;
                 case GameState.PAUSED:
                     KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
                     KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)huds[2]).MoveSelectorLeft, Keys.A, Keys.Left);
@@ -246,19 +264,19 @@ namespace Sprintfinity3902
                     KeyboardManager.Instance.PushCommandMatrix();
                     optionMenu.Initialize();
                     break;
-                case GameState.PLAYING:
-                    SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Stop();
+                //case GameState.PLAYING:
+                    //SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Stop();
 
-                    if (State.Equals(GameState.PAUSED_TRANSITION)) {
-                        KeyboardManager.Instance.PopCommandMatrix();
-                    } else if (State.Equals(GameState.INTRO)) {
-                        KeyboardManager.Instance.PopCommandMatrix();
-                        KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
-                        KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
-                        dungeon.Initialize();
-                        playerCharacter.Initialize();
-                    }
-                    break;
+                    //if (State.Equals(GameState.PAUSED_TRANSITION)) {
+                        //KeyboardManager.Instance.PopCommandMatrix();
+                    //} else if (State.Equals(GameState.INTRO)) {
+                        //KeyboardManager.Instance.PopCommandMatrix();
+                        //KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
+                        //KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
+                        //dungeon.Initialize();
+                        //playerCharacter.Initialize();
+                    //}
+                    //break;
                 case GameState.LOSE:
                     dungeon.UpdateState(IDungeon.GameState.LOSE);
                     break;

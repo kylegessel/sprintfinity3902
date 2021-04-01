@@ -24,5 +24,10 @@ namespace Sprintfinity3902.States.GameStates
         {
 
         }
+
+        public void SetUp()
+        {
+
+        }
     }
 }

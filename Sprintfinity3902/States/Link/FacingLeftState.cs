@@ -6,10 +6,10 @@ namespace Sprintfinity3902.States
 {
     public class FacingLeftState : IPlayerState
     {
-        public Player PlayerCharacter { get; set; }
+        public IPlayer PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }
 
-        public FacingLeftState(Player currentPlayer)
+        public FacingLeftState(IPlayer currentPlayer)
         {
             PlayerCharacter = currentPlayer;
             Sprite = PlayerSpriteFactory.Instance.CreateLinkLeftSprite();

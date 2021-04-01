@@ -6,11 +6,7 @@ namespace Sprintfinity3902.Entities
 {
     public class OldManNPC : AbstractEntity, IEnemy
     {
-        public OldManNPC()
-        {
-            Sprite = EnemySpriteFactory.Instance.CreateOldManNPC();
-            Position = new Vector2(750, 540);
-        }
+
         public OldManNPC(Vector2 pos)
         {
             Sprite = EnemySpriteFactory.Instance.CreateOldManNPC();
@@ -20,6 +16,7 @@ namespace Sprintfinity3902.Entities
         public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
             // eventually enable the fire attack
+
             return 1;
         }
     }

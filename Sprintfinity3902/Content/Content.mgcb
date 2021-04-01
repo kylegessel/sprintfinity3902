@@ -20,6 +20,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Font.spritefont
 
+#begin NES - The Legend of Zelda - Fonts.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:NES - The Legend of Zelda - Fonts.png
+
 #begin NES - The Legend of Zelda - Level 1 E.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -32,71 +44,11 @@
 /processorParam:TextureFormat=Color
 /build:NES - The Legend of Zelda - Level 1 E.png
 
-#begin Sounds/Bomb_Apearance_and_Selfdrestruction.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Bomb_Apearance_and_Selfdrestruction.wav
-
-#begin Sounds/Boss_Defeated.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Boss_Defeated.wav
-
-#begin Sounds/Boss_Roaring.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Boss_Roaring.wav
-
-#begin Sounds/Boss_Zapped.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Boss_Zapped.wav
-
-#begin Sounds/Death_Mountain.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Death_Mountain.wav
-
-#begin Sounds/Door_Opened.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Door_Opened.wav
-
 #begin Sounds/Dungeon.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/Dungeon.wav
-
-#begin Sounds/Ending.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Ending.wav
-
-#begin Sounds/Enemy_Shrinking.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Enemy_Shrinking.wav
-
-#begin Sounds/Enemy_Zapped.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Enemy_Zapped.wav
-
-#begin Sounds/Flames_Shot.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Flames_Shot.wav
 
 #begin Sounds/Game_Over.wav
 /importer:WavImporter
@@ -104,119 +56,197 @@
 /processorParam:Quality=Best
 /build:Sounds/Game_Over.wav
 
-#begin Sounds/Health_Heart.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Health_Heart.wav
-
 #begin Sounds/Intro.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/Intro.wav
 
-#begin Sounds/Item.wav
+#begin Sounds/LOZ_Arrow_Boomerang.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Item.wav
+/build:Sounds/LOZ_Arrow_Boomerang.wav
 
-#begin Sounds/Item_Obtained.wav
+#begin Sounds/LOZ_Bomb_Blow.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Item_Obtained.wav
+/build:Sounds/LOZ_Bomb_Blow.wav
 
-#begin Sounds/Item_Received.wav
+#begin Sounds/LOZ_Bomb_Drop.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Item_Received.wav
+/build:Sounds/LOZ_Bomb_Drop.wav
 
-#begin Sounds/Key_Appearance.wav
+#begin Sounds/LOZ_Boss_Hit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Key_Appearance.wav
+/build:Sounds/LOZ_Boss_Hit.wav
 
-#begin Sounds/Magic_Whistle_Tune.wav
+#begin Sounds/LOZ_Boss_Scream1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Magic_Whistle_Tune.wav
+/build:Sounds/LOZ_Boss_Scream1.wav
 
-#begin Sounds/Magical.wav
+#begin Sounds/LOZ_Boss_Scream2.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Magical.wav
+/build:Sounds/LOZ_Boss_Scream2.wav
 
-#begin Sounds/Magical_Boomerang_Thrown.wav
+#begin Sounds/LOZ_Boss_Scream3.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Magical_Boomerang_Thrown.wav
+/build:Sounds/LOZ_Boss_Scream3.wav
 
-#begin Sounds/Master_Sword_Sword_Zap.wav
+#begin Sounds/LOZ_Candle.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Master_Sword_Sword_Zap.wav
+/build:Sounds/LOZ_Candle.wav
 
-#begin Sounds/Overworld.wav
+#begin Sounds/LOZ_Door_Unlock.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Overworld.wav
+/build:Sounds/LOZ_Door_Unlock.wav
 
-#begin Sounds/Player_Hurt.wav
+#begin Sounds/LOZ_Enemy_Die.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Player_Hurt.wav
+/build:Sounds/LOZ_Enemy_Die.wav
 
-#begin Sounds/Power_Zap.wav
+#begin Sounds/LOZ_Enemy_Hit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Power_Zap.wav
+/build:Sounds/LOZ_Enemy_Hit.wav
 
-#begin Sounds/Rupees_Decreasing.wav
+#begin Sounds/LOZ_Fanfare.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Rupees_Decreasing.wav
+/build:Sounds/LOZ_Fanfare.wav
 
-#begin Sounds/Secret.wav
+#begin Sounds/LOZ_Get_Heart.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Secret.wav
+/build:Sounds/LOZ_Get_Heart.wav
 
-#begin Sounds/Shield_Deflecting.wav
+#begin Sounds/LOZ_Get_Item.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Shield_Deflecting.wav
+/build:Sounds/LOZ_Get_Item.wav
 
-#begin Sounds/Shiney.wav
+#begin Sounds/LOZ_Get_Rupee.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Shiney.wav
+/build:Sounds/LOZ_Get_Rupee.wav
 
-#begin Sounds/Sword_Zap_SFX.wav
+#begin Sounds/LOZ_Key_Appear.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/Sword_Zap_SFX.wav
+/build:Sounds/LOZ_Key_Appear.wav
 
-#begin Sounds/The_Triforce_Reveals_Ganon.wav
+#begin Sounds/LOZ_Link_Die.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Sounds/The_Triforce_Reveals_Ganon.wav
+/build:Sounds/LOZ_Link_Die.wav
+
+#begin Sounds/LOZ_Link_Hurt.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Link_Hurt.wav
+
+#begin Sounds/LOZ_LowHealth.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_LowHealth.wav
+
+#begin Sounds/LOZ_MagicalRod.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_MagicalRod.wav
+
+#begin Sounds/LOZ_Recorder.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Recorder.wav
+
+#begin Sounds/LOZ_Refill_Loop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Refill_Loop.wav
+
+#begin Sounds/LOZ_Secret.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Secret.wav
+
+#begin Sounds/LOZ_Shield.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Shield.wav
+
+#begin Sounds/LOZ_Shore.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Shore.wav
+
+#begin Sounds/LOZ_Stairs.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Stairs.wav
+
+#begin Sounds/LOZ_Sword_Combined.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Sword_Combined.wav
+
+#begin Sounds/LOZ_Sword_Shoot.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Sword_Shoot.wav
+
+#begin Sounds/LOZ_Sword_Slash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Sword_Slash.wav
+
+#begin Sounds/LOZ_Text.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Text.wav
+
+#begin Sounds/LOZ_Text_Slow.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/LOZ_Text_Slow.wav
 
 #begin Sounds/Triforce.wav
 /importer:WavImporter
@@ -229,30 +259,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Sounds/Triforce_Piece_Obtained.wav
-
-#begin Sounds/Two_Zap_Bolts.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Two_Zap_Bolts.wav
-
-#begin Sounds/Upgraded_Magical_Boomerang_Thrown.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Upgraded_Magical_Boomerang_Thrown.wav
-
-#begin Sounds/Walking_on_Stairs.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Walking_on_Stairs.wav
-
-#begin Sounds/Whistle.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Sounds/Whistle.wav
 
 #begin Zelda_Bosses_Transparent.png
 /importer:TextureImporter
@@ -302,18 +308,6 @@
 /processorParam:TextureFormat=Color
 /build:Zelda_Dungeon_Tileset_Transparent.png
 
-#begin Zelda_DungeonMap.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Zelda_DungeonMap.png
-
 #begin Zelda_Eagle-Map.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -325,6 +319,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Zelda_Eagle-Map.png
+
+#begin Zelda_FullTitleScreen_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_FullTitleScreen_Transparent.png
 
 #begin Zelda_HudElements_Transparent.png
 /importer:TextureImporter
@@ -373,4 +379,28 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Zelda_NPCs_Transparent.png
+
+#begin Zelda_TitleScreen_Edited_Transparent_.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_TitleScreen_Edited_Transparent_.png
+
+#begin Zelda_TitleScreen_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_TitleScreen_Transparent.png
 

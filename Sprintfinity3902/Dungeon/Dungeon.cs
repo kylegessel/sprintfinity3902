@@ -1,6 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Collision;
+using Sprintfinity3902.Commands;
+using Sprintfinity3902.Controllers;
+using Sprintfinity3902.Dungeon.GameState;
+using Sprintfinity3902.Entities;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.States.Door;
 using System.Collections.Generic;
@@ -10,105 +18,124 @@ namespace Sprintfinity3902.Dungeon
 {
     public class Dungeon : IDungeon
     {
+
         /*MAGIC NUMBERS REFACTOR*/
         private static int FORTY_EIGHT = 48;
         private static int NINETY_SEVEN = 97;
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
-        public ChangeRoom changeRoom { get; set; }
 
         private Game1 Game;
         private List<IRoom> dungeonRooms;
-        public IRoom CurrentRoom { get; set; }
-        private int currentId;
+        public ChangeRoom changeRoom { get; set; }
         public int NextId { get; set; }
+        private IEntity boomerangItem;
+        public IEntity bombItem;
+        private IEntity movingSword;
+        private IEntity bowArrow;
+        public IEntity bombExplosion;
+        public IEntity hitboxSword;
+        public IRoom CurrentRoom { get; set; }
 
         private string backgroundMusicInstanceID;
 
+
+        public List<IEntity> linkProj;
+
         public Dungeon(Game1 game)
         {
+
+            boomerangItem = new BoomerangItem();
+            bombExplosion = new BombExplosionItem(new Vector2(-1000, -1000));
+            bombItem = new BombItem(new Vector2(-1000, -1000), (BombExplosionItem)bombExplosion);
+            movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
+            hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
+            bowArrow = new ArrowItem(new Vector2(-1000, -1000));
+
+            changeRoom = new ChangeRoom(game);
+
             dungeonRooms = new List<IRoom>();
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room1.csv", 1));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room2.csv", 2));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room3.csv", 3));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room4.csv", 4));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room5.csv", 5));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room6.csv", 6));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room7.csv", 7));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room8.csv", 8));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room9.csv", 9));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room10.csv", 10));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room11.csv", 11));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room12.csv", 12));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room13.csv", 13));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room14.csv", 14));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room15.csv", 15));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room16.csv", 16));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room17.csv", 17));
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room18.csv", 18));
 
-            CurrentRoom = GetById(2);
-            currentId = CurrentRoom.Id;
-            NextId = CurrentRoom.Id;
+            for (int roomNum = 1; roomNum <= 18; roomNum++)
+            {
+                dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
+            }
 
+            CurrentRoom = GetById(1);
             Game = game;
-            changeRoom = new ChangeRoom(Game);
+
+            linkProj = new List<IEntity>();
+
+            linkProj.Add(boomerangItem);
+            linkProj.Add(bombExplosion);
+            linkProj.Add(movingSword);
+            linkProj.Add(hitboxSword);
+            linkProj.Add(bowArrow);
 
             backgroundMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Dungeon), 0.02f, true);
-
-            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
-        public void Build()
+        public void Initialize()
         {
-            foreach(IRoom room in dungeonRooms)
+            CollisionDetector.Instance.Initialize(Game);
+            KeyboardManager.Instance.RegisterKeyUpCallback(NextRoom, Keys.L);
+            KeyboardManager.Instance.RegisterKeyUpCallback(PreviousRoom, Keys.K);
+            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
+            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Game.playerCharacter, (BombItem)bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Game.playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
+            KeyboardManager.Instance.RegisterCommand(new UseBowCommand((Player)Game.playerCharacter, (ArrowItem)bowArrow), Keys.D3);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
+
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
+
+            IRoomLoader rload = new RoomLoader();
+            foreach (IRoom room in dungeonRooms)
             {
-                if(room.Id == 13)
-                {
-                    room.loader13.Build();
-                }
-                else
-                {
-                    room.loader.Build();
-                }
+                rload.Initialize(room);
+                rload.Build();
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            if (CurrentRoom.Id != NextId) {
-            //SetLinkPosition();
-            CurrentRoom.garbage.Clear();
-        }
-            CurrentRoom = GetById(NextId);
-
-
             if (changeRoom.Change)
             {
                 changeRoom.Update(gameTime);
             }
             else
             {
+                CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage, (IProjectile)Game.bombExplosion);
                 CurrentRoom.Update(gameTime);
+                foreach (IEntity entity in linkProj)
+                {
+                    entity.Update(gameTime);
+                }
+                bombItem.Update(gameTime);
             }
+            /*Something like this should never go in update... not trying to be mean,
+             but this blatently does not belong here. If you have a question about it 
+            lmk... I have no idea who wrote this and it's not important. Glad we're 
+            learning together!*/
+            //SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
-
-        
-
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
             if (changeRoom.Change)
             {
                 changeRoom.Draw(spriteBatch);
             }
             else
             {
-                CurrentRoom.Draw(spriteBatch);
-
+                CurrentRoom.Draw(spriteBatch, Color.White);
+                foreach (IEntity entity in linkProj)
+                {
+                    entity.Draw(spriteBatch, Color.White);
+                }
+                bombItem.Draw(spriteBatch, Color.White);
             }
         }
+
 
         public IRoom GetById(int id)
         {
@@ -117,35 +144,15 @@ namespace Sprintfinity3902.Dungeon
 
         public void NextRoom()
         {
-            currentId = CurrentRoom.Id;
-            if(CurrentRoom.Id == 18)
-            {
-                CurrentRoom = GetById(1);
-            }
-            else
-            {
-                currentId++;
-                CurrentRoom = GetById(currentId);
-            }
-            NextId = CurrentRoom.Id;
-            CurrentRoom.garbage.Clear();
+            int currentId = (CurrentRoom.Id + 1) % 19 == 0 ? 1 : CurrentRoom.Id + 1;
+            SetCurrentRoom(currentId);
             SetLinkPosition();
         }
 
         public void PreviousRoom()
         {
-            currentId = CurrentRoom.Id;
-            if (CurrentRoom.Id == 1)
-            {
-                CurrentRoom = GetById(18);
-            }
-            else
-            {
-                currentId--;
-                CurrentRoom = GetById(currentId);
-            }
-            NextId = CurrentRoom.Id;
-            CurrentRoom.garbage.Clear();
+            int currentId = (CurrentRoom.Id - 1) < 1 ? 18 : CurrentRoom.Id - 1;
+            SetCurrentRoom(currentId);
             SetLinkPosition();
         }
 
@@ -156,7 +163,8 @@ namespace Sprintfinity3902.Dungeon
 
         public void SetCurrentRoom(int id)
         {
-            NextId = id;
+            CurrentRoom.garbage.Clear();
+            CurrentRoom = GetById(id);
         }
         public void ChangeRoom(IDoor door)
         {
@@ -165,23 +173,28 @@ namespace Sprintfinity3902.Dungeon
 
         public void SetLinkPosition()
         {
-            IRoom room = GetCurrentRoom();
-            
-            if(NextId == 13)
-            {
-                Game.link.X = FORTY_EIGHT * Global.Var.SCALE;
-                Game.link.Y = NINETY_SEVEN * Global.Var.SCALE;
-            }
-            else
-            {
-                Game.link.X = ONE_HUNDRED_TWENTY * Global.Var.SCALE;
-                Game.link.Y = ONE_HUNDRED_NINETY_THREE * Global.Var.SCALE;
-            }
+            Game.playerCharacter.X = 120 * Global.Var.SCALE;
+            Game.playerCharacter.Y = 193 * Global.Var.SCALE;
         }
-
-        public void CleanUp() {
-            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Stop();
-            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Dispose();
+        public void UpdateState(IDungeon.GameState state)
+        {
+            switch (state)
+            {
+                case IDungeon.GameState.WIN:
+                    KeyboardManager.Instance.PushCommandMatrix();
+                    Game.playerCharacter.SetState(Game.playerCharacter.facingDown);
+                    Game.playerCharacter.CurrentState.Sprite.Animation.Stop();
+                    CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
+                    break;
+                case IDungeon.GameState.LOSE:
+                    KeyboardManager.Instance.PushCommandMatrix();
+                    CurrentRoom = new LoseWrapper(CurrentRoom, this, Game);
+                    break;
+                case IDungeon.GameState.RETURN:
+                    KeyboardManager.Instance.PopCommandMatrix();
+                    Game.UpdateState(Game1.GameState.OPTIONS);
+                    break;
+            }
         }
     }
 }

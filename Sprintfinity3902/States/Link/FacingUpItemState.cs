@@ -7,11 +7,11 @@ namespace Sprintfinity3902.States
 {
     public class FacingUpItemState : IPlayerState
     {
-        public Player PlayerCharacter { get; set; }
+        public IPlayer PlayerCharacter { get; set; }
         public ISprite Sprite { get; set; }
 
         private Boolean itemExecuted = false;
-        public FacingUpItemState(Player currentPlayer)
+        public FacingUpItemState(IPlayer currentPlayer)
         {
             PlayerCharacter = currentPlayer;
             Sprite = PlayerSpriteFactory.Instance.CreateLinkUpItemSprite();

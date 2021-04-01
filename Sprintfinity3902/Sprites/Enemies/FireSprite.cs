@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 
 namespace Sprintfinity3902.Sprites
@@ -20,7 +21,14 @@ namespace Sprintfinity3902.Sprites
 
             Animation = new Animation();
             Animation.AddFrame(Sprite1, 0);
+            Animation.AddFrame(Sprite1, 1/8f);
+            Animation.AddFrame(Sprite1, 1/4f);
 
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+        {
+            spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0f, new Vector2(0, 0), Global.Var.SCALE, Animation.CurrentFrame == Animation.GetFrame(1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         }
     }
 }

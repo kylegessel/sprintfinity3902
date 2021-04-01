@@ -1,17 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.SpriteFactories;
 using System;
-using Sprintfinity3902.Entities.Items;
-using Sprintfinity3902.Collision;
 
 namespace Sprintfinity3902.Entities
 {
     public class ArrowItem : AbstractItem, IProjectile
     {
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
         Boolean itemUse;
         int itemUseCount;
         ISprite Sprite2;
@@ -99,7 +98,7 @@ namespace Sprintfinity3902.Entities
 
             itemUseCount++;
         }
-        public void UseItem(Player player)
+        public void UseItem(IPlayer player)
         {
             PlayerCharacter = player;
             firingState = PlayerCharacter.CurrentState;

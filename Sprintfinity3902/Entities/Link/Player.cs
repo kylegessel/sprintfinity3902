@@ -1,14 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Commands;
+using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sound;
 using Sprintfinity3902.States;
 using System;
 using System.Collections.Generic;
 
 namespace Sprintfinity3902.Link
 {
-    public class Player : AbstractEntity, ILink
+    public class Player : AbstractEntity, IPlayer
     {
         /*MAGIC NUMBERS REFACTOR*/
         private static int FIFTEEN = 15;
@@ -21,16 +25,17 @@ namespace Sprintfinity3902.Link
         private static int THIRTEEN = 13;
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
+        private static int INITIAL_HEALTH = 6;
 
-        public int MAX_HEALTH = 6; //May need to be public for projectiles
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
         private Boolean _bouncingOfEnemy;
         private Boolean _collidable;
-        public int linkHealth;
+        private string lowHealthInstanceID;
+        private double _deathSpinCount;
 
-        public IPlayerState CurrentState {
+public IPlayerState CurrentState {
             get {
                 return _currentState;
             }
@@ -38,6 +43,7 @@ namespace Sprintfinity3902.Link
                 _currentState = value;
             }
         }
+
         public IPlayerState facingDown { get; set; }
         public IPlayerState facingLeft { get; set; }
         public IPlayerState facingRight { get; set; }
@@ -53,10 +59,16 @@ namespace Sprintfinity3902.Link
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
 
-        public Dictionary<IItem.ITEMS, int> itemcount;
+        public int MaxHealth { get; set; }
+        public int LinkHealth { get; set; }
 
-        public Player()
+        public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
+
+        private Game1 game;
+
+        public Player(Game1 _game)
         {
+            game = _game;
             Position = new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, ONE_HUNDRED_NINETY_THREE * Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
             facingDown = CurrentState;
@@ -74,71 +86,54 @@ namespace Sprintfinity3902.Link
             color = Color.White;
             _collidable = true;
             SetStepSize(1);
-            linkHealth = MAX_HEALTH;
+            MaxHealth = INITIAL_HEALTH;
+            LinkHealth = MaxHealth;
             heartChanged = true;
             itemPickedUp = false;
-            
+            lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
+            _deathSpinCount = 0.0;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
-            // temporary intialization
-            itemcount[IItem.ITEMS.KEY] = 0;
+            foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
+            {
+                itemcount.Add(item, 0);
+            }
         }
 
-        public void pickup(IItem.ITEMS item) {
-            if (itemcount.ContainsKey(item)) {
-                itemcount[item]++;
-            }
-            else
-            {
-                itemcount.Add(item, 1);
-            }
+        /*TODO: Move to Game1 class - and keep comment below*/
+        /*Don't move from Game1 class*/
+        public void Initialize() {
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(game.playerCharacter), Keys.W, Keys.Up);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(game.playerCharacter), Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(game.playerCharacter), Keys.S, Keys.Down);
+            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(game.playerCharacter), Keys.D, Keys.Right);
 
-            if (item == IItem.ITEMS.HEART)
-            {
-                if (linkHealth < MAX_HEALTH)
-                {
-                    linkHealth++;
-                    if(linkHealth != MAX_HEALTH)
-                    {
-                        linkHealth++;
-                    }
-                    heartChanged = true;
-                }
-            }
-            else if (item == IItem.ITEMS.HEARTCONTAINER)
-            {
-                MAX_HEALTH += 2;
-                linkHealth = MAX_HEALTH;
-                heartChanged = true;
-            }
-            else if (item == IItem.ITEMS.BOMB)
-            {
-                itemPickedUp = true;
-            }
-            else if (item == IItem.ITEMS.KEY)
-            {
-                itemPickedUp = true;
-            }
-            else if (item == IItem.ITEMS.RUPEE)
-            {
-                itemPickedUp = true;
-            }
-
+            KeyboardManager.Instance.RegisterKeyUpCallback(() => {
+                CurrentState.Sprite.Animation.Stop();
+            }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
 
-        public void useItem(IItem.ITEMS item) {
-            if (itemcount.ContainsKey(item) && itemcount[item] > 0) {
-                itemcount[item]--;
-                return ;
-            } 
-            // Not enough quantity or any
-            /* TODO: Implmt err control */
+        public void Pickup(IItem item) {
+
+
+            IPickup itemPickup = item.GetPickup();
+            bool win = itemPickup.Pickup(this);
+
+            if (win)
+            {
+                game.UpdateState(Game1.GameState.WIN);
+            }
         }
 
-        public override void SetState(IPlayerState state) {
-            Vector2 pos = Position;
+        public bool IsCurrentState(IPlayerState state) {
+            return state.Equals(CurrentState);
+        }
+
+        public void SetState(IPlayerState state) {
+            if (state.Equals(CurrentState)) return;
+            //Vector2 pos = Position;
             CurrentState = state;
-            Position = pos;
+            //Position = pos;
         }
 
         public override void Move() {
@@ -155,9 +150,40 @@ namespace Sprintfinity3902.Link
             CurrentState.UseItem();
         }
 
+        public void UseItem(IItem.ITEMS item)
+        {
+
+            CurrentState.UseItem();
+            if (itemcount.ContainsKey(item) && itemcount[item] > 0)
+            {
+                itemcount[item]--;
+                itemPickedUp = true;
+            }
+        }
+
         public override void Update(GameTime gameTime) {
             CurrentState.Sprite.Update(gameTime);  //can this pass out size?
             CurrentState.Update();
+
+            if (_deathSpinCount != 0.0) { 
+                _deathSpinCount += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                switch (((int)(_deathSpinCount / 100.0)) % 4) {
+                    case 0:
+                        SetState(facingDown);
+                        break;
+                    case 1:
+                        SetState(facingRight);
+                        break;
+                    case 2:
+                        SetState(facingUp);
+                        break;
+                    case 3:
+                        SetState(facingLeft);
+                        break;
+                }
+                return;
+            }
 
             if (_bouncingOfEnemy)
             {
@@ -222,8 +248,18 @@ namespace Sprintfinity3902.Link
         public void TakeDamage()
         {
             _collidable = false;
-            linkHealth--;
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            LinkHealth--;
             heartChanged = true;
+            
+            if (LinkHealth <= 0) {
+                game.UpdateState(Game1.GameState.LOSE);
+                return;
+            }
+
+            if (LinkHealth <= 2) {
+                playLowHealth();
+            }
         }
 
         public void BounceOfEnemy(ICollision.CollisionSide Side)
@@ -240,10 +276,25 @@ namespace Sprintfinity3902.Link
         public void RemoveDecorator()
         {
             _collidable = true;
+            game.playerCharacter = this;
         }
         public override Boolean IsCollidable()
         {
             return _collidable;
+        }
+        private void playLowHealth()
+        {
+            SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Play();
+        }
+        private void stopLowHealth()
+        {
+            SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
+        }
+
+        public void DeathSpin(bool end)
+        {
+            if (end) SetState(facingDown);
+            _deathSpinCount = end ? 0.0 : 0.01;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Sprintfinity3902.Link
         private static int MOD_BOUND = 12;
 
         IRoom room;
-        AbstractEntity decoratedEntity;
+        IEntity decoratedEntity;
         int entityID;
         Color Color;
         int counter;
@@ -23,7 +23,7 @@ namespace Sprintfinity3902.Link
         
 
         // pass room as well?
-        public DamagedEntity(int entityID, AbstractEntity decoratedEntity, IRoom room)
+        public DamagedEntity(int entityID, IEntity decoratedEntity, IRoom room)
         {
             this.entityID = entityID;
             this.decoratedEntity = decoratedEntity;
@@ -75,10 +75,11 @@ namespace Sprintfinity3902.Link
             decoratedEntity.Attack();
         }
 
+        /*
         public override void SetState(IPlayerState state)
         {
             decoratedEntity.SetState(state);
-        }
+        }*/
 
         public override Rectangle GetBoundingRect()
         {
@@ -89,6 +90,7 @@ namespace Sprintfinity3902.Link
         {
             return decoratedEntity.IsCollidable();
         }
+
         // How do I remove decorator?
         public void RemoveDecorator()
         {

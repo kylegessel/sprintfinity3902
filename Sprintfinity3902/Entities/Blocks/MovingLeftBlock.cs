@@ -16,12 +16,14 @@ namespace Sprintfinity3902.Entities
         private Boolean alreadyMoved = false;
         private Boolean isMoving = false;
         private int moveCount;
+        private bool soundPlay;
 
         public MovingLeftBlock(Vector2 pos)
         {
             Sprite = BlockSpriteFactory.Instance.CreateRegularBlock();
             Position = pos;
             moveCount = 1;
+            soundPlay = true;
         }
 
         public override Boolean IsMovable()
@@ -32,6 +34,11 @@ namespace Sprintfinity3902.Entities
         {
             isMoving = true;
             side = Side;
+            if (soundPlay)
+            {
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Secret).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+                soundPlay = false;
+            }
         }
         public void StopMoving()
         {

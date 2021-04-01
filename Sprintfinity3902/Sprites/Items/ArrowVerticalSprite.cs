@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprintfinity3902.Sprites.Items
-{ 
+{
     public class ArrowVerticalSprite : AbstractSprite
     { 
         public Texture2D Texture { get; set; }

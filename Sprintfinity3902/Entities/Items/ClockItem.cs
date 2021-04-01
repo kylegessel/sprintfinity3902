@@ -20,5 +20,10 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             ID = IItem.ITEMS.CLOCK;
         }
+
+        public override IPickup GetPickup()
+        {
+            return new ClockPickup();
+        }
     }
 }

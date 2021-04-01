@@ -4,7 +4,7 @@ namespace Sprintfinity3902.Interfaces
 {
 
     // needs another look Neccessary? Helpful?
-    interface ICollidable
+    public interface ICollidable
     {
         Boolean IsCollidable();
     }

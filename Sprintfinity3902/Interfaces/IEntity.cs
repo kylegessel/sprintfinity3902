@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprintfinity3902.Interfaces
 {
-    public interface IEntity
+    public interface IEntity : ICollidable
     {
         ISprite Sprite
         {
@@ -25,7 +25,6 @@ namespace Sprintfinity3902.Interfaces
         void Draw(SpriteBatch spriteBatch, Color color);
         void Move();
         void Attack();
-        void SetState(IPlayerState state);
         Rectangle GetBoundingRect();
         void SetStepSize(float size);
         float GetStepSize();

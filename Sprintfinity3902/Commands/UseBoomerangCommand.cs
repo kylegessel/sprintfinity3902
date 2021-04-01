@@ -8,22 +8,23 @@ namespace Sprintfinity3902.Commands
 
     public class UseBoomerangCommand : ICommand
     {
-        Player PlayerCharacter;
+        IPlayer PlayerCharacter;
         BoomerangItem Boomerang;
 
-        public UseBoomerangCommand(Player player, BoomerangItem boomerang)
+        public UseBoomerangCommand(ILink player, BoomerangItem boomerang)
         {
-            PlayerCharacter = player;
+            PlayerCharacter = (IPlayer)player;
             Boomerang = boomerang;
         }
 
         public void Execute()
         {
             //Eventually this should all live within player, this should become a call to use item.
-            if (!Boomerang.getItemUse())
+            if (!Boomerang.getItemUse() && PlayerCharacter.itemcount[IItem.ITEMS.BOOMERANG] > 0)
             {
                 PlayerCharacter.UseItem();
                 Boomerang.UseItem(PlayerCharacter);
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Arrow_Boomerang).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
         }
     }

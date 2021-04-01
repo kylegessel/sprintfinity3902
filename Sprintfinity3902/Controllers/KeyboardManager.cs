@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Commands;
+using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using IUpdateable = Sprintfinity3902.Interfaces.IUpdateable;
 
 namespace Sprintfinity3902.Controllers
@@ -21,8 +23,8 @@ namespace Sprintfinity3902.Controllers
         // Dictionary of keys which map to an Action
         private static Dictionary<Keys, List<Action>> keyUpHandlers;
 
-        // List of counter variables which can be incremented or decremented
-        private static List<int> counters;
+        // Stack with copies of this which can be popped
+        private static Stack<Tuple<Dictionary<Keys, Interfaces.ICommand>, Dictionary<Keys, List<Action>>>> keyBoardInstanceStack;
 
         /* Singleton instance */
 
@@ -36,15 +38,61 @@ namespace Sprintfinity3902.Controllers
             }
         }
 
-        public KeyboardManager() {
-            Reset();
+        private KeyboardManager() {
+            controllerMappings = new Dictionary<Keys, Interfaces.ICommand>();
+            keyUpHandlers = new Dictionary<Keys, List<Action>>();
+            keyBoardInstanceStack = new Stack<Tuple<Dictionary<Keys, Interfaces.ICommand>, Dictionary<Keys, List<Action>>>>();
         }
 
         /* Resets Class values */
-        public void Reset() {
-            counters = new List<int>();
-            keyUpHandlers = new Dictionary<Keys, List<Action>>();
-            controllerMappings = new Dictionary<Keys, Interfaces.ICommand>();
+        public void Reset(
+            bool resetStack = true,
+            Dictionary<Keys, Interfaces.ICommand> control = null,
+            Dictionary<Keys, List<Action>> keyup = null) {
+
+            /*foreach (Keys key in Enum.GetValues(typeof(Keys))) {
+                RegisterCommand(new DoNothingCommand(), key);
+            }*/
+
+            if (resetStack) keyBoardInstanceStack.Clear();
+
+            if (control == null) {
+                controllerMappings = new Dictionary<Keys, Interfaces.ICommand>();
+            }
+            else controllerMappings = control;
+
+            if (keyup == null) {
+                keyUpHandlers = new Dictionary<Keys, List<Action>>();
+            } else keyUpHandlers = keyup;
+
+            
+        }
+
+
+        public void PushCommandMatrix(bool copyPreviousLayer = false) {
+            Tuple<Dictionary<Keys, Interfaces.ICommand>, Dictionary<Keys, List<Action>>> snapshot;
+            snapshot = new Tuple<Dictionary<Keys, Interfaces.ICommand>, Dictionary<Keys, List<Action>>>(controllerMappings, keyUpHandlers);
+            keyBoardInstanceStack.Push(snapshot);
+            if (copyPreviousLayer) {
+                Dictionary<Keys, Interfaces.ICommand> dicRef = new Dictionary<Keys, ICommand>();
+                foreach (KeyValuePair<Keys, Interfaces.ICommand> item in snapshot.Item1) {
+                    dicRef.Add(item.Key, item.Value);
+                }
+                Dictionary<Keys, List<Action>> handRef = new Dictionary<Keys, List<Action>>();
+                foreach (KeyValuePair<Keys, List<Action>> item in snapshot.Item2) {
+                    handRef.Add(item.Key, item.Value);
+                }
+                Reset(resetStack: false, control: dicRef, keyup: handRef);
+            } else {
+                Reset(resetStack: false);
+            }
+        }
+
+        public void PopCommandMatrix() {
+            if (keyBoardInstanceStack.Count == 0) throw new IndexOutOfRangeException("You attempted to pop keyboard command matrix off a stack without any present.");
+            Tuple<Dictionary<Keys, Interfaces.ICommand>, Dictionary<Keys, List<Action>>> snapshot;
+            snapshot = keyBoardInstanceStack.Pop();
+            Reset(resetStack: false, snapshot.Item1, snapshot.Item2);
         }
 
         /* Calls all listeners for 'key' */
@@ -53,6 +101,7 @@ namespace Sprintfinity3902.Controllers
 
                 foreach (Action listener in keyUpHandlers[key]) {
                     // Call listener
+
                     listener();
                 }
             }
@@ -71,59 +120,13 @@ namespace Sprintfinity3902.Controllers
                         playerHasMoved = true;
                     }
                 }
-                
+
                 // Execute command
-                controllerMappings[key].Execute();
+                if (controllerMappings.ContainsKey(key)) {
+                    controllerMappings[key].Execute();
+                }
+                
             }
-        }
-
-        /* Sets up Listeners and Command mappings */
-        public void Initialize(Player player) {
-            foreach (Keys key in Enum.GetValues(typeof(Keys))) {
-                RegisterCommand(new DoNothingCommand(), key);
-            }
-
-            RegisterCommand(new SetPlayerMoveUpCommand((Player)player), Keys.W, Keys.Up);
-            RegisterCommand(new SetPlayerMoveLeftCommand((Player)player), Keys.A, Keys.Left);
-            RegisterCommand(new SetPlayerMoveDownCommand((Player)player), Keys.S, Keys.Down);
-            RegisterCommand(new SetPlayerMoveRightCommand((Player)player), Keys.D, Keys.Right);
-
-            KeyboardManager.Instance.RegisterKeyUpCallback(() => {
-                ((Player)player).CurrentState.Sprite.Animation.Stop();
-            }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
-        }
-
-        /* Creates an index in counters list initialized to 0
-         * if 'decr' or 'incr' are released then the value of counters[index]
-         * will decrease or increase -- this is useful in sprint 2 to cycle through 
-         * blocks, items, and NPC
-         */
-        public int CreateNewDeltaKeys(Keys decr, Keys incr) {
-            
-            int index = counters.Count;
-            counters.Add(0);
-            RegisterKeyUpCallback(() => {
-                counters[index]--;
-            }, decr);
-            RegisterKeyUpCallback(() => {
-                counters[index]++;
-            }, incr);
-
-            return index;
-        }
-
-        /* Used to access a specific counter (given index) 
-         * and a list size to correctly adjust the value to 
-         * fit the scale of 'mod'
-         */
-        public int GetCountDeltaKey(int index, int mod) {
-            if (index < 0 || index >= counters.Count) {
-                throw new IndexOutOfRangeException("The index was not in range");
-            }
-
-            int ret = counters[index] % mod;
-
-            return ret < 0 ? ret + mod : ret;
         }
 
         /* This is used to put a command into 'controllerMappings'
@@ -146,8 +149,10 @@ namespace Sprintfinity3902.Controllers
             foreach (Keys key in keys) {
                 if (!keyUpHandlers.ContainsKey(key)) {
                     keyUpHandlers[key] = new List<Action>();
+                    Debug.WriteLine("Created new list of handlers");
                 }
                 keyUpHandlers[key].Add(callback);
+                Debug.WriteLine("Added callback to list" + keys[0]);
             }
         }
 

@@ -117,7 +117,7 @@ namespace Sprintfinity3902
                 case animation_state.OPTIONS:
                     break;
                 case animation_state.RETURN:
-                    game.UpdateState(Game1.GameState.RESET);
+                    game.SetState(game.RESET);
                     return;
             }
 

@@ -54,12 +54,16 @@ namespace Sprintfinity3902.States.GameStates
             Game.huds.Add(new MiniMapHud(Game));
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
-            KeyboardManager.Instance.RegisterKeyUpCallback(Game.Reset, Keys.R);
+            KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);
 
             Game.BuildStates();
 
             Game.SetState(Game.INTRO);
         }
 
+        private void ResetGame()
+        {
+            Game.SetState(Game.RESET);
+        }
     }
 }

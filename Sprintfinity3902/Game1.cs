@@ -13,19 +13,9 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902
 {
-    public class Game1 : Game, IGame<Game1.GameState>
+    public class Game1 : Game
     {
-        public enum GameState
-        {
-            INTRO,
-            PLAYING,
-            PAUSED,
-            PAUSED_TRANSITION,
-            WIN,
-            LOSE,
-            OPTIONS,
-            RESET
-        };
+
         private GraphicsDeviceManager _graphics;
         private SpriteBatch SpriteBatch;
 
@@ -39,7 +29,6 @@ namespace Sprintfinity3902
         public IGameState RESET { get; set; }
 
         private static Rectangle windowBounds = new Rectangle(1, 1, 256, 240);
-        public GameState State { get; private set; }
         public GraphicsDeviceManager Graphics { get { return _graphics; } }
 
         public ILink link;
@@ -83,11 +72,6 @@ namespace Sprintfinity3902
 
             RESET = new ResetState(this);
             CurrentState = RESET;
-            Reset();
-        }
-
-        public void Reset()
-        {
             SetState(RESET);
         }
 
@@ -104,25 +88,9 @@ namespace Sprintfinity3902
 
         public void SetState(IGameState state)
         {
-            //if (state.Equals(CurrentState)) return;
             PreviousState = CurrentState;
             CurrentState = state;
             CurrentState.SetUp();
-        }
-
-        public void Pause()
-        {
-            if (!State.Equals(GameState.PAUSED_TRANSITION)) {
-                UpdateState(GameState.PAUSED_TRANSITION);
-            }
-        }
-
-        public void StartGame()
-        {
-            if (!State.Equals(GameState.PLAYING))
-            {
-                UpdateState(GameState.PLAYING);
-            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -131,39 +99,6 @@ namespace Sprintfinity3902
 
             KeyboardManager.Instance.Update(gameTime);
             CurrentState.Update(gameTime);
-            /*
-            switch (State) {
-                //case GameState.INTRO:
-                    //titleScreen.Update(gameTime);
-                    //break;
-                case GameState.PAUSED:
-                    break;
-                case GameState.PAUSED_TRANSITION:
-                    pauseMenu.Update(gameTime);
-
-                    break;
-                case GameState.LOSE:
-                case GameState.WIN:
-                    dungeon.Update(gameTime);
-                    link.Update(gameTime);
-                    foreach (IHud hud in huds) {
-                        hud.Update(gameTime);
-                    }
-                    break;
-                case GameState.PLAYING:
-                    foreach (IHud hud in huds) {
-                        hud.Update(gameTime);
-                    }
-
-                    dungeon.Update(gameTime);
-                    link.Update(gameTime);
-                    
-                    break;
-                case GameState.OPTIONS:
-                    optionMenu.Update(gameTime);
-                    break;
-            }
-            */
         }
 
         protected override void Draw(GameTime gameTime)
@@ -172,97 +107,9 @@ namespace Sprintfinity3902
 
             GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp);
-            CurrentState.Draw(SpriteBatch, gameTime);
-            /*
-            switch (State) {
-                //case GameState.INTRO:
-                    //titleScreen.Draw(SpriteBatch, new Vector2(0, 16 * Global.Var.SCALE), Color.White);
-                    //break;
-                case GameState.PAUSED:
-                case GameState.PAUSED_TRANSITION:
-                case GameState.LOSE:
-                case GameState.WIN:
-                case GameState.PLAYING:
-                    
-                    foreach (IHud hud in huds) {
-                        hud.Draw(SpriteBatch, Color.White);
-                    }
-
-                    dungeon.Draw(SpriteBatch);
-
-                    link.Draw(SpriteBatch, Color.White);
-
-                    break;
-                case GameState.OPTIONS:
-                    optionMenu.Draw(SpriteBatch);
-                    break;
-            }
-            */
-            
+            CurrentState.Draw(SpriteBatch, gameTime);            
             SpriteBatch.End();
         }
 
-        public void UpdateState(GameState state) {
-
-            /*This can't be here because enums default to initial value, thus the call to 
-             set state intro from reset will fail, because intro is first value. Only other
-            option if you want this line is to create a null enum value for first value.*/
-            //if (state.Equals(State)) return;
-
-            switch (state) {
-                //case GameState.INTRO:
-                    //introMusicInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.Intro), 0.02f, true);
-                    //SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Play();
-
-                    //KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
-                    //KeyboardManager.Instance.RegisterKeyUpCallback(StartGame, Keys.Enter);
-                    //break;
-                case GameState.PAUSED:
-                    KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
-                    KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)huds[2]).MoveSelectorLeft, Keys.A, Keys.Left);
-                    KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)huds[2]).MoveSelectorRight, Keys.D, Keys.Right);
-                    break;
-                case GameState.PAUSED_TRANSITION:
-                    if (State.Equals(GameState.PLAYING)) {
-                        KeyboardManager.Instance.PushCommandMatrix();
-                        KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
-                    } else if (State.Equals(GameState.PAUSED)) {
-                        KeyboardManager.Instance.PopCommandMatrix();
-                    }
-                    break;
-                case GameState.WIN:
-                    dungeon.UpdateState(IDungeon.GameState.WIN);
-                    break;
-                case GameState.OPTIONS:
-                    KeyboardManager.Instance.PushCommandMatrix();
-                    optionMenu.Initialize();
-                    break;
-                //case GameState.PLAYING:
-                    //SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Stop();
-
-                    //if (State.Equals(GameState.PAUSED_TRANSITION)) {
-                        //KeyboardManager.Instance.PopCommandMatrix();
-                    //} else if (State.Equals(GameState.INTRO)) {
-                        //KeyboardManager.Instance.PopCommandMatrix();
-                        //KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
-                        //KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);
-                        //dungeon.Initialize();
-                        //playerCharacter.Initialize();
-                    //}
-                    //break;
-                case GameState.LOSE:
-                    dungeon.UpdateState(IDungeon.GameState.LOSE);
-                    break;
-                case GameState.RESET:
-                    Reset();
-                    return;
-            }
-
-            State = state;
-        }
-
-        public bool IsInState(GameState state) {
-            return State.Equals(state);
-        }
     }
 }

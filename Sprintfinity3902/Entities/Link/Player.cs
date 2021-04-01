@@ -123,7 +123,7 @@ namespace Sprintfinity3902.Link
 
             if (win)
             {
-                game.UpdateState(Game1.GameState.WIN);
+                game.SetState(game.WIN);
             }
         }
 
@@ -255,7 +255,7 @@ namespace Sprintfinity3902.Link
             heartChanged = true;
             
             if (LinkHealth <= 0) {
-                game.UpdateState(Game1.GameState.LOSE);
+                game.SetState(game.LOSE);
                 return;
             }
 

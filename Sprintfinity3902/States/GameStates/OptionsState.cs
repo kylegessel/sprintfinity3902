@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,17 +18,18 @@ namespace Sprintfinity3902.States.GameStates
 
         public void Update(GameTime gameTime)
         {
-
+            Game.optionMenu.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
+            Game.optionMenu.Draw(spriteBatch);
         }
 
         public void SetUp()
         {
-
+            KeyboardManager.Instance.PushCommandMatrix();
+            Game.optionMenu.Initialize();
         }
     }
 }

@@ -215,7 +215,7 @@ namespace Sprintfinity3902.Dungeon
                     break;
                 case IDungeon.GameState.RETURN:
                     KeyboardManager.Instance.PopCommandMatrix();
-                    Game.UpdateState(Game1.GameState.OPTIONS);
+                    Game.SetState(Game.OPTIONS);
                     break;
             }
         }

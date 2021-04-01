@@ -113,7 +113,17 @@ namespace Sprintfinity3902.Dungeon
             
 
             // Temp while I change bounding boxes for unopened rooms.          
-            Change = false;
+
+            foreach (IBlock block in nextRoom.blocks)
+            {
+
+                block.Position = new Vector2(block.Position.X + NextRoomPositionOffset.X, block.Position.Y + NextRoomPositionOffset.Y);
+            }
+
+            foreach (IDoor door in nextRoom.doors)
+            {
+                door.Position = new Vector2(door.Position.X + NextRoomPositionOffset.X, door.Position.Y + NextRoomPositionOffset.Y);
+            }
 
             foreach (IBlock block in Game.dungeon.CurrentRoom.blocks)
             {
@@ -124,6 +134,7 @@ namespace Sprintfinity3902.Dungeon
             {
                 door.Position = new Vector2(door.Position.X + CurrRoomPositionReset.X, door.Position.Y + CurrRoomPositionReset.Y);
             }
+
             Game.dungeon.SetCurrentRoom(nextRoomID);
 
             switch (doorDirection)
@@ -146,7 +157,7 @@ namespace Sprintfinity3902.Dungeon
                     break;
             }
             Link.Position = new Vector2(500, 500);
-
+            Change = false;
             ReregisterCommands();
         }
 
@@ -156,23 +167,23 @@ namespace Sprintfinity3902.Dungeon
             switch (doorDirection)
             {
                 case DoorDirection.UP:
-                    NextRoomPositionOffset = new Vector2(0, -ROOM_HEIGHT*Global.Var.SCALE);
-                    CurrRoomPositionReset = new Vector2(0, -ROOM_HEIGHT * Global.Var.SCALE);
+                    NextRoomPositionOffset = new Vector2(0, -(ROOM_HEIGHT)*Global.Var.SCALE);
+                    CurrRoomPositionReset = new Vector2(0, -(ROOM_HEIGHT - 2) * Global.Var.SCALE);
                     offsetTotal = -ROOM_HEIGHT * Global.Var.SCALE;
                     break;
                 case DoorDirection.DOWN:
-                    NextRoomPositionOffset = new Vector2(0, ROOM_HEIGHT * Global.Var.SCALE);
-                    CurrRoomPositionReset = new Vector2(0, ROOM_HEIGHT * Global.Var.SCALE);
+                    NextRoomPositionOffset = new Vector2(0, (ROOM_HEIGHT) * Global.Var.SCALE);
+                    CurrRoomPositionReset = new Vector2(0, (ROOM_HEIGHT - 2) * Global.Var.SCALE);
                     offsetTotal = ROOM_HEIGHT * Global.Var.SCALE;
                     break;
                 case DoorDirection.LEFT:
                     NextRoomPositionOffset = new Vector2(-ROOM_WIDTH * Global.Var.SCALE, 0);
-                    CurrRoomPositionReset = new Vector2(-ROOM_WIDTH * Global.Var.SCALE, 0);
+                    CurrRoomPositionReset = new Vector2(-(ROOM_WIDTH - 2) * Global.Var.SCALE, 0);
                     offsetTotal = -ROOM_WIDTH * Global.Var.SCALE;
                     break;
                 case DoorDirection.RIGHT:
                     NextRoomPositionOffset = new Vector2(ROOM_WIDTH * Global.Var.SCALE, 0);
-                    CurrRoomPositionReset = new Vector2(ROOM_WIDTH * Global.Var.SCALE, 0);
+                    CurrRoomPositionReset = new Vector2((ROOM_WIDTH - 2) * Global.Var.SCALE, 0);
                     offsetTotal = ROOM_WIDTH * Global.Var.SCALE;
                     break;
             }

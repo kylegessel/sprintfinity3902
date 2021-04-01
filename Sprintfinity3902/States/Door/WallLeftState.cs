@@ -9,6 +9,8 @@ namespace Sprintfinity3902.States.Door
         public Entities.Doors.Door CurrentDoor { get; set; }
         public ISprite Sprite { get; set; }
         public bool IsOpen { get; set; }
+        public bool IsBombable { get; set; }
+
         public DoorDirection doorDirection { get; set; }
 
         public bool IsLocked { get; set; }
@@ -20,6 +22,7 @@ namespace Sprintfinity3902.States.Door
             IsOpen = false;
             doorDirection = DoorDirection.LEFT;
             IsLocked = false;
+            IsBombable = true;
         }
 
         public void Open()

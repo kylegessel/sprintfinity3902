@@ -44,14 +44,14 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> enemyProj, List<IDoor> doors, List<IEntity> garbage) {
+        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> enemyProj, List<IDoor> doors, List<IEntity> garbage, IProjectile bombExplosion) {
             DetectLinkDamage(enemies, enemyProj);
             DetectBlockCollision(enemies, blocks, linkProj, enemyProj);
             DetectEnemyDamage(enemies, linkProj, items, garbage);
             DetectItemPickup(items);
-            DetectDoorCollision(enemies, doors, linkProj, enemyProj);
+            DetectDoorCollision(enemies, doors, linkProj, enemyProj, bombExplosion);
         }
-        private void DetectDoorCollision(Dictionary<int, IEntity> enemies, List<IDoor> doors, List<IEntity> linkProj, List<IEntity> enemyProj)
+        private void DetectDoorCollision(Dictionary<int, IEntity> enemies, List<IDoor> doors, List<IEntity> linkProj, List<IEntity> enemyProj, IProjectile bombExplosion)
         {
             Rectangle linkRect = link.GetBoundingRect();
             Boolean alreadyMoved = false;
@@ -110,7 +110,7 @@ namespace Sprintfinity3902.Collision
                         ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
                     }
                     // TODO: Add bombable property.
-                    else if(doorRect.Intersects(proj.GetBoundingRect()))
+                    else if(proj.Equals(bombExplosion) && doorRect.Intersects(proj.GetBoundingRect()) && door.CurrentState.IsBombable && door.DoorDestination != -1)
                     {
                         door.Open(); 
                     }

@@ -11,6 +11,7 @@ namespace Sprintfinity3902.HudMenu
     {
         private Game1 Game;
         private IPlayer Link;
+        private HudInitializer hudInitializer;
         public List<IEntity> Icons { get; private set; }
 
         public DungeonHud(Game1 game)
@@ -18,6 +19,7 @@ namespace Sprintfinity3902.HudMenu
             Game = game;
             Link = Game.playerCharacter;
             Icons = new List<IEntity>();
+            hudInitializer = new HudInitializer(this);
 
             Initialize();
         }
@@ -29,7 +31,8 @@ namespace Sprintfinity3902.HudMenu
 
         public void Initialize()
         {
-            Icons.Add(new DungeonHudEntity(new Vector2(0, -88 * Global.Var.SCALE)));
+            //Icons.Add(new DungeonHudEntity(new Vector2(0, -88 * Global.Var.SCALE)));
+            hudInitializer.InitializeDungeonHud();
         }
 
         public void Draw(SpriteBatch spriteBatch, Color color)

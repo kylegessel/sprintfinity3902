@@ -102,7 +102,7 @@ namespace Sprintfinity3902.HudMenu
             Hud.Icons.Add(new SwordIcon(new Vector2(A_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
         }
 
-        public void InitializeMiniMap(List<Point> roomLocations)
+        public void InitializeMiniMap(List<Point> roomLocations, List<IEntity> map)
         {
             Hud.Icons.Add(new MiniMapEntity(new Vector2(MINIMAP_HUD_X * Global.Var.SCALE, MINIMAP_HUD_Y * Global.Var.SCALE)));
             Hud.Icons.Add(new Number1(new Vector2(LEVEL_NUM_X * Global.Var.SCALE, LEVEL_NUM_Y * Global.Var.SCALE)));
@@ -123,7 +123,7 @@ namespace Sprintfinity3902.HudMenu
             {
                 x = location.X * 8 + INSIDE_MAP_X;
                 y = location.Y * 4 + INSIDE_MAP_Y;
-                Hud.Icons.Add(new MiniRoomIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                map.Add(new MiniRoomIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
             }
         }
 

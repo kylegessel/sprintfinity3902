@@ -21,17 +21,17 @@ namespace Sprintfinity3902.Entities
         private bool decorate;
         private bool attacked;
 
-        private IEnemy fireEnemy1;
-        private IEnemy fireEnemy2;
+        private IEntity fireEnemy1;
+        private IEntity fireEnemy2;
 
-        public OldMan_FireEnemy(Vector2 pos)
+        public OldMan_FireEnemy(Vector2 pos, IEntity fire1, IEntity fire2)
         {
             Sprite = EnemySpriteFactory.Instance.CreateOldManNPC();
             Position = pos;
 
-            fireEnemy1 = new FireEnemy(Position);
+            fireEnemy1 = fire1;
             fireEnemy1.X = X + FIRE_ENEMY_POS_OFFSET * Global.Var.SCALE + RIGHT_FIRE_ENEMY_OFFSET * Global.Var.SCALE;
-            fireEnemy2 = new FireEnemy(Position);
+            fireEnemy2 = fire2;
             fireEnemy2.X = X - FIRE_ENEMY_POS_OFFSET * Global.Var.SCALE;
             
             Position = pos;

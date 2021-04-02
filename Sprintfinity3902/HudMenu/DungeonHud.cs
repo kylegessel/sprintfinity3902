@@ -14,34 +14,54 @@ namespace Sprintfinity3902.HudMenu
         private HudInitializer hudInitializer;
         private List<Point> RoomLocations;
         public List<IEntity> Icons { get; private set; }
+        public List<IEntity> Map { get; private set; }
+        public List<int> AlreadyAdded { get; private set; }
+        public IDungeon dungeon { get; protected set; }
 
         public DungeonHud(Game1 game, List<Point> roomLocations)
         {
             Game = game;
             Link = Game.playerCharacter;
             Icons = new List<IEntity>();
+            Map = new List<IEntity>();
+            AlreadyAdded = new List<int>();
             hudInitializer = new HudInitializer(this);
             RoomLocations = roomLocations;
 
             Initialize();
         }
 
-        public void Update(GameTime gameTime)
-        {
-
-        }
-
         public void Initialize()
         {
             //Icons.Add(new DungeonHudEntity(new Vector2(0, -88 * Global.Var.SCALE)));
             hudInitializer.InitializeDungeonHud(RoomLocations);
+            /*Get x and y values from Room1 csv file*/
+            Map.Add(new DoorRightRoom(new Vector2(136 * Global.Var.SCALE, -32 * Global.Var.SCALE)));
         }
+
+        public void Update(GameTime gameTime)
+        {
+            /*check to see if the current room is in the list of added rooms (use ID).
+             If its not in the list add to the list and to the Map*/
+            //if (! AlreadyAdded.Contains(dungeon.CurrentRoom.Id))
+            {
+
+            } 
+        }
+
+        
 
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
-            foreach (IEntity icon in Icons) {
+            foreach (IEntity icon in Icons)
+            {
                 icon.Draw(spriteBatch, color);
             }
+            foreach (IEntity room in Map)
+            {
+                room.Draw(spriteBatch, color);
+            }
+
         }
     }
 }

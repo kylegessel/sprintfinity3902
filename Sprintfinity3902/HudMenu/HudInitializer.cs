@@ -142,13 +142,15 @@ namespace Sprintfinity3902.HudMenu
                 }
                 y = y + HUD_SQUARE_WIDTH;
             }
-
+            Hud.Map.Add(new DoorRightRoom(new Vector2(128 * Global.Var.SCALE, -80 * Global.Var.SCALE)));
+            /*
             foreach (Point location in roomLocations)
             {
                 x = location.X * 8 + DUNGEON_INSIDE_MAP_X;
                 y = (location.Y-1) * 8 + DUNGEON_INSIDE_MAP_Y;
                 Hud.Icons.Add( new DoorRightRoom(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)) );
             }
+            */
         }
     }
 }

@@ -29,10 +29,10 @@ namespace Sprintfinity3902.Dungeon
         private List<IRoom> dungeonRooms;
         public ChangeRoom changeRoom { get; set; }
         public int NextId { get; set; }
-        private IEntity boomerangItem;
+        public IEntity boomerangItem;
         public IEntity bombItem;
         private IEntity movingSword;
-        private IEntity bowArrow;
+        public IEntity bowArrow;
         public IEntity bombExplosion;
         public IEntity hitboxSword;
         public IRoom CurrentRoom { get; set; }

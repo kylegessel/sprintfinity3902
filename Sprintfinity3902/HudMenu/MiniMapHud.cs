@@ -6,37 +6,30 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902.HudMenu
 {
-    public class MiniMapHud : IHud
+    public class MiniMapHud : AbstractHud
     {
         private Game1 Game;
         private IPlayer Link;
         private HudInitializer hudInitializer;
-
-        public List<IEntity> Icons { get; private set; }
 
         public MiniMapHud(Game1 game)
         {
             Game = game;
             Link = Game.playerCharacter;
             Icons = new List<IEntity>();
+            WorldPoint = new Vector2(0, 0 * Global.Var.SCALE);
             hudInitializer = new HudInitializer(this);
 
             Initialize();
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
         }
 
-        public void Draw(SpriteBatch spriteBatch, Color color)
-        {
-            foreach (IEntity icon in Icons) {
-                icon.Draw(spriteBatch, color);
-            }
-        }
 
-        public void Initialize()
+        public override void Initialize()
         {
             hudInitializer.InitializeMiniMap();
         }

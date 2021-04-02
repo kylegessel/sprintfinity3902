@@ -3,7 +3,7 @@ Readability on InGameHud.cs by Brad Knez
 4/2/2021
 Sprint 4
 Code written by Bailey Ardrey 
-Time Spent: minutes
+Time Spent: 30 minutes
 
 Quick notes on the class: 
 

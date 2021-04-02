@@ -319,12 +319,9 @@ namespace Sprintfinity3902.Dungeon
                     IAttack up = new FireAttack(1);
                     IAttack center = new FireAttack(0);
                     IAttack down = new FireAttack(2);
-                    Room.enemies.Add(enemyID, up);
-                    enemyID++;
-                    Room.enemies.Add(enemyID, down);
-                    enemyID++;
-                    Room.enemies.Add(enemyID, center);
-                    enemyID++;
+                    Room.enemyProj.Add(up);
+                    Room.enemyProj.Add(down);
+                    Room.enemyProj.Add(center);
                     Room.enemies.Add(enemyID, new FinalBossEnemy(Position, up, center, down));
                     enemyID++;
                     break;

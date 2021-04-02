@@ -154,14 +154,13 @@ namespace Sprintfinity3902.Collision
                 {
                     //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
                     alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
-                        
                 }
             }
 
             foreach(IEntity proj in enemyProj)
             {
                 Rectangle enemyRect = proj.GetBoundingRect();
-                if ( ((IEntity)link).IsCollidable() && enemyRect.Intersects(linkRect) && alreadyMoved)
+                if ( ((IEntity)link).IsCollidable() && enemyRect.Intersects(linkRect) && !alreadyMoved)
                 {
                     alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
                 }

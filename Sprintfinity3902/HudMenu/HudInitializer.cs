@@ -127,7 +127,7 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
-        public void InitializeDungeonHud(List<Point> roomLocations)
+        public void InitializeDungeonHud(List<Point> roomLocations, List<IEntity> map)
         {
             Hud.Icons.Add(new DungeonHudEntity(new Vector2(DUNGEON_HUD_X * Global.Var.SCALE, DUNGEON_HUD_Y * Global.Var.SCALE)));
             
@@ -142,7 +142,7 @@ namespace Sprintfinity3902.HudMenu
                 }
                 y = y + HUD_SQUARE_WIDTH;
             }
-            Hud.Map.Add(new DoorRightRoom(new Vector2(128 * Global.Var.SCALE, -80 * Global.Var.SCALE)));
+            map.Add(new DoorRightRoom(new Vector2(128 * Global.Var.SCALE, -80 * Global.Var.SCALE)));
             /*
             foreach (Point location in roomLocations)
             {

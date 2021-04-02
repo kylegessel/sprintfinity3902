@@ -45,6 +45,7 @@ namespace Sprintfinity3902.Dungeon
         public IDoor DoorBottom { get; set; }
         public IDoor DoorLeft { get; set; }
         public IDoor DoorRight { get; set; }
+
         int enemyID;
         int spikeNum;
         
@@ -118,6 +119,14 @@ namespace Sprintfinity3902.Dungeon
                     string[] lineValues = line.Split(',');
                     BuildDoors(lineValues[0], lineValues[1]);
                 }
+            }
+
+            line = mapStream.ReadLine();
+            if (!string.IsNullOrWhiteSpace(line))
+            {
+                string[] lineValues = line.Split(',');
+                //Parse? ConvertToInt? TryParse?
+                Room.RoomPos = new Point(Int16.Parse(lineValues[0]), Int16.Parse(lineValues[1]));
             }
         }
 

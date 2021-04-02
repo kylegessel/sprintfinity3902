@@ -195,5 +195,10 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new DoorAllSidesRoomSprite(hudSpriteSheet);
         }
+
+        public ISprite CreateMiniRoomIcon()
+        {
+            return new MiniRoomIconSprite(hudSpriteSheet);
+        }
     }
 }

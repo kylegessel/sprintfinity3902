@@ -56,7 +56,7 @@ namespace Sprintfinity3902.States.GameStates
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);
 
-            Game.BuildStates();
+            BuildStates();
 
             Game.SetState(Game.INTRO);
         }
@@ -64,6 +64,17 @@ namespace Sprintfinity3902.States.GameStates
         private void ResetGame()
         {
             Game.SetState(Game.RESET);
+        }
+
+        private void BuildStates()
+        {
+            Game.INTRO = new IntroState(Game);
+            Game.PLAYING = new PlayingState(Game);
+            Game.PAUSED = new PausedState(Game);
+            Game.PAUSED_TRANSITION = new Paused_TransitionState(Game);
+            Game.WIN = new WinState(Game);
+            Game.LOSE = new LoseState(Game);
+            Game.OPTIONS = new OptionsState(Game);
         }
     }
 }

@@ -1,11 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Sprintfinity3902.Collision;
 using Sprintfinity3902.Controllers;
-using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.States.GameStates;
@@ -15,9 +11,10 @@ namespace Sprintfinity3902
 {
     public class Game1 : Game
     {
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch SpriteBatch;
+        public GraphicsDeviceManager Graphics { get { return _graphics; } }
+        private static Rectangle windowBounds = new Rectangle(1, 1, 256, 240);
 
         public IGameState INTRO { get; set; }
         public IGameState PLAYING { get; set; }
@@ -28,8 +25,8 @@ namespace Sprintfinity3902
         public IGameState OPTIONS { get; set; }
         public IGameState RESET { get; set; }
 
-        private static Rectangle windowBounds = new Rectangle(1, 1, 256, 240);
-        public GraphicsDeviceManager Graphics { get { return _graphics; } }
+        public IGameState CurrentState;
+        public IGameState PreviousState;
 
         public ILink link;
         public IPlayer playerCharacter;
@@ -39,9 +36,6 @@ namespace Sprintfinity3902
         public OptionMenu optionMenu;
         
         public List<IHud> huds;
-
-        public IGameState CurrentState;
-        public IGameState PreviousState;
 
         public Game1()
         {
@@ -75,24 +69,6 @@ namespace Sprintfinity3902
             SetState(RESET);
         }
 
-        public void BuildStates()
-        {
-            INTRO = new IntroState(this);
-            PLAYING = new PlayingState(this);
-            PAUSED = new PausedState(this);
-            PAUSED_TRANSITION = new Paused_TransitionState(this);
-            WIN = new WinState(this);
-            LOSE = new LoseState(this);
-            OPTIONS = new OptionsState(this);
-        }
-
-        public void SetState(IGameState state)
-        {
-            PreviousState = CurrentState;
-            CurrentState = state;
-            CurrentState.SetUp();
-        }
-
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -111,5 +87,11 @@ namespace Sprintfinity3902
             SpriteBatch.End();
         }
 
+        public void SetState(IGameState state)
+        {
+            PreviousState = CurrentState;
+            CurrentState = state;
+            CurrentState.SetUp();
+        }
     }
 }

@@ -89,7 +89,7 @@ namespace Sprintfinity3902.Link
             _collidable = true;
             SetStepSize(1);
             MaxHealth = INITIAL_HEALTH;
-            LinkHealth = 1;//TODO: MAX_HEALTH undid for testing lose state
+            LinkHealth = MaxHealth;
             heartChanged = true;
             itemPickedUp = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);

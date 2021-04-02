@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities.Enemies_NPCs;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
@@ -9,7 +10,7 @@ namespace Sprintfinity3902.Entities
     public class HandEnemy : AbstractEntity, IEnemy
     {
 
-        private static float F_DOT_TWO = .2f;
+        private static float F_DOT_THREE = .3f;
         private static int ONE = 1;
         private static  int FIVE = 5;
         private static int TWO_HUNDRED_TWENTY = 220;
@@ -21,35 +22,25 @@ namespace Sprintfinity3902.Entities
         private static int THREE = 3;
 
         private int count;
-        private Direction direction;
-        private int waitTime;
+        private static int decorateTime = 80;
         private int health;
-        private int counter;
         private float speed;
-        private Boolean decorate;
+        private AbstractEntity.Direction direction;
+        private bool decorate;
         private int enemyID;
         private IPlayer link;
+        private HandAI _AI;
 
-        
-        public HandEnemy(Vector2 pos)
+        public HandEnemy(Vector2 pos, IPlayer player, HandAI ai)
         {
             Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
             Position = pos;
-            health = 3;
-            speed = .2f;
-            color = Color.White;
-
-        }
-
-        public HandEnemy(Vector2 pos, IPlayer player)
-        {
-            Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
-            Position = pos;
-            health = 3;
-            speed = .2f;
+            health = THREE;
+            speed = F_DOT_THREE;
             color = Color.White;
             link = player;
-
+            _AI = ai;
+            direction = AbstractEntity.Direction.LEFT;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
@@ -61,8 +52,6 @@ namespace Sprintfinity3902.Entities
         {
             this.enemyID = enemyID;
             health = health - damage;
-            count = ONE;
-            waitTime = THIRTY;
             decorate = true;
             direction = projDirection;
             speed = (float)ONE;
@@ -79,7 +68,7 @@ namespace Sprintfinity3902.Entities
 
         public void Decorate()
         {
-            counter = count % MOD_BOUND;
+            int counter = count % MOD_BOUND;
             if (counter < THREE)
             {
                 color = Color.Aqua;
@@ -96,51 +85,32 @@ namespace Sprintfinity3902.Entities
             {
                 color = Color.Blue;
             }
-        }
+            count++;
+            if (count >= decorateTime) {
+                count = 0;
+                decorate = false;
+                color = Color.White;
 
-        private Vector2 deltaVec(Vector2 a, Vector2 b) {
-            return new Vector2(a.X - b.X, a.Y - b.Y);
-        }
-
-        private int TrackPlayer() {
-            Vector2 dt = deltaVec(link.Position, Position);
-            bool i = Math.Max(Math.Abs(dt.X), Math.Abs(dt.Y)) == Math.Abs(dt.X);
-
-            return i ? (dt.X > 0 ? 2 : 1) : (dt.Y > 0 ? 3 : 4);
+                speed = 0.7f;
+            }
         }
 
         public override void Move()
         {
-            if (count == 0) {
-                waitTime = new Random().Next(SIXTY, TWO_HUNDRED_TWENTY);
-            } else if (count >= waitTime) {
-                
-                direction = link == null ? intToDirection(new Random().Next(ONE, FIVE)) : intToDirection(TrackPlayer());
-                speed = F_DOT_TWO;
-                count = 0;
-                if (decorate) {
-                    decorate = false;
-                    color = Color.White;
-                }
+            switch (decorate ? direction : _AI.WhichDirection(Position, link.Position)) {
+                case Direction.LEFT:
+                    X -= speed * Global.Var.SCALE;
+                    break;
+                case Direction.RIGHT:
+                    X += speed * Global.Var.SCALE;
+                    break;
+                case Direction.UP:
+                    Y -= speed * Global.Var.SCALE;
+                    break;
+                case Direction.DOWN:
+                    Y += speed * Global.Var.SCALE;
+                    break;
             }
-
-            if (direction == Direction.LEFT) //Left
-            {
-                X = X - speed * Global.Var.SCALE;
-            }
-            else if (direction == Direction.RIGHT) //Right
-            {
-                X = X + speed * Global.Var.SCALE;
-            }
-            else if (direction == Direction.UP) //Up
-            {
-                Y = Y - speed * Global.Var.SCALE;
-            }
-            else if (direction == Direction.DOWN) //Down
-            {
-                Y = Y + speed * Global.Var.SCALE;
-            }
-            count++;
         }
     }
 }

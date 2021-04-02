@@ -10,6 +10,7 @@ using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
+using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.States.Door;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,6 +107,7 @@ namespace Sprintfinity3902.Dungeon
                 entity.Draw(spriteBatch, Color.White);
             }
             bombItem.Draw(spriteBatch, Color.White);
+            ItemSpriteFactory.Instance.CreateBombItem().Draw(spriteBatch, new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE), Color.White);
         }
 
         public IRoom GetById(int id)

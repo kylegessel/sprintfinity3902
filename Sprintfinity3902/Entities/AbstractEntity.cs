@@ -24,7 +24,7 @@ namespace Sprintfinity3902.Entities
             RIGHT
         }
 
-        public Direction intToDirection(int dir)
+        public static Direction intToDirection(int dir)
         {
             switch (dir)
             {

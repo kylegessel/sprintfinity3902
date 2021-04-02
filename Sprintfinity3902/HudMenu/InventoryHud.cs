@@ -130,6 +130,7 @@ namespace Sprintfinity3902.HudMenu
 
         public override void Update(GameTime gameTime)
         {
+            itemSelectedIcon.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)

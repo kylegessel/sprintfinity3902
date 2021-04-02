@@ -20,7 +20,10 @@ namespace Sprintfinity3902.States.GameStates
 
         public void Update(GameTime gameTime)
         {
-
+            foreach(IHud hud in Game.huds)
+            {
+                hud.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)

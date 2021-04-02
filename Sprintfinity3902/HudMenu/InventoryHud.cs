@@ -2,15 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Link;
-using System.Collections.Generic;
-using Sprintfinity3902.Sprites.Fonts;
-using Sprintfinity3902.Sprites;
-using System;
 using Sprintfinity3902.Sound;
-using Sprintfinity3902.SpriteFactories;
+using System;
 using System.Collections;
-using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Sprintfinity3902.HudMenu
 {

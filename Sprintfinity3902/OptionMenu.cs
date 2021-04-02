@@ -95,7 +95,6 @@ namespace Sprintfinity3902
                     updateState(animation_state.CLOSEGAME);
                     break;
             }
-            //updateState(animation_state.RETURN);
         }
 
         public void Update(GameTime gameTime)

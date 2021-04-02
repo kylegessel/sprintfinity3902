@@ -4,9 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sprintfinity3902.States.GameStates
 {

@@ -54,7 +54,7 @@ namespace Sprintfinity3902.Dungeon.GameState
 
             switch (state) {
                 case animation_state.DELAY:
-                    if (this_count > 800) {
+                    if (this_count > 700) {
                         updateState(animation_state.BACKGROUND);
                     }
                     break;
@@ -83,7 +83,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                     if (this_count > 400) {
                         Wrapup();
                     }
-                    break;
+                    return;
             }
 
         }

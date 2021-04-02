@@ -35,7 +35,7 @@ namespace Sprintfinity3902.Link
         private string lowHealthInstanceID;
         private double _deathSpinCount;
 
-public IPlayerState CurrentState {
+        public IPlayerState CurrentState {
             get {
                 return _currentState;
             }
@@ -58,6 +58,8 @@ public IPlayerState CurrentState {
         public IPlayerState facingUpItem { get; set; }
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
+
+        public IPlayer.SelectableWeapons SelectedWeapon { get; set; }
 
         public int MaxHealth { get; set; }
         public int LinkHealth { get; set; }
@@ -87,7 +89,7 @@ public IPlayerState CurrentState {
             _collidable = true;
             SetStepSize(1);
             MaxHealth = INITIAL_HEALTH;
-            LinkHealth = MaxHealth;
+            LinkHealth = 1;//TODO: MAX_HEALTH undid for testing lose state
             heartChanged = true;
             itemPickedUp = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);

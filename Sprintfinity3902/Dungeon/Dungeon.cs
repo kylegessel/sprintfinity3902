@@ -27,10 +27,10 @@ namespace Sprintfinity3902.Dungeon
 
         private Game1 Game;
         private List<IRoom> dungeonRooms;
-        private IEntity boomerangItem;
+        public IEntity boomerangItem;
         public IEntity bombItem;
         private IEntity movingSword;
-        private IEntity bowArrow;
+        public IEntity bowArrow;
         public IEntity bombExplosion;
         public IEntity hitboxSword;
         public IRoom CurrentRoom { get; set; }
@@ -99,12 +99,6 @@ namespace Sprintfinity3902.Dungeon
                 entity.Update(gameTime);
             }
             bombItem.Update(gameTime);
-
-            /*Something like this should never go in update... not trying to be mean,
-             but this blatently does not belong here. If you have a question about it 
-            lmk... I have no idea who wrote this and it's not important. Glad we're 
-            learning together!*/
-            //SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Draw(SpriteBatch spriteBatch)

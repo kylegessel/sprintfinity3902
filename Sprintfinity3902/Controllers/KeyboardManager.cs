@@ -149,10 +149,8 @@ namespace Sprintfinity3902.Controllers
             foreach (Keys key in keys) {
                 if (!keyUpHandlers.ContainsKey(key)) {
                     keyUpHandlers[key] = new List<Action>();
-                    Debug.WriteLine("Created new list of handlers");
                 }
                 keyUpHandlers[key].Add(callback);
-                Debug.WriteLine("Added callback to list" + keys[0]);
             }
         }
 

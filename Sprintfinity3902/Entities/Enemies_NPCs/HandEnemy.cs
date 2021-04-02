@@ -46,6 +46,8 @@ namespace Sprintfinity3902.Entities
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             Sprite.Draw(spriteBatch, Position, this.color);
+
+            //ItemSpriteFactory.Instance.CreateBombItem().Draw(spriteBatch, new Vector2(32 * Global.Var.SCALE+ Global.Var.TILE_SIZE * Global.Var.SCALE*10, 96 * Global.Var.SCALE), Color.White);
         }
 
         public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)

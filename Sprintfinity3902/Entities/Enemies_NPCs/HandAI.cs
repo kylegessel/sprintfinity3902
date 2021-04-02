@@ -12,25 +12,26 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
     public class HandAI
     {
 
-        private static float ERROR_DISPLACEMENT_LENGTH = (float)0.1f;
+        private static float ERROR_DISPLACEMENT_LENGTH = (float)0.6f;
         private static int NINETY_SIX = 96;
         private static int THIRTY_TWO = 32;
         private static int SCALED_TILE_SIDE_LENGTH = Global.Var.TILE_SIZE* Global.Var.SCALE;
-        private static Vector2 UNIT_VECTOR_X = new Vector2(SCALED_TILE_SIDE_LENGTH, 0);
-        private static Vector2 UNIT_VECTOR_Y = new Vector2(0, -SCALED_TILE_SIDE_LENGTH);
-        private static Vector2 UNIT_VECTOR_XY = new Vector2(SCALED_TILE_SIDE_LENGTH, -SCALED_TILE_SIDE_LENGTH);
+        private static Vector2[] UNIT_TILE_VECTORS = new Vector2[] {
+            new Vector2(0, 0),
+            new Vector2(SCALED_TILE_SIDE_LENGTH, 0),
+            new Vector2(SCALED_TILE_SIDE_LENGTH, SCALED_TILE_SIDE_LENGTH),
+            new Vector2(0, SCALED_TILE_SIDE_LENGTH)
+        };
         private static Vector2 referencePos = new Vector2(THIRTY_TWO * Global.Var.SCALE, NINETY_SIX * Global.Var.SCALE);
 
-        private Tuple<int, int> lastPlayerTile;
-        private AbstractEntity.Direction lastDirection;
 
         private Queue<Tuple<int, int>> route;
 
         private bool[,] pathMatrix;
-
+        private AbstractEntity.Direction lastDirection;
 
         public HandAI(IRoom _room) {
-            route = new Queue<Tuple<int, int>>();
+            //route = new Queue<Tuple<int, int>>();
             pathMatrix = new bool[7, 12];
             parseRoomLayout(_room.path);
         }
@@ -49,9 +50,7 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
 
                     for (int j = 0; j < lineValues.Length; j++) {
                         pathMatrix[i, j] = lineValues[j] != "BLOK";
-                        Debug.Write(lineValues[j] != "BLOK");
                     }
-                    Debug.WriteLine("");
                 }
             }
 
@@ -63,42 +62,20 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             return new Vector2(a.X - b.X, a.Y - b.Y);
         }
 
-        private float magVec(Vector2 a) {
-            return (float)Math.Sqrt(a.X* a.X + a.Y* a.Y);
+        private float magVec(Vector2 a)
+        {
+            return (float)Math.Sqrt(a.X * a.X + a.Y * a.Y);
         }
 
-        private int chooseNewDirection(Vector2 myPos, Vector2 playerPos) {
-            return 0;
-        }
 
-        private bool isOnIntersection(Vector2 myPos) {
-            return false;
+        private bool isOnIntersection(Vector2 myPos)
+        {
+            Vector2 dt = deltaVec(myPos, referencePos);
 
-            Vector2 displaceMent = deltaVec(myPos, referencePos);
+            Vector2 normdt = new Vector2(dt.X % SCALED_TILE_SIDE_LENGTH, dt.Y % SCALED_TILE_SIDE_LENGTH);
 
-            Vector2 nearestIntersectionMinimal = new Vector2(displaceMent.X % SCALED_TILE_SIDE_LENGTH,
-                displaceMent.Y % SCALED_TILE_SIDE_LENGTH);
+            return UNIT_TILE_VECTORS.Any(x => magVec(deltaVec(x, normdt)) < ERROR_DISPLACEMENT_LENGTH);
 
-            if (new Rectangle(32 * Global.Var.SCALE, 96 * Global.
-                Var.SCALE, SCALED_TILE_SIDE_LENGTH / 2, SCALED_TILE_SIDE_LENGTH / 2)
-                .Contains(nearestIntersectionMinimal.X, nearestIntersectionMinimal.Y)) {
-                /*Quad 2*/
-
-            } else if (new Rectangle(32 * Global.Var.SCALE + SCALED_TILE_SIDE_LENGTH / 2, 96 * Global.
-                Var.SCALE, SCALED_TILE_SIDE_LENGTH / 2, SCALED_TILE_SIDE_LENGTH / 2)
-                .Contains(nearestIntersectionMinimal.X, nearestIntersectionMinimal.Y)) {
-                /*Quad 1*/
-            } else if (new Rectangle(32 * Global.Var.SCALE + SCALED_TILE_SIDE_LENGTH / 2, 96 * Global.
-                Var.SCALE + SCALED_TILE_SIDE_LENGTH / 2,
-                SCALED_TILE_SIDE_LENGTH / 2, SCALED_TILE_SIDE_LENGTH / 2)
-                .Contains(nearestIntersectionMinimal.X, nearestIntersectionMinimal.Y)) {
-                /*Quad 3*/
-
-            } else { 
-                /*Quad 4*/
-            }
-
-           // return trueNearestIntersectionmin < ERROR_DISPLACEMENT_LENGTH;
         }
 
         private Tuple<int, int> demap(Vector2 pos) {
@@ -110,12 +87,33 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
         private bool isValid(Tuple<int, int> a) {
             return a.Item1 <= 11 && a.Item1 >= 0 && a.Item2 <= 6 && a.Item2 >= 0 && pathMatrix[a.Item2, a.Item1];
         }
+
+        private int indexOfMin(params int[] a) {
+            int minIndex = 0;
+
+            for (int i = 1; i < a.Length; i++) {
+                if (a[i] < a[minIndex]) {
+                    minIndex = i;
+                }
+            }
+
+            return minIndex;
+        }
         
-        private void determineBestPath(Queue<Tuple<int, int>> exploredNodes, Tuple<int, int> myTile, Tuple<int, int> playerTile, int depth = 0) {
+        /*Depth first search which was dumb because BFS is shorter path... I'll have to reimplement*/
+        private Queue<Tuple<int, int>> determineBestPath(Tuple<int, int> myTile, Tuple<int, int> playerTile, List<Tuple<int, int>> exploredNodes=null, int depth=0) {
+            // BFS - Referenced: https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/
 
-            if (depth == 0) exploredNodes.Clear();
+            if (myTile.Equals(playerTile)) { return new Queue<Tuple<int, int>>(new[] { playerTile }); }
 
-            if (myTile.Equals(playerTile)) { exploredNodes.Enqueue(playerTile); return; }
+            if (exploredNodes == null) {
+                exploredNodes = new List<Tuple<int, int>>();
+            } else if (exploredNodes.Contains(myTile)) {
+                return null;
+            }
+            exploredNodes.Add(myTile);
+
+            Queue<Tuple<int, int>> RIGHT, LEFT, DOWN, UP;
 
             Tuple<int, int> right, left, down, up;
 
@@ -124,71 +122,73 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             down = new Tuple<int, int>(myTile.Item1, myTile.Item2 + 1);
             up = new Tuple<int, int>(myTile.Item1, myTile.Item2 - 1);
 
-            Queue<Tuple<int, int>> refRight, refLeft, refDown, refUp;
+            RIGHT = isValid(right) ? determineBestPath(right, playerTile, exploredNodes, depth: depth + 1) : null;
+            UP = isValid(up) ? determineBestPath(up, playerTile, exploredNodes, depth: depth + 1) : null;
+            LEFT = isValid(left) ? determineBestPath(left, playerTile, exploredNodes, depth: depth + 1) : null;
+            DOWN = isValid(down) ? determineBestPath(down, playerTile, exploredNodes, depth: depth + 1) : null;
+            
 
-            refRight = new Queue<Tuple<int, int>>(exploredNodes);
-            refLeft = new Queue<Tuple<int, int>>(exploredNodes);
-            refDown = new Queue<Tuple<int, int>>(exploredNodes);
-            refUp = new Queue<Tuple<int, int>>(exploredNodes);
+            IEnumerable<Queue<Tuple<int, int>>> results = new Queue<Tuple<int, int>>[4] { RIGHT, LEFT, DOWN, UP}
+            .Where(x => x != null && x.First().Equals(playerTile));
 
+            IEnumerable<int> resultCounts = results.Select(x => x.Count);
 
-            if (isValid(right) && !exploredNodes.Contains(right)) {
-                refRight.Enqueue(right);
-                determineBestPath(refRight, myTile, playerTile, depth+1);
+            if (results.Count() == 0) return null;
+
+            Queue<Tuple<int, int>> bestPath = results.ToList()[indexOfMin(resultCounts.ToArray())];
+
+            bestPath.Enqueue(myTile);
+
+            if (depth == 0) {
+                return new Queue<Tuple<int, int>>(bestPath.Reverse());
             }
 
-            if (isValid(left) && !exploredNodes.Contains(left)) {
-                refLeft.Enqueue(left);
-                determineBestPath(refLeft, myTile, playerTile, depth + 1);
-            }
-
-            if (isValid(down) && !exploredNodes.Contains(down)) {
-                refDown.Enqueue(down);
-                determineBestPath(refDown, myTile, playerTile, depth + 1);
-            }
-
-            if (isValid(up) && !exploredNodes.Contains(up)) {
-                refUp.Enqueue(up);
-                determineBestPath(refUp, myTile, playerTile, depth + 1);
-            }
-
-            exploredNodes.Enqueue(left);
+            return bestPath;
 
         }
-        
+
+        private AbstractEntity.Direction directionToTile(Tuple<int, int> a, Tuple<int, int> b) {
+            if (a.Item1 - b.Item1 < 0) {
+                return AbstractEntity.Direction.LEFT;
+            }
+            if (a.Item1 - b.Item1 > 0) {
+                return AbstractEntity.Direction.RIGHT;
+            }
+            if (a.Item2 - b.Item2 < 0) {
+                return AbstractEntity.Direction.UP;
+            }
+            if (a.Item2 - b.Item2 > 0) {
+                return AbstractEntity.Direction.DOWN;
+            }
+
+            return AbstractEntity.Direction.NONE;
+        }
 
         public AbstractEntity.Direction WhichDirection(Vector2 myPos, Vector2 playerPos) {
 
-            if (lastPlayerTile == null) {
-                lastPlayerTile = demap(playerPos);
-                lastDirection = AbstractEntity.Direction.NONE;
-                return lastDirection;
-            }
 
             Tuple<int, int> currentPlayerTile = demap(playerPos);
             Tuple<int, int> currentMyTile = demap(myPos);
 
-            if (!lastPlayerTile.Equals(currentPlayerTile)) {
-                // Update
-                determineBestPath(route, currentMyTile, currentPlayerTile);
-                lastPlayerTile = currentPlayerTile;
-                Tuple<int, int> reff = route.First();
-
-                if (reff.Item1 - currentMyTile.Item1 < 0) {
-                    lastDirection = AbstractEntity.Direction.LEFT;
-                }
-                if (reff.Item1 - currentMyTile.Item1 > 0) {
-                    lastDirection = AbstractEntity.Direction.RIGHT;
-                }
-                if (reff.Item2 - currentMyTile.Item2 < 0) {
-                    lastDirection = AbstractEntity.Direction.UP;
-                }
-                if (reff.Item2 - currentMyTile.Item2 > 0) {
-                    lastDirection = AbstractEntity.Direction.DOWN;
-                }
-
-                return lastDirection;
+            if (route == null ) {
+                route = determineBestPath(currentMyTile, currentPlayerTile);
+                //route.Dequeue(); // Remove the current position instruction of proute
+                //lastDirection = directionToTile(route.First(), currentMyTile);
+                // For testing route
+                /*
+                while (route.Count > 0) {
+                    Tuple<int, int> reff = route.Dequeue();
+                    Debug.WriteLine("(" + reff.Item2 + ", " + reff.Item1 + ")");
+                }*/
             }
+
+            
+            if (isOnIntersection(myPos)) {
+                Debug.WriteLine("At intersection, popping instruction");
+                route.Dequeue();
+                lastDirection = directionToTile(route.First(), currentMyTile);
+            }
+            
 
             return lastDirection;
 

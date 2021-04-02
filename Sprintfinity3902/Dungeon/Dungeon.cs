@@ -107,7 +107,6 @@ namespace Sprintfinity3902.Dungeon
                 entity.Draw(spriteBatch, Color.White);
             }
             bombItem.Draw(spriteBatch, Color.White);
-            ItemSpriteFactory.Instance.CreateBombItem().Draw(spriteBatch, new Vector2(32 * Global.Var.SCALE, 96 * Global.Var.SCALE), Color.White);
         }
 
         public IRoom GetById(int id)

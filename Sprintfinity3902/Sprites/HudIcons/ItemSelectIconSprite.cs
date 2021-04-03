@@ -25,9 +25,8 @@ namespace Sprintfinity3902.Sprites
             Animation = new Animation();
             /*TODO: This doesn't work and I don't know why*/
             Animation.AddFrame(sprite1, 0);
-            Animation.AddFrame(sprite2, 1/4f);
+            Animation.AddFrame(sprite2, 1/8f);
             Animation.AddFrame(sprite1, 1/4f);
-            Animation.Play();
 
         }
     }

@@ -31,7 +31,7 @@ namespace Sprintfinity3902.Entities
         private IPlayer link;
         private HandAI _AI;
 
-        public HandEnemy(Vector2 pos, IPlayer player, HandAI ai)
+        public HandEnemy(Vector2 pos, IPlayer player, IRoom room)
         {
             Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
             Position = pos;
@@ -39,7 +39,8 @@ namespace Sprintfinity3902.Entities
             speed = F_DOT_THREE;
             color = Color.White;
             link = player;
-            _AI = ai;
+            _AI = new HandAI(room, this);
+            
             direction = AbstractEntity.Direction.LEFT;
         }
 
@@ -47,7 +48,8 @@ namespace Sprintfinity3902.Entities
         {
             Sprite.Draw(spriteBatch, Position, this.color);
 
-            //ItemSpriteFactory.Instance.CreateBombItem().Draw(spriteBatch, new Vector2(32 * Global.Var.SCALE+ Global.Var.TILE_SIZE * Global.Var.SCALE*10, 96 * Global.Var.SCALE), Color.White);
+            //ItemSpriteFactory.Instance.CreateBombItem().Draw(spriteBatch, new Vector2(32 * Global.Var.SCALE+ Global.Var.TILE_SIZE * Global.Var.SCALE*6, 96 * Global.Var.SCALE + Global.Var.SCALE*Global.Var.TILE_SIZE*6), Color.White);
+            //ItemSpriteFactory.Instance.CreateBombItem().Draw(spriteBatch, new Vector2(32 * Global.Var.SCALE + Global.Var.TILE_SIZE * Global.Var.SCALE, 96 * Global.Var.SCALE + Global.Var.SCALE * Global.Var.TILE_SIZE), Color.White);
         }
 
         public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)

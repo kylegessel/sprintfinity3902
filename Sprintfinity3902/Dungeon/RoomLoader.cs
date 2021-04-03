@@ -350,7 +350,7 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "HAND":
-                    IEntity hand = new HandEnemy(Position, link, new Entities.Enemies_NPCs.HandAI(Room));
+                    IEntity hand = new HandEnemy(Position, link, Room);
                     Room.enemies.Add(enemyID, hand);
                     enemyID++;
                     break;

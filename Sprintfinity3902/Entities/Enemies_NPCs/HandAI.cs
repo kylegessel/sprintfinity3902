@@ -12,7 +12,7 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
     public class HandAI
     {
 
-        private static float ERROR_DISPLACEMENT_LENGTH = (float)0.6f;
+        private static float ERROR_DISPLACEMENT_LENGTH = 1.4f;
         private static int NINETY_SIX = 96;
         private static int THIRTY_TWO = 32;
         private static int SCALED_TILE_SIDE_LENGTH = Global.Var.TILE_SIZE* Global.Var.SCALE;
@@ -24,16 +24,20 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
         };
         private static Vector2 referencePos = new Vector2(THIRTY_TWO * Global.Var.SCALE, NINETY_SIX * Global.Var.SCALE);
 
-
         private Queue<Tuple<int, int>> route;
 
         private bool[,] pathMatrix;
+        private IEnemy handRef;
         private AbstractEntity.Direction lastDirection;
+        private bool coolDown;
+        private int count;
+        private Tuple<int, int> lastPlayerTile;
 
-        public HandAI(IRoom _room) {
+        public HandAI(IRoom _room, IEnemy _handRef) {
             //route = new Queue<Tuple<int, int>>();
             pathMatrix = new bool[7, 12];
             parseRoomLayout(_room.path);
+            handRef = _handRef;
         }
 
         
@@ -68,38 +72,54 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
         }
 
 
-        private bool isOnIntersection(Vector2 myPos)
+        private Vector2 isOnIntersection(Vector2 myPos, bool printDis = false)
         {
-            Vector2 dt = deltaVec(myPos, referencePos);
+            Vector2 relativePositionVec = deltaVec(myPos, referencePos);
 
-            Vector2 normdt = new Vector2(dt.X % SCALED_TILE_SIDE_LENGTH, dt.Y % SCALED_TILE_SIDE_LENGTH);
+            // The vector in 1, 1 space which is scaled to the tile size... this vector represents from the upper left tile
+            // as origin, the vector to my position
+            Vector2 normRPV = new Vector2(relativePositionVec.X % SCALED_TILE_SIDE_LENGTH, relativePositionVec.Y % SCALED_TILE_SIDE_LENGTH);
 
-            return UNIT_TILE_VECTORS.Any(x => magVec(deltaVec(x, normdt)) < ERROR_DISPLACEMENT_LENGTH);
+            // Determine if the normRPV relative to each corner is less than the error displacement
+            // if so, we conclude that I'm on an intersection
+            IEnumerable<Vector2> selected = (IEnumerable<Vector2>)UNIT_TILE_VECTORS.Where(x => magVec(deltaVec(x, normRPV)) < ERROR_DISPLACEMENT_LENGTH);
 
-        }
-
-        private Tuple<int, int> demap(Vector2 pos) {
-            Vector2 vec = deltaVec(pos, referencePos);
-
-            return new Tuple<int, int>((int)Math.Round(vec.X / (Global.Var.SCALE * Global.Var.TILE_SIZE)), (int)Math.Round(vec.Y / (Global.Var.SCALE * Global.Var.TILE_SIZE)));
-        }
-
-        private bool isValid(Tuple<Tuple<int, int>, Tuple<int, int>[]> b) {
-            Tuple<int, int> a = b.Item1;
-            return a.Item1 <= 11 && a.Item1 >= 0 && a.Item2 <= 6 && a.Item2 >= 0 && pathMatrix[a.Item2, a.Item1];
-        }
-
-        private int indexOfMin(params int[] a) {
-            int minIndex = 0;
-
-            for (int i = 1; i < a.Length; i++) {
-                if (a[i] < a[minIndex]) {
-                    minIndex = i;
+            if (printDis) {
+                foreach (Vector2 vec in UNIT_TILE_VECTORS) {
+                    Debug.WriteLine("Dist mag: " + magVec(deltaVec(vec, normRPV)));
                 }
             }
 
-            return minIndex;
+            // If more than one corner registers I'm on intersection,
+            // alert programmer because error displacement is too high
+            if (selected.Count() > 1) throw new Exception("The error displacement length is too large");
+
+            // If I was registered with a vertex
+            if (selected.Count() > 0) {
+
+                Tuple<int, int> mytile = demap(myPos, rounded: false);
+                //Debug.WriteLine(mytile.Item1 * SCALED_TILE_SIDE_LENGTH + selected.First().X + referencePos.X + ", " + (mytile.Item2 * SCALED_TILE_SIDE_LENGTH + selected.First().Y + referencePos.Y));
+                return new Vector2(mytile.Item1 * SCALED_TILE_SIDE_LENGTH + selected.First().X + referencePos.X, mytile.Item2 * SCALED_TILE_SIDE_LENGTH + selected.First().Y + referencePos.Y);
+            }
+
+            return Vector2.Zero;
+
         }
+
+        private Tuple<int, int> demap(Vector2 pos, bool rounded=true) {
+            Vector2 vec = deltaVec(pos, referencePos);
+
+            if (rounded) {
+                return new Tuple<int, int>((int)Math.Round(vec.X / (Global.Var.SCALE * Global.Var.TILE_SIZE)), (int)Math.Round(vec.Y / (Global.Var.SCALE * Global.Var.TILE_SIZE)));
+            }
+
+            return new Tuple<int, int>((int)(vec.X / (Global.Var.SCALE * Global.Var.TILE_SIZE)), (int)(vec.Y / (Global.Var.SCALE * Global.Var.TILE_SIZE)));
+        }
+
+        private bool isValid(Tuple<int, int> a) {
+            return a.Item1 <= 11 && a.Item1 >= 0 && a.Item2 <= 6 && a.Item2 >= 0 && pathMatrix[a.Item2, a.Item1];
+        }
+
 
         /*
          * This is a dfs which is guaranteed to find a to b but not min a to b
@@ -152,23 +172,22 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
         }
          */
 
-        private void addIfValid(List<Tuple<Tuple<int, int>, Tuple<int, int>[]>> l, Tuple<Tuple<int, int>, Tuple<int, int>[]> tile)
+        private void addIfValid(List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> l, Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> tile)
         {
-            if (isValid(tile)) {
-                tile.Item2.Append(tile.Item1);
+            if (isValid(tile.Item1)) {
+                tile.Item2.Enqueue(tile.Item1);
                 l.Add(tile);
             }
         }
 
-        private List<Tuple<Tuple<int, int>, Tuple<int, int>[]>> adjacentTiles(Tuple<Tuple<int, int>, Tuple<int, int>[]> tile)
+        private List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> adjacentTiles(Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> tile)
         {
-            List<Tuple<Tuple<int, int>, Tuple<int, int>[]>> adj = new List<Tuple<Tuple<int, int>, Tuple<int, int>[]>>();
-            
-            //tile.Item1 + 1, tile.Item2
-            addIfValid(adj, new Tuple<Tuple<int, int>, Tuple<int, int>[]>(tile.Item1, tile.Item2));
-            addIfValid(adj, new Tuple<Tuple<int, int>, Tuple<int, int>[]>(tile.Item1, tile.Item2));
-            addIfValid(adj, new Tuple<Tuple<int, int>, Tuple<int, int>[]>(tile.Item1, tile.Item2));
-            addIfValid(adj, new Tuple<Tuple<int, int>, Tuple<int, int>[]>(tile.Item1, tile.Item2));
+            List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> adj = new List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>>();
+
+            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1 - 1, tile.Item1.Item2), new Queue<Tuple<int, int>>(tile.Item2)));
+            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1 + 1, tile.Item1.Item2), new Queue<Tuple<int, int>>(tile.Item2)));
+            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1, tile.Item1.Item2 - 1), new Queue<Tuple<int, int>>(tile.Item2)));
+            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1, tile.Item1.Item2 + 1), new Queue<Tuple<int, int>>(tile.Item2)));
 
             return adj;
 
@@ -177,23 +196,29 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
         private Queue<Tuple<int, int>> determineBestPath(Tuple<int, int> myTile, Tuple<int, int> playerTile) {
             // BFS - Referenced: https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/
 
-            List<Tuple<Tuple<int, int>, Tuple<int, int>[]>> exploredNodes = new List<Tuple<Tuple<int, int>, Tuple<int, int>[]>>();
+            List<Tuple<int, int>> exploredNodes = new List<Tuple<int, int>>();
 
-            exploredNodes.Add(new Tuple<Tuple<int, int>, Tuple<int, int>[]>(myTile, new Tuple<int, int>[7 + 12]));
+            Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> mappedTile = new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(myTile, new Queue<Tuple<int, int>>(new[] { myTile }));
 
-            Queue<Tuple<Tuple<int, int>, Tuple<int, int>[]>> toExplore = new Queue<Tuple<Tuple<int, int>, Tuple<int, int>[]>>(adjacentTiles(myTile));
+            exploredNodes.Add(myTile);
 
+            Queue<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> toExplore = new Queue<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>>(adjacentTiles(mappedTile));
 
             while (toExplore.Count > 0) {
 
-                Tuple<int, int> item = toExplore.Dequeue();
+                Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> item = toExplore.Dequeue();
 
-                if (exploredNodes.Contains(item)) { continue; } else exploredNodes.Add(item);
+                Tuple<int, int> tile = item.Item1;
+                Queue<Tuple<int, int>> tilePath = item.Item2;
 
-                if (item.Equals(playerTile)) { 
+                if (exploredNodes.Contains(tile)) { continue; } else exploredNodes.Add(tile);
 
+                if (tile.Equals(playerTile)) {
+                    return tilePath;
                 } else {
-                    toExplore.Concat(adjacentTiles(item));
+                    foreach (Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> i in adjacentTiles(item)) {
+                        toExplore.Enqueue(i);
+                    }
                 }
 
 
@@ -203,17 +228,17 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
 
         }
 
-        private AbstractEntity.Direction directionToTile(Tuple<int, int> a, Tuple<int, int> b) {
-            if (a.Item1 - b.Item1 < 0) {
+        private AbstractEntity.Direction directionToTile(Tuple<int, int> dest, Tuple<int, int> pos) {
+            if (dest.Item1 - pos.Item1 < 0) {
                 return AbstractEntity.Direction.LEFT;
             }
-            if (a.Item1 - b.Item1 > 0) {
+            if (dest.Item1 - pos.Item1 > 0) {
                 return AbstractEntity.Direction.RIGHT;
             }
-            if (a.Item2 - b.Item2 < 0) {
+            if (dest.Item2 - pos.Item2 < 0) {
                 return AbstractEntity.Direction.UP;
             }
-            if (a.Item2 - b.Item2 > 0) {
+            if (dest.Item2 - pos.Item2 > 0) {
                 return AbstractEntity.Direction.DOWN;
             }
 
@@ -221,33 +246,76 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
         }
 
         public AbstractEntity.Direction WhichDirection(Vector2 myPos, Vector2 playerPos) {
-
-
+            
+            // x, y ordering
             Tuple<int, int> currentPlayerTile = demap(playerPos);
             Tuple<int, int> currentMyTile = demap(myPos);
 
             if (route == null ) {
+                count = 0;
+                coolDown = false;
+                lastPlayerTile = currentPlayerTile;
                 route = determineBestPath(currentMyTile, currentPlayerTile);
+                //printQueue(route);
                 //route.Dequeue(); // Remove the current position instruction of proute
-                //lastDirection = directionToTile(route.First(), currentMyTile);
+                lastDirection = directionToTile(route.First(), currentMyTile);
                 // For testing route
                 /*
                 while (route.Count > 0) {
                     Tuple<int, int> reff = route.Dequeue();
                     Debug.WriteLine("(" + reff.Item2 + ", " + reff.Item1 + ")");
-                }*/
+                }
+                */
             }
 
-            
-            if (isOnIntersection(myPos)) {
-                Debug.WriteLine("At intersection, popping instruction");
-                route.Dequeue();
-                lastDirection = directionToTile(route.First(), currentMyTile);
+
+            if (coolDown) {
+                count++;
+                if (count > 4) {
+                    coolDown = false;
+                    count = 0;
+                }
+            } else {
+
+                Vector2 nearestIntersection = isOnIntersection(myPos);
+
+                if (route.Count==1) route = determineBestPath(currentMyTile, currentPlayerTile);
+
+                //Debug.WriteLine(32 * Global.Var.SCALE + Global.Var.TILE_SIZE * Global.Var.SCALE * 7 + ", " +  (96 * Global.Var.SCALE + Global.Var.SCALE * Global.Var.TILE_SIZE * 6));
+                //Debug.WriteLine(nearestIntersection.ToString() + handRef.Position.ToString()); 
+
+                if (nearestIntersection != Vector2.Zero) {
+                    handRef.Position = nearestIntersection;
+                    Debug.WriteLine("At intersection, popping instruction");
+                    coolDown = true;
+                    route.Dequeue();
+                    //printQueue(route);
+                    lastDirection = directionToTile(route.First(), currentMyTile);
+                    Debug.WriteLine("Going to " + route.First().ToString() + " via " + directionToTile(route.First(), currentMyTile));
+
+                    
+                }
             }
-            
+
+
+            lastPlayerTile = currentPlayerTile;
 
             return lastDirection;
 
+        }
+
+        private void printQueue(Queue<Tuple<int, int>> r) {
+            Queue<Tuple<int, int>> a = new Queue<Tuple<int, int>>();
+            while (r.Count > 0) {
+                a.Enqueue(r.Dequeue());
+                Debug.WriteLine("(" + a.Last().Item2 + ", " + a.Last().Item1 + ")");
+            }
+
+            a.Reverse();
+
+            while (a.Count > 0) {
+                r.Enqueue(a.Dequeue());
+            }
         }
 
     }

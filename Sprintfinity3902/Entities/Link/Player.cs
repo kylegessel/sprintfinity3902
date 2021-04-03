@@ -35,7 +35,7 @@ namespace Sprintfinity3902.Link
         private string lowHealthInstanceID;
         private double _deathSpinCount;
 
-public IPlayerState CurrentState {
+        public IPlayerState CurrentState {
             get {
                 return _currentState;
             }
@@ -58,6 +58,8 @@ public IPlayerState CurrentState {
         public IPlayerState facingUpItem { get; set; }
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
+
+        public IPlayer.SelectableWeapons SelectedWeapon { get; set; }
 
         public int MaxHealth { get; set; }
         public int LinkHealth { get; set; }

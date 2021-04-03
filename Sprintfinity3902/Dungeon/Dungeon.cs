@@ -28,10 +28,10 @@ namespace Sprintfinity3902.Dungeon
         private Game1 Game;
         private List<IRoom> dungeonRooms;
         public List<Point> RoomLocations { get; set; }
-        private IEntity boomerangItem;
+        public IEntity boomerangItem;
         public IEntity bombItem;
         private IEntity movingSword;
-        private IEntity bowArrow;
+        public IEntity bowArrow;
         public IEntity bombExplosion;
         public IEntity hitboxSword;
         public IRoom CurrentRoom { get; set; }
@@ -83,6 +83,8 @@ namespace Sprintfinity3902.Dungeon
             KeyboardManager.Instance.RegisterCommand(new UseBowCommand((Player)Game.playerCharacter, (ArrowItem)bowArrow), Keys.D3);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
 
+            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
+
             IRoomLoader rload = new RoomLoader();
             foreach(IRoom room in dungeonRooms)
             {
@@ -103,8 +105,6 @@ namespace Sprintfinity3902.Dungeon
                 entity.Update(gameTime);
             }
             bombItem.Update(gameTime);
-
-            SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902.HudMenu
 {
-    public class MiniMapHud : IHud
+    public class MiniMapHud : AbstractHud
     {
         private Game1 Game;
         private IPlayer Link;
@@ -14,7 +14,7 @@ namespace Sprintfinity3902.HudMenu
         private List<Point> RoomLocations;
         private bool MapPickup;
 
-        public List<IEntity> Icons { get; private set; }
+        //public List<IEntity> Icons { get; private set; }
         public List<IEntity> Map { get; private set; }
 
         public MiniMapHud(Game1 game, List<Point> roomLocations)
@@ -24,13 +24,14 @@ namespace Sprintfinity3902.HudMenu
             Icons = new List<IEntity>();
             Map = new List<IEntity>();
             RoomLocations = roomLocations;
+            WorldPoint = new Vector2(0, 0 * Global.Var.SCALE);
             hudInitializer = new HudInitializer(this);
             MapPickup = false;
 
             Initialize();
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (!MapPickup && Link.itemcount[IItem.ITEMS.MAP] > 0)
             {
@@ -42,15 +43,16 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
+        /*
         public void Draw(SpriteBatch spriteBatch, Color color)
         {
             foreach (IEntity icon in Icons) {
                 icon.Draw(spriteBatch, color);
             }
-           
         }
+        */
 
-        public void Initialize()
+        public override void Initialize()
         {
             hudInitializer.InitializeMiniMap(RoomLocations, Map);
         }

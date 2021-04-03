@@ -6,20 +6,20 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902.HudMenu
 {
-    public class InGameHud : IHud
+    public class InGameHud : AbstractHud
     {
         private Game1 Game;
         private IPlayer Link;
         private HudNumberManager hudNumberManager;
         private HudHeartManager hudHeartManager;
         private HudInitializer hudInitializer;
-        public List<IEntity> Icons { get; private set; }
 
         public InGameHud(Game1 game)
         {
             Game = game;
             Link = Game.playerCharacter;
             Icons = new List<IEntity>();
+            WorldPoint = new Vector2(0, 0 * Global.Var.SCALE);
             hudNumberManager = new HudNumberManager(this);
             hudHeartManager = new HudHeartManager(this);
             hudInitializer = new HudInitializer(this);
@@ -27,7 +27,7 @@ namespace Sprintfinity3902.HudMenu
             Initialize();
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (Link.heartChanged)
             {
@@ -42,14 +42,7 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Color color)
-        {
-            foreach (IEntity icon in Icons) {
-                icon.Draw(spriteBatch, color);
-            }
-        }
-
-        public void Initialize()
+        public override void Initialize()
         {
             hudInitializer.InitializeInGameHud();
         }

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Sprintfinity3902.HudMenu
 {
-    public class DungeonHud : IHud
+    public class DungeonHud : AbstractHud
     {
         private const int DUNGEON_INSIDE_MAP_X = 516;
         private const int DUNGEON_INSIDE_MAP_Y = -316;
@@ -21,7 +21,7 @@ namespace Sprintfinity3902.HudMenu
         private bool MapPickup;
         private IEntity LinkBlock;
         private IRoom CurrentRoom;
-        public List<IEntity> Icons { get; private set; }
+        //public List<IEntity> Icons { get; private set; }
         public List<IEntity> Map { get; private set; }
         public List<int> AlreadyInMap { get; set; }
         public IDungeon Dungeon { get; protected set; }
@@ -38,16 +38,17 @@ namespace Sprintfinity3902.HudMenu
             Dungeon = dungeon;
             RoomLocations = dungeon.RoomLocations;
             CurrentRoom = dungeon.CurrentRoom;
+            WorldPoint = new Vector2(0, 0);
 
             Initialize();
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             hudInitializer.InitializeDungeonHud(RoomLocations);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
             /*Add every room Link is in into the Map List*/
@@ -88,16 +89,6 @@ namespace Sprintfinity3902.HudMenu
                 }
                 Icons.Add(LinkBlock);
                 CurrentRoom = Dungeon.CurrentRoom;
-            }
-        }
-
-        
-
-        public void Draw(SpriteBatch spriteBatch, Color color)
-        {
-            foreach (IEntity icon in Icons)
-            {
-                icon.Draw(spriteBatch, color);
             }
         }
 

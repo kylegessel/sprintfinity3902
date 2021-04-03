@@ -5,6 +5,13 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface IPlayer : ILink
     {
+        enum SelectableWeapons
+        {
+            BOMB,
+            BOOMERANG,
+            BOW,
+            MAP
+        }
         IPlayerState CurrentState { get; set; }
         IPlayerState facingDown { get; set; }
         IPlayerState facingLeft { get; set; }
@@ -23,6 +30,8 @@ namespace Sprintfinity3902.Interfaces
         int MaxHealth { get; set; }
         int LinkHealth { get; set; }
         Dictionary<IItem.ITEMS, int> itemcount { get; set; }
+
+        SelectableWeapons SelectedWeapon { get; set; }
 
 
         /*These methods are only used when link is not invinsible (damaged state)*/

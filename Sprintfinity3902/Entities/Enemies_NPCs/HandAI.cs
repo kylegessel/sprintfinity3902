@@ -84,7 +84,8 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             return new Tuple<int, int>((int)Math.Round(vec.X / (Global.Var.SCALE * Global.Var.TILE_SIZE)), (int)Math.Round(vec.Y / (Global.Var.SCALE * Global.Var.TILE_SIZE)));
         }
 
-        private bool isValid(Tuple<int, int> a) {
+        private bool isValid(Tuple<Tuple<int, int>, Tuple<int, int>[]> b) {
+            Tuple<int, int> a = b.Item1;
             return a.Item1 <= 11 && a.Item1 >= 0 && a.Item2 <= 6 && a.Item2 >= 0 && pathMatrix[a.Item2, a.Item1];
         }
 
@@ -99,9 +100,12 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
 
             return minIndex;
         }
-        
-        /*Depth first search which was dumb because BFS is shorter path... I'll have to reimplement*/
-        private Queue<Tuple<int, int>> determineBestPath(Tuple<int, int> myTile, Tuple<int, int> playerTile, List<Tuple<int, int>> exploredNodes=null, int depth=0) {
+
+        /*
+         * This is a dfs which is guaranteed to find a to b but not min a to b
+         * therefore a bfs is implemented in its place
+         * 
+         private Queue<Tuple<int, int>> determineBestPath(Tuple<int, int> myTile, Tuple<int, int> playerTile, List<Tuple<int, int>> exploredNodes=null, int depth=0) {
             // BFS - Referenced: https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/
 
             if (myTile.Equals(playerTile)) { return new Queue<Tuple<int, int>>(new[] { playerTile }); }
@@ -144,6 +148,58 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             }
 
             return bestPath;
+
+        }
+         */
+
+        private void addIfValid(List<Tuple<Tuple<int, int>, Tuple<int, int>[]>> l, Tuple<Tuple<int, int>, Tuple<int, int>[]> tile)
+        {
+            if (isValid(tile)) {
+                tile.Item2.Append(tile.Item1);
+                l.Add(tile);
+            }
+        }
+
+        private List<Tuple<Tuple<int, int>, Tuple<int, int>[]>> adjacentTiles(Tuple<Tuple<int, int>, Tuple<int, int>[]> tile)
+        {
+            List<Tuple<Tuple<int, int>, Tuple<int, int>[]>> adj = new List<Tuple<Tuple<int, int>, Tuple<int, int>[]>>();
+            
+            //tile.Item1 + 1, tile.Item2
+            addIfValid(adj, new Tuple<Tuple<int, int>, Tuple<int, int>[]>(tile.Item1, tile.Item2));
+            addIfValid(adj, new Tuple<Tuple<int, int>, Tuple<int, int>[]>(tile.Item1, tile.Item2));
+            addIfValid(adj, new Tuple<Tuple<int, int>, Tuple<int, int>[]>(tile.Item1, tile.Item2));
+            addIfValid(adj, new Tuple<Tuple<int, int>, Tuple<int, int>[]>(tile.Item1, tile.Item2));
+
+            return adj;
+
+        }
+
+        private Queue<Tuple<int, int>> determineBestPath(Tuple<int, int> myTile, Tuple<int, int> playerTile) {
+            // BFS - Referenced: https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/
+
+            List<Tuple<Tuple<int, int>, Tuple<int, int>[]>> exploredNodes = new List<Tuple<Tuple<int, int>, Tuple<int, int>[]>>();
+
+            exploredNodes.Add(new Tuple<Tuple<int, int>, Tuple<int, int>[]>(myTile, new Tuple<int, int>[7 + 12]));
+
+            Queue<Tuple<Tuple<int, int>, Tuple<int, int>[]>> toExplore = new Queue<Tuple<Tuple<int, int>, Tuple<int, int>[]>>(adjacentTiles(myTile));
+
+
+            while (toExplore.Count > 0) {
+
+                Tuple<int, int> item = toExplore.Dequeue();
+
+                if (exploredNodes.Contains(item)) { continue; } else exploredNodes.Add(item);
+
+                if (item.Equals(playerTile)) { 
+
+                } else {
+                    toExplore.Concat(adjacentTiles(item));
+                }
+
+
+            }
+
+            return null;
 
         }
 

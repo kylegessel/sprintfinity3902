@@ -1,6 +1,4 @@
-﻿using Sprintfinity3902.Link;
-
-namespace Sprintfinity3902.Interfaces
+﻿namespace Sprintfinity3902.Interfaces
 {
     public interface IPickup
 

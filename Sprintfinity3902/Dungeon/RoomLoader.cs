@@ -376,7 +376,14 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "MNFR":
-                    IEntity manAndFire = new OldMan_FireEnemy(Position);
+                    IEntity fire1 = new FireEnemy(Position);
+                    IEntity fire2 = new FireEnemy(Position);
+                    Room.enemies.Add(enemyID, fire1);
+                    enemyID++;
+                    Room.enemies.Add(enemyID, fire2);
+                    enemyID++;
+
+                    IEntity manAndFire = new OldMan_FireEnemy(Position,fire1,fire2);
                     manAndFire.X = manAndFire.Position.X + EIGHT * Global.Var.SCALE;
                     Room.enemies.Add(enemyID, manAndFire);
                     enemyID++;

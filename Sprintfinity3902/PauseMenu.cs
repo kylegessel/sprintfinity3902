@@ -1,23 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Link;
 
 namespace Sprintfinity3902
 {
     public class PauseMenu :  Interfaces.IUpdateable
     {
         private int count;
-        private Game1 game;
+        private Game1 Game;
         private IPlayer Link;
         private static int HUD_HEIGHT = 176;
 
         private bool direction;
 
-        public PauseMenu(Game1 _game)
+        public PauseMenu(Game1 game)
         {
             /* We should ask him about casting game or if we can code to concrete instead of interface. */
-            game = _game;
-            Link = _game.playerCharacter;
+            Game = game;
+            Link = game.playerCharacter;
             direction = true;
             count = 0;
 
@@ -26,14 +25,14 @@ namespace Sprintfinity3902
         public void Update(GameTime gameTime)
         {
 
-            if ((game).IsInState(Game1.GameState.PAUSED_TRANSITION)) {
+            if (Game.CurrentState.Equals(Game.PAUSED_TRANSITION)) {
                 ChangePosition();
                 count = count + 2 * Global.Var.SCALE;
                 Link.Y = Link.Y + 2 * Global.Var.SCALE * (direction ? 1 : -1);
 
                 /* Crucial Global.Var.SCALE remains an int so this equality is valid */
                 if (count == HUD_HEIGHT * Global.Var.SCALE) {
-                    game.UpdateState(direction ? Game1.GameState.PAUSED : Game1.GameState.PLAYING);
+                    Game.SetState(direction ? Game.PAUSED : Game.PLAYING);
                     direction = !direction;
                     count = 0;
                 }
@@ -49,15 +48,15 @@ namespace Sprintfinity3902
 
             int shiftAmount = 2 * Global.Var.SCALE * (direction ? 1 : -1);
 
-            foreach (IEntity entity in game.dungeon.GetCurrentRoom().blocks) {
+            foreach (IEntity entity in Game.dungeon.GetCurrentRoom().blocks) {
                 entity.Y = entity.Y + shiftAmount;
             }
 
-            foreach (IEntity entity in game.dungeon.GetCurrentRoom().enemies.Values) {
+            foreach (IEntity entity in Game.dungeon.GetCurrentRoom().enemies.Values) {
                 entity.Y = entity.Y + shiftAmount;
             }
 
-            foreach (IEntity entity in game.dungeon.GetCurrentRoom().items)  {
+            foreach (IEntity entity in Game.dungeon.GetCurrentRoom().items)  {
                 entity.Y = entity.Y + shiftAmount;
             }
 
@@ -65,24 +64,24 @@ namespace Sprintfinity3902
                 //proj.Y = proj.Y + shiftAmount;
             //}
             
-            foreach(IEntity garbage in game.dungeon.GetCurrentRoom().garbage) {
+            foreach(IEntity garbage in Game.dungeon.GetCurrentRoom().garbage) {
                 garbage.Y = garbage.Y + shiftAmount;
             }
 
-            foreach (IHud hud in game.huds) {
+            foreach (IHud hud in Game.huds) {
                 hud.TranslateMatrix(new Vector2(0, shiftAmount));
             }
 
-            foreach (IEntity door in game.dungeon.GetCurrentRoom().doors) {
+            foreach (IEntity door in Game.dungeon.GetCurrentRoom().doors) {
                 door.Y = door.Y + shiftAmount;
             }
 
             // Case for the bomb as it doesn't work similarly to other projectiles.
 
-            ((Dungeon.Dungeon)game.dungeon).bombItem.Y = ((Dungeon.Dungeon)game.dungeon).bombItem.Y + shiftAmount;
-            ((Dungeon.Dungeon)game.dungeon).bombExplosion.Y = ((Dungeon.Dungeon)game.dungeon).bombExplosion.Y + shiftAmount;
-            ((Dungeon.Dungeon)game.dungeon).boomerangItem.Y = ((Dungeon.Dungeon)game.dungeon).boomerangItem.Y + shiftAmount;
-            ((Dungeon.Dungeon)game.dungeon).bowArrow.Y = ((Dungeon.Dungeon)game.dungeon).bowArrow.Y + shiftAmount;
+            ((Dungeon.Dungeon)Game.dungeon).bombItem.Y = ((Dungeon.Dungeon)Game.dungeon).bombItem.Y + shiftAmount;
+            ((Dungeon.Dungeon)Game.dungeon).bombExplosion.Y = ((Dungeon.Dungeon)Game.dungeon).bombExplosion.Y + shiftAmount;
+            ((Dungeon.Dungeon)Game.dungeon).boomerangItem.Y = ((Dungeon.Dungeon)Game.dungeon).boomerangItem.Y + shiftAmount;
+            ((Dungeon.Dungeon)Game.dungeon).bowArrow.Y = ((Dungeon.Dungeon)Game.dungeon).bowArrow.Y + shiftAmount;
         }
 
     }

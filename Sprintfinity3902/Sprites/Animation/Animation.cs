@@ -64,6 +64,7 @@ namespace Sprintfinity3902.Sprites
 
                 if (PlaybackProgress > Duration) {
                     if (PlayOneTime) {
+                        PlaybackProgress -= Duration;
                         Stop();
                         //PlayOneTime = false;
                     } else {

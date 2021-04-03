@@ -23,9 +23,7 @@ namespace Sprintfinity3902.Dungeon.GameState
         private double this_count;
         private Color blockColor;
         private Color[] cycleColors;
-        private double animation_color_duration;
 
-        private Vector2 pos_left_pane, pos_right_pane;
         private float delta_x_percent;
         private Game1 game;
 
@@ -33,7 +31,6 @@ namespace Sprintfinity3902.Dungeon.GameState
         {
             game = _game;
             dungeon = dung;
-            animation_color_duration = 2700.0;
             cycleColors = new Color[] {
                 new Color(100, 100, 100, 255),
                 new Color(255, 255, 255, 255),

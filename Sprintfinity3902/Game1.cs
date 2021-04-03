@@ -94,7 +94,7 @@ namespace Sprintfinity3902
 
             huds = new List<IHud>();
 
-            huds.Add(new DungeonHud(this, dungeon.RoomLocations));
+            huds.Add(new DungeonHud(this, dungeon));
             huds.Add(new InGameHud(this));
             huds.Add(new InventoryHud(this));
             huds.Add(new MiniMapHud(this,dungeon.RoomLocations));

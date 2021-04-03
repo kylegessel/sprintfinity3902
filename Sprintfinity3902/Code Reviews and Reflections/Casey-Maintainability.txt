@@ -6,15 +6,21 @@ File written by: Brad Knez
 Time Spent: 
 Reviewing empahsis: Maintainability
 
-I believe this state pattern is implimented well. It is very effective and will
-be easy to maintain. The door State classes are short and easy to impliment. In
+I believe this state pattern is implemented well. It is very effective and will
+be easy to maintain. The door State classes are short and easy to create. In
 the future if any states need to be added or removed, it will not mess up any 
 of the other code. 
-
 
 A couple suggestions I have for this class, is the Close method is never used. 
 This method should be removed from all of teh state classes unless it has a 
 future implimentation. Also, I believe that the enum values that live in the
 DoorDirection class can be moved into an interface (probably the IDoor 
 interface). This will allow for the DoorDirection class to be deleted.
+
+A possible change that may need to be implemented in the future is adding a 
+property to the door state. This would not be difficult, but may be time
+consuming. You would need to go add the property to every door state class. On
+the other hand adding new door states would be easy to implement as previously
+stated. Overall, I like the state pattern used for the doors and believe we
+should keep the implementation as is.
 

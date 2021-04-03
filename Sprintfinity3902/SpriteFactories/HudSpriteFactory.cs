@@ -155,6 +155,10 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new DoorLeftRightRoomSprite(hudSpriteSheet);
         }
+        public ISprite CreateDoorBotRoom()
+        {
+            return new DoorBotRoomSprite(hudSpriteSheet);
+        }
         public ISprite CreateDoorBotRightRoom()
         {
             return new DoorBotRightRoomSprite(hudSpriteSheet);
@@ -166,6 +170,10 @@ namespace Sprintfinity3902.SpriteFactories
         public ISprite CreateDoorBotLeftRightRoom()
         {
             return new DoorBotLeftRightRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorTopRoom()
+        {
+            return new DoorTopRoomSprite(hudSpriteSheet);
         }
         public ISprite CreateDoorTopRightRoom()
         {
@@ -194,6 +202,10 @@ namespace Sprintfinity3902.SpriteFactories
         public ISprite CreateDoorAllSidesRoom()
         {
             return new DoorAllSidesRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateYellowLinkBlock()
+        {
+            return new YellowLinkBlockSprite(hudSpriteSheet);
         }
 
         public ISprite CreateMiniRoomIcon()

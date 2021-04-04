@@ -28,6 +28,7 @@ namespace Sprintfinity3902.Dungeon
         private Game1 Game;
         private List<IRoom> dungeonRooms;
         public List<Point> RoomLocations { get; set; }
+        public Point WinLocation { get; set; }
         private IEntity boomerangItem;
         public IEntity bombItem;
         private IEntity movingSword;

@@ -99,6 +99,7 @@ namespace Sprintfinity3902
             huds.Add(new InventoryHud(this));
             huds.Add(new MiniMapHud(this,dungeon.RoomLocations));
 
+            //dungeon.winLocation
             KeyboardManager.Instance.RegisterKeyUpCallback(Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(Reset, Keys.R);
             KeyboardManager.Instance.RegisterKeyUpCallback(Pause, Keys.P);

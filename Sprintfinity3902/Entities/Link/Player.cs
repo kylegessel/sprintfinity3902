@@ -54,6 +54,8 @@ namespace Sprintfinity3902.Link
 
         public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
+        private bool isVisible;
+
 
         private Game1 game;
 
@@ -63,6 +65,7 @@ namespace Sprintfinity3902.Link
             Position = new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, ONE_HUNDRED_NINETY_THREE * Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
             Collidable = true;
+            isVisible = true;
             facingDown = CurrentState;
             facingLeft = new FacingLeftState(this);
             facingRight = new FacingRightState(this);
@@ -115,6 +118,10 @@ namespace Sprintfinity3902.Link
                 game.SetState(game.WIN);
             }
 
+        }
+
+        public void TogglePlayerVisible() {
+            isVisible = !isVisible;
         }
 
         public void SetState(IPlayerState state) {
@@ -230,7 +237,7 @@ namespace Sprintfinity3902.Link
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
-            CurrentState.Sprite.Draw(spriteBatch, Position, color);
+            CurrentState.Sprite.Draw(spriteBatch, Position, isVisible ? color : Color.Transparent);
         }
         public void TakeDamage()
         {

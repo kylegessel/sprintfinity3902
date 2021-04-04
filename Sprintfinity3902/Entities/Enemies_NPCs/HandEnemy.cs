@@ -94,6 +94,9 @@ namespace Sprintfinity3902.Entities
                     SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Link_Die).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
                     CollisionDetector.Instance.Pause();
                     Color = Color.Black;
+                    link.RemoveDecorator();
+                    link.TogglePlayerVisible();
+                    link.Collidable = false;
                     HandEnemy.caughtLink = true;
                     this._caughtLink = true;
                     //room.enemies.Remove(enemyID);

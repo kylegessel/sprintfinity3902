@@ -31,6 +31,7 @@ namespace Sprintfinity3902.Link
             Position = decoratedEntity.Position;
             Sprite = decoratedEntity.Sprite;
             Color = Color.Red;
+            Collidable = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -86,10 +87,6 @@ namespace Sprintfinity3902.Link
             return decoratedEntity.GetBoundingRect();
         }
 
-        public override Boolean IsCollidable()
-        {
-            return decoratedEntity.IsCollidable();
-        }
 
         // How do I remove decorator?
         public void RemoveDecorator()

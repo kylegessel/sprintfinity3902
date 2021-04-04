@@ -29,7 +29,7 @@ namespace Sprintfinity3902.Interfaces
         int LinkHealth { get; set; }
         Dictionary<IItem.ITEMS, int> itemcount { get; set; }
         SelectableWeapons SelectedWeapon { get; set; }
-
+        void SetState(IPlayerState state);
 
         /*These methods are only used when link is not invinsible (damaged state)*/
         void MoveLink();

@@ -35,7 +35,7 @@ namespace Sprintfinity3902.Entities
             fireEnemy2.X = X - FIRE_ENEMY_POS_OFFSET * Global.Var.SCALE;
             
             Position = pos;
-            color = Color.White;
+            Color = Color.White;
 
             counter = 0;
             count = 1;
@@ -60,7 +60,7 @@ namespace Sprintfinity3902.Entities
                 if (count == waitTime)
                 {
                     decorate = false;
-                    color = Color.White;
+                    Color = Color.White;
                 }
                 count++;
             }
@@ -68,7 +68,7 @@ namespace Sprintfinity3902.Entities
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            Sprite.Draw(spriteBatch, Position, this.color);
+            Sprite.Draw(spriteBatch, Position, this.Color);
             fireEnemy1.Draw(spriteBatch, color);
             fireEnemy2.Draw(spriteBatch, color);
         }
@@ -86,19 +86,19 @@ namespace Sprintfinity3902.Entities
             counter = count % MOD_BOUND;
             if (counter < COLOR1_ID)
             {
-                color = Color.Aqua;
+                Color = Color.Aqua;
             }
             else if (counter < COLOR2_ID)
             {
-                color = Color.Red;
+                Color = Color.Red;
             }
             else if (counter < COLOR3_ID)
             {
-                color = Color.White;
+                Color = Color.White;
             }
             else
             {
-                color = Color.Blue;
+                Color = Color.Blue;
             }
         }
     }

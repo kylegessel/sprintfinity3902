@@ -26,11 +26,7 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             moveCount = 1;
             soundPlay = true;
-        }
-
-        public override Boolean IsMovable()
-        {
-            return true;
+            STATIC = false;
         }
         public override void StartMoving(ICollision.CollisionSide Side)
         {
@@ -44,7 +40,7 @@ namespace Sprintfinity3902.Entities
         }
         public void StopMoving()
         {
-            isMoving = false;
+            STATIC = true;
         }
         public override ICollision.CollisionSide PushSide()
         {

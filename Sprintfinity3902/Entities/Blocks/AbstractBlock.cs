@@ -5,7 +5,6 @@ namespace Sprintfinity3902.Entities
 {
     public abstract class AbstractBlock : AbstractEntity, IBlock
     {
-        private bool _movable = false;
         private bool _tall = false;
         //private Boolean _isMoving = false;
         //private ICollision.CollisionSide _side;
@@ -15,9 +14,9 @@ namespace Sprintfinity3902.Entities
         {
             //Do nothing for all still blocks
         }
-        public virtual Boolean IsMovable()
+        public virtual bool IsMovable()
         {
-            return _movable;
+            return !STATIC;
         }
         public virtual void StartMoving(ICollision.CollisionSide Side)
         {

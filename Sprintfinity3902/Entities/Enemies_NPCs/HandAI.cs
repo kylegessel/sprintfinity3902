@@ -12,7 +12,7 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
     public class HandAI
     {
 
-        private static float ERROR_DISPLACEMENT_LENGTH = 1.4f;
+        private static float ERROR_DISPLACEMENT_LENGTH = 1.6f;
         private static int NINETY_SIX = 96;
         private static int THIRTY_TWO = 32;
         private static int SCALED_TILE_SIDE_LENGTH = Global.Var.TILE_SIZE* Global.Var.SCALE;
@@ -38,6 +38,9 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             pathMatrix = new bool[7, 12];
             parseRoomLayout(_room.path);
             handRef = _handRef;
+            count = 0;
+            coolDown = false;
+            lastDirection = AbstractEntity.Direction.NONE;
         }
 
         
@@ -61,7 +64,6 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             sr.Close();
         }
         
-
         private Vector2 deltaVec(Vector2 a, Vector2 b) {
             return new Vector2(a.X - b.X, a.Y - b.Y);
         }
@@ -70,7 +72,6 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
         {
             return (float)Math.Sqrt(a.X * a.X + a.Y * a.Y);
         }
-
 
         private Vector2 isOnIntersection(Vector2 myPos, bool printDis = false)
         {
@@ -118,6 +119,143 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
 
         private bool isValid(Tuple<int, int> a) {
             return a.Item1 <= 11 && a.Item1 >= 0 && a.Item2 <= 6 && a.Item2 >= 0 && pathMatrix[a.Item2, a.Item1];
+        }
+
+
+
+        private void addIfValid(List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> l, Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> tile)
+        {
+            if (isValid(tile.Item1)) {
+                tile.Item2.Enqueue(tile.Item1);
+                l.Add(tile);
+            }
+        }
+
+        private List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> adjacentTiles(Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> tile)
+        {
+            List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> adj = new List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>>();
+
+            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1 - 1, tile.Item1.Item2), new Queue<Tuple<int, int>>(tile.Item2)));
+            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1 + 1, tile.Item1.Item2), new Queue<Tuple<int, int>>(tile.Item2)));
+            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1, tile.Item1.Item2 - 1), new Queue<Tuple<int, int>>(tile.Item2)));
+            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1, tile.Item1.Item2 + 1), new Queue<Tuple<int, int>>(tile.Item2)));
+
+            return adj;
+
+        }
+
+        private Queue<Tuple<int, int>> determineBestPath(Tuple<int, int> myTile, Tuple<int, int> playerTile) {
+            // BFS - Referenced: https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/
+
+            List<Tuple<int, int>> exploredNodes = new List<Tuple<int, int>>();
+
+            Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> mappedTile = new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(myTile, new Queue<Tuple<int, int>>());
+
+            exploredNodes.Add(myTile);
+
+            Queue<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> toExplore = new Queue<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>>(adjacentTiles(mappedTile));
+
+            while (toExplore.Count > 0) {
+
+                Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> item = toExplore.Dequeue();
+
+                Tuple<int, int> tile = item.Item1;
+                Queue<Tuple<int, int>> tilePath = item.Item2;
+
+                if (exploredNodes.Contains(tile)) { continue; } else exploredNodes.Add(tile);
+
+                if (tile.Equals(playerTile)) {
+                    return tilePath;
+                } else {
+                    foreach (Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> i in adjacentTiles(item)) {
+                        toExplore.Enqueue(i);
+                    }
+                }
+
+            }
+
+            return null;
+
+        }
+
+        private AbstractEntity.Direction directionToTile(Tuple<int, int> dest, Tuple<int, int> pos) {
+            if (dest.Item1 - pos.Item1 > 0) {
+                return AbstractEntity.Direction.RIGHT;
+            }
+            if (dest.Item1 - pos.Item1 < 0) {
+                return AbstractEntity.Direction.LEFT;
+            }
+            if (dest.Item2 - pos.Item2 > 0) {
+                return AbstractEntity.Direction.DOWN;
+            }
+            if (dest.Item2 - pos.Item2 < 0) {
+                return AbstractEntity.Direction.UP;
+            }
+
+            return AbstractEntity.Direction.NONE;
+        }
+
+        public AbstractEntity.Direction WhichDirection(Vector2 myPos, Vector2 playerPos) {
+            
+            // x, y ordering
+            Tuple<int, int> currentPlayerTile = demap(playerPos);
+            Tuple<int, int> currentMyTile = demap(myPos);
+
+            if (coolDown) {
+                count++;
+                if (count > 3) {
+                    coolDown = false;
+                    count = 0;
+                }
+            } else {
+
+                Vector2 nearestIntersection = isOnIntersection(myPos);
+
+                if (nearestIntersection != Vector2.Zero && (route == null || route.Count > 0)) {
+                    
+                    if (currentPlayerTile.Equals(lastPlayerTile)) { // player static
+                        route.Dequeue();
+                        Debug.WriteLine("At intersection, popping instruction");
+                        if (route.Count == 0) {
+                            route = determineBestPath(currentMyTile, currentPlayerTile);
+                        }
+
+                    } else { // player moved
+
+                        handRef.Position = nearestIntersection;
+                        Debug.WriteLine("At intersection");
+                        route = determineBestPath(currentMyTile, currentPlayerTile);
+                        //route.Dequeue();
+                        //printQueue(route);
+                        Debug.WriteLine("Going to " + route.First().ToString() + " via " + directionToTile(route.First(), currentMyTile));
+
+                        lastPlayerTile = currentPlayerTile;
+                    }
+
+                    lastDirection = directionToTile(route.First(), currentMyTile);
+                    coolDown = true;
+
+                }
+            }
+
+            //Debug.WriteLine(lastDirection.ToString());
+
+            return lastDirection;
+
+        }
+
+        private void printQueue(Queue<Tuple<int, int>> r) {
+            Queue<Tuple<int, int>> a = new Queue<Tuple<int, int>>();
+            while (r.Count > 0) {
+                a.Enqueue(r.Dequeue());
+                Debug.WriteLine("(" + a.Last().Item2 + ", " + a.Last().Item1 + ")");
+            }
+
+            a.Reverse();
+
+            while (a.Count > 0) {
+                r.Enqueue(a.Dequeue());
+            }
         }
 
 
@@ -171,152 +309,6 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
 
         }
          */
-
-        private void addIfValid(List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> l, Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> tile)
-        {
-            if (isValid(tile.Item1)) {
-                tile.Item2.Enqueue(tile.Item1);
-                l.Add(tile);
-            }
-        }
-
-        private List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> adjacentTiles(Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> tile)
-        {
-            List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> adj = new List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>>();
-
-            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1 - 1, tile.Item1.Item2), new Queue<Tuple<int, int>>(tile.Item2)));
-            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1 + 1, tile.Item1.Item2), new Queue<Tuple<int, int>>(tile.Item2)));
-            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1, tile.Item1.Item2 - 1), new Queue<Tuple<int, int>>(tile.Item2)));
-            addIfValid(adj, new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(new Tuple<int, int>(tile.Item1.Item1, tile.Item1.Item2 + 1), new Queue<Tuple<int, int>>(tile.Item2)));
-
-            return adj;
-
-        }
-
-        private Queue<Tuple<int, int>> determineBestPath(Tuple<int, int> myTile, Tuple<int, int> playerTile) {
-            // BFS - Referenced: https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/
-
-            List<Tuple<int, int>> exploredNodes = new List<Tuple<int, int>>();
-
-            Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> mappedTile = new Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>(myTile, new Queue<Tuple<int, int>>(new[] { myTile }));
-
-            exploredNodes.Add(myTile);
-
-            Queue<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> toExplore = new Queue<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>>(adjacentTiles(mappedTile));
-
-            while (toExplore.Count > 0) {
-
-                Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> item = toExplore.Dequeue();
-
-                Tuple<int, int> tile = item.Item1;
-                Queue<Tuple<int, int>> tilePath = item.Item2;
-
-                if (exploredNodes.Contains(tile)) { continue; } else exploredNodes.Add(tile);
-
-                if (tile.Equals(playerTile)) {
-                    return tilePath;
-                } else {
-                    foreach (Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> i in adjacentTiles(item)) {
-                        toExplore.Enqueue(i);
-                    }
-                }
-
-
-            }
-
-            return null;
-
-        }
-
-        private AbstractEntity.Direction directionToTile(Tuple<int, int> dest, Tuple<int, int> pos) {
-            if (dest.Item1 - pos.Item1 < 0) {
-                return AbstractEntity.Direction.LEFT;
-            }
-            if (dest.Item1 - pos.Item1 > 0) {
-                return AbstractEntity.Direction.RIGHT;
-            }
-            if (dest.Item2 - pos.Item2 < 0) {
-                return AbstractEntity.Direction.UP;
-            }
-            if (dest.Item2 - pos.Item2 > 0) {
-                return AbstractEntity.Direction.DOWN;
-            }
-
-            return AbstractEntity.Direction.NONE;
-        }
-
-        public AbstractEntity.Direction WhichDirection(Vector2 myPos, Vector2 playerPos) {
-            
-            // x, y ordering
-            Tuple<int, int> currentPlayerTile = demap(playerPos);
-            Tuple<int, int> currentMyTile = demap(myPos);
-
-            if (route == null ) {
-                count = 0;
-                coolDown = false;
-                lastPlayerTile = currentPlayerTile;
-                route = determineBestPath(currentMyTile, currentPlayerTile);
-                //printQueue(route);
-                //route.Dequeue(); // Remove the current position instruction of proute
-                lastDirection = directionToTile(route.First(), currentMyTile);
-                // For testing route
-                /*
-                while (route.Count > 0) {
-                    Tuple<int, int> reff = route.Dequeue();
-                    Debug.WriteLine("(" + reff.Item2 + ", " + reff.Item1 + ")");
-                }
-                */
-            }
-
-
-            if (coolDown) {
-                count++;
-                if (count > 4) {
-                    coolDown = false;
-                    count = 0;
-                }
-            } else {
-
-                Vector2 nearestIntersection = isOnIntersection(myPos);
-
-                if (route.Count==1) route = determineBestPath(currentMyTile, currentPlayerTile);
-
-                //Debug.WriteLine(32 * Global.Var.SCALE + Global.Var.TILE_SIZE * Global.Var.SCALE * 7 + ", " +  (96 * Global.Var.SCALE + Global.Var.SCALE * Global.Var.TILE_SIZE * 6));
-                //Debug.WriteLine(nearestIntersection.ToString() + handRef.Position.ToString()); 
-
-                if (nearestIntersection != Vector2.Zero) {
-                    handRef.Position = nearestIntersection;
-                    Debug.WriteLine("At intersection, popping instruction");
-                    coolDown = true;
-                    route.Dequeue();
-                    //printQueue(route);
-                    lastDirection = directionToTile(route.First(), currentMyTile);
-                    Debug.WriteLine("Going to " + route.First().ToString() + " via " + directionToTile(route.First(), currentMyTile));
-
-                    
-                }
-            }
-
-
-            lastPlayerTile = currentPlayerTile;
-
-            return lastDirection;
-
-        }
-
-        private void printQueue(Queue<Tuple<int, int>> r) {
-            Queue<Tuple<int, int>> a = new Queue<Tuple<int, int>>();
-            while (r.Count > 0) {
-                a.Enqueue(r.Dequeue());
-                Debug.WriteLine("(" + a.Last().Item2 + ", " + a.Last().Item1 + ")");
-            }
-
-            a.Reverse();
-
-            while (a.Count > 0) {
-                r.Enqueue(a.Dequeue());
-            }
-        }
 
     }
 }

@@ -16,7 +16,7 @@ namespace Sprintfinity3902.Link
     {
         /*MAGIC NUMBERS REFACTOR*/
         private static int FIFTEEN = 15;
-        private static int TWO_HUNDRED_TWENTY_FOUR  =  224;
+        private static int TWO_HUNDRED_TWENTY_FOUR = 224;
         private static int THIRTY_TWO = 32;
         private static int ONE_HUNDRED_NINETY_FOUR = 194;
         private static int NINETY_SIX = 96;
@@ -27,23 +27,13 @@ namespace Sprintfinity3902.Link
         private static int ONE_HUNDRED_NINETY_THREE = 193;
         private static int INITIAL_HEALTH = 6;
 
-        private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
         private int _bouncingOfEnemyCount;
-        private Boolean _bouncingOfEnemy;
-        private Boolean _collidable;
+        private bool _bouncingOfEnemy;
         private string lowHealthInstanceID;
         private double _deathSpinCount;
 
-        public IPlayerState CurrentState {
-            get {
-                return _currentState;
-            }
-            set {
-                _currentState = value;
-            }
-        }
-
+        public IPlayerState CurrentState { get; set;}
         public IPlayerState facingDown { get; set; }
         public IPlayerState facingLeft { get; set; }
         public IPlayerState facingRight { get; set; }
@@ -64,6 +54,7 @@ namespace Sprintfinity3902.Link
 
         public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
+
         private Game1 game;
 
         public Player(Game1 _game)
@@ -71,6 +62,7 @@ namespace Sprintfinity3902.Link
             game = _game;
             Position = new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, ONE_HUNDRED_NINETY_THREE * Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
+            Collidable = true;
             facingDown = CurrentState;
             facingLeft = new FacingLeftState(this);
             facingRight = new FacingRightState(this);
@@ -83,14 +75,12 @@ namespace Sprintfinity3902.Link
             facingLeftItem = new FacingLeftItemState(this);
             facingRightItem = new FacingRightItemState(this);
             facingUpItem = new FacingUpItemState(this);
-            color = Color.White;
-            _collidable = true;
+            Color = Color.White;
             SetStepSize(1);
             MaxHealth = INITIAL_HEALTH;
-            LinkHealth = 1;//TODO: MAX_HEALTH undid for testing lose state
+            LinkHealth = INITIAL_HEALTH;//TODO: MAX_HEALTH undid for testing lose state
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
-
             itemcount = new Dictionary<IItem.ITEMS, int>();
             foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
             {
@@ -125,10 +115,6 @@ namespace Sprintfinity3902.Link
                 game.SetState(game.WIN);
             }
 
-        }
-
-        public bool IsCurrentState(IPlayerState state) {
-            return state.Equals(CurrentState);
         }
 
         public void SetState(IPlayerState state) {
@@ -248,7 +234,7 @@ namespace Sprintfinity3902.Link
         }
         public void TakeDamage()
         {
-            _collidable = false;
+            Collidable = false;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             LinkHealth--;
             
@@ -273,15 +259,6 @@ namespace Sprintfinity3902.Link
              */
 
         }
-        public void RemoveDecorator()
-        {
-            _collidable = true;
-            game.playerCharacter = this;
-        }
-        public override Boolean IsCollidable()
-        {
-            return _collidable;
-        }
         private void playLowHealth()
         {
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Play();
@@ -291,10 +268,16 @@ namespace Sprintfinity3902.Link
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
         }
 
-        public void DeathSpin(bool end)
+        public virtual void DeathSpin(bool end)
         {
             if (end) SetState(facingDown);
             _deathSpinCount = end ? 0.0 : 0.01;
+        }
+
+        public void RemoveDecorator()
+        {
+            Collidable = true;
+            game.playerCharacter = this;
         }
     }
 }

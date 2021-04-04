@@ -20,15 +20,6 @@ namespace Sprintfinity3902.Entities
         private float speed;
         
 
-        public BlueBatEnemy()
-        {
-            Sprite = EnemySpriteFactory.Instance.CreateBlueBatEnemy();
-            Position = new Vector2(750, 540);
-            direction = 0;
-            count = 0;
-            speed = .5f;
-            SetStepSize(speed);
-        }
         public BlueBatEnemy(Vector2 pos)
         {
             Sprite = EnemySpriteFactory.Instance.CreateBlueBatEnemy();
@@ -37,6 +28,8 @@ namespace Sprintfinity3902.Entities
             count = 0;
             speed = .5f;
             SetStepSize(speed);
+            Collidable = false;
+            Collidable = false;
         }
 
 
@@ -46,17 +39,12 @@ namespace Sprintfinity3902.Entities
             return 0;
         }
 
-        public override bool IsCollidable()
-        {
-            return false;
-        }
-
         public override void Move()
         {
             if(count == 0)
             {
                 waitTime = rand.Next(FORTY, TWO_HUNDRED);
-            }else if( count == waitTime)
+            } else if( count == waitTime)
             {
                 // States for left, right, up, down, up right, up left, down left, down right.
                direction = rand.Next(1, TEN);

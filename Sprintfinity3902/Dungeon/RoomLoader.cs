@@ -65,6 +65,7 @@ namespace Sprintfinity3902.Dungeon
             mapStream = new StreamReader(Room.path);
             spikeNum = 1;
             enemyID = 0;
+            HandEnemy.caughtLink = false;
         }
 
         public void Build()

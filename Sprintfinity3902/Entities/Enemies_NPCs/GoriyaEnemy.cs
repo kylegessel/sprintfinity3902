@@ -60,7 +60,7 @@ namespace Sprintfinity3902.Entities
         {
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
             Position = new Vector2(750, 540);
-            color = Color.White;
+            Color = Color.White;
             Boomerang = boomerang;
             goriyaAI = new GoriyaAI(this);
             health = 3;
@@ -88,7 +88,7 @@ namespace Sprintfinity3902.Entities
         {
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
             Position = pos;
-            color = Color.White;
+            Color = Color.White;
             Boomerang = boomerang;
             goriyaAI = new GoriyaAI(this);
             health = 3;
@@ -133,7 +133,7 @@ namespace Sprintfinity3902.Entities
                 if(decorateCount == decorateTime)
                 {
                     decorate = false;
-                    color = Color.White;
+                    Color = Color.White;
                     decorateCount = Global.Var.ZERO;
                 }
                 else
@@ -147,7 +147,7 @@ namespace Sprintfinity3902.Entities
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            CurrentState.Sprite.Draw(spriteBatch, Position, this.color);
+            CurrentState.Sprite.Draw(spriteBatch, Position, this.Color);
             Boomerang.Draw(spriteBatch, Color.White);
         }
 
@@ -156,19 +156,19 @@ namespace Sprintfinity3902.Entities
             counter = decorateCount % MOD_BOUND;
             if (counter < THREE)
             {
-                color = Color.Aqua;
+                Color = Color.Aqua;
             }
             else if (counter < SIX)
             {
-                color = Color.Red;
+                Color = Color.Red;
             }
             else if (counter < NINE)
             {
-                color = Color.White;
+                Color = Color.White;
             }
             else
             {
-                color = Color.Blue;
+                Color = Color.Blue;
             }
         }
 

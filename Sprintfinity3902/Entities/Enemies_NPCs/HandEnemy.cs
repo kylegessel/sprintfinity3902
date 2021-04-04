@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Collision;
 using Sprintfinity3902.Entities.Enemies_NPCs;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Sound;
 using Sprintfinity3902.SpriteFactories;
 using System;
 
@@ -10,7 +12,7 @@ namespace Sprintfinity3902.Entities
     public class HandEnemy : AbstractEntity, IEnemy
     {
 
-        private static float F_DOT_THREE = .3f;
+        private static float F_DOT_THREE = .4f;
         private static int ONE = 1;
         private static  int FIVE = 5;
         private static int TWO_HUNDRED_TWENTY = 220;
@@ -30,23 +32,36 @@ namespace Sprintfinity3902.Entities
         private int enemyID;
         private IPlayer link;
         private HandAI _AI;
+        public static bool caughtLink;
+        private bool _caughtLink;
+        private IRoom room;
+        private static float animation_duration = 2000;
+        private double startTime;
+        private Vector2 savedPos;
 
-        public HandEnemy(Vector2 pos, IPlayer player, IRoom room)
+        public HandEnemy(Vector2 pos, IPlayer player, IRoom _room)
         {
             Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
             Position = pos;
             health = THREE;
             speed = F_DOT_THREE;
-            color = Color.White;
+            Color = Color.White;
+            room = _room;
             link = player;
-            _AI = new HandAI(room, this);
-            
+            _AI = new HandAI(_room, this);
+            this._caughtLink = false;
             direction = AbstractEntity.Direction.LEFT;
+            startTime = 0;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            Sprite.Draw(spriteBatch, Position, this.color);
+            if (_caughtLink) {
+                double percentComplete = (startTime / animation_duration);
+                this.Color = Color.FromNonPremultiplied(new Vector4(1, 1, 1, Math.Max(0, 1 - (float)percentComplete)));
+                PlayerSpriteFactory.Instance.CreateLinkDownSprite().Draw(spriteBatch, Position, this.Color);
+            }
+            Sprite.Draw(spriteBatch, Position, this.Color);
 
             //ItemSpriteFactory.Instance.CreateBombItem().Draw(spriteBatch, new Vector2(32 * Global.Var.SCALE+ Global.Var.TILE_SIZE * Global.Var.SCALE*6, 96 * Global.Var.SCALE + Global.Var.SCALE*Global.Var.TILE_SIZE*6), Color.White);
             //ItemSpriteFactory.Instance.CreateBombItem().Draw(spriteBatch, new Vector2(32 * Global.Var.SCALE + Global.Var.TILE_SIZE * Global.Var.SCALE, 96 * Global.Var.SCALE + Global.Var.SCALE * Global.Var.TILE_SIZE), Color.White);
@@ -65,7 +80,32 @@ namespace Sprintfinity3902.Entities
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
-            Move();
+
+            if (!HandEnemy.caughtLink || this._caughtLink) {
+
+                if (this._caughtLink) startTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                Move();
+
+
+                if (!this._caughtLink && link.GetBoundingRect().Intersects(GetBoundingRect())) {
+                    SoundManager.Instance.PauseAll();
+                    link.STATIC = true;
+                    SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Link_Die).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+                    CollisionDetector.Instance.Pause();
+                    Color = Color.Black;
+                    HandEnemy.caughtLink = true;
+                    this._caughtLink = true;
+                    //room.enemies.Remove(enemyID);
+                    speed = 2;
+                    savedPos = new Vector2(Position.X, Position.Y);
+                }
+            }
+
+            if (_caughtLink) {
+                //link.Position = Position;
+            }
+
             SetStepSize(speed);
             if (decorate) Decorate();
         }
@@ -75,32 +115,44 @@ namespace Sprintfinity3902.Entities
             int counter = count % MOD_BOUND;
             if (counter < THREE)
             {
-                color = Color.Aqua;
+                Color = Color.Aqua;
             }
             else if (counter < SIX)
             {
-                color = Color.Red;
+                Color = Color.Red;
             }
             else if (counter < NINE)
             {
-                color = Color.White;
+                Color = Color.White;
             }
             else
             {
-                color = Color.Blue;
+                Color = Color.Blue;
             }
             count++;
             if (count >= decorateTime) {
                 count = 0;
                 decorate = false;
-                color = Color.White;
+                Color = Color.White;
 
-                speed = 0.7f;
+                speed = F_DOT_THREE;
             }
         }
 
         public override void Move()
         {
+            if (this._caughtLink) {
+
+                double percentComplete = (startTime / animation_duration);
+
+
+                Position = new Vector2(
+                    (float) (savedPos.X + 100 * percentComplete * Global.Var.SCALE * Math.Cos(percentComplete*2 * Math.PI * 2)),
+                    (float) (savedPos.Y + 100 * percentComplete * Global.Var.SCALE * Math.Sin(percentComplete*2 * Math.PI * 2))
+                );
+
+                return;
+            }
             switch (decorate ? direction : _AI.WhichDirection(Position, link.Position)) {
                 case Direction.LEFT:
                     X -= speed * Global.Var.SCALE;

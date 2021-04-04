@@ -56,6 +56,7 @@ namespace Sprintfinity3902.Dungeon
 
             foreach (IEntity entity in enemyProj)
                 entity.Update(gameTime);
+
             foreach (IDoor door in doors)
                 door.Update(gameTime);
         }
@@ -70,8 +71,10 @@ namespace Sprintfinity3902.Dungeon
 
             foreach (IEntity entity in items)
                 entity.Draw(spriteBatch, color);
+
             foreach (IDoor door in doors)
                 door.Draw(spriteBatch, color);
+
             foreach (IEntity entity in garbage)
                 entity.Draw(spriteBatch, color);
 

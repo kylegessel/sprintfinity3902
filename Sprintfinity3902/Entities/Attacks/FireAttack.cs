@@ -23,6 +23,7 @@ namespace Sprintfinity3902.Entities
 
             direction = moveDirection;
             isMoving = false;
+            Collidable = false;
         }
 
         public FireAttack(Vector2 position, int moveDirection)
@@ -32,6 +33,7 @@ namespace Sprintfinity3902.Entities
             Position = position;
             direction = moveDirection;
             isMoving = false;
+            Collidable = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -40,11 +42,6 @@ namespace Sprintfinity3902.Entities
 
             if (isMoving)
                 Move();
-        }
-
-        public override bool IsCollidable()
-        {
-            return false;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)

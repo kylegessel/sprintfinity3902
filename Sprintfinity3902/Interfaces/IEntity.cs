@@ -21,6 +21,10 @@ namespace Sprintfinity3902.Interfaces
         {
             get; set;
         }
+        bool STATIC 
+        { 
+            get; set; 
+        }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Color color);
         void Move();

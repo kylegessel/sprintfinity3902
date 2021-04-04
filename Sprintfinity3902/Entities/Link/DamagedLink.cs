@@ -17,57 +17,60 @@ namespace Sprintfinity3902.Link
         Color linkColor;
         int counter;
         int timer = 200;
-        private ISprite _sprite;
-        private Vector2 _position;
-
-
 
         public ISprite Sprite
         {
-            get
-            {
-                return _sprite;
+            get {
+                return decoratedLink.Sprite;
             }
-            set
-            {
-                _sprite = value;
+            set {
+                decoratedLink.Sprite = value;
             }
         }
 
         public Vector2 Position
         {
-            get
-            {
-                return _position;
+            get {
+                return decoratedLink.Position;
             }
-            set
-            {
-                _position = value;
+            set {
+                decoratedLink.Position = value;
             }
         }
         public float X
         {
-            get
-            {
-                return (int)Position.X;
+            get {
+                return decoratedLink.Position.X;
             }
-            set
-            {
-                _position.X = value;
+            set {
+                decoratedLink.X = value;
             }
         }
         public float Y
         {
-            get
-            {
-                return (int)Position.Y;
+            get {
+                return decoratedLink.Position.Y;
             }
-            set
-            {
-                _position.Y = value;
+            set {
+                decoratedLink.Y = value;
             }
         }
-
+        public bool STATIC { 
+            get {
+                return decoratedLink.STATIC;
+            }
+            set {
+                decoratedLink.STATIC = value;
+            }
+        }
+        public bool Collidable {
+            get {
+                return decoratedLink.Collidable;
+            }
+            set {
+                decoratedLink.Collidable = value;
+            }
+        }
 
         public DamagedLink(IPlayer decoratedLink, Game1 game)
         {
@@ -78,26 +81,18 @@ namespace Sprintfinity3902.Link
         public void Update(GameTime gameTime)
         {
             timer--;
-            if (timer == 0)
-            {
+            if (timer == 0) {
                 RemoveDecorator();
             }
             //Implement logic to determine color
             counter = timer % MOD_BOUND;
-            if (counter < THREE)
-            {
+            if (counter < THREE) {
                 linkColor = Color.Aqua;
-            }
-            else if (counter < SIX)
-            {
+            } else if (counter < SIX) {
                 linkColor = Color.Red;
-            }
-            else if (counter < NINE)
-            {
+            } else if (counter < NINE) {
                 linkColor = Color.White;
-            }
-            else
-            {
+            } else {
                 linkColor = Color.Blue;
             }
 
@@ -110,39 +105,62 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.Draw(spriteBatch, linkColor);
         }
+
         public void Move()
         {
             decoratedLink.Move();
         }
+
         public void Attack()
         {
             decoratedLink.Attack();
         }
+
         public void SetState(IPlayerState state)
         {
             decoratedLink.SetState(state);
         }
+
         public void RemoveDecorator()
         {
             decoratedLink.RemoveDecorator();
             game.link = decoratedLink;
         }
+
         public void UseItem(IItem.ITEMS item)
         {
             decoratedLink.UseItem(item);
         }
+
         public void UseItem()
         {
             decoratedLink.UseItem();
         }
+
         public void Pickup(IItem item)
         {
             decoratedLink.Pickup(item);
         }
+
         public void DeathSpin(bool end)
         {
             RemoveDecorator();
             decoratedLink.DeathSpin(end);
+        }
+
+        public Rectangle GetBoundingRect()
+        {
+            return decoratedLink.GetBoundingRect();
+        }
+
+        public void SetStepSize(float size)
+        {
+            decoratedLink.SetStepSize(size);
+        }
+
+        public float GetStepSize()
+        {
+            return decoratedLink.GetStepSize();
         }
     }
 }

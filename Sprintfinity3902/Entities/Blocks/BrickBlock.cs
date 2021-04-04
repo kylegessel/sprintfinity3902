@@ -9,11 +9,13 @@ namespace Sprintfinity3902.Entities
         {
             Sprite = BlockSpriteFactory.Instance.CreateBrickBlock();
             Position = new Vector2(300, 700);
+            STATIC = true;
         }
         public BrickBlock(Vector2 pos)
         {
             Sprite = BlockSpriteFactory.Instance.CreateBrickBlock();
             Position = pos;
+            STATIC = true;
         }
     }
 }

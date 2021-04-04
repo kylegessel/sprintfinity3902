@@ -2,15 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using System;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Entities
 {
     public abstract class AbstractEntity : IEntity, ICollidable
     {
-        private ISprite _sprite;
         private Vector2 _position;
-        private Boolean _collidable = true;
-        private Color _color;
+        private bool _static = false;
         private float _stepSize = 1; //Will want to set this individually for each entity. Set for now
 
         // Does this belong here and can we make better use of it elsewhere?
@@ -41,27 +40,16 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public Color color
-        {
-            get
-            {
-                return _color;
-            }
-            set
-            {
-                _color = value;
-            }
-        }
-        public ISprite Sprite
-        {
-            get
-            {
-                return _sprite;
-            }
-            set
-            {
-                _sprite = value;
-            }
+        public bool Collidable { get; set; }
+        public Color Color { get; set; }
+        public ISprite Sprite {  get; set; }
+        public bool STATIC { 
+            get {
+                return _static;
+            } 
+            set { 
+                _static = value; 
+            } 
         }
 
         public Vector2 Position
@@ -72,7 +60,7 @@ namespace Sprintfinity3902.Entities
             }
             set
             {
-                _position = value;
+                _position = STATIC ? _position : value;
             }
         }
         public float X
@@ -83,7 +71,7 @@ namespace Sprintfinity3902.Entities
             }
             set
             {
-                _position.X = value;
+                _position.X = STATIC ? _position.X : value;
             }
         }
         public float Y
@@ -94,7 +82,7 @@ namespace Sprintfinity3902.Entities
             }
             set
             {
-                _position.Y = value;
+                _position.Y = STATIC ? _position.Y : value;
             }
         }
 
@@ -114,20 +102,8 @@ namespace Sprintfinity3902.Entities
             Move();
         }
 
-        public virtual void Attack()
-        {
-
-        }
-        public virtual void Move()
-        {
-
-        }
-        
-
-        public virtual Boolean IsCollidable()
-        {
-            return _collidable;
-        }
+        public virtual void Attack() { }
+        public virtual void Move() { }
 
         public virtual Rectangle GetBoundingRect()
         {
@@ -144,6 +120,9 @@ namespace Sprintfinity3902.Entities
 
         }
 
+        void IsCollidable() { 
+            return Collidable
+        }
 
         public virtual void SetStepSize(float size)
         {

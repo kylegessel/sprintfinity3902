@@ -54,8 +54,9 @@ namespace Sprintfinity3902.Entities
             fireAttackCenter = center;
             fireAttackDown = down;
             Position = pos;
-            color = Color.White;
+            Color = Color.White;
             health = FIVE;
+            Collidable = false;
 
             decorateTime = THIRTY;
             decorate = false;
@@ -77,6 +78,7 @@ namespace Sprintfinity3902.Entities
             Sprite = ClosedMouth;
             Position = pos;
             health = FIVE;
+            Collidable = false;
 
             decorateTime = THIRTY;
             decorate = false;
@@ -97,32 +99,27 @@ namespace Sprintfinity3902.Entities
         }
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            Sprite.Draw(spriteBatch, Position, this.color);                
+            Sprite.Draw(spriteBatch, Position, this.Color);                
         }
         public void Decorate()
         {
             counter = directionCount % MOD_BOUND;
             if (counter < THREE)
             {
-                color = Color.Aqua;
+                Color = Color.Aqua;
             }
             else if (counter < SIX)
             {
-                color = Color.Red;
+                Color = Color.Red;
             }
             else if (counter < NINE)
             {
-                color = Color.White;
+                Color = Color.White;
             }
             else
             {
-                color = Color.Blue;
+                Color = Color.Blue;
             }
-        }
-
-        public override bool IsCollidable()
-        {
-            return false;
         }
 
         public override void Move()
@@ -181,7 +178,7 @@ namespace Sprintfinity3902.Entities
                 {
                     decorate = false;
                     decorateCount = Global.Var.ZERO;
-                    color = Color.White;
+                    Color = Color.White;
                 }
                 decorateCount++;
             }

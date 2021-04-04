@@ -38,7 +38,7 @@ namespace Sprintfinity3902.Entities
             count = 0;
             health = 2;
             speed = 0.4f;
-            color = Color.White;
+            Color = Color.White;
             decorate = false;
         }
         public SkeletonEnemy(Vector2 pos)
@@ -49,7 +49,7 @@ namespace Sprintfinity3902.Entities
             count = 0;
             health = 2;
             speed = 0.4f;
-            color = Color.White;
+            Color = Color.White;
             decorate = false;
         }
         public void Decorate()
@@ -57,19 +57,19 @@ namespace Sprintfinity3902.Entities
             counter = count % MOD_BOUND;
             if (counter < THREE)
             {
-                color = Color.Aqua;
+                Color = Color.Aqua;
             }
             else if (counter < SIX)
             {
-                color = Color.Red;
+                Color = Color.Red;
             }
             else if (counter < NINE)
             {
-                color = Color.White;
+                Color = Color.White;
             }
             else
             {
-                color = Color.Blue;
+                Color = Color.Blue;
             }
         }
         public override void Update(GameTime gameTime) {
@@ -82,7 +82,7 @@ namespace Sprintfinity3902.Entities
         }
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            Sprite.Draw(spriteBatch, Position, this.color);
+            Sprite.Draw(spriteBatch, Position, this.Color);
         }
         public override void Move()
         {

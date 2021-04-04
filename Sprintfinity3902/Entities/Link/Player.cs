@@ -89,7 +89,7 @@ namespace Sprintfinity3902.Link
             _collidable = true;
             SetStepSize(1);
             MaxHealth = INITIAL_HEALTH;
-            LinkHealth = 1;//TODO: MAX_HEALTH undid for testing lose state
+            LinkHealth = MaxHealth;
             heartChanged = true;
             itemPickedUp = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
@@ -123,7 +123,7 @@ namespace Sprintfinity3902.Link
 
             if (win)
             {
-                game.UpdateState(Game1.GameState.WIN);
+                game.SetState(game.WIN);
             }
         }
 
@@ -255,7 +255,7 @@ namespace Sprintfinity3902.Link
             heartChanged = true;
             
             if (LinkHealth <= 0) {
-                game.UpdateState(Game1.GameState.LOSE);
+                game.SetState(game.LOSE);
                 return;
             }
 

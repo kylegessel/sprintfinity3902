@@ -17,29 +17,27 @@ namespace Sprintfinity3902
         {
             GAMEOVER,
             OPTIONS,
-            RETURN
+            RETURN,
+            CLOSEGAME
         }
 
         public enum options
         {
-            CONTINUE,
-            SAVE,
-            RETRY
+            RETRY,
+            CLOSE
         }
 
         private animation_state state;
 
         private Font gameOver;
 
-        private Font _continue;
-        private Font save;
         private Font retry;
+        private Font close;
         private ISprite heartSprite;
 
 
         private static int rowOneHeight = 100;
         private static int rowTwoHeight = 300;
-        private static int rowThreeHeight = 500;
         private static int heartDistanceMultiplier = 2 * Global.Var.SCALE;
         private static int TRANSLATE_HEART_Y = 10;
 
@@ -56,9 +54,8 @@ namespace Sprintfinity3902
 
             
 
-            _continue = new Font("Continue");
-            save = new Font("Save");
             retry = new Font("Retry");
+            close = new Font("Close");
             heartSprite = HudSpriteFactory.Instance.CreateHeartFullIcon();
 
         }
@@ -89,7 +86,15 @@ namespace Sprintfinity3902
         }
 
         private void SelectOption() {
-            updateState(animation_state.RETURN);
+            switch (selectedOption)
+            {
+                case options.RETRY:
+                    updateState(animation_state.RETURN);
+                    break;
+                case options.CLOSE:
+                    updateState(animation_state.CLOSEGAME);
+                    break;
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -117,7 +122,10 @@ namespace Sprintfinity3902
                 case animation_state.OPTIONS:
                     break;
                 case animation_state.RETURN:
-                    game.UpdateState(Game1.GameState.RESET);
+                    game.SetState(game.RESET);
+                    return;
+                case animation_state.CLOSEGAME:
+                    game.Exit();
                     return;
             }
 
@@ -135,19 +143,15 @@ namespace Sprintfinity3902
                     gameOver.Draw(spriteBatch, new Vector2((v.Width - gameOver.Width) / 2, (v.Height - gameOver.Height) / 2));
                     break;
                 case animation_state.OPTIONS:
-                    int leftJustified = (v.Width - _continue.Width) / 2;
-                    _continue.Draw(spriteBatch, new Vector2(leftJustified, rowOneHeight));
-                    save.Draw(spriteBatch, new Vector2(leftJustified, rowTwoHeight));
-                    retry.Draw(spriteBatch, new Vector2(leftJustified, rowThreeHeight));
+                    int leftJustified = (v.Width - retry.Width) / 2;
+                    retry.Draw(spriteBatch, new Vector2(leftJustified, rowOneHeight));
+                    close.Draw(spriteBatch, new Vector2(leftJustified, rowTwoHeight));
                     switch (selectedOption) {
-                        case options.CONTINUE:
+                        case options.RETRY:
                             heartSprite.Draw(spriteBatch, new Vector2((float)(leftJustified - heartSprite.Animation.CurrentFrame.Width * heartDistanceMultiplier), rowOneHeight + TRANSLATE_HEART_Y), Color.White);
                             break;
-                        case options.SAVE:
+                        case options.CLOSE:
                             heartSprite.Draw(spriteBatch, new Vector2((float)(leftJustified - heartSprite.Animation.CurrentFrame.Width * heartDistanceMultiplier), rowTwoHeight + TRANSLATE_HEART_Y), Color.White);
-                            break;
-                        case options.RETRY:
-                            heartSprite.Draw(spriteBatch, new Vector2((float)(leftJustified - heartSprite.Animation.CurrentFrame.Width * heartDistanceMultiplier), rowThreeHeight + TRANSLATE_HEART_Y), Color.White);
                             break;
                     }
                     break;

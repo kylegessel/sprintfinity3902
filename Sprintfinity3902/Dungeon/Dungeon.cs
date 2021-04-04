@@ -22,8 +22,6 @@ namespace Sprintfinity3902.Dungeon
         /*MAGIC NUMBERS REFACTOR*/
         private static int FORTY_EIGHT = 48;
         private static int NINETY_SEVEN = 97;
-        private static int ONE_HUNDRED_TWENTY = 120;
-        private static int ONE_HUNDRED_NINETY_THREE = 193;
 
         private Game1 Game;
         private List<IRoom> dungeonRooms;
@@ -192,7 +190,7 @@ namespace Sprintfinity3902.Dungeon
                     break;
                 case IDungeon.GameState.RETURN:
                     KeyboardManager.Instance.PopCommandMatrix();
-                    Game.UpdateState(Game1.GameState.OPTIONS);
+                    Game.SetState(Game.OPTIONS);
                     break;
             }
         }

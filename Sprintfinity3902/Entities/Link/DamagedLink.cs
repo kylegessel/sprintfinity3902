@@ -100,6 +100,9 @@ namespace Sprintfinity3902.Link
 
         }
 
+        public bool IsCollidable() {
+            return decoratedLink.IsCollidable();
+        }
 
         public void Draw(SpriteBatch spriteBatch, Color Ignorecolor)
         {

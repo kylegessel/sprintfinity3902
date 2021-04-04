@@ -9,6 +9,7 @@ namespace Sprintfinity3902.Entities
     public abstract class AbstractEntity : IEntity, ICollidable
     {
         private Vector2 _position;
+        private bool _collidable = true;
         private bool _static = false;
         private float _stepSize = 1; //Will want to set this individually for each entity. Set for now
 
@@ -40,7 +41,7 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public bool Collidable { get; set; }
+        public bool Collidable { get { return _collidable; } set { _collidable = value; } }
         public Color Color { get; set; }
         public ISprite Sprite {  get; set; }
         public bool STATIC { 
@@ -120,8 +121,8 @@ namespace Sprintfinity3902.Entities
 
         }
 
-        void IsCollidable() { 
-            return Collidable
+        public bool IsCollidable() {
+            return _collidable;
         }
 
         public virtual void SetStepSize(float size)

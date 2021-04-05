@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
 
@@ -65,6 +66,8 @@ namespace Sprintfinity3902.HudMenu
             {
                 CompassPickup = true;
             }
+
+            UpdateHudLinkLoc();
         }
 
         
@@ -76,7 +79,7 @@ namespace Sprintfinity3902.HudMenu
 
 
             LinkLocation.Draw(spriteBatch, color);
-            if (!CompassPickup)
+            if (CompassPickup)
             {
                 WinLocation.Draw(spriteBatch, color);
             }
@@ -86,8 +89,8 @@ namespace Sprintfinity3902.HudMenu
         {
 
             Location = Dungeon.CurrentRoom.RoomPos;
-            LinkLocation.X = Location.X * ROOM_WIDTH + INSIDE_MAP_X;
-            LinkLocation.Y = Location.Y * ROOM_HEIGHT + INSIDE_MAP_Y;
+            LinkLocation.X = (Location.X * ROOM_WIDTH + INSIDE_MAP_X) * Global.Var.SCALE;
+            LinkLocation.Y = (Location.Y * ROOM_HEIGHT + INSIDE_MAP_Y) * Global.Var.SCALE;
         }
 
 
@@ -99,9 +102,15 @@ namespace Sprintfinity3902.HudMenu
 
         private void InitLocationMarkers()
         {
-            Location = Dungeon.CurrentRoom.RoomPos;
+            Location = Dungeon.WinLocation;
             x = Location.X * ROOM_WIDTH + INSIDE_MAP_X;
             y = Location.Y * ROOM_HEIGHT + INSIDE_MAP_Y;
+
+            //link icon is temporarily built in final room, update manages his location
+            LinkLocation = new GreenLinkLocationIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE));
+            WinLocation = new WinLocationIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE));
+
+
         }
     }
 }

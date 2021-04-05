@@ -217,7 +217,7 @@ namespace Sprintfinity3902.SpriteFactories
         }
         public ISprite CreateWinLocationIcon()
         {
-            return new GreenLinkLocationSprite(hudSpriteSheet);
+            return new WinLocationSprite(hudSpriteSheet);
         }
     }
 }

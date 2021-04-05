@@ -5,6 +5,8 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using static Sprintfinity3902.Entities.AbstractEntity;
 
 namespace Sprintfinity3902.Collision
 {
@@ -114,16 +116,14 @@ namespace Sprintfinity3902.Collision
                 foreach (AbstractEntity proj in linkProj)
                 {
 
-                    if (!proj.Equals(gameInstance.bombExplosion) && doorRect.Intersects(proj.GetBoundingRect()))
+                    if (doorRect.Intersects(proj.GetBoundingRect()))
                     {
                         ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
-
+                        if (proj.GetType().FullName == "Sprintfinity3902.Entities.Items.BombExplosionItem" && door.CurrentState.IsBombable && door.DoorDestination != -1)
+                        {
+                            door.Open();
+                        }
                     }
-                }
-                AbstractEntity abstractBomb = (AbstractEntity)bombExplosion;
-                if (bombExplosion != null && doorRect.Intersects(abstractBomb.GetBoundingRect()) && door.CurrentState.IsBombable && door.DoorDestination != -1)
-                {
-                    door.Open();
                 }
 
                 foreach (AbstractEntity proj in enemyProj)
@@ -162,7 +162,22 @@ namespace Sprintfinity3902.Collision
                 Rectangle enemyRect = proj.GetBoundingRect();
                 if ( ((IEntity)link).IsCollidable() && enemyRect.Intersects(linkRect) && !alreadyMoved)
                 {
-                    alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
+                    if (proj.GetType().FullName == "Sprintfinity3902.Entities.BoomerangItem")
+                    {
+                        IBoomerang boomerang = (BoomerangItem)proj;
+                        if ((boomerang.FireDirection.Equals(Direction.DOWN) && link.CurrentState.Equals(link.facingUp)) || (boomerang.FireDirection.Equals(Direction.UP) && link.CurrentState.Equals(link.facingDown)) || (boomerang.FireDirection.Equals(Direction.LEFT) && link.CurrentState.Equals(link.facingRight)) || (boomerang.FireDirection.Equals(Direction.RIGHT) && link.CurrentState.Equals(link.facingLeft))) {
+                            ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
+                        }
+                        else
+                        {
+                            alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
+                        }
+                    }
+                    else
+                    {
+                        alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
+                    }
+
                 }
             }
         }

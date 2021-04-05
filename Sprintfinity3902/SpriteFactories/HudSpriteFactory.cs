@@ -207,13 +207,15 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new YellowLinkBlockSprite(hudSpriteSheet);
         }
-
         public ISprite CreateMiniRoomIcon()
         {
             return new MiniRoomIconSprite(hudSpriteSheet);
         }
-
         public ISprite CreateGreenLinkLocationIcon()
+        {
+            return new GreenLinkLocationSprite(hudSpriteSheet);
+        }
+        public ISprite CreateWinLocationIcon()
         {
             return new GreenLinkLocationSprite(hudSpriteSheet);
         }

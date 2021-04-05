@@ -16,6 +16,7 @@ namespace Sprintfinity3902.Interfaces
         List<IDoor> doors { get; set; }
 
         public Point RoomPos { get; set; }
+        public int RoomType { get; set; }
 
 
         List<IEntity> enemyProj { get; set; }

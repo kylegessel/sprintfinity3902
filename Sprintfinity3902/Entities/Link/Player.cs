@@ -16,11 +16,6 @@ namespace Sprintfinity3902.Link
     {
         /*MAGIC NUMBERS REFACTOR*/
         private static int FIFTEEN = 15;
-        private static int TWO_HUNDRED_TWENTY_FOUR  =  224;
-        private static int THIRTY_TWO = 32;
-        private static int ONE_HUNDRED_NINETY_FOUR = 194;
-        private static int NINETY_SIX = 96;
-        private static float F_ONE_DOT_FIVE = 1.5f;
         private static int FOURTEEN = 14;
         private static int THIRTEEN = 13;
         private static int ONE_HUNDRED_TWENTY = 120;
@@ -34,6 +29,7 @@ namespace Sprintfinity3902.Link
         private Boolean _collidable;
         private string lowHealthInstanceID;
         private double _deathSpinCount;
+        private LinkMovementManager movementManager;
 
         public IPlayerState CurrentState {
             get {
@@ -85,6 +81,7 @@ namespace Sprintfinity3902.Link
             facingLeftItem = new FacingLeftItemState(this);
             facingRightItem = new FacingRightItemState(this);
             facingUpItem = new FacingUpItemState(this);
+            movementManager = new LinkMovementManager(this);
             color = Color.White;
             _collidable = true;
             SetStepSize(1);
@@ -116,9 +113,7 @@ namespace Sprintfinity3902.Link
 
         public void SetState(IPlayerState state) {
             if (state.Equals(CurrentState)) return;
-            //Vector2 pos = Position;
             CurrentState = state;
-            //Position = pos;
         }
 
         public override void Move() {
@@ -172,55 +167,17 @@ namespace Sprintfinity3902.Link
 
             if (_bouncingOfEnemy)
             {
-                MoveLink();
+                movementManager.MoveLink(_side);
                 _bouncingOfEnemyCount++;
             }
             if (_bouncingOfEnemyCount > FIFTEEN)
             {
-                StopMoving();
+                _bouncingOfEnemy = false;
+                _bouncingOfEnemyCount = 0;
             }
             //return new Rectangle(0,0,0,0);
         }
 
-        public void StopMoving()
-        {
-            _bouncingOfEnemy = false;
-            _bouncingOfEnemyCount = 0;
-            //resume animation
-            //allow move commands to start again
-        }
-
-        //Will probably need to insert logic to prevent going through walls.
-        public void MoveLink()
-        {
-            int top = NINETY_SIX * Global.Var.SCALE;
-            int bot = ONE_HUNDRED_NINETY_FOUR * Global.Var.SCALE;
-            int left = THIRTY_TWO * Global.Var.SCALE;
-            int right = TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE;
-            //If you change the scaler to something larger than 1 Link can get pushed back through walls. 
-            //start moving
-            if (_side == ICollision.CollisionSide.BOTTOM)
-            {
-                //Will want this to be an animation. So slower!
-                this.Y += F_ONE_DOT_FIVE * Global.Var.SCALE;
-                if (this.Y > bot) this.Y = bot;
-            }
-            else if (_side == ICollision.CollisionSide.LEFT)
-            {
-                this.X -= F_ONE_DOT_FIVE * Global.Var.SCALE;
-                if (this.X < left) this.X = left;
-            }
-            else if (_side == ICollision.CollisionSide.TOP)
-            {
-                this.Y -= F_ONE_DOT_FIVE * Global.Var.SCALE;
-                if (this.Y < top) this.Y = top;
-            }
-            else
-            {
-                this.X += F_ONE_DOT_FIVE * Global.Var.SCALE;
-                if (this.X > right) this.X = right;
-            }
-        }
         public override Rectangle GetBoundingRect()
         {
             //Choose a consistent hitbox for link so that his sword is never counted as a hurtbox.

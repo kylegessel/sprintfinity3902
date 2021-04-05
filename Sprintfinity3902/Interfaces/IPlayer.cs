@@ -35,8 +35,6 @@ namespace Sprintfinity3902.Interfaces
 
 
         /*These methods are only used when link is not invinsible (damaged state)*/
-        void MoveLink();
-        void StopMoving();
         void TakeDamage();
         void BounceOfEnemy(ICollision.CollisionSide Side);
         void StopLowHealth();

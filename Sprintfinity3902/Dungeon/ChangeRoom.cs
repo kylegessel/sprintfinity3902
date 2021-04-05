@@ -29,6 +29,12 @@ namespace Sprintfinity3902.Dungeon
         private const int ROOM_WIDTH = 256;
         private const int ROOM_HEIGHT = 176;
         private const int SHIFT_AMOUNT = 2;
+        private const int LINK_VERTICAL_DOOR_X = 120;
+        private const int LINK_HORIZONTAL_DOOR_Y = 144;
+        private const int LINK_UP_Y = 99;
+        private const int LINK_DOWN_Y = 193;
+        private const int LINK_LEFT_X = 35;
+        private const int LINK_RIGHT_X = 208;
         public ChangeRoom(Game1 game)
         {
             Game = game;
@@ -219,25 +225,24 @@ namespace Sprintfinity3902.Dungeon
         }
         public void SetLinkPositionUp()
         {
-            // 112 * Global.Var.SCALE, 64 * Global.Var.SCALE
-            Link.X = 120 * Global.Var.SCALE;
-            Link.Y = (64 + 35) * Global.Var.SCALE;
+            Link.X = LINK_VERTICAL_DOOR_X * Global.Var.SCALE;
+            Link.Y = LINK_UP_Y * Global.Var.SCALE;
         }
 
         public void SetLinkPositionDown()
         {
-            Link.X = 120 * Global.Var.SCALE;
-            Link.Y = 193 * Global.Var.SCALE;
+            Link.X = LINK_VERTICAL_DOOR_X * Global.Var.SCALE;
+            Link.Y = LINK_DOWN_Y * Global.Var.SCALE;
         }
         public void SetLinkPositionLeft()
         {
-            Link.X = 35 * Global.Var.SCALE;
-            Link.Y = (136 + 8) * Global.Var.SCALE;
+            Link.X = LINK_LEFT_X * Global.Var.SCALE;
+            Link.Y = LINK_HORIZONTAL_DOOR_Y * Global.Var.SCALE;
         }
         public void SetLinkPositionRight()
         {
-            Link.X = (224 - 16) * Global.Var.SCALE;
-            Link.Y = (136 + 8) * Global.Var.SCALE;
+            Link.X = LINK_RIGHT_X * Global.Var.SCALE;
+            Link.Y = LINK_HORIZONTAL_DOOR_Y * Global.Var.SCALE;
         }
     }
 }

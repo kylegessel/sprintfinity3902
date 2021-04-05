@@ -102,19 +102,6 @@ namespace Sprintfinity3902.Link
             }
         }
 
-        /*TODO: Move to Game1 class - and keep comment below*/
-        /*Don't move from Game1 class*/
-        public void Initialize() {
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(game.playerCharacter), Keys.W, Keys.Up);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(game.playerCharacter), Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(game.playerCharacter), Keys.S, Keys.Down);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(game.playerCharacter), Keys.D, Keys.Right);
-
-            KeyboardManager.Instance.RegisterKeyUpCallback(() => {
-                CurrentState.Sprite.Animation.Stop();
-            }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
-        }
-
         public void Pickup(IItem item) {
 
 
@@ -125,10 +112,6 @@ namespace Sprintfinity3902.Link
             {
                 game.SetState(game.WIN);
             }
-        }
-
-        public bool IsCurrentState(IPlayerState state) {
-            return state.Equals(CurrentState);
         }
 
         public void SetState(IPlayerState state) {

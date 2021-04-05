@@ -39,6 +39,5 @@ namespace Sprintfinity3902.Interfaces
         void StopMoving();
         void TakeDamage();
         void BounceOfEnemy(ICollision.CollisionSide Side);
-        void Initialize();
     }
 }

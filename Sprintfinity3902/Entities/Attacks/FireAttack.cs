@@ -90,12 +90,15 @@ namespace Sprintfinity3902.Entities
         public bool Collide(int enemyID, IEnemy enemy, IRoom room)
         {
             // This will never collide with an enemy, so we'll just return false.
+            Position = new Vector2(-1000, -1000);
+            StopMoving();
             return false;
         }
 
         public void Collide(IRoom room)
         {
             Position = new Vector2(-1000, -1000);
+            StopMoving();
         }
     }
 }

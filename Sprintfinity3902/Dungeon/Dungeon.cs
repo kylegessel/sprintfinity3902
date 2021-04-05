@@ -12,6 +12,7 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.States.Door;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Sprintfinity3902.Dungeon
@@ -109,6 +110,18 @@ namespace Sprintfinity3902.Dungeon
                     entity.Update(gameTime);
                 }
                 bombItem.Update(gameTime);
+            }
+
+            if(!CurrentRoom.roomCleared && CurrentRoom.enemies.Keys.Count == 0)
+            {
+                foreach(IDoor door in CurrentRoom.doors)
+                {
+                    if(!door.CurrentState.IsOpen && !door.CurrentState.IsBombable && !door.CurrentState.IsLocked)
+                    {
+                        door.Open();
+                    }
+                }
+                CurrentRoom.roomCleared = true;
             }
             /*Something like this should never go in update... not trying to be mean,
              but this blatently does not belong here. If you have a question about it 

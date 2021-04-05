@@ -16,6 +16,7 @@ namespace Sprintfinity3902.Interfaces
         List<IDoor> doors { get; set; }
 
         List<IEntity> enemyProj { get; set; }
+        public bool roomCleared { get; set; }
 
         public bool Pause { get; set; }
         public float startY { get; set; }

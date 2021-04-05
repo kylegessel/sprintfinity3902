@@ -19,6 +19,7 @@ namespace Sprintfinity3902.Dungeon
         public List<IEntity> enemyProj { get; set; }
         public List<IEntity> garbage { get; set; }
         public List<IDoor> doors { get; set; }
+        public bool roomCleared { get; set; }
         //projectiles may have to be added here later.
 
         public string path { get; set; }
@@ -37,7 +38,7 @@ namespace Sprintfinity3902.Dungeon
             path = fileLocation;
             Id = id;
             Pause = false;
-
+            roomCleared = false;
         }
 
         public void Update(GameTime gameTime)
@@ -54,8 +55,6 @@ namespace Sprintfinity3902.Dungeon
 
             foreach (IEntity entity in garbage)
                 entity.Update(gameTime);
-
-
             foreach (IDoor door in doors)
                 door.Update(gameTime);
         }

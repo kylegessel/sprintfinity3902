@@ -142,7 +142,7 @@ namespace Sprintfinity3902.Link
         }
 
         public override void Update(GameTime gameTime) {
-            CurrentState.Sprite.Update(gameTime);  //can this pass out size?
+            CurrentState.Sprite.Update(gameTime); 
             CurrentState.Update();
 
             if (_deathSpinCount != 0.0) { 
@@ -175,7 +175,6 @@ namespace Sprintfinity3902.Link
                 _bouncingOfEnemy = false;
                 _bouncingOfEnemyCount = 0;
             }
-            //return new Rectangle(0,0,0,0);
         }
 
         public override Rectangle GetBoundingRect()
@@ -208,12 +207,6 @@ namespace Sprintfinity3902.Link
         {
             _side = Side;
             _bouncingOfEnemy = true;
-            /*
-             * May need to:
-             * Pause animation;
-             * Stop accepting move input keys for link
-             */
-
         }
         public void RemoveDecorator()
         {

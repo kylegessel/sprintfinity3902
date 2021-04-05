@@ -38,6 +38,8 @@ namespace Sprintfinity3902.HudMenu
                 UpdateItems();
                 Link.itemPickedUp = false;
             }
+
+
         }
 
         public override void Initialize()

@@ -12,6 +12,9 @@ namespace Sprintfinity3902.Interfaces
             LOSE,
             RETURN
         }
+        public IEntity bowArrow { get; set; }
+        public IEntity bombItem { get; set; }
+        public IEntity boomerangItem { get; set; }
 
         public IRoom CurrentRoom { get; set; }
         void Update(GameTime gameTime);

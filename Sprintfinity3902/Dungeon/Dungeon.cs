@@ -25,13 +25,14 @@ namespace Sprintfinity3902.Dungeon
 
         private Game1 Game;
         private List<IRoom> dungeonRooms;
-        public IEntity boomerangItem;
-        public IEntity bombItem;
         private IEntity movingSword;
-        public IEntity bowArrow;
         public IEntity bombExplosion;
         public IEntity hitboxSword;
         public IRoom CurrentRoom { get; set; }
+        public IEntity bowArrow { get; set; }
+        public IEntity bombItem { get; set; }
+        public IEntity boomerangItem { get; set; }
+
 
         private string backgroundMusicInstanceID;
 
@@ -74,9 +75,10 @@ namespace Sprintfinity3902.Dungeon
             KeyboardManager.Instance.RegisterKeyUpCallback(NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(PreviousRoom, Keys.K);
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Game.playerCharacter, (BombItem)bombItem), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Game.playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
-            KeyboardManager.Instance.RegisterCommand(new UseBowCommand((Player)Game.playerCharacter, (ArrowItem)bowArrow), Keys.D3);
+            //KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Game.playerCharacter, (BombItem)bombItem), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseSelectedItemCommand((Player)Game.playerCharacter, this), Keys.D1);
+            //KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Game.playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
+            //KeyboardManager.Instance.RegisterCommand(new UseBowCommand((Player)Game.playerCharacter, (ArrowItem)bowArrow), Keys.D3);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
@@ -136,38 +138,12 @@ namespace Sprintfinity3902.Dungeon
         {
             CurrentRoom.garbage.Clear();
             CurrentRoom = GetById(id);
-            /*Asked to comment following line to fix bug @Brad thank you*/
-            //SetLinkPosition();
         }
         public void ChangeRoom(IDoor door)
         {
             SetLinkPosition(door.CurrentState.doorDirection);
             SetCurrentRoom(door.DoorDestination);
         }
-        /*
-        public void SetLinkPositionUp()
-        {
-            // 112 * Global.Var.SCALE, 64 * Global.Var.SCALE
-            Game.link.X = 120 * Global.Var.SCALE;
-            Game.link.Y = (64 + 35) * Global.Var.SCALE;
-        }
-
-        public void SetLinkPositionDown()
-        {
-            Game.link.X = 120 * Global.Var.SCALE;
-            Game.link.Y = 193 * Global.Var.SCALE;
-        }
-        public void SetLinkPositionLeft()
-        {
-            Game.link.X = 35 * Global.Var.SCALE;
-            Game.link.Y = (136 + 8) * Global.Var.SCALE;
-        }
-        public void SetLinkPositionRight()
-        {
-            Game.link.X = (224 - 16) * Global.Var.SCALE;
-            Game.link.Y = (136+8) * Global.Var.SCALE;
-        }
-        */
         
         public void SetLinkPosition(DoorDirection door = DoorDirection.UP)
         {

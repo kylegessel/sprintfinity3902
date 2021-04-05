@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 using Sprintfinity3902.Dungeon;
 
 namespace Sprintfinity3902.Interfaces
@@ -13,7 +14,7 @@ namespace Sprintfinity3902.Interfaces
             LOSE,
             RETURN
         }
-
+        public List<Point> RoomLocations { get; set; }
         public IRoom CurrentRoom { get; set; }
         public int NextId { get; set; }
         public ChangeRoom changeRoom { get; set; }

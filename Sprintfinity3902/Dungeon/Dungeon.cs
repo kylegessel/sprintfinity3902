@@ -26,6 +26,7 @@ namespace Sprintfinity3902.Dungeon
 
         private Game1 Game;
         private List<IRoom> dungeonRooms;
+        public List<Point> RoomLocations { get; set; }
         public ChangeRoom changeRoom { get; set; }
         public int NextId { get; set; }
         public IEntity boomerangItem;
@@ -54,6 +55,7 @@ namespace Sprintfinity3902.Dungeon
             changeRoom = new ChangeRoom(game);
 
             dungeonRooms = new List<IRoom>();
+            RoomLocations = new List<Point>();
 
             for (int roomNum = 1; roomNum <= 18; roomNum++)
             {
@@ -92,6 +94,10 @@ namespace Sprintfinity3902.Dungeon
             {
                 rload.Initialize(room);
                 rload.Build();
+                if (room.Id != 13)
+                { 
+                    RoomLocations.Add(room.RoomPos);
+                }
             }
         }
 

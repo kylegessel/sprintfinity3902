@@ -8,6 +8,11 @@ namespace Sprintfinity3902.Dungeon
     public class Room : IRoom
     {
         /*MAGIC NUMBERS REFACTOR*/
+        private static int ONE_HUNDRED_SEVENTY_SIX = 176;
+        private static int TWO = 2;
+        private static int INITIAL_ROOM_TYPE = 1;
+        private static int INITIAL_ROOM_X = 2;
+        private static int INITIAL_ROOM_Y = 7;
         private static int PAUSE_COUNT = 176;
         private static int SHIFT_AMOUNT = 2;
 
@@ -19,6 +24,8 @@ namespace Sprintfinity3902.Dungeon
         public List<IEntity> enemyProj { get; set; }
         public List<IEntity> garbage { get; set; }
         public List<IDoor> doors { get; set; }
+        public Point RoomPos { get; set; }
+        public int RoomType { get; set; }
         public bool roomCleared { get; set; }
         //projectiles may have to be added here later.
 
@@ -35,6 +42,8 @@ namespace Sprintfinity3902.Dungeon
             garbage = new List<IEntity>();
             enemyProj = new List<IEntity>();
             doors = new List<IDoor>();
+            RoomPos = new Point(INITIAL_ROOM_X, INITIAL_ROOM_Y);
+            RoomType = INITIAL_ROOM_TYPE;
             path = fileLocation;
             Id = id;
             Pause = false;

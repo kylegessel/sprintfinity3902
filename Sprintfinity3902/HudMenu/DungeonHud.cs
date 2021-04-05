@@ -48,7 +48,33 @@ namespace Sprintfinity3902.HudMenu
 
         public override void Update(GameTime gameTime)
         {
+            if (!MapPickup && Link.itemcount[IItem.ITEMS.MAP] > 0)
+            {
+                CreateInitialHudDungeon();
+            }
+            if (CurrentRoom.Id != Dungeon.CurrentRoom.Id)
+            {
+                UpdateHudRooms();
+                UpdateHudLinkLoc();
+                CurrentRoom = Dungeon.CurrentRoom;
+            }
+        }
 
+        public void CreateInitialHudDungeon()
+        {
+            int x = (Dungeon.CurrentRoom.RoomPos.X * BLOCK_SIZE + 2) * Global.Var.SCALE;
+            int y = (Dungeon.CurrentRoom.RoomPos.Y * BLOCK_SIZE + 2) * Global.Var.SCALE;
+            LinkBlock = new YellowLinkBlock(new Vector2(x + DUNGEON_INSIDE_MAP_X, y + DUNGEON_INSIDE_MAP_Y));
+            foreach (IEntity room in Map)
+            {
+                Icons.Add(room);
+            }
+            Icons.Add(LinkBlock);
+            MapPickup = true;
+        }
+
+        public void UpdateHudRooms()
+        {
             /*Add every room Link is in into the Map List*/
             if (!AlreadyInMap.Contains(Dungeon.CurrentRoom.Id))
             {
@@ -57,22 +83,10 @@ namespace Sprintfinity3902.HudMenu
                 /*If map has already been picked up, add to Icons as well*/
                 if (MapPickup) Icons.Add(GetNewRoom(Dungeon.CurrentRoom));
             }
-
-            /*This will build the initial map using the rooms Link has already been in when map is picked up*/
-            if (!MapPickup && Link.itemcount[IItem.ITEMS.MAP] > 0) 
-            {
-                int x = ((Dungeon.CurrentRoom.RoomPos.X -1) * BLOCK_SIZE + 2) * Global.Var.SCALE;
-                int y = ((Dungeon.CurrentRoom.RoomPos.Y) * BLOCK_SIZE + 2) * Global.Var.SCALE;
-                LinkBlock = new YellowLinkBlock(new Vector2( x + DUNGEON_INSIDE_MAP_X, y + DUNGEON_INSIDE_MAP_Y));
-                foreach (IEntity room in Map)
-                {
-                    Icons.Add(room);
-                }
-                Icons.Add(LinkBlock);
-                MapPickup = true;
-            }
-
-            if (MapPickup && (CurrentRoom.Id != Dungeon.CurrentRoom.Id) )
+        }
+        public void UpdateHudLinkLoc()
+        {
+            if (MapPickup)
             {
                 Icons.Remove(LinkBlock);
                 int deltaX = (Dungeon.CurrentRoom.RoomPos.X - CurrentRoom.RoomPos.X) * BLOCK_SIZE * Global.Var.SCALE;
@@ -86,7 +100,6 @@ namespace Sprintfinity3902.HudMenu
                     LinkBlock.Y += deltaY;
                 }
                 Icons.Add(LinkBlock);
-                CurrentRoom = Dungeon.CurrentRoom;
             }
         }
 

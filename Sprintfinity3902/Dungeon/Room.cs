@@ -10,6 +10,9 @@ namespace Sprintfinity3902.Dungeon
         /*MAGIC NUMBERS REFACTOR*/
         private static int ONE_HUNDRED_SEVENTY_SIX = 176;
         private static int TWO = 2;
+        private static int INITIAL_ROOM_TYPE = 1;
+        private static int INITIAL_ROOM_X = 2;
+        private static int INITIAL_ROOM_Y = 7;
 
         public int Id { get; set; }
         //public List<IEntity> roomEntities { get; set; }
@@ -36,8 +39,8 @@ namespace Sprintfinity3902.Dungeon
             garbage = new List<IEntity>();
             enemyProj = new List<IEntity>();
             doors = new List<IDoor>();
-            RoomPos = new Point(2,7);
-            RoomType = 0;
+            RoomPos = new Point(INITIAL_ROOM_X, INITIAL_ROOM_Y);
+            RoomType = INITIAL_ROOM_TYPE;
             path = fileLocation;
             Id = id;
             Pause = false;

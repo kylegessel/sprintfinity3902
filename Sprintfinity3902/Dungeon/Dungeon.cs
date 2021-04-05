@@ -161,11 +161,11 @@ namespace Sprintfinity3902.Dungeon
 
         public void SetCurrentRoom(int id)
         {
-            CurrentRoom.garbage.Clear();
             CurrentRoom = GetById(id);
         }
         public void ChangeRoom(IDoor door)
         {
+            CurrentRoom.garbage.Clear();
             changeRoom.StartAnimation(door.DoorDestination, door.CurrentState.doorDirection);
         }
 

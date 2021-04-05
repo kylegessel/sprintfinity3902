@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
+using System.Collections.Generic;
 
 namespace Sprintfinity3902.HudMenu
 {
@@ -38,6 +39,13 @@ namespace Sprintfinity3902.HudMenu
         private const int INSIDE_MAP_X = 16;
         private const int INSIDE_MAP_Y = 16;
 
+        //DUNGEON MAP HUD CONSTANTS
+        private const int DUNGEON_HUD_X = 0;
+        private const int DUNGEON_HUD_Y = -88;
+        private const int DUNGEON_COLUMN = 8;
+        private const int DUNGEON_ROW = 8;
+        private const int DUNGEON_INSIDE_MAP_X = 128;
+        private const int DUNGEON_INSIDE_MAP_Y = -80;
 
         public HudInitializer(IHud hud)
         {
@@ -94,7 +102,7 @@ namespace Sprintfinity3902.HudMenu
             Hud.Icons.Add(new SwordIcon(new Vector2(A_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
         }
 
-        public void InitializeMiniMap()
+        public void InitializeMiniMap(List<Point> roomLocations, List<IEntity> map)
         {
             Hud.Icons.Add(new MiniMapEntity(new Vector2(MINIMAP_HUD_X * Global.Var.SCALE, MINIMAP_HUD_Y * Global.Var.SCALE)));
             Hud.Icons.Add(new Number1(new Vector2(LEVEL_NUM_X * Global.Var.SCALE, LEVEL_NUM_Y * Global.Var.SCALE)));
@@ -106,6 +114,30 @@ namespace Sprintfinity3902.HudMenu
                 for (j = 0; j < MINIMAP_ROW; j++)
                 {
                     Hud.Icons.Add(new BlackSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    x = x + HUD_SQUARE_WIDTH;
+                }
+                y = y + HUD_SQUARE_WIDTH;
+            }
+
+            foreach (Point location in roomLocations)
+            {
+                x = location.X * 8 + INSIDE_MAP_X;
+                y = location.Y * 4 + INSIDE_MAP_Y;
+                map.Add(new MiniRoomIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+            }
+        }
+
+        public void InitializeDungeonHud(List<Point> roomLocations)
+        {
+            Hud.Icons.Add(new DungeonHudEntity(new Vector2(DUNGEON_HUD_X * Global.Var.SCALE, DUNGEON_HUD_Y * Global.Var.SCALE)));
+            
+            y = DUNGEON_INSIDE_MAP_Y;
+            for (i = 0; i < DUNGEON_COLUMN; i++)
+            {
+                x = DUNGEON_INSIDE_MAP_X;
+                for (j = 0; j < DUNGEON_ROW; j++)
+                {
+                    Hud.Icons.Add(new OrangeSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     x = x + HUD_SQUARE_WIDTH;
                 }
                 y = y + HUD_SQUARE_WIDTH;

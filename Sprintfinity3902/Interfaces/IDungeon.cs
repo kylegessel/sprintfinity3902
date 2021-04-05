@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Sprintfinity3902.Interfaces
 {
@@ -12,7 +13,7 @@ namespace Sprintfinity3902.Interfaces
             LOSE,
             RETURN
         }
-
+        public List<Point> RoomLocations { get; set; }
         public IRoom CurrentRoom { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);

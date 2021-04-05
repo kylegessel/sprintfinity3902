@@ -62,7 +62,7 @@ namespace Sprintfinity3902.Dungeon
                 dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
             }
 
-            CurrentRoom = GetById(1);
+            CurrentRoom = GetById(2);
             Game = game;
 
             linkProj = new List<IEntity>();

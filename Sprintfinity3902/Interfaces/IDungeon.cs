@@ -14,6 +14,7 @@ namespace Sprintfinity3902.Interfaces
             RETURN
         }
         public List<Point> RoomLocations { get; set; }
+        public Point WinLocation { get; set; }
         public IRoom CurrentRoom { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);

@@ -53,6 +53,8 @@ namespace Sprintfinity3902.Dungeon
             dungeonRooms = new List<IRoom>();
             RoomLocations = new List<Point>();
 
+            WinLocation = new Point();
+
             for (int roomNum = 1; roomNum <= 18; roomNum++) {
                 dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
             }
@@ -92,6 +94,11 @@ namespace Sprintfinity3902.Dungeon
                 if (room.Id != 13)
                 { 
                     RoomLocations.Add(room.RoomPos);
+                }
+
+                if (room.WinRoom)
+                {
+                    WinLocation = room.RoomPos;
                 }
             }
         }

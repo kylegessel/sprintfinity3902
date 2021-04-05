@@ -460,6 +460,7 @@ namespace Sprintfinity3902.Dungeon
                     triforce.X = triforce.Position.X + ELEVEN * Global.Var.SCALE;
                     triforce.Y = triforce.Position.Y + ELEVEN * Global.Var.SCALE;
                     Room.items.Add(triforce);
+                    Room.WinRoom = true;
                     break;
 
             }

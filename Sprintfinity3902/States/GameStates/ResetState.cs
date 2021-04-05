@@ -49,7 +49,7 @@ namespace Sprintfinity3902.States.GameStates
             Game.huds.Add(new DungeonHud(Game, Game.dungeon));
             Game.huds.Add(new InGameHud(Game));
             Game.huds.Add(new InventoryHud(Game));
-            Game.huds.Add(new MiniMapHud(Game, Game.dungeon.RoomLocations));
+            Game.huds.Add(new MiniMapHud(Game, Game.dungeon));
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);

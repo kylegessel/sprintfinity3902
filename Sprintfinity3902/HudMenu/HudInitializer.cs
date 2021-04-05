@@ -38,6 +38,8 @@ namespace Sprintfinity3902.HudMenu
         private const int MINIMAP_ROW = 8;
         private const int INSIDE_MAP_X = 16;
         private const int INSIDE_MAP_Y = 16;
+        private const int ROOM_WIDTH = 8;
+        private const int ROOM_HEIGHT = 4;
 
         //DUNGEON MAP HUD CONSTANTS
         private const int DUNGEON_HUD_X = 0;
@@ -121,8 +123,8 @@ namespace Sprintfinity3902.HudMenu
 
             foreach (Point location in roomLocations)
             {
-                x = location.X * 8 + INSIDE_MAP_X;
-                y = location.Y * 4 + INSIDE_MAP_Y;
+                x = location.X * ROOM_WIDTH + INSIDE_MAP_X;
+                y = location.Y * ROOM_HEIGHT + INSIDE_MAP_Y;
                 map.Add(new MiniRoomIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
             }
         }

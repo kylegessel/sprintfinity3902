@@ -17,12 +17,13 @@ namespace Sprintfinity3902.Commands
         {
             PlayerCharacter = player;
             Dungeon = dungeon;
-            CurrentWeapon = PlayerCharacter.SelectedWeapon;
         }
 
         public void Execute()
         {
-            if(CurrentWeapon == IPlayer.SelectableWeapons.BOMB)
+            CurrentWeapon = PlayerCharacter.SelectedWeapon;
+
+            if (CurrentWeapon == IPlayer.SelectableWeapons.BOMB)
             {
                 CurrentItemCommand = new UseBombCommand(PlayerCharacter, (BombItem)Dungeon.bombItem);
             }

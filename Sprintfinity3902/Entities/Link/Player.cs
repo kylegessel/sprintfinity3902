@@ -243,7 +243,7 @@ namespace Sprintfinity3902.Link
             }
 
             if (LinkHealth <= 2) {
-                playLowHealth();
+                PlayLowHealth();
             }
         }
 
@@ -267,11 +267,11 @@ namespace Sprintfinity3902.Link
         {
             return _collidable;
         }
-        private void playLowHealth()
+        private void PlayLowHealth()
         {
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Play();
         }
-        private void stopLowHealth()
+        public void StopLowHealth()
         {
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
         }

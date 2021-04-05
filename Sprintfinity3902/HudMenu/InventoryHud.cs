@@ -84,9 +84,9 @@ namespace Sprintfinity3902.HudMenu
             };
             /*Add weapons to the inventory screen by doing this or calling method below,
              make sure to add these to the static dictionary above also*/
-            availableItems.Add(IPlayer.SelectableWeapons.BOMB);
-            availableItems.Add(IPlayer.SelectableWeapons.BOOMERANG);
-            availableItems.Add(IPlayer.SelectableWeapons.BOW);
+            //availableItems.Add(IPlayer.SelectableWeapons.BOMB);
+            //availableItems.Add(IPlayer.SelectableWeapons.BOOMERANG);
+            //availableItems.Add(IPlayer.SelectableWeapons.BOW);
             MoveSelector();
             Initialize();
 
@@ -104,6 +104,8 @@ namespace Sprintfinity3902.HudMenu
             Link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
             MoveSelector();
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            Link.selectedItemChanged = true;
+
         }
 
         public void MoveSelectorLeft()
@@ -113,6 +115,8 @@ namespace Sprintfinity3902.HudMenu
             Link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
             MoveSelector();
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            Link.selectedItemChanged = true;
+
         }
 
         private void MoveSelector() {
@@ -125,6 +129,23 @@ namespace Sprintfinity3902.HudMenu
 
         public override void Update(GameTime gameTime)
         {
+            if(Link.itemcount[IItem.ITEMS.BOOMERANG] > 0 && !availableItems.Contains(IPlayer.SelectableWeapons.BOOMERANG))
+            {
+                availableItems.Add(IPlayer.SelectableWeapons.BOOMERANG);
+            }
+            if (Link.itemcount[IItem.ITEMS.BOW] > 0 && !availableItems.Contains(IPlayer.SelectableWeapons.BOW))
+            {
+                availableItems.Add(IPlayer.SelectableWeapons.BOW);
+            }
+            if (Link.itemcount[IItem.ITEMS.BOMB] > 0 && !availableItems.Contains(IPlayer.SelectableWeapons.BOMB))
+            {
+                availableItems.Add(IPlayer.SelectableWeapons.BOMB);
+            }
+            else if(Link.itemcount[IItem.ITEMS.BOMB] < 0 && availableItems.Contains(IPlayer.SelectableWeapons.BOMB))
+            {
+                availableItems.Remove(IPlayer.SelectableWeapons.BOMB);
+                Link.selectedItemChanged = true;
+            }
             itemSelectedIcon.Update(gameTime);
         }
 

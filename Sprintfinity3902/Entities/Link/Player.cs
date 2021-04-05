@@ -54,6 +54,8 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingUpItem { get; set; }
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
+        public bool selectedItemChanged { get; set; }
+
 
         public IPlayer.SelectableWeapons SelectedWeapon { get; set; }
 
@@ -89,6 +91,7 @@ namespace Sprintfinity3902.Link
             LinkHealth = MaxHealth;
             heartChanged = true;
             itemPickedUp = false;
+            selectedItemChanged = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
 
@@ -174,6 +177,10 @@ namespace Sprintfinity3902.Link
             {
                 _bouncingOfEnemy = false;
                 _bouncingOfEnemyCount = 0;
+            }
+            if(selectedItemChanged == true)
+            {
+                selectedItemChanged = false;
             }
         }
 

@@ -27,6 +27,7 @@ namespace Sprintfinity3902.Interfaces
         IPlayerState facingUpItem { get; set; }
         bool heartChanged { get; set; }
         bool itemPickedUp { get; set; }
+        bool selectedItemChanged { get; set; }
         int MaxHealth { get; set; }
         int LinkHealth { get; set; }
         Dictionary<IItem.ITEMS, int> itemcount { get; set; }

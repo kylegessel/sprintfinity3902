@@ -16,7 +16,7 @@ namespace Sprintfinity3902.Link
     {
         /*MAGIC NUMBERS REFACTOR*/
         private static int FIFTEEN = 15;
-        private static int TWO_HUNDRED_TWENTY_FOUR  =  224;
+        private static int TWO_HUNDRED_TWENTY_FOUR = 224;
         private static int THIRTY_TWO = 32;
         private static int ONE_HUNDRED_NINETY_FOUR = 194;
         private static int NINETY_SIX = 96;
@@ -26,6 +26,7 @@ namespace Sprintfinity3902.Link
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
         private static int INITIAL_HEALTH = 6;
+        private static int ONE_FULL_HEART = 2;
 
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
@@ -35,15 +36,7 @@ namespace Sprintfinity3902.Link
         private string lowHealthInstanceID;
         private double _deathSpinCount;
 
-        public IPlayerState CurrentState {
-            get {
-                return _currentState;
-            }
-            set {
-                _currentState = value;
-            }
-        }
-
+        public IPlayerState CurrentState { get; set; }
         public IPlayerState facingDown { get; set; }
         public IPlayerState facingLeft { get; set; }
         public IPlayerState facingRight { get; set; }
@@ -66,6 +59,8 @@ namespace Sprintfinity3902.Link
 
         public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
+        private bool isVisible;
+
         private Game1 game;
 
         public Player(Game1 _game)
@@ -73,6 +68,8 @@ namespace Sprintfinity3902.Link
             game = _game;
             Position = new Vector2(ONE_HUNDRED_TWENTY * Global.Var.SCALE, ONE_HUNDRED_NINETY_THREE * Global.Var.SCALE);
             CurrentState = new FacingDownState(this);
+            isVisible = true;
+            //Collidable = true;
             facingDown = CurrentState;
             facingLeft = new FacingLeftState(this);
             facingRight = new FacingRightState(this);
@@ -127,9 +124,16 @@ namespace Sprintfinity3902.Link
             }
         }
 
+        public void TogglePlayerVisible()
+        {
+            isVisible = !isVisible;
+        }
+
+        /*
         public bool IsCurrentState(IPlayerState state) {
             return state.Equals(CurrentState);
         }
+        */
 
         public void SetState(IPlayerState state) {
             if (state.Equals(CurrentState)) return;
@@ -167,7 +171,7 @@ namespace Sprintfinity3902.Link
             CurrentState.Sprite.Update(gameTime);  //can this pass out size?
             CurrentState.Update();
 
-            if (_deathSpinCount != 0.0) { 
+            if (_deathSpinCount != 0.0) {
                 _deathSpinCount += gameTime.ElapsedGameTime.TotalMilliseconds;
 
                 switch (((int)(_deathSpinCount / 100.0)) % 4) {
@@ -241,19 +245,20 @@ namespace Sprintfinity3902.Link
         public override Rectangle GetBoundingRect()
         {
             //Choose a consistent hitbox for link so that his sword is never counted as a hurtbox.
-            return new Rectangle((int)X+Global.Var.SCALE, (int)Y+Global.Var.SCALE, FOURTEEN * Global.Var.SCALE, THIRTEEN * Global.Var.SCALE);
+            return new Rectangle((int)X + Global.Var.SCALE, (int)Y + Global.Var.SCALE, FOURTEEN * Global.Var.SCALE, THIRTEEN * Global.Var.SCALE);
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
-            CurrentState.Sprite.Draw(spriteBatch, Position, color);
+            CurrentState.Sprite.Draw(spriteBatch, Position, isVisible ? color : Color.Transparent);
         }
         public void TakeDamage()
         {
             _collidable = false;
+            //Collidable = false;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             LinkHealth--;
             heartChanged = true;
-            
+
             if (LinkHealth <= 0) {
                 game.SetState(game.LOSE);
                 return;
@@ -278,11 +283,15 @@ namespace Sprintfinity3902.Link
         public void RemoveDecorator()
         {
             _collidable = true;
-            game.playerCharacter = this;
+            game.link = this;
         }
-        public override Boolean IsCollidable()
+        public override bool IsCollidable()
         {
             return _collidable;
+        }
+        public void ToggleCollidable()
+        {
+            _collidable = !_collidable;
         }
         private void playLowHealth()
         {
@@ -293,10 +302,16 @@ namespace Sprintfinity3902.Link
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
         }
 
-        public void DeathSpin(bool end)
+        public virtual void DeathSpin(bool end)
         {
             if (end) SetState(facingDown);
             _deathSpinCount = end ? 0.0 : 0.01;
+        }
+        public void ChangeRooms()
+        {
+            game.dungeon.SetCurrentRoom(1);
+            heartChanged = true;
+
         }
     }
 }

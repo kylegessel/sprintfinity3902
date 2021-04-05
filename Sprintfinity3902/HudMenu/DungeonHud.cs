@@ -44,6 +44,7 @@ namespace Sprintfinity3902.HudMenu
         public override void Initialize()
         {
             hudInitializer.InitializeDungeonHud(RoomLocations);
+            Map.Add(GetNewRoom(Dungeon.CurrentRoom));
         }
 
         public override void Update(GameTime gameTime)

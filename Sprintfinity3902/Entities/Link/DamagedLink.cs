@@ -125,7 +125,7 @@ namespace Sprintfinity3902.Link
         public void RemoveDecorator()
         {
             decoratedLink.RemoveDecorator();
-            game.link = decoratedLink;
+            //game.link = decoratedLink;
         }
         public void UseItem(IItem.ITEMS item)
         {

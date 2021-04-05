@@ -1,10 +1,10 @@
 RMEX,,,,,,,,,,,
 RMIN,,,,,,,,,,,
- , ,HAND,HAND, , , , , ,HAND,HAND, 
- ,BLOK, ,BLOK, ,BLOK,BLOK, ,BLOK, ,BLOK, 
  , , , , , , , , , , , 
-HAND,BLOK, ,BLOK, ,BLOK,BLOK, ,BLOK, ,BLOK, 
-HAND, , , , , , , , , , ,HAND
+ ,BLOK, ,BLOK, ,BLOK,BLOK, ,BLOK, ,BLOK,HAND
+ , , , , , , , , , , , 
+ ,BLOK, ,BLOK, ,BLOK,BLOK, ,BLOK, ,BLOK,HAND
+ , , , , , , , , , , ,HAND
  ,BLOK, ,BLOK, ,BLOK,BLOK, ,BLOK, ,BLOK,HAND
  , , , , , , , ,KEYI, , , 
 LDRT,15,,,,,,,,,,

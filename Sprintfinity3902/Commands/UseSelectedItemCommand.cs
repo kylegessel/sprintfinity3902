@@ -11,7 +11,6 @@ namespace Sprintfinity3902.Commands
         IPlayer PlayerCharacter;
         IDungeon Dungeon;
         ICommand CurrentItemCommand;
-        IPlayer.SelectableWeapons CurrentWeapon;
 
         public UseSelectedItemCommand(IPlayer player, IDungeon dungeon)
         {
@@ -21,17 +20,15 @@ namespace Sprintfinity3902.Commands
 
         public void Execute()
         {
-            CurrentWeapon = PlayerCharacter.SelectedWeapon;
-
-            if (CurrentWeapon == IPlayer.SelectableWeapons.BOMB)
+            if (PlayerCharacter.SelectedWeapon == IPlayer.SelectableWeapons.BOMB)
             {
                 CurrentItemCommand = new UseBombCommand(PlayerCharacter, (BombItem)Dungeon.bombItem);
             }
-            else if(CurrentWeapon == IPlayer.SelectableWeapons.BOOMERANG)
+            else if(PlayerCharacter.SelectedWeapon == IPlayer.SelectableWeapons.BOOMERANG)
             {
                 CurrentItemCommand = new UseBoomerangCommand(PlayerCharacter, (BoomerangItem)Dungeon.boomerangItem);
             }
-            else if(CurrentWeapon == IPlayer.SelectableWeapons.BOW)
+            else if(PlayerCharacter.SelectedWeapon == IPlayer.SelectableWeapons.BOW)
             {
                 CurrentItemCommand = new UseBowCommand(PlayerCharacter, (ArrowItem)Dungeon.bowArrow);
             }

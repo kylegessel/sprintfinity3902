@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Interfaces
             BOMB,
             BOOMERANG,
             BOW,
-            MAP
+            NONE
         }
         IPlayerState CurrentState { get; set; }
         IPlayerState facingDown { get; set; }

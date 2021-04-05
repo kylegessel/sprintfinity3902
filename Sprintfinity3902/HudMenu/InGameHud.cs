@@ -106,6 +106,7 @@ namespace Sprintfinity3902.HudMenu
             {
                 Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
             }
+            Link.selectedItemChanged = false;
         }
     }
 }

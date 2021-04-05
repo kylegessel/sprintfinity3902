@@ -178,10 +178,7 @@ namespace Sprintfinity3902.Link
                 _bouncingOfEnemy = false;
                 _bouncingOfEnemyCount = 0;
             }
-            if(selectedItemChanged == true)
-            {
-                selectedItemChanged = false;
-            }
+
         }
 
         public override Rectangle GetBoundingRect()

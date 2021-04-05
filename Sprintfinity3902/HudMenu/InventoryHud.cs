@@ -82,11 +82,6 @@ namespace Sprintfinity3902.HudMenu
                 /*Add necessary mappings here for ALL possible enum to icons*/
 
             };
-            /*Add weapons to the inventory screen by doing this or calling method below,
-             make sure to add these to the static dictionary above also*/
-            //availableItems.Add(IPlayer.SelectableWeapons.BOMB);
-            //availableItems.Add(IPlayer.SelectableWeapons.BOOMERANG);
-            //availableItems.Add(IPlayer.SelectableWeapons.BOW);
             MoveSelector();
             Initialize();
 
@@ -145,8 +140,14 @@ namespace Sprintfinity3902.HudMenu
             {
                 availableItems.Remove(IPlayer.SelectableWeapons.BOMB);
                 Link.selectedItemChanged = true;
+                EquipAnotherWeapon();
             }
             itemSelectedIcon.Update(gameTime);
+
+            if(availableItems.Count == 0)
+            {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
@@ -165,18 +166,19 @@ namespace Sprintfinity3902.HudMenu
                 popMatrix(usableItems);
             }
 
-            if (availableItems.Count > 0) {
+            if (availableItems.Count > 0 && itemSelectedIcon.X != 0) {
                 pushMatrix(itemSelectedIcon);
                 itemSelectedIcon.Draw(spriteBatch, Color.White);
                 popMatrix(itemSelectedIcon);
             }
 
-            
-            IEntity reference = createObjectByClassType(weaponEnumToEntity[Link.SelectedWeapon], new Vector2(270,195));
-            pushMatrix(reference);
-            reference.Draw(spriteBatch, Color.White);
-            popMatrix(reference);
-            
+            if(Link.SelectedWeapon != IPlayer.SelectableWeapons.NONE)
+            {
+                IEntity reference = createObjectByClassType(weaponEnumToEntity[Link.SelectedWeapon], new Vector2(270, 195));
+                pushMatrix(reference);
+                reference.Draw(spriteBatch, Color.White);
+                popMatrix(reference);
+            }        
 
             popMatrix(Icons.ToArray());
 
@@ -198,5 +200,20 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
+        private void EquipAnotherWeapon()
+        {
+            if (availableItems.Contains(IPlayer.SelectableWeapons.BOOMERANG))
+            {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.BOOMERANG;
+            }
+            else if (availableItems.Contains(IPlayer.SelectableWeapons.BOW))
+            {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.BOW;
+            }
+            else
+            {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+            }
+        }
     }
 }

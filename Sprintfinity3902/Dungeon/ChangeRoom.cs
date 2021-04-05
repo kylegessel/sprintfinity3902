@@ -140,17 +140,21 @@ namespace Sprintfinity3902.Dungeon
             {
                 case DoorDirection.UP:
                     // Set links position to the bottom of the next room.
+                    Game.dungeon.CurrentRoom.doors[1].Open();
                     SetLinkPositionDown();
                     break;
                 case DoorDirection.DOWN:
                     // Set links position to the top of the next room.
+                    Game.dungeon.CurrentRoom.doors[0].Open();
                     SetLinkPositionUp();
                     break;
                 case DoorDirection.LEFT:
+                    Game.dungeon.CurrentRoom.doors[3].Open();
                     // Set links position to the top of the next room.
                     SetLinkPositionRight();
                     break;
                 case DoorDirection.RIGHT:
+                    Game.dungeon.CurrentRoom.doors[2].Open();
                     // Set links position to the top of the next room.
                     SetLinkPositionLeft();
                     break;

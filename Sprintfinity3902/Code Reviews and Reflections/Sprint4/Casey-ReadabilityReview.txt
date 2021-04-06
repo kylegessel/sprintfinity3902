@@ -1,0 +1,45 @@
+﻿Reviewed by: Casey VanCauwenbergh
+Reviewed on: 4/5/21
+Sprint 4
+Reviewed Class: HudMenu/InventoryHud.cs
+File written by: Ben Hobson 
+Time Spent: 30 min
+Reviewing empahsis: Readability
+
+The first thing I noticed about this class is its length. It is nearly 200 
+lines. This imediatly makes it slightly difficult to read. A couple of my 
+suggestions will help decrease the overall size of this class.
+
+At the very begining of the InventoryHud class contains a private OrderedSet 
+class. To help the readability of the InventoryHud class, the OrderedSet class
+could be moved to its own file.
+
+Also, The initialize method can be used to our HudInitializer class. All of our
+other huds use this class to keep initialization logic out of the specific Huds
+class. Moving these two things our of the InventoryHud class will help decrease
+the class to close to 130 lines of code -- easier to read.
+
+Throughout this class there are magic numbers. If these numbers had descriptive
+names it would be much easier to read. The meaning of these nubmers would help
+the reader understand what these calls are doing. For example, the 
+initialization of iconMatrix uses multiple numbers that are not explained. In 
+the iconMatrix initialization the lines of code are 264 characters long. This 
+many things in one line of code can quickly become complicated and confusing to
+the reader.
+
+Finally, the naming convention for variables is not always consistent. This may
+be the result of multiple people touching this code, but should be made more 
+consistent. For example, if the variable ICON_MARGIN is all caps, the 
+blackTileSquareWidth should probably also be all caps. 
+
+Some things done well in this file to help make it readable is most variables
+have very descriptive names. It is easy to determine the purpose of each 
+variable.
+
+Furthermore, other than Draw, all of the methods in this class are relatively 
+short and have a single purpose. This makes it easy to follow what the goal of
+each method in this code is doing. 
+
+Overall, the InventoryHud was done pretty well. This class has a complex task
+which makes it difficult to write in a readable manner. While there are small
+changes that may help, nothing major needs to be changed in this class.

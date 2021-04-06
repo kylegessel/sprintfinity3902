@@ -15,6 +15,10 @@ namespace Sprintfinity3902.Interfaces
             RETURN
         }
         public List<Point> RoomLocations { get; set; }
+        public IEntity bowArrow { get; set; }
+        public IEntity bombItem { get; set; }
+        public IEntity boomerangItem { get; set; }
+
         public Point WinLocation { get; set; }
         public IRoom CurrentRoom { get; set; }
         public int NextId { get; set; }

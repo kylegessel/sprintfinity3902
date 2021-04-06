@@ -336,12 +336,9 @@ namespace Sprintfinity3902.Dungeon
                     IAttack up = new FireAttack(1);
                     IAttack center = new FireAttack(0);
                     IAttack down = new FireAttack(2);
-                    Room.enemies.Add(enemyID, up);
-                    enemyID++;
-                    Room.enemies.Add(enemyID, down);
-                    enemyID++;
-                    Room.enemies.Add(enemyID, center);
-                    enemyID++;
+                    Room.enemyProj.Add(up);
+                    Room.enemyProj.Add(down);
+                    Room.enemyProj.Add(center);
                     Room.enemies.Add(enemyID, new FinalBossEnemy(Position, up, center, down));
                     enemyID++;
                     break;
@@ -471,7 +468,7 @@ namespace Sprintfinity3902.Dungeon
             {
                 // DOORS
                 case "WALT":
-                    DoorTop.SetState(DoorBottom.wallTop);
+                    DoorTop.SetState(DoorTop.wallTop);
                     DoorTop.DoorDestination = Int16.Parse(destination);
                     break;
                 case "WALB":
@@ -479,11 +476,11 @@ namespace Sprintfinity3902.Dungeon
                     DoorBottom.DoorDestination = Int16.Parse(destination);
                     break;
                 case "WALL":
-                    DoorLeft.SetState(DoorBottom.wallLeft);
+                    DoorLeft.SetState(DoorLeft.wallLeft);
                     DoorLeft.DoorDestination = Int16.Parse(destination);
                     break;
                 case "WALR":
-                    DoorRight.SetState(DoorBottom.wallRight);
+                    DoorRight.SetState(DoorRight.wallRight);
                     DoorRight.DoorDestination = Int16.Parse(destination);
                     break;
                 case "ODRT":
@@ -491,11 +488,11 @@ namespace Sprintfinity3902.Dungeon
                     DoorTop.DoorDestination = Int16.Parse(destination);
                     break;
                 case "ODRB":
-                    DoorBottom.SetState(DoorTop.openDoorBottom);
+                    DoorBottom.SetState(DoorBottom.openDoorBottom);
                     DoorBottom.DoorDestination = Int16.Parse(destination);
                     break;
                 case "ODRL":
-                    DoorLeft.SetState(DoorTop.openDoorLeft);
+                    DoorLeft.SetState(DoorLeft.openDoorLeft);
                     DoorLeft.DoorDestination = Int16.Parse(destination);
                     break;
                 case "ODRR":
@@ -507,11 +504,11 @@ namespace Sprintfinity3902.Dungeon
                     DoorTop.DoorDestination = Int16.Parse(destination);
                     break;
                 case "CDRB":
-                    DoorBottom.SetState(DoorTop.closedDoorBottom);
+                    DoorBottom.SetState(DoorBottom.closedDoorBottom);
                     DoorBottom.DoorDestination = Int16.Parse(destination);
                     break;
                 case "CDRL":
-                    DoorLeft.SetState(DoorTop.closedDoorLeft);
+                    DoorLeft.SetState(DoorLeft.closedDoorLeft);
                     DoorLeft.DoorDestination = Int16.Parse(destination);
                     break;
                 case "CDRR":
@@ -523,11 +520,11 @@ namespace Sprintfinity3902.Dungeon
                     DoorTop.DoorDestination = Int16.Parse(destination);
                     break;
                 case "LDRB":
-                    DoorBottom.SetState(DoorTop.lockedDoorBottom);
+                    DoorBottom.SetState(DoorBottom.lockedDoorBottom);
                     DoorBottom.DoorDestination = Int16.Parse(destination);
                     break;
                 case "LDRL":
-                    DoorLeft.SetState(DoorTop.lockedDoorLeft);
+                    DoorLeft.SetState(DoorLeft.lockedDoorLeft);
                     DoorLeft.DoorDestination = Int16.Parse(destination);
                     break;
                 case "LDRR":
@@ -539,11 +536,11 @@ namespace Sprintfinity3902.Dungeon
                     DoorTop.DoorDestination = Int16.Parse(destination);
                     break;
                 case "HDRB":
-                    DoorBottom.SetState(DoorTop.holeDoorBottom);
+                    DoorBottom.SetState(DoorBottom.holeDoorBottom);
                     DoorBottom.DoorDestination = Int16.Parse(destination);
                     break;
                 case "HDRL":
-                    DoorLeft.SetState(DoorTop.holeDoorLeft);
+                    DoorLeft.SetState(DoorLeft.holeDoorLeft);
                     DoorLeft.DoorDestination = Int16.Parse(destination);
                     break;
                 case "HDRR":

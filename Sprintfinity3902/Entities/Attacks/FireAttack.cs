@@ -5,7 +5,7 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.Entities
 {
-    public class FireAttack : AbstractEntity, IAttack
+    public class FireAttack : AbstractEntity, IAttack, IProjectile
     {
 
         private static float F_DOT_SEVEN = .7f;
@@ -85,6 +85,20 @@ namespace Sprintfinity3902.Entities
         {
             // If any type of hit, delete the attack.
             return 0;
+        }
+
+        public bool Collide(int enemyID, IEnemy enemy, IRoom room)
+        {
+            // This will never collide with an enemy, so we'll just return false.
+            Position = new Vector2(-1000, -1000);
+            StopMoving();
+            return false;
+        }
+
+        public void Collide(IRoom room)
+        {
+            Position = new Vector2(-1000, -1000);
+            StopMoving();
         }
     }
 }

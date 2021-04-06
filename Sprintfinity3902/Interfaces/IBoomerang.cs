@@ -13,5 +13,7 @@ namespace Sprintfinity3902.Interfaces
         void Return();
         void UseItem(ILink player);
         void UseItem(GoriyaEnemy goriya); //Probably want this to be an IEnemy
+        public AbstractEntity.Direction FireDirection { get; set; }
+
     }
 }

@@ -20,17 +20,11 @@ namespace Sprintfinity3902.Dungeon
     public class Dungeon : IDungeon
     {
 
-        /*MAGIC NUMBERS REFACTOR*/
-        private static int FORTY_EIGHT = 48;
-        private static int NINETY_SEVEN = 97;
-
         private Game1 Game;
         private List<IRoom> dungeonRooms;
         public List<Point> RoomLocations { get; set; }
         public ChangeRoom changeRoom { get; set; }
         public int NextId { get; set; }
-        public IEntity boomerangItem;
-        public IEntity bombItem;
         private IEntity movingSword;
         public IEntity bombExplosion;
         public IEntity hitboxSword;
@@ -85,10 +79,7 @@ namespace Sprintfinity3902.Dungeon
             KeyboardManager.Instance.RegisterKeyUpCallback(NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(PreviousRoom, Keys.K);
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
-            //KeyboardManager.Instance.RegisterCommand(new UseBombCommand((Player)Game.playerCharacter, (BombItem)bombItem), Keys.D1);
             KeyboardManager.Instance.RegisterCommand(new UseSelectedItemCommand((Player)Game.playerCharacter, this), Keys.D1);
-            //KeyboardManager.Instance.RegisterCommand(new UseBoomerangCommand((Player)Game.playerCharacter, (BoomerangItem)boomerangItem), Keys.D2);
-            //KeyboardManager.Instance.RegisterCommand(new UseBowCommand((Player)Game.playerCharacter, (ArrowItem)bowArrow), Keys.D3);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
@@ -133,11 +124,6 @@ namespace Sprintfinity3902.Dungeon
                 }
                 CurrentRoom.roomCleared = true;
             }
-            /*Something like this should never go in update... not trying to be mean,
-             but this blatently does not belong here. If you have a question about it 
-            lmk... I have no idea who wrote this and it's not important. Glad we're 
-            learning together!*/
-            //SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Draw(SpriteBatch spriteBatch)

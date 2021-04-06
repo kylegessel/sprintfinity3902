@@ -141,6 +141,14 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new BowIconSprite(hudSpriteSheet);
         }
+        public ISprite CreateCompassIcon()
+        {
+            return new CompassIconSprite(hudSpriteSheet);
+        }
+        public ISprite CreateMapIcon()
+        {
+            return MapIconSprite(hudSpriteSheet);
+        }
 
         /*Add rooms for Dungeon Hud*/
         public ISprite CreateDoorRightRoom()

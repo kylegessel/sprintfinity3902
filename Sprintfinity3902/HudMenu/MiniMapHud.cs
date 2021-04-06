@@ -73,16 +73,22 @@ namespace Sprintfinity3902.HudMenu
         
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
+            pushMatrix(Icons.ToArray());
+            pushMatrix(WinLocation);
+            pushMatrix(LinkLocation);
             foreach (IEntity icon in Icons) {
                 icon.Draw(spriteBatch, color);
             }
-
+            
 
             LinkLocation.Draw(spriteBatch, color);
             if (CompassPickup)
             {
                 WinLocation.Draw(spriteBatch, color);
             }
+            popMatrix(LinkLocation);
+            popMatrix(WinLocation);
+            popMatrix(Icons.ToArray());
         }
 
         public void UpdateHudLinkLoc()

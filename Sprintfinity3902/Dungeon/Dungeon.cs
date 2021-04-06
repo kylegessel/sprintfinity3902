@@ -12,13 +12,14 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.States.Door;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Sprintfinity3902.Dungeon
 {
     public class Dungeon : IDungeon
     {
-        
+
         /*MAGIC NUMBERS REFACTOR*/
         private static int FORTY_EIGHT = 48;
         private static int NINETY_SEVEN = 97;
@@ -26,6 +27,8 @@ namespace Sprintfinity3902.Dungeon
         private Game1 Game;
         private List<IRoom> dungeonRooms;
         public List<Point> RoomLocations { get; set; }
+        public ChangeRoom changeRoom { get; set; }
+        public int NextId { get; set; }
         public Point WinLocation { get; set; }
         public IEntity boomerangItem;
         public IEntity bombItem;
@@ -50,6 +53,8 @@ namespace Sprintfinity3902.Dungeon
             hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
             bowArrow = new ArrowItem(new Vector2(-1000, -1000));
 
+            changeRoom = new ChangeRoom(game);
+
             dungeonRooms = new List<IRoom>();
             RoomLocations = new List<Point>();
 
@@ -59,7 +64,7 @@ namespace Sprintfinity3902.Dungeon
                 dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
             }
 
-            CurrentRoom = GetById(1);
+            CurrentRoom = GetById(2);
             Game = game;
 
             linkProj = new List<IEntity>();
@@ -87,7 +92,7 @@ namespace Sprintfinity3902.Dungeon
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
 
             IRoomLoader rload = new RoomLoader();
-            foreach(IRoom room in dungeonRooms)
+            foreach (IRoom room in dungeonRooms)
             {
                 rload.Initialize(room);
                 rload.Build();
@@ -105,22 +110,56 @@ namespace Sprintfinity3902.Dungeon
 
         public void Update(GameTime gameTime)
         {
-            CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage);
-            CurrentRoom.Update(gameTime);
-            foreach (IEntity entity in linkProj) {
-                entity.Update(gameTime);
+            if (changeRoom.Change)
+            {
+                changeRoom.Update(gameTime);
             }
-            bombItem.Update(gameTime);
+            else
+            {
+                CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage, (IProjectile)Game.bombExplosion);
+                CurrentRoom.Update(gameTime);
+                foreach (IEntity entity in linkProj)
+                {
+                    entity.Update(gameTime);
+                }
+                bombItem.Update(gameTime);
+            }
+
+            if(!CurrentRoom.roomCleared && CurrentRoom.enemies.Keys.Count == 0)
+            {
+                foreach(IDoor door in CurrentRoom.doors)
+                {
+                    if(!door.CurrentState.IsOpen && !door.CurrentState.IsBombable && !door.CurrentState.IsLocked)
+                    {
+                        door.Open();
+                    }
+                }
+                CurrentRoom.roomCleared = true;
+            }
+            /*Something like this should never go in update... not trying to be mean,
+             but this blatently does not belong here. If you have a question about it 
+            lmk... I have no idea who wrote this and it's not important. Glad we're 
+            learning together!*/
+            //SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            CurrentRoom.Draw(spriteBatch, Color.White);
-            foreach (IEntity entity in linkProj) {
-                entity.Draw(spriteBatch, Color.White);
+            if (changeRoom.Change)
+            {
+                changeRoom.Draw(spriteBatch);
             }
-            bombItem.Draw(spriteBatch, Color.White);
+            else
+            {
+                CurrentRoom.Draw(spriteBatch, Color.White);
+                foreach (IEntity entity in linkProj)
+                {
+                    entity.Draw(spriteBatch, Color.White);
+                }
+                bombItem.Draw(spriteBatch, Color.White);
+            }
         }
+
 
         public IRoom GetById(int id)
         {
@@ -148,73 +187,23 @@ namespace Sprintfinity3902.Dungeon
 
         public void SetCurrentRoom(int id)
         {
-            CurrentRoom.garbage.Clear();
             CurrentRoom = GetById(id);
-            /*Asked to comment following line to fix bug @Brad thank you*/
-            //SetLinkPosition();
         }
         public void ChangeRoom(IDoor door)
         {
-            SetLinkPosition(door.CurrentState.doorDirection);
-            SetCurrentRoom(door.DoorDestination);
-        }
-        /*
-        public void SetLinkPositionUp()
-        {
-            // 112 * Global.Var.SCALE, 64 * Global.Var.SCALE
-            Game.link.X = 120 * Global.Var.SCALE;
-            Game.link.Y = (64 + 35) * Global.Var.SCALE;
+            CurrentRoom.garbage.Clear();
+            changeRoom.StartAnimation(door.DoorDestination, door.CurrentState.doorDirection);
         }
 
-        public void SetLinkPositionDown()
+        public void SetLinkPosition()
         {
-            Game.link.X = 120 * Global.Var.SCALE;
-            Game.link.Y = 193 * Global.Var.SCALE;
+            Game.playerCharacter.X = 120 * Global.Var.SCALE;
+            Game.playerCharacter.Y = 193 * Global.Var.SCALE;
         }
-        public void SetLinkPositionLeft()
-        {
-            Game.link.X = 35 * Global.Var.SCALE;
-            Game.link.Y = (136 + 8) * Global.Var.SCALE;
-        }
-        public void SetLinkPositionRight()
-        {
-            Game.link.X = (224 - 16) * Global.Var.SCALE;
-            Game.link.Y = (136+8) * Global.Var.SCALE;
-        }
-        */
-        
-        public void SetLinkPosition(DoorDirection door = DoorDirection.UP)
-        {
-            if (CurrentRoom.Id == 13) {
-                Game.link.X = FORTY_EIGHT * Global.Var.SCALE;
-                Game.link.Y = NINETY_SEVEN * Global.Var.SCALE;
-                return;
-            }
-
-            switch (door) {
-                case DoorDirection.UP:
-                    Game.link.X = 120 * Global.Var.SCALE;
-                    Game.link.Y = 193 * Global.Var.SCALE;
-                    break;
-                case DoorDirection.DOWN:
-                    Game.link.X = 120 * Global.Var.SCALE;
-                    Game.link.Y = (64 + 35) * Global.Var.SCALE;
-                    break;
-                case DoorDirection.LEFT:
-                    Game.link.X = (224 - 16) * Global.Var.SCALE;
-                    Game.link.Y = (136 + 8) * Global.Var.SCALE;
-                    break;
-                case DoorDirection.RIGHT:
-                    Game.link.X = 35 * Global.Var.SCALE;
-                    Game.link.Y = (136 + 8) * Global.Var.SCALE;
-                    break;
-            }
-        }
-        
-
         public void UpdateState(IDungeon.GameState state)
         {
-            switch (state) {
+            switch (state)
+            {
                 case IDungeon.GameState.WIN:
                     KeyboardManager.Instance.PushCommandMatrix();
                     Game.playerCharacter.SetState(Game.playerCharacter.facingDown);

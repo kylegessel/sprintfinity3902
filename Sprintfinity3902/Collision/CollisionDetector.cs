@@ -5,6 +5,8 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using static Sprintfinity3902.Entities.AbstractEntity;
 
 namespace Sprintfinity3902.Collision
 {
@@ -53,32 +55,39 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> enemyProj, List<IDoor> doors, List<IEntity> garbage) {
+        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> enemyProj, List<IDoor> doors, List<IEntity> garbage, IProjectile bombExplosion) {
             DetectLinkDamage(enemies, enemyProj);
             DetectBlockCollision(enemies, blocks, linkProj, enemyProj);
             DetectEnemyDamage(enemies, linkProj, items, garbage);
             DetectItemPickup(items);
-            DetectDoorCollision(enemies, doors, linkProj, enemyProj);
+            DetectDoorCollision(enemies, doors, linkProj, enemyProj, bombExplosion);
         }
-        private void DetectDoorCollision(Dictionary<int, IEntity> enemies, List<IDoor> doors, List<IEntity> linkProj, List<IEntity> enemyProj)
+        private void DetectDoorCollision(Dictionary<int, IEntity> enemies, List<IDoor> doors, List<IEntity> linkProj, List<IEntity> enemyProj, IProjectile bombExplosion)
         {
             Rectangle linkRect = ((IEntity)link).GetBoundingRect();
             Boolean alreadyMoved = false;
-
             foreach (IDoor door in doors)
             {
                 Rectangle doorRect = door.GetBoundingRect();
-                if (doorRect.Intersects(linkRect))
-                {
-                    if (door.DoorDestination != -1)
+                if (!gameInstance.dungeon.changeRoom.Change) {
+                    if (doorRect.Intersects(linkRect))
                     {
-                        // Add more complex logic here.
-                        gameInstance.dungeon.ChangeRoom(door);
-                    }
-                    else
-                    {
-                        side = blockCollision.SideOfCollision(doorRect, linkRect);
-                        blockCollision.ReflectMovingEntity((IEntity)link, side);
+                        if (door.DoorDestination != -1 && door.CurrentState.IsOpen)
+                        {
+                            // Add more complex logic here.
+                            gameInstance.dungeon.ChangeRoom(door);
+                        }
+                        else if (door.CurrentState.IsLocked && link.itemcount[IItem.ITEMS.KEY] > 0)
+                        {
+                            door.Open();
+                            link.itemcount[IItem.ITEMS.KEY]--;
+                            link.itemPickedUp = true;
+                        }
+                        else
+                        {
+                            side = blockCollision.SideOfCollision(doorRect, linkRect);
+                            blockCollision.ReflectMovingEntity((IEntity)link, side);
+                        }
                     }
                 }
 
@@ -110,7 +119,10 @@ namespace Sprintfinity3902.Collision
                     if (doorRect.Intersects(proj.GetBoundingRect()))
                     {
                         ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
-
+                        if (proj.GetType().FullName == "Sprintfinity3902.Entities.Items.BombExplosionItem" && door.CurrentState.IsBombable && door.DoorDestination != -1)
+                        {
+                            door.Open();
+                        }
                     }
                 }
 
@@ -142,16 +154,30 @@ namespace Sprintfinity3902.Collision
                 {
                     //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
                     alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
-                        
                 }
             }
 
             foreach(IEntity proj in enemyProj)
             {
                 Rectangle enemyRect = proj.GetBoundingRect();
-                if ( ((IEntity)link).IsCollidable() && enemyRect.Intersects(linkRect) && alreadyMoved)
+                if ( ((IEntity)link).IsCollidable() && enemyRect.Intersects(linkRect) && !alreadyMoved)
                 {
-                    alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
+                    if (proj.GetType().FullName == "Sprintfinity3902.Entities.BoomerangItem")
+                    {
+                        IBoomerang boomerang = (BoomerangItem)proj;
+                        if ((boomerang.FireDirection.Equals(Direction.DOWN) && link.CurrentState.Equals(link.facingUp)) || (boomerang.FireDirection.Equals(Direction.UP) && link.CurrentState.Equals(link.facingDown)) || (boomerang.FireDirection.Equals(Direction.LEFT) && link.CurrentState.Equals(link.facingRight)) || (boomerang.FireDirection.Equals(Direction.RIGHT) && link.CurrentState.Equals(link.facingLeft))) {
+                            ProjectileCollisionHandler.ProjectileWallHit((IProjectile)proj, gameInstance.dungeon.CurrentRoom);
+                        }
+                        else
+                        {
+                            alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
+                        }
+                    }
+                    else
+                    {
+                        alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
+                    }
+
                 }
             }
         }
@@ -165,9 +191,8 @@ namespace Sprintfinity3902.Collision
             foreach (AbstractBlock block in blocks)
             {
                 Rectangle blockRect = block.GetBoundingRect();
-
-                //link vs blocks
-                if (block.IsCollidable() && blockRect.Intersects(linkRect))
+                    //link vs blocks
+                    if (!gameInstance.dungeon.changeRoom.Change && block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
                     side = blockCollision.SideOfCollision(blockRect, linkRect);
 

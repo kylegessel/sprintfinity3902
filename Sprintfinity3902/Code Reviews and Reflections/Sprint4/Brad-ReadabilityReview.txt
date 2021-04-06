@@ -1,0 +1,41 @@
+﻿Code Review
+Readability on InGameHud.cs by Brad Knez
+4/2/2021
+Sprint 4
+Code written by Bailey Ardrey 
+Time Spent: 30 minutes
+
+Quick notes on the class: 
+
+Extends AbstractHud, starts by assigning variables in the class.
+
+Game, Link, Icons, WorldPoint, and the different hud managers.
+
+Update checks to see if items have changed and then updates based on it.
+* Concern here
+
+Initialize is called by the constructor, tells the initializer what to do.
+
+UpdateHearts makes variables and then passes them to the manager.
+
+UpdateItems does a similar thing, just with items.
+
+Actual Readability Review:
+
+At a first glance, this class makes a lot of sense. Nothing is too hard to read
+and all of the methods are named well. Nice! My only question is what is 
+WorldPoint. This is the one thing I couldn't figure out what it actually does.
+Same with the list of Icons, but this made more sense with the Initializer.
+
+The one weirdness I found in the class was with how the check for link's item 
+pickup works. Just curious why we change the variable instead of just do it 
+directly from link, but this does keep them seperate which is good. Overall I 
+don't mind this setup, and it makes easier for me to change items from the UI 
+based on collision. Also keeps both independent of each other. Nice!
+
+I thought this was a bit short though so I took a look at the manager classes 
+as well. This makes InGameHud look much better as the amount of logic in those
+classes should be hidden away. All in all this implementation is really 
+readable!
+
+Well done!

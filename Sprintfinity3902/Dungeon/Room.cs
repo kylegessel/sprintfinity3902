@@ -13,6 +13,8 @@ namespace Sprintfinity3902.Dungeon
         private static int INITIAL_ROOM_TYPE = 1;
         private static int INITIAL_ROOM_X = 2;
         private static int INITIAL_ROOM_Y = 7;
+        private static int PAUSE_COUNT = 176;
+        private static int SHIFT_AMOUNT = 2;
 
         public int Id { get; set; }
         //public List<IEntity> roomEntities { get; set; }
@@ -26,6 +28,7 @@ namespace Sprintfinity3902.Dungeon
         public int RoomType { get; set; }
 
         public bool WinRoom { get; set; }
+        public bool roomCleared { get; set; }
         //projectiles may have to be added here later.
 
         public string path { get; set; }
@@ -47,14 +50,15 @@ namespace Sprintfinity3902.Dungeon
             path = fileLocation;
             Id = id;
             Pause = false;
-
+            roomCleared = false;
         }
 
         public void Update(GameTime gameTime)
         { 
             foreach (IBlock entity in blocks)
                 entity.Update(gameTime);
-
+            foreach (IEntity entity in enemyProj)
+                entity.Update(gameTime);
             foreach (IEntity entity in enemies.Values)
                 entity.Update(gameTime);
 
@@ -62,9 +66,6 @@ namespace Sprintfinity3902.Dungeon
                 entity.Update(gameTime);
 
             foreach (IEntity entity in garbage)
-                entity.Update(gameTime);
-
-            foreach (IEntity entity in enemyProj)
                 entity.Update(gameTime);
             foreach (IDoor door in doors)
                 door.Update(gameTime);
@@ -74,7 +75,8 @@ namespace Sprintfinity3902.Dungeon
         {
             foreach (IBlock entity in blocks)
                 entity.Draw(spriteBatch, color);
-
+            foreach (IEntity entity in enemyProj)
+                entity.Draw(spriteBatch, color);
             foreach (IEntity entity in enemies.Values)
                 entity.Draw(spriteBatch, color);
 
@@ -85,8 +87,7 @@ namespace Sprintfinity3902.Dungeon
             foreach (IEntity entity in garbage)
                 entity.Draw(spriteBatch, color);
 
-            foreach(IEntity entity in enemyProj)
-                entity.Draw(spriteBatch, color);
+
         }
 
         /*MAGIC NUMBERS REFACTOR*/
@@ -95,77 +96,77 @@ namespace Sprintfinity3902.Dungeon
             Pause = pause;
             foreach (IBlock entity in blocks)
             {
-                if(count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause)
+                if(count != PAUSE_COUNT * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + TWO * Global.Var.SCALE;
+                    entity.Y = entity.Y + SHIFT_AMOUNT * Global.Var.SCALE;
                 }
-                else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
+                else if (count != PAUSE_COUNT * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - TWO * Global.Var.SCALE;
+                    entity.Y = entity.Y - SHIFT_AMOUNT * Global.Var.SCALE;
                 }
             }
 
             foreach (IEntity entity in enemies.Values)
             {
-                if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause)
+                if (count != PAUSE_COUNT * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + TWO * Global.Var.SCALE;
+                    entity.Y = entity.Y + SHIFT_AMOUNT * Global.Var.SCALE;
                 }
-                else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
+                else if (count != PAUSE_COUNT * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - TWO * Global.Var.SCALE;
+                    entity.Y = entity.Y - SHIFT_AMOUNT * Global.Var.SCALE;
                 }
             }
 
             foreach (IEntity entity in items)
             {
-                if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause)
+                if (count != PAUSE_COUNT * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + TWO * Global.Var.SCALE;
+                    entity.Y = entity.Y + SHIFT_AMOUNT * Global.Var.SCALE;
                 }
-                else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
+                else if (count != PAUSE_COUNT * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - TWO * Global.Var.SCALE;
+                    entity.Y = entity.Y - SHIFT_AMOUNT * Global.Var.SCALE;
                 }
             }
 
             foreach (IEntity entity in garbage)
             {
-                if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause)
+                if (count != PAUSE_COUNT * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + TWO * Global.Var.SCALE;
+                    entity.Y = entity.Y + SHIFT_AMOUNT * Global.Var.SCALE;
                 }
-                else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
+                else if (count != PAUSE_COUNT * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - TWO * Global.Var.SCALE;
+                    entity.Y = entity.Y - SHIFT_AMOUNT * Global.Var.SCALE;
                 }
             }
 
             foreach (IEntity entity in enemyProj)
             {
-                if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause)
+                if (count != PAUSE_COUNT * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + TWO * Global.Var.SCALE;
+                    entity.Y = entity.Y + SHIFT_AMOUNT * Global.Var.SCALE;
                 }
-                else if (count != ONE_HUNDRED_SEVENTY_SIX * Global.Var.SCALE && pause == false)
+                else if (count != PAUSE_COUNT * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - TWO * Global.Var.SCALE;
+                    entity.Y = entity.Y - SHIFT_AMOUNT * Global.Var.SCALE;
                 }
             }
 
             foreach (IEntity entity in doors)
             {
-                if (count != 176 * Global.Var.SCALE && pause)
+                if (count != PAUSE_COUNT * Global.Var.SCALE && pause)
                 {
-                    entity.Y = entity.Y + 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y + SHIFT_AMOUNT * Global.Var.SCALE;
                 }
-                else if (count != 176 * Global.Var.SCALE && pause == false)
+                else if (count != PAUSE_COUNT * Global.Var.SCALE && pause == false)
                 {
-                    entity.Y = entity.Y - 2 * Global.Var.SCALE;
+                    entity.Y = entity.Y - SHIFT_AMOUNT * Global.Var.SCALE;
                 }
             }
 
-            count = count + TWO * Global.Var.SCALE;
+            count = count + SHIFT_AMOUNT * Global.Var.SCALE;
         }
 
         public void SetPauseCount()

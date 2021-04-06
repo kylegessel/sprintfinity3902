@@ -139,6 +139,17 @@ namespace Sprintfinity3902.Dungeon.GameState
                 CurrentState.count = value;
             }
         }
+        public bool roomCleared
+        {
+            get
+            {
+                return CurrentState.roomCleared;
+            }
+            set
+            {
+                CurrentState.roomCleared = value;
+            }
+        }
 
         public string music_id {
             get;

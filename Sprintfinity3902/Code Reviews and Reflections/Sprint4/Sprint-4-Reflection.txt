@@ -1,0 +1,38 @@
+﻿Sprint 4 Reflection
+
+This was an intense sprint. We are extremely proud of how it turned out and
+we accomplished alot. Its now in a state where it can be played like an actual
+game!
+
+Once again, teamwork and communication was strong between the team. We were
+able to avoid creating bugs in other peoples branches as well as any integrated
+team could hope to do. If anyone had a rowdy bug or had a rough understanding
+of a section of code, people were always willing to hop in a zoom call and
+talk.
+
+One thing in particular really hurt us this sprint The break period combined
+with holiday weekend slashed the time that we usually use to bug test. Most of
+us were unable to work on the code at all during this time. This led to a
+problem on Monday were the team felt somewhat rushed cleaning up a final
+edition of the code.
+
+Despite this, We still aproached our time management pretty well. Last sprint
+we had an issue where some members of the team started on the code too late
+in the sprint and wasted the early days. That did not happen this sprint.
+Everyone got right into the code. This did give us SOME time to refactor, but
+again, the break really took a large amount of the time we wanted to use away.
+Even with starting early, we were unable to get everything on our task board
+perfect and complete.
+
+Our task board and git process remain unchanged from the previous sprint.
+We have gotten to the point where everyone is comfortable enough with git that
+its really no longer a pain point within the team. The task board was regularly
+updated and we had regular stand-up meetings where we walked through which cards
+people claimed and which tasks were in-progress. These work extremely well for
+the team and are basically and automatic process at this point.
+
+Despite some challenges, we were able to create code that we feel is a strong 
+submission and a good reflection of what we are capable of. We are can't wait
+to implement our additional features in the next sprint. We have discussed 
+quite a few ideas, but we won't be making any decisions until class time on
+Wednesday.

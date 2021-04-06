@@ -136,11 +136,12 @@ namespace Sprintfinity3902.HudMenu
             {
                 availableItems.Add(IPlayer.SelectableWeapons.BOMB);
             }
-            else if(Link.itemcount[IItem.ITEMS.BOMB] < 0 && availableItems.Contains(IPlayer.SelectableWeapons.BOMB))
+            else if(Link.itemcount[IItem.ITEMS.BOMB] == 0 && availableItems.Contains(IPlayer.SelectableWeapons.BOMB))
             {
                 availableItems.Remove(IPlayer.SelectableWeapons.BOMB);
                 Link.selectedItemChanged = true;
-                EquipAnotherWeapon();
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+                //EquipAnotherWeapon();
             }
             itemSelectedIcon.Update(gameTime);
 
@@ -200,6 +201,8 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
+        //Eventually, this method will be used to automatically equip a boomerang or bow item when the user
+        //runs out of bombs.
         private void EquipAnotherWeapon()
         {
             if (availableItems.Contains(IPlayer.SelectableWeapons.BOOMERANG))

@@ -43,8 +43,6 @@ namespace Sprintfinity3902.HudMenu
             RoomLocations = dungeon.RoomLocations;
             CurrentRoom = dungeon.CurrentRoom;
             WorldPoint = new Vector2(0, 0);
-
-            Initialize();
         }
 
         public override void Initialize()

@@ -88,8 +88,6 @@ namespace Sprintfinity3902.HudMenu
             availableItems.Add(IPlayer.SelectableWeapons.BOOMERANG);
             availableItems.Add(IPlayer.SelectableWeapons.BOW);
             MoveSelector();
-            Initialize();
-
         }
 
         public void EnableItemInInventory(IPlayer.SelectableWeapons weapon)

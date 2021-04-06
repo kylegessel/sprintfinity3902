@@ -47,8 +47,6 @@ namespace Sprintfinity3902.HudMenu
             hudInitializer = new HudInitializer(this);
             MapPickup = false;
             CompassPickup = false;
-
-            Initialize();
         }
 
         public override void Update(GameTime gameTime)

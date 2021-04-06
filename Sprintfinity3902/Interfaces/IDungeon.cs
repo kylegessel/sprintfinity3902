@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Sprintfinity3902.Interfaces
 {
@@ -12,6 +13,7 @@ namespace Sprintfinity3902.Interfaces
             LOSE,
             RETURN
         }
+        public List<Point> RoomLocations { get; set; }
         public IEntity bowArrow { get; set; }
         public IEntity bombItem { get; set; }
         public IEntity boomerangItem { get; set; }

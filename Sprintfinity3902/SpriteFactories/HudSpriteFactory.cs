@@ -56,6 +56,11 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new BlackSquareIconSprite(hudSpriteSheet);
         }
+        public ISprite CreateOrangeSquareIcon()
+        {
+            return new OrangeSquareIconSprite(hudSpriteSheet);
+        }
+            
         public ISprite CreateBlackLongIcon()
         {
             return new BlackLongIconSprite(hudSpriteSheet);
@@ -135,6 +140,77 @@ namespace Sprintfinity3902.SpriteFactories
         public ISprite CreateBowIcon()
         {
             return new BowIconSprite(hudSpriteSheet);
+        }
+
+        /*Add rooms for Dungeon Hud*/
+        public ISprite CreateDoorRightRoom()
+        {
+            return new DoorRightRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorLeftRoom()
+        {
+            return new DoorLeftRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorLeftRightRoom()
+        {
+            return new DoorLeftRightRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorBotRoom()
+        {
+            return new DoorBotRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorBotRightRoom()
+        {
+            return new DoorBotRightRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorBotLeftRoom()
+        {
+            return new DoorBotLeftRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorBotLeftRightRoom()
+        {
+            return new DoorBotLeftRightRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorTopRoom()
+        {
+            return new DoorTopRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorTopRightRoom()
+        {
+            return new DoorTopRightRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorTopLeftRoom()
+        {
+            return new DoorTopLeftRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorTopLeftRightRoom()
+        {
+            return new DoorTopLeftRightRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorTopBotRoom()
+        {
+            return new DoorTopBotRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorTopBotRightRoom()
+        {
+            return new DoorTopBotRightRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorTopBotLeftRoom()
+        {
+            return new DoorTopBotLeftRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateDoorAllSidesRoom()
+        {
+            return new DoorAllSidesRoomSprite(hudSpriteSheet);
+        }
+        public ISprite CreateYellowLinkBlock()
+        {
+            return new YellowLinkBlockSprite(hudSpriteSheet);
+        }
+
+        public ISprite CreateMiniRoomIcon()
+        {
+            return new MiniRoomIconSprite(hudSpriteSheet);
         }
     }
 }

@@ -1,0 +1,40 @@
+﻿Reviewed by: Kyle Gessel
+Reviewed on: 4/2/2021
+Sprint 4
+Reviewed Class:  Entities/Enemies_NPCs/OldMan+FireEnemy.cs
+File written by: Bailey Ardery
+Time Spent: 20min
+
+The class is different from many of the other enemy and npc entity classes as
+it integrates 3 entities into 1. The old man as well as the fire enemies are
+all added within this one class.
+
+The simplicity of the logic behind whether th fire's attack is great. I imagine
+this is the reason that these entities were integrated together into a singular
+class.
+
+If the oldMan has been attacked, then the fires begin calling to their attack
+function, which causes the fireballs to shoot.
+
+Because the OldMan Sprite is the main sprite of the function, he is the only
+entity in the room that has a hitbox, which is exactly how we want this entity
+to behace.
+
+Overall, the only issue with this code that I see, is that each fire in room 8
+exists twice. The csv file builds fire entities so that link has a hitbox to be
+hurt by when he walks in the room. But the fires the damage link when he walks
+into them are NOT the same fires that attack link after link attacks the old
+man.
+
+Someone coming into this code blind may not expect that a based on the csv file
+there would be 5 enemy entities in that room instead of 3. The csv shows 3 and
+their eye would show three, however 5 are being built. If a user expects to
+change the position of the fire in the csv file, they would not be able to
+change where the fire's attack from, because that is instead dependent on the 
+old man.
+
+Changing this so that the fire entities are treated like goriya projectiles
+MAY solve this issue of doubling the fire entities. This would allow them to
+be added to the enemy list when the oldMan+FireEnemy is read by the csv. This
+then allows us to permanently remove the fires from the csv while keeping
+their hitboxes.s

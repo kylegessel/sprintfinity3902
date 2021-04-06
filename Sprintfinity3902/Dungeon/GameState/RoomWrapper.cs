@@ -78,6 +78,17 @@ namespace Sprintfinity3902.Dungeon.GameState
             }
         }
 
+        public Point RoomPos
+        {
+            get {
+                return CurrentState.RoomPos;
+            }
+
+            set {
+                CurrentState.RoomPos = value;
+            }
+        }
+
         public string path {
             get {
                 return CurrentState.path;
@@ -87,7 +98,7 @@ namespace Sprintfinity3902.Dungeon.GameState
                 CurrentState.path = value;
             }
         }
-        
+
         public bool Pause {
             get {
                 return CurrentState.Pause;
@@ -121,10 +132,11 @@ namespace Sprintfinity3902.Dungeon.GameState
             protected set;
         }
 
-        public IDungeon dungeon { get; protected set;}
+        public IDungeon dungeon { get; protected set; }
+        public int RoomType { get; set; }
 
         protected IRoom CurrentState;
-        
+
         public RoomWrapper(IRoom currentRoom) {
             CurrentState = currentRoom;
         }

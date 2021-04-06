@@ -36,6 +36,7 @@ namespace Sprintfinity3902
         public OptionMenu optionMenu;
         
         public List<IHud> huds;
+        public IEntity bombExplosion;
 
         public Game1()
         {

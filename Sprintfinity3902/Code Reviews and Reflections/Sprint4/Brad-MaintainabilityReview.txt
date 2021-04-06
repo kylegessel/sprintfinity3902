@@ -1,0 +1,44 @@
+﻿Code Review
+Readability on DungeonHUD.cs by Brad Knez
+4/5/2021
+Sprint 4
+Code written by Casey VanCauwenbergh
+Time Spent: 25 minutes
+
+Quick notes on the class: 
+
+Starts with a constructor that takes in the game and dungeon. Creates a list of
+Icons and Map, then a list of roomIDs that's already in the map. Calls the hud 
+initializer and then sets the dungeon, room locations, and current room.
+
+Then, it calls Initialize which uses the hud initializer to set up orange
+square icons.
+
+Update checks to see if the Map has been picked up, if so it creates the
+intial hud. It also checks to see if the dungeon maps current room is equal to
+the dungeon huds, if not it updates accordingly.
+
+CreateInitialHudDungeon() creates yellow blocks to icons.
+UpdateHudRooms() adds new rooms to the map list. if the map has been picked up,
+they're also added to the Icons list.
+UpdateLinkLoc() shows where link is on the map.
+GetNewRoom() adds a new room based on the room type, this i assumed is gotten
+from the CSV file or hardcoded.
+
+Actual Maintainability Review:
+Overall, this code is very maintainable, works with all of our in place systems
+and doesn't impact anything it shouldn't. It works with all of the other HUDs 
+and fits the general intializer format. Nice!
+
+My only concern for the code lies in how the different doors are shown on the 
+map. The way we do it now is fine and accurate to the game, I just worry about
+future proofing it by having it dynamic. And this is partly my fault as the 
+doors took too long to get done. I'm not sure how the rest of the team feels,
+but I don't mind losing accuracy for a dynamic system that works with any type
+of layout. Something to talk about for sprint 5!
+
+Overall, this class is well done and fits the layout of other HUDs. Unless 
+there's a sweeping change to the HUDs, I don't see how this would change for 
+the future besides the doors. Very maintainable and works well!
+
+Well done!

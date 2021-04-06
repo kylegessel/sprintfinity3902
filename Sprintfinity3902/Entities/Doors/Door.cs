@@ -8,7 +8,7 @@ namespace Sprintfinity3902.Entities.Doors
     public class Door : AbstractBlock, IDoor
     {
 
-        private static int THIRTY_TWO = 32;
+        private static int DOOR_DIMENSION = 32;
 
         private IDoorState _currentState;
 
@@ -105,7 +105,7 @@ namespace Sprintfinity3902.Entities.Doors
 
         public override Rectangle GetBoundingRect()
         {
-            return new Rectangle((int)X, (int)Y, THIRTY_TWO * Global.Var.SCALE, THIRTY_TWO * Global.Var.SCALE);
+            return new Rectangle((int)X, (int)Y, DOOR_DIMENSION * Global.Var.SCALE, DOOR_DIMENSION * Global.Var.SCALE);
         }
 
         public override bool IsTall()

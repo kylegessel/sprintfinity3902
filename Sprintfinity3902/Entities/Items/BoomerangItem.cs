@@ -13,13 +13,13 @@ namespace Sprintfinity3902.Entities
         private static int TWO = 2;
         private static int SIXTY = 60;
         private static int STUN_LENGTH = 120;
-        private float F_THIRTEEN_DOT_TWO =  13.2f;
-        private int FOUR  =  4;
-        private int TEN  = 10;
-        private int THREE  = 3;
-        private int ONE_THOUSAND  = 1000;
+        private float F_THIRTEEN_DOT_TWO = 13.2f;
+        private int FOUR = 4;
+        private int TEN = 10;
+        private int THREE = 3;
+        private int ONE_THOUSAND = 1000;
         private int THIRTEEN = 13;
-        private int SIX  = 6;
+        private int SIX = 6;
 
         IPlayer PlayerCharacter;
         GoriyaEnemy Goriya;
@@ -35,7 +35,7 @@ namespace Sprintfinity3902.Entities
         float XDiff;
         float YDiff;
         float BoomerangOutChange;
-        Direction FireDirection;
+        public Direction FireDirection { get; set; }
         
 
         public BoomerangItem()

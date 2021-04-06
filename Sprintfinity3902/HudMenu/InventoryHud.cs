@@ -136,7 +136,7 @@ namespace Sprintfinity3902.HudMenu
             {
                 availableItems.Add(IPlayer.SelectableWeapons.BOMB);
             }
-            else if(Link.itemcount[IItem.ITEMS.BOMB] == 0 && availableItems.Contains(IPlayer.SelectableWeapons.BOMB))
+            else if(Link.itemcount[IItem.ITEMS.BOMB] < 0 && availableItems.Contains(IPlayer.SelectableWeapons.BOMB))
             {
                 availableItems.Remove(IPlayer.SelectableWeapons.BOMB);
                 Link.selectedItemChanged = true;

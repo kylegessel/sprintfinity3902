@@ -147,7 +147,7 @@ namespace Sprintfinity3902.SpriteFactories
         }
         public ISprite CreateMapIcon()
         {
-            return MapIconSprite(hudSpriteSheet);
+            return new MapIconSprite(hudSpriteSheet);
         }
 
         /*Add rooms for Dungeon Hud*/

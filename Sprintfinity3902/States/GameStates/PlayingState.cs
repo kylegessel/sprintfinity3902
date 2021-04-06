@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Interfaces;
 
@@ -51,8 +52,19 @@ namespace Sprintfinity3902.States.GameStates
                 KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
                 KeyboardManager.Instance.RegisterKeyUpCallback(PauseGame, Keys.P);
                 Game.dungeon.Initialize();
-                Game.playerCharacter.Initialize();
+
+                /* Player Controls */
+                KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(Game.playerCharacter), Keys.W, Keys.Up);
+                KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(Game.playerCharacter), Keys.A, Keys.Left);
+                KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(Game.playerCharacter), Keys.S, Keys.Down);
+                KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(Game.playerCharacter), Keys.D, Keys.Right);
+
+                KeyboardManager.Instance.RegisterKeyUpCallback(() => {
+                    Game.playerCharacter.CurrentState.Sprite.Animation.Stop();
+                }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
             }
+
+
         }
 
         private void PauseGame()

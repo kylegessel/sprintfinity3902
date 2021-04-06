@@ -8,8 +8,6 @@ namespace Sprintfinity3902.Dungeon
     public class Room : IRoom
     {
         /*MAGIC NUMBERS REFACTOR*/
-        private static int ONE_HUNDRED_SEVENTY_SIX = 176;
-        private static int TWO = 2;
         private static int INITIAL_ROOM_TYPE = 1;
         private static int INITIAL_ROOM_X = 2;
         private static int INITIAL_ROOM_Y = 7;

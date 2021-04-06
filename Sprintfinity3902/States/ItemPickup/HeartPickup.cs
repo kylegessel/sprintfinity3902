@@ -4,6 +4,7 @@ namespace Sprintfinity3902.Entities
 {
     public class HeartPickup : IPickup
     {
+        private const int LOW_HEALTH = 2;
         public HeartPickup()
         { 
 
@@ -20,11 +21,14 @@ namespace Sprintfinity3902.Entities
                 }
                 Link.heartChanged = true;
                 
-
-                
             }
 
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+            if(Link.LinkHealth > LOW_HEALTH)
+            {
+                Link.StopLowHealth();
+            }
 
             return false;
         }

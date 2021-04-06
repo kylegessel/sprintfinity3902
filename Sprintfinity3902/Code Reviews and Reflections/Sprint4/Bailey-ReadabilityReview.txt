@@ -1,0 +1,30 @@
+﻿Reviewed by: Bailey Ardrey
+Reviewed on: 4/5/2021
+Sprint 4
+Reviewed Class: MiniMapHud.cs
+File changed by: Kyle Gessel
+Time Spent: 20min
+
+Reviewing commit: 4840f5590c265952ef86e2d1da7664aa4bc96a1e
+Reviewing empahsis: Readability
+
+Kyle did a great job writing the MiniMapHud class. Every variable has a 
+descriptive name which aids in understanding what the code is doing.
+Kyle is able to keep implementation details out of the MiniMapHud class
+by utilizing other classes, some built specifically to house details
+like initialization. This way, the class is not bogged down with walls
+of code to set up the hud upon runtime. These two aspects of the code
+together mean that there is no need for Kyle to write comments in the
+code, becuase it is written in a way that is already readable and 
+understandable.
+
+Coming in at just over 100 lines, the class does a good job at staying 
+short and containing only mini-map details. As a result, there aren't
+any major changes I would recommend for the sake of readability. Perhaps
+the only suggestion I might have if I was to nit pick, is that there is
+a method to initialize location markers that might make a little more
+sense in the initialization specific class. This could aid readability
+because someone might expect that all initialization details would be
+housed in the class of the same name, and not necessarily in a private 
+method within the MiniMapHud itself.
+

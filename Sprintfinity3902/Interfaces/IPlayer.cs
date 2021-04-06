@@ -10,7 +10,7 @@ namespace Sprintfinity3902.Interfaces
             BOMB,
             BOOMERANG,
             BOW,
-            MAP
+            NONE
         }
         IPlayerState CurrentState { get; set; }
         IPlayerState facingDown { get; set; }
@@ -27,6 +27,7 @@ namespace Sprintfinity3902.Interfaces
         IPlayerState facingUpItem { get; set; }
         bool heartChanged { get; set; }
         bool itemPickedUp { get; set; }
+        bool selectedItemChanged { get; set; }
         int MaxHealth { get; set; }
         int LinkHealth { get; set; }
         Dictionary<IItem.ITEMS, int> itemcount { get; set; }
@@ -35,10 +36,8 @@ namespace Sprintfinity3902.Interfaces
 
 
         /*These methods are only used when link is not invinsible (damaged state)*/
-        void MoveLink();
-        void StopMoving();
         void TakeDamage();
         void BounceOfEnemy(ICollision.CollisionSide Side);
-        void Initialize();
+        void StopLowHealth();
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
 
@@ -11,6 +13,8 @@ namespace Sprintfinity3902.HudMenu
         private HudNumberManager hudNumberManager;
         private HudHeartManager hudHeartManager;
         private HudInitializer hudInitializer;
+        private const int B_BUTTON_X = 128;
+        private const int A_B_BUTTON_Y = 24;
 
         public InGameHud(Game1 game)
         {
@@ -37,6 +41,11 @@ namespace Sprintfinity3902.HudMenu
             {
                 UpdateItems();
                 Link.itemPickedUp = false;
+            }
+
+            if (Link.selectedItemChanged)
+            {
+                UpdateSelectedItems();
             }
         }
 
@@ -74,6 +83,30 @@ namespace Sprintfinity3902.HudMenu
                 bombNum = Link.itemcount[IItem.ITEMS.BOMB];
                 hudNumberManager.BombNumbers(bombNum);
             }
+        }
+
+        private void UpdateSelectedItems()
+        {
+            if(Link.SelectedWeapon == IPlayer.SelectableWeapons.BOOMERANG)
+            {
+                Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
+                Icons.Add(new BoomerangIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
+            }
+            else if (Link.SelectedWeapon == IPlayer.SelectableWeapons.BOMB)
+            {
+                Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
+                Icons.Add(new BombIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
+            }
+            else if (Link.SelectedWeapon == IPlayer.SelectableWeapons.BOW)
+            {
+                Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
+                Icons.Add(new BowIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
+            }
+            else
+            {
+                Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
+            }
+            Link.selectedItemChanged = false;
         }
     }
 }

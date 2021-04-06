@@ -141,6 +141,14 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new BowIconSprite(hudSpriteSheet);
         }
+        public ISprite CreateCompassIcon()
+        {
+            return new CompassIconSprite(hudSpriteSheet);
+        }
+        public ISprite CreateMapIcon()
+        {
+            return new MapIconSprite(hudSpriteSheet);
+        }
 
         /*Add rooms for Dungeon Hud*/
         public ISprite CreateDoorRightRoom()
@@ -207,10 +215,17 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new YellowLinkBlockSprite(hudSpriteSheet);
         }
-
         public ISprite CreateMiniRoomIcon()
         {
             return new MiniRoomIconSprite(hudSpriteSheet);
+        }
+        public ISprite CreateGreenLinkLocationIcon()
+        {
+            return new GreenLinkLocationSprite(hudSpriteSheet);
+        }
+        public ISprite CreateWinLocationIcon()
+        {
+            return new WinLocationSprite(hudSpriteSheet);
         }
     }
 }

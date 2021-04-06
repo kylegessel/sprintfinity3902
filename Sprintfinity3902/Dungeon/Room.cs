@@ -24,6 +24,8 @@ namespace Sprintfinity3902.Dungeon
         public List<IDoor> doors { get; set; }
         public Point RoomPos { get; set; }
         public int RoomType { get; set; }
+
+        public bool WinRoom { get; set; }
         public bool roomCleared { get; set; }
         //projectiles may have to be added here later.
 
@@ -41,6 +43,7 @@ namespace Sprintfinity3902.Dungeon
             enemyProj = new List<IEntity>();
             doors = new List<IDoor>();
             RoomPos = new Point(INITIAL_ROOM_X, INITIAL_ROOM_Y);
+            WinRoom = false;
             RoomType = INITIAL_ROOM_TYPE;
             path = fileLocation;
             Id = id;

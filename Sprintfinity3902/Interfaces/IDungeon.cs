@@ -19,6 +19,7 @@ namespace Sprintfinity3902.Interfaces
         public IEntity bombItem { get; set; }
         public IEntity boomerangItem { get; set; }
 
+        public Point WinLocation { get; set; }
         public IRoom CurrentRoom { get; set; }
         public int NextId { get; set; }
         public ChangeRoom changeRoom { get; set; }

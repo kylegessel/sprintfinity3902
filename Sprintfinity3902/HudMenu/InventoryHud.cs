@@ -83,8 +83,6 @@ namespace Sprintfinity3902.HudMenu
 
             };
             MoveSelector();
-            Initialize();
-
         }
 
         public void EnableItemInInventory(IPlayer.SelectableWeapons weapon)

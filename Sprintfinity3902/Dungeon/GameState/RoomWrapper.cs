@@ -89,6 +89,19 @@ namespace Sprintfinity3902.Dungeon.GameState
             }
         }
 
+        public bool WinRoom
+        {
+            get
+            {
+                return CurrentState.WinRoom;
+            }
+
+            set
+            {
+                CurrentState.WinRoom = value;
+            }
+        }
+
         public string path {
             get {
                 return CurrentState.path;

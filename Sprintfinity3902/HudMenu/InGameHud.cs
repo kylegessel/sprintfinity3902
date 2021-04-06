@@ -25,8 +25,6 @@ namespace Sprintfinity3902.HudMenu
             hudNumberManager = new HudNumberManager(this);
             hudHeartManager = new HudHeartManager(this);
             hudInitializer = new HudInitializer(this);
-
-            Initialize();
         }
 
         public override void Update(GameTime gameTime)

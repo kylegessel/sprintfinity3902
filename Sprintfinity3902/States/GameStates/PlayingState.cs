@@ -52,6 +52,10 @@ namespace Sprintfinity3902.States.GameStates
                 KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
                 KeyboardManager.Instance.RegisterKeyUpCallback(PauseGame, Keys.P);
                 Game.dungeon.Initialize();
+                foreach (IHud hud in Game.huds)
+                {
+                    hud.Initialize();
+                }
 
                 /* Player Controls */
                 KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(Game.playerCharacter), Keys.W, Keys.Up);

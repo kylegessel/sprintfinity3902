@@ -97,7 +97,7 @@ namespace Sprintfinity3902.HudMenu
             Link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
             MoveSelector();
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            Link.selectedItemChanged = true;
+            HudMenu.InGameHud.Instance.UpdateSelectedItems(Link.SelectedWeapon);
 
         }
 
@@ -108,7 +108,7 @@ namespace Sprintfinity3902.HudMenu
             Link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
             MoveSelector();
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            Link.selectedItemChanged = true;
+            HudMenu.InGameHud.Instance.UpdateSelectedItems(Link.SelectedWeapon);
 
         }
 
@@ -137,7 +137,7 @@ namespace Sprintfinity3902.HudMenu
             else if(Link.itemcount[IItem.ITEMS.BOMB] < 0 && availableItems.Contains(IPlayer.SelectableWeapons.BOMB))
             {
                 availableItems.Remove(IPlayer.SelectableWeapons.BOMB);
-                Link.selectedItemChanged = true;
+                HudMenu.InGameHud.Instance.UpdateSelectedItems(Link.SelectedWeapon);
                 Link.SelectedWeapon = IPlayer.SelectableWeapons.NONE;
                 //EquipAnotherWeapon();
             }

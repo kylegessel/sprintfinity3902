@@ -44,7 +44,6 @@ namespace Sprintfinity3902.States.GameStates
             Game.optionMenu = new OptionMenu(Game);
 
             Game.dungeonHud = new DungeonHud(Game, Game.dungeon);
-            Game.in_gameHud = new InGameHud(Game);
             Game.inventoryHud = new InventoryHud(Game);
             Game.miniMapHud = new MiniMapHud(Game, Game.dungeon);
 

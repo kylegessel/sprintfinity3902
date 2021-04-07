@@ -22,7 +22,7 @@ namespace Sprintfinity3902.States.GameStates
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Game.dungeonHud.Draw(spriteBatch, Color.White);
-            Game.in_gameHud.Draw(spriteBatch, Color.White);
+            HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
             Game.inventoryHud.Draw(spriteBatch, Color.White);
             Game.miniMapHud.Draw(spriteBatch, Color.White);
             Game.dungeon.Draw(spriteBatch);

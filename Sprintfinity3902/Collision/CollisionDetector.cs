@@ -81,7 +81,7 @@ namespace Sprintfinity3902.Collision
                         {
                             door.Open();
                             link.itemcount[IItem.ITEMS.KEY]--;
-                            link.itemPickedUp = true;
+                            HudMenu.InGameHud.Instance.UpdateKeys(link.itemcount[IItem.ITEMS.KEY]);
                         }
                         else
                         {

@@ -13,8 +13,8 @@ namespace Sprintfinity3902.Entities
         {
             Link.MaxHealth += 2;
             Link.LinkHealth += 2;
-            Link.heartChanged = true;
-            
+            HudMenu.InGameHud.Instance.UpdateHearts(Link.MaxHealth, Link.LinkHealth);
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
 
             return false;
 

@@ -137,6 +137,17 @@ namespace Sprintfinity3902.Link
                 itemcount[item]--;
                 HudMenu.InGameHud.Instance.UpdateItems(itemcount[IItem.ITEMS.RUPEE], itemcount[IItem.ITEMS.KEY], itemcount[IItem.ITEMS.BOMB]);
             }
+            if (itemcount[IItem.ITEMS.BOMB] == 0)
+            {
+                HudMenu.InventoryHud.Instance.RemoveItemInInventory(IPlayer.SelectableWeapons.BOMB);
+                SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+                HudMenu.InGameHud.Instance.UpdateSelectedItems(SelectedWeapon);
+            }
+            if(itemcount[IItem.ITEMS.BOMB] == 0 && itemcount[IItem.ITEMS.BOOMERANG] == 0 && itemcount[IItem.ITEMS.BOW] == 0)
+            {
+                SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+                HudMenu.InGameHud.Instance.UpdateSelectedItems(SelectedWeapon);
+            }
         }
 
         public override void Update(GameTime gameTime) {

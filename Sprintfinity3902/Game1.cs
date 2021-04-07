@@ -36,7 +36,6 @@ namespace Sprintfinity3902
         public OptionMenu optionMenu;
 
         public IHud dungeonHud;
-        public IHud inventoryHud;
         public IHud miniMapHud;
         public IEntity bombExplosion;
 

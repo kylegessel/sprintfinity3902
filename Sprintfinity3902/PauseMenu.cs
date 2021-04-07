@@ -70,7 +70,7 @@ namespace Sprintfinity3902
 
             Game.dungeonHud.TranslateMatrix(new Vector2(0, shiftAmount));
             HudMenu.InGameHud.Instance.TranslateMatrix(new Vector2(0, shiftAmount));
-            Game.inventoryHud.TranslateMatrix(new Vector2(0, shiftAmount));
+            HudMenu.InventoryHud.Instance.TranslateMatrix(new Vector2(0, shiftAmount));
             Game.miniMapHud.TranslateMatrix(new Vector2(0, shiftAmount));
 
             foreach (IEntity door in Game.dungeon.GetCurrentRoom().doors) {

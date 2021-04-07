@@ -11,6 +11,11 @@ namespace Sprintfinity3902.Entities
 
         public bool Pickup(IPlayer Link)
         {
+            if(Link.itemcount[IItem.ITEMS.BOMB] == 0)
+            {
+                HudMenu.InventoryHud.Instance.EnableItemInInventory(IPlayer.SelectableWeapons.BOMB);
+            }
+
             Link.itemcount[IItem.ITEMS.BOMB]++;
 
             HudMenu.InGameHud.Instance.UpdateBomb(Link.itemcount[IItem.ITEMS.BOMB]);

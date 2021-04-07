@@ -11,15 +11,18 @@ namespace Sprintfinity3902.Entities
 
         public bool Pickup(IPlayer Link)
         {
-            //ASDFASDF
             Link.itemcount[IItem.ITEMS.BOOMERANG]++;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+            HudMenu.InventoryHud.Instance.EnableItemInInventory(IPlayer.SelectableWeapons.BOOMERANG);
 
             if (Link.SelectedWeapon == IPlayer.SelectableWeapons.NONE)
             {
                 Link.SelectedWeapon = IPlayer.SelectableWeapons.BOOMERANG;
                 HudMenu.InGameHud.Instance.UpdateSelectedItems(Link.SelectedWeapon);
             }
+
+            
 
             return false;
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
@@ -19,7 +20,7 @@ namespace Sprintfinity3902.States.GameStates
         {
             Game.dungeonHud.Update(gameTime);
             HudMenu.InGameHud.Instance.Update(gameTime);
-            Game.inventoryHud.Update(gameTime);
+            HudMenu.InventoryHud.Instance.Update(gameTime);
             Game.miniMapHud.Update(gameTime);
         }
 
@@ -27,7 +28,7 @@ namespace Sprintfinity3902.States.GameStates
         {
             Game.dungeonHud.Draw(spriteBatch, Color.White);
             HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
-            Game.inventoryHud.Draw(spriteBatch, Color.White);
+            HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
             Game.miniMapHud.Draw(spriteBatch, Color.White);
 
             Game.dungeon.Draw(spriteBatch);
@@ -38,8 +39,9 @@ namespace Sprintfinity3902.States.GameStates
         public void SetUp()
         {
             KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
-            KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)Game.inventoryHud).MoveSelectorLeft, Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)Game.inventoryHud).MoveSelectorRight, Keys.D, Keys.Right);
+
+            KeyboardManager.Instance.RegisterKeyUpCallback(HudMenu.InventoryHud.Instance.MoveSelectorLeft, Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterKeyUpCallback(HudMenu.InventoryHud.Instance.MoveSelectorRight, Keys.D, Keys.Right);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Sprintfinity3902.States.GameStates
             Game.link.Update(gameTime);
             Game.dungeonHud.Update(gameTime);
             HudMenu.InGameHud.Instance.Update(gameTime);
-            Game.inventoryHud.Update(gameTime);
+            HudMenu.InventoryHud.Instance.Update(gameTime);
             Game.miniMapHud.Update(gameTime);
         }
 
@@ -26,7 +26,7 @@ namespace Sprintfinity3902.States.GameStates
         {
             Game.dungeonHud.Draw(spriteBatch, Color.White);
             HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
-            Game.inventoryHud.Draw(spriteBatch, Color.White);
+            HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
             Game.miniMapHud.Draw(spriteBatch, Color.White);
             Game.dungeon.Draw(spriteBatch);
             Game.link.Draw(spriteBatch, Color.White);

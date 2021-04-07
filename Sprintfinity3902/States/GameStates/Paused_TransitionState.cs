@@ -27,6 +27,7 @@ namespace Sprintfinity3902.States.GameStates
             Game.miniMapHud.Draw(spriteBatch, Color.White);
             Game.dungeon.Draw(spriteBatch);
             Game.link.Draw(spriteBatch, Color.White);
+
         }
 
         public void SetUp()

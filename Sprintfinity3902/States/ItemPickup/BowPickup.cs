@@ -15,6 +15,13 @@ namespace Sprintfinity3902.Entities
             // add link bow to HUD AND allow to use
             Link.itemcount[IItem.ITEMS.BOW]++;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+            if (Link.SelectedWeapon == IPlayer.SelectableWeapons.NONE)
+            {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.BOW;
+                HudMenu.InGameHud.Instance.UpdateSelectedItems(Link.SelectedWeapon);
+            }
+
             return false;
         }
 

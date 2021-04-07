@@ -88,6 +88,7 @@ namespace Sprintfinity3902.Link
             LinkHealth = MaxHealth;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
+            SelectedWeapon = IPlayer.SelectableWeapons.NONE;
 
             itemcount = new Dictionary<IItem.ITEMS, int>();
             foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))

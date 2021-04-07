@@ -21,13 +21,11 @@ namespace Sprintfinity3902.States.GameStates
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            foreach (IHud hud in Game.huds)
-            {
-                hud.Draw(spriteBatch, Color.White);
-            }
-
+            Game.dungeonHud.Draw(spriteBatch, Color.White);
+            Game.in_gameHud.Draw(spriteBatch, Color.White);
+            Game.inventoryHud.Draw(spriteBatch, Color.White);
+            Game.miniMapHud.Draw(spriteBatch, Color.White);
             Game.dungeon.Draw(spriteBatch);
-
             Game.link.Draw(spriteBatch, Color.White);
         }
 

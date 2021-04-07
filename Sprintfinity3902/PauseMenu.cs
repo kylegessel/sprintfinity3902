@@ -68,9 +68,10 @@ namespace Sprintfinity3902
                 garbage.Y = garbage.Y + shiftAmount;
             }
 
-            foreach (IHud hud in Game.huds) {
-                hud.TranslateMatrix(new Vector2(0, shiftAmount));
-            }
+            Game.dungeonHud.TranslateMatrix(new Vector2(0, shiftAmount));
+            Game.in_gameHud.TranslateMatrix(new Vector2(0, shiftAmount));
+            Game.inventoryHud.TranslateMatrix(new Vector2(0, shiftAmount));
+            Game.miniMapHud.TranslateMatrix(new Vector2(0, shiftAmount));
 
             foreach (IEntity door in Game.dungeon.GetCurrentRoom().doors) {
                 door.Y = door.Y + shiftAmount;

@@ -17,18 +17,18 @@ namespace Sprintfinity3902.States.GameStates
 
         public void Update(GameTime gameTime)
         {
-            foreach(IHud hud in Game.huds)
-            {
-                hud.Update(gameTime);
-            }
+            Game.dungeonHud.Update(gameTime);
+            Game.in_gameHud.Update(gameTime);
+            Game.inventoryHud.Update(gameTime);
+            Game.miniMapHud.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            foreach (IHud hud in Game.huds)
-            {
-                hud.Draw(spriteBatch, Color.White);
-            }
+            Game.dungeonHud.Draw(spriteBatch, Color.White);
+            Game.in_gameHud.Draw(spriteBatch, Color.White);
+            Game.inventoryHud.Draw(spriteBatch, Color.White);
+            Game.miniMapHud.Draw(spriteBatch, Color.White);
 
             Game.dungeon.Draw(spriteBatch);
 
@@ -38,8 +38,8 @@ namespace Sprintfinity3902.States.GameStates
         public void SetUp()
         {
             KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
-            KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)Game.huds[2]).MoveSelectorLeft, Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)Game.huds[2]).MoveSelectorRight, Keys.D, Keys.Right);
+            KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)Game.inventoryHud).MoveSelectorLeft, Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)Game.inventoryHud).MoveSelectorRight, Keys.D, Keys.Right);
         }
     }
 }

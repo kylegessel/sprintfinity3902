@@ -52,7 +52,7 @@ namespace Sprintfinity3902.HudMenu
             hudInitializer.InitializeInGameHud();
         }
 
-        private void UpdateHearts()
+        public void UpdateHearts()
         {
             double maxHealth = Link.MaxHealth;
             double currentHealth = Link.LinkHealth;

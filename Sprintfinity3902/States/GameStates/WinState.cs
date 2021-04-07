@@ -16,18 +16,18 @@ namespace Sprintfinity3902.States.GameStates
         {
             Game.dungeon.Update(gameTime);
             Game.link.Update(gameTime);
-            foreach (IHud hud in Game.huds)
-            {
-                hud.Update(gameTime);
-            }
+            Game.dungeonHud.Update(gameTime);
+            Game.in_gameHud.Update(gameTime);
+            Game.inventoryHud.Update(gameTime);
+            Game.miniMapHud.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            foreach (IHud hud in Game.huds)
-            {
-                hud.Draw(spriteBatch, Color.White);
-            }
+            Game.dungeonHud.Draw(spriteBatch, Color.White);
+            Game.in_gameHud.Draw(spriteBatch, Color.White);
+            Game.inventoryHud.Draw(spriteBatch, Color.White);
+            Game.miniMapHud.Draw(spriteBatch, Color.White);
 
             Game.dungeon.Draw(spriteBatch);
 

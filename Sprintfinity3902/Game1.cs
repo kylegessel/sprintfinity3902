@@ -35,7 +35,6 @@ namespace Sprintfinity3902
         public PauseMenu pauseMenu;
         public OptionMenu optionMenu;
 
-        public IHud in_gameHud;
         public IHud dungeonHud;
         public IHud inventoryHud;
         public IHud miniMapHud;

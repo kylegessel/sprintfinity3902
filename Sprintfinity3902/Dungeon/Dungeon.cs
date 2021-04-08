@@ -101,6 +101,7 @@ namespace Sprintfinity3902.Dungeon
                     WinLocation = room.RoomPos;
                 }
             }
+            HudMenu.DungeonHud.Instance.SetInitialRoom(GetById(2));
         }
 
         public void Update(GameTime gameTime)
@@ -108,6 +109,7 @@ namespace Sprintfinity3902.Dungeon
             if (changeRoom.Change)
             {
                 changeRoom.Update(gameTime);
+                HudMenu.DungeonHud.Instance.RoomChange(this);
             }
             else
             {

@@ -68,7 +68,7 @@ namespace Sprintfinity3902
                 garbage.Y = garbage.Y + shiftAmount;
             }
 
-            Game.dungeonHud.TranslateMatrix(new Vector2(0, shiftAmount));
+            HudMenu.DungeonHud.Instance.TranslateMatrix(new Vector2(0, shiftAmount));
             HudMenu.InGameHud.Instance.TranslateMatrix(new Vector2(0, shiftAmount));
             HudMenu.InventoryHud.Instance.TranslateMatrix(new Vector2(0, shiftAmount));
             Game.miniMapHud.TranslateMatrix(new Vector2(0, shiftAmount));

@@ -43,7 +43,7 @@ namespace Sprintfinity3902.States.GameStates
             Game.pauseMenu = new PauseMenu(Game);
             Game.optionMenu = new OptionMenu(Game);
 
-            Game.dungeonHud = new DungeonHud(Game, Game.dungeon);
+            //dungeonHud = new DungeonHud(Game, Game.dungeon);
             Game.miniMapHud = new MiniMapHud(Game, Game.dungeon);
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);

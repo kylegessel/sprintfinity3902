@@ -129,7 +129,7 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
-        public void InitializeDungeonHud(List<Point> roomLocations)
+        public void InitializeDungeonHud()
         {
             Hud.Icons.Add(new DungeonHudEntity(new Vector2(DUNGEON_HUD_X * Global.Var.SCALE, DUNGEON_HUD_Y * Global.Var.SCALE)));
             

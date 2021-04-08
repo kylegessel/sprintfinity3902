@@ -101,7 +101,8 @@ namespace Sprintfinity3902.Dungeon
                     WinLocation = room.RoomPos;
                 }
             }
-            HudMenu.DungeonHud.Instance.SetInitialRoom(GetById(2));
+            HudMenu.DungeonHud.Instance.SetInitialRoom(GetById(2)); /*Can I just use CurrentRoom here??*/
+            HudMenu.MiniMapHud.Instance.InitializeRooms(RoomLocations, GetById(2).RoomPos, WinLocation);
         }
 
         public void Update(GameTime gameTime)
@@ -110,6 +111,7 @@ namespace Sprintfinity3902.Dungeon
             {
                 changeRoom.Update(gameTime);
                 HudMenu.DungeonHud.Instance.RoomChange(this);
+                HudMenu.MiniMapHud.Instance.UpdateHudLinkLoc(this.CurrentRoom.RoomPos);
             }
             else
             {

@@ -24,7 +24,7 @@ namespace Sprintfinity3902.States.GameStates
             HudMenu.DungeonHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
-            Game.miniMapHud.Draw(spriteBatch, Color.White);
+            HudMenu.MiniMapHud.Instance.Draw(spriteBatch, Color.White);
             Game.dungeon.Draw(spriteBatch);
             Game.link.Draw(spriteBatch, Color.White);
 

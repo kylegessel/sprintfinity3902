@@ -23,7 +23,7 @@ namespace Sprintfinity3902.States.GameStates
             HudMenu.DungeonHud.Instance.Update(gameTime);
             HudMenu.InGameHud.Instance.Update(gameTime);
             HudMenu.InventoryHud.Instance.Update(gameTime);
-            Game.miniMapHud.Update(gameTime);
+            HudMenu.MiniMapHud.Instance.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -35,7 +35,7 @@ namespace Sprintfinity3902.States.GameStates
             HudMenu.DungeonHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
-            Game.miniMapHud.Draw(spriteBatch, Color.White);
+            HudMenu.MiniMapHud.Instance.Draw(spriteBatch, Color.White);
         }
 
         public void SetUp()
@@ -55,7 +55,7 @@ namespace Sprintfinity3902.States.GameStates
                 HudMenu.InGameHud.Instance.UpdateHearts(Game.playerCharacter.MaxHealth, Game.playerCharacter.LinkHealth);
                 HudMenu.InventoryHud.Instance.Initialize();
                 HudMenu.InventoryHud.Instance.GiveGame(Game);
-                Game.miniMapHud.Initialize();
+                HudMenu.MiniMapHud.Instance.Initialize();
 
                 /* Player Controls */
                 KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(Game.playerCharacter), Keys.W, Keys.Up);

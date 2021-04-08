@@ -84,5 +84,46 @@ namespace Sprintfinity3902.SpriteFactories
             return new SpikeEnemySprite(enemySpriteSheet);
         }
 
+        public ISprite CreateDodongoBackDamaged()
+        {
+            return new DodongoBackDamagedSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoBackMoving()
+        {
+            return new DodongoBackMovingSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoFrontMoving()
+        {
+            return new DodongoFrontMovingSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoFrontDamaged()
+        {
+            return new DodongoFrontDamagedSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoLeftDamaged()
+        {
+            return new DodongoLeftDamagedSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoLeftMoving()
+        {
+            return new DodongoRightMovingSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoRightMoving()
+        {
+            return new DodongoLeftMovingSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoRightDamaged()
+        {
+            return new DodongoRightDamagedSprite(bossSpriteSheet);
+        }
+
+
     }
 }

@@ -342,6 +342,10 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(enemyID, new FinalBossEnemy(Position, up, center, down));
                     enemyID++;
                     break;
+                case "GHMA":
+                    Room.enemies.Add(enemyID, new GohmaBoss(Position));
+                    enemyID++;
+                    break;
                 case "FIRE":
                     IEntity fire = new FireEnemy(Position);
                     Room.enemies.Add(enemyID, fire);

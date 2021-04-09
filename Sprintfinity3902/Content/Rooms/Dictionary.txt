@@ -23,6 +23,7 @@ SKLN: Skeleton
 BOSS: Final Boss
 FIRE: Fire
 GELY: Gel
+GHMA: Gohma Boss
 GORY: Goriya
 HAND: Hand
 OLDM: Old Man NPC

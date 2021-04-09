@@ -124,6 +124,14 @@ namespace Sprintfinity3902.SpriteFactories
             return new DodongoRightDamagedSprite(bossSpriteSheet);
         }
 
+        public ISprite CreateGohmaClosedEye()
+        {
+            return new GohmaClosedEyeSprite(bossSpriteSheet);
+        }
 
+        public ISprite CreateGohmaOpenEye()
+        {
+            return new GohmaOpenEyeSprite(bossSpriteSheet);
+        }
     }
 }

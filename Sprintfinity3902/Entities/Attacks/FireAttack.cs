@@ -81,7 +81,7 @@ namespace Sprintfinity3902.Entities
             this.isMoving = false;
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             // If any type of hit, delete the attack.
             return 0;

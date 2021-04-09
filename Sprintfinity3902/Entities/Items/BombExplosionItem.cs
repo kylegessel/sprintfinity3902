@@ -46,7 +46,7 @@ namespace Sprintfinity3902.Entities.Items
 
         public bool Collide(int enemyID, IEnemy enemy, IRoom room)
         {
-            return enemy.HitRegister(enemyID, 3, STUN_LENGTH, Direction.NONE, room) <= 0;
+            return enemy.HitRegister(enemyID, 3, STUN_LENGTH, this, Direction.NONE, room) <= 0;
         }
         public void Collide(IRoom room)
         {

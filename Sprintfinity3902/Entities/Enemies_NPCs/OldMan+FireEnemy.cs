@@ -73,7 +73,7 @@ namespace Sprintfinity3902.Entities
             fireEnemy2.Draw(spriteBatch, color);
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             attacked = true;
             decorate = true;

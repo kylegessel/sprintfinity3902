@@ -60,6 +60,11 @@ namespace Sprintfinity3902.Entities
             decorateTime = THIRTY;
             decorate = false;
 
+            if (up.GetType().Equals(typeof(FireAttack)))
+            {
+
+            }
+
             rd = new Random();
 
             direction = rd.Next(ONE, FOUR);
@@ -187,7 +192,7 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             health = health - damage;
             decorate = true;

@@ -40,7 +40,7 @@ namespace Sprintfinity3902.Entities
         }
 
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             // Bats die on any amount of interaction so we can just return 0.
             return 0;

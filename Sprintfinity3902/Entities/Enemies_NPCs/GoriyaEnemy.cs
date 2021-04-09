@@ -178,7 +178,7 @@ namespace Sprintfinity3902.Entities
             CurrentState.Wait();
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             health = health - damage;
             decorate = true;

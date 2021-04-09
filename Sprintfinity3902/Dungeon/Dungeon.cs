@@ -57,6 +57,10 @@ namespace Sprintfinity3902.Dungeon
 
             WinLocation = new Point();
 
+            DungeonGenerator.Instance.Initialize();
+            DungeonGenerator.Instance.PopulateRooms();
+
+
             for (int roomNum = 1; roomNum <= 18; roomNum++) {
                 dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
             }

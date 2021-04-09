@@ -165,6 +165,9 @@ namespace Sprintfinity3902.Dungeon
             int currentId = (CurrentRoom.Id + 1) % 19 == 0 ? 1 : CurrentRoom.Id + 1;
             SetCurrentRoom(currentId);
             SetLinkPosition();
+
+            HudMenu.DungeonHud.Instance.RoomChange(this);
+            HudMenu.MiniMapHud.Instance.UpdateHudLinkLoc(this.CurrentRoom.RoomPos);
         }
 
         public void PreviousRoom()
@@ -172,6 +175,9 @@ namespace Sprintfinity3902.Dungeon
             int currentId = (CurrentRoom.Id - 1) < 1 ? 18 : CurrentRoom.Id - 1;
             SetCurrentRoom(currentId);
             SetLinkPosition();
+
+            HudMenu.DungeonHud.Instance.RoomChange(this);
+            HudMenu.MiniMapHud.Instance.UpdateHudLinkLoc(this.CurrentRoom.RoomPos);
         }
 
         public IRoom GetCurrentRoom()

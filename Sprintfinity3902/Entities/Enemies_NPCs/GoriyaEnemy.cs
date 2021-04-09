@@ -55,41 +55,12 @@ namespace Sprintfinity3902.Entities
         private int decorateTime;
         private int counter;
         
-
-        public GoriyaEnemy(IBoomerang boomerang)
-        {
-            Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
-            Position = new Vector2(750, 540);
-            color = Color.White;
-            Boomerang = boomerang;
-            goriyaAI = new GoriyaAI(this);
-            health = 3;
-            decorate = false;
-            movingDown = new GoriyaDownMovingState(this);
-            movingLeft = new GoriyaLeftMovingState(this);
-            movingRight = new GoriyaRightMovingState(this);
-            movingUp = new GoriyaUpMovingState(this);
-            itemDown = new GoriyaDownItemState(this);
-            itemLeft = new GoriyaLeftItemState(this);
-            itemRight = new GoriyaRightItemState(this);
-            itemUp = new GoriyaUpItemState(this);
-            idleDown = new GoriyaDownIdleState(this);
-            idleLeft = new GoriyaLeftIdleState(this);
-            idleRight = new GoriyaRightIdleState(this);
-            idleUp = new GoriyaUpIdleState(this);
-
-            decorateCount = 0;
-            decorateTime = 30;
-
-            CurrentState = movingLeft;
-            CurrentState.Start = true;
-        }
-        public GoriyaEnemy(IBoomerang boomerang, Vector2 pos)
+        public GoriyaEnemy(IEntity boomerang, Vector2 pos)
         {
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
             Position = pos;
             color = Color.White;
-            Boomerang = boomerang;
+            Boomerang = (IBoomerang) boomerang;
             goriyaAI = new GoriyaAI(this);
             health = 3;
             decorate = false;

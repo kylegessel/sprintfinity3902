@@ -56,6 +56,11 @@ namespace Sprintfinity3902
                 entity.Y = entity.Y + shiftAmount;
             }
 
+            foreach (IEntity entity in Game.dungeon.GetCurrentRoom().enemyProj)
+            {
+                entity.Y = entity.Y + shiftAmount;
+            }
+
             foreach (IEntity entity in Game.dungeon.GetCurrentRoom().items)  {
                 entity.Y = entity.Y + shiftAmount;
             }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Sprintfinity3902.Sprites
+namespace Sprintfinity3902.Sprites.PowerUps
 {
     public class DefensePowerUpItemSprite : AbstractSprite
     {

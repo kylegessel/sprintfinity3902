@@ -133,5 +133,30 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new GohmaOpenEyeSprite(bossSpriteSheet);
         }
+
+        public ISprite CreateManhandlaDownMouth()
+        {
+            return new ManhandlaDownMouthSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateManhandlaLeftMouth()
+        {
+            return new ManhandlaLeftMouthSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateManhandlaRightMouth()
+        {
+            return new ManhandlaRightMouthSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateManhandlaUpMouth()
+        {
+            return new ManhandlaUpMouthSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateManhandlaBody()
+        {
+            return new ManhandlaBodySprite(bossSpriteSheet);
+        }
     }
 }

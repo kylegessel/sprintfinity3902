@@ -129,9 +129,9 @@ namespace Sprintfinity3902.SpriteFactories
             return new GohmaClosedEyeSprite(bossSpriteSheet);
         }
 
-        public ISprite CreateGohmaOpenEye()
+        public ISprite CreateGohmaOpenedEye()
         {
-            return new GohmaOpenEyeSprite(bossSpriteSheet);
+            return new GohmaOpenedEyeSprite(bossSpriteSheet);
         }
 
         public ISprite CreateManhandlaDownMouth()

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Sprintfinity3902.Sprites
 {
-    public class GohmaOpenEyeSprite : AbstractSprite
+    public class GohmaOpenedEyeSprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 
@@ -13,8 +13,9 @@ namespace Sprintfinity3902.Sprites
         private const int BOSS1_HEIGHT = 16;
 
 
-        public GohmaOpenEyeSprite(Texture2D texture)
+        public GohmaOpenedEyeSprite(Texture2D texture)
         {
+            Texture = texture;
             SpriteFrame Sprite1 = new SpriteFrame(texture, BOSS1_POS_X, BOSS1_POS_Y, BOSS1_WIDTH, BOSS1_HEIGHT);
 
             Animation = new Animation();
@@ -26,7 +27,7 @@ namespace Sprintfinity3902.Sprites
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0f, new Vector2(0, 0), Global.Var.SCALE, Animation.CurrentFrame == Animation.GetFrame(1) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            spriteBatch.Draw(Texture, position, Animation.CurrentFrame.Sprite.SourceRectangle, color, 0f, new Vector2(0, 0), Global.Var.SCALE, Animation.CurrentFrame == Animation.GetFrame(0) ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         }
 
     }

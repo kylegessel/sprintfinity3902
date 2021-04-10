@@ -58,7 +58,7 @@ namespace Sprintfinity3902.Entities
             decorateTime = TIME_DECORATED;
             decorate = false;
             this.color = Color.White;
-            direction = 0;
+            direction = LEFT;
             count = 0;
             speed = .2f;
             SetStepSize(speed);
@@ -112,7 +112,7 @@ namespace Sprintfinity3902.Entities
             }
             else if (count == waitTime)
             {
-                direction = rand.Next(LEFT, UP_RIGHT);
+                direction = rand.Next(LEFT, UP_RIGHT+1);
                 count = 0;
             }
 

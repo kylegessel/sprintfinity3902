@@ -16,9 +16,11 @@ namespace Sprintfinity3902.Entities
 
         private int decorateCount;
         private int decorateTime;
-        private int health;
         private bool decorate;
         private int counter;
+        private ManhandlaBoss Manhandla;
+
+        public int health { get; set; }
 
 
         public ManhandlaMouthRight(Vector2 pos)
@@ -61,6 +63,10 @@ namespace Sprintfinity3902.Entities
             health = health - damage;
             decorate = true;
             decorateCount = Global.Var.ZERO;
+            if (health <= 0)
+            {
+                Manhandla.IncreaseSpeed();
+            }
             return health;
         }
 
@@ -83,6 +89,11 @@ namespace Sprintfinity3902.Entities
             {
                 color = Color.Blue;
             }
+        }
+
+        public void GiveManhandla(ManhandlaBoss man)
+        {
+            Manhandla = man;
         }
     }
 }

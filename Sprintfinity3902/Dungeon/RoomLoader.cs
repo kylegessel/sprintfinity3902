@@ -342,8 +342,8 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(enemyID, new FinalBossEnemy(Position, up, center, down));
                     enemyID++;
                     break;
-                case "GHMA":
-                    Room.enemies.Add(enemyID, new GohmaBoss(Position));
+                case "DODO":
+                    Room.enemies.Add(enemyID, new DodongoBoss(Position));
                     enemyID++;
                     break;
                 case "FIRE":
@@ -356,6 +356,10 @@ namespace Sprintfinity3902.Dungeon
                     gel.X = gel.Position.X + FOUR * Global.Var.SCALE;
                     gel.Y = gel.Position.Y + FOUR * Global.Var.SCALE;
                     Room.enemies.Add(enemyID, gel);
+                    enemyID++;
+                    break;
+                case "GHMA":
+                    Room.enemies.Add(enemyID, new GohmaBoss(Position));
                     enemyID++;
                     break;
                 case "GORY":

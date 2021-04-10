@@ -8,15 +8,11 @@ namespace Sprintfinity3902.Entities
 {
     public class ManhandlaBoss : AbstractEntity, IEnemy
     {
-        private const int STARTING_HEALTH = 5;
-        private const int TIME_DECORATED = 30;
-        private const int MOD_BOUND = 12;
-        private const int THREE = 3;
-        private const int SIX = 6;
-        private const int NINE = 9;
         private const int TWO = 2;
-        private const int TWO_HUNDRED = 200;
-        private const int FORTY = 40;
+        private const int UPPER_BOUND = 200;
+        private const int LOWER_BOUND = 40;
+        private const float SPEED_INCREASE = .2f;
+        public const float FINAL_SPEED = 1f;
 
         private const int LEFT = 1;
         private const int RIGHT = 2;
@@ -32,62 +28,47 @@ namespace Sprintfinity3902.Entities
         private const int RIGHT_BOUND = 188;
         private const int DOWN_BOUND = 172;
 
-        private int decorateCount;
-        private int decorateTime;
-        private int health;
-        private bool decorate;
-        private int counter;
-
         private Random rand = new Random();
         private int count;
         private int direction;
         private int waitTime;
-        private float speed;
+        public float speed;
 
-        private IEntity downMouth;
-        private IEntity leftMouth;
-        private IEntity rightMouth;
-        private IEntity upMouth;
+        private ManhandlaMouthDown downMouth;
+        private ManhandlaMouthLeft leftMouth;
+        private ManhandlaMouthRight rightMouth;
+        private ManhandlaMouthUp upMouth;
 
 
         public ManhandlaBoss(Vector2 pos, IEntity down, IEntity left, IEntity right, IEntity up)
         {
             Sprite = EnemySpriteFactory.Instance.CreateManhandlaBody();
             Position = pos;
-            health = STARTING_HEALTH;
-            decorateTime = TIME_DECORATED;
-            decorate = false;
             this.color = Color.White;
             direction = LEFT;
             count = 0;
             speed = .2f;
             SetStepSize(speed);
 
-            downMouth = down;
-            leftMouth = left;
-            rightMouth = right;
-            upMouth = up;
+            downMouth = (ManhandlaMouthDown) down;
+            leftMouth = (ManhandlaMouthLeft) left;
+            rightMouth = (ManhandlaMouthRight) right;
+            upMouth = (ManhandlaMouthUp) up;
+            downMouth.GiveManhandla(this);
+            leftMouth.GiveManhandla(this);
+            rightMouth.GiveManhandla(this);
+            upMouth.GiveManhandla(this);
         }
 
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
-            if (decorate)
-            {
-                Decorate();
-                if (decorateCount == decorateTime)
-                {
-                    decorate = false;
-                    decorateCount = Global.Var.ZERO;
-                    color = Color.White;
-                }
-                decorateCount++;
-            }
             Move();
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
+
             downMouth.Draw(spriteBatch, Position, color);
             leftMouth.Draw(spriteBatch, Position, color);
             rightMouth.Draw(spriteBatch, Position, color);
@@ -98,17 +79,19 @@ namespace Sprintfinity3902.Entities
 
         public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
-            health = health - damage;
-            decorate = true;
-            decorateCount = Global.Var.ZERO;
-            return health;
+            int i = 1;
+            if (downMouth.health <= 0 && leftMouth.health <= 0 && rightMouth.health <= 0 && upMouth.health <= 0)      
+            {
+                i = 0;
+            }
+            return i;
         }
 
         public override void Move()
         {
             if (count == 0)
             {
-                waitTime = rand.Next(FORTY, TWO_HUNDRED);
+                waitTime = rand.Next(LOWER_BOUND, UPPER_BOUND);
             }
             else if (count == waitTime)
             {
@@ -116,13 +99,33 @@ namespace Sprintfinity3902.Entities
                 count = 0;
             }
 
-            if(X <= LEFT_BOUND * Global.Var.SCALE || Y <= UP_BOUND * Global.Var.SCALE)
+            if(X <= LEFT_BOUND * Global.Var.SCALE)
             {
-                direction = DOWN_RIGHT;
+                int[] array = new int[] { RIGHT, UP_RIGHT, DOWN_RIGHT };
+                int randomIndex = rand.Next(array.Length);
+                direction = array[randomIndex];
+                count = 0;
             }
-            else if(X >= RIGHT_BOUND * Global.Var.SCALE || Y >= DOWN_BOUND * Global.Var.SCALE)
+            else if(Y >= DOWN_BOUND * Global.Var.SCALE)
             {
-                direction = UP_LEFT;
+                int[] array = new int[] { UP, UP_RIGHT, UP_LEFT };
+                int randomIndex = rand.Next(array.Length);
+                direction = array[randomIndex]; 
+                count = 0;
+            }
+            else if(X >= RIGHT_BOUND * Global.Var.SCALE)
+            {
+                int[] array = new int[] { LEFT, UP_LEFT, DOWN_LEFT };
+                int randomIndex = rand.Next(array.Length);
+                direction = array[randomIndex]; 
+                count = 0;
+            }
+            else if(Y <= UP_BOUND * Global.Var.SCALE)
+            {
+                int[] array = new int[] { DOWN, DOWN_LEFT, DOWN_RIGHT };
+                int randomIndex = rand.Next(array.Length);
+                direction = array[randomIndex]; 
+                count = 0;
             }
 
 
@@ -169,25 +172,9 @@ namespace Sprintfinity3902.Entities
             count++;
         }
 
-        public void Decorate()
+        public void IncreaseSpeed()
         {
-            counter = decorateCount % MOD_BOUND;
-            if (counter < THREE)
-            {
-                color = Color.Aqua;
-            }
-            else if (counter < SIX)
-            {
-                color = Color.Red;
-            }
-            else if (counter < NINE)
-            {
-                color = Color.White;
-            }
-            else
-            {
-                color = Color.Blue;
-            }
+            speed = speed + SPEED_INCREASE;
         }
     }
 }

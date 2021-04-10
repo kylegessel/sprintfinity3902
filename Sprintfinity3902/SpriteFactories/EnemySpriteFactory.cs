@@ -111,12 +111,12 @@ namespace Sprintfinity3902.SpriteFactories
 
         public ISprite CreateDodongoLeftMoving()
         {
-            return new DodongoRightMovingSprite(bossSpriteSheet);
+            return new DodongoLeftMovingSprite(bossSpriteSheet);
         }
 
         public ISprite CreateDodongoRightMoving()
         {
-            return new DodongoLeftMovingSprite(bossSpriteSheet);
+            return new DodongoRightMovingSprite(bossSpriteSheet);
         }
 
         public ISprite CreateDodongoRightDamaged()

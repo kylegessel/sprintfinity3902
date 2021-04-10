@@ -21,6 +21,8 @@ namespace Sprintfinity3902.Entities
         private const int UP_BOUND = 116;
         private const int DOWN_BOUND = 161;
 
+        private const float SPEED = .5f;
+
         private Random rand = new Random();
         private int count;
         private int direction;
@@ -54,7 +56,7 @@ namespace Sprintfinity3902.Entities
 
             direction = LEFT;
             count = 0;
-            speed = .4f;
+            speed = SPEED;
             SetStepSize(speed);
         }
 

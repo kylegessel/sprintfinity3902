@@ -60,11 +60,6 @@ namespace Sprintfinity3902.Entities
             decorateTime = THIRTY;
             decorate = false;
 
-            if (up.GetType().Equals(typeof(FireAttack)))
-            {
-
-            }
-
             rd = new Random();
 
             direction = rd.Next(ONE, FOUR);

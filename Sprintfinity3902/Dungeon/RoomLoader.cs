@@ -376,6 +376,24 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(enemyID, man);
                     enemyID++;
                     break;
+                case "MANH":
+                    //Fire should be passed to the heads!
+                    IEntity mouthDown = new ManhandlaMouthDown(Position);
+                    Room.enemies.Add(enemyID, mouthDown);
+                    enemyID++;
+                    IEntity mouthLeft = new ManhandlaMouthLeft(Position);
+                    Room.enemies.Add(enemyID, mouthLeft);
+                    enemyID++;
+                    IEntity mouthRight = new ManhandlaMouthRight(Position);
+                    Room.enemies.Add(enemyID, mouthRight);
+                    enemyID++;
+                    IEntity mouthUp = new ManhandlaMouthUp(Position);
+                    Room.enemies.Add(enemyID, mouthUp);
+                    enemyID++;
+                    IEntity manhandla = new ManhandlaBoss(Position, mouthDown, mouthLeft, mouthRight, mouthUp);
+                    Room.enemies.Add(enemyID, manhandla);
+                    enemyID++;
+                    break;
                 case "MNFR":
                     IEntity fire1 = new FireEnemy(Position);
                     IEntity fire2 = new FireEnemy(Position);

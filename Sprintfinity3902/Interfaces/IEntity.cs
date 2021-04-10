@@ -23,6 +23,7 @@ namespace Sprintfinity3902.Interfaces
         }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Color color);
+        void Draw(SpriteBatch spriteBatch, Vector2 pos, Color color);
         void Move();
         void Attack();
         Rectangle GetBoundingRect();

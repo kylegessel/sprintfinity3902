@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
+using System;
 using System.Diagnostics;
 
 namespace Sprintfinity3902.Entities
@@ -21,7 +22,8 @@ namespace Sprintfinity3902.Entities
         private Vector2 StoredPlayerEntityDiff;
         public bool isMoving { get; set; }
         private int direction;
-        
+        private float distance;
+
 
         public FireAttack(int moveDirection)
         {
@@ -114,11 +116,12 @@ namespace Sprintfinity3902.Entities
             if(count == SPLIT_WAIT_TIME && tracking)
             {
                 Debug.WriteLine("Player X: " + Player.X + " Player Y: " + Player.Y);
+                distance = (float) (Math.Sqrt(Math.Pow(X-Player.X, 2) + Math.Pow(Y - Player.Y, 2)));
                 StoredPlayerEntityDiff = new Vector2(X - Player.X, Y - Player.Y);
             }else if(count > SPLIT_WAIT_TIME && tracking)
             {
-                this.X = X - (StoredPlayerEntityDiff.X / POSITION_DIVISOR);
-                this.Y = Y - (StoredPlayerEntityDiff.Y / POSITION_DIVISOR);
+                this.X = X - (StoredPlayerEntityDiff.X / distance);
+                this.Y = Y - (StoredPlayerEntityDiff.Y / distance);
             }else {
             this.X = X - HORIZONTAL_SPEED_NONTRACK * Global.Var.SCALE;
 

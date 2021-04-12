@@ -38,6 +38,8 @@ namespace Sprintfinity3902.Dungeon
         private static int BMRG_X_OFFSET = 5;
         private static int BMRG_Y_OFFSET = 4;
 
+        private static Game1 Game;
+
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
@@ -50,17 +52,16 @@ namespace Sprintfinity3902.Dungeon
         int spikeNum;
         
 
-        // Have this input a filename and then load the room.
-        public RoomLoader(IRoom room)
+        public RoomLoader(IRoom room, Game1 gameInstance)
         {
-            // Really think there is a better way to list these files, just a demo for the time being though.
-            Initialize(room);
+            Initialize(room, gameInstance);
         }
 
         public RoomLoader() { }
 
-        public void Initialize(IRoom room) {
+        public void Initialize(IRoom room, Game1 gameInstance) {
             Room = room;
+            Game = gameInstance;
             mapStream = new StreamReader(Room.path);
             spikeNum = 1;
             enemyID = 0;
@@ -333,9 +334,9 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "BOSS":
-                    IAttack up = new FireAttack(1);
-                    IAttack center = new FireAttack(0);
-                    IAttack down = new FireAttack(2);
+                    IAttack up = new FireAttack(1, Game.playerCharacter);
+                    IAttack center = new FireAttack(0, Game.playerCharacter);
+                    IAttack down = new FireAttack(2, Game.playerCharacter);
                     Room.enemyProj.Add(up);
                     Room.enemyProj.Add(down);
                     Room.enemyProj.Add(center);
@@ -347,7 +348,7 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "FIRE":
-                    IEntity fire = new FireEnemy(Position);
+                    IEntity fire = new FireEnemy(Position, Room.enemyProj, Game.playerCharacter);
                     Room.enemies.Add(enemyID, fire);
                     enemyID++;
                     break;
@@ -399,12 +400,10 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "MNFR":
-                    IEntity fire1 = new FireEnemy(Position);
-                    IEntity fire2 = new FireEnemy(Position);
-                    Room.enemies.Add(enemyID, fire1);
-                    enemyID++;
-                    Room.enemies.Add(enemyID, fire2);
-                    enemyID++;
+                    IEntity fire1 = new FireEnemy(Position, Room.enemyProj, Game.playerCharacter);
+                    IEntity fire2 = new FireEnemy(Position, Room.enemyProj, Game.playerCharacter);
+                    Room.enemyProj.Add(fire1);
+                    Room.enemyProj.Add(fire2);
 
                     IEntity manAndFire = new OldMan_FireEnemy(Position,fire1,fire2);
                     manAndFire.X = manAndFire.Position.X + EIGHT * Global.Var.SCALE;

@@ -2,17 +2,23 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Entities
 {
     public class FireAttack : AbstractEntity, IAttack, IProjectile
     {
 
-        private static float F_DOT_SEVEN = .7f;
-        private static float F_ONE_DOT_FIVE = 1.5f;
+        private static float VERTICAL_SPEED_NONTRACK = .7f;
+        private static float HORIZONTAL_SPEED_NONTRACK = 1.5f;
+        private static float POSITION_DIVISOR = 40;
         private static int TWO = 2;
         private static int ONE = 1;
-
+        private static int SPLIT_WAIT_TIME = 20;
+        private static IPlayer Player;
+        bool tracking;
+        private int count;
+        private Vector2 StoredPlayerEntityDiff;
         public bool isMoving { get; set; }
         private int direction;
         
@@ -23,6 +29,30 @@ namespace Sprintfinity3902.Entities
 
             direction = moveDirection;
             isMoving = false;
+            tracking = false;
+            count = 0;
+        }
+
+        public FireAttack(IPlayer player)
+        {
+            Sprite = ItemSpriteFactory.Instance.CreateFireAttack();
+
+            direction = 0;
+            isMoving = false;
+            Player = player;
+            tracking = true;
+            count = SPLIT_WAIT_TIME;
+        }
+
+        public FireAttack(Vector2 position, IPlayer player)
+        {
+            Sprite = ItemSpriteFactory.Instance.CreateFireAttack();
+            Position = position;
+            direction = 0;
+            isMoving = false;
+            Player = player;
+            tracking = true;
+            count = SPLIT_WAIT_TIME;
         }
 
         public FireAttack(Vector2 position, int moveDirection)
@@ -32,6 +62,31 @@ namespace Sprintfinity3902.Entities
             Position = position;
             direction = moveDirection;
             isMoving = false;
+            tracking = false;
+            count = 0;
+        }
+
+        public FireAttack(int moveDirection, IPlayer player)
+        {
+            Sprite = ItemSpriteFactory.Instance.CreateFireAttack();
+
+            direction = moveDirection;
+            isMoving = false;
+            Player = player;
+            tracking = true;
+            count = 0;
+        }
+
+        public FireAttack(Vector2 position, int moveDirection, IPlayer player)
+        {
+            Sprite = ItemSpriteFactory.Instance.CreateFireAttack();
+
+            Position = position;
+            direction = moveDirection;
+            isMoving = false;
+            Player = player;
+            tracking = true;
+            count = 0;
         }
 
         public override void Update(GameTime gameTime)
@@ -56,19 +111,30 @@ namespace Sprintfinity3902.Entities
         public override void Move()
         {
             //Implement 2 count integers that handle spread
-
-            this.X = X - F_ONE_DOT_FIVE * Global.Var.SCALE;
+            if(count == SPLIT_WAIT_TIME && tracking)
+            {
+                Debug.WriteLine("Player X: " + Player.X + " Player Y: " + Player.Y);
+                StoredPlayerEntityDiff = new Vector2(X - Player.X, Y - Player.Y);
+            }else if(count > SPLIT_WAIT_TIME && tracking)
+            {
+                this.X = X - (StoredPlayerEntityDiff.X / POSITION_DIVISOR);
+                this.Y = Y - (StoredPlayerEntityDiff.Y / POSITION_DIVISOR);
+            }else {
+            this.X = X - HORIZONTAL_SPEED_NONTRACK * Global.Var.SCALE;
 
             if(this.direction == ONE) //UP
-                this.Y = Y - F_DOT_SEVEN * Global.Var.SCALE;
+                this.Y = Y - VERTICAL_SPEED_NONTRACK * Global.Var.SCALE;
 
             if(this.direction == TWO) //DOWN
-                this.Y = Y + F_DOT_SEVEN * Global.Var.SCALE;
+                this.Y = Y + VERTICAL_SPEED_NONTRACK * Global.Var.SCALE;
+            }
+            count++;
         }
 
         public void StartOver(Vector2 position)
         {
             Position = position;
+            count = 0;
         }
 
         public void StartMoving()
@@ -79,6 +145,7 @@ namespace Sprintfinity3902.Entities
         public void StopMoving()
         {
             this.isMoving = false;
+            count = 0;
         }
 
         public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)

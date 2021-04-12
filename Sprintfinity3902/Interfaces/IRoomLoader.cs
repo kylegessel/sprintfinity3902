@@ -2,7 +2,7 @@
 {
     public interface IRoomLoader
     {
-        void Initialize(IRoom room);
+        void Initialize(IRoom room, Game1 gameInstance);
         void Build();
         void BuildWallAndFloor(string input);
         void BuildBlocks(string input);

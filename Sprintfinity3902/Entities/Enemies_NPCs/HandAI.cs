@@ -11,10 +11,9 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
 {
     public class HandAI
     {
-
-        private static float ERROR_DISPLACEMENT_LENGTH = 1.6f;
-        private static int NINETY_SIX = 96;
-        private static int THIRTY_TWO = 32;
+        private static float ERROR_DISPLACEMENT_LENGTH = 2.4f;
+        private static int REFERENCE_POINT_Y = 96;
+        private static int REFERENCE_POINT_X = 32;
         private static int SCALED_TILE_SIDE_LENGTH = Global.Var.TILE_SIZE * Global.Var.SCALE;
         private static Vector2[] UNIT_TILE_VECTORS = new Vector2[] {
             new Vector2(0, 0),
@@ -22,20 +21,23 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             new Vector2(SCALED_TILE_SIDE_LENGTH, SCALED_TILE_SIDE_LENGTH),
             new Vector2(0, SCALED_TILE_SIDE_LENGTH)
         };
-        private static Vector2 referencePos = new Vector2(THIRTY_TWO * Global.Var.SCALE, NINETY_SIX * Global.Var.SCALE);
+        private static Vector2 REFERENCE_POINT = new Vector2(REFERENCE_POINT_X * Global.Var.SCALE, REFERENCE_POINT_Y * Global.Var.SCALE);
 
+        /* Route to player as a queue of tuple <x, y> */
         private Queue<Tuple<int, int>> route;
-
+        /* A bool matrix of whether or not a block is present
+         * NOTE: Only checks for "BLOK" in csv
+         * imp below
+         */
         private bool[,] pathMatrix;
         private IEnemy handRef;
         private AbstractEntity.Direction lastDirection;
+        private Tuple<int, int> lastPlayerTile;
         private bool coolDown;
         private int count;
-        private Tuple<int, int> lastPlayerTile;
 
         public HandAI(IRoom _room, IEnemy _handRef)
         {
-            //route = new Queue<Tuple<int, int>>();
             pathMatrix = new bool[7, 12];
             parseRoomLayout(_room.path);
             handRef = _handRef;
@@ -44,7 +46,7 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             lastDirection = AbstractEntity.Direction.NONE;
         }
 
-
+        /* Abstracts the room to a boolean matrix based of elgibility of traversal */
         private void parseRoomLayout(string path)
         {
             StreamReader sr = new StreamReader(path);
@@ -66,53 +68,76 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             sr.Close();
         }
 
+        /* Returns the difference of two vectors, a - b */
         private Vector2 deltaVec(Vector2 a, Vector2 b)
         {
             return new Vector2(a.X - b.X, a.Y - b.Y);
         }
 
+        /* Returns the magnitude of a vector, |a| */
         private float magVec(Vector2 a)
         {
             return (float)Math.Sqrt(a.X * a.X + a.Y * a.Y);
         }
 
-        private Vector2 isOnIntersection(Vector2 myPos, bool printDis = false)
+        /* Determines if the hand position in on an intersection:
+         * if true:
+         *      returns the position of the tile that the hand is 'on'
+         * else:
+         *      returns Vector2.Zero which is considered as null (Vector2 cannot be null so this is workaround)
+         * 
+         * def 'on' to be a boolean evaluated to true iff the distance from any block's upper left point is less than
+         *      the ERROR_DISPLACEMENT_LENGTH and coolDown == false
+         * */
+        private Vector2 isOnIntersection(Vector2 myPos)
         {
-            Vector2 relativePositionVec = deltaVec(myPos, referencePos);
+            // The vector from the upper left of the room--REFERENCE_POINT--to the hands upper-left position
+            Vector2 relativePositionVec = deltaVec(myPos, REFERENCE_POINT);
 
-            // The vector in 1, 1 space which is scaled to the tile size... this vector represents from the upper left tile
-            // as origin, the vector to my position
+            // Defines the vector to the position of the tile whose body contains the position of hand
             Vector2 normRPV = new Vector2(relativePositionVec.X % SCALED_TILE_SIDE_LENGTH, relativePositionVec.Y % SCALED_TILE_SIDE_LENGTH);
 
-            // Determine if the normRPV relative to each corner is less than the error displacement
-            // if so, we conclude that I'm on an intersection
+            /* Defines an enumerable object of a subset of UNIT_TILE_VECTORS
+             * where each member's distance to the normRPV is less than the ERROR_DISPLACEMENT_LENGTH
+             * 
+             * Re-explained, this selects a vector(s) from UNIT_TILE_VECTORS iff its distance from the 
+             * normRPV is less than ERROR_DISPLACEMENT_LENGTH
+             * 
+             * This determines if the hand is on a tile intersection and if it is the tile the hand is in, 
+             * the tile to the bottom, the tile to the right, or the tile which is diagonal from the tile
+             */
             IEnumerable<Vector2> selected = (IEnumerable<Vector2>)UNIT_TILE_VECTORS.Where(x => magVec(deltaVec(x, normRPV)) < ERROR_DISPLACEMENT_LENGTH);
 
-            if (printDis) {
-                foreach (Vector2 vec in UNIT_TILE_VECTORS) {
-                    Debug.WriteLine("Dist mag: " + magVec(deltaVec(vec, normRPV)));
-                }
-            }
-
-            // If more than one corner registers I'm on intersection,
-            // alert programmer because error displacement is too high
+            // If more than one vector is selected, then error because the displacement is far too large
             if (selected.Count() > 1) throw new Exception("The error displacement length is too large");
 
-            // If I was registered with a vertex
+            // If the hand is close to a vertex
             if (selected.Count() > 0) {
-
+                // Take the position of the hand and map it to the tile; don't round it
                 Tuple<int, int> mytile = demap(myPos, rounded: false);
-                //Debug.WriteLine(mytile.Item1 * SCALED_TILE_SIDE_LENGTH + selected.First().X + referencePos.X + ", " + (mytile.Item2 * SCALED_TILE_SIDE_LENGTH + selected.First().Y + referencePos.Y));
-                return new Vector2(mytile.Item1 * SCALED_TILE_SIDE_LENGTH + selected.First().X + referencePos.X, mytile.Item2 * SCALED_TILE_SIDE_LENGTH + selected.First().Y + referencePos.Y);
+                // Return the (perfect) position of the tile which the hand is intersecting with
+                return new Vector2(mytile.Item1 * SCALED_TILE_SIDE_LENGTH + selected.First().X + REFERENCE_POINT.X, mytile.Item2 * SCALED_TILE_SIDE_LENGTH + selected.First().Y + REFERENCE_POINT.Y);
             }
 
+            // Return the zero vector which the reciever should interpret as null since (0, 0) is not in the tile map position
             return Vector2.Zero;
 
         }
 
+        /* This takes a position and determines which tile contains the position
+         *
+         * if rounded is true, only hands that are halfway or more into a tile are considered to be in that tile
+         * 
+         * else the tile will represent the literal tile which contains the position of the hand
+         * 
+         * for example, if each tile is split into four quadrants, when rounded is true, this function will
+         * only return the tile if the position is in quadrant two,
+         * otherwise if rounded is false, the function will return the tile iff 
+         * the position is in any quadrant of the tile
+         */
         private Tuple<int, int> demap(Vector2 pos, bool rounded = true)
         {
-            Vector2 vec = deltaVec(pos, referencePos);
+            Vector2 vec = deltaVec(pos, REFERENCE_POINT);
 
             if (rounded) {
                 return new Tuple<int, int>((int)Math.Round(vec.X / (Global.Var.SCALE * Global.Var.TILE_SIZE)), (int)Math.Round(vec.Y / (Global.Var.SCALE * Global.Var.TILE_SIZE)));
@@ -121,13 +146,13 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             return new Tuple<int, int>((int)(vec.X / (Global.Var.SCALE * Global.Var.TILE_SIZE)), (int)(vec.Y / (Global.Var.SCALE * Global.Var.TILE_SIZE)));
         }
 
+        // Returns true if pathMatrix is true at a and the item is within the bounds of the tileset
         private bool isValid(Tuple<int, int> a)
         {
-            return a.Item1 <= 11 && a.Item1 >= 0 && a.Item2 <= 6 && a.Item2 >= 0 && pathMatrix[a.Item2, a.Item1];
+            return a.Item1 < Global.Var.TILE_COLUMN_NUM && a.Item1 >= Global.Var.ZERO && a.Item2 < Global.Var.TILE_ROW_NUM && a.Item2 >= Global.Var.ZERO && pathMatrix[a.Item2, a.Item1];
         }
 
-
-
+        // Adds a (tile, path history) to l if 'tile' is valid and enqueues 'tile' to 'path history'
         private void addIfValid(List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> l, Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> tile)
         {
             if (isValid(tile.Item1)) {
@@ -136,6 +161,9 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             }
         }
 
+        /* Determines all valid adjacent tiles of a given tile and returns a list of them with path histories where the front of path history is
+         * the adjacent tile 
+         */
         private List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> adjacentTiles(Tuple<Tuple<int, int>, Queue<Tuple<int, int>>> tile)
         {
             List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>> adj = new List<Tuple<Tuple<int, int>, Queue<Tuple<int, int>>>>();
@@ -149,6 +177,7 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
 
         }
 
+        /* BFS for finding the shortest path to the player */
         private Queue<Tuple<int, int>> determineBestPath(Tuple<int, int> myTile, Tuple<int, int> playerTile)
         {
             // BFS - Referenced: https://www.geeksforgeeks.org/shortest-path-in-a-binary-maze/
@@ -184,6 +213,7 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
 
         }
 
+        // Defines enum direction from a given tile to a different tile (dest & pos) should be cardinal to each other
         private AbstractEntity.Direction directionToTile(Tuple<int, int> dest, Tuple<int, int> pos)
         {
             if (dest.Item1 - pos.Item1 > 0) {
@@ -202,13 +232,17 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             return AbstractEntity.Direction.NONE;
         }
 
+        /*
+         * Determines which direction a hand should take, given the player's position
+         */
         public AbstractEntity.Direction WhichDirection(Vector2 myPos, Vector2 playerPos)
         {
 
-            // x, y ordering
+            // Tile representation of the hand and player's position without rounding
             Tuple<int, int> currentPlayerTile = demap(playerPos);
             Tuple<int, int> currentMyTile = demap(myPos);
 
+            // If an intersection has recently been found - wait
             if (coolDown) {
                 count++;
                 if (count > 3) {
@@ -216,57 +250,35 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
                     count = 0;
                 }
             } else {
-
+                
                 Vector2 nearestIntersection = isOnIntersection(myPos);
 
+                // If a hand is on an intersection and (this is the first time this method is called or the best path has one more tile)
                 if (nearestIntersection != Vector2.Zero && (route == null || route.Count > 0)) {
+                    // Snap the hand's position to be perfectly aligned to tile (important to reduce movement errors from tile to tile)
+                    handRef.Position = nearestIntersection;
 
-                    if (currentPlayerTile.Equals(lastPlayerTile)) { // player static
+                    // If the player has not moved tiles
+                    if (currentPlayerTile.Equals(lastPlayerTile)) {
+                        // Just grab the next tile in the queue
                         route.Dequeue();
-                        Debug.WriteLine("At intersection, popping instruction");
-                        if (route.Count == 0) {
-                            route = determineBestPath(currentMyTile, currentPlayerTile);
-                        }
 
                     } else { // player moved
-
-                        handRef.Position = nearestIntersection;
-                        Debug.WriteLine("At intersection");
+                        // Re-route
                         route = determineBestPath(currentMyTile, currentPlayerTile);
-                        //route.Dequeue();
-                        //printQueue(route);
-                        Debug.WriteLine("Going to " + route.First().ToString() + " via " + directionToTile(route.First(), currentMyTile));
 
                         lastPlayerTile = currentPlayerTile;
                     }
 
-                    lastDirection = directionToTile(route.First(), currentMyTile);
+                    lastDirection = route.Count > 0 ? directionToTile(route.First(), currentMyTile) : lastDirection;
                     coolDown = true;
 
                 }
             }
 
-            //Debug.WriteLine(lastDirection.ToString());
-
             return lastDirection;
 
         }
-
-        private void printQueue(Queue<Tuple<int, int>> r)
-        {
-            Queue<Tuple<int, int>> a = new Queue<Tuple<int, int>>();
-            while (r.Count > 0) {
-                a.Enqueue(r.Dequeue());
-                Debug.WriteLine("(" + a.Last().Item2 + ", " + a.Last().Item1 + ")");
-            }
-
-            a.Reverse();
-
-            while (a.Count > 0) {
-                r.Enqueue(a.Dequeue());
-            }
-        }
-
 
         /*
          * This is a dfs which is guaranteed to find a to b but not min a to b

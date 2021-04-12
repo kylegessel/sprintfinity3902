@@ -22,55 +22,55 @@ namespace Sprintfinity3902.Entities
         private static int NINE = 9;
         private static int THIRTY = 30;
         private static int THREE = 3;
+        private static float ANIMATION_DURATION = 2000;
 
         private int count;
-        private static int decorateTime = 80;
+        private Direction direction;
+        private int waitTime;
         private int health;
+        private int counter;
         private float speed;
-        private AbstractEntity.Direction direction;
-        private bool decorate;
+        private Boolean decorate;
         private int enemyID;
-        private IPlayer link;
         private HandAI _AI;
-        public static bool caughtLink;
+        private IPlayer link;
+
         private bool _caughtLink;
-        private IRoom room;
-        private static float animation_duration = 2000;
-        private double startTime;
+        private static bool caughtLink;
+        private double animationCounter;
         private Vector2 savedPos;
+        private IRoom room;
 
         public HandEnemy(Vector2 pos, IPlayer player, IRoom _room)
         {
             Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
             Position = pos;
-            health = THREE;
+            health = 3;
             speed = INITIAL_SPEED;
             color = Color.White;
-            room = _room;
-            link = player;
             _AI = new HandAI(_room, this);
-            this._caughtLink = false;
-            direction = AbstractEntity.Direction.LEFT;
-            startTime = 0;
+            link = player;
+            _caughtLink = false;
+            animationCounter = 0.0;
+            room = _room;
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             if (_caughtLink) {
-                double percentComplete = (startTime / animation_duration);
-                color = Color.FromNonPremultiplied(new Vector4(1, 1, 1, Math.Max(0, 1 - (float)percentComplete)));
-                PlayerSpriteFactory.Instance.CreateLinkDownSprite().Draw(spriteBatch, Position, color);
+                double percentComplete = (animationCounter / ANIMATION_DURATION);
+                this.color = Color.FromNonPremultiplied(new Vector4(1, 1, 1, Math.Max(0, 1 - (float)percentComplete)));
+                PlayerSpriteFactory.Instance.CreateLinkDownSprite().Draw(spriteBatch, Position, this.color);
             }
-            Sprite.Draw(spriteBatch, Position, color);
-
-            //ItemSpriteFactory.Instance.CreateBombItem().Draw(spriteBatch, new Vector2(32 * Global.Var.SCALE+ Global.Var.TILE_SIZE * Global.Var.SCALE*6, 96 * Global.Var.SCALE + Global.Var.SCALE*Global.Var.TILE_SIZE*6), Color.White);
-            //ItemSpriteFactory.Instance.CreateBombItem().Draw(spriteBatch, new Vector2(32 * Global.Var.SCALE + Global.Var.TILE_SIZE * Global.Var.SCALE, 96 * Global.Var.SCALE + Global.Var.SCALE * Global.Var.TILE_SIZE), Color.White);
+            Sprite.Draw(spriteBatch, Position, this.color);
         }
 
         public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
         {
             this.enemyID = enemyID;
             health = health - damage;
+            count = ONE;
+            waitTime = THIRTY;
             decorate = true;
             direction = projDirection;
             speed = (float)ONE;
@@ -81,12 +81,27 @@ namespace Sprintfinity3902.Entities
         {
             Sprite.Update(gameTime);
 
-            if (!HandEnemy.caughtLink || this._caughtLink) {
+            // No one caught link or I caught link
+            if (!HandEnemy.caughtLink || _caughtLink) {
 
-                if (this._caughtLink) startTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                double percentComplete = (animationCounter / ANIMATION_DURATION);
+
+                if (percentComplete >= 1.0) {
+                    link.STATIC = false;
+                    color = Color.White;
+                    CollisionDetector.Instance.Pause();
+                    link.TogglePlayerVisible();
+                    HandEnemy.caughtLink = false;
+                    _caughtLink = false;
+                    speed = INITIAL_SPEED;
+                    room.enemies.Remove(enemyID);
+
+                }
+
+                // this caught link, increment animation counter
+                if (_caughtLink) animationCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
 
                 Move();
-
 
                 if (!this._caughtLink && link.GetBoundingRect().Intersects(GetBoundingRect())) {
                     SoundManager.Instance.PauseAll();
@@ -96,26 +111,21 @@ namespace Sprintfinity3902.Entities
                     color = Color.Black;
                     link.RemoveDecorator();
                     link.TogglePlayerVisible();
-                    link.STATIC = true;
+                    //link.Collidable = false;
                     HandEnemy.caughtLink = true;
-                    this._caughtLink = true;
-                    //room.enemies.Remove(enemyID);
+                    _caughtLink = true;
                     speed = 2;
                     savedPos = new Vector2(Position.X, Position.Y);
                 }
             }
-
-            if (_caughtLink) {
-                //link.Position = Position;
-            }
-
+            
             SetStepSize(speed);
             if (decorate) Decorate();
         }
 
         public void Decorate()
         {
-            int counter = count % MOD_BOUND;
+            counter = count % MOD_BOUND;
             if (counter < THREE) {
                 color = Color.Aqua;
             } else if (counter < SIX) {
@@ -125,21 +135,13 @@ namespace Sprintfinity3902.Entities
             } else {
                 color = Color.Blue;
             }
-            count++;
-            if (count >= decorateTime) {
-                count = 0;
-                decorate = false;
-                color = Color.White;
-
-                speed = INITIAL_SPEED;
-            }
         }
 
         public override void Move()
         {
             if (this._caughtLink) {
 
-                double percentComplete = (startTime / animation_duration);
+                double percentComplete = (animationCounter / ANIMATION_DURATION);
 
 
                 Position = new Vector2(
@@ -149,6 +151,21 @@ namespace Sprintfinity3902.Entities
 
                 return;
             }
+
+            if (count == 0) {
+                waitTime = new Random().Next(SIXTY, TWO_HUNDRED_TWENTY);
+                count++;
+            } else if (count == waitTime) {
+                direction = intToDirection(new Random().Next(ONE, FIVE));
+                speed = INITIAL_SPEED;
+                count = Global.Var.ZERO;
+                if (decorate) {
+                    decorate = false;
+                    speed *= 1.2f;
+                    color = Color.White;
+                }
+            }
+
             switch (decorate ? direction : _AI.WhichDirection(Position, link.Position)) {
                 case Direction.LEFT:
                     X -= speed * Global.Var.SCALE;
@@ -163,6 +180,7 @@ namespace Sprintfinity3902.Entities
                     Y += speed * Global.Var.SCALE;
                     break;
             }
+            count++;
         }
     }
 }

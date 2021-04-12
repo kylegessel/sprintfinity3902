@@ -192,7 +192,7 @@ namespace Sprintfinity3902.Link
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
-            CurrentState.Sprite.Draw(spriteBatch, Position, color);
+            CurrentState.Sprite.Draw(spriteBatch, Position, isVisible ? color : Color.Transparent);
         }
         public void TakeDamage()
         {

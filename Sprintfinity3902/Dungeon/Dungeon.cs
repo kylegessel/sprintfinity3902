@@ -86,7 +86,7 @@ namespace Sprintfinity3902.Dungeon
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
 
-            IRoomLoader rload = new RoomLoader();
+            IRoomLoader rload = new RoomLoader(Game.playerCharacter);
             foreach (IRoom room in dungeonRooms)
             {
                 rload.Initialize(room);

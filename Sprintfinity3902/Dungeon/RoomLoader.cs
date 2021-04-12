@@ -360,7 +360,9 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "GHMA":
-                    Room.enemies.Add(enemyID, new GohmaBoss(Position));
+                    IAttack fireAttack = new FireAttack(Position, Game.playerCharacter);
+                    Room.enemyProj.Add(fireAttack);
+                    Room.enemies.Add(enemyID, new GohmaBoss(Position, fireAttack));
                     enemyID++;
                     break;
                 case "GORY":

@@ -39,7 +39,21 @@ namespace Sprintfinity3902.States
 
         public void UseItem()
         {
-
+            if (Gohma.attackCount == 0)
+            {
+                Gohma.fireAttack.StartOver(Gohma.Position);
+                Gohma.fireAttack.StartMoving();
+            }
+            else if (Gohma.attackCount == 100)
+            {
+                Gohma.fireAttack.StopMoving();
+                Gohma.attackCount = -1;
+            }
+            else
+            {
+                Gohma.fireAttack.Move();
+            }
+            Gohma.attackCount++;
         }
 
         public void Update()

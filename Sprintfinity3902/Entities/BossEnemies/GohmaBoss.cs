@@ -29,6 +29,7 @@ namespace Sprintfinity3902.Entities
         private int waitTime;
         private float speed;
 
+
         private IEnemyState _currentState;
         public IEnemyState CurrentState
         {
@@ -43,10 +44,32 @@ namespace Sprintfinity3902.Entities
         }
         public IEnemyState closedEye { get; set; }
         public IEnemyState openedEye { get; set; }
+        public IAttack fireAttack { get; set; }
+        public int attackCount { get; set; }
 
         public GohmaBoss(Vector2 pos)
         {
             Position = pos;
+
+            closedEye = new GohmaClosedEyeState(this);
+            openedEye = new GohmaOpenedEyeState(this);
+
+            CurrentState = closedEye;
+            CurrentState.Start = true;
+
+            direction = LEFT;
+            count = 0;
+            attackCount = 0;
+            speed = SPEED;
+            SetStepSize(speed);
+        }
+
+        public GohmaBoss(Vector2 pos, IAttack fire)
+        {
+            Position = pos;
+
+            fireAttack = fire;
+            attackCount = 0;
 
             closedEye = new GohmaClosedEyeState(this);
             openedEye = new GohmaOpenedEyeState(this);
@@ -63,6 +86,7 @@ namespace Sprintfinity3902.Entities
         public override void Update(GameTime gameTime)
         {
             Sprite = CurrentState.Sprite;
+            CurrentState.UseItem();
             CurrentState.Sprite.Update(gameTime);
             CurrentState.Update();
             Move();

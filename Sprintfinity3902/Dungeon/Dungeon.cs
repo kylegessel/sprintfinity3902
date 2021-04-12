@@ -92,7 +92,7 @@ namespace Sprintfinity3902.Dungeon
             IRoomLoader rload = new RoomLoader();
             foreach (IRoom room in dungeonRooms)
             {
-                rload.Initialize(room);
+                rload.Initialize(room, Game);
                 rload.Build();
                 if (room.Id != 13)
                 { 

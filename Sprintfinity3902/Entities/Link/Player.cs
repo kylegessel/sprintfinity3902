@@ -62,6 +62,8 @@ namespace Sprintfinity3902.Link
         public int MaxHealth { get; set; }
         public int LinkHealth { get; set; }
 
+        private bool isVisible;
+
         public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
         private Game1 game;
@@ -95,7 +97,9 @@ namespace Sprintfinity3902.Link
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
 
-            itemcount = new Dictionary<IItem.ITEMS, int>();
+            isVisible = true;
+
+        itemcount = new Dictionary<IItem.ITEMS, int>();
             foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
             {
                 itemcount.Add(item, 0);
@@ -228,6 +232,11 @@ namespace Sprintfinity3902.Link
         public void StopLowHealth()
         {
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
+        }
+
+        public void TogglePlayerVisible()
+        {
+            isVisible = !isVisible;
         }
 
         public void DeathSpin(bool end)

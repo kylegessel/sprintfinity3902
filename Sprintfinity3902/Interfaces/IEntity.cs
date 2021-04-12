@@ -5,22 +5,11 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface IEntity : ICollidable
     {
-        ISprite Sprite
-        {
-            get; set;
-        }
-        Vector2 Position
-        {
-            get; set;
-        }
-        float X
-        {
-            get; set;
-        }
-        float Y
-        {
-            get; set;
-        }
+        ISprite Sprite { get; set; }
+        Vector2 Position { get; set; }
+        float X { get; set; }
+        float Y { get; set; }
+        bool STATIC { get; set; }
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch, Color color);
         void Move();

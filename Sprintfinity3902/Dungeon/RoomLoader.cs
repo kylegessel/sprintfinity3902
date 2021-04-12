@@ -46,15 +46,14 @@ namespace Sprintfinity3902.Dungeon
         public IDoor DoorLeft { get; set; }
         public IDoor DoorRight { get; set; }
 
+        private IPlayer link;
+
         int enemyID;
         int spikeNum;
-        
 
-        // Have this input a filename and then load the room.
-        public RoomLoader(IRoom room)
+        public RoomLoader(IPlayer player)
         {
-            // Really think there is a better way to list these files, just a demo for the time being though.
-            Initialize(room);
+            link = player;
         }
 
         public RoomLoader() { }
@@ -362,7 +361,7 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "HAND":
-                    IEntity hand = new HandEnemy(Position);
+                    IEntity hand = new HandEnemy(Position, link, Room);
                     Room.enemies.Add(enemyID, hand);
                     enemyID++;
                     break;

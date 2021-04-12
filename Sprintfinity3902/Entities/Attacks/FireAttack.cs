@@ -44,6 +44,17 @@ namespace Sprintfinity3902.Entities
             count = SPLIT_WAIT_TIME;
         }
 
+        public FireAttack(Vector2 position, IPlayer player)
+        {
+            Sprite = ItemSpriteFactory.Instance.CreateFireAttack();
+            Position = position;
+            direction = 0;
+            isMoving = false;
+            Player = player;
+            tracking = true;
+            count = SPLIT_WAIT_TIME;
+        }
+
         public FireAttack(Vector2 position, int moveDirection)
         {
             Sprite = ItemSpriteFactory.Instance.CreateFireAttack();

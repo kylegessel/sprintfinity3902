@@ -3,7 +3,7 @@ Reviewed on: 4/2/21
 Sprint 4
 Reviewed Class: Door State Pattern (States.Door)
 File written by: Brad Knez
-Time Spent: 
+Time Spent: 20 min
 Reviewing empahsis: Maintainability
 
 I believe this state pattern is implemented well. It is very effective and will

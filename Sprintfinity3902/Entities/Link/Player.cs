@@ -16,11 +16,6 @@ namespace Sprintfinity3902.Link
     {
         /*MAGIC NUMBERS REFACTOR*/
         private static int FIFTEEN = 15;
-        private static int TWO_HUNDRED_TWENTY_FOUR  =  224;
-        private static int THIRTY_TWO = 32;
-        private static int ONE_HUNDRED_NINETY_FOUR = 194;
-        private static int NINETY_SIX = 96;
-        private static float F_ONE_DOT_FIVE = 1.5f;
         private static int FOURTEEN = 14;
         private static int THIRTEEN = 13;
         private static int ONE_HUNDRED_TWENTY = 120;
@@ -34,6 +29,7 @@ namespace Sprintfinity3902.Link
         private Boolean _collidable;
         private string lowHealthInstanceID;
         private double _deathSpinCount;
+        private LinkMovementManager movementManager;
 
         public IPlayerState CurrentState {
             get {
@@ -58,6 +54,8 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingUpItem { get; set; }
         public bool heartChanged { get; set; }
         public bool itemPickedUp { get; set; }
+        public bool selectedItemChanged { get; set; }
+
 
         public IPlayer.SelectableWeapons SelectedWeapon { get; set; }
 
@@ -85,6 +83,7 @@ namespace Sprintfinity3902.Link
             facingLeftItem = new FacingLeftItemState(this);
             facingRightItem = new FacingRightItemState(this);
             facingUpItem = new FacingUpItemState(this);
+            movementManager = new LinkMovementManager(this);
             color = Color.White;
             _collidable = true;
             SetStepSize(1);
@@ -92,6 +91,7 @@ namespace Sprintfinity3902.Link
             LinkHealth = MaxHealth;
             heartChanged = true;
             itemPickedUp = false;
+            selectedItemChanged = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
 
@@ -100,19 +100,6 @@ namespace Sprintfinity3902.Link
             {
                 itemcount.Add(item, 0);
             }
-        }
-
-        /*TODO: Move to Game1 class - and keep comment below*/
-        /*Don't move from Game1 class*/
-        public void Initialize() {
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(game.playerCharacter), Keys.W, Keys.Up);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveLeftCommand(game.playerCharacter), Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveDownCommand(game.playerCharacter), Keys.S, Keys.Down);
-            KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveRightCommand(game.playerCharacter), Keys.D, Keys.Right);
-
-            KeyboardManager.Instance.RegisterKeyUpCallback(() => {
-                CurrentState.Sprite.Animation.Stop();
-            }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
         }
 
         public void Pickup(IItem item) {
@@ -127,15 +114,9 @@ namespace Sprintfinity3902.Link
             }
         }
 
-        public bool IsCurrentState(IPlayerState state) {
-            return state.Equals(CurrentState);
-        }
-
         public void SetState(IPlayerState state) {
             if (state.Equals(CurrentState)) return;
-            //Vector2 pos = Position;
             CurrentState = state;
-            //Position = pos;
         }
 
         public override void Move() {
@@ -164,7 +145,7 @@ namespace Sprintfinity3902.Link
         }
 
         public override void Update(GameTime gameTime) {
-            CurrentState.Sprite.Update(gameTime);  //can this pass out size?
+            CurrentState.Sprite.Update(gameTime); 
             CurrentState.Update();
 
             if (_deathSpinCount != 0.0) { 
@@ -189,55 +170,17 @@ namespace Sprintfinity3902.Link
 
             if (_bouncingOfEnemy)
             {
-                MoveLink();
+                movementManager.MoveLink(_side);
                 _bouncingOfEnemyCount++;
             }
             if (_bouncingOfEnemyCount > FIFTEEN)
             {
-                StopMoving();
+                _bouncingOfEnemy = false;
+                _bouncingOfEnemyCount = 0;
             }
-            //return new Rectangle(0,0,0,0);
+
         }
 
-        public void StopMoving()
-        {
-            _bouncingOfEnemy = false;
-            _bouncingOfEnemyCount = 0;
-            //resume animation
-            //allow move commands to start again
-        }
-
-        //Will probably need to insert logic to prevent going through walls.
-        public void MoveLink()
-        {
-            int top = NINETY_SIX * Global.Var.SCALE;
-            int bot = ONE_HUNDRED_NINETY_FOUR * Global.Var.SCALE;
-            int left = THIRTY_TWO * Global.Var.SCALE;
-            int right = TWO_HUNDRED_TWENTY_FOUR * Global.Var.SCALE;
-            //If you change the scaler to something larger than 1 Link can get pushed back through walls. 
-            //start moving
-            if (_side == ICollision.CollisionSide.BOTTOM)
-            {
-                //Will want this to be an animation. So slower!
-                this.Y += F_ONE_DOT_FIVE * Global.Var.SCALE;
-                if (this.Y > bot) this.Y = bot;
-            }
-            else if (_side == ICollision.CollisionSide.LEFT)
-            {
-                this.X -= F_ONE_DOT_FIVE * Global.Var.SCALE;
-                if (this.X < left) this.X = left;
-            }
-            else if (_side == ICollision.CollisionSide.TOP)
-            {
-                this.Y -= F_ONE_DOT_FIVE * Global.Var.SCALE;
-                if (this.Y < top) this.Y = top;
-            }
-            else
-            {
-                this.X += F_ONE_DOT_FIVE * Global.Var.SCALE;
-                if (this.X > right) this.X = right;
-            }
-        }
         public override Rectangle GetBoundingRect()
         {
             //Choose a consistent hitbox for link so that his sword is never counted as a hurtbox.
@@ -260,7 +203,7 @@ namespace Sprintfinity3902.Link
             }
 
             if (LinkHealth <= 2) {
-                playLowHealth();
+                PlayLowHealth();
             }
         }
 
@@ -268,12 +211,6 @@ namespace Sprintfinity3902.Link
         {
             _side = Side;
             _bouncingOfEnemy = true;
-            /*
-             * May need to:
-             * Pause animation;
-             * Stop accepting move input keys for link
-             */
-
         }
         public void RemoveDecorator()
         {
@@ -284,11 +221,11 @@ namespace Sprintfinity3902.Link
         {
             return _collidable;
         }
-        private void playLowHealth()
+        private void PlayLowHealth()
         {
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Play();
         }
-        private void stopLowHealth()
+        public void StopLowHealth()
         {
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
         }

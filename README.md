@@ -2,7 +2,7 @@
 
 This is a public repository for an Ohio State class. The end goal is to
 recreate the first dungeon from the classic NES game, *The Legend of Zelda*.
-This README specifically addresses the Code base during Sprint 3.
+This README specifically addresses the Code base during Sprint 4.
 
 ## Initial Startup and Execution
 
@@ -12,14 +12,14 @@ green arrow at the top of the window.
 
 ## How to Play
 
+Press Enter to start!
+
 You can use either WASD keys or the arrow keys to control Link around the 
 screen.
 
 'z' and 'n' causes Link to sword attack in the direction that he is facing.
 
-'1' key uses Link's bomb.
-
-'2' key uses Link's Boomerang.
+'1' (one) key uses Link's equipped item
 
 'e' key shows a demo of what Link looks like in his damaged state.
 
@@ -34,14 +34,12 @@ on a room to go there.
 
 Bailey Ardrey, Kyle Gessel, Ben Hobson, Brad Knez, and Casey Vancauwenbergh
 
-## Things to be implemented next sprint
-* Inventory and Health Systems
-* Smooth transitions between rooms
-* Interactions with doors and exploding walls
 
-
-## Known bugs
-* Goriya does not always decorate.
-* Link sometimes "jiggles" when running into two block's hitboxes.
-* Link may be able to escape bounds of room.
-* Dragon projectile collides with walls and can be destroyed.
+## Known bugs/ things to fix
+* Room with the Old Man is not a locked door.
+* If you die during a room transition, the game goes into a broken state.
+* Fire attacks don't track link.
+* Dungeon rooms can be off by a few pixels after moving rooms.
+* Sometimes doors push link back into previous room after walking into it.
+* Fairys can leave the dungeon.
+* Goriya boomerang doesn't move down when the game is paused.

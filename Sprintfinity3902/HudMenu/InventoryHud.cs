@@ -82,14 +82,7 @@ namespace Sprintfinity3902.HudMenu
                 /*Add necessary mappings here for ALL possible enum to icons*/
 
             };
-            /*Add weapons to the inventory screen by doing this or calling method below,
-             make sure to add these to the static dictionary above also*/
-            availableItems.Add(IPlayer.SelectableWeapons.BOMB);
-            availableItems.Add(IPlayer.SelectableWeapons.BOOMERANG);
-            availableItems.Add(IPlayer.SelectableWeapons.BOW);
             MoveSelector();
-            Initialize();
-
         }
 
         public void EnableItemInInventory(IPlayer.SelectableWeapons weapon)
@@ -104,6 +97,8 @@ namespace Sprintfinity3902.HudMenu
             Link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
             MoveSelector();
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            Link.selectedItemChanged = true;
+
         }
 
         public void MoveSelectorLeft()
@@ -113,6 +108,8 @@ namespace Sprintfinity3902.HudMenu
             Link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
             MoveSelector();
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            Link.selectedItemChanged = true;
+
         }
 
         private void MoveSelector() {
@@ -125,7 +122,31 @@ namespace Sprintfinity3902.HudMenu
 
         public override void Update(GameTime gameTime)
         {
+            if(Link.itemcount[IItem.ITEMS.BOOMERANG] > 0 && !availableItems.Contains(IPlayer.SelectableWeapons.BOOMERANG))
+            {
+                availableItems.Add(IPlayer.SelectableWeapons.BOOMERANG);
+            }
+            if (Link.itemcount[IItem.ITEMS.BOW] > 0 && !availableItems.Contains(IPlayer.SelectableWeapons.BOW))
+            {
+                availableItems.Add(IPlayer.SelectableWeapons.BOW);
+            }
+            if (Link.itemcount[IItem.ITEMS.BOMB] > 0 && !availableItems.Contains(IPlayer.SelectableWeapons.BOMB))
+            {
+                availableItems.Add(IPlayer.SelectableWeapons.BOMB);
+            }
+            else if(Link.itemcount[IItem.ITEMS.BOMB] < 0 && availableItems.Contains(IPlayer.SelectableWeapons.BOMB))
+            {
+                availableItems.Remove(IPlayer.SelectableWeapons.BOMB);
+                Link.selectedItemChanged = true;
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+                //EquipAnotherWeapon();
+            }
             itemSelectedIcon.Update(gameTime);
+
+            if(availableItems.Count == 0)
+            {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
@@ -144,18 +165,19 @@ namespace Sprintfinity3902.HudMenu
                 popMatrix(usableItems);
             }
 
-            if (availableItems.Count > 0) {
+            if (availableItems.Count > 0 && itemSelectedIcon.X != 0) {
                 pushMatrix(itemSelectedIcon);
                 itemSelectedIcon.Draw(spriteBatch, Color.White);
                 popMatrix(itemSelectedIcon);
             }
 
-            
-            IEntity reference = createObjectByClassType(weaponEnumToEntity[Link.SelectedWeapon], new Vector2(270,195));
-            pushMatrix(reference);
-            reference.Draw(spriteBatch, Color.White);
-            popMatrix(reference);
-            
+            if(Link.SelectedWeapon != IPlayer.SelectableWeapons.NONE)
+            {
+                IEntity reference = createObjectByClassType(weaponEnumToEntity[Link.SelectedWeapon], new Vector2(270, 195));
+                pushMatrix(reference);
+                reference.Draw(spriteBatch, Color.White);
+                popMatrix(reference);
+            }        
 
             popMatrix(Icons.ToArray());
 
@@ -177,5 +199,22 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
+        //Eventually, this method will be used to automatically equip a boomerang or bow item when the user
+        //runs out of bombs.
+        private void EquipAnotherWeapon()
+        {
+            if (availableItems.Contains(IPlayer.SelectableWeapons.BOOMERANG))
+            {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.BOOMERANG;
+            }
+            else if (availableItems.Contains(IPlayer.SelectableWeapons.BOW))
+            {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.BOW;
+            }
+            else
+            {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+            }
+        }
     }
 }

@@ -1,0 +1,25 @@
+﻿Reviewed by: Kyle Gessel
+Reviewed on: 4/5/2021
+Sprint 4
+Reviewed Class:  Dungeon/ChangeRoom.cs
+File written by: Brad Knez
+Time Spent: 20min
+
+This is definitely a complex class that has to do alot of things. The good
+news is that the class is seperated into well-named functions. This helps with
+readability immensely. As a class, it is definitely daunting to first look at.
+
+Even within some functions, the code becomes hard to read. My example would be
+StopAnimation. In StopAnimation you make changes to the position of every
+entity based on an offset and set the doors. I am not sure how this stops the
+animation.
+
+Things like set link up position are very clear and very readable. Just a
+simple function that completes one assigned task. Very easy to work with.
+
+Things like offset are generally pretty readable, but of course (like lots of
+this code) there are those large switch cases that hurt readability somewhat.
+
+I think a good step would be to shrink some of the functions. Of course, a
+refactoring could make this much more readable as well, replacing some of
+logic here and placing it in its own class.

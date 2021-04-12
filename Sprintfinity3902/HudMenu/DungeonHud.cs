@@ -10,6 +10,10 @@ namespace Sprintfinity3902.HudMenu
     {
         private const int DUNGEON_INSIDE_MAP_X = 516;
         private const int DUNGEON_INSIDE_MAP_Y = -316;
+        private const int MAP_ICON_X = 48;
+        private const int MAP_ICON_Y= -64;
+        private const int COMPASS_ICON_X = 44;
+        private const int COMPASS_ICON_Y = -24;
         private const int BLOCK_SIZE = 8;
 
         private Game1 Game;
@@ -17,6 +21,7 @@ namespace Sprintfinity3902.HudMenu
         private HudInitializer hudInitializer;
         private List<Point> RoomLocations;
         private bool MapPickup;
+        private bool CompassPickup;
         private IEntity LinkBlock;
         private IRoom CurrentRoom;
         //public List<IEntity> Icons { get; private set; }
@@ -29,6 +34,7 @@ namespace Sprintfinity3902.HudMenu
             Game = game;
             Link = Game.playerCharacter;
             MapPickup = false;
+            CompassPickup = false;
             Icons = new List<IEntity>();
             Map = new List<IEntity>();
             AlreadyInMap = new List<int>();
@@ -37,8 +43,6 @@ namespace Sprintfinity3902.HudMenu
             RoomLocations = dungeon.RoomLocations;
             CurrentRoom = dungeon.CurrentRoom;
             WorldPoint = new Vector2(0, 0);
-
-            Initialize();
         }
 
         public override void Initialize()
@@ -51,6 +55,11 @@ namespace Sprintfinity3902.HudMenu
             if (!MapPickup && Link.itemcount[IItem.ITEMS.MAP] > 0)
             {
                 CreateInitialHudDungeon();
+                
+            }
+            if (!CompassPickup && Link.itemcount[IItem.ITEMS.COMPASS] > 0)
+            {
+                CreateCompassIcon();
             }
             if (CurrentRoom.Id != Dungeon.CurrentRoom.Id)
             {
@@ -70,7 +79,14 @@ namespace Sprintfinity3902.HudMenu
                 Icons.Add(room);
             }
             Icons.Add(LinkBlock);
+            Icons.Add(new MapIcon(new Vector2(MAP_ICON_X * Global.Var.SCALE, MAP_ICON_Y * Global.Var.SCALE)));
             MapPickup = true;
+        }
+
+        private void CreateCompassIcon()
+        {
+            Icons.Add(new CompassIcon(new Vector2(COMPASS_ICON_X * Global.Var.SCALE, COMPASS_ICON_Y * Global.Var.SCALE)));
+            CompassPickup = true;
         }
 
         public void UpdateHudRooms()

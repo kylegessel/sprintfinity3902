@@ -18,6 +18,7 @@ namespace Sprintfinity3902.Interfaces
         public Point RoomPos { get; set; }
         public int RoomType { get; set; }
 
+        public bool WinRoom { get; set; }
 
         List<IEntity> enemyProj { get; set; }
         public bool roomCleared { get; set; }

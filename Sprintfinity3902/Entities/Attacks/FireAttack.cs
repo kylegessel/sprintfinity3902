@@ -14,6 +14,7 @@ namespace Sprintfinity3902.Entities
         private static float POSITION_DIVISOR = 40;
         private static int TWO = 2;
         private static int ONE = 1;
+        private static int SPLIT_WAIT_TIME = 20;
         private static IPlayer Player;
         bool tracking;
         private int count;
@@ -30,6 +31,17 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             tracking = false;
             count = 0;
+        }
+
+        public FireAttack(IPlayer player)
+        {
+            Sprite = ItemSpriteFactory.Instance.CreateFireAttack();
+
+            direction = 0;
+            isMoving = false;
+            Player = player;
+            tracking = true;
+            count = SPLIT_WAIT_TIME;
         }
 
         public FireAttack(Vector2 position, int moveDirection)
@@ -88,11 +100,11 @@ namespace Sprintfinity3902.Entities
         public override void Move()
         {
             //Implement 2 count integers that handle spread
-            if(count == 20 && tracking)
+            if(count == SPLIT_WAIT_TIME && tracking)
             {
                 Debug.WriteLine("Player X: " + Player.X + " Player Y: " + Player.Y);
                 StoredPlayerEntityDiff = new Vector2(X - Player.X, Y - Player.Y);
-            }else if(count > 20 && tracking)
+            }else if(count > SPLIT_WAIT_TIME && tracking)
             {
                 this.X = X - (StoredPlayerEntityDiff.X / POSITION_DIVISOR);
                 this.Y = Y - (StoredPlayerEntityDiff.Y / POSITION_DIVISOR);

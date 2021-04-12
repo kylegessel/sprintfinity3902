@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 
-namespace Sprintfinity3902.Entities.Items
+namespace Sprintfinity3902.Entities
 {
     public class BombExplosionItem : AbstractEntity, IProjectile
     {

@@ -102,7 +102,12 @@ namespace Sprintfinity3902.Entities
 
         public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
-            return 0;
+            int i = 1;
+            if (proj.GetType().Equals(typeof(BombExplosionItem)))
+            {
+                i = 0;
+            }
+            return i;
         }
 
         public override void Move()

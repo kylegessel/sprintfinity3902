@@ -16,12 +16,13 @@ namespace Sprintfinity3902.Entities
         private static int ONE = 1;
         private static int SPLIT_WAIT_TIME = 20;
         private static IPlayer Player;
-        bool tracking;
+        private bool tracking;
+        private bool trackOnly;
         private int count;
         private Vector2 StoredPlayerEntityDiff;
         public bool isMoving { get; set; }
         private int direction;
-        
+
 
         public FireAttack(int moveDirection)
         {
@@ -30,6 +31,7 @@ namespace Sprintfinity3902.Entities
             direction = moveDirection;
             isMoving = false;
             tracking = false;
+            trackOnly = false;
             count = 0;
         }
 
@@ -41,6 +43,7 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             Player = player;
             tracking = true;
+            trackOnly = true;
             count = SPLIT_WAIT_TIME;
         }
 
@@ -52,17 +55,19 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             Player = player;
             tracking = true;
+            trackOnly = true;
             count = SPLIT_WAIT_TIME;
         }
 
         public FireAttack(Vector2 position, int moveDirection)
         {
             Sprite = ItemSpriteFactory.Instance.CreateFireAttack();
-        
+
             Position = position;
             direction = moveDirection;
             isMoving = false;
             tracking = false;
+            trackOnly = false;
             count = 0;
         }
 
@@ -74,6 +79,7 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             Player = player;
             tracking = true;
+            trackOnly = false;
             count = 0;
         }
 
@@ -86,6 +92,7 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             Player = player;
             tracking = true;
+            trackOnly = false;
             count = 0;
         }
 
@@ -111,22 +118,25 @@ namespace Sprintfinity3902.Entities
         public override void Move()
         {
             //Implement 2 count integers that handle spread
-            if(count == SPLIT_WAIT_TIME && tracking)
+            if (count == SPLIT_WAIT_TIME && tracking)
             {
                 Debug.WriteLine("Player X: " + Player.X + " Player Y: " + Player.Y);
                 StoredPlayerEntityDiff = new Vector2(X - Player.X, Y - Player.Y);
-            }else if(count > SPLIT_WAIT_TIME && tracking)
+            }
+            else if (count > SPLIT_WAIT_TIME && tracking)
             {
                 this.X = X - (StoredPlayerEntityDiff.X / POSITION_DIVISOR);
                 this.Y = Y - (StoredPlayerEntityDiff.Y / POSITION_DIVISOR);
-            }else {
-            this.X = X - HORIZONTAL_SPEED_NONTRACK * Global.Var.SCALE;
+            }
+            else
+            {
+                this.X = X - HORIZONTAL_SPEED_NONTRACK * Global.Var.SCALE;
 
-            if(this.direction == ONE) //UP
-                this.Y = Y - VERTICAL_SPEED_NONTRACK * Global.Var.SCALE;
+                if (this.direction == ONE) //UP
+                    this.Y = Y - VERTICAL_SPEED_NONTRACK * Global.Var.SCALE;
 
-            if(this.direction == TWO) //DOWN
-                this.Y = Y + VERTICAL_SPEED_NONTRACK * Global.Var.SCALE;
+                if (this.direction == TWO) //DOWN
+                    this.Y = Y + VERTICAL_SPEED_NONTRACK * Global.Var.SCALE;
             }
             count++;
         }
@@ -134,7 +144,14 @@ namespace Sprintfinity3902.Entities
         public void StartOver(Vector2 position)
         {
             Position = position;
-            count = 0;
+            if (!trackOnly)
+            {
+                count = 0;
+            }
+            else
+            {
+                count = SPLIT_WAIT_TIME;
+            }
         }
 
         public void StartMoving()
@@ -145,7 +162,14 @@ namespace Sprintfinity3902.Entities
         public void StopMoving()
         {
             this.isMoving = false;
-            count = 0;
+            if (!trackOnly)
+            {
+                count = 0;
+            }
+            else
+            {
+                count = SPLIT_WAIT_TIME;
+            }
         }
 
         public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)

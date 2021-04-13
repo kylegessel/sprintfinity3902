@@ -128,7 +128,13 @@ namespace Sprintfinity3902.Dungeon
             {
                 string[] lineValues = line.Split(',');
                 //Parse? ConvertToInt? TryParse?
-                Room.RoomPos = new Point(Int16.Parse(lineValues[0]), Int16.Parse(lineValues[1]));
+                try {
+                    Room.RoomPos = new Point(Int16.Parse(lineValues[0]), Int16.Parse(lineValues[1]));
+                } catch (Exception e) {
+                    Debug.WriteLine(e);
+                    Debug.WriteLine(line);
+                }
+                
             }
 
             /*Get Dungeon Hud Enum value*/

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Dungeon
 {
@@ -43,8 +44,8 @@ namespace Sprintfinity3902.Dungeon
         }
 
         private static string CONTENT_DIRECTORY = @"..\..\..\Content\";
-        private static int LOWER_BOUND_NUM_ROOMS = 10;
-        private static int UPPER_BOUND_NUM_ROOMS = 40;
+        private static int LOWER_BOUND_NUM_ROOMS = 2;
+        private static int UPPER_BOUND_NUM_ROOMS = 8;
 
         private static int NUM_COLUMNS = 8;
         private static int NUM_ROWS = 8;
@@ -125,6 +126,10 @@ namespace Sprintfinity3902.Dungeon
             for (int j = 0; j < numRooms; j++)
             {
                 addPointToRoomLocationList(roomLocations, availableRooms, availableRooms.Count == 0 ? new Point(random.Next(NUM_COLUMNS), random.Next(NUM_ROWS)) : availableRooms[random.Next(availableRooms.Count)]);
+            }
+
+            foreach (Point p in roomLocations) {
+                Debug.WriteLine(p);
             }
 
             var LocationId = new Dictionary<Point, int>();

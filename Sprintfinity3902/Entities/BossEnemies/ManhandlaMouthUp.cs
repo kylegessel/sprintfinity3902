@@ -21,12 +21,14 @@ namespace Sprintfinity3902.Entities
         private ManhandlaBoss Manhandla;
 
         public int health { get; set; }
+        private IAttack fireAttack;
+        private int attackCount;
 
-
-        public ManhandlaMouthUp(Vector2 pos)
+        public ManhandlaMouthUp(Vector2 pos, IAttack fire)
         {
             Sprite = EnemySpriteFactory.Instance.CreateManhandlaUpMouth();
             Position = pos;
+            fireAttack = fire;
             health = STARTING_HEALTH;
             decorateTime = TIME_DECORATED;
             decorate = false;
@@ -35,6 +37,7 @@ namespace Sprintfinity3902.Entities
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
+            Attack();
             if (decorate)
             {
                 Decorate();
@@ -94,6 +97,26 @@ namespace Sprintfinity3902.Entities
         public void GiveManhandla(ManhandlaBoss man)
         {
             Manhandla = man;
+        }
+
+        public override void Attack()
+        {
+            if (attackCount == 0)
+            {
+                Vector2 startPosition = new Vector2(X + Global.Var.HALF_TILE_SIZE * Global.Var.SCALE, Y + Global.Var.HALF_TILE_SIZE * Global.Var.SCALE);
+                fireAttack.StartOver(startPosition);
+                fireAttack.StartMoving();
+            }
+            else if (attackCount == 100)
+            {
+                fireAttack.StopMoving();
+                attackCount = -1;
+            }
+            else
+            {
+                fireAttack.Move();
+            }
+            attackCount++;
         }
     }
 }

@@ -44,8 +44,8 @@ namespace Sprintfinity3902.Dungeon
         }
 
         private static string CONTENT_DIRECTORY = @"..\..\..\Content\";
-        private static int LOWER_BOUND_NUM_ROOMS = 2;
-        private static int UPPER_BOUND_NUM_ROOMS = 8;
+        private static int LOWER_BOUND_NUM_ROOMS = 10;
+        private static int UPPER_BOUND_NUM_ROOMS = 40;
 
         private static int NUM_COLUMNS = 8;
         private static int NUM_ROWS = 8;
@@ -128,9 +128,6 @@ namespace Sprintfinity3902.Dungeon
                 addPointToRoomLocationList(roomLocations, availableRooms, availableRooms.Count == 0 ? new Point(random.Next(NUM_COLUMNS), random.Next(NUM_ROWS)) : availableRooms[random.Next(availableRooms.Count)]);
             }
 
-            foreach (Point p in roomLocations) {
-                Debug.WriteLine(p);
-            }
 
             var LocationId = new Dictionary<Point, int>();
             for (int j = 1; j <= roomLocations.Count; j++) {
@@ -144,11 +141,11 @@ namespace Sprintfinity3902.Dungeon
                 Point room = roomLocations[j-1];
 
                 for (int i = 0; i < OFFSETS.Count; i++) {
-                    if (roomLocations.Contains(OFFSETS[i])) {
+                    if (roomLocations.Contains(OFFSETS[i] + room)) {
                         int id = LocationId.GetValueOrDefault(OFFSETS[i] + room);
                         File.AppendAllText(CONTENT_DIRECTORY + @"GeneratedRooms\GenRoom" + j + ".csv", ORDERED_DOORS[i] + ", " + id + ",,,,,,,,,,,\n");
                     } else {
-                        File.AppendAllText(CONTENT_DIRECTORY + @"GeneratedRooms\GenRoom" + j + ".csv", ORDERED_WALLS[i] + ", " + "-1,,,,,,,,,,\n");
+                        File.AppendAllText(CONTENT_DIRECTORY + @"GeneratedRooms\GenRoom" + j + ".csv", "" + ORDERED_WALLS[i] + ", " + "-1,,,,,,,,,,\n");
                     }
                 }
 
@@ -156,8 +153,8 @@ namespace Sprintfinity3902.Dungeon
                 File.AppendAllText(CONTENT_DIRECTORY + @"GeneratedRooms\GenRoom" + j + ".csv", "1\n");
 
             }
-            
-            return roomLocations.Count;
+
+            return numRooms;
         }
     }
 }

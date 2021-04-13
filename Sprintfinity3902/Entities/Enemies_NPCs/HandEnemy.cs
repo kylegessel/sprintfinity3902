@@ -39,11 +39,14 @@ namespace Sprintfinity3902.Entities
         private static bool caughtLink;
         private double animationCounter;
         private Vector2 savedPos;
+        private Vector2 firstPos;
         private IRoom room;
+        private IDungeon dungeon;
 
-        public HandEnemy(Vector2 pos, IPlayer player, IRoom _room)
+        public HandEnemy(Vector2 pos, IPlayer player, IRoom _room, IDungeon dung)
         {
             Sprite = EnemySpriteFactory.Instance.CreateHandEnemy();
+            firstPos = pos;
             Position = pos;
             health = 3;
             speed = INITIAL_SPEED;
@@ -53,6 +56,8 @@ namespace Sprintfinity3902.Entities
             _caughtLink = false;
             animationCounter = 0.0;
             room = _room;
+            dungeon = dung;
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
@@ -84,6 +89,9 @@ namespace Sprintfinity3902.Entities
             // No one caught link or I caught link
             if (!HandEnemy.caughtLink || _caughtLink) {
 
+                // this caught link, increment animation counter
+                if (_caughtLink) animationCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
+
                 double percentComplete = (animationCounter / ANIMATION_DURATION);
 
                 if (percentComplete >= 1.0) {
@@ -94,17 +102,15 @@ namespace Sprintfinity3902.Entities
                     HandEnemy.caughtLink = false;
                     _caughtLink = false;
                     speed = INITIAL_SPEED;
-                    room.enemies.Remove(enemyID);
-
+                    animationCounter = 0;
+                    Position = firstPos;
+                    dungeon.ChangeRoom(2, States.Door.DoorDirection.UP);
+                    //link.Position = new Vector2(100, 1)
+                    return;
                 }
 
-                // this caught link, increment animation counter
-                if (_caughtLink) animationCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-                Move();
-
-                if (!this._caughtLink && link.GetBoundingRect().Intersects(GetBoundingRect())) {
-                    SoundManager.Instance.PauseAll();
+                if (!_caughtLink && link.GetBoundingRect().Intersects(GetBoundingRect())) {
+                    //SoundManager.Instance.PauseAll();
                     link.STATIC = true;
                     SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Link_Die).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
                     CollisionDetector.Instance.Pause();
@@ -117,6 +123,8 @@ namespace Sprintfinity3902.Entities
                     speed = 2;
                     savedPos = new Vector2(Position.X, Position.Y);
                 }
+
+                Move();
             }
             
             SetStepSize(speed);

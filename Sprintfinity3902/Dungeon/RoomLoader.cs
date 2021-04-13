@@ -47,13 +47,15 @@ namespace Sprintfinity3902.Dungeon
         public IDoor DoorRight { get; set; }
 
         private IPlayer link;
+        private IDungeon dungeon;
 
         int enemyID;
         int spikeNum;
 
-        public RoomLoader(IPlayer player)
+        public RoomLoader(IPlayer player, IDungeon dung)
         {
             link = player;
+            dungeon = dung;
         }
 
         public RoomLoader() { }
@@ -361,7 +363,7 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "HAND":
-                    IEntity hand = new HandEnemy(Position, link, Room);
+                    IEntity hand = new HandEnemy(Position, link, Room, dungeon);
                     Room.enemies.Add(enemyID, hand);
                     enemyID++;
                     break;

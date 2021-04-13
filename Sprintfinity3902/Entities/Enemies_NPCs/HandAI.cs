@@ -44,6 +44,8 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             count = 0;
             coolDown = false;
             lastDirection = AbstractEntity.Direction.NONE;
+            route = new Queue<Tuple<int, int>>();
+            route.Enqueue(demap(_handRef.Position));
         }
 
         /* Abstracts the room to a boolean matrix based of elgibility of traversal */
@@ -209,7 +211,7 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
 
             }
 
-            return null;
+            return new Queue<Tuple<int, int>>();
 
         }
 

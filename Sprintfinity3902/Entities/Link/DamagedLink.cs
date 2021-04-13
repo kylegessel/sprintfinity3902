@@ -17,8 +17,6 @@ namespace Sprintfinity3902.Link
         Color linkColor;
         int counter;
         int timer = 200;
-        private ISprite _sprite;
-        private Vector2 _position;
 
 
 

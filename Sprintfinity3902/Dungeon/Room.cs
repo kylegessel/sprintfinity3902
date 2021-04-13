@@ -73,11 +73,10 @@ namespace Sprintfinity3902.Dungeon
         {
             foreach (IBlock entity in blocks)
                 entity.Draw(spriteBatch, color);
-            foreach (IEntity entity in enemyProj)
-                entity.Draw(spriteBatch, color);
             foreach (IEntity entity in enemies.Values)
                 entity.Draw(spriteBatch, color);
-
+            foreach (IEntity entity in enemyProj)
+                entity.Draw(spriteBatch, color);
             foreach (IEntity entity in items)
                 entity.Draw(spriteBatch, color);
             foreach (IDoor door in doors)

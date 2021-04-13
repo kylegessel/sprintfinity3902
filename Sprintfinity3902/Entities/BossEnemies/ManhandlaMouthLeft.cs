@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
+using System;
 
 namespace Sprintfinity3902.Entities
 {
@@ -13,6 +14,8 @@ namespace Sprintfinity3902.Entities
         private static int THREE = 3;
         private static int SIX = 6;
         private static int NINE = 9;
+        private const int RANDOM_UP_BOUND = 140;
+        private const int RANDOM_DOWN_BOUND = 80;
 
         private int decorateCount;
         private int decorateTime;
@@ -23,6 +26,7 @@ namespace Sprintfinity3902.Entities
         public int health { get; set; }
         private IAttack fireAttack;
         private int attackCount;
+        private int random;
 
 
         public ManhandlaMouthLeft(Vector2 pos, IAttack fire)
@@ -107,8 +111,9 @@ namespace Sprintfinity3902.Entities
                 Vector2 startPosition = new Vector2(X + Global.Var.HALF_TILE_SIZE * Global.Var.SCALE, Y + Global.Var.HALF_TILE_SIZE * Global.Var.SCALE);
                 fireAttack.StartOver(startPosition);
                 fireAttack.StartMoving();
+                random = new Random().Next(RANDOM_DOWN_BOUND, RANDOM_UP_BOUND);
             }
-            else if (attackCount == 100)
+            else if (attackCount == random)
             {
                 fireAttack.StopMoving();
                 attackCount = -1;

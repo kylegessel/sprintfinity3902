@@ -46,6 +46,7 @@ namespace Sprintfinity3902.Entities
         public IEnemyState openedEye { get; set; }
         public IAttack fireAttack { get; set; }
         public int attackCount { get; set; }
+        public int randomFireCount { get; set; }
 
         public GohmaBoss(Vector2 pos)
         {

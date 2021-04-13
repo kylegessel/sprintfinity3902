@@ -12,6 +12,9 @@ namespace Sprintfinity3902.States
         private const int LOWER_BOUND = 250;
         private const int UPPER_BOUND = 750;
         private const int FIRE_Y_OFFSET = 10;
+        private const int RANDOM_UP_BOUND = 140;
+        private const int RANDOM_DOWN_BOUND = 80;
+
         public GohmaBoss Gohma { get; set; }
         public ISprite Sprite { get; set; }
         public bool Start { get; set; }
@@ -46,8 +49,9 @@ namespace Sprintfinity3902.States
                 Vector2 startPosition = new Vector2(Gohma.X + Global.Var.TILE_SIZE * Global.Var.SCALE, Gohma.Y + FIRE_Y_OFFSET * Global.Var.SCALE);
                 Gohma.fireAttack.StartOver(startPosition);
                 Gohma.fireAttack.StartMoving();
+                Gohma.randomFireCount = new Random().Next(RANDOM_DOWN_BOUND, RANDOM_UP_BOUND);
             }
-            else if(Gohma.attackCount == 100)
+            else if(Gohma.attackCount == Gohma.randomFireCount)
             {
                 Gohma.fireAttack.StopMoving();
                 Gohma.attackCount = -1;

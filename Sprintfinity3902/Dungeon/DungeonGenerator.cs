@@ -122,26 +122,21 @@ namespace Sprintfinity3902.Dungeon
 
             int numRooms = random.Next(LOWER_BOUND_NUM_ROOMS, UPPER_BOUND_NUM_ROOMS + 1);
 
-            for (int j = 0; j < roomLocations.Count; j++)
+            for (int j = 0; j < numRooms; j++)
             {
-                if (availableRooms.Count == 0) {
-                    addPointToRoomLocationList(roomLocations, availableRooms, new Point(random.Next(NUM_COLUMNS), random.Next(NUM_ROWS)));
-                    continue;
-                }
-
-                addPointToRoomLocationList(roomLocations, availableRooms, availableRooms[random.Next(availableRooms.Count)]);
+                addPointToRoomLocationList(roomLocations, availableRooms, availableRooms.Count == 0 ? new Point(random.Next(NUM_COLUMNS), random.Next(NUM_ROWS)) : availableRooms[random.Next(availableRooms.Count)]);
             }
 
             var LocationId = new Dictionary<Point, int>();
-            for (int j = 0; j < roomLocations.Count; j++) {
-                File.Copy(CONTENT_DIRECTORY + @"RoomTemplates\Room" + random.Next(1, 4) + ".csv", CONTENT_DIRECTORY + @"GeneratedRooms\GenRoom" + j + ".csv");
-                LocationId.Add(roomLocations[j], j);
+            for (int j = 1; j <= roomLocations.Count; j++) {
+                File.Copy(CONTENT_DIRECTORY + @"RoomTemplates\Room" + random.Next(1, 5) + ".csv", CONTENT_DIRECTORY + @"GeneratedRooms\GenRoom" + j + ".csv");
+                LocationId.Add(roomLocations[j-1], j);
             }
 
 
             //setup doors + walls
-            for (int j = 0; j < roomLocations.Count; j++) {
-                Point room = roomLocations[j];
+            for (int j = 1; j <= roomLocations.Count; j++) {
+                Point room = roomLocations[j-1];
 
                 for (int i = 0; i < OFFSETS.Count; i++) {
                     if (roomLocations.Contains(OFFSETS[i])) {

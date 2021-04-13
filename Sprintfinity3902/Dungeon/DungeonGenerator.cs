@@ -134,7 +134,7 @@ namespace Sprintfinity3902.Dungeon
 
             var LocationId = new Dictionary<Point, int>();
             for (int j = 0; j < roomLocations.Count; j++) {
-                File.Copy(CONTENT_DIRECTORY + @"RoomTemplates\Room" + random.Next(1, 2) + ".csv", CONTENT_DIRECTORY + @"GeneratedRooms\GenRoom" + j + ".csv");
+                File.Copy(CONTENT_DIRECTORY + @"RoomTemplates\Room" + random.Next(1, 4) + ".csv", CONTENT_DIRECTORY + @"GeneratedRooms\GenRoom" + j + ".csv");
                 LocationId.Add(roomLocations[j], j);
             }
 

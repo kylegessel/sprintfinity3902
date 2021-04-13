@@ -3,6 +3,7 @@ using Sprintfinity3902.Entities;
 using Sprintfinity3902.Entities.Doors;
 using Sprintfinity3902.Interfaces;
 using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace Sprintfinity3902.Dungeon
@@ -93,6 +94,7 @@ namespace Sprintfinity3902.Dungeon
                     string[] lineValues = line.Split(',');
                     for(int j = 0; j < 12; j++)
                     {
+                        Debug.WriteLine(lineValues.Length);
                         BuildBlocks(lineValues[j]);
                         currX += Global.Var.TILE_SIZE * Global.Var.SCALE;
                         if(currX == Global.Var.TILE_SIZE*Global.Var.SCALE * TWELVE + THIRTY_TWO * Global.Var.SCALE)

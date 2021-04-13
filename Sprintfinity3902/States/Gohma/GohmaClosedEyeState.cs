@@ -1,4 +1,5 @@
-﻿using Sprintfinity3902.Entities;
+﻿using Microsoft.Xna.Framework;
+using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
@@ -8,8 +9,9 @@ namespace Sprintfinity3902.States
     public class GohmaClosedEyeState : IEnemyState
     {
 
-        private static int LOWER_BOUND = 250;
-        private static int UPPER_BOUND = 750;
+        private const int LOWER_BOUND = 250;
+        private const int UPPER_BOUND = 750;
+        private const int FIRE_Y_OFFSET = 10;
         public GohmaBoss Gohma { get; set; }
         public ISprite Sprite { get; set; }
         public bool Start { get; set; }
@@ -41,7 +43,8 @@ namespace Sprintfinity3902.States
         {
             if(Gohma.attackCount == 0)
             {
-                Gohma.fireAttack.StartOver(Gohma.Position);
+                Vector2 startPosition = new Vector2(Gohma.X + Global.Var.TILE_SIZE * Global.Var.SCALE, Gohma.Y + FIRE_Y_OFFSET * Global.Var.SCALE);
+                Gohma.fireAttack.StartOver(startPosition);
                 Gohma.fireAttack.StartMoving();
             }
             else if(Gohma.attackCount == 100)

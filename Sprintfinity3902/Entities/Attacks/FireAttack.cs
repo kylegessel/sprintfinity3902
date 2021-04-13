@@ -15,7 +15,7 @@ namespace Sprintfinity3902.Entities
         private static int TWO = 2;
         private static int ONE = 1;
         private static int SPLIT_WAIT_TIME = 20;
-        private static int SPEED = 5;
+        private static int SPEED = 8;
         private static IPlayer Player;
         private bool tracking;
         private bool trackOnly;

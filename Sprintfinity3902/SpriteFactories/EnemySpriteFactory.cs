@@ -63,11 +63,11 @@ namespace Sprintfinity3902.SpriteFactories
         }
         public ISprite CreateFinalBossClosed()
         {
-            return new FinalBossMouthCloseSprite(bossSpriteSheet);
+            return new AquamentusMouthCloseSprite(bossSpriteSheet);
         }
         public ISprite CreateFinalBossOpened()
         {
-            return new FinalBossMouthOpenSprite(bossSpriteSheet);
+            return new AquamentusMouthOpenSprite(bossSpriteSheet);
         }
 
         public ISprite CreateOldManNPC()

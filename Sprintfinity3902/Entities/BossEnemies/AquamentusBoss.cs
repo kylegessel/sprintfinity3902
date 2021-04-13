@@ -7,7 +7,7 @@ using System;
 
 namespace Sprintfinity3902.Entities
 {
-    public class FinalBossEnemy : AbstractEntity, IEnemy
+    public class AquamentusBoss : AbstractEntity, IEnemy
     {
 
         private static int EIGHTY_FIVE = 85;
@@ -45,7 +45,7 @@ namespace Sprintfinity3902.Entities
         private Random rd;
         private string bossScreamInstanceID;
 
-        public FinalBossEnemy(Vector2 pos, IAttack up, IAttack center, IAttack down)
+        public AquamentusBoss(Vector2 pos, IAttack up, IAttack center, IAttack down)
         {
             ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
             OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
@@ -70,25 +70,7 @@ namespace Sprintfinity3902.Entities
 
             bossScreamInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Boss_Scream1), 0.02f, false);
         }
-        public FinalBossEnemy(Vector2 pos)
-        {
-            ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
-            OpenedMouth = EnemySpriteFactory.Instance.CreateFinalBossOpened();
-            Sprite = ClosedMouth;
-            Position = pos;
-            health = FIVE;
 
-            decorateTime = THIRTY;
-            decorate = false;
-
-            rd = new Random();
-
-            direction = rd.Next(ONE, FOUR);
-            directionCount = 0;
-
-            attack = rd.Next(ONE, THREE);
-            attackTime = EIGHTY_FIVE;
-        }
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);

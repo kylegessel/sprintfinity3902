@@ -340,7 +340,7 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemyProj.Add(up);
                     Room.enemyProj.Add(down);
                     Room.enemyProj.Add(center);
-                    Room.enemies.Add(enemyID, new FinalBossEnemy(Position, up, center, down));
+                    Room.enemies.Add(enemyID, new AquamentusBoss(Position, up, center, down));
                     enemyID++;
                     break;
                 case "DODO":

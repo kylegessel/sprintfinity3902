@@ -45,7 +45,7 @@ namespace Sprintfinity3902.Dungeon
             Point currentPoint = new Point(random.Next(1, 8), random.Next(1, 8));
             RoomLocations.Add(currentPoint);
 
-            for (int i=0; i<3; i++)
+            for (int i=0; i<32; i++)
             {
 
                 if (currentPoint.X < 8)
@@ -132,7 +132,7 @@ namespace Sprintfinity3902.Dungeon
 
 
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", room.X + "," + room.Y + ",,,,,,,,,,,\n");
-                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "1");
+                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "1\n");
 
                 j++;
             }

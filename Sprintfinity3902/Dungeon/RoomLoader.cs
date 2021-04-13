@@ -68,7 +68,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void Build()
         {
-            if (Room.Id == 13) { build13(); return; }
+            //if (Room.Id == 13) { build13(); return; }
             string line;
             int currX = THIRTY_TWO * Global.Var.SCALE;
             int currY = NINETY_SIX*Global.Var.SCALE;

@@ -95,10 +95,10 @@ namespace Sprintfinity3902.Dungeon
             {
                 rload.Initialize(room);
                 rload.Build();
-                if (room.Id != 13)
-                { 
+                //if (room.Id != 13)
+                //{ 
                     RoomLocations.Add(room.RoomPos);
-                }
+                //}
 
                 if (room.WinRoom)
                 {

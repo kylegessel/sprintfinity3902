@@ -331,14 +331,14 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "LFBK":
-                    IAttack fire = new FireAttack(Position, Game.playerCharacter);
+                    IAttack fire = new FireAttack(Position, link);
                     Room.enemyProj.Add(fire);
                     IBlock leftFireBlock = new LeftFaceBlockEnemy(Position, fire);
                     Room.blocks.Add(leftFireBlock);
                     enemyID++;
                     break;
                 case "RFBK":
-                    IAttack fireAt = new FireAttack(Position, Game.playerCharacter);
+                    IAttack fireAt = new FireAttack(Position, link);
                     Room.enemyProj.Add(fireAt);
                     IBlock rightFireBlock = new RightFaceBlockEnemy(Position, fireAt);
                     Room.blocks.Add(rightFireBlock);
@@ -351,9 +351,9 @@ namespace Sprintfinity3902.Dungeon
                     break;
                 case "BOSS":
                     int speed = 8;
-                    IAttack up = new FireAttack(1, Game.playerCharacter, speed);
-                    IAttack center = new FireAttack(0, Game.playerCharacter, speed);
-                    IAttack down = new FireAttack(2, Game.playerCharacter, speed);
+                    IAttack up = new FireAttack(1, link, speed);
+                    IAttack center = new FireAttack(0, link, speed);
+                    IAttack down = new FireAttack(2, link, speed);
                     Room.enemyProj.Add(up);
                     Room.enemyProj.Add(down);
                     Room.enemyProj.Add(center);
@@ -365,7 +365,7 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "FIRE":
-                    IEntity fireEnemy = new FireEnemy(Position, Room.enemyProj, Game.playerCharacter);
+                    IEntity fireEnemy = new FireEnemy(Position, Room.enemyProj, link);
                     Room.enemies.Add(enemyID, fireEnemy);
                     enemyID++;
                     break;
@@ -377,7 +377,7 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "GHMA":
-                    IAttack fireAttack = new FireAttack(Position, Game.playerCharacter);
+                    IAttack fireAttack = new FireAttack(Position, link);
                     Room.enemyProj.Add(fireAttack);
                     Room.enemies.Add(enemyID, new GohmaBoss(Position, fireAttack));
                     enemyID++;
@@ -401,22 +401,22 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "MANH":
-                    IAttack attack1 = new FireAttack(Position, Game.playerCharacter);
+                    IAttack attack1 = new FireAttack(Position, link);
                     Room.enemyProj.Add(attack1);
                     IEntity mouthDown = new ManhandlaMouthDown(Position, attack1);
                     Room.enemies.Add(enemyID, mouthDown);
                     enemyID++;
-                    IAttack attack2 = new FireAttack(Position, Game.playerCharacter);
+                    IAttack attack2 = new FireAttack(Position, link);
                     Room.enemyProj.Add(attack2);
                     IEntity mouthLeft = new ManhandlaMouthLeft(Position, attack2);
                     Room.enemies.Add(enemyID, mouthLeft);
                     enemyID++;
-                    IAttack attack3 = new FireAttack(Position, Game.playerCharacter);
+                    IAttack attack3 = new FireAttack(Position, link);
                     Room.enemyProj.Add(attack3);
                     IEntity mouthRight = new ManhandlaMouthRight(Position, attack3);
                     Room.enemies.Add(enemyID, mouthRight);
                     enemyID++;
-                    IAttack attack4 = new FireAttack(Position, Game.playerCharacter);
+                    IAttack attack4 = new FireAttack(Position, link);
                     Room.enemyProj.Add(attack4);
                     IEntity mouthUp = new ManhandlaMouthUp(Position, attack4);
                     Room.enemies.Add(enemyID, mouthUp);
@@ -426,8 +426,8 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "MNFR":
-                    IEntity fire1 = new FireEnemy(Position, Room.enemyProj, Game.playerCharacter);
-                    IEntity fire2 = new FireEnemy(Position, Room.enemyProj, Game.playerCharacter);
+                    IEntity fire1 = new FireEnemy(Position, Room.enemyProj, link);
+                    IEntity fire2 = new FireEnemy(Position, Room.enemyProj, link);
                     Room.enemyProj.Add(fire1);
                     Room.enemyProj.Add(fire2);
 

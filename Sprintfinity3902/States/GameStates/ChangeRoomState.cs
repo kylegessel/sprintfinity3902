@@ -38,6 +38,7 @@ namespace Sprintfinity3902.States.GameStates
         {
             Game = game;
             Link = game.link;
+            //Player.RemoveDecorator();
             Player = (IPlayer)game.link;
             Change = false;
             offsetTotal = 0;
@@ -48,7 +49,8 @@ namespace Sprintfinity3902.States.GameStates
         }
         public void SetUp()
         {
-            //KeyboardManager.Instance.PopCommandMatrix();
+            KeyboardManager.Instance.PushCommandMatrix();
+            Player.CurrentState.Sprite.Animation.Stop();
             nextRoom = Game.dungeon.GetById(nextRoomID);
             doorDirection = Door.CurrentState.doorDirection;
             Offset();
@@ -197,6 +199,11 @@ namespace Sprintfinity3902.States.GameStates
             }
 
             Game.dungeon.SetCurrentRoom(nextRoomID);
+            
+            foreach(IDoor door in Game.dungeon.CurrentRoom.doors)
+            {
+                door.Close();
+            }
 
             switch (doorDirection)
             {

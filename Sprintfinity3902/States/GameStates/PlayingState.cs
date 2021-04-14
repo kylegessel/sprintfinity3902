@@ -66,6 +66,9 @@ namespace Sprintfinity3902.States.GameStates
                 KeyboardManager.Instance.RegisterKeyUpCallback(() => {
                     Game.playerCharacter.CurrentState.Sprite.Animation.Stop();
                 }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
+            }else if (Game.PreviousState.Equals(Game.CHANGE_ROOM))
+            {
+                KeyboardManager.Instance.PopCommandMatrix();
             }
 
 

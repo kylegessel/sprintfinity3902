@@ -86,7 +86,7 @@ namespace Sprintfinity3902.Dungeon
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
 
-            IRoomLoader rload = new RoomLoader();
+            IRoomLoader rload = new RoomLoader(Game.playerCharacter, this);
             foreach (IRoom room in dungeonRooms)
             {
                 rload.Initialize(room);
@@ -183,6 +183,11 @@ namespace Sprintfinity3902.Dungeon
         {
             CurrentRoom.garbage.Clear();
             changeRoom.StartAnimation(door.DoorDestination, door.CurrentState.doorDirection);
+        }
+        public void ChangeRoom(int doorDest, DoorDirection direction)
+        {
+            CurrentRoom.garbage.Clear();
+            changeRoom.StartAnimation(doorDest, direction);
         }
 
         public void SetLinkPosition()

@@ -17,7 +17,7 @@ namespace Sprintfinity3902.Link
         IRoom room;
         IEntity decoratedEntity;
         int entityID;
-        Color Color;
+        Color LinkColor;
         int counter;
         int timer = 30;
         
@@ -30,7 +30,7 @@ namespace Sprintfinity3902.Link
             this.room = room;
             Position = decoratedEntity.Position;
             Sprite = decoratedEntity.Sprite;
-            Color = Color.Red;
+            LinkColor = Color.Red;
         }
 
         public override void Update(GameTime gameTime)
@@ -41,19 +41,19 @@ namespace Sprintfinity3902.Link
             counter = timer % MOD_BOUND;
             if (counter < THREE)
             {
-                Color = Color.Aqua;
+                LinkColor = Color.Aqua;
             }
             else if (counter < SIX)
             {
-                Color = Color.Red;
+                LinkColor = Color.Red;
             }
             else if (counter < NINE)
             {
-                Color = Color.White;
+                LinkColor = Color.White;
             }
             else
             {
-                Color = Color.Blue;
+                LinkColor = Color.Blue;
             }
 
             Position = decoratedEntity.Position;
@@ -62,7 +62,7 @@ namespace Sprintfinity3902.Link
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            decoratedEntity.Draw(spriteBatch, Color);
+            decoratedEntity.Draw(spriteBatch, LinkColor);
         }
 
         public override void Move()

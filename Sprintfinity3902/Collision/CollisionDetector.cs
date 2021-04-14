@@ -12,6 +12,10 @@ namespace Sprintfinity3902.Collision
 {
     public class CollisionDetector {
 
+        private static int LEFT = 1;
+        private static int RIGHT = 2;
+        private static int UP = 3;
+        private static int DOWN = 4;
 
         Game1 gameInstance;
         IPlayer link;
@@ -305,6 +309,26 @@ namespace Sprintfinity3902.Collision
         {
             Rectangle linkRect = ((IEntity)link).GetBoundingRect();
             return rec.Intersects(linkRect);
+        }
+
+        public int LinkInSight(Rectangle rec, int direction)
+        {
+            int distance = -1; ;
+            Rectangle linkRect = ((IEntity)link).GetBoundingRect();
+
+            if (rec.Intersects(linkRect))
+            {
+                if (direction == RIGHT)
+                    distance = linkRect.X - rec.X;
+                else if (direction == LEFT)
+                    distance = rec.X - linkRect.X;
+                else if (direction == UP)
+                    distance = rec.Y - linkRect.Y;
+                else if (direction == DOWN)
+                    distance = linkRect.Y - rec.Y;
+            }
+
+            return distance;
         }
 
         public void Pause() {

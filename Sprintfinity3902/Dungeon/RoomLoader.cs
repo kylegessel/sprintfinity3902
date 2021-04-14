@@ -392,7 +392,11 @@ namespace Sprintfinity3902.Dungeon
                     spikeNum++;
                     if(spikeNum > 4) { spikeNum = 1; }
                     break;
-
+                case "RPSK":
+                    IEntity ropesnake = new RopeSnakeEnemy(Position);
+                    Room.enemies.Add(enemyID, ropesnake);
+                    enemyID++;
+                    break;
 
                 //ITEMS
                 // Probably could use a static bomb and boomerang object now that I think of it.

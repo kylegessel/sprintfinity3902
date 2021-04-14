@@ -30,6 +30,8 @@ HAND: Hand
 OLDM: Old Man NPC
 SPKE: Spike 
 MNFR: Old Man and Fire Enemies
+LFBK: Left Face Block Enemy
+RFBK: Right Face Block Enemy
 
 Items:
 KEYI: Key

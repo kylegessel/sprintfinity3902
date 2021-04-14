@@ -328,6 +328,20 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(enemyID, bat);
                     enemyID++;
                     break;
+                case "LFBK":
+                    IAttack fire = new FireAttack(Position, Game.playerCharacter);
+                    Room.enemyProj.Add(fire);
+                    IEntity leftFireBlock = new LeftFaceBlockEnemy(Position, fire);
+                    Room.enemies.Add(enemyID, leftFireBlock);
+                    enemyID++;
+                    break;
+                case "RFBK":
+                    IAttack fireAt = new FireAttack(Position, Game.playerCharacter);
+                    Room.enemyProj.Add(fireAt);
+                    IEntity rightFireBlock = new RightFaceBlockEnemy(Position, fireAt);
+                    Room.enemies.Add(enemyID, rightFireBlock);
+                    enemyID++;
+                    break;
                 case "SKLN":
                     IEntity skel = new SkeletonEnemy(Position);
                     Room.enemies.Add(enemyID, skel);
@@ -348,8 +362,8 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "FIRE":
-                    IEntity fire = new FireEnemy(Position, Room.enemyProj, Game.playerCharacter);
-                    Room.enemies.Add(enemyID, fire);
+                    IEntity fireEnemy = new FireEnemy(Position, Room.enemyProj, Game.playerCharacter);
+                    Room.enemies.Add(enemyID, fireEnemy);
                     enemyID++;
                     break;
                 case "GELY":

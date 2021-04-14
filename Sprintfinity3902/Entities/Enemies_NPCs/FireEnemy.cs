@@ -54,19 +54,11 @@ namespace Sprintfinity3902.Entities
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
-            if(attack != null)
-            {
-                attack.Update(gameTime);
-            }
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             Sprite.Draw(spriteBatch, Position, color);
-            if (attack != null)
-            {
-                attack.Draw(spriteBatch, color);
-            }
         }
 
         public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
+using System;
 using System.Diagnostics;
 
 namespace Sprintfinity3902.Entities
@@ -11,18 +12,17 @@ namespace Sprintfinity3902.Entities
 
         private static float VERTICAL_SPEED_NONTRACK = .7f;
         private static float HORIZONTAL_SPEED_NONTRACK = 1.5f;
-        private static float POSITION_DIVISOR = 40;
         private static int TWO = 2;
         private static int ONE = 1;
         private static int SPLIT_WAIT_TIME = 20;
+        private static int SPEED = 8;
         private static IPlayer Player;
         private bool tracking;
         private bool trackOnly;
         private int count;
-        private Vector2 StoredPlayerEntityDiff;
+        private Vector2 ProjectileIncrementAmnt;
         public bool isMoving { get; set; }
         private int direction;
-
 
         public FireAttack(int moveDirection)
         {
@@ -120,13 +120,18 @@ namespace Sprintfinity3902.Entities
             //Implement 2 count integers that handle spread
             if (count == SPLIT_WAIT_TIME && tracking)
             {
-                Debug.WriteLine("Player X: " + Player.X + " Player Y: " + Player.Y);
-                StoredPlayerEntityDiff = new Vector2(X - Player.X, Y - Player.Y);
+                double angle = Math.Atan((Y - Player.Y) / (X - Player.X));
+                if(Player.X < X)
+                {
+                    angle += Math.PI;
+                }
+            
+                ProjectileIncrementAmnt = new Vector2((float)(Math.Cos(angle) * SPEED), (float)(Math.Sin(angle) * SPEED));
             }
             else if (count > SPLIT_WAIT_TIME && tracking)
             {
-                this.X = X - (StoredPlayerEntityDiff.X / POSITION_DIVISOR);
-                this.Y = Y - (StoredPlayerEntityDiff.Y / POSITION_DIVISOR);
+                this.X = X + (ProjectileIncrementAmnt.X);
+                this.Y = Y + (ProjectileIncrementAmnt.Y);
             }
             else
             {

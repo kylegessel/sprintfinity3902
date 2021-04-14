@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Link
         private static int THIRTEEN = 13;
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
-        private static int INITIAL_HEALTH = 6;
+        private static int INITIAL_HEALTH = 24;
 
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;

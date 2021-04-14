@@ -9,18 +9,18 @@ namespace Sprintfinity3902.Entities
 {
     public class DodongoBoss : AbstractEntity, IEnemy
     {
-        private const int UPPER_BOUND = 274;
-        private const int LOWER_BOUND = 86;
+        private const int UPPER_BOUND = 200;
+        private const int LOWER_BOUND = 70;
 
         private const int FORWARD = 1;
         private const int BACKWARD = 2;
         private const int LEFT = 3;
         private const int RIGHT = 4;
 
-        private const int LEFT_BOUND = 34;
-        private const int RIGHT_BOUND = 192;
-        private const int UP_BOUND = 96;
-        private const int DOWN_BOUND = 190;
+        private const int LEFT_BOUND = 44;
+        private const int RIGHT_BOUND = 182;
+        private const int UP_BOUND = 106;
+        private const int DOWN_BOUND = 180;
 
         private const float SPEED = .65f;
 

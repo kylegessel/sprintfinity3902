@@ -31,6 +31,8 @@ namespace Sprintfinity3902.Interfaces
 
         SelectableWeapons SelectedWeapon { get; set; }
 
+        void TogglePlayerVisible();
+
 
         /*These methods are only used when link is not invinsible (damaged state)*/
         void TakeDamage();

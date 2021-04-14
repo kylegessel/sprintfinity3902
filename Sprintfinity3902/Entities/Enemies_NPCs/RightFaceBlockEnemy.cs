@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sprintfinity3902.Entities
 {
-    public class RightFaceBlockEnemy : AbstractBlock, IEnemy
+    public class RightFaceBlockEnemy : AbstractBlock, IBlock
     {
         private const int RANDOM_DOWN_BOUND = 80;
         private const int RANDOM_UP_BOUND = 140;
@@ -51,11 +51,6 @@ namespace Sprintfinity3902.Entities
         public override Boolean IsCollidable()
         {
             return true;
-        }
-
-        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
-        {
-            return 0;
         }
     }
 }

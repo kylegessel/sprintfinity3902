@@ -17,10 +17,10 @@ namespace Sprintfinity3902.Entities
         private const int LEFT = 3;
         private const int RIGHT = 4;
 
-        private const int LEFT_BOUND = 44;
-        private const int RIGHT_BOUND = 182;
-        private const int UP_BOUND = 106;
-        private const int DOWN_BOUND = 180;
+        private const int LEFT_BOUND = 50;
+        private const int RIGHT_BOUND = 178;
+        private const int UP_BOUND = 112;
+        private const int DOWN_BOUND = 176;
 
         private const float SPEED = .65f;
 

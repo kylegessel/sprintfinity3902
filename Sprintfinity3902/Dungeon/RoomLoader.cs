@@ -331,15 +331,15 @@ namespace Sprintfinity3902.Dungeon
                 case "LFBK":
                     IAttack fire = new FireAttack(Position, Game.playerCharacter);
                     Room.enemyProj.Add(fire);
-                    IEntity leftFireBlock = new LeftFaceBlockEnemy(Position, fire);
-                    Room.enemies.Add(enemyID, leftFireBlock);
+                    IBlock leftFireBlock = new LeftFaceBlockEnemy(Position, fire);
+                    Room.blocks.Add(leftFireBlock);
                     enemyID++;
                     break;
                 case "RFBK":
                     IAttack fireAt = new FireAttack(Position, Game.playerCharacter);
                     Room.enemyProj.Add(fireAt);
-                    IEntity rightFireBlock = new RightFaceBlockEnemy(Position, fireAt);
-                    Room.enemies.Add(enemyID, rightFireBlock);
+                    IBlock rightFireBlock = new RightFaceBlockEnemy(Position, fireAt);
+                    Room.blocks.Add(rightFireBlock);
                     enemyID++;
                     break;
                 case "SKLN":
@@ -348,9 +348,10 @@ namespace Sprintfinity3902.Dungeon
                     enemyID++;
                     break;
                 case "BOSS":
-                    IAttack up = new FireAttack(1, Game.playerCharacter);
-                    IAttack center = new FireAttack(0, Game.playerCharacter);
-                    IAttack down = new FireAttack(2, Game.playerCharacter);
+                    int speed = 8;
+                    IAttack up = new FireAttack(1, Game.playerCharacter, speed);
+                    IAttack center = new FireAttack(0, Game.playerCharacter, speed);
+                    IAttack down = new FireAttack(2, Game.playerCharacter, speed);
                     Room.enemyProj.Add(up);
                     Room.enemyProj.Add(down);
                     Room.enemyProj.Add(center);

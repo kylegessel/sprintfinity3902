@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.States.Door;
 using System;
@@ -47,6 +48,7 @@ namespace Sprintfinity3902.States.GameStates
         }
         public void SetUp()
         {
+            //KeyboardManager.Instance.PopCommandMatrix();
             nextRoom = Game.dungeon.GetById(nextRoomID);
             doorDirection = Door.CurrentState.doorDirection;
             Offset();
@@ -55,6 +57,7 @@ namespace Sprintfinity3902.States.GameStates
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+
             foreach (IBlock block in nextRoom.blocks)
             {
 
@@ -79,6 +82,11 @@ namespace Sprintfinity3902.States.GameStates
                 door.Position = new Vector2(door.Position.X + CurrRoomPositionOffset.X, door.Position.Y + CurrRoomPositionOffset.Y);
                 door.Draw(spriteBatch, Color.White);
             }
+
+            foreach (IHud hud in Game.huds)
+            {
+                hud.Draw(spriteBatch, Color.White);
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -91,6 +99,11 @@ namespace Sprintfinity3902.States.GameStates
             foreach (IDoor door in nextRoom.doors)
             {
                 door.Update(gameTime);
+            }
+
+            foreach (IHud hud in Game.huds)
+            {
+                hud.Update(gameTime);
             }
 
             if (Change)
@@ -162,7 +175,6 @@ namespace Sprintfinity3902.States.GameStates
         public void StopAnimation()
         {
             // Temp while I change bounding boxes for unopened rooms.          
-
             foreach (IBlock block in nextRoom.blocks)
             {
 

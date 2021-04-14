@@ -69,7 +69,7 @@ namespace Sprintfinity3902.Collision
             foreach (IDoor door in doors)
             {
                 Rectangle doorRect = door.GetBoundingRect();
-                if (!gameInstance.dungeon.changeRoom.Change) {
+                if (!gameInstance.CurrentState.Equals(gameInstance.CHANGE_ROOM)) {
                     if (doorRect.Intersects(linkRect))
                     {
                         if (door.DoorDestination != -1 && door.CurrentState.IsOpen)
@@ -192,7 +192,7 @@ namespace Sprintfinity3902.Collision
             {
                 Rectangle blockRect = block.GetBoundingRect();
                     //link vs blocks
-                    if (!gameInstance.dungeon.changeRoom.Change && block.IsCollidable() && blockRect.Intersects(linkRect))
+                    if (!gameInstance.CurrentState.Equals(gameInstance.CHANGE_ROOM) && block.IsCollidable() && blockRect.Intersects(linkRect))
                 {
                     side = blockCollision.SideOfCollision(blockRect, linkRect);
 

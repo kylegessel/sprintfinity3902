@@ -24,7 +24,6 @@ namespace Sprintfinity3902.Dungeon
         private Game1 Game;
         private List<IRoom> dungeonRooms;
         public List<Point> RoomLocations { get; set; }
-        public ChangeRoom changeRoom { get; set; }
         public int NextId { get; set; }
         public Point WinLocation { get; set; }
         private IEntity movingSword;
@@ -50,9 +49,6 @@ namespace Sprintfinity3902.Dungeon
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
             hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
             bowArrow = new ArrowItem(new Vector2(-1000, -1000));
-
-            changeRoom = new ChangeRoom(game);
-
             dungeonRooms = new List<IRoom>();
             RoomLocations = new List<Point>();
 
@@ -106,20 +102,14 @@ namespace Sprintfinity3902.Dungeon
 
         public void Update(GameTime gameTime)
         {
-            if (changeRoom.Change)
+            CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage, (IProjectile)Game.bombExplosion);
+            CurrentRoom.Update(gameTime);
+            foreach (IEntity entity in linkProj)
             {
-                changeRoom.Update(gameTime);
+                entity.Update(gameTime);
             }
-            else
-            {
-                CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage, (IProjectile)Game.bombExplosion);
-                CurrentRoom.Update(gameTime);
-                foreach (IEntity entity in linkProj)
-                {
-                    entity.Update(gameTime);
-                }
-                bombItem.Update(gameTime);
-            }
+            bombItem.Update(gameTime);
+
 
             if(!CurrentRoom.roomCleared && CurrentRoom.enemies.Keys.Count == 0)
             {
@@ -136,19 +126,14 @@ namespace Sprintfinity3902.Dungeon
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (changeRoom.Change)
-            {
-                changeRoom.Draw(spriteBatch);
-            }
-            else
-            {
+
                 CurrentRoom.Draw(spriteBatch, Color.White);
                 foreach (IEntity entity in linkProj)
                 {
                     entity.Draw(spriteBatch, Color.White);
                 }
                 bombItem.Draw(spriteBatch, Color.White);
-            }
+
         }
 
 

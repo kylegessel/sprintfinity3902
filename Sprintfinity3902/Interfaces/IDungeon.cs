@@ -22,7 +22,6 @@ namespace Sprintfinity3902.Interfaces
         public Point WinLocation { get; set; }
         public IRoom CurrentRoom { get; set; }
         public int NextId { get; set; }
-        public ChangeRoom changeRoom { get; set; }
 
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);

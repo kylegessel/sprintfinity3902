@@ -11,6 +11,7 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.States.Door;
+using Sprintfinity3902.States.GameStates;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -181,8 +182,8 @@ namespace Sprintfinity3902.Dungeon
         }
         public void ChangeRoom(IDoor door)
         {
-            CurrentRoom.garbage.Clear();
-            changeRoom.StartAnimation(door.DoorDestination, door.CurrentState.doorDirection);
+            Game.CHANGE_ROOM = new ChangeRoomState(Game, door);
+            Game.SetState(Game.CHANGE_ROOM);
         }
 
         public void SetLinkPosition()

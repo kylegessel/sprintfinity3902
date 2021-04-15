@@ -13,19 +13,28 @@ namespace Sprintfinity3902.Entities
         private const int RANDOM_UP_BOUND = 140;
 
         private IAttack fireAttack;
+        private IRoom currentRoom;
         private int randomAttack;
         private int count;
-        public RightFaceBlockEnemy(Vector2 pos, IAttack fire)
+        public RightFaceBlockEnemy(Vector2 pos, IAttack fire, IRoom room)
         {
             Sprite = BlockSpriteFactory.Instance.CreateFace2Block();
             Position = pos;
             fireAttack = fire;
+            currentRoom = room;
         }
 
         public override void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
-            Attack();
+            if (currentRoom.enemies.Count != 0)
+            {
+                Attack();
+            }
+            else if (currentRoom.enemies.Count == 0)
+            {
+                fireAttack.StopMoving();
+            }
         }
 
         public override void Attack()

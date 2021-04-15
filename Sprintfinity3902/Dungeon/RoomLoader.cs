@@ -333,14 +333,14 @@ namespace Sprintfinity3902.Dungeon
                 case "LFBK":
                     IAttack fire = new FireAttack(Position, link);
                     Room.enemyProj.Add(fire);
-                    IBlock leftFireBlock = new LeftFaceBlockEnemy(Position, fire);
+                    IBlock leftFireBlock = new LeftFaceBlockEnemy(Position, fire, Room);
                     Room.blocks.Add(leftFireBlock);
                     enemyID++;
                     break;
                 case "RFBK":
                     IAttack fireAt = new FireAttack(Position, link);
                     Room.enemyProj.Add(fireAt);
-                    IBlock rightFireBlock = new RightFaceBlockEnemy(Position, fireAt);
+                    IBlock rightFireBlock = new RightFaceBlockEnemy(Position, fireAt, Room);
                     Room.blocks.Add(rightFireBlock);
                     enemyID++;
                     break;

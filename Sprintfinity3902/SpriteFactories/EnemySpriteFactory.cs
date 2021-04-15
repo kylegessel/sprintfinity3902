@@ -166,5 +166,9 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new DigdoggerRightSprite(bossSpriteSheet);
         }
+        public ISprite CreateDigdoggerStunned()
+        {
+            return new DigdoggerStunnedSprite(bossSpriteSheet);
+        }
     }
 }

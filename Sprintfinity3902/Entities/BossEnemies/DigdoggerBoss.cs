@@ -16,13 +16,13 @@ namespace Sprintfinity3902.Entities
         private const int UP_BOUND = 116;
         private const int DOWN_BOUND = 161;
 
-        private const float SPEED = .5f;
+        private const float SPEED = .35f;
 
-        private Random rand = new Random();
         private int count;
+        private int random;
         private int direction;
         private int waitTime;
-        private float speed;
+        public float speed;
 
 
         private IEnemyState _currentState;
@@ -46,11 +46,14 @@ namespace Sprintfinity3902.Entities
         {
             Position = pos;
 
+            movingLeft = new DigdoggerMovingLeftState(this);
+            movingRight = new DigdoggerMovingRightState(this);
 
-            CurrentState = movingLeft;
+            CurrentState = movingRight;
             CurrentState.Start = true;
 
             count = 0;
+            random = new Random().Next(10, 350);
             speed = SPEED;
             SetStepSize(speed);
         }
@@ -58,10 +61,11 @@ namespace Sprintfinity3902.Entities
         public override void Update(GameTime gameTime)
         {
             Sprite = CurrentState.Sprite;
-            CurrentState.UseItem();
             CurrentState.Sprite.Update(gameTime);
             CurrentState.Update();
             Move();
+            ChangeState();
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
@@ -90,6 +94,20 @@ namespace Sprintfinity3902.Entities
         {
             CurrentState.Move();
         }    
+
+        private void ChangeState()
+        {
+            if(count == random)
+            {
+                random = new Random().Next(50, 350);
+                count = -1;
+                if (CurrentState == movingLeft)
+                    SetState(movingRight);
+                else if (CurrentState == movingRight)
+                    SetState(movingLeft);
+            }
+            count++;
+        }
 
     }
 }

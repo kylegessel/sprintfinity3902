@@ -21,6 +21,7 @@ Enemies:
 BBAT: Blue Bat
 SKLN: Skeleton
 BOSS: Final Boss
+DIGD: Digdogger Boss
 DODO: Dodongo Boss
 FIRE: Fire
 GELY: Gel

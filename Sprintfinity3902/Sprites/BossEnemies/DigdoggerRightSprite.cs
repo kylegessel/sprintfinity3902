@@ -15,7 +15,7 @@ namespace Sprintfinity3902.Sprites
         private const int BOSS2_POS_X = 330;
         private const int BOSS2_POS_Y = 58;
         private const int BOSS2_WIDTH = 28;
-        private const int BOSS2_HEIGHT = 16;
+        private const int BOSS2_HEIGHT = 32;
 
         public DigdoggerRightSprite(Texture2D texture)
         {

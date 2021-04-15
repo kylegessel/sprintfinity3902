@@ -360,6 +360,10 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(enemyID, new AquamentusBoss(Position, up, center, down));
                     enemyID++;
                     break;
+                case "DIGD":
+                    Room.enemies.Add(enemyID, new DigdoggerBoss(Position));
+                    enemyID++;
+                    break;
                 case "DODO":
                     Room.enemies.Add(enemyID, new DodongoBoss(Position));
                     enemyID++;

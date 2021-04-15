@@ -158,5 +158,13 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new ManhandlaBodySprite(bossSpriteSheet);
         }
+        public ISprite CreateDigdoggerLeft()
+        {
+            return new DigdoggerLeftSprite(bossSpriteSheet);
+        }
+        public ISprite CreateDigdoggerRight()
+        {
+            return new DigdoggerRightSprite(bossSpriteSheet);
+        }
     }
 }

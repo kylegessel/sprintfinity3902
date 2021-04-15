@@ -474,6 +474,10 @@ namespace Sprintfinity3902.Dungeon
                     IItem fairy = new FairyItem(Position);
                     Room.items.Add(fairy);
                     break;
+                case "FLUT":
+                    IItem flute = new FluteItem(Position);
+                    Room.items.Add(flute);
+                    break;
                 case "HCON":
                     IItem hcont = new HeartContainerItem(Position);
                     hcont.X = hcont.Position.X + ONE * Global.Var.SCALE;

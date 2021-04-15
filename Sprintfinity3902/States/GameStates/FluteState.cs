@@ -30,7 +30,7 @@ namespace Sprintfinity3902.States.GameStates
             }
             else if(count == FLUTE_TIME)
             {
-                count = BEGINNING;
+                count = BEGINNING - 1;
                 Game.SetState(Game.PLAYING);
             }
             count++;

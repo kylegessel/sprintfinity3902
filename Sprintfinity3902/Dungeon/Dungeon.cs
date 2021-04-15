@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Dungeon
     public class Dungeon : IDungeon
     {
 
-        private Game1 Game;
+        public Game1 Game;
         private List<IRoom> dungeonRooms;
         public List<Point> RoomLocations { get; set; }
         public ChangeRoom changeRoom { get; set; }
@@ -86,7 +86,7 @@ namespace Sprintfinity3902.Dungeon
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
 
-            IRoomLoader rload = new RoomLoader(Game.playerCharacter, this);
+            IRoomLoader rload = new RoomLoader(Game.playerCharacter, this, Game);
             foreach (IRoom room in dungeonRooms)
             {
                 rload.Initialize(room);

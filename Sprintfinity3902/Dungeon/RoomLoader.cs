@@ -38,6 +38,8 @@ namespace Sprintfinity3902.Dungeon
         private static int BMRG_X_OFFSET = 5;
         private static int BMRG_Y_OFFSET = 4;
 
+        private static Game1 Game;
+
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
@@ -328,24 +330,43 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(enemyID, bat);
                     enemyID++;
                     break;
+                case "LFBK":
+                    IAttack fire = new FireAttack(Position, link);
+                    Room.enemyProj.Add(fire);
+                    IBlock leftFireBlock = new LeftFaceBlockEnemy(Position, fire);
+                    Room.blocks.Add(leftFireBlock);
+                    enemyID++;
+                    break;
+                case "RFBK":
+                    IAttack fireAt = new FireAttack(Position, link);
+                    Room.enemyProj.Add(fireAt);
+                    IBlock rightFireBlock = new RightFaceBlockEnemy(Position, fireAt);
+                    Room.blocks.Add(rightFireBlock);
+                    enemyID++;
+                    break;
                 case "SKLN":
                     IEntity skel = new SkeletonEnemy(Position);
                     Room.enemies.Add(enemyID, skel);
                     enemyID++;
                     break;
                 case "BOSS":
-                    IAttack up = new FireAttack(1);
-                    IAttack center = new FireAttack(0);
-                    IAttack down = new FireAttack(2);
+                    int speed = 8;
+                    IAttack up = new FireAttack(1, link, speed);
+                    IAttack center = new FireAttack(0, link, speed);
+                    IAttack down = new FireAttack(2, link, speed);
                     Room.enemyProj.Add(up);
                     Room.enemyProj.Add(down);
                     Room.enemyProj.Add(center);
-                    Room.enemies.Add(enemyID, new FinalBossEnemy(Position, up, center, down));
+                    Room.enemies.Add(enemyID, new AquamentusBoss(Position, up, center, down));
+                    enemyID++;
+                    break;
+                case "DODO":
+                    Room.enemies.Add(enemyID, new DodongoBoss(Position));
                     enemyID++;
                     break;
                 case "FIRE":
-                    IEntity fire = new FireEnemy(Position);
-                    Room.enemies.Add(enemyID, fire);
+                    IEntity fireEnemy = new FireEnemy(Position, Room.enemyProj, link);
+                    Room.enemies.Add(enemyID, fireEnemy);
                     enemyID++;
                     break;
                 case "GELY":
@@ -355,10 +376,16 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(enemyID, gel);
                     enemyID++;
                     break;
+                case "GHMA":
+                    IAttack fireAttack = new FireAttack(Position, link);
+                    Room.enemyProj.Add(fireAttack);
+                    Room.enemies.Add(enemyID, new GohmaBoss(Position, fireAttack));
+                    enemyID++;
+                    break;
                 case "GORY":
-                    IBoomerang goriyaBoomerang = new BoomerangItem();
-                    IEntity goriya = new GoriyaEnemy(goriyaBoomerang, Position);
+                    IEntity goriyaBoomerang = new BoomerangItem();
                     Room.enemyProj.Add(goriyaBoomerang);
+                    IEntity goriya = new GoriyaEnemy(goriyaBoomerang, Position);
                     Room.enemies.Add(enemyID, goriya);
                     enemyID++;
                     break;
@@ -373,13 +400,36 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemies.Add(enemyID, man);
                     enemyID++;
                     break;
+                case "MANH":
+                    IAttack attack1 = new FireAttack(Position, link);
+                    Room.enemyProj.Add(attack1);
+                    IEntity mouthDown = new ManhandlaMouthDown(Position, attack1);
+                    Room.enemies.Add(enemyID, mouthDown);
+                    enemyID++;
+                    IAttack attack2 = new FireAttack(Position, link);
+                    Room.enemyProj.Add(attack2);
+                    IEntity mouthLeft = new ManhandlaMouthLeft(Position, attack2);
+                    Room.enemies.Add(enemyID, mouthLeft);
+                    enemyID++;
+                    IAttack attack3 = new FireAttack(Position, link);
+                    Room.enemyProj.Add(attack3);
+                    IEntity mouthRight = new ManhandlaMouthRight(Position, attack3);
+                    Room.enemies.Add(enemyID, mouthRight);
+                    enemyID++;
+                    IAttack attack4 = new FireAttack(Position, link);
+                    Room.enemyProj.Add(attack4);
+                    IEntity mouthUp = new ManhandlaMouthUp(Position, attack4);
+                    Room.enemies.Add(enemyID, mouthUp);
+                    enemyID++;
+                    IEntity manhandla = new ManhandlaBoss(Position, mouthDown, mouthLeft, mouthRight, mouthUp);
+                    Room.enemies.Add(enemyID, manhandla);
+                    enemyID++;
+                    break;
                 case "MNFR":
-                    IEntity fire1 = new FireEnemy(Position);
-                    IEntity fire2 = new FireEnemy(Position);
-                    Room.enemies.Add(enemyID, fire1);
-                    enemyID++;
-                    Room.enemies.Add(enemyID, fire2);
-                    enemyID++;
+                    IEntity fire1 = new FireEnemy(Position, Room.enemyProj, link);
+                    IEntity fire2 = new FireEnemy(Position, Room.enemyProj, link);
+                    Room.enemyProj.Add(fire1);
+                    Room.enemyProj.Add(fire2);
 
                     IEntity manAndFire = new OldMan_FireEnemy(Position,fire1,fire2);
                     manAndFire.X = manAndFire.Position.X + EIGHT * Global.Var.SCALE;

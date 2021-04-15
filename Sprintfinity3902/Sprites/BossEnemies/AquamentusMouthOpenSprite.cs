@@ -2,7 +2,7 @@
 
 namespace Sprintfinity3902.Sprites
 {
-    public class FinalBossMouthOpenSprite : AbstractSprite
+    public class AquamentusMouthOpenSprite : AbstractSprite
     {
         public Texture2D Texture { get; set; }
 
@@ -16,7 +16,7 @@ namespace Sprintfinity3902.Sprites
         private const int BOSS_OPENED_2_WIDTH = 24;
         private const int BOSS_OPENED_2_HEIGHT = 32;
 
-        public FinalBossMouthOpenSprite(Texture2D texture)
+        public AquamentusMouthOpenSprite(Texture2D texture)
         {
             SpriteFrame Sprite1 = new SpriteFrame(texture, BOSS_OPENED_1_POS_X, BOSS_OPENED_1_POS_Y, BOSS_OPENED_1_WIDTH, BOSS_OPENED_1_HEIGHT);
             SpriteFrame Sprite2 = new SpriteFrame(texture, BOSS_OPENED_2_POS_X, BOSS_OPENED_2_POS_Y, BOSS_OPENED_2_WIDTH, BOSS_OPENED_2_HEIGHT);

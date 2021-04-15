@@ -19,7 +19,7 @@ namespace Sprintfinity3902.Entities
                 {
                     Link.LinkHealth++;
                 }
-                Link.heartChanged = true;
+                HudMenu.InGameHud.Instance.UpdateHearts(Link.MaxHealth, Link.LinkHealth);
                 
             }
 

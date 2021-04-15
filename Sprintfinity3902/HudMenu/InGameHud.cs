@@ -8,43 +8,38 @@ namespace Sprintfinity3902.HudMenu
 {
     public class InGameHud : AbstractHud
     {
-        private Game1 Game;
-        private IPlayer Link;
         private HudNumberManager hudNumberManager;
         private HudHeartManager hudHeartManager;
         private HudInitializer hudInitializer;
         private const int B_BUTTON_X = 128;
         private const int A_B_BUTTON_Y = 24;
 
-        public InGameHud(Game1 game)
+        private static InGameHud instance;
+
+        public static InGameHud Instance
         {
-            Game = game;
-            Link = Game.playerCharacter;
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new InGameHud();
+                }
+                return instance;
+            }
+        }
+
+        public InGameHud()
+        {
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, 0 * Global.Var.SCALE);
-            hudNumberManager = new HudNumberManager(this);
-            hudHeartManager = new HudHeartManager(this);
+            hudNumberManager = new HudNumberManager();
+            hudHeartManager = new HudHeartManager();
             hudInitializer = new HudInitializer(this);
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (Link.heartChanged)
-            {
-                UpdateHearts();
-                Link.heartChanged = false;
-            }
 
-            if (Link.itemPickedUp)
-            {
-                UpdateItems();
-                Link.itemPickedUp = false;
-            }
-
-            if (Link.selectedItemChanged)
-            {
-                UpdateSelectedItems();
-            }
         }
 
         public override void Initialize()
@@ -52,50 +47,51 @@ namespace Sprintfinity3902.HudMenu
             hudInitializer.InitializeInGameHud();
         }
 
-        private void UpdateHearts()
+        public void UpdateHearts(double maxH, double currentH)
         {
-            double maxHealth = Link.MaxHealth;
-            double currentHealth = Link.LinkHealth;
+            double maxHealth = maxH;
+            double currentHealth = currentH;
 
             hudHeartManager.UpdateHearts(maxHealth, currentHealth);
         }
 
-        private void UpdateItems()
+        public void UpdateRupees(int num)
         {
-            int rupeeNum; int keyNum; int bombNum;
-
-            if (Link.itemcount.ContainsKey(IItem.ITEMS.RUPEE))
-            {
-                rupeeNum = Link.itemcount[IItem.ITEMS.RUPEE];
-                hudNumberManager.RupeeNumbers(rupeeNum);
-            }
-
-            if (Link.itemcount.ContainsKey(IItem.ITEMS.KEY))
-            {
-                keyNum = Link.itemcount[IItem.ITEMS.KEY];
-                hudNumberManager.KeyNumbers(keyNum);
-            }
-
-            if (Link.itemcount.ContainsKey(IItem.ITEMS.BOMB))
-            {
-                bombNum = Link.itemcount[IItem.ITEMS.BOMB];
-                hudNumberManager.BombNumbers(bombNum);
-            }
+            int rupeeNum = num;
+            hudNumberManager.RupeeNumbers(rupeeNum);
+        }
+        public void UpdateKeys(int num)
+        {
+            int keyNum = num;
+            hudNumberManager.KeyNumbers(keyNum);
+        }
+        public void UpdateBomb(int num)
+        {
+            int bombNum = num;
+            hudNumberManager.BombNumbers(bombNum);
+        }
+        public void UpdateItems(int rupee, int keys, int bomb)
+        {
+            UpdateRupees(rupee);
+            UpdateKeys(keys);
+            UpdateBomb(bomb);
         }
 
-        private void UpdateSelectedItems()
+        public void UpdateSelectedItems(IPlayer.SelectableWeapons weapon)
         {
-            if(Link.SelectedWeapon == IPlayer.SelectableWeapons.BOOMERANG)
+            IPlayer.SelectableWeapons selectedWeapon = weapon;
+
+            if (weapon == IPlayer.SelectableWeapons.BOOMERANG)
             {
                 Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
                 Icons.Add(new BoomerangIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
             }
-            else if (Link.SelectedWeapon == IPlayer.SelectableWeapons.BOMB)
+            else if (weapon == IPlayer.SelectableWeapons.BOMB)
             {
                 Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
                 Icons.Add(new BombIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
             }
-            else if (Link.SelectedWeapon == IPlayer.SelectableWeapons.BOW)
+            else if (weapon == IPlayer.SelectableWeapons.BOW)
             {
                 Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
                 Icons.Add(new BowIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
@@ -104,7 +100,6 @@ namespace Sprintfinity3902.HudMenu
             {
                 Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
             }
-            Link.selectedItemChanged = false;
         }
     }
 }

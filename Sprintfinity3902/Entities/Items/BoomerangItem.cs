@@ -205,7 +205,7 @@ namespace Sprintfinity3902.Entities
             }
 
             // This will always be 0, but for consistency sake.
-            return enemy.HitRegister(enemyID, 0, STUN_LENGTH, AbstractEntity.Direction.NONE, room) <= 0;
+            return enemy.HitRegister(enemyID, 0, STUN_LENGTH, this, AbstractEntity.Direction.NONE, room) <= 0;
         }
 
         public void Collide(IRoom room)
@@ -217,7 +217,7 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             return 1;
         }

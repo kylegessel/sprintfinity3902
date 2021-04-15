@@ -113,6 +113,10 @@ namespace Sprintfinity3902.Link
         {
             decoratedLink.Draw(spriteBatch, linkColor);
         }
+        public void Draw(SpriteBatch spriteBatch, Vector2 pos, Color Ignorecolor)
+        {
+            decoratedLink.Draw(spriteBatch, linkColor);
+        }
         public void Move()
         {
             decoratedLink.Move();

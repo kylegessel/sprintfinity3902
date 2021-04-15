@@ -34,8 +34,9 @@ namespace Sprintfinity3902
         public IDungeon dungeon;
         public PauseMenu pauseMenu;
         public OptionMenu optionMenu;
-        
-        public List<IHud> huds;
+
+        public IHud dungeonHud;
+        public IHud miniMapHud;
         public IEntity bombExplosion;
 
         public Game1()

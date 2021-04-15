@@ -97,10 +97,10 @@ namespace Sprintfinity3902.Link
             room.enemies[entityID] = decoratedEntity;
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             IEnemy enemy = (IEnemy)decoratedEntity;
-            return enemy.HitRegister(enemyID, damage, stunLength, projDirection, room);
+            return enemy.HitRegister(enemyID, damage, stunLength, proj, projDirection, room);
         }
     }
 }

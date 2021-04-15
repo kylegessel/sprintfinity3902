@@ -70,7 +70,7 @@ namespace Sprintfinity3902.Entities
             Sprite.Draw(spriteBatch, Position, this.color);
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             this.enemyID = enemyID;
             health = health - damage;

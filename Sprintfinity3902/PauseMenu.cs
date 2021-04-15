@@ -56,6 +56,11 @@ namespace Sprintfinity3902
                 entity.Y = entity.Y + shiftAmount;
             }
 
+            foreach (IEntity entity in Game.dungeon.GetCurrentRoom().enemyProj)
+            {
+                entity.Y = entity.Y + shiftAmount;
+            }
+
             foreach (IEntity entity in Game.dungeon.GetCurrentRoom().items)  {
                 entity.Y = entity.Y + shiftAmount;
             }
@@ -68,9 +73,10 @@ namespace Sprintfinity3902
                 garbage.Y = garbage.Y + shiftAmount;
             }
 
-            foreach (IHud hud in Game.huds) {
-                hud.TranslateMatrix(new Vector2(0, shiftAmount));
-            }
+            Game.dungeonHud.TranslateMatrix(new Vector2(0, shiftAmount));
+            HudMenu.InGameHud.Instance.TranslateMatrix(new Vector2(0, shiftAmount));
+            HudMenu.InventoryHud.Instance.TranslateMatrix(new Vector2(0, shiftAmount));
+            Game.miniMapHud.TranslateMatrix(new Vector2(0, shiftAmount));
 
             foreach (IEntity door in Game.dungeon.GetCurrentRoom().doors) {
                 door.Y = door.Y + shiftAmount;

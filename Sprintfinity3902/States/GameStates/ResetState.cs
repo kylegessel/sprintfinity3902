@@ -65,6 +65,7 @@ namespace Sprintfinity3902.States.GameStates
             Game.PLAYING = new PlayingState(Game);
             Game.PAUSED = new PausedState(Game);
             Game.PAUSED_TRANSITION = new Paused_TransitionState(Game);
+            Game.FLUTE = new FluteState(Game);
             Game.WIN = new WinState(Game);
             Game.LOSE = new LoseState(Game);
             Game.OPTIONS = new OptionsState(Game);

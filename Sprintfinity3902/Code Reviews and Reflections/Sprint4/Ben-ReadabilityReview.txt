@@ -1,0 +1,35 @@
+﻿Author: Benjamin Hobson
+Date: 3/31/21
+Sprint 4
+
+Reviewed: Additional interfaces
+Written by: Casey Vancauwenbergh
+
+Reviewed by: Benjamin Hobson
+
+Reviewing commit: d53924261023ccb53c759f2c70cb4e8ab6e1808c 
+
+Reviewing empahsis: Readability
+
+Time Spent: 20min
+
+Review:
+
+Casey really nailed these interfaces: IAttack, IDoor, IBomb. He used composition of
+interfaces to create a lengthy interface which was actually short in terms of lines of code. 
+IAttack was used for FireAttacks. Casey also did not add accessor modifiers to his interfaces 
+which has been a problem in this group, so there's another positive aspect of his code. IDoor
+is a little more difficult to read simply due to the sheer size of it, but the length is
+neccessary for the functionality of the code so this has to do more with the interface 
+and not so mucn to do with Casey's ability to write concise code.
+
+Although the interfaces are an important part of Casey's task, the true task was making our 
+code more coded to interfaces, meaning our declared types were interfaces. This has helped
+our group a bunch already, and we're excited about these changes. Personally, I'd like to
+see IPlayer and ILink merge because quite frankly, I still don't understand why they're two
+separate things, especially considering we use them the same way. Casey if you read this,
+I challenge you to do this.
+
+Finally, The DoorState interface also appears in IDoor and is also well written--I'm unsure who wrote
+it. Anyways, Casey did a great job with these interfaces and I have no constructive criticism.
+Well done m8.

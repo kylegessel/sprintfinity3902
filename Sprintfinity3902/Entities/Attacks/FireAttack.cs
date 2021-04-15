@@ -15,7 +15,6 @@ namespace Sprintfinity3902.Entities
         private static int TWO = 2;
         private static int ONE = 1;
         private static int SPLIT_WAIT_TIME = 20;
-        private static int SPEED = 8;
         private static IPlayer Player;
         private bool tracking;
         private bool trackOnly;
@@ -23,6 +22,7 @@ namespace Sprintfinity3902.Entities
         private Vector2 ProjectileIncrementAmnt;
         public bool isMoving { get; set; }
         private int direction;
+        private int speed = 4;
 
         public FireAttack(int moveDirection)
         {
@@ -71,7 +71,7 @@ namespace Sprintfinity3902.Entities
             count = 0;
         }
 
-        public FireAttack(int moveDirection, IPlayer player)
+        public FireAttack(int moveDirection, IPlayer player, int speed)
         {
             Sprite = ItemSpriteFactory.Instance.CreateFireAttack();
 
@@ -80,6 +80,7 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = false;
+            this.speed = 8;
             count = 0;
         }
 
@@ -126,7 +127,7 @@ namespace Sprintfinity3902.Entities
                     angle += Math.PI;
                 }
             
-                ProjectileIncrementAmnt = new Vector2((float)(Math.Cos(angle) * SPEED), (float)(Math.Sin(angle) * SPEED));
+                ProjectileIncrementAmnt = new Vector2((float)(Math.Cos(angle) * speed), (float)(Math.Sin(angle) * speed));
             }
             else if (count > SPLIT_WAIT_TIME && tracking)
             {
@@ -177,7 +178,7 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             // If any type of hit, delete the attack.
             return 0;

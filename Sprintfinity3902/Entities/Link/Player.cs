@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Link
         private static int THIRTEEN = 13;
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
-        private static int INITIAL_HEALTH = 6;
+        private static int INITIAL_HEALTH = 10;
 
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
@@ -52,15 +52,14 @@ namespace Sprintfinity3902.Link
         public IPlayerState facingLeftItem { get; set; }
         public IPlayerState facingRightItem { get; set; }
         public IPlayerState facingUpItem { get; set; }
-        public bool heartChanged { get; set; }
-        public bool itemPickedUp { get; set; }
-        public bool selectedItemChanged { get; set; }
 
 
         public IPlayer.SelectableWeapons SelectedWeapon { get; set; }
 
         public int MaxHealth { get; set; }
         public int LinkHealth { get; set; }
+
+        private bool isVisible;
 
         public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
@@ -89,13 +88,13 @@ namespace Sprintfinity3902.Link
             SetStepSize(1);
             MaxHealth = INITIAL_HEALTH;
             LinkHealth = MaxHealth;
-            heartChanged = true;
-            itemPickedUp = false;
-            selectedItemChanged = false;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
+            SelectedWeapon = IPlayer.SelectableWeapons.NONE;
 
-            itemcount = new Dictionary<IItem.ITEMS, int>();
+            isVisible = true;
+
+        itemcount = new Dictionary<IItem.ITEMS, int>();
             foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
             {
                 itemcount.Add(item, 0);
@@ -140,7 +139,18 @@ namespace Sprintfinity3902.Link
             if (itemcount.ContainsKey(item) && itemcount[item] > 0)
             {
                 itemcount[item]--;
-                itemPickedUp = true;
+                HudMenu.InGameHud.Instance.UpdateItems(itemcount[IItem.ITEMS.RUPEE], itemcount[IItem.ITEMS.KEY], itemcount[IItem.ITEMS.BOMB]);
+            }
+            if (itemcount[IItem.ITEMS.BOMB] == 0)
+            {
+                HudMenu.InventoryHud.Instance.RemoveItemInInventory(IPlayer.SelectableWeapons.BOMB);
+                SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+                HudMenu.InGameHud.Instance.UpdateSelectedItems(SelectedWeapon);
+            }
+            if(itemcount[IItem.ITEMS.BOMB] == 0 && itemcount[IItem.ITEMS.BOOMERANG] == 0 && itemcount[IItem.ITEMS.BOW] == 0)
+            {
+                SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+                HudMenu.InGameHud.Instance.UpdateSelectedItems(SelectedWeapon);
             }
         }
 
@@ -188,14 +198,14 @@ namespace Sprintfinity3902.Link
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
-            CurrentState.Sprite.Draw(spriteBatch, Position, color);
+            CurrentState.Sprite.Draw(spriteBatch, Position, isVisible ? color : Color.Transparent);
         }
         public void TakeDamage()
         {
             _collidable = false;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             LinkHealth--;
-            heartChanged = true;
+            HudMenu.InGameHud.Instance.UpdateHearts(MaxHealth, LinkHealth);
             
             if (LinkHealth <= 0) {
                 game.SetState(game.LOSE);
@@ -228,6 +238,11 @@ namespace Sprintfinity3902.Link
         public void StopLowHealth()
         {
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
+        }
+
+        public void TogglePlayerVisible()
+        {
+            isVisible = !isVisible;
         }
 
         public void DeathSpin(bool end)

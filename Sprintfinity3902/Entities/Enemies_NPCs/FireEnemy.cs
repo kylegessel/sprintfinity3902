@@ -61,7 +61,7 @@ namespace Sprintfinity3902.Entities
             Sprite.Draw(spriteBatch, Position, color);
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             return 1;
         }

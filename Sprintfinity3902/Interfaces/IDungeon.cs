@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Sprintfinity3902.Dungeon;
+using Sprintfinity3902.States.Door;
 
 namespace Sprintfinity3902.Interfaces
 {
@@ -32,6 +33,7 @@ namespace Sprintfinity3902.Interfaces
         IRoom GetById(int id);
         void SetCurrentRoom(int id);
         void ChangeRoom(IDoor door);
+        void ChangeRoom(int doorDest, DoorDirection direction);
         void UpdateState(GameState state);
     }
 }

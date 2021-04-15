@@ -81,7 +81,7 @@ namespace Sprintfinity3902.Collision
                         {
                             door.Open();
                             link.itemcount[IItem.ITEMS.KEY]--;
-                            link.itemPickedUp = true;
+                            HudMenu.InGameHud.Instance.UpdateKeys(link.itemcount[IItem.ITEMS.KEY]);
                         }
                         else
                         {
@@ -305,6 +305,12 @@ namespace Sprintfinity3902.Collision
         {
             Rectangle linkRect = ((IEntity)link).GetBoundingRect();
             return rec.Intersects(linkRect);
+        }
+
+        public bool CollidesWithBomb(Rectangle rec)
+        {
+            Rectangle bombRec = gameInstance.dungeon.bombItem.GetBoundingRect();
+            return rec.Intersects(bombRec);
         }
 
         public void Pause() {

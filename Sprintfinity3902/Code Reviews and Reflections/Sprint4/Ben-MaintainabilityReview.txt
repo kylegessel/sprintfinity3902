@@ -1,0 +1,44 @@
+﻿Author: Benjamin Hobson
+Date: 3/31/21
+Sprint 4
+
+Reviewed: Player Item Pickup Implementation with Inventory
+Written by: Kyle Gessel
+
+Reviewed by: Benjamin Hobson
+
+Reviewing commit: bb4ccbe1baf9bdb4e4971b24e68d0377ec68b303 
+
+Reviewing empahsis: Maintainability
+
+Time Spent: 30min
+
+Review:
+
+Kyle did a good job with his pickup implementation although I have some hopefully helpful
+remarks. What I appreciate about Kyle is that he actually knows how the legend of zelda 
+is supposed to work, whereas, I've never played the game before and usually have no idea 
+what's going on within the context of how the game works.
+
+Kyle implemented classes for each item's pickup functionality, meaning he built a class
+for the occassion in which each item was picked up. He then linked each concrete item class
+to return an instance of it's respective pickup class via a method called "pickup"...
+I'm not sure why he didn't just put the pickup logic in the concrete class and run it
+when he invoked the pickup method on the item in the first place... perhaps this is
+decoupled? It just seems like more work to me. 
+
+Regardless of all the extra classes, the pickup methods he created, both for the concrete
+and the pickup classes, were very succinct and recyclable. This is due to the easy dictionary
+of items already in player that kyle took advantage of to increment count of.
+
+Quite frankly, I also trust kyle at this point and believe he had a good reason for making 
+a pickup class for each item. Kyle also created an IPickup interface which is good because 
+we are focusing on coding to interfaces. 
+
+Hypothetically, as I mentioned above, I would just scrap the pickup classes and put the
+implementation directly in the item class. Then when the player's pickup method is called
+it can simply invoke the pickup function on the item and pass itself as a parameter. Also,
+all of the return types could be made void for simplicity and a simple .ID check on the
+item in the player's pickup method to check if its the triforce would do for win state.
+
+This code is easy to maitain and is well organized.

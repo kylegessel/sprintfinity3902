@@ -11,11 +11,21 @@ namespace Sprintfinity3902.Entities
 
         public bool Pickup(IPlayer Link)
         {
+            if(Link.itemcount[IItem.ITEMS.BOMB] == 0)
+            {
+                HudMenu.InventoryHud.Instance.EnableItemInInventory(IPlayer.SelectableWeapons.BOMB);
+            }
+
             Link.itemcount[IItem.ITEMS.BOMB]++;
 
-
-            Link.itemPickedUp = true;
+            HudMenu.InGameHud.Instance.UpdateBomb(Link.itemcount[IItem.ITEMS.BOMB]);
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+            if(Link.SelectedWeapon == IPlayer.SelectableWeapons.NONE)
+            {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.BOMB;
+                HudMenu.InGameHud.Instance.UpdateSelectedItems(Link.SelectedWeapon);
+            }
 
             return false;
 

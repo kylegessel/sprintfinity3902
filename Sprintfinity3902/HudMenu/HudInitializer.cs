@@ -57,7 +57,7 @@ namespace Sprintfinity3902.HudMenu
         public void InitializeInGameHud()
         {
             //HUD BACKGROUND
-            Hud.Icons.Add(new InGameHudEntity(new Vector2(IN_GAME_HUD_X, IN_GAME_HUD_Y)));
+            HudMenu.InGameHud.Instance.Icons.Add(new InGameHudEntity(new Vector2(IN_GAME_HUD_X, IN_GAME_HUD_Y)));
 
             //HEALTH
             y = HEALTH_Y;
@@ -66,7 +66,7 @@ namespace Sprintfinity3902.HudMenu
                 x = HEALTH_X;
                 for (j = 0; j < HEALTH_ROW; j++)
                 {
-                    Hud.Icons.Add(new BlackSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    HudMenu.InGameHud.Instance.Icons.Add(new BlackSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     x = x + HUD_SQUARE_WIDTH;
                 }
                 y = y + HUD_SQUARE_WIDTH;
@@ -81,15 +81,15 @@ namespace Sprintfinity3902.HudMenu
                 {
                     if (j == 0 && i != EMPTY_SECOND_ROW)
                     {
-                        Hud.Icons.Add(new LetterX(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        HudMenu.InGameHud.Instance.Icons.Add(new LetterX(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
                     else if (j == 1 && i != EMPTY_SECOND_ROW)
                     {
-                        Hud.Icons.Add(new Number0(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        HudMenu.InGameHud.Instance.Icons.Add(new Number0(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
                     else
                     {
-                        Hud.Icons.Add(new BlackSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        HudMenu.InGameHud.Instance.Icons.Add(new BlackSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
                     x = x + HUD_SQUARE_WIDTH;
                 }
@@ -97,11 +97,11 @@ namespace Sprintfinity3902.HudMenu
             }
 
             //B BUTTON
-            Hud.Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
+            HudMenu.InGameHud.Instance.Icons.Add(new BlackLongIcon(new Vector2(B_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
             //A BUTTON
-            Hud.Icons.Add(new BlackLongIcon(new Vector2(A_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
+            HudMenu.InGameHud.Instance.Icons.Add(new BlackLongIcon(new Vector2(A_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
             //SWORD
-            Hud.Icons.Add(new SwordIcon(new Vector2(A_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
+            HudMenu.InGameHud.Instance.Icons.Add(new SwordIcon(new Vector2(A_BUTTON_X * Global.Var.SCALE, A_B_BUTTON_Y * Global.Var.SCALE)));
         }
 
         public void InitializeMiniMap(List<Point> roomLocations, List<IEntity> map)

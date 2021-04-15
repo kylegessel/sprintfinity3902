@@ -11,8 +11,11 @@
 
         /*Tile Size*/
         public static int TILE_SIZE = 16;
+        public static int HALF_TILE_SIZE = 8;
 
         public static float F_ZERO = 0.0f;
+        public static int TILE_ROW_NUM = 7;
+        public static int TILE_COLUMN_NUM = 12;
     }
 }
 

@@ -6,6 +6,7 @@ using Sprintfinity3902.Sound;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.HudMenu
 {
@@ -84,14 +85,15 @@ namespace Sprintfinity3902.HudMenu
                 /*Add necessary mappings here for ALL possible enum to icons*/
 
             };
-            //MoveSelector();
+            
             Game = parent.Game;
             Link = parent.Game.playerCharacter;
         }
 
         public void EnableItemInInventory(IPlayer.SelectableWeapons weapon)
         {
-            availableItems.Add(weapon);
+            if (!availableItems.Contains(weapon))
+                availableItems.Add(weapon);
         }
 
         public void RemoveItemInInventory(IPlayer.SelectableWeapons weapon)
@@ -103,6 +105,7 @@ namespace Sprintfinity3902.HudMenu
         public void MoveSelectorRight()
         {
             if (availableItems.Count == 0) return;
+            if (!availableItems.Contains(Link.SelectedWeapon)) return;
             int currentPos = availableItems.IndexOf(Link.SelectedWeapon);
             Link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
             MoveSelector(Link);
@@ -114,6 +117,7 @@ namespace Sprintfinity3902.HudMenu
         public void MoveSelectorLeft()
         {
             if (availableItems.Count == 0) return;
+            if (!availableItems.Contains(Link.SelectedWeapon)) return;
             int currentPos = availableItems.IndexOf(Link.SelectedWeapon);
             Link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
             MoveSelector(Link);
@@ -124,6 +128,8 @@ namespace Sprintfinity3902.HudMenu
 
         private void MoveSelector(IPlayer Link) {
             if (availableItems.Count == 0) return;
+            Debug.WriteLine(availableItems.ToString());
+            if (!availableItems.Contains(Link.SelectedWeapon)) return;
             int selectedIndex = availableItems.IndexOf(Link.SelectedWeapon);
 
             Vector2 selectPos = iconMatrix[selectedIndex / 4, selectedIndex % 4];

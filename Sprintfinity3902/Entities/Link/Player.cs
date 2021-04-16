@@ -95,7 +95,8 @@ namespace Sprintfinity3902.Link
 
             isVisible = true;
 
-        itemcount = new Dictionary<IItem.ITEMS, int>();
+            itemcount = new Dictionary<IItem.ITEMS, int>();
+
             foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
             {
                 itemcount.Add(item, 0);
@@ -133,24 +134,20 @@ namespace Sprintfinity3902.Link
 
         public void UseItem(IItem.ITEMS item)
         {
+            
+            switch (item) {
+                case IItem.ITEMS.BOMB:
+                    itemcount[item]--;
+                    if (itemcount[item] == 0) {
+                        ((InventoryHud)((DungeonHud)game.hud).Inventory).RemoveItemInInventory(IPlayer.SelectableWeapons.BOMB);
+                        SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+                        ((InGameHud)((DungeonHud)game.hud).InGame).UpdateSelectedItems(SelectedWeapon);
+                    }
+                    break;
+            }
 
-            CurrentState.UseItem();
-            if (itemcount.ContainsKey(item) && itemcount[item] > 0)
-            {
-                itemcount[item]--;
-                ((InGameHud)((DungeonHud)game.hud).InGame).UpdateItems(itemcount[IItem.ITEMS.RUPEE], itemcount[IItem.ITEMS.KEY], itemcount[IItem.ITEMS.BOMB]);
-            }
-            if (itemcount[IItem.ITEMS.BOMB] == 0)
-            {
-                ((InventoryHud)((DungeonHud)game.hud).Inventory).RemoveItemInInventory(IPlayer.SelectableWeapons.BOMB);
-                SelectedWeapon = IPlayer.SelectableWeapons.NONE;
-                ((InGameHud)((DungeonHud)game.hud).InGame).UpdateSelectedItems(SelectedWeapon);
-            }
-            if(itemcount[IItem.ITEMS.BOMB] == 0 && itemcount[IItem.ITEMS.BOOMERANG] == 0 && itemcount[IItem.ITEMS.BOW] == 0)
-            {
-                SelectedWeapon = IPlayer.SelectableWeapons.NONE;
-                ((InGameHud)((DungeonHud)game.hud).InGame).UpdateSelectedItems(SelectedWeapon);
-            }
+            ((DungeonHud)game.hud).UpdateValues();
+
         }
 
         public override void Update(GameTime gameTime) {

@@ -19,8 +19,9 @@ namespace Sprintfinity3902.Commands
         public void Execute()
         {
             //Eventually this should all live within player, this should become a call to use item.
-            if (!Bomb.getItemUse() && Link.itemcount[IItem.ITEMS.BOMB]>0)
+            if (!Bomb.getItemUse() && Link.itemcount.ContainsKey(IItem.ITEMS.BOMB) && Link.itemcount[IItem.ITEMS.BOMB]>0)
             {
+                Link.UseItem();
                 Link.UseItem(IItem.ITEMS.BOMB);
                 Bomb.UseItem(Link);
                 Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Bomb_Drop).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);

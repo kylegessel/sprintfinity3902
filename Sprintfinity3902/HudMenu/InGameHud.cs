@@ -65,7 +65,6 @@ namespace Sprintfinity3902.HudMenu
 
         public void UpdateSelectedItems(IPlayer.SelectableWeapons weapon)
         {
-            IPlayer.SelectableWeapons selectedWeapon = weapon;
 
             if (weapon == IPlayer.SelectableWeapons.BOOMERANG)
             {

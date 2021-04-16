@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.RUPEE;
         }
 
-        public override bool Pickup(IPlayer Link)
+        public override bool Pickup(IPlayer Link, IHud parent)
         {
             Link.itemcount[IItem.ITEMS.RUPEE]++;
 

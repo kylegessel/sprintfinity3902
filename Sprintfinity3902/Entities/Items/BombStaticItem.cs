@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 
@@ -20,20 +21,18 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.BOMB;
         }
 
-        public override bool Pickup(IPlayer Link)
+        public override bool Pickup(IPlayer Link, IHud parent)
         {
             if (Link.itemcount[IItem.ITEMS.BOMB] == 0) {
-                //HudMenu.InventoryHud.Instance.EnableItemInInventory(IPlayer.SelectableWeapons.BOMB);
+                ((InventoryHud)((DungeonHud)parent).Inventory).EnableItemInInventory(IPlayer.SelectableWeapons.BOMB);
             }
 
             Link.itemcount[IItem.ITEMS.BOMB]++;
 
-            //HudMenu.InGameHud.Instance.UpdateBomb(Link.itemcount[IItem.ITEMS.BOMB]);
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
 
             if (Link.SelectedWeapon == IPlayer.SelectableWeapons.NONE) {
                 Link.SelectedWeapon = IPlayer.SelectableWeapons.BOMB;
-                //HudMenu.InGameHud.Instance.UpdateSelectedItems(Link.SelectedWeapon);
             }
 
             return false;

@@ -21,7 +21,7 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.HEART;
         }
 
-        public override bool Pickup(IPlayer Link)
+        public override bool Pickup(IPlayer Link, IHud parent)
         {
             Link.MaxHealth += 2;
             Link.LinkHealth += 2;

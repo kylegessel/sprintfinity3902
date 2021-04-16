@@ -19,7 +19,7 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.COMPASS;
         }
 
-        public override bool Pickup(IPlayer Link)
+        public override bool Pickup(IPlayer Link, IHud parent)
         {
             Link.itemcount[IItem.ITEMS.COMPASS]++;
             //add compass HUD

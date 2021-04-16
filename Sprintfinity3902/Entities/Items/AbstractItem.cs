@@ -11,7 +11,7 @@ namespace Sprintfinity3902.Entities.Items
             set { id = value; }
         }
 
-        public virtual bool Pickup(IPlayer link)
+        public virtual bool Pickup(IPlayer link, IHud parent)
         {
             // Not all items do something for pickup, so let child override
             return false;

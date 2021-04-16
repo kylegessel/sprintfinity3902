@@ -104,7 +104,7 @@ namespace Sprintfinity3902.Link
 
         public void Pickup(IItem item) {
 
-            if (item.Pickup(this))
+            if (item.Pickup(this, (DungeonHud)game.hud))
             {
                 game.SetState(game.WIN);
             }

@@ -85,7 +85,7 @@ namespace Sprintfinity3902.Entities
             count++;
         }
 
-        public override bool Pickup(IPlayer Link)
+        public override bool Pickup(IPlayer Link, IHud parent)
         {
             Link.LinkHealth = Link.MaxHealth;
             //HudMenu.InGameHud.Instance.UpdateHearts(Link.MaxHealth, Link.LinkHealth);

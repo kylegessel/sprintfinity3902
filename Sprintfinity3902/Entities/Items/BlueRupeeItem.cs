@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 
@@ -22,7 +23,7 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.RUPEE;
         }
 
-        public override bool Pickup(IPlayer Link)
+        public override bool Pickup(IPlayer Link, IHud parent)
         {
             Link.itemcount[IItem.ITEMS.RUPEE] += BLUE_RUPEE_VALUE;
 

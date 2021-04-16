@@ -22,6 +22,6 @@
         };
 
         /* Returns true if win, else false */
-        public bool Pickup(IPlayer link);
+        public bool Pickup(IPlayer link, IHud parent);
     }
 }

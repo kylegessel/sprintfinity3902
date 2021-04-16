@@ -6,10 +6,13 @@ namespace Sprintfinity3902.Entities
 {
     public class OldManNPC : AbstractEntity, IEnemy
     {
-
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
         public OldManNPC(Vector2 pos)
         {
             Sprite = EnemySpriteFactory.Instance.CreateOldManNPC();
+            EnemyHealth = 0;
+            EnemyAttack = 0;
             Position = pos;
         }
 

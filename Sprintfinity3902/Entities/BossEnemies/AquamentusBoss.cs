@@ -45,6 +45,9 @@ namespace Sprintfinity3902.Entities
         private Random rd;
         private string bossScreamInstanceID;
 
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
+
         public AquamentusBoss(Vector2 pos, IAttack up, IAttack center, IAttack down)
         {
             ClosedMouth = EnemySpriteFactory.Instance.CreateFinalBossClosed();
@@ -61,6 +64,9 @@ namespace Sprintfinity3902.Entities
             decorate = false;
 
             rd = new Random();
+
+            EnemyHealth = FIVE;
+            EnemyAttack = ONE;
 
             direction = rd.Next(ONE, FOUR);
             directionCount = Global.Var.ZERO;

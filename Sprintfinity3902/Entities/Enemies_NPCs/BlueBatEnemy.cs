@@ -18,7 +18,8 @@ namespace Sprintfinity3902.Entities
         private int direction;
         private int waitTime;
         private float speed;
-        
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
 
         public BlueBatEnemy()
         {
@@ -27,6 +28,8 @@ namespace Sprintfinity3902.Entities
             direction = 0;
             count = 0;
             speed = .5f;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             SetStepSize(speed);
         }
         public BlueBatEnemy(Vector2 pos)
@@ -36,6 +39,8 @@ namespace Sprintfinity3902.Entities
             direction = 0;
             count = 0;
             speed = .5f;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             SetStepSize(speed);
         }
 

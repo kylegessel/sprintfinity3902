@@ -23,6 +23,8 @@ namespace Sprintfinity3902.Entities
         public bool isMoving { get; set; }
         private int direction;
         private int speed = 4;
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
 
         public FireAttack(int moveDirection)
         {

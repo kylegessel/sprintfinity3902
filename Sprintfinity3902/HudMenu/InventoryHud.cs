@@ -81,7 +81,7 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
-        public InventoryHud()
+        private InventoryHud()
         {
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, -176 * Global.Var.SCALE);

@@ -28,7 +28,7 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
-        public InGameHud()
+        private InGameHud()
         {
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, 0 * Global.Var.SCALE);

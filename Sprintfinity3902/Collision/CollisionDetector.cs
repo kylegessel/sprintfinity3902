@@ -153,7 +153,7 @@ namespace Sprintfinity3902.Collision
                 if (((IEntity)link).IsCollidable() && enemyRect.Intersects(linkRect) && !alreadyMoved) 
                 {
                     //This will prevent it from moving back twice if runs into two enemies at once (It will just do the first)
-                    alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
+                    alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, (IEnemy)cEnemy, linkRect, enemyRect);
                 }
             }
 
@@ -170,12 +170,12 @@ namespace Sprintfinity3902.Collision
                         }
                         else
                         {
-                            alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
+                            alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, (IEnemy)proj, linkRect, enemyRect);
                         }
                     }
                     else
                     {
-                        alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, linkRect, enemyRect);
+                        alreadyMoved = LinkDamageHandler.LinkDamaged(gameInstance, link, (IEnemy)proj, linkRect, enemyRect);
                     }
 
                 }

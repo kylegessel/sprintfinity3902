@@ -34,6 +34,8 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             tracking = false;
             trackOnly = false;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = 0;
         }
 
@@ -46,6 +48,8 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = true;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = SPLIT_WAIT_TIME;
         }
 
@@ -58,6 +62,8 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = true;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = SPLIT_WAIT_TIME;
         }
 
@@ -70,6 +76,8 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             tracking = false;
             trackOnly = false;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = 0;
         }
 
@@ -83,6 +91,8 @@ namespace Sprintfinity3902.Entities
             tracking = true;
             trackOnly = false;
             this.speed = 8;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = 0;
         }
 
@@ -96,6 +106,8 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = false;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = 0;
         }
 

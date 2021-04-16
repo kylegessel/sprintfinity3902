@@ -26,7 +26,6 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Floor 1 Room Templates\" />
     <Folder Include="Content\Floor 2 Room Templates\" />
     <Folder Include="Content\Floor 3 Room Templates\" />
     <Folder Include="Content\Floor 4 Room Templates\" />

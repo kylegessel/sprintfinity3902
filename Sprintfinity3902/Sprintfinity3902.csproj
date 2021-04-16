@@ -26,8 +26,6 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Floor 4 Room Templates\" />
-    <Folder Include="Content\Floor 5 Room Templates\" />
     <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Bomb Apearance and Selfdrestruction\" />
     <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Boss Defeated\" />
     <Folder Include="Content\Sounds\bin\Windows\The Legend of Zelda Cartoon Sound Effects Boss Roaring\" />

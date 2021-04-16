@@ -7,6 +7,8 @@ namespace Sprintfinity3902.Entities
 {
     public class BlueRupeeItem : AbstractItem
     {
+
+        private const int BLUE_RUPEE_VALUE = 5;
         public BlueRupeeItem()
         {
             Sprite = ItemSpriteFactory.Instance.CreateBlueRupeeItem();
@@ -20,9 +22,14 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.RUPEE;
         }
 
-        public override IPickup GetPickup()
+        public override bool Pickup(IPlayer Link)
         {
-            return new BlueRupeePickup();
+            Link.itemcount[IItem.ITEMS.RUPEE] += BLUE_RUPEE_VALUE;
+
+            //HudMenu.InGameHud.Instance.UpdateRupees(Link.itemcount[IItem.ITEMS.RUPEE]);
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+            return false;
         }
     }
 }

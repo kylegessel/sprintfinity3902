@@ -21,6 +21,7 @@
             SPEEDPWRUP
         };
 
-        public IPickup GetPickup();
+        /* Returns true if win, else false */
+        public bool Pickup(IPlayer link);
     }
 }

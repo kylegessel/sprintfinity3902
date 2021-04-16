@@ -10,30 +10,24 @@ namespace Sprintfinity3902.States.GameStates
 {
     public class PausedState : IGameState
     {
-        private Game1 Game;
-        public PausedState(Game1 game)
+        private Game1 game;
+        public PausedState(Game1 _game)
         {
-            Game = game;
+            game = _game;
         }
 
         public void Update(GameTime gameTime)
         {
-            Game.dungeonHud.Update(gameTime);
-            HudMenu.InGameHud.Instance.Update(gameTime);
-            HudMenu.InventoryHud.Instance.Update(gameTime);
-            Game.miniMapHud.Update(gameTime);
+            game.hud.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Game.dungeonHud.Draw(spriteBatch, Color.White);
-            HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
-            HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
-            Game.miniMapHud.Draw(spriteBatch, Color.White);
+            game.hud.Draw(spriteBatch, Color.White);
 
-            Game.dungeon.Draw(spriteBatch);
+            game.dungeon.Draw(spriteBatch);
 
-            Game.link.Draw(spriteBatch, Color.White);
+            game.link.Draw(spriteBatch, Color.White);
         }
 
         public void SetUp()
@@ -41,10 +35,10 @@ namespace Sprintfinity3902.States.GameStates
             KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
             KeyboardManager.Instance.RegisterKeyUpCallback(() => {
                 KeyboardManager.Instance.PopCommandMatrix();
-                Game.SetState(Game.PAUSED_TRANSITION);
+                game.SetState(game.PAUSED_TRANSITION);
             }, Keys.P);
-            KeyboardManager.Instance.RegisterKeyUpCallback(HudMenu.InventoryHud.Instance.MoveSelectorLeft, Keys.A, Keys.Left);
-            KeyboardManager.Instance.RegisterKeyUpCallback(HudMenu.InventoryHud.Instance.MoveSelectorRight, Keys.D, Keys.Right);
+            KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)((DungeonHud)game.hud).Inventory).MoveSelectorLeft, Keys.A, Keys.Left);
+            KeyboardManager.Instance.RegisterKeyUpCallback(((InventoryHud)((DungeonHud)game.hud).Inventory).MoveSelectorRight, Keys.D, Keys.Right);
         }
     }
 }

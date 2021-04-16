@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Sprintfinity3902.HudMenu
         private const int COMPASS_ICON_Y = -24;
         private const int BLOCK_SIZE = 8;
 
-        private Game1 Game;
+        public Game1 Game;
         private IPlayer Link;
         private HudInitializer hudInitializer;
         private List<Point> RoomLocations;
@@ -28,6 +29,9 @@ namespace Sprintfinity3902.HudMenu
         public List<IEntity> Map { get; private set; }
         public List<int> AlreadyInMap { get; set; }
         public IDungeon Dungeon { get; protected set; }
+        public IHud MiniMap { get; protected set; }
+        public IHud InGame { get; protected set; }
+        public IHud Inventory { get; protected set; }
 
         public DungeonHud(Game1 game, IDungeon dungeon)
         {
@@ -43,11 +47,18 @@ namespace Sprintfinity3902.HudMenu
             RoomLocations = dungeon.RoomLocations;
             CurrentRoom = dungeon.CurrentRoom;
             WorldPoint = new Vector2(0, 0);
+            MiniMap = new MiniMapHud(Game, Game.dungeon);
+            InGame = new InGameHud();
+            Inventory = new InventoryHud(this);
+            
         }
 
         public override void Initialize()
         {
             hudInitializer.InitializeDungeonHud(RoomLocations);
+            MiniMap.Initialize();
+            InGame.Initialize();
+            Inventory.Initialize();
         }
 
         public override void Update(GameTime gameTime)
@@ -67,26 +78,37 @@ namespace Sprintfinity3902.HudMenu
                 UpdateHudLinkLoc();
                 CurrentRoom = Dungeon.CurrentRoom;
             }
+            MiniMap.Update(gameTime);
+            InGame.Update(gameTime);
+            Inventory.Update(gameTime);
         }
 
-        public void CreateInitialHudDungeon()
+        public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            int x = (Dungeon.CurrentRoom.RoomPos.X * BLOCK_SIZE + 2) * Global.Var.SCALE;
-            int y = (Dungeon.CurrentRoom.RoomPos.Y * BLOCK_SIZE + 2) * Global.Var.SCALE;
-            LinkBlock = new YellowLinkBlock(new Vector2(x + DUNGEON_INSIDE_MAP_X, y + DUNGEON_INSIDE_MAP_Y));
-            foreach (IEntity room in Map)
-            {
-                Icons.Add(room);
+            base.Draw(spriteBatch, color);
+            pushMatrix(Icons.ToArray());
+            foreach (IEntity icon in Icons) {
+                icon.Draw(spriteBatch, color);
             }
-            Icons.Add(LinkBlock);
-            Icons.Add(new MapIcon(new Vector2(MAP_ICON_X * Global.Var.SCALE, MAP_ICON_Y * Global.Var.SCALE)));
-            MapPickup = true;
+            popMatrix(Icons.ToArray());
+
+            MiniMap.Draw(spriteBatch, Color.White);
+            InGame.Draw(spriteBatch, Color.White);
+            Inventory.Draw(spriteBatch, Color.White);
         }
 
-        private void CreateCompassIcon()
+        public void UpdateValues() {
+            ((InGameHud)InGame).UpdateHearts(Link.MaxHealth, Link.LinkHealth);
+            ((InGameHud)InGame).UpdateItems(Link.itemcount[IItem.ITEMS.RUPEE], Link.itemcount[IItem.ITEMS.KEY], Link.itemcount[IItem.ITEMS.BOMB]);
+            ((InGameHud)InGame).UpdateSelectedItems(Link.SelectedWeapon);
+        }
+
+        public override void TranslateMatrix(Vector2 deltaVec)
         {
-            Icons.Add(new CompassIcon(new Vector2(COMPASS_ICON_X * Global.Var.SCALE, COMPASS_ICON_Y * Global.Var.SCALE)));
-            CompassPickup = true;
+            WorldPoint = new Vector2(WorldPoint.X + deltaVec.X, WorldPoint.Y + deltaVec.Y);
+            MiniMap.TranslateMatrix(deltaVec);
+            InGame.TranslateMatrix(deltaVec);
+            Inventory.TranslateMatrix(deltaVec);
         }
 
         public void UpdateHudRooms()
@@ -175,6 +197,25 @@ namespace Sprintfinity3902.HudMenu
             }
             return roomEntity;
 
+        }
+
+        private void CreateInitialHudDungeon()
+        {
+            int x = (Dungeon.CurrentRoom.RoomPos.X * BLOCK_SIZE + 2) * Global.Var.SCALE;
+            int y = (Dungeon.CurrentRoom.RoomPos.Y * BLOCK_SIZE + 2) * Global.Var.SCALE;
+            LinkBlock = new YellowLinkBlock(new Vector2(x + DUNGEON_INSIDE_MAP_X, y + DUNGEON_INSIDE_MAP_Y));
+            foreach (IEntity room in Map) {
+                Icons.Add(room);
+            }
+            Icons.Add(LinkBlock);
+            Icons.Add(new MapIcon(new Vector2(MAP_ICON_X * Global.Var.SCALE, MAP_ICON_Y * Global.Var.SCALE)));
+            MapPickup = true;
+        }
+
+        private void CreateCompassIcon()
+        {
+            Icons.Add(new CompassIcon(new Vector2(COMPASS_ICON_X * Global.Var.SCALE, COMPASS_ICON_Y * Global.Var.SCALE)));
+            CompassPickup = true;
         }
     }
 }

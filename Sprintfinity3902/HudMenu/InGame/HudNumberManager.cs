@@ -19,9 +19,12 @@ namespace Sprintfinity3902.HudMenu
         private const int RUPEE_COUNT_Y = 16;
         private const int KEY_COUNT_Y = 32;
         private const int BOMB_COUNT_Y = 40;
-        
-        public HudNumberManager()
+
+        private IHud ingame;
+
+        public HudNumberManager(IHud _ingame)
         {
+            ingame = _ingame;
         }
 
         public void RupeeNumbers(int rupeeNum)
@@ -37,17 +40,17 @@ namespace Sprintfinity3902.HudMenu
                     if(j == DOUBLES_PLACE)
                     {
                         int doubleDigit = (rupeeNum / 10) % 10;
-                        HudMenu.InGameHud.Instance.Icons.Add(GetDigit(doubleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        ((InGameHud)ingame).Icons.Add(GetDigit(doubleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
                     else if (j == SINGLES_PLACE)
                     {
                         int singleDigit = rupeeNum % 10;
-                        HudMenu.InGameHud.Instance.Icons.Add(GetDigit(singleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        ((InGameHud)ingame).Icons.Add(GetDigit(singleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
                 }
                 else if(digitColumns == SINGLE_DIGIT_COLUMNS)
                 {
-                    HudMenu.InGameHud.Instance.Icons.Add(GetDigit(rupeeNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    ((InGameHud)ingame).Icons.Add(GetDigit(rupeeNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                 }
                 x = x + HUD_SQUARE_WIDTH;
             }
@@ -62,7 +65,7 @@ namespace Sprintfinity3902.HudMenu
                 x = ITEM_COUNT_X;
                 for (j = 0; j < SINGLE_DIGIT_COLUMNS; j++)
                 {
-                    HudMenu.InGameHud.Instance.Icons.Add(GetDigit(keyNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    ((InGameHud)ingame).Icons.Add(GetDigit(keyNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     x = x + HUD_SQUARE_WIDTH;
                 }
                 y = y + HUD_SQUARE_WIDTH;
@@ -77,7 +80,7 @@ namespace Sprintfinity3902.HudMenu
                 x = ITEM_COUNT_X;
                 for (j = 0; j < SINGLE_DIGIT_COLUMNS; j++)
                 {
-                    HudMenu.InGameHud.Instance.Icons.Add(GetDigit(keyNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    ((InGameHud)ingame).Icons.Add(GetDigit(keyNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     x = x + HUD_SQUARE_WIDTH;
                 }
                 y = y + HUD_SQUARE_WIDTH;

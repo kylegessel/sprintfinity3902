@@ -36,7 +36,7 @@ namespace Sprintfinity3902.HudMenu
                 entity.Position = new Vector2(entity.Position.X - WorldPoint.X, entity.Position.Y - WorldPoint.Y);
             }
         }
-        public void TranslateMatrix(Vector2 deltaVec)
+        public virtual void TranslateMatrix(Vector2 deltaVec)
         {
             WorldPoint = new Vector2(WorldPoint.X + deltaVec.X, WorldPoint.Y + deltaVec.Y);
         }

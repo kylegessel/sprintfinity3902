@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
+using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.States;
@@ -87,7 +88,7 @@ namespace Sprintfinity3902.Link
             _collidable = true;
             SetStepSize(1);
             MaxHealth = INITIAL_HEALTH;
-            LinkHealth = 1; //Maxheath;
+            LinkHealth = MaxHealth;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
             SelectedWeapon = IPlayer.SelectableWeapons.NONE;
@@ -103,14 +104,12 @@ namespace Sprintfinity3902.Link
 
         public void Pickup(IItem item) {
 
-
-            IPickup itemPickup = item.GetPickup();
-            bool win = itemPickup.Pickup(this);
-
-            if (win)
+            if (item.Pickup(this))
             {
                 game.SetState(game.WIN);
             }
+
+            ((DungeonHud)game.hud).UpdateValues();
         }
 
         public void SetState(IPlayerState state) {
@@ -139,18 +138,18 @@ namespace Sprintfinity3902.Link
             if (itemcount.ContainsKey(item) && itemcount[item] > 0)
             {
                 itemcount[item]--;
-                HudMenu.InGameHud.Instance.UpdateItems(itemcount[IItem.ITEMS.RUPEE], itemcount[IItem.ITEMS.KEY], itemcount[IItem.ITEMS.BOMB]);
+                ((InGameHud)((DungeonHud)game.hud).InGame).UpdateItems(itemcount[IItem.ITEMS.RUPEE], itemcount[IItem.ITEMS.KEY], itemcount[IItem.ITEMS.BOMB]);
             }
             if (itemcount[IItem.ITEMS.BOMB] == 0)
             {
-                HudMenu.InventoryHud.Instance.RemoveItemInInventory(IPlayer.SelectableWeapons.BOMB);
+                ((InventoryHud)((DungeonHud)game.hud).Inventory).RemoveItemInInventory(IPlayer.SelectableWeapons.BOMB);
                 SelectedWeapon = IPlayer.SelectableWeapons.NONE;
-                HudMenu.InGameHud.Instance.UpdateSelectedItems(SelectedWeapon);
+                ((InGameHud)((DungeonHud)game.hud).InGame).UpdateSelectedItems(SelectedWeapon);
             }
             if(itemcount[IItem.ITEMS.BOMB] == 0 && itemcount[IItem.ITEMS.BOOMERANG] == 0 && itemcount[IItem.ITEMS.BOW] == 0)
             {
                 SelectedWeapon = IPlayer.SelectableWeapons.NONE;
-                HudMenu.InGameHud.Instance.UpdateSelectedItems(SelectedWeapon);
+                ((InGameHud)((DungeonHud)game.hud).InGame).UpdateSelectedItems(SelectedWeapon);
             }
         }
 
@@ -205,7 +204,7 @@ namespace Sprintfinity3902.Link
             _collidable = false;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             LinkHealth--;
-            HudMenu.InGameHud.Instance.UpdateHearts(MaxHealth, LinkHealth);
+            ((InGameHud)((DungeonHud)game.hud).InGame).UpdateHearts(MaxHealth, LinkHealth);
             
             if (LinkHealth <= 0) {
                 game.SetState(game.LOSE);

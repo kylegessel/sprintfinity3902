@@ -21,9 +21,10 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.CLOCK;
         }
 
-        public override IPickup GetPickup()
+        public override bool Pickup(IPlayer Link)
         {
-            return new ClockPickup();
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            return false;
         }
     }
 }

@@ -20,10 +20,5 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             ID = IItem.ITEMS.ATTACKPWRUP;
         }
-
-        public override IPickup GetPickup()
-        {
-            return new AttackPowerUpPickup();
-        }
     }
 }

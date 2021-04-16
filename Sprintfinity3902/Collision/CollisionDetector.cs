@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using System;
@@ -81,7 +82,7 @@ namespace Sprintfinity3902.Collision
                         {
                             door.Open();
                             link.itemcount[IItem.ITEMS.KEY]--;
-                            HudMenu.InGameHud.Instance.UpdateKeys(link.itemcount[IItem.ITEMS.KEY]);
+                            ((InGameHud)((DungeonHud)gameInstance.hud).InGame).UpdateKeys(link.itemcount[IItem.ITEMS.KEY]);
                         }
                         else
                         {

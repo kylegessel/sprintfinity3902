@@ -20,9 +20,14 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.KEY;
         }
 
-        public override IPickup GetPickup()
+        public override bool Pickup(IPlayer Link)
         {
-            return new KeyPickup();
+            Link.itemcount[IItem.ITEMS.KEY]++;
+
+            //HudMenu.InGameHud.Instance.UpdateKeys(Link.itemcount[IItem.ITEMS.KEY]);
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+            return false;
         }
     }
 }

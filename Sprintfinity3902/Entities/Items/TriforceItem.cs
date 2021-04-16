@@ -21,9 +21,9 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.TRIFORCE;
         }
 
-        public override IPickup GetPickup()
+        public override bool Pickup(IPlayer Link)
         {
-            return new TriforcePickup();
+            return true;
         }
     }
 }

@@ -21,9 +21,21 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.BOW;
         }
 
-        public override IPickup GetPickup()
+        public override bool Pickup(IPlayer Link)
         {
-            return new BowPickup();
+            //link.bow = true
+            // add link bow to HUD AND allow to use
+            Link.itemcount[IItem.ITEMS.BOW]++;
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+            //HudMenu.InventoryHud.Instance.EnableItemInInventory(IPlayer.SelectableWeapons.BOW);
+
+            if (Link.SelectedWeapon == IPlayer.SelectableWeapons.NONE) {
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.BOW;
+                //HudMenu.InGameHud.Instance.UpdateSelectedItems(Link.SelectedWeapon);
+            }
+
+            return false;
         }
     }
 }

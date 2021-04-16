@@ -2,46 +2,44 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Controllers;
+using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.States.GameStates
 {
     public class Paused_TransitionState : IGameState
     {
-        private Game1 Game;
-        public Paused_TransitionState(Game1 game)
+        private Game1 game;
+        public Paused_TransitionState(Game1 _game)
         {
-            Game = game;
+            game = _game;
         }
 
         public void Update(GameTime gameTime)
         {
-            Game.pauseMenu.Update(gameTime);
+            game.pauseMenu.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Game.dungeonHud.Draw(spriteBatch, Color.White);
-            HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
-            HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
-            Game.miniMapHud.Draw(spriteBatch, Color.White);
-            Game.dungeon.Draw(spriteBatch);
-            Game.link.Draw(spriteBatch, Color.White);
+            game.hud.Draw(spriteBatch, Color.White);
+            game.dungeon.Draw(spriteBatch);
+            game.link.Draw(spriteBatch, Color.White);
 
         }
 
         public void SetUp()
         {
-            if (Game.PreviousState.Equals(Game.PLAYING))
+            if (game.PreviousState.Equals(game.PLAYING))
             {
                 KeyboardManager.Instance.PushCommandMatrix();
-                KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                KeyboardManager.Instance.RegisterKeyUpCallback(game.Exit, Keys.Q);
                 // Workaround since ResetGame is a private member of Game.RESET
-                KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
+                KeyboardManager.Instance.RegisterKeyUpCallback(() => game.SetState(game.RESET), Keys.R);
                 // Should not be able to use this command until the menu is truly paused
                 // KeyboardManager.Instance.RegisterKeyUpCallback(PauseGame, Keys.P);
             }
-            else if (Game.PreviousState.Equals(Game.PAUSED))
+            else if (game.PreviousState.Equals(game.PAUSED))
             {
                 // None
             }
@@ -49,7 +47,7 @@ namespace Sprintfinity3902.States.GameStates
 
         private void PauseGame()
         {
-            Game.SetState(Game.PAUSED_TRANSITION);
+            game.SetState(game.PAUSED_TRANSITION);
         }
     }
 }

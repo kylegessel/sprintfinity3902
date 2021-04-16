@@ -11,9 +11,10 @@ namespace Sprintfinity3902.Entities.Items
             set { id = value; }
         }
 
-        virtual public IPickup GetPickup()
+        public virtual bool Pickup(IPlayer link)
         {
-            return new BowPickup();
+            // Not all items do something for pickup, so let child override
+            return false;
         }
     }
 }

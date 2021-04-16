@@ -35,8 +35,7 @@ namespace Sprintfinity3902
         public PauseMenu pauseMenu;
         public OptionMenu optionMenu;
 
-        public IHud dungeonHud;
-        public IHud miniMapHud;
+        public IHud hud;
         public IEntity bombExplosion;
 
         public Game1()
@@ -50,7 +49,6 @@ namespace Sprintfinity3902
             Graphics.PreferredBackBufferWidth = windowBounds.Width * Global.Var.SCALE;
             Graphics.PreferredBackBufferHeight = windowBounds.Height * Global.Var.SCALE;
             Graphics.ApplyChanges();
-
         }
 
         protected override void LoadContent()
@@ -77,6 +75,7 @@ namespace Sprintfinity3902
 
             KeyboardManager.Instance.Update(gameTime);
             CurrentState.Update(gameTime);
+            
         }
 
         protected override void Draw(GameTime gameTime)

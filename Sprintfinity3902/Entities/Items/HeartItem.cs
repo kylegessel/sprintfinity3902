@@ -7,6 +7,7 @@ namespace Sprintfinity3902.Entities
 {
     public class HeartItem : AbstractItem
     {
+        private const int LOW_HEALTH = 2;
         public HeartItem()
         {
             Sprite = ItemSpriteFactory.Instance.CreateHeartItem();
@@ -20,9 +21,24 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.HEART;
         }
 
-        public override IPickup GetPickup()
+        public override bool Pickup(IPlayer Link)
         {
-            return new HeartPickup();
+            if (Link.LinkHealth < Link.MaxHealth) {
+                Link.LinkHealth++;
+                if (Link.LinkHealth != Link.MaxHealth) {
+                    Link.LinkHealth++;
+                }
+                //HudMenu.InGameHud.Instance.UpdateHearts(Link.MaxHealth, Link.LinkHealth);
+
+            }
+
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+            if (Link.LinkHealth > LOW_HEALTH) {
+                Link.StopLowHealth();
+            }
+
+            return false;
         }
     }
 }

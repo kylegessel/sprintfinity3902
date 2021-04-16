@@ -67,22 +67,11 @@ namespace Sprintfinity3902.HudMenu
         private OrderedSet<IPlayer.SelectableWeapons> availableItems;
         private IEntity itemSelectedIcon;
 
-        private static InventoryHud instance;
+        private DungeonHud parent;
 
-        public static InventoryHud Instance
+        public InventoryHud(DungeonHud _parent)
         {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new InventoryHud();
-                }
-                return instance;
-            }
-        }
-
-        private InventoryHud()
-        {
+            parent = _parent;
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, -176 * Global.Var.SCALE);
             itemSelectedIcon = new ItemSelectIcon(new Vector2(0, 0));
@@ -96,12 +85,8 @@ namespace Sprintfinity3902.HudMenu
 
             };
             //MoveSelector();
-        }
-
-        public void GiveGame(Game1 game)
-        {
-            Game = game;
-            Link = Game.playerCharacter;
+            Game = parent.Game;
+            Link = parent.Game.playerCharacter;
         }
 
         public void EnableItemInInventory(IPlayer.SelectableWeapons weapon)
@@ -122,7 +107,7 @@ namespace Sprintfinity3902.HudMenu
             Link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
             MoveSelector(Link);
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            HudMenu.InGameHud.Instance.UpdateSelectedItems(Link.SelectedWeapon);
+            ((InGameHud)parent.InGame).UpdateSelectedItems(Link.SelectedWeapon);
 
         }
 
@@ -133,7 +118,7 @@ namespace Sprintfinity3902.HudMenu
             Link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
             MoveSelector(Link);
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            HudMenu.InGameHud.Instance.UpdateSelectedItems(Link.SelectedWeapon);
+            ((InGameHud)parent.InGame).UpdateSelectedItems(Link.SelectedWeapon);
 
         }
 
@@ -199,25 +184,5 @@ namespace Sprintfinity3902.HudMenu
                 }
             }
         }
-
-        //Eventually, this method will be used to automatically equip a boomerang or bow item when the user
-        //runs out of bombs.
-        /*
-        private void EquipAnotherWeapon()
-        {
-            if (availableItems.Contains(IPlayer.SelectableWeapons.BOOMERANG))
-            {
-                Link.SelectedWeapon = IPlayer.SelectableWeapons.BOOMERANG;
-            }
-            else if (availableItems.Contains(IPlayer.SelectableWeapons.BOW))
-            {
-                Link.SelectedWeapon = IPlayer.SelectableWeapons.BOW;
-            }
-            else
-            {
-                Link.SelectedWeapon = IPlayer.SelectableWeapons.NONE;
-            }
-        }
-        */
     }
 }

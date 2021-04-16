@@ -14,26 +14,12 @@ namespace Sprintfinity3902.HudMenu
         private const int B_BUTTON_X = 128;
         private const int A_B_BUTTON_Y = 24;
 
-        private static InGameHud instance;
-
-        public static InGameHud Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new InGameHud();
-                }
-                return instance;
-            }
-        }
-
-        private InGameHud()
+        public InGameHud()
         {
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, 0 * Global.Var.SCALE);
-            hudNumberManager = new HudNumberManager();
-            hudHeartManager = new HudHeartManager();
+            hudNumberManager = new HudNumberManager(this);
+            hudHeartManager = new HudHeartManager(this);
             hudInitializer = new HudInitializer(this);
         }
 

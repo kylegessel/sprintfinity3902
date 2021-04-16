@@ -87,7 +87,7 @@ namespace Sprintfinity3902.Link
             _collidable = true;
             SetStepSize(1);
             MaxHealth = INITIAL_HEALTH;
-            LinkHealth = MaxHealth;
+            LinkHealth = 1; //Maxheath;
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
             SelectedWeapon = IPlayer.SelectableWeapons.NONE;

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.Link;
 using Sprintfinity3902.States.Door;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace Sprintfinity3902.States.GameStates
         {
             Game = game;
             Link = game.link;
-            //Player.RemoveDecorator();
+            game.link.RemoveDecorator();
             Player = (IPlayer)game.link;
             Change = false;
             offsetTotal = 0;
@@ -85,10 +86,10 @@ namespace Sprintfinity3902.States.GameStates
                 door.Draw(spriteBatch, Color.White);
             }
 
-            foreach (IHud hud in Game.huds)
-            {
-                hud.Draw(spriteBatch, Color.White);
-            }
+            Game.dungeonHud.Draw(spriteBatch, Color.White);
+            HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
+            HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
+            Game.miniMapHud.Draw(spriteBatch, Color.White);
         }
 
         public void Update(GameTime gameTime)
@@ -103,10 +104,10 @@ namespace Sprintfinity3902.States.GameStates
                 door.Update(gameTime);
             }
 
-            foreach (IHud hud in Game.huds)
-            {
-                hud.Update(gameTime);
-            }
+            Game.dungeonHud.Update(gameTime);
+            HudMenu.InGameHud.Instance.Update(gameTime);
+            HudMenu.InventoryHud.Instance.Update(gameTime);
+            Game.miniMapHud.Update(gameTime);
 
             if (Change)
             {
@@ -212,28 +213,24 @@ namespace Sprintfinity3902.States.GameStates
                     if (Game.dungeon.CurrentRoom.doors[1].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[1].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[1].Open();
                     SetLinkPositionDown();
-                    Player.SetState(Player.facingDown);
                     break;
                 case DoorDirection.DOWN:
                     // Set links position to the top of the next room.
                     if (Game.dungeon.CurrentRoom.doors[0].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[0].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[0].Open();
                     SetLinkPositionUp();
-                    Player.SetState(Player.facingUp);
                     break;
                 case DoorDirection.LEFT:
                     if (Game.dungeon.CurrentRoom.doors[3].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[3].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[3].Open();
                     // Set links position to the top of the next room.
                     SetLinkPositionRight();
-                    Player.SetState(Player.facingLeft);
 
                     break;
                 case DoorDirection.RIGHT:
                     if (Game.dungeon.CurrentRoom.doors[2].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[2].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[2].Open();
                     // Set links position to the top of the next room.
-                    Player.SetState(Player.facingRight);
                     SetLinkPositionLeft();
 
                     break;

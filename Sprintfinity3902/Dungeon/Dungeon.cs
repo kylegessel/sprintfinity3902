@@ -170,11 +170,13 @@ namespace Sprintfinity3902.Dungeon
             Game.CHANGE_ROOM = new ChangeRoomState(Game, door);
             Game.SetState(Game.CHANGE_ROOM);
         }
+        // I see why we need this now! Changed the implementation to make a fake door.
+        /*
         public void ChangeRoom(int doorDest, DoorDirection direction)
         {
-            CurrentRoom.garbage.Clear();
-            changeRoom.StartAnimation(doorDest, direction);
+            Game.SetState(new ChangeRoomState(Game, ))
         }
+        */
 
         public void SetLinkPosition()
         {

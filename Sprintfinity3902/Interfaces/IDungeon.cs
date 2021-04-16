@@ -33,7 +33,7 @@ namespace Sprintfinity3902.Interfaces
         IRoom GetById(int id);
         void SetCurrentRoom(int id);
         void ChangeRoom(IDoor door);
-        void ChangeRoom(int doorDest, DoorDirection direction);
+        //void ChangeRoom(int doorDest, DoorDirection direction);
         void UpdateState(GameState state);
     }
 }

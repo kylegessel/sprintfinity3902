@@ -32,10 +32,6 @@ namespace Sprintfinity3902.Entities
             {
                 Attack();
             }
-            else if(currentRoom.enemies.Count == 0)
-            {
-                fireAttack.StopMoving();
-            }
         }
 
         public override void Attack()

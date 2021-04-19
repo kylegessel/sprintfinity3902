@@ -57,6 +57,13 @@ namespace Sprintfinity3902.Dungeon
 
             WinLocation = new Point();
 
+            
+            TemplateFactory.Instance.Initialize();
+            // Set the floor as first param and last param is kwargs of insertables 
+            TemplateFactory.Instance.SetParams(5, "HAND", "BBAT", "LFSH");
+            TemplateFactory.Instance.GenerateRandRoomAtPath(@"..\..\..\Content\RoomTemplates\DefaultOut.csv");
+            
+
             DungeonGenerator.Instance.Initialize();
             int numRooms = DungeonGenerator.Instance.PopulateRooms();
 

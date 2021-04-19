@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Controllers;
+using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 
@@ -38,10 +39,11 @@ namespace Sprintfinity3902.States.GameStates
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Game.dungeonHud.Draw(spriteBatch, Color.White);
-            HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
-            HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
-            Game.miniMapHud.Draw(spriteBatch, Color.White);
+            ((DungeonHud)Game.hud).Draw(spriteBatch, Color.White);
+
+            ((DungeonHud)Game.hud).InGame.Draw(spriteBatch, Color.White);
+            ((DungeonHud)Game.hud).Inventory.Draw(spriteBatch, Color.White);
+            ((DungeonHud)Game.hud).MiniMap.Draw(spriteBatch, Color.White);
             Game.dungeon.Draw(spriteBatch);
             Game.link.Draw(spriteBatch, Color.White);
 

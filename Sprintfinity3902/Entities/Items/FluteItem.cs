@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 
@@ -15,9 +16,19 @@ namespace Sprintfinity3902.Entities
             ID = IItem.ITEMS.FLUTE;
         }
 
-        public override IPickup GetPickup()
+        public override bool Pickup(IPlayer link, IHud parent)
         {
-            return new FlutePickup();
+            ((InventoryHud)((DungeonHud)parent).Inventory).EnableItemInInventory(IPlayer.SelectableWeapons.FLUTE);
+
+            link.itemcount[IItem.ITEMS.FLUTE]++;
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
+            if (link.SelectedWeapon == IPlayer.SelectableWeapons.NONE) {
+                link.SelectedWeapon = IPlayer.SelectableWeapons.FLUTE;
+                ((InGameHud)((DungeonHud)parent).InGame).UpdateSelectedItems(link.SelectedWeapon);
+            }
+
+            return false;
         }
     }
 }

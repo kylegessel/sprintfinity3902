@@ -28,7 +28,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void Initialize()
         {
-            DirectoryInfo generatedDirectory = new DirectoryInfo(@"..\..\..\Content\GeneratedRooms\");
+            DirectoryInfo generatedDirectory = Directory.CreateDirectory(@"..\..\..\Content\GeneratedRooms\");
             foreach (FileInfo file in generatedDirectory.GetFiles())
             {
                 file.Delete();

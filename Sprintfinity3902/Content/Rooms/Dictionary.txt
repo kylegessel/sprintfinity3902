@@ -16,6 +16,7 @@ BRIK: Brick Block
 DARK: Dark Blue Block
 STAR: Stairs
 STIP: Striped Block
+RPBK: Rupee Block
 
 Enemies:
 BBAT: Blue Bat
@@ -70,4 +71,3 @@ SHPC: Heart Container Shop
 SHPH: Heart Shop
 SHPB: Bomb Shop
 SHPP: CritHit Shop
-RPSP: Rupee Sprite

@@ -478,12 +478,12 @@ namespace Sprintfinity3902.Dungeon
                     IShop bombShop = new BombShop(Position);
                     Room.shops.Add(bombShop);
                     break;
-                    /*
-                case "RPSP":
-                    IItem rupeeSprite = new RupeeItem(Position);
-                    Room.items.Add(rupeeSprite); /*Add to blocks because they can not be picked up
+                    
+                case "RPBK":
+                    IBlock rupeeBlock = new RupeeBlock(Position);
+                    Room.blocks.Add(rupeeBlock); /*Add to blocks because they can not be picked up*/
                     break;
-                    */
+                    
             }
         }
 

@@ -35,8 +35,6 @@ namespace Sprintfinity3902.SpriteFactories
 
         public List<ISprite> CreateHeartShopSprite()
         {
-            //return new HeartShopSprite(shopSpriteSheet);
-            
             List<ISprite> list = new List<ISprite>();
             list.Add(ItemSpriteFactory.Instance.CreateHeartItem());
             list.Add(HudSpriteFactory.Instance.CreateLetterX());
@@ -64,6 +62,17 @@ namespace Sprintfinity3902.SpriteFactories
 
             return list;
         }
+        /*
+         * public List<ISprite> CreateCritHitChanceShopSprite()
+        {
+            List<ISprite> list = new List<ISprite>();
+            list.Add(ItemSpriteFactory.Instance.Create_____Item());
+            list.Add(HudSpriteFactory.Instance.CreateLetterX());
+            list.Add(HudSpriteFactory.Instance.CreateNumber5());
+
+            return list;
+        }
+        */
 
     }
 }

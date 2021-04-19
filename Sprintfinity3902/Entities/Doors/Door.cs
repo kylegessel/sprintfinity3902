@@ -44,6 +44,7 @@ namespace Sprintfinity3902.Entities.Doors
         public IDoorState holeDoorBottom { get; set; }
         public IDoorState holeDoorLeft { get; set; }
         public IDoorState holeDoorRight { get; set; }
+        public bool roomEntered { get; set; }
 
         public int DoorDestination { get; set; }
 
@@ -74,7 +75,7 @@ namespace Sprintfinity3902.Entities.Doors
             holeDoorBottom = new HoleDoorBottomState(this);
             holeDoorLeft = new HoleDoorLeftState(this);
             holeDoorRight = new HoleDoorRightState(this);
-            
+            roomEntered = false;
         }
 
         public void SetState(IDoorState state)

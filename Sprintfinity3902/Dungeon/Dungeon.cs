@@ -98,6 +98,11 @@ namespace Sprintfinity3902.Dungeon
                     WinLocation = room.RoomPos;
                 }
             }
+
+            foreach (IDoor door in CurrentRoom.doors)
+            {
+                door.roomEntered = true;
+            }
         }
 
         public void Update(GameTime gameTime)

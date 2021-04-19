@@ -6,6 +6,7 @@ using Sprintfinity3902.Link;
 using Sprintfinity3902.States.Door;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Sprintfinity3902.States.GameStates
@@ -201,10 +202,6 @@ namespace Sprintfinity3902.States.GameStates
 
             Game.dungeon.SetCurrentRoom(nextRoomID);
             
-            foreach(IDoor door in Game.dungeon.CurrentRoom.doors)
-            {
-                door.Close();
-            }
 
             switch (doorDirection)
             {
@@ -236,9 +233,15 @@ namespace Sprintfinity3902.States.GameStates
                     break;
             }
             Change = false;
+
             foreach (IDoor door in nextRoom.doors)
             {
-                door.Close();
+                Debug.WriteLine(door.roomEntered);
+                if (!door.roomEntered)
+                {
+                    door.roomEntered = true;
+                    door.Close();
+                }
             }
             Game.SetState(Game.PLAYING);
         }

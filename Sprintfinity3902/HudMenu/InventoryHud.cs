@@ -98,15 +98,22 @@ namespace Sprintfinity3902.HudMenu
 
         public void RemoveItemInInventory(IPlayer.SelectableWeapons weapon)
         {
-            if (availableItems.Contains(weapon))
+            if (availableItems.Contains(weapon)) {
                 availableItems.Remove(weapon);
+                Link.SelectedWeapon = IPlayer.SelectableWeapons.NONE;
+            }
+               
         }
 
         public void MoveSelectorRight()
         {
             if (availableItems.Count == 0) return;
-            if (!availableItems.Contains(Link.SelectedWeapon)) return;
-            int currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            int currentPos;
+            if (!availableItems.Contains(Link.SelectedWeapon)) {
+                currentPos = 0;
+            } else {
+                currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            }
             Link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
             MoveSelector(Link);
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
@@ -117,8 +124,12 @@ namespace Sprintfinity3902.HudMenu
         public void MoveSelectorLeft()
         {
             if (availableItems.Count == 0) return;
-            if (!availableItems.Contains(Link.SelectedWeapon)) return;
-            int currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            int currentPos;
+            if (!availableItems.Contains(Link.SelectedWeapon)) {
+                currentPos = 0;
+            } else {
+                currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            }
             Link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
             MoveSelector(Link);
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
@@ -128,13 +139,16 @@ namespace Sprintfinity3902.HudMenu
 
         private void MoveSelector(IPlayer Link) {
             if (availableItems.Count == 0) return;
-            Debug.WriteLine(availableItems.ToString());
+           
             if (!availableItems.Contains(Link.SelectedWeapon)) return;
             int selectedIndex = availableItems.IndexOf(Link.SelectedWeapon);
+
+            Debug.WriteLine(Link.SelectedWeapon);
 
             Vector2 selectPos = iconMatrix[selectedIndex / 4, selectedIndex % 4];
             itemSelectedIcon.Position = new Vector2(selectPos.X - 20, selectPos.Y);
         }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -150,11 +164,11 @@ namespace Sprintfinity3902.HudMenu
             }
             
             for (int i = 0; i< availableItems.Count; i++) {
-                IEntity usableItems = createObjectByClassType(weaponEnumToEntity[availableItems[i]], new Vector2(270,195));
-                usableItems.Position = iconMatrix[i / 4, i % 4];
-                pushMatrix(usableItems);
-                usableItems.Draw(spriteBatch, Color.White);
-                popMatrix(usableItems);
+                IEntity usableItem = createObjectByClassType(weaponEnumToEntity[availableItems[i]], new Vector2(270,195));
+                usableItem.Position = iconMatrix[i / 4, i % 4];
+                pushMatrix(usableItem);
+                usableItem.Draw(spriteBatch, Color.White);
+                popMatrix(usableItem);
             }
 
             if (availableItems.Count > 0 && itemSelectedIcon.X != 0) {
@@ -163,6 +177,7 @@ namespace Sprintfinity3902.HudMenu
                 popMatrix(itemSelectedIcon);
             }
 
+            // Draws icon on left of inventory hud
             if (Link.SelectedWeapon != IPlayer.SelectableWeapons.NONE)
             {
                 IEntity reference = createObjectByClassType(weaponEnumToEntity[Link.SelectedWeapon], new Vector2(270, 195));

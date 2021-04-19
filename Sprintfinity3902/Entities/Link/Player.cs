@@ -140,7 +140,6 @@ namespace Sprintfinity3902.Link
                     itemcount[item]--;
                     if (itemcount[item] == 0) {
                         ((InventoryHud)((DungeonHud)game.hud).Inventory).RemoveItemInInventory(IPlayer.SelectableWeapons.BOMB);
-                        SelectedWeapon = IPlayer.SelectableWeapons.NONE;
                         ((InGameHud)((DungeonHud)game.hud).InGame).UpdateSelectedItems(SelectedWeapon);
                     }
                     break;

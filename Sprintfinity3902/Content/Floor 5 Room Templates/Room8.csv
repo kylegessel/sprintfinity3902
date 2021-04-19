@@ -1,0 +1,9 @@
+RMEX,,,,,,,,,,,
+RMIN,,,,,,,,,,,
+SPKE, , , , , , , , , , ,SPKE
+ , , ,WILD, , ,BLOK, , , , , 
+ , , ,WILD, ,BLOK,WILD,BLOK, , , , 
+ , , , ,MVBK,WILD,WILD,WILD,BLOK, , , 
+ , , ,WILD, ,BLOK,WILD,BLOK, , , , 
+ , , , , , ,BLOK, , ,WILD, , 
+SPKE, , , , , , , , , , ,SPKE

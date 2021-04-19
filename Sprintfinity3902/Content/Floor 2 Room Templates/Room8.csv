@@ -1,0 +1,9 @@
+RMEX,,,,,,,,,,,
+RMIN,,,,,,,,,,,
+SPKE, , , , , , , , , , ,SPKE
+ , , , , , ,BLOK, , , , , 
+ , , , , ,BLOK,WLD2,BLOK, , , , 
+ , , , ,MVBK,WLD1,WLD1,WLD1,BLOK, , , 
+ , , , , ,BLOK,WLD2,BLOK, , , , 
+ , , , , , ,BLOK, , , , , 
+SPKE, , , , , , , , , , ,SPKE

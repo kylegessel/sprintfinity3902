@@ -91,6 +91,7 @@ namespace Sprintfinity3902.HudMenu
                 {IPlayer.SelectableWeapons.BOW , typeof(BowIcon)},
                 {IPlayer.SelectableWeapons.BOOMERANG , typeof(BoomerangIcon)},
                 {IPlayer.SelectableWeapons.BOMB , typeof(BombIcon)},
+                {IPlayer.SelectableWeapons.FLUTE , typeof(FluteIcon)},
                 {IPlayer.SelectableWeapons.NONE , typeof(BlackLongIcon) }
                 /*Add necessary mappings here for ALL possible enum to icons*/
 

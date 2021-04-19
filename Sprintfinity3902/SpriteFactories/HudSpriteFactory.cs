@@ -227,5 +227,9 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new WinLocationSprite(hudSpriteSheet);
         }
+        public ISprite CreateFluteIcon()
+        {
+            return new FluteIconSprite(hudSpriteSheet);
+        }
     }
 }

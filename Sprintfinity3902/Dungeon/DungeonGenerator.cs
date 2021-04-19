@@ -42,25 +42,25 @@ namespace Sprintfinity3902.Dungeon
             int id;
 
 
-            Point currentPoint = new Point(random.Next(1, 8), random.Next(1, 8));
+            Point currentPoint = new Point(random.Next(0, 8), random.Next(0, 8));
             RoomLocations.Add(currentPoint);
 
-            for (int i=0; i<32; i++)
+            for (int i=0; i<10; i++)
             {
 
-                if (currentPoint.X < 8)
+                if (currentPoint.X < 7)
                 {
                     availableRooms.Add(new Point(currentPoint.X + 1, currentPoint.Y));
                 }
-                if (currentPoint.X > 1)
+                if (currentPoint.X > 0)
                 {
                     availableRooms.Add(new Point(currentPoint.X - 1, currentPoint.Y));
                 }
-                if (currentPoint.X < 8)
+                if (currentPoint.Y < 7)
                 {
                    availableRooms.Add(new Point(currentPoint.X, currentPoint.Y + 1));
                 }
-                if (currentPoint.X > 1)
+                if (currentPoint.Y > 0)
                 {
                     availableRooms.Add(new Point(currentPoint.X, currentPoint.Y - 1));
                 }

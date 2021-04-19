@@ -57,11 +57,15 @@ namespace Sprintfinity3902.Dungeon
 
             WinLocation = new Point();
 
-            for (int roomNum = 1; roomNum <= 18; roomNum++) {
-                dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
+            DungeonGenerator.Instance.Initialize();
+            int numRooms = DungeonGenerator.Instance.PopulateRooms();
+
+
+            for (int roomNum = 1; roomNum <= numRooms-1; roomNum++) {
+                dungeonRooms.Add(new Room(@"..\..\..\Content\GeneratedRooms\GenRoom" + roomNum + ".csv", roomNum));
             }
 
-            CurrentRoom = GetById(2);
+            CurrentRoom = GetById(1);
             Game = game;
 
             linkProj = new List<IEntity>();
@@ -91,10 +95,10 @@ namespace Sprintfinity3902.Dungeon
             {
                 rload.Initialize(room);
                 rload.Build();
-                if (room.Id != 13)
-                { 
+                //if (room.Id != 13)
+                //{ 
                     RoomLocations.Add(room.RoomPos);
-                }
+                //}
 
                 if (room.WinRoom)
                 {

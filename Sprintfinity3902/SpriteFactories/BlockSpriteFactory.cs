@@ -13,7 +13,7 @@ namespace Sprintfinity3902.SpriteFactories
 
         private static BlockSpriteFactory instance;
 
-        private static string BLOCK_FILE_NAME = "Zelda_Dungeon_Tileset_Transparent";
+        private static string BLOCK_FILE_NAME = "Zelda_Dungeon_Tileset_Green_Transparent";
         private static string EAGLE_FILE_NAME = "Zelda_Eagle-Map";
         private static string TITLE_SCREEN_SPRITE = "Zelda_FullTitleScreen_Transparent";
 

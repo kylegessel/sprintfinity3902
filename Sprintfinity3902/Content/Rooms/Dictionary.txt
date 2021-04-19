@@ -28,6 +28,7 @@ GELY: Gel
 GHMA: Gohma Boss
 GORY: Goriya
 HAND: Hand
+MANH: Manhandla Boss
 OLDM: Old Man NPC
 SPKE: Spike 
 MNFR: Old Man and Fire Enemies

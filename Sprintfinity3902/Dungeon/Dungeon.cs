@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Dungeon
     public class Dungeon : IDungeon
     {
 
-        private Game1 Game;
+        public Game1 Game;
         private List<IRoom> dungeonRooms;
         public List<Point> RoomLocations { get; set; }
         public ChangeRoom changeRoom { get; set; }
@@ -83,12 +83,12 @@ namespace Sprintfinity3902.Dungeon
             KeyboardManager.Instance.RegisterKeyUpCallback(NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(PreviousRoom, Keys.K);
             KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseSelectedItemCommand((Player)Game.playerCharacter, this), Keys.D1);
+            KeyboardManager.Instance.RegisterCommand(new UseSelectedItemCommand((Player)Game.playerCharacter, this, Game), Keys.D1);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
 
-            IRoomLoader rload = new RoomLoader();
+            IRoomLoader rload = new RoomLoader(Game.playerCharacter, this, Game);
             foreach (IRoom room in dungeonRooms)
             {
                 rload.Initialize(room);
@@ -195,6 +195,11 @@ namespace Sprintfinity3902.Dungeon
         {
             CurrentRoom.garbage.Clear();
             changeRoom.StartAnimation(door.DoorDestination, door.CurrentState.doorDirection);
+        }
+        public void ChangeRoom(int doorDest, DoorDirection direction)
+        {
+            CurrentRoom.garbage.Clear();
+            changeRoom.StartAnimation(doorDest, direction);
         }
 
         public void SetLinkPosition()

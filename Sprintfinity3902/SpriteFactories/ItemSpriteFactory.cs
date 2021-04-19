@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sprites;
 using Sprintfinity3902.Sprites.Items;
+using Sprintfinity3902.Sprites.PowerUps;
 
 namespace Sprintfinity3902.SpriteFactories
 {
@@ -10,12 +11,14 @@ namespace Sprintfinity3902.SpriteFactories
         private Texture2D linkItemSpriteSheet;
         private Texture2D bossSpriteSheet;
         private Texture2D itemSpriteSheet;
+        private Texture2D powerUpSpriteSheet;
 
         private static ItemSpriteFactory instance;
 
         private static string LINK_ITEM_FILE_NAME = "Zelda_Link_and_Items_Transparent";
         private static string BOSS_FILE_NAME = "Zelda_Bosses_Transparent";
         private static string ITEM_FILE_NAME = "Zelda_Items_and_Weapons_Transparent";
+        private static string POWER_UP_FILE_NAME = "LinkPowerUpSpriteSheet";
 
         public static ItemSpriteFactory Instance {
             get {
@@ -29,6 +32,7 @@ namespace Sprintfinity3902.SpriteFactories
             linkItemSpriteSheet = content.Load<Texture2D>(LINK_ITEM_FILE_NAME);
             bossSpriteSheet = content.Load<Texture2D>(BOSS_FILE_NAME);
             itemSpriteSheet = content.Load<Texture2D>(ITEM_FILE_NAME);
+            powerUpSpriteSheet = content.Load<Texture2D>(POWER_UP_FILE_NAME);
         }
 
         public ISprite CreateBombItem() {
@@ -139,6 +143,24 @@ namespace Sprintfinity3902.SpriteFactories
         public ISprite CreateFairyItem()
         {
             return new FairyItemSprite(itemSpriteSheet);
+        }
+
+        public ISprite CreateAttackPowerUpItem()
+        {
+            return new AttackPowerUpItemSprite(powerUpSpriteSheet);
+        }
+
+        public ISprite CreateDefensePowerUpItem()
+        {
+            return new DefensePowerUpItemSprite(powerUpSpriteSheet);
+        }
+        public ISprite CreateSpeedPowerUpItem()
+        {
+            return new SpeedPowerUpItemSprite(powerUpSpriteSheet);
+        }
+        public ISprite CreateFluteItem()
+        {
+            return new FluteItemSprite(itemSpriteSheet);
         }
     }
 }

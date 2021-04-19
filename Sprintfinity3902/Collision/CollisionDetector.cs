@@ -319,6 +319,12 @@ namespace Sprintfinity3902.Collision
             return rec.Intersects(linkRect);
         }
 
+        public bool CollidesWithBomb(Rectangle rec)
+        {
+            Rectangle bombRec = gameInstance.dungeon.bombItem.GetBoundingRect();
+            return rec.Intersects(bombRec);
+        }
+
         public int LinkInSight(Rectangle rec, int direction)
         {
             int distance = -1; ;

@@ -40,7 +40,7 @@ namespace Sprintfinity3902.States.GameStates
 
         public void SetUp()
         {
-            if (Game.PreviousState.Equals(Game.PAUSED_TRANSITION))
+            if (Game.PreviousState.Equals(Game.PAUSED_TRANSITION) || Game.PreviousState.Equals(Game.FLUTE))
             {
                 KeyboardManager.Instance.PopCommandMatrix();
             }

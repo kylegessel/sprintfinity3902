@@ -9,13 +9,17 @@
             CLOCK,
             COMPASS,
             FAIRY,
+            FLUTE,
             HEART,
             HEARTCONTAINER,
             KEY,
             MAP,
             SWORD,
             RUPEE,
-            TRIFORCE
+            TRIFORCE,
+            ATTACKPWRUP,
+            DFENSEPWRUP,
+            SPEEDPWRUP
         };
 
         public IPickup GetPickup();

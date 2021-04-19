@@ -40,7 +40,7 @@ namespace Sprintfinity3902.Entities
             Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
             // This can be improved, not long term.
             //if (itemUseCount < 20) return false;
-            return enemy.HitRegister(enemyID, 1, 0, swordDirection, room) <= 0;
+            return enemy.HitRegister(enemyID, 1, 0, this, swordDirection, room) <= 0;
         }
 
         public void Collide(IRoom room)

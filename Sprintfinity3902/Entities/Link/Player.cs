@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Link
         private static int THIRTEEN = 13;
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
-        private static int INITIAL_HEALTH = 6;
+        private static int INITIAL_HEALTH = 10;
 
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
@@ -59,6 +59,8 @@ namespace Sprintfinity3902.Link
         public int MaxHealth { get; set; }
         public int LinkHealth { get; set; }
 
+        private bool isVisible;
+
         public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
         private Game1 game;
@@ -90,7 +92,9 @@ namespace Sprintfinity3902.Link
             _deathSpinCount = 0.0;
             SelectedWeapon = IPlayer.SelectableWeapons.NONE;
 
-            itemcount = new Dictionary<IItem.ITEMS, int>();
+            isVisible = true;
+
+        itemcount = new Dictionary<IItem.ITEMS, int>();
             foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
             {
                 itemcount.Add(item, 0);
@@ -194,7 +198,7 @@ namespace Sprintfinity3902.Link
         }
 
         public override void Draw(SpriteBatch spriteBatch, Color color) {
-            CurrentState.Sprite.Draw(spriteBatch, Position, color);
+            CurrentState.Sprite.Draw(spriteBatch, Position, isVisible ? color : Color.Transparent);
         }
         public void TakeDamage()
         {
@@ -234,6 +238,11 @@ namespace Sprintfinity3902.Link
         public void StopLowHealth()
         {
             SoundManager.Instance.GetSoundEffectInstance(lowHealthInstanceID).Stop();
+        }
+
+        public void TogglePlayerVisible()
+        {
+            isVisible = !isVisible;
         }
 
         public void DeathSpin(bool end)

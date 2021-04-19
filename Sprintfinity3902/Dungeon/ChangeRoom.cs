@@ -17,6 +17,7 @@ namespace Sprintfinity3902.Dungeon
     {
         private Game1 Game;
         public ILink Link;
+        public IPlayer Player;
         public IMap Map { get; set; }
         IRoom nextRoom;
         Vector2 NextRoomPositionOffset;
@@ -39,6 +40,7 @@ namespace Sprintfinity3902.Dungeon
         {
             Game = game;
             Link = game.link;
+            Player = (IPlayer)game.link;
             Change = false;
             offsetTotal = 0;
             CurrRoomPositionOffset = new Vector2(0, 0);
@@ -65,7 +67,7 @@ namespace Sprintfinity3902.Dungeon
                 ChangeOffset();
             }
 
-            if(offsetTotal == 0)
+            if (offsetTotal == 0)
             {
                 StopAnimation();
             }
@@ -99,7 +101,7 @@ namespace Sprintfinity3902.Dungeon
                     door.Position = new Vector2(door.Position.X + CurrRoomPositionOffset.X, door.Position.Y + CurrRoomPositionOffset.Y);
                     door.Draw(spriteBatch, Color.White);
                 }
-                
+
             }
         }
 
@@ -111,11 +113,12 @@ namespace Sprintfinity3902.Dungeon
             Offset();
             Change = true;
             Link.Position = new Vector2(-1000, -1000);
+            KeyboardManager.Instance.PushCommandMatrix();
         }
 
         public void StopAnimation()
         {
-            
+
 
             // Temp while I change bounding boxes for unopened rooms.          
 
@@ -141,7 +144,7 @@ namespace Sprintfinity3902.Dungeon
             }
 
             Game.dungeon.SetCurrentRoom(nextRoomID);
-            
+
             switch (doorDirection)
             {
                 case DoorDirection.UP:
@@ -149,26 +152,33 @@ namespace Sprintfinity3902.Dungeon
                     if (Game.dungeon.CurrentRoom.doors[1].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[1].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[1].Open();
                     SetLinkPositionDown();
+                    Player.SetState(Player.facingDown);
                     break;
                 case DoorDirection.DOWN:
                     // Set links position to the top of the next room.
                     if (Game.dungeon.CurrentRoom.doors[0].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[0].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[0].Open();
                     SetLinkPositionUp();
+                    Player.SetState(Player.facingUp);
                     break;
                 case DoorDirection.LEFT:
                     if (Game.dungeon.CurrentRoom.doors[3].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[3].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[3].Open();
                     // Set links position to the top of the next room.
                     SetLinkPositionRight();
+                    Player.SetState(Player.facingLeft);
+
                     break;
                 case DoorDirection.RIGHT:
-                    if(Game.dungeon.CurrentRoom.doors[2].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[2].CurrentState.IsLocked)
+                    if (Game.dungeon.CurrentRoom.doors[2].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[2].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[2].Open();
                     // Set links position to the top of the next room.
+                    Player.SetState(Player.facingRight);
                     SetLinkPositionLeft();
+
                     break;
             }
+            KeyboardManager.Instance.PopCommandMatrix();
             Change = false;
         }
 
@@ -178,7 +188,7 @@ namespace Sprintfinity3902.Dungeon
             switch (doorDirection)
             {
                 case DoorDirection.UP:
-                    NextRoomPositionOffset = new Vector2(0, -(ROOM_HEIGHT)*Global.Var.SCALE);
+                    NextRoomPositionOffset = new Vector2(0, -(ROOM_HEIGHT) * Global.Var.SCALE);
                     CurrRoomPositionReset = new Vector2(0, -(ROOM_HEIGHT - 2) * Global.Var.SCALE);
                     offsetTotal = -ROOM_HEIGHT * Global.Var.SCALE;
                     break;
@@ -202,7 +212,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void ChangeOffset()
         {
-            
+
             switch (doorDirection)
             {
                 case DoorDirection.UP:
@@ -217,7 +227,7 @@ namespace Sprintfinity3902.Dungeon
                     break;
                 case DoorDirection.LEFT:
                     NextRoomPositionOffset = new Vector2(SHIFT_AMOUNT * Global.Var.SCALE, 0);
-                    CurrRoomPositionOffset = new Vector2(SHIFT_AMOUNT * Global.Var.SCALE, 0);                    
+                    CurrRoomPositionOffset = new Vector2(SHIFT_AMOUNT * Global.Var.SCALE, 0);
                     offsetTotal += SHIFT_AMOUNT * Global.Var.SCALE;
                     break;
                 case DoorDirection.RIGHT:

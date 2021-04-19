@@ -6,7 +6,7 @@
         public static int ZERO = 0;
 
         /*Audio*/
-        public static float VOLUME = 0.00f;
+        public static float VOLUME = 0.70f;
         public static float PITCH, PAN = 0.0f;
 
         /*Tile Size*/

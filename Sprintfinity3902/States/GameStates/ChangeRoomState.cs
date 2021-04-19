@@ -236,6 +236,10 @@ namespace Sprintfinity3902.States.GameStates
                     break;
             }
             Change = false;
+            foreach (IDoor door in nextRoom.doors)
+            {
+                door.Close();
+            }
             Game.SetState(Game.PLAYING);
         }
         public void SetLinkPositionUp()

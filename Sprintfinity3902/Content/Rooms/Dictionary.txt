@@ -65,3 +65,9 @@ HDRT: Hole Door Top
 HDRB: Hole Door Bottom
 HDRL: Hole Door Left
 HDRR: Hole Door Right
+
+SHPC: Heart Container Shop
+SHPH: Heart Shop
+SHPB: Bomb Shop
+SHPP: CritHit Shop
+RPSP: Rupee Sprite

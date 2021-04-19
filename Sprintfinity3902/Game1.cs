@@ -61,6 +61,7 @@ namespace Sprintfinity3902
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             HudSpriteFactory.Instance.LoadAllTextures(Content);
             FontSpriteFactory.Instance.LoadAllTextures(Content);
+            ShopSpriteFactory.Instance.LoadAllTextures(Content);
 
             SoundLoader.Instance.LoadContent(Content);
 

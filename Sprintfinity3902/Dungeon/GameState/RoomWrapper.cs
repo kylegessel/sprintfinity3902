@@ -77,6 +77,15 @@ namespace Sprintfinity3902.Dungeon.GameState
                 CurrentState.doors = value;
             }
         }
+        public List<IShop> shops
+        {
+            get {
+                return CurrentState.shops;
+            }
+            set {
+                CurrentState.shops = value;
+            }
+        }
 
         public Point RoomPos
         {

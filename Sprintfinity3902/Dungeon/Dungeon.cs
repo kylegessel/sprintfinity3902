@@ -57,9 +57,11 @@ namespace Sprintfinity3902.Dungeon
 
             WinLocation = new Point();
 
-            for (int roomNum = 1; roomNum <= 18; roomNum++) {
+            for (int roomNum = 2; roomNum <= 18; roomNum++) {
                 dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
             }
+            /*Added to test shop room*/
+            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Shop" + 1 + ".csv", 1));
 
             CurrentRoom = GetById(2);
             Game = game;
@@ -115,7 +117,7 @@ namespace Sprintfinity3902.Dungeon
             }
             else
             {
-                CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage, (IProjectile)Game.bombExplosion);
+                CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, CurrentRoom.shops, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage, (IProjectile)Game.bombExplosion);
                 CurrentRoom.Update(gameTime);
                 foreach (IEntity entity in linkProj)
                 {

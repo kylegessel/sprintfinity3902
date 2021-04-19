@@ -91,6 +91,5 @@ namespace Sprintfinity3902.Entities
             if ( distance != -1 ) /*-1 implies it is not going to dart*/
                 RopeSnake.BeginDart(distance);
         }
-
     }
 }

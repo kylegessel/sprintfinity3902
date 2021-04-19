@@ -98,7 +98,7 @@ namespace Sprintfinity3902.Link
             itemcount = new Dictionary<IItem.ITEMS, int>();
             foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
             {
-                itemcount.Add(item, 0);
+                itemcount.Add(item, 1);
             }
         }
 
@@ -108,6 +108,7 @@ namespace Sprintfinity3902.Link
             IPickup itemPickup = item.GetPickup();
             bool win = itemPickup.Pickup(this);
 
+            itemcount[IItem.ITEMS.MAP]++;
             if (win)
             {
                 game.SetState(game.WIN);

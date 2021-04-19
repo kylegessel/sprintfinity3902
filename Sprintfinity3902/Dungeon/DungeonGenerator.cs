@@ -37,104 +37,136 @@ namespace Sprintfinity3902.Dungeon
         public int PopulateRooms()
         {
             HashSet<Point> RoomLocations = new HashSet<Point>();
+            HashSet<Point> FinalRooms = new HashSet<Point>();
             Random random = new Random();
             HashSet<Point> availableRooms = new HashSet<Point>();
+            var LocationId = new Dictionary<Point, int>();
+            int nextId;
             int id;
 
+            int j = 1;
 
-            Point currentPoint = new Point(random.Next(0, 8), random.Next(0, 8));
+            Point currentPoint = new Point(random.Next(3, 5), random.Next(3, 5));
             RoomLocations.Add(currentPoint);
+            LocationId.Add(currentPoint, j);
+            j++;
 
-            for (int i=0; i<10; i++)
+            while(j <= 8)
             {
 
                 if (currentPoint.X < 7)
                 {
-                    availableRooms.Add(new Point(currentPoint.X + 1, currentPoint.Y));
+                    currentPoint.X++;
+                    if (!RoomLocations.Contains(currentPoint)  && !FinalRooms.Contains(currentPoint))
+                    {
+                        availableRooms.Add(currentPoint);
+                    }
+                    currentPoint.X--;
+                    
                 }
                 if (currentPoint.X > 0)
                 {
-                    availableRooms.Add(new Point(currentPoint.X - 1, currentPoint.Y));
+                    currentPoint.X--;
+                    if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
+                    {
+                        availableRooms.Add(currentPoint);
+                    }
+                    currentPoint.X++;
                 }
                 if (currentPoint.Y < 7)
                 {
-                   availableRooms.Add(new Point(currentPoint.X, currentPoint.Y + 1));
+                    currentPoint.Y++;
+                    if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
+                    {
+                        availableRooms.Add(currentPoint);
+                    }
+                    currentPoint.Y--;
                 }
                 if (currentPoint.Y > 0)
                 {
-                    availableRooms.Add(new Point(currentPoint.X, currentPoint.Y - 1));
+                    currentPoint.Y--;
+                    if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
+                    {
+                        availableRooms.Add(currentPoint);
+                    }
+                    currentPoint.Y++;
                 }
 
 
                 //INEFFECIENT AS HELLLLLL
                 currentPoint = availableRooms.ElementAt(random.Next(availableRooms.Count));
+                //availableRooms.Remove(currentPoint);
+
+                availableRooms.Clear();
 
                 RoomLocations.Add(currentPoint);
-            }
-
-            int j = 1;
-            var LocationId = new Dictionary<Point, int>();
-            foreach (Point room in RoomLocations)
-            {
-
-                File.Copy(@"..\..\..\Content\RoomTemplates\Room" + random.Next(1, 4) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv");
-                LocationId.Add(room, j);
+                LocationId.Add(currentPoint, j);
                 j++;
+
             }
+
+            //int j = 1;
+            //var LocationId = new Dictionary<Point, int>();
+            //foreach (Point room in RoomLocations)
+            
+
+                
+            //    j++;
+            //}
 
             //setup doors
-            j = 1;
+            
             foreach (Point room in RoomLocations)
             {
-                
+                id = LocationId.GetValueOrDefault(room);
+                File.Copy(@"..\..\..\Content\RoomTemplates\Room" + random.Next(1, 4) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+
                 if (RoomLocations.Contains(new Point(room.X + 1,room.Y)))
                 {
-                    id = LocationId.GetValueOrDefault(new Point(room.X + 1, room.Y));
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "ODRR, "+ id +",,,,,,,,,,,\n");
+                    nextId = LocationId.GetValueOrDefault(new Point(room.X + 1, room.Y));
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRR, "+ nextId +",,,,,,,,,,,\n");
                 }
                 else
                 {
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "WALR, -1,,,,,,,,,,\n");
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALR, -1,,,,,,,,,,\n");
                 }
 
                 if (RoomLocations.Contains(new Point(room.X - 1, room.Y)))
                 {
-                    id = LocationId.GetValueOrDefault(new Point(room.X - 1, room.Y));
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "ODRL, " + id + ",,,,,,,,,,,\n");
+                    nextId = LocationId.GetValueOrDefault(new Point(room.X - 1, room.Y));
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRL, " + nextId + ",,,,,,,,,,,\n");
                 }
                 else
                 {
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "WALL, -1,,,,,,,,,,\n");
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALL, -1,,,,,,,,,,\n");
                 }
 
                 if (RoomLocations.Contains(new Point(room.X, room.Y + 1)))
                 {
-                    id = LocationId.GetValueOrDefault(new Point(room.X, room.Y+1));
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "ODRB, " + id + ",,,,,,,,,,,\n");
+                    nextId = LocationId.GetValueOrDefault(new Point(room.X, room.Y+1));
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRB, " + nextId + ",,,,,,,,,,,\n");
                 }
                 else
                 {
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "WALB, -1,,,,,,,,,,\n");
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALB, -1,,,,,,,,,,\n");
                 }
 
                 if (RoomLocations.Contains(new Point(room.X, room.Y-1)))
                 {
-                    id = LocationId.GetValueOrDefault(new Point(room.X, room.Y-1));
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "ODRT, " + id + ",,,,,,,,,,,\n");
+                    nextId = LocationId.GetValueOrDefault(new Point(room.X, room.Y-1));
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRT, " + nextId + ",,,,,,,,,,,\n");
                 }
                 else
                 {
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "WALT, -1,,,,,,,,,,\n");
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALT, -1,,,,,,,,,,\n");
                 }
 
 
 
 
 
-                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", room.X + "," + room.Y + ",,,,,,,,,,,\n");
-                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "1\n");
-
-                j++;
+                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", room.X + "," + room.Y + ",,,,,,,,,,,\n");
+                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "1\n");
             }
 
             return j;
@@ -142,5 +174,12 @@ namespace Sprintfinity3902.Dungeon
                 
                
         }
+
+        private void BuildBossAndTreasure()
+        {
+
+        }
+
+        
     }
 }

@@ -60,50 +60,52 @@ namespace Sprintfinity3902.Dungeon
 
                 if (RoomLocations.Contains(new Point(room.X + 1,room.Y)))
                 {
-                    nextId = LocationId.GetValueOrDefault(new Point(room.X + 1, room.Y));
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRR, "+ nextId +",,,,,,,,,,,\n");
+                    id = LocationId.GetValueOrDefault(new Point(room.X + 1, room.Y));
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "ODRR, "+ id +",,,,,,,,,,,\n");
                 }
                 else
                 {
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALR, -1,,,,,,,,,,\n");
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "WALR, -1,,,,,,,,,,\n");
                 }
 
                 if (RoomLocations.Contains(new Point(room.X - 1, room.Y)))
                 {
-                    nextId = LocationId.GetValueOrDefault(new Point(room.X - 1, room.Y));
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRL, " + nextId + ",,,,,,,,,,,\n");
+                    id = LocationId.GetValueOrDefault(new Point(room.X - 1, room.Y));
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "ODRL, " + id + ",,,,,,,,,,,\n");
                 }
                 else
                 {
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALL, -1,,,,,,,,,,\n");
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "WALL, -1,,,,,,,,,,\n");
                 }
 
                 if (RoomLocations.Contains(new Point(room.X, room.Y + 1)))
                 {
-                    nextId = LocationId.GetValueOrDefault(new Point(room.X, room.Y+1));
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRB, " + nextId + ",,,,,,,,,,,\n");
+                    id = LocationId.GetValueOrDefault(new Point(room.X, room.Y+1));
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "ODRB, " + id + ",,,,,,,,,,,\n");
                 }
                 else
                 {
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALB, -1,,,,,,,,,,\n");
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "WALB, -1,,,,,,,,,,\n");
                 }
 
                 if (RoomLocations.Contains(new Point(room.X, room.Y-1)))
                 {
-                    nextId = LocationId.GetValueOrDefault(new Point(room.X, room.Y-1));
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRT, " + nextId + ",,,,,,,,,,,\n");
+                    id = LocationId.GetValueOrDefault(new Point(room.X, room.Y-1));
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "ODRT, " + id + ",,,,,,,,,,,\n");
                 }
                 else
                 {
-                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALT, -1,,,,,,,,,,\n");
+                    File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "WALT, -1,,,,,,,,,,\n");
                 }
 
 
 
 
 
-                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", room.X + "," + room.Y + ",,,,,,,,,,,\n");
-                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "1\n");
+                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", room.X + "," + room.Y + ",,,,,,,,,,,\n");
+                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv", "1\n");
+
+                j++;
             }
 
             return RoomLocations.Count + FinalRooms.Count + 1;
@@ -186,7 +188,5 @@ namespace Sprintfinity3902.Dungeon
 
             }
         }
-
-        
     }
 }

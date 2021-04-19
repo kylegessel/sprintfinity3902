@@ -6,7 +6,6 @@ namespace Sprintfinity3902.HudMenu
 {
     public class HudHeartManager
     {
-        private IHud Hud;
         private float x; private float y;
         private int i;
 
@@ -17,9 +16,9 @@ namespace Sprintfinity3902.HudMenu
         private const int FULL_HEART = 0;
         private const int EMPTY_HEART = -1;
 
-        public HudHeartManager(InGameHud hud)
+        public HudHeartManager()
         {
-            Hud = hud;
+            
         }
 
         public void UpdateHearts(double maxHealth, double currentHealth)
@@ -34,15 +33,15 @@ namespace Sprintfinity3902.HudMenu
                 health_InHearts--;
                 if (health_InHearts >= FULL_HEART)
                 {
-                    Hud.Icons.Add(new HeartFullIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    HudMenu.InGameHud.Instance.Icons.Add(new HeartFullIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                 }
                 else if (health_InHearts < FULL_HEART && health_InHearts > EMPTY_HEART)
                 {
-                    Hud.Icons.Add(new HeartHalfIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    HudMenu.InGameHud.Instance.Icons.Add(new HeartHalfIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                 }
                 else if (health_InHearts <= EMPTY_HEART)
                 {
-                    Hud.Icons.Add(new HeartEmptyIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    HudMenu.InGameHud.Instance.Icons.Add(new HeartEmptyIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                 }
                 x = x + HUD_SQUARE_WIDTH;
             }

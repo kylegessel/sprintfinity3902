@@ -13,7 +13,7 @@ namespace Sprintfinity3902.Entities
         {
             Link.itemcount[IItem.ITEMS.KEY]++;
 
-            Link.itemPickedUp = true;
+            HudMenu.InGameHud.Instance.UpdateKeys(Link.itemcount[IItem.ITEMS.KEY]);
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Heart).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
 
             return false;

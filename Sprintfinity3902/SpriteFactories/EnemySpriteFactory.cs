@@ -63,11 +63,11 @@ namespace Sprintfinity3902.SpriteFactories
         }
         public ISprite CreateFinalBossClosed()
         {
-            return new FinalBossMouthCloseSprite(bossSpriteSheet);
+            return new AquamentusMouthCloseSprite(bossSpriteSheet);
         }
         public ISprite CreateFinalBossOpened()
         {
-            return new FinalBossMouthOpenSprite(bossSpriteSheet);
+            return new AquamentusMouthOpenSprite(bossSpriteSheet);
         }
 
         public ISprite CreateOldManNPC()
@@ -84,5 +84,91 @@ namespace Sprintfinity3902.SpriteFactories
             return new SpikeEnemySprite(enemySpriteSheet);
         }
 
+        public ISprite CreateDodongoBackDamaged()
+        {
+            return new DodongoBackDamagedSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoBackMoving()
+        {
+            return new DodongoBackMovingSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoFrontMoving()
+        {
+            return new DodongoFrontMovingSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoFrontDamaged()
+        {
+            return new DodongoFrontDamagedSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoLeftDamaged()
+        {
+            return new DodongoLeftDamagedSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoLeftMoving()
+        {
+            return new DodongoLeftMovingSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoRightMoving()
+        {
+            return new DodongoRightMovingSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateDodongoRightDamaged()
+        {
+            return new DodongoRightDamagedSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateGohmaClosedEye()
+        {
+            return new GohmaClosedEyeSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateGohmaOpenedEye()
+        {
+            return new GohmaOpenedEyeSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateManhandlaDownMouth()
+        {
+            return new ManhandlaDownMouthSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateManhandlaLeftMouth()
+        {
+            return new ManhandlaLeftMouthSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateManhandlaRightMouth()
+        {
+            return new ManhandlaRightMouthSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateManhandlaUpMouth()
+        {
+            return new ManhandlaUpMouthSprite(bossSpriteSheet);
+        }
+
+        public ISprite CreateManhandlaBody()
+        {
+            return new ManhandlaBodySprite(bossSpriteSheet);
+        }
+        public ISprite CreateDigdoggerLeft()
+        {
+            return new DigdoggerLeftSprite(bossSpriteSheet);
+        }
+        public ISprite CreateDigdoggerRight()
+        {
+            return new DigdoggerRightSprite(bossSpriteSheet);
+        }
+        public ISprite CreateDigdoggerStunned()
+        {
+            return new DigdoggerStunnedSprite(bossSpriteSheet);
+        }
     }
 }

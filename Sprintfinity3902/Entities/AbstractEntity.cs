@@ -9,8 +9,9 @@ namespace Sprintfinity3902.Entities
     {
         private ISprite _sprite;
         private Vector2 _position;
-        private Boolean _collidable = true;
         private Color _color;
+        private Boolean _collidable = true;
+        private bool _static = false;
         private float _stepSize = 1; //Will want to set this individually for each entity. Set for now
 
         // Does this belong here and can we make better use of it elsewhere?
@@ -98,7 +99,21 @@ namespace Sprintfinity3902.Entities
             }
         }
 
+        public bool STATIC {
+            get {
+                return _static;
+            }
+            set {
+                _static = value;
+            }
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
+        {
+            Sprite.Draw(spriteBatch, Position, color);
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 pos, Color color)
         {
             Sprite.Draw(spriteBatch, Position, color);
         }

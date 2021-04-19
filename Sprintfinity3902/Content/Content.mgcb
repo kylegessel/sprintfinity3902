@@ -20,6 +20,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Font.spritefont
 
+#begin LinkPowerUpSpriteSheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:LinkPowerUpSpriteSheet.png
+
 #begin NES - The Legend of Zelda - Fonts.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -296,6 +308,42 @@
 /processorParam:TextureFormat=Color
 /build:Zelda_Dungeon_Enemies_Transparent.png
 
+#begin Zelda_Dungeon_Tileset_Gray_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_Dungeon_Tileset_Gray_Transparent.png
+
+#begin Zelda_Dungeon_Tileset_Green_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_Dungeon_Tileset_Green_Transparent.png
+
+#begin Zelda_Dungeon_Tileset_Red_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_Dungeon_Tileset_Red_Transparent.png
+
 #begin Zelda_Dungeon_Tileset_Transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -307,6 +355,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Zelda_Dungeon_Tileset_Transparent.png
+
+#begin Zelda_Dungeon_Tileset_Yellow_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_Dungeon_Tileset_Yellow_Transparent.png
 
 #begin Zelda_Eagle-Map.png
 /importer:TextureImporter

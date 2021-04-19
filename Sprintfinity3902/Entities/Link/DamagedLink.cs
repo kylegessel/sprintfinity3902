@@ -17,56 +17,56 @@ namespace Sprintfinity3902.Link
         Color linkColor;
         int counter;
         int timer = 200;
-        private ISprite _sprite;
-        private Vector2 _position;
 
 
 
         public ISprite Sprite
         {
-            get
-            {
-                return _sprite;
+            get {
+                return decoratedLink.Sprite;
             }
-            set
-            {
-                _sprite = value;
+            set {
+                decoratedLink.Sprite = value;
             }
         }
 
         public Vector2 Position
         {
-            get
-            {
-                return _position;
+            get {
+                return decoratedLink.Position;
             }
-            set
-            {
-                _position = value;
+            set {
+                decoratedLink.Position = value;
             }
         }
         public float X
         {
-            get
-            {
-                return (int)Position.X;
+            get {
+                return decoratedLink.Position.X;
             }
-            set
-            {
-                _position.X = value;
+            set {
+                decoratedLink.X = value;
             }
         }
         public float Y
         {
-            get
-            {
-                return (int)Position.Y;
+            get {
+                return decoratedLink.Position.Y;
             }
-            set
-            {
-                _position.Y = value;
+            set {
+                decoratedLink.Y = value;
             }
         }
+        public bool STATIC
+        {
+            get {
+                return decoratedLink.STATIC;
+            }
+            set {
+                decoratedLink.STATIC = value;
+            }
+        }
+
 
 
         public DamagedLink(IPlayer decoratedLink, Game1 game)
@@ -105,8 +105,15 @@ namespace Sprintfinity3902.Link
 
         }
 
-
+        public bool IsCollidable()
+        {
+            return decoratedLink.IsCollidable();
+        }
         public void Draw(SpriteBatch spriteBatch, Color Ignorecolor)
+        {
+            decoratedLink.Draw(spriteBatch, linkColor);
+        }
+        public void Draw(SpriteBatch spriteBatch, Vector2 pos, Color Ignorecolor)
         {
             decoratedLink.Draw(spriteBatch, linkColor);
         }
@@ -143,6 +150,21 @@ namespace Sprintfinity3902.Link
         {
             RemoveDecorator();
             decoratedLink.DeathSpin(end);
+        }
+
+        public Rectangle GetBoundingRect()
+        {
+            return decoratedLink.GetBoundingRect();
+        }
+
+        public void SetStepSize(float size)
+        {
+            decoratedLink.SetStepSize(size);
+        }
+
+        public float GetStepSize()
+        {
+            return decoratedLink.GetStepSize();
         }
     }
 }

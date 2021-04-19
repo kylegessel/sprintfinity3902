@@ -10,6 +10,7 @@ namespace Sprintfinity3902.Interfaces
             BOMB,
             BOOMERANG,
             BOW,
+            FLUTE,
             NONE
         }
         IPlayerState CurrentState { get; set; }
@@ -25,14 +26,13 @@ namespace Sprintfinity3902.Interfaces
         IPlayerState facingLeftItem { get; set; }
         IPlayerState facingRightItem { get; set; }
         IPlayerState facingUpItem { get; set; }
-        bool heartChanged { get; set; }
-        bool itemPickedUp { get; set; }
-        bool selectedItemChanged { get; set; }
         int MaxHealth { get; set; }
         int LinkHealth { get; set; }
         Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
         SelectableWeapons SelectedWeapon { get; set; }
+
+        void TogglePlayerVisible();
 
 
         /*These methods are only used when link is not invinsible (damaged state)*/

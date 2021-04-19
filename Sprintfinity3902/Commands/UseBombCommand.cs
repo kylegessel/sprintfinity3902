@@ -24,8 +24,6 @@ namespace Sprintfinity3902.Commands
                 Link.UseItem(IItem.ITEMS.BOMB);
                 Bomb.UseItem(Link);
                 Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Bomb_Drop).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-
-                Link.itemcount[IItem.ITEMS.BOMB]--;
             }
         }
     }

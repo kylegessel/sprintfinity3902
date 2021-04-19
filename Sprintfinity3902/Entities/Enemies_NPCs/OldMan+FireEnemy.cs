@@ -52,8 +52,6 @@ namespace Sprintfinity3902.Entities
                 fireEnemy2.Attack();
             }
             Sprite.Update(gameTime);
-            fireEnemy1.Update(gameTime);
-            fireEnemy2.Update(gameTime);
             if (decorate)
             {
                 Decorate();
@@ -69,11 +67,9 @@ namespace Sprintfinity3902.Entities
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             Sprite.Draw(spriteBatch, Position, this.color);
-            fireEnemy1.Draw(spriteBatch, color);
-            fireEnemy2.Draw(spriteBatch, color);
         }
 
-        public int HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
             attacked = true;
             decorate = true;

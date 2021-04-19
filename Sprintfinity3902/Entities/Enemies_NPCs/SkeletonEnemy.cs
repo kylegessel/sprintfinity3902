@@ -39,7 +39,6 @@ namespace Sprintfinity3902.Entities
             Position = new Vector2(750, 540);
             direction = intToDirection(rd1.Next(1, 5));
             count = 0;
-            health = 2;
             speed = 0.4f;
             EnemyHealth = 2;
             EnemyAttack = 1;
@@ -127,13 +126,13 @@ namespace Sprintfinity3902.Entities
 
         public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
-            health = health - damage;
+            EnemyHealth = EnemyHealth - damage;
             count = 1;
             waitTime = THIRTY;
             direction = projDirection;
             speed = (float)ONE;
             decorate = true;
-            return health;
+            return EnemyHealth;
         }
     }
 }

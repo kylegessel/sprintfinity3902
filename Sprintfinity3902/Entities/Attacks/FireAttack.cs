@@ -198,7 +198,7 @@ namespace Sprintfinity3902.Entities
             return 0;
         }
 
-        public bool Collide(int enemyID, IEnemy enemy, IRoom room)
+        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room, IPlayer player)
         {
             // This will never collide with an enemy, so we'll just return false.
             Position = new Vector2(-1000, -1000);

@@ -510,7 +510,10 @@ namespace Sprintfinity3902.Dungeon
                     Room.items.Add(triforce);
                     Room.WinRoom = true;
                     break;
-
+                case "CRIT":
+                    IItem crit = new AttackPowerUpItem(Position);
+                    Room.items.Add(crit);
+                    break;
             }
         }
 

@@ -266,7 +266,7 @@ namespace Sprintfinity3902.Collision
                     enemies.TryGetValue(enemy, out currentEnemy);
                     if (proj != null && proj.GetBoundingRect().Intersects(currentEnemy.GetBoundingRect()))
                     {
-                        ProjectileCollisionHandler.ProjectileEnemyHit(enemy, currentEnemy, (IProjectile)proj, deletionList, garbage, gameInstance, items);
+                        ProjectileCollisionHandler.ProjectileEnemyHit(enemy, currentEnemy, (IProjectile)proj, deletionList, garbage, gameInstance, items, link);
 
                     }
                 }   

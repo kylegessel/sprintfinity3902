@@ -200,7 +200,7 @@ namespace Sprintfinity3902.Entities
             GoriyaUse = true;
         }
 
-        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room)
+        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room, IPlayer player)
         {
             if (MoveUseCount < SIXTY)
             {

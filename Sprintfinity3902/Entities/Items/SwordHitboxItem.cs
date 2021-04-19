@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using System;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Entities
 {
@@ -34,13 +35,23 @@ namespace Sprintfinity3902.Entities
         {
             return itemUse;
         }
-        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room)
+        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room, IPlayer player)
         {
+            int damage = 1;
+            int critChance = player.itemcount[IItem.ITEMS.ATTACKPWRUP];
+            Random random = new Random();
+            int randint = random.Next(11);
+            Debug.WriteLine(critChance);
+            Debug.WriteLine(randint);
+            if (randint <= critChance)
+            {
+                damage = 2;
+            }
             // Code for removing sword on contact, needs to be replaced.
             Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
             // This can be improved, not long term.
             //if (itemUseCount < 20) return false;
-            return enemy.HitRegister(enemyID, 1, 0, this, swordDirection, room) <= 0;
+            return enemy.HitRegister(enemyID, damage, 0, this, swordDirection, room) <= 0;
         }
 
         public void Collide(IRoom room)

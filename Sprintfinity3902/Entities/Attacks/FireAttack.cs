@@ -22,7 +22,7 @@ namespace Sprintfinity3902.Entities
         private Vector2 ProjectileIncrementAmnt;
         public bool isMoving { get; set; }
         private int direction;
-        private int speed = 4;
+        private int speed = 3;
 
         public FireAttack(int moveDirection)
         {

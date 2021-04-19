@@ -158,5 +158,9 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new SpeedPowerUpItemSprite(powerUpSpriteSheet);
         }
+        public ISprite CreateFluteItem()
+        {
+            return new FluteItemSprite(itemSpriteSheet);
+        }
     }
 }

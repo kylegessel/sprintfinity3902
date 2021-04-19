@@ -9,6 +9,7 @@
             CLOCK,
             COMPASS,
             FAIRY,
+            FLUTE,
             HEART,
             HEARTCONTAINER,
             KEY,

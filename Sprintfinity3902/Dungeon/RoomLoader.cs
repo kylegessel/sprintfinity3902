@@ -38,8 +38,6 @@ namespace Sprintfinity3902.Dungeon
         private static int BMRG_X_OFFSET = 5;
         private static int BMRG_Y_OFFSET = 4;
 
-        private static Game1 Game;
-
         StreamReader mapStream;
         private IRoom Room { get; set; }
         private Vector2 Position { get; set; }
@@ -50,14 +48,16 @@ namespace Sprintfinity3902.Dungeon
 
         private IPlayer link;
         private IDungeon dungeon;
+        private Game1 Game;
 
         int enemyID;
         int spikeNum;
 
-        public RoomLoader(IPlayer player, IDungeon dung)
+        public RoomLoader(IPlayer player, IDungeon dung, Game1 game)
         {
             link = player;
             dungeon = dung;
+            Game = game;
         }
 
         public RoomLoader() { }
@@ -333,14 +333,14 @@ namespace Sprintfinity3902.Dungeon
                 case "LFBK":
                     IAttack fire = new FireAttack(Position, link);
                     Room.enemyProj.Add(fire);
-                    IBlock leftFireBlock = new LeftFaceBlockEnemy(Position, fire);
+                    IBlock leftFireBlock = new LeftFaceBlockEnemy(Position, fire, Room);
                     Room.blocks.Add(leftFireBlock);
                     enemyID++;
                     break;
                 case "RFBK":
                     IAttack fireAt = new FireAttack(Position, link);
                     Room.enemyProj.Add(fireAt);
-                    IBlock rightFireBlock = new RightFaceBlockEnemy(Position, fireAt);
+                    IBlock rightFireBlock = new RightFaceBlockEnemy(Position, fireAt, Room);
                     Room.blocks.Add(rightFireBlock);
                     enemyID++;
                     break;
@@ -358,6 +358,10 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemyProj.Add(down);
                     Room.enemyProj.Add(center);
                     Room.enemies.Add(enemyID, new AquamentusBoss(Position, up, center, down));
+                    enemyID++;
+                    break;
+                case "DIGD":
+                    Room.enemies.Add(enemyID, new DigdoggerBoss(Position, Game));
                     enemyID++;
                     break;
                 case "DODO":
@@ -469,6 +473,10 @@ namespace Sprintfinity3902.Dungeon
                 case "FARY":
                     IItem fairy = new FairyItem(Position);
                     Room.items.Add(fairy);
+                    break;
+                case "FLUT":
+                    IItem flute = new FluteItem(Position);
+                    Room.items.Add(flute);
                     break;
                 case "HCON":
                     IItem hcont = new HeartContainerItem(Position);

@@ -64,7 +64,7 @@ namespace Sprintfinity3902.Dungeon
             if (UseRoomGen)
             {
                 int numRooms = DungeonGenerator.Instance.PopulateRooms();
-                for (int roomNum = 1; roomNum <= numRooms - 1; roomNum++)
+                for (int roomNum = 1; roomNum <= numRooms; roomNum++)
                 {
                     dungeonRooms.Add(new Room(@"..\..\..\Content\GeneratedRooms\GenRoom" + roomNum + ".csv", roomNum));
                 }

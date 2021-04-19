@@ -13,7 +13,14 @@ namespace Sprintfinity3902.Dungeon
 
         private static DungeonGenerator instance;
         Random Random;
-        private static int TREASURE_ROOM_ID = 8;
+        private static int WIN_ROOM_ID = 8;
+        private static int MIDDLE_ROOM_MIN = 3;
+        private static int MIDDLE_ROOM_MAX = 5;
+        private static int START_ROOM_ID = 1;
+        private static int TOTAL_ROOMS = 16;
+        private static int NUM_OF_TEMPLATES = 4;
+        private static int MAP_MIN = 0;
+        private static int MAP_MAX = 7;
         public static DungeonGenerator Instance
         {
             get
@@ -45,7 +52,7 @@ namespace Sprintfinity3902.Dungeon
             HashSet<Point> availableRooms = new HashSet<Point>();
             Dictionary<Point, int> LocationId = new Dictionary<Point, int>();
             int id;
-            int bossRoomId = TREASURE_ROOM_ID - 1;
+            int bossRoomId = WIN_ROOM_ID - 1;
             int preBossRoomId = bossRoomId - 1;
 
             Point bossRoom = new Point(0,0);
@@ -53,18 +60,20 @@ namespace Sprintfinity3902.Dungeon
             Point winRoom = new Point(0, 0);
 
 
-            Point startPoint = new Point(Random.Next(3, 5), Random.Next(3, 5));
+            Point startPoint = new Point(Random.Next(MIDDLE_ROOM_MIN, MIDDLE_ROOM_MAX), Random.Next(MIDDLE_ROOM_MIN, MIDDLE_ROOM_MAX));
             RoomLocations.Add(startPoint);
-            LocationId.Add(startPoint, 1);
+            LocationId.Add(startPoint, START_ROOM_ID);
 
-            CreateNewRooms(TREASURE_ROOM_ID, true, startPoint, RoomLocations, FinalRooms, LocationId);
+            //find rooms with snake generation
+            CreateNewRooms(WIN_ROOM_ID, true, startPoint, RoomLocations, FinalRooms, LocationId);
             
             foreach (Point room in FinalRooms)
             {
                 RoomLocations.Remove(room);
             }
 
-            CreateNewRooms(16, false, startPoint, RoomLocations, FinalRooms, LocationId);
+            //find rooms with sprawl generation
+            CreateNewRooms(TOTAL_ROOMS, false, startPoint, RoomLocations, FinalRooms, LocationId);
 
             foreach (KeyValuePair<Point, int> pair in LocationId)
             {
@@ -75,7 +84,7 @@ namespace Sprintfinity3902.Dungeon
                 {
                     bossRoom = room;
                 }
-                else if (id == TREASURE_ROOM_ID)
+                else if (id == WIN_ROOM_ID)
                 {
                     winRoom = room;
                 }
@@ -88,12 +97,12 @@ namespace Sprintfinity3902.Dungeon
 
             }
 
-
+            //build csv file for each room
             foreach (KeyValuePair<Point, int> pair in LocationId)
             {
                 Point room = pair.Key;
                 id = pair.Value;
-                if (id == 1)
+                if (id == START_ROOM_ID)
                 {
                     File.Copy(@"..\..\..\Content\RoomTemplates\Room2.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
@@ -101,21 +110,17 @@ namespace Sprintfinity3902.Dungeon
                 {
                     File.Copy(@"..\..\..\Content\RoomTemplates\RoomBoss.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
-                else if (id == TREASURE_ROOM_ID)
+                else if (id == WIN_ROOM_ID)
                 {
                     File.Copy(@"..\..\..\Content\RoomTemplates\RoomWin.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
                 else 
                 {
-                    File.Copy(@"..\..\..\Content\RoomTemplates\Room" + Random.Next(1, 4) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    File.Copy(@"..\..\..\Content\RoomTemplates\Room" + Random.Next(1,NUM_OF_TEMPLATES+1) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
 
                 
-                if (id == TREASURE_ROOM_ID)
-                {
-                    BuildTypicalDoors(FinalRooms, room, id, LocationId);
-                } 
-                else if (id == bossRoomId)
+                if (id == WIN_ROOM_ID  || id == bossRoomId)
                 {
                     BuildTypicalDoors(FinalRooms, room, id, LocationId);
                 }
@@ -129,14 +134,10 @@ namespace Sprintfinity3902.Dungeon
                 }
                 
 
-                //BuildTypicalDoors(RoomLocations, room, id, LocationId);
-
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", room.X + "," + room.Y + ",,,,,,,,,,,\n");
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "1\n");
             }
-
-            //This return statement is EXTREMELY misleading
-            return RoomLocations.Count + FinalRooms.Count;
+            return TOTAL_ROOMS;
 
                 
                
@@ -152,28 +153,22 @@ namespace Sprintfinity3902.Dungeon
             {
                 foreach (Point room in RoomLocations)
                 {
-                    GenerateAdjacentRooms(room, RoomLocations, FinalRooms, availableRooms);
+                    FindAdjacentRooms(room, RoomLocations, FinalRooms, availableRooms);
                 }
             }
-            
-
 
             while (j <= totalRooms)
             {
 
-                GenerateAdjacentRooms(currentPoint, RoomLocations, FinalRooms, availableRooms);
+                FindAdjacentRooms(currentPoint, RoomLocations, FinalRooms, availableRooms);
 
-                //INEFFECIENT AS HELLLLLL
                 currentPoint = availableRooms.ElementAt(Random.Next(availableRooms.Count));
-                //availableRooms.Remove(currentPoint);
-
-
 
                 if (snake)
                 {
                     availableRooms.Clear();
-                    if (j == TREASURE_ROOM_ID - 1) {FinalRooms.Add(currentPoint); };
-                    if (j == TREASURE_ROOM_ID) { FinalRooms.Add(currentPoint); };
+                    if (j == WIN_ROOM_ID - 1) {FinalRooms.Add(currentPoint); };
+                    if (j == WIN_ROOM_ID) { FinalRooms.Add(currentPoint); };
                 }
                 else
                 {
@@ -303,9 +298,9 @@ namespace Sprintfinity3902.Dungeon
 
 
 
-        private void GenerateAdjacentRooms(Point currentPoint, HashSet<Point> RoomLocations, HashSet<Point> FinalRooms, HashSet<Point> availableRooms) {
+        private void FindAdjacentRooms(Point currentPoint, HashSet<Point> RoomLocations, HashSet<Point> FinalRooms, HashSet<Point> availableRooms) {
 
-            if (currentPoint.X < 7)
+            if (currentPoint.X < MAP_MAX)
             {
                 currentPoint.X++;
                 if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
@@ -315,7 +310,7 @@ namespace Sprintfinity3902.Dungeon
                 currentPoint.X--;
 
             }
-            if (currentPoint.X > 0)
+            if (currentPoint.X > MAP_MIN)
             {
                 currentPoint.X--;
                 if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
@@ -324,7 +319,7 @@ namespace Sprintfinity3902.Dungeon
                 }
                 currentPoint.X++;
             }
-            if (currentPoint.Y < 7)
+            if (currentPoint.Y < MAP_MAX)
             {
                 currentPoint.Y++;
                 if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
@@ -333,7 +328,7 @@ namespace Sprintfinity3902.Dungeon
                 }
                 currentPoint.Y--;
             }
-            if (currentPoint.Y > 0)
+            if (currentPoint.Y > MAP_MIN)
             {
                 currentPoint.Y--;
                 if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))

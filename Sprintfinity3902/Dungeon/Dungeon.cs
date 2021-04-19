@@ -60,15 +60,18 @@ namespace Sprintfinity3902.Dungeon
             
             TemplateFactory.Instance.Initialize();
             // Set the floor as first param and last param is kwargs of insertables 
-            TemplateFactory.Instance.SetParams(5, "HAND", "BBAT", "LFSH");
-            TemplateFactory.Instance.GenerateRandRoomAtPath(@"..\..\..\Content\RoomTemplates\DefaultOut.csv");
-            
+            TemplateFactory.Instance.SetParams(1, "BBAT", "LFSH", "MAPI");
+            TemplateFactory.Instance.GenerateRandRoomAtPath(@"..\..\..\Content\RoomTemplates\Room1.csv");
+
+            TemplateFactory.Instance.SetParams(2, "KEYI", "BBAT", "LFSH", "MAPI");
+            TemplateFactory.Instance.GenerateRandRoomAtPath(@"..\..\..\Content\RoomTemplates\Room2.csv");
+
 
             DungeonGenerator.Instance.Initialize();
             int numRooms = DungeonGenerator.Instance.PopulateRooms();
 
 
-            for (int roomNum = 1; roomNum <= numRooms-1; roomNum++) {
+            for (int roomNum = 1; roomNum < numRooms; roomNum++) {
                 dungeonRooms.Add(new Room(@"..\..\..\Content\GeneratedRooms\GenRoom" + roomNum + ".csv", roomNum));
             }
 

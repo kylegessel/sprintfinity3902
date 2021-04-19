@@ -219,7 +219,7 @@ namespace Sprintfinity3902.Dungeon
                 for (int c = 0; c < roomMatrix.GetLength(1); c++) {
                     room += roomMatrix[r, c];
                     if (c != roomMatrix.GetLength(1) - 1) {
-                        room += ", ";
+                        room += ",";
                     } else {
                         room += '\n';
                     }

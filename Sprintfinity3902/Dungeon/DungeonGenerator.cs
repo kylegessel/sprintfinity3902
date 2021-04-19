@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.IO;
 using System.Linq;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.Dungeon
 {
@@ -75,10 +76,11 @@ namespace Sprintfinity3902.Dungeon
 
             int j = 1;
             var LocationId = new Dictionary<Point, int>();
+            int numTemplates = new DirectoryInfo(@"..\..\..\Content\RoomTemplates\").GetFiles().Length;
+            Debug.WriteLine("Found" + numTemplates + "temp");
             foreach (Point room in RoomLocations)
             {
-
-                File.Copy(@"..\..\..\Content\RoomTemplates\Room" + random.Next(1, 4) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv");
+                File.Copy(@"..\..\..\Content\RoomTemplates\Room" + random.Next(1, numTemplates + 1) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + j + ".csv");
                 LocationId.Add(room, j);
                 j++;
             }

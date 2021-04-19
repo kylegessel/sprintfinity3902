@@ -12,6 +12,7 @@ namespace Sprintfinity3902.Dungeon
     {
 
         private static DungeonGenerator instance;
+        Random Random; 
         public static DungeonGenerator Instance
         {
             get
@@ -31,6 +32,7 @@ namespace Sprintfinity3902.Dungeon
             {
                 file.Delete();
             }
+            Random = new Random();
 
         }
 
@@ -38,88 +40,23 @@ namespace Sprintfinity3902.Dungeon
         {
             HashSet<Point> RoomLocations = new HashSet<Point>();
             HashSet<Point> FinalRooms = new HashSet<Point>();
-            Random random = new Random();
+            
             HashSet<Point> availableRooms = new HashSet<Point>();
-            var LocationId = new Dictionary<Point, int>();
+            Dictionary<Point, int> LocationId = new Dictionary<Point, int>();
             int nextId;
             int id;
 
-            int j = 1;
+            Point startPoint = new Point(Random.Next(3, 5), Random.Next(3, 5));
+            RoomLocations.Add(startPoint);
+            LocationId.Add(startPoint, 1);
 
-            Point currentPoint = new Point(random.Next(3, 5), random.Next(3, 5));
-            RoomLocations.Add(currentPoint);
-            LocationId.Add(currentPoint, j);
-            j++;
-
-            while(j <= 8)
-            {
-
-                if (currentPoint.X < 7)
-                {
-                    currentPoint.X++;
-                    if (!RoomLocations.Contains(currentPoint)  && !FinalRooms.Contains(currentPoint))
-                    {
-                        availableRooms.Add(currentPoint);
-                    }
-                    currentPoint.X--;
-                    
-                }
-                if (currentPoint.X > 0)
-                {
-                    currentPoint.X--;
-                    if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
-                    {
-                        availableRooms.Add(currentPoint);
-                    }
-                    currentPoint.X++;
-                }
-                if (currentPoint.Y < 7)
-                {
-                    currentPoint.Y++;
-                    if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
-                    {
-                        availableRooms.Add(currentPoint);
-                    }
-                    currentPoint.Y--;
-                }
-                if (currentPoint.Y > 0)
-                {
-                    currentPoint.Y--;
-                    if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
-                    {
-                        availableRooms.Add(currentPoint);
-                    }
-                    currentPoint.Y++;
-                }
-
-
-                //INEFFECIENT AS HELLLLLL
-                currentPoint = availableRooms.ElementAt(random.Next(availableRooms.Count));
-                //availableRooms.Remove(currentPoint);
-
-                availableRooms.Clear();
-
-                RoomLocations.Add(currentPoint);
-                LocationId.Add(currentPoint, j);
-                j++;
-
-            }
-
-            //int j = 1;
-            //var LocationId = new Dictionary<Point, int>();
-            //foreach (Point room in RoomLocations)
+            CreateNewRooms(8, false, startPoint, RoomLocations, FinalRooms, LocationId);
             
-
-                
-            //    j++;
-            //}
-
-            //setup doors
             
             foreach (Point room in RoomLocations)
             {
                 id = LocationId.GetValueOrDefault(room);
-                File.Copy(@"..\..\..\Content\RoomTemplates\Room" + random.Next(1, 4) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                File.Copy(@"..\..\..\Content\RoomTemplates\Room" + Random.Next(1, 4) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
 
                 if (RoomLocations.Contains(new Point(room.X + 1,room.Y)))
                 {
@@ -169,7 +106,7 @@ namespace Sprintfinity3902.Dungeon
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "1\n");
             }
 
-            return j;
+            return RoomLocations.Count + FinalRooms.Count + 1;
 
                 
                
@@ -178,6 +115,76 @@ namespace Sprintfinity3902.Dungeon
         private void BuildBossAndTreasure()
         {
 
+        }
+
+        private void CreateNewRooms(int totalRooms, bool snake, Point initialPoint, HashSet<Point> RoomLocations, HashSet<Point> FinalRooms, Dictionary<Point, int> LocationId)
+        {
+            int j = RoomLocations.Count + FinalRooms.Count + 1;
+            HashSet<Point> availableRooms = new HashSet<Point>();
+            Point currentPoint = initialPoint;
+            while (j <= totalRooms)
+            {
+
+                if (currentPoint.X < 7)
+                {
+                    currentPoint.X++;
+                    if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
+                    {
+                        availableRooms.Add(currentPoint);
+                    }
+                    currentPoint.X--;
+
+                }
+                if (currentPoint.X > 0)
+                {
+                    currentPoint.X--;
+                    if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
+                    {
+                        availableRooms.Add(currentPoint);
+                    }
+                    currentPoint.X++;
+                }
+                if (currentPoint.Y < 7)
+                {
+                    currentPoint.Y++;
+                    if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
+                    {
+                        availableRooms.Add(currentPoint);
+                    }
+                    currentPoint.Y--;
+                }
+                if (currentPoint.Y > 0)
+                {
+                    currentPoint.Y--;
+                    if (!RoomLocations.Contains(currentPoint) && !FinalRooms.Contains(currentPoint))
+                    {
+                        availableRooms.Add(currentPoint);
+                    }
+                    currentPoint.Y++;
+                }
+
+
+                //INEFFECIENT AS HELLLLLL
+                currentPoint = availableRooms.ElementAt(Random.Next(availableRooms.Count));
+                //availableRooms.Remove(currentPoint);
+
+
+
+                if (snake)
+                {
+                    availableRooms.Clear();
+                }
+                else
+                {
+                    availableRooms.Remove(currentPoint);
+                }
+
+
+                RoomLocations.Add(currentPoint);
+                LocationId.Add(currentPoint, j);
+                j++;
+
+            }
         }
 
         

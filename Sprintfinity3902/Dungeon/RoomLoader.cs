@@ -48,27 +48,29 @@ namespace Sprintfinity3902.Dungeon
 
         int enemyID;
         int spikeNum;
+        private bool UseRoomGen;
         
 
         // Have this input a filename and then load the room.
         public RoomLoader(IRoom room)
         {
             // Really think there is a better way to list these files, just a demo for the time being though.
-            Initialize(room);
+            Initialize(room, false);
         }
 
         public RoomLoader() { }
 
-        public void Initialize(IRoom room) {
+        public void Initialize(IRoom room, bool useRoomGen) {
             Room = room;
             mapStream = new StreamReader(Room.path);
+            UseRoomGen = useRoomGen;
             spikeNum = 1;
             enemyID = 0;
         }
 
         public void Build()
         {
-            //if (Room.Id == 13) { build13(); return; }
+            if (Room.Id == 13 && !UseRoomGen) { build13(); return; }
             string line;
             int currX = THIRTY_TWO * Global.Var.SCALE;
             int currY = NINETY_SIX*Global.Var.SCALE;

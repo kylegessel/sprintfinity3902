@@ -34,6 +34,7 @@ namespace Sprintfinity3902.Dungeon
         public IEntity bombItem { get; set; }
         public IEntity boomerangItem { get; set; }
 
+        private bool UseRoomGen = true;
 
         private string backgroundMusicInstanceID;
 
@@ -58,14 +59,28 @@ namespace Sprintfinity3902.Dungeon
             WinLocation = new Point();
 
             DungeonGenerator.Instance.Initialize();
-            int numRooms = DungeonGenerator.Instance.PopulateRooms();
 
 
-            for (int roomNum = 1; roomNum <= numRooms-1; roomNum++) {
-                dungeonRooms.Add(new Room(@"..\..\..\Content\GeneratedRooms\GenRoom" + roomNum + ".csv", roomNum));
+            if (UseRoomGen)
+            {
+                int numRooms = DungeonGenerator.Instance.PopulateRooms();
+                for (int roomNum = 1; roomNum <= numRooms - 1; roomNum++)
+                {
+                    dungeonRooms.Add(new Room(@"..\..\..\Content\GeneratedRooms\GenRoom" + roomNum + ".csv", roomNum));
+                }
+                CurrentRoom = GetById(1);
+            } 
+            else
+            {
+                for (int roomNum = 1; roomNum <= 18; roomNum++)
+                {
+                    dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
+                }
+
+                CurrentRoom = GetById(2);
             }
 
-            CurrentRoom = GetById(1);
+            
             Game = game;
 
             linkProj = new List<IEntity>();
@@ -93,12 +108,12 @@ namespace Sprintfinity3902.Dungeon
             IRoomLoader rload = new RoomLoader();
             foreach (IRoom room in dungeonRooms)
             {
-                rload.Initialize(room);
+                rload.Initialize(room,UseRoomGen);
                 rload.Build();
-                //if (room.Id != 13)
-                //{ 
+                if (room.Id != 13 || UseRoomGen)
+                { 
                     RoomLocations.Add(room.RoomPos);
-                //}
+                }
 
                 if (room.WinRoom)
                 {

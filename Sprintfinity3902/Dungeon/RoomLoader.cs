@@ -200,7 +200,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void BuildWallAndFloor(string input)
         {
-            if (Room.Id == 13) { build13WallAndFloor(input); return; }
+            if (Room.Id == 13 && !UseRoomGen) { build13WallAndFloor(input); return; }
             switch (input)
             {
                 //WALLS AND FLOORS
@@ -269,7 +269,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void BuildBlocks(string input)
         {
-            if (Room.Id == 13) { buildblocks13(input); return; }
+            if (Room.Id == 13  && !UseRoomGen) { buildblocks13(input); return; }
             switch (input)
             {
                 //BLOCKS

@@ -39,7 +39,10 @@ namespace Sprintfinity3902.States.GameStates
         public void SetUp()
         {
             KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
-
+            KeyboardManager.Instance.RegisterKeyUpCallback(() => {
+                KeyboardManager.Instance.PopCommandMatrix();
+                Game.SetState(Game.PAUSED_TRANSITION);
+            }, Keys.P);
             KeyboardManager.Instance.RegisterKeyUpCallback(HudMenu.InventoryHud.Instance.MoveSelectorLeft, Keys.A, Keys.Left);
             KeyboardManager.Instance.RegisterKeyUpCallback(HudMenu.InventoryHud.Instance.MoveSelectorRight, Keys.D, Keys.Right);
         }

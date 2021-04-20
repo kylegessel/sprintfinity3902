@@ -34,6 +34,7 @@ namespace Sprintfinity3902.Dungeon
         public IEntity bombItem { get; set; }
         public IEntity boomerangItem { get; set; }
 
+        private bool UseRoomGen = true;
 
         private string backgroundMusicInstanceID;
 
@@ -57,13 +58,29 @@ namespace Sprintfinity3902.Dungeon
 
             WinLocation = new Point();
 
-            for (int roomNum = 2; roomNum <= 18; roomNum++) {
-                dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
-            }
-            /*Added to test shop room*/
-            dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Shop" + 1 + ".csv", 1));
+            DungeonGenerator.Instance.Initialize();
 
-            CurrentRoom = GetById(2);
+
+            if (UseRoomGen)
+            {
+                int numRooms = DungeonGenerator.Instance.PopulateRooms();
+                for (int roomNum = 1; roomNum <= numRooms; roomNum++)
+                {
+                    dungeonRooms.Add(new Room(@"..\..\..\Content\GeneratedRooms\GenRoom" + roomNum + ".csv", roomNum));
+                }
+                CurrentRoom = GetById(1);
+            } 
+            else
+            {
+                for (int roomNum = 1; roomNum <= 18; roomNum++)
+                {
+                    dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
+                }
+
+                CurrentRoom = GetById(2);
+            }
+
+            
             Game = game;
 
             linkProj = new List<IEntity>();
@@ -91,9 +108,9 @@ namespace Sprintfinity3902.Dungeon
             IRoomLoader rload = new RoomLoader(Game.playerCharacter, this, Game);
             foreach (IRoom room in dungeonRooms)
             {
-                rload.Initialize(room);
+                rload.Initialize(room,UseRoomGen);
                 rload.Build();
-                if (room.Id != 13)
+                if (room.Id != 13 || UseRoomGen)
                 { 
                     RoomLocations.Add(room.RoomPos);
                 }
@@ -213,12 +230,18 @@ namespace Sprintfinity3902.Dungeon
             {
                 case IDungeon.GameState.WIN:
                     KeyboardManager.Instance.PushCommandMatrix();
-                    Game.playerCharacter.SetState(Game.playerCharacter.facingDown);
                     Game.playerCharacter.CurrentState.Sprite.Animation.Stop();
+                    Game.playerCharacter.SetState(Game.playerCharacter.facingDown);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                    // Workaround since ResetGame is a private member of Game.RESET
+                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
                     CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.LOSE:
                     KeyboardManager.Instance.PushCommandMatrix();
+                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                    // Workaround since ResetGame is a private member of Game.RESET
+                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
                     CurrentRoom = new LoseWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.RETURN:

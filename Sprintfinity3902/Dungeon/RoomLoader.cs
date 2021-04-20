@@ -52,6 +52,7 @@ namespace Sprintfinity3902.Dungeon
 
         int enemyID;
         int spikeNum;
+        private bool UseRoomGen;
 
         public RoomLoader(IPlayer player, IDungeon dung, Game1 game)
         {
@@ -62,16 +63,17 @@ namespace Sprintfinity3902.Dungeon
 
         public RoomLoader() { }
 
-        public void Initialize(IRoom room) {
+        public void Initialize(IRoom room, bool useRoomGen) {
             Room = room;
             mapStream = new StreamReader(Room.path);
+            UseRoomGen = useRoomGen;
             spikeNum = 1;
             enemyID = 0;
         }
 
         public void Build()
         {
-            if (Room.Id == 13) { build13(); return; }
+            if (Room.Id == 13 && !UseRoomGen) { build13(); return; }
             string line;
             int currX = THIRTY_TWO * Global.Var.SCALE;
             int currY = NINETY_SIX*Global.Var.SCALE;
@@ -201,7 +203,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void BuildWallAndFloor(string input)
         {
-            if (Room.Id == 13) { build13WallAndFloor(input); return; }
+            if (Room.Id == 13 && !UseRoomGen) { build13WallAndFloor(input); return; }
             switch (input)
             {
                 //WALLS AND FLOORS
@@ -270,7 +272,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void BuildBlocks(string input)
         {
-            if (Room.Id == 13) { buildblocks13(input); return; }
+            if (Room.Id == 13  && !UseRoomGen) { buildblocks13(input); return; }
             switch (input)
             {
                 //BLOCKS

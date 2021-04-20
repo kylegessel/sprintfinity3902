@@ -42,11 +42,14 @@ namespace Sprintfinity3902.States.GameStates
         {
             if (Game.PreviousState.Equals(Game.PAUSED_TRANSITION) || Game.PreviousState.Equals(Game.FLUTE))
             {
+                // This is bad practice for state autanomy but difficult to remove. It's fine for now.
                 KeyboardManager.Instance.PopCommandMatrix();
             }
             else if (Game.PreviousState.Equals(Game.INTRO))
             {
-                KeyboardManager.Instance.PopCommandMatrix();
+                /* We know that the command matrix has one layer here, so we'll push the playing commands
+                 * and copy the previous layer; quit and reset commands
+                 */
                 KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
                 KeyboardManager.Instance.RegisterKeyUpCallback(PauseGame, Keys.P);
                 Game.dungeon.Initialize();

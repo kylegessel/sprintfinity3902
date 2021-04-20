@@ -112,10 +112,6 @@ namespace Sprintfinity3902.Entities
             }
         }
 
-        int IEnemy.HitRegister(int enemyID, int damage, int stunLength, Direction projDirection, IRoom room)
-        {
-            return 0;
-        }
         public void SetState(IEnemyState state)
         {
             /*Position Logic seems counterintuitive. Whats the reasoning here*/
@@ -139,6 +135,11 @@ namespace Sprintfinity3902.Entities
         {
             Speed = NORMSPEED;
             dart = false;
+        }
+
+        public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
+        {
+            return 0;
         }
     }
 }

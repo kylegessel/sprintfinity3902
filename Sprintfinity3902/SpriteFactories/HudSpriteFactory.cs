@@ -231,5 +231,9 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new FluteIconSprite(hudSpriteSheet);
         }
+        public ISprite CreateInGameHudBottomBlackBarIcon()
+        {
+            return new InGameHudBottomBlackBarSprite(hudSpriteSheet);
+        }
     }
 }

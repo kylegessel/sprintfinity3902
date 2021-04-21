@@ -17,7 +17,7 @@ namespace Sprintfinity3902.Dungeon
         private static int MIDDLE_ROOM_MIN = 3;
         private static int MIDDLE_ROOM_MAX = 5;
         private static int START_ROOM_ID = 1;
-        private static int TOTAL_ROOMS = 16;
+        private static int TOTAL_ROOMS = 18;
         private static int NUM_OF_TEMPLATES = 20;
         private static int MAP_MIN = 0;
         private static int MAP_MAX = 7;
@@ -87,16 +87,25 @@ namespace Sprintfinity3902.Dungeon
             }
 
             //int test = 1;
+            int KeyID = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
+            int MapID = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
+            int CompassID = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
+
             //build csv file for each room
+
+
             foreach (KeyValuePair<Point, int> pair in LocationId)
             {
                 Point room = pair.Key;
                 id = pair.Value;
+
+                
+
+
                 if (id == START_ROOM_ID)
                 {
 
-                    //old template
-                    File.Copy(@"..\..\..\Content\RoomTemplates\Room2.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    File.Copy(@"..\..\..\Content\RoomTemplates\StartRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
                 else if (id == bossRoomId)
                 {
@@ -105,6 +114,18 @@ namespace Sprintfinity3902.Dungeon
                 else if (id == WIN_ROOM_ID)
                 {
                     File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\Shop"+currentFloor+".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                }
+                else if (id == KeyID)
+                {
+                    File.Copy(@"..\..\..\Content\RoomTemplates\KeyRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                }
+                else if (id == CompassID)
+                {
+                    File.Copy(@"..\..\..\Content\RoomTemplates\CompassRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                }
+                else if (id == MapID)
+                {
+                    File.Copy(@"..\..\..\Content\RoomTemplates\MapRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
                 else 
                 {

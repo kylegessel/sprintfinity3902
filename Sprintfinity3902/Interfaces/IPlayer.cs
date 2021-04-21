@@ -10,6 +10,7 @@ namespace Sprintfinity3902.Interfaces
             BOMB,
             BOOMERANG,
             BOW,
+            FLUTE,
             NONE
         }
         IPlayerState CurrentState { get; set; }

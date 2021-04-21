@@ -5,7 +5,6 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.SpriteFactories;
 using Sprintfinity3902.States.GameStates;
-using System.Collections.Generic;
 
 namespace Sprintfinity3902
 {
@@ -20,6 +19,7 @@ namespace Sprintfinity3902
         public IGameState PLAYING { get; set; }
         public IGameState PAUSED { get; set; }
         public IGameState PAUSED_TRANSITION { get; set; }
+        public IGameState FLUTE { get; set; }
         public IGameState CHANGE_ROOM { get; set; }
         public IGameState WIN { get; set; }
         public IGameState LOSE { get; set; }

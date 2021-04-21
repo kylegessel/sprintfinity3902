@@ -21,12 +21,14 @@ Enemies:
 BBAT: Blue Bat
 SKLN: Skeleton
 BOSS: Final Boss
+DIGD: Digdogger Boss
 DODO: Dodongo Boss
 FIRE: Fire
 GELY: Gel
 GHMA: Gohma Boss
 GORY: Goriya
 HAND: Hand
+MANH: Manhandla Boss
 OLDM: Old Man NPC
 SPKE: Spike 
 MNFR: Old Man and Fire Enemies
@@ -39,6 +41,7 @@ BOWI: Bow
 CLCK: Clock
 CMPS: Compass
 FARY: Fairy
+FLUT: Flute
 HCON: Heart Container
 HART: Heart
 MAPI: Map

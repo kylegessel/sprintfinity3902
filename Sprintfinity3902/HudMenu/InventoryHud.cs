@@ -81,7 +81,7 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
-        public InventoryHud()
+        private InventoryHud()
         {
             Icons = new List<IEntity>();
             WorldPoint = new Vector2(0, -176 * Global.Var.SCALE);
@@ -91,6 +91,7 @@ namespace Sprintfinity3902.HudMenu
                 {IPlayer.SelectableWeapons.BOW , typeof(BowIcon)},
                 {IPlayer.SelectableWeapons.BOOMERANG , typeof(BoomerangIcon)},
                 {IPlayer.SelectableWeapons.BOMB , typeof(BombIcon)},
+                {IPlayer.SelectableWeapons.FLUTE , typeof(FluteIcon)},
                 {IPlayer.SelectableWeapons.NONE , typeof(BlackLongIcon) }
                 /*Add necessary mappings here for ALL possible enum to icons*/
 
@@ -115,10 +116,47 @@ namespace Sprintfinity3902.HudMenu
                 availableItems.Remove(weapon);
         }
 
+        /*public void MoveSelectorRight()
+        {
+            if (availableItems.Count == 0) return;
+            int currentPos;
+            if (!availableItems.Contains(Link.SelectedWeapon)) {
+                currentPos = 0;
+            } else {
+                currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            }
+            Link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
+            MoveSelector(Link);
+            SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            ((InGameHud)parent.InGame).UpdateSelectedItems(Link.SelectedWeapon);
+
+        }
+
+        public void MoveSelectorLeft()
+        {
+            if (availableItems.Count == 0) return;
+            int currentPos;
+            if (!availableItems.Contains(Link.SelectedWeapon)) {
+                currentPos = 0;
+            } else {
+                currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            }
+            Link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
+            MoveSelector(Link);
+            SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+            ((InGameHud)parent.InGame).UpdateSelectedItems(Link.SelectedWeapon);
+
+        }*/
+
         public void MoveSelectorRight()
         {
             if (availableItems.Count == 0) return;
-            int currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            int currentPos;
+            if (!availableItems.Contains(Link.SelectedWeapon)) {
+                currentPos = 0;
+            } else {
+                currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            }
             Link.SelectedWeapon = currentPos == availableItems.Count - 1 ? availableItems[0] : availableItems[currentPos + 1];
             MoveSelector(Link);
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
@@ -129,7 +167,12 @@ namespace Sprintfinity3902.HudMenu
         public void MoveSelectorLeft()
         {
             if (availableItems.Count == 0) return;
-            int currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            int currentPos;
+            if (!availableItems.Contains(Link.SelectedWeapon)) {
+                currentPos = 0;
+            } else {
+                currentPos = availableItems.IndexOf(Link.SelectedWeapon);
+            }
             Link.SelectedWeapon = currentPos == 0 ? availableItems[availableItems.Count - 1] : availableItems[currentPos - 1];
             MoveSelector(Link);
             SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);

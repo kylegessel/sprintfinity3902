@@ -142,16 +142,28 @@ namespace Sprintfinity3902.Dungeon
             bombItem.Update(gameTime);
 
 
-            if(!CurrentRoom.roomCleared && CurrentRoom.enemies.Keys.Count == 0)
+            if(!CurrentRoom.roomCleared)
             {
-                foreach(IDoor door in CurrentRoom.doors)
+                bool enemiesCleared = true;
+                foreach(IEnemy enemy in CurrentRoom.enemies.Values)
                 {
-                    if(!door.CurrentState.IsOpen && !door.CurrentState.IsBombable && !door.CurrentState.IsLocked)
+                    if (!(enemy.GetType().Equals(typeof(FireEnemy)) || enemy.GetType().Equals(typeof(OldManNPC)) || enemy.GetType().Equals(typeof(OldMan_FireEnemy)) || enemy.GetType().Equals(typeof(SpikeEnemy))))
                     {
-                        door.Open();
+                        enemiesCleared = false;
                     }
                 }
-                CurrentRoom.roomCleared = true;
+
+                if (enemiesCleared)
+                {
+                    foreach (IDoor door in CurrentRoom.doors)
+                    {
+                        if (!door.CurrentState.IsOpen && !door.CurrentState.IsBombable && !door.CurrentState.IsLocked)
+                        {
+                            door.Open();
+                        }
+                    }
+                    CurrentRoom.roomCleared = true;
+                }
             }
         }
 

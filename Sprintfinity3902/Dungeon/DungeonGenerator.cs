@@ -18,7 +18,7 @@ namespace Sprintfinity3902.Dungeon
         private static int MIDDLE_ROOM_MAX = 5;
         private static int START_ROOM_ID = 1;
         private static int TOTAL_ROOMS = 16;
-        private static int NUM_OF_TEMPLATES = 4;
+        private static int NUM_OF_TEMPLATES = 20;
         private static int MAP_MIN = 0;
         private static int MAP_MAX = 7;
         public static DungeonGenerator Instance
@@ -46,6 +46,8 @@ namespace Sprintfinity3902.Dungeon
 
         public int PopulateRooms()
         {
+
+            int currentFloor = 5;
             HashSet<Point> RoomLocations = new HashSet<Point>();
             HashSet<Point> FinalRooms = new HashSet<Point>();
             
@@ -104,19 +106,21 @@ namespace Sprintfinity3902.Dungeon
                 id = pair.Value;
                 if (id == START_ROOM_ID)
                 {
+
+                    //old template
                     File.Copy(@"..\..\..\Content\RoomTemplates\Room2.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
                 else if (id == bossRoomId)
                 {
-                    File.Copy(@"..\..\..\Content\RoomTemplates\RoomBoss.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\BossRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
                 else if (id == WIN_ROOM_ID)
                 {
-                    File.Copy(@"..\..\..\Content\RoomTemplates\RoomWin.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\RoomWin.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
                 else 
                 {
-                    File.Copy(@"..\..\..\Content\RoomTemplates\Room" + Random.Next(1,NUM_OF_TEMPLATES+1) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\Room" + Random.Next(1,NUM_OF_TEMPLATES+1) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
 
                 

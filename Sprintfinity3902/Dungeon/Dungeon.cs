@@ -187,7 +187,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void NextRoom()
         {
-            int currentId = (CurrentRoom.Id + 1) % numRooms == 0 ? 1 : CurrentRoom.Id + 1;
+            int currentId = (CurrentRoom.Id + 1) % numRooms + 1 == 0 ? 1 : CurrentRoom.Id + 1;
             SetCurrentRoom(currentId);
             foreach (IDoor door in CurrentRoom.doors)
             {

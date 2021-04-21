@@ -87,9 +87,17 @@ namespace Sprintfinity3902.Dungeon
             }
 
             //int test = 1;
-            int KeyID = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
-            int MapID = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
-            int CompassID = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
+            int KeyId = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
+            int MapId = KeyId;
+            int CompassId = KeyId;
+            while (KeyId == MapId)
+            {
+                MapId = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
+            }
+            while (KeyId == CompassId)
+            {
+                CompassId = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
+            }
 
             //build csv file for each room
 
@@ -115,15 +123,15 @@ namespace Sprintfinity3902.Dungeon
                 {
                     File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\Shop"+currentFloor+".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
-                else if (id == KeyID)
+                else if (id == KeyId)
                 {
                     File.Copy(@"..\..\..\Content\RoomTemplates\KeyRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
-                else if (id == CompassID)
+                else if (id == CompassId)
                 {
                     File.Copy(@"..\..\..\Content\RoomTemplates\CompassRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
-                else if (id == MapID)
+                else if (id == MapId)
                 {
                     File.Copy(@"..\..\..\Content\RoomTemplates\MapRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }

@@ -20,6 +20,7 @@ namespace Sprintfinity3902.Dungeon
         public Dictionary<int, IEntity> enemies { get; set; }
         public List<IEntity> items { get; set; }
         public List<IEntity> enemyProj { get; set; }
+        public List<IShop> shops { get; set; }
         public List<IEntity> garbage { get; set; }
         public List<IDoor> doors { get; set; }
         public Point RoomPos { get; set; }
@@ -42,6 +43,7 @@ namespace Sprintfinity3902.Dungeon
             garbage = new List<IEntity>();
             enemyProj = new List<IEntity>();
             doors = new List<IDoor>();
+            shops = new List<IShop>();
             RoomPos = new Point(INITIAL_ROOM_X, INITIAL_ROOM_Y);
             WinRoom = false;
             RoomType = INITIAL_ROOM_TYPE;
@@ -67,6 +69,10 @@ namespace Sprintfinity3902.Dungeon
                 entity.Update(gameTime);
             foreach (IDoor door in doors)
                 door.Update(gameTime);
+
+            foreach (IShop shop in shops)
+                shop.Update(gameTime);
+
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, Color color)
@@ -84,7 +90,8 @@ namespace Sprintfinity3902.Dungeon
             foreach (IEntity entity in garbage)
                 entity.Draw(spriteBatch, color);
 
-
+            foreach (IShop shop in shops)
+                shop.Draw(spriteBatch, color);
         }
 
         /*MAGIC NUMBERS REFACTOR*/

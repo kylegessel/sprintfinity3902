@@ -4,10 +4,9 @@ namespace Sprintfinity3902.Entities
 {
     public class GoriyaAI
     {
-
+        private static int ONE = 1;
         private static int TWO =2;
         private static int THREE=3;
-        private static int ONE =1;
         private static int FOUR = 4;
         private static int FIVE = 5;
 

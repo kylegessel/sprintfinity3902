@@ -18,7 +18,7 @@ namespace Sprintfinity3902.Entities
         private static int THREE = 3;
         private static int TWO_HUNDRED_FORTY  = 240;
         private static int FORTY = 40;
-        private static float F_DOT_FOUR = .4f;
+        private static float SPEED = .4f;
 
         private Random rd1 = new Random();
         private int count;
@@ -37,7 +37,7 @@ namespace Sprintfinity3902.Entities
             direction = intToDirection(rd1.Next(1, 5));
             count = 0;
             health = 2;
-            speed = 0.4f;
+            speed = SPEED;
             color = Color.White;
             decorate = false;
         }
@@ -48,7 +48,7 @@ namespace Sprintfinity3902.Entities
             direction = intToDirection(rd1.Next(1, 5));
             count = 0;
             health = 2;
-            speed = 0.4f;
+            speed = SPEED;
             color = Color.White;
             decorate = false;
         }
@@ -96,7 +96,7 @@ namespace Sprintfinity3902.Entities
             {
                 direction = intToDirection(rd1.Next(ONE, FIVE));
                 count = Global.Var.ZERO;
-                speed = F_DOT_FOUR;
+                speed = SPEED;
                 decorate = false;
             }
 

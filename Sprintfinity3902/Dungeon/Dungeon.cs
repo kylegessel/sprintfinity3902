@@ -120,6 +120,8 @@ namespace Sprintfinity3902.Dungeon
                     WinLocation = room.RoomPos;
                 }
             }
+            HudMenu.DungeonHud.Instance.SetInitialRoom(GetById(2)); /*Can I just use CurrentRoom here??*/
+            HudMenu.MiniMapHud.Instance.InitializeRooms(RoomLocations, GetById(2).RoomPos, WinLocation);
         }
 
         public void Update(GameTime gameTime)
@@ -127,10 +129,12 @@ namespace Sprintfinity3902.Dungeon
             if (changeRoom.Change)
             {
                 changeRoom.Update(gameTime);
+                HudMenu.DungeonHud.Instance.RoomChange(this);
+                HudMenu.MiniMapHud.Instance.UpdateHudLinkLoc(this.CurrentRoom.RoomPos);
             }
             else
             {
-                CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage, (IProjectile)Game.bombExplosion);
+                CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, CurrentRoom.shops, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage, (IProjectile)Game.bombExplosion);
                 CurrentRoom.Update(gameTime);
                 foreach (IEntity entity in linkProj)
                 {
@@ -180,6 +184,9 @@ namespace Sprintfinity3902.Dungeon
             int currentId = (CurrentRoom.Id + 1) % 19 == 0 ? 1 : CurrentRoom.Id + 1;
             SetCurrentRoom(currentId);
             SetLinkPosition();
+
+            HudMenu.DungeonHud.Instance.RoomChange(this);
+            HudMenu.MiniMapHud.Instance.UpdateHudLinkLoc(this.CurrentRoom.RoomPos);
         }
 
         public void PreviousRoom()
@@ -187,6 +194,9 @@ namespace Sprintfinity3902.Dungeon
             int currentId = (CurrentRoom.Id - 1) < 1 ? 18 : CurrentRoom.Id - 1;
             SetCurrentRoom(currentId);
             SetLinkPosition();
+
+            HudMenu.DungeonHud.Instance.RoomChange(this);
+            HudMenu.MiniMapHud.Instance.UpdateHudLinkLoc(this.CurrentRoom.RoomPos);
         }
 
         public IRoom GetCurrentRoom()

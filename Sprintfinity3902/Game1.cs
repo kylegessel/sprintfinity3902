@@ -35,8 +35,6 @@ namespace Sprintfinity3902
         public PauseMenu pauseMenu;
         public OptionMenu optionMenu;
 
-        public IHud dungeonHud;
-        public IHud miniMapHud;
         public IEntity bombExplosion;
 
         public Game1()
@@ -63,6 +61,7 @@ namespace Sprintfinity3902
             BlockSpriteFactory.Instance.LoadAllTextures(Content);
             HudSpriteFactory.Instance.LoadAllTextures(Content);
             FontSpriteFactory.Instance.LoadAllTextures(Content);
+            ShopSpriteFactory.Instance.LoadAllTextures(Content);
 
             SoundLoader.Instance.LoadContent(Content);
 

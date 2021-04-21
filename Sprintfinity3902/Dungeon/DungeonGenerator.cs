@@ -104,7 +104,7 @@ namespace Sprintfinity3902.Dungeon
                 }
                 else if (id == WIN_ROOM_ID)
                 {
-                    File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\RoomWin.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\Shop"+currentFloor+".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
                 else 
                 {

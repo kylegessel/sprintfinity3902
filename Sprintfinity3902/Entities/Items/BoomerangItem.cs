@@ -36,7 +36,9 @@ namespace Sprintfinity3902.Entities
         float YDiff;
         float BoomerangOutChange;
         public Direction FireDirection { get; set; }
-        
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
+
 
         public BoomerangItem()
         {
@@ -44,6 +46,8 @@ namespace Sprintfinity3902.Entities
             Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
             ItemUse = false;
             bounce = false;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             MoveUseCount = 1;
             ID = IItem.ITEMS.BOOMERANG;
             MaxMoveUseCount = 120;
@@ -196,7 +200,7 @@ namespace Sprintfinity3902.Entities
             GoriyaUse = true;
         }
 
-        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room)
+        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room, IPlayer player)
         {
             if (MoveUseCount < SIXTY)
             {

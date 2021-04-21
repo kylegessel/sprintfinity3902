@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Collision;
+using Sprintfinity3902.Entities.Doors;
 using Sprintfinity3902.Entities.Enemies_NPCs;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
@@ -42,6 +43,9 @@ namespace Sprintfinity3902.Entities
         private Vector2 firstPos;
         private IRoom room;
         private IDungeon dungeon;
+
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
 
         public HandEnemy(Vector2 pos, IPlayer player, IRoom _room, IDungeon dung)
         {
@@ -104,7 +108,11 @@ namespace Sprintfinity3902.Entities
                     speed = INITIAL_SPEED;
                     animationCounter = 0;
                     Position = firstPos;
-                    dungeon.ChangeRoom(2, States.Door.DoorDirection.UP);
+                    Door door = new Door(new Vector2(-1000, -1000));
+                    door.DoorDestination = 2;
+                    door.SetState(door.openDoorTop);
+                    dungeon.ChangeRoom(door);
+                    //dungeon.ChangeRoom(2, States.Door.DoorDirection.UP);
                     //link.Position = new Vector2(100, 1)
                     return;
                 }

@@ -33,7 +33,7 @@ namespace Sprintfinity3902.States.Door
         // To be implemented when room first entered, door starts opened then closes.
         public void Close()
         {
-            //NULL
+            CurrentDoor.SetState(CurrentDoor.closedLockedDoorRight);
         }
     }
 }

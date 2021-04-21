@@ -20,6 +20,7 @@ namespace Sprintfinity3902
         public IGameState PAUSED { get; set; }
         public IGameState PAUSED_TRANSITION { get; set; }
         public IGameState FLUTE { get; set; }
+        public IGameState CHANGE_ROOM { get; set; }
         public IGameState WIN { get; set; }
         public IGameState LOSE { get; set; }
         public IGameState OPTIONS { get; set; }

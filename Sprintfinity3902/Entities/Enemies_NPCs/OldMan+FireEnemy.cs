@@ -23,6 +23,8 @@ namespace Sprintfinity3902.Entities
 
         private IEntity fireEnemy1;
         private IEntity fireEnemy2;
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
 
         public OldMan_FireEnemy(Vector2 pos, IEntity fire1, IEntity fire2)
         {
@@ -36,6 +38,9 @@ namespace Sprintfinity3902.Entities
             
             Position = pos;
             color = Color.White;
+
+            EnemyHealth = 1;
+            EnemyAttack = 1;
 
             counter = 0;
             count = 1;

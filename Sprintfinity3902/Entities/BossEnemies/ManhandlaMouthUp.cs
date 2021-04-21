@@ -28,6 +28,9 @@ namespace Sprintfinity3902.Entities
         private int attackCount;
         private int random;
 
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
+
         public ManhandlaMouthUp(Vector2 pos, IAttack fire)
         {
             Sprite = EnemySpriteFactory.Instance.CreateManhandlaUpMouth();

@@ -51,7 +51,8 @@ namespace Sprintfinity3902.Entities
         public IEnemyState leftDamaged { get; set; }
         public IEnemyState rightDamaged { get; set; }
 
-
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
         public DodongoBoss(Vector2 pos)
         {
             Position = pos;
@@ -67,6 +68,9 @@ namespace Sprintfinity3902.Entities
 
             CurrentState = leftMoving;
             CurrentState.Start = true;
+
+            EnemyHealth = 0;
+            EnemyAttack = 1;
 
             direction = LEFT;
             count = 0;

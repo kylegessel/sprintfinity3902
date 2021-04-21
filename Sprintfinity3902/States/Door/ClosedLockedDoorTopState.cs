@@ -3,7 +3,7 @@ using Sprintfinity3902.SpriteFactories;
 
 namespace Sprintfinity3902.States.Door
 {
-    class OpenDoorBottomState : IDoorState
+    class ClosedLockedDoorTopState : IDoorState
     {
 
         public Entities.Doors.Door CurrentDoor { get; set; }
@@ -14,25 +14,26 @@ namespace Sprintfinity3902.States.Door
         public DoorDirection doorDirection { get; set; }
 
 
-        public OpenDoorBottomState(Entities.Doors.Door currentDoor)
+
+        public ClosedLockedDoorTopState(Entities.Doors.Door currentDoor)
         {
             CurrentDoor = currentDoor;
-            Sprite = BlockSpriteFactory.Instance.CreateOpenDoorBottom();
-            IsOpen = true;
+            Sprite = BlockSpriteFactory.Instance.CreateLockedDoorTop();
+            IsOpen = false;
             IsLocked = false;
             IsBombable = false;
-            doorDirection = DoorDirection.DOWN;
+            doorDirection = DoorDirection.UP;
         }
 
         public void Open()
         {
-            //NULL
+            CurrentDoor.SetState(CurrentDoor.lockedDoorTop);
         }
 
         // To be implemented when room first entered, door starts opened then closes.
         public void Close()
         {
-            CurrentDoor.SetState(CurrentDoor.closedDoorBottom);
+            //Door can't be closed
         }
     }
 }

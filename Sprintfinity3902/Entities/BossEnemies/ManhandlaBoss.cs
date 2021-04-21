@@ -38,6 +38,8 @@ namespace Sprintfinity3902.Entities
         private ManhandlaMouthLeft leftMouth;
         private ManhandlaMouthRight rightMouth;
         private ManhandlaMouthUp upMouth;
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
 
 
         public ManhandlaBoss(Vector2 pos, IEntity down, IEntity left, IEntity right, IEntity up)
@@ -48,6 +50,8 @@ namespace Sprintfinity3902.Entities
             direction = LEFT;
             count = 0;
             speed = .2f;
+            EnemyHealth = 0;
+            EnemyAttack = 1;
             SetStepSize(speed);
 
             downMouth = (ManhandlaMouthDown) down;

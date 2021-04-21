@@ -19,7 +19,7 @@ namespace Sprintfinity3902.Entities
 
         private IEnemyState _currentState;
         private int distance;
-        
+
 
         public IEnemyState CurrentState
         {
@@ -43,6 +43,10 @@ namespace Sprintfinity3902.Entities
         public float Speed { get; set; }
         public float dartDist { get; set; }
         public int direction { get; set; }
+        public int EnemyHealth { get; set; }
+
+        public int EnemyAttack { get; set; }
+
 
         private RopeSnakeAI ropesnakeAI;
 
@@ -57,6 +61,8 @@ namespace Sprintfinity3902.Entities
             movingUpFacingLeft = new RopeSnakeMovingUpFacingLeftState(this);
             CurrentState = movingRight;
             Position = pos;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             Speed = NORMSPEED;
             direction = RIGHT;
             ropesnakeAI = new RopeSnakeAI(this);
@@ -139,7 +145,7 @@ namespace Sprintfinity3902.Entities
 
         public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
-            return 0;
+            return EnemyHealth - damage;
         }
     }
 }

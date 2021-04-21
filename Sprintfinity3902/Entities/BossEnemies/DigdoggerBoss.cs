@@ -20,6 +20,7 @@ namespace Sprintfinity3902.Entities
         private const int STUNNED_Y_OFFSET = 16;
 
         private const int HEALTH = 5;
+        private const int ATTACK = 1;
         private const float SPEED = .35f;
         private const float STUNNED_SPEED = .1f;
         private const int DECORATE_TIME = 5;
@@ -33,7 +34,8 @@ namespace Sprintfinity3902.Entities
         private int random;
         public float speed;
 
-        private int health;
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
         private bool decorate;
         private int decorateCount;
         private int decorateTime;
@@ -76,7 +78,8 @@ namespace Sprintfinity3902.Entities
             decorateTime = DECORATE_TIME;
             decorate = false;
             random = new Random().Next(LOWER_BOUND, UPPER_BOUND);
-            health = HEALTH;
+            EnemyHealth = HEALTH;
+            EnemyAttack = ATTACK;
             speed = SPEED;
             SetStepSize(speed);
         }
@@ -125,10 +128,10 @@ namespace Sprintfinity3902.Entities
         {
             if (CurrentState == stunned)
             {
-                health = health - damage;
+                EnemyHealth = EnemyHealth - damage;
                 decorate = true;
                 decorateCount = Global.Var.ZERO;
-                return health;
+                return EnemyHealth;
             }
             else
             {

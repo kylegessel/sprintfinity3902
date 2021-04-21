@@ -172,6 +172,10 @@ namespace Sprintfinity3902.Dungeon
         {
             int currentId = (CurrentRoom.Id + 1) % 19 == 0 ? 1 : CurrentRoom.Id + 1;
             SetCurrentRoom(currentId);
+            foreach (IDoor door in CurrentRoom.doors)
+            {
+                door.roomEntered = true;
+            }
             SetLinkPosition();
 
             HudMenu.DungeonHud.Instance.RoomChange(this);
@@ -182,6 +186,10 @@ namespace Sprintfinity3902.Dungeon
         {
             int currentId = (CurrentRoom.Id - 1) < 1 ? 18 : CurrentRoom.Id - 1;
             SetCurrentRoom(currentId);
+            foreach (IDoor door in CurrentRoom.doors)
+            {
+                door.roomEntered = true;
+            }
             SetLinkPosition();
 
             HudMenu.DungeonHud.Instance.RoomChange(this);

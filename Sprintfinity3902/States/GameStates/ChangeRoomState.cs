@@ -235,13 +235,13 @@ namespace Sprintfinity3902.States.GameStates
 
             foreach (IDoor door in nextRoom.doors)
             {
-                Debug.WriteLine(door.roomEntered);
                 if (!door.roomEntered)
                 {
                     door.roomEntered = true;
                     door.Close();
                 }
             }
+            HudMenu.MiniMapHud.Instance.UpdateHudLinkLoc(nextRoom.RoomPos);
             Game.SetState(Game.PLAYING);
         }
         public void SetLinkPositionUp()

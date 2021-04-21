@@ -35,7 +35,9 @@ namespace Sprintfinity3902.States.GameStates
             SoundManager.Instance.Reset();
             CollisionDetector.Instance.Reset();
 
-            IPlayer savedLink = (IPlayer)Game.link;
+            Global.Var.floor++;
+
+            IPlayer savedLink = Game.playerCharacter;
 
             int currHealth = savedLink.LinkHealth;
             int maxHealth = savedLink.MaxHealth;

@@ -5,8 +5,10 @@
         public static int SCALE = 4;
         public static int ZERO = 0;
 
+        public static int floor = 1;
+
         /*Audio*/
-        public static float VOLUME = 0.70f;
+        public static float VOLUME = 0.00f;
         public static float PITCH, PAN = 0.0f;
 
         /*Tile Size*/

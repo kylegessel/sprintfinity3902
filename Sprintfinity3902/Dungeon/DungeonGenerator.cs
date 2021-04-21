@@ -47,7 +47,7 @@ namespace Sprintfinity3902.Dungeon
         public int PopulateRooms()
         {
 
-            int currentFloor = 5;
+            int currentFloor = Global.Var.floor;
             HashSet<Point> RoomLocations = new HashSet<Point>();
             HashSet<Point> FinalRooms = new HashSet<Point>();
             
@@ -56,10 +56,6 @@ namespace Sprintfinity3902.Dungeon
             int id;
             int bossRoomId = WIN_ROOM_ID - 1;
             int preBossRoomId = bossRoomId - 1;
-
-            Point bossRoom = new Point(0,0);
-            Point preBossRoom = new Point(0, 0);
-            Point winRoom = new Point(0, 0);
 
 
             Point startPoint = new Point(Random.Next(MIDDLE_ROOM_MIN, MIDDLE_ROOM_MAX), Random.Next(MIDDLE_ROOM_MIN, MIDDLE_ROOM_MAX));
@@ -81,24 +77,16 @@ namespace Sprintfinity3902.Dungeon
             {
                 Point room = pair.Key;
                 id = pair.Value;
-
-                if (id == bossRoomId)
+                
+                if (id == preBossRoomId)
                 {
-                    bossRoom = room;
-                }
-                else if (id == WIN_ROOM_ID)
-                {
-                    winRoom = room;
-                }
-                else if (id == preBossRoomId)
-                {
-                    preBossRoom = room;
                     FinalRooms.Add(room);
                 }
                 
 
             }
 
+            //int test = 1;
             //build csv file for each room
             foreach (KeyValuePair<Point, int> pair in LocationId)
             {
@@ -121,6 +109,9 @@ namespace Sprintfinity3902.Dungeon
                 else 
                 {
                     File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\Room" + Random.Next(1,NUM_OF_TEMPLATES+1) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    //File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\Room" + test + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    //test++;
+                    //if (test > 20) test = 1;
                 }
 
                 

@@ -50,7 +50,12 @@ namespace Sprintfinity3902.Dungeon
         private IDungeon dungeon;
         private Game1 Game;
 
+        private Array EnemyTypes = Enum.GetValues(typeof(IEnemy.ENEMIES));
+
         int enemyID;
+        Random random;
+        IEnemy.ENEMIES wildcard1;
+        IEnemy.ENEMIES wildcard2;
         int spikeNum;
         private bool UseRoomGen;
 
@@ -59,6 +64,7 @@ namespace Sprintfinity3902.Dungeon
             link = player;
             dungeon = dung;
             Game = game;
+            random = new Random();
         }
 
         public RoomLoader() { }
@@ -69,6 +75,8 @@ namespace Sprintfinity3902.Dungeon
             UseRoomGen = useRoomGen;
             spikeNum = 1;
             enemyID = 0;
+            wildcard1 = (IEnemy.ENEMIES)EnemyTypes.GetValue(random.Next(2));
+            wildcard2 = (IEnemy.ENEMIES)EnemyTypes.GetValue(random.Next(EnemyTypes.Length));
         }
 
         public void Build()
@@ -327,6 +335,19 @@ namespace Sprintfinity3902.Dungeon
                     break;
 
                 //ENEMIES
+                case "WILD":
+                    IEnemy.ENEMIES pick = (IEnemy.ENEMIES)EnemyTypes.GetValue(random.Next(EnemyTypes.Length));
+                    Room.enemies.Add(enemyID, BuildEnumEnemy(pick));
+                    enemyID++;
+                    break;
+                case "WLD1":
+                    Room.enemies.Add(enemyID, BuildEnumEnemy(wildcard1));
+                    enemyID++;
+                    break;
+                case "WLD2":
+                    Room.enemies.Add(enemyID, BuildEnumEnemy(wildcard2));
+                    enemyID++;
+                    break;
                 case "BBAT":
                     IEntity bat = new BlueBatEnemy(Position);
                     Room.enemies.Add(enemyID, bat);
@@ -610,6 +631,37 @@ namespace Sprintfinity3902.Dungeon
                     DoorRight.DoorDestination = Int16.Parse(destination);
                     break;
             }
+
+        }
+
+        private IEntity BuildEnumEnemy(IEnemy.ENEMIES selection)
+        {
+            IEntity newEnemy;
+            switch (selection)
+            {
+                case IEnemy.ENEMIES.BAT:
+                    newEnemy = new BlueBatEnemy(Position);
+                    break;
+                case IEnemy.ENEMIES.GEL:
+                    newEnemy = new GelEnemy(Position);
+                    newEnemy.X = newEnemy.Position.X + FOUR * Global.Var.SCALE;
+                    newEnemy.Y = newEnemy.Position.Y + FOUR * Global.Var.SCALE;
+                    break;
+                case IEnemy.ENEMIES.SKELETON:
+                    newEnemy = new SkeletonEnemy(Position);
+                    break;
+                case IEnemy.ENEMIES.GORIYA:
+                    IEntity goriyaBoomerang = new BoomerangItem();
+                    Room.enemyProj.Add(goriyaBoomerang);
+                    newEnemy = new GoriyaEnemy(goriyaBoomerang, Position);
+                    break;
+                default:
+                    newEnemy = new DodongoBoss(Position);
+                    break;
+            }
+
+            return newEnemy;
+
 
         }
     }

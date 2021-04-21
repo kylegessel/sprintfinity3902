@@ -34,10 +34,12 @@ namespace Sprintfinity3902.Interfaces
 
         void TogglePlayerVisible();
 
+        bool wantsSoftReset { get; set; }
 
         /*These methods are only used when link is not invinsible (damaged state)*/
         void TakeDamage();
         void BounceOfEnemy(ICollision.CollisionSide Side);
         void StopLowHealth();
+        void GiveItemsBack(int currentHealth, int maxHealth, Dictionary<IItem.ITEMS, int> inventory);
     }
 }

@@ -61,6 +61,7 @@ namespace Sprintfinity3902.Link
 
         private bool isVisible;
 
+        public bool wantsSoftReset { get; set; }
         public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
         private Game1 game;
@@ -92,6 +93,7 @@ namespace Sprintfinity3902.Link
             _deathSpinCount = 0.0;
             SelectedWeapon = IPlayer.SelectableWeapons.NONE;
 
+            wantsSoftReset = false;
             isVisible = true;
 
         itemcount = new Dictionary<IItem.ITEMS, int>();
@@ -109,7 +111,7 @@ namespace Sprintfinity3902.Link
 
             if (win)
             {
-                game.SetState(game.WIN);
+                wantsSoftReset=true;
             }
         }
 
@@ -249,6 +251,16 @@ namespace Sprintfinity3902.Link
         {
             if (end) SetState(facingDown);
             _deathSpinCount = end ? 0.0 : 0.01;
+        }
+
+        public void GiveItemsBack(int currentHealth, int maxHealth, Dictionary<IItem.ITEMS, int> inventory)
+        {
+            LinkHealth = currentHealth;
+            MaxHealth = maxHealth;
+
+            itemcount.Clear();
+
+            itemcount = inventory;
         }
     }
 }

@@ -76,7 +76,7 @@ namespace Sprintfinity3902.States.GameStates
 
         private void ResetGame()
         {
-            Game.SetState(Game.SOFT_RESET);
+            Game.SetState(Game.RESET);
         }
 
         private void BuildStates()

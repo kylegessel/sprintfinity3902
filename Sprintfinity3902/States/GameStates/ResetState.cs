@@ -7,6 +7,7 @@ using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
+using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
 
 namespace Sprintfinity3902.States.GameStates
@@ -34,6 +35,10 @@ namespace Sprintfinity3902.States.GameStates
             KeyboardManager.Instance.Reset();
             SoundManager.Instance.Reset();
             CollisionDetector.Instance.Reset();
+
+            Global.Var.floor = 1;
+
+            BlockSpriteFactory.Instance.UpdateFloorSheet();
 
             Game.link = new Player(Game);
             Game.playerCharacter = (IPlayer)Game.link;

@@ -4,6 +4,15 @@ namespace Sprintfinity3902.Interfaces
 {
     public interface IEnemy : IEntity
     {
-           int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room);
+
+        enum ENEMIES
+        {
+            BAT,
+            GEL,
+            SKELETON,
+            GORIYA,
+        };
+
+        int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room);
     }
 }

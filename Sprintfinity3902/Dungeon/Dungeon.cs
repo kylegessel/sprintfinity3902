@@ -21,6 +21,8 @@ namespace Sprintfinity3902.Dungeon
     public class Dungeon : IDungeon
     {
 
+        private int DEFAULT_NUM_ROOMS = 18;
+
         public Game1 Game;
         private List<IRoom> dungeonRooms;
         public List<Point> RoomLocations { get; set; }
@@ -34,9 +36,11 @@ namespace Sprintfinity3902.Dungeon
         public IEntity bombItem { get; set; }
         public IEntity boomerangItem { get; set; }
 
-        private bool UseRoomGen = true;
+        private bool UseRoomGen = false;
 
         private string backgroundMusicInstanceID;
+
+        private int numRooms;
 
 
         public List<IEntity> linkProj;
@@ -60,7 +64,7 @@ namespace Sprintfinity3902.Dungeon
 
             if (UseRoomGen)
             {
-                int numRooms = DungeonGenerator.Instance.PopulateRooms();
+                numRooms = DungeonGenerator.Instance.PopulateRooms();
                 for (int roomNum = 1; roomNum <= numRooms; roomNum++)
                 {
                     dungeonRooms.Add(new Room(@"..\..\..\Content\GeneratedRooms\GenRoom" + roomNum + ".csv", roomNum));
@@ -69,7 +73,8 @@ namespace Sprintfinity3902.Dungeon
             } 
             else
             {
-                for (int roomNum = 1; roomNum <= 18; roomNum++)
+                numRooms = DEFAULT_NUM_ROOMS;
+                for (int roomNum = 1; roomNum <= numRooms; roomNum++)
                 {
                     dungeonRooms.Add(new Room(@"..\..\..\Content\Rooms\Room" + roomNum + ".csv", roomNum));
                 }
@@ -170,7 +175,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void NextRoom()
         {
-            int currentId = (CurrentRoom.Id + 1) % 19 == 0 ? 1 : CurrentRoom.Id + 1;
+            int currentId = (CurrentRoom.Id + 1) % numRooms+1 == 0 ? 1 : CurrentRoom.Id + 1;
             SetCurrentRoom(currentId);
             foreach (IDoor door in CurrentRoom.doors)
             {
@@ -184,7 +189,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void PreviousRoom()
         {
-            int currentId = (CurrentRoom.Id - 1) < 1 ? 18 : CurrentRoom.Id - 1;
+            int currentId = (CurrentRoom.Id - 1) < 1 ? numRooms : CurrentRoom.Id - 1;
             SetCurrentRoom(currentId);
             foreach (IDoor door in CurrentRoom.doors)
             {

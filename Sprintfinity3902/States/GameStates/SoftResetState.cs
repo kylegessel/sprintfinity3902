@@ -7,6 +7,7 @@ using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
+using Sprintfinity3902.SpriteFactories;
 using System.Collections.Generic;
 
 namespace Sprintfinity3902.States.GameStates
@@ -37,6 +38,8 @@ namespace Sprintfinity3902.States.GameStates
 
             Global.Var.floor++;
 
+            BlockSpriteFactory.Instance.UpdateFloorSheet();
+
             IPlayer savedLink = Game.playerCharacter;
 
             int currHealth = savedLink.LinkHealth;
@@ -56,10 +59,15 @@ namespace Sprintfinity3902.States.GameStates
             Game.dungeonHud = new DungeonHud(Game, Game.dungeon);
             Game.miniMapHud = new MiniMapHud(Game, Game.dungeon);
 
+            
+
+
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);
 
             BuildStates();
+
+            //HudMenu.InGameHud.Instance.UpdateItems(savedInventory[IItem.ITEMS.RUPEE], savedInventory[IItem.ITEMS.KEY], savedInventory[IItem.ITEMS.BOMB]);
 
             Game.SetState(Game.INTRO);
 

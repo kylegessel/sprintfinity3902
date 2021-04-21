@@ -319,8 +319,8 @@ namespace Sprintfinity3902.Dungeon
                     Room.blocks.Add(dark);
                     break;
                 case "STAR":
-                    IBlock star = new StairsBlock(Position);
-                    Room.blocks.Add(star);
+                    IEntity star = new StairItem(Position);
+                    Room.items.Add(star);
                     break;
                 case "STIP":
                     IBlock stip = new StripeBlock(Position);
@@ -383,14 +383,17 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemyProj.Add(center);
                     Room.enemies.Add(enemyID, new AquamentusBoss(Position, up, center, down));
                     enemyID++;
+                    Room.WinRoom = true;
                     break;
                 case "DIGD":
                     Room.enemies.Add(enemyID, new DigdoggerBoss(Position, Game));
                     enemyID++;
+                    Room.WinRoom = true;
                     break;
                 case "DODO":
                     Room.enemies.Add(enemyID, new DodongoBoss(Position));
                     enemyID++;
+                    Room.WinRoom = true;
                     break;
                 case "FIRE":
                     IEntity fireEnemy = new FireEnemy(Position, Room.enemyProj, link);
@@ -409,6 +412,7 @@ namespace Sprintfinity3902.Dungeon
                     Room.enemyProj.Add(fireAttack);
                     Room.enemies.Add(enemyID, new GohmaBoss(Position, fireAttack));
                     enemyID++;
+                    Room.WinRoom = true;
                     break;
                 case "GORY":
                     IEntity goriyaBoomerang = new BoomerangItem();
@@ -452,6 +456,7 @@ namespace Sprintfinity3902.Dungeon
                     IEntity manhandla = new ManhandlaBoss(Position, mouthDown, mouthLeft, mouthRight, mouthUp);
                     Room.enemies.Add(enemyID, manhandla);
                     enemyID++;
+                    Room.WinRoom = true;
                     break;
                 case "MNFR":
                     IEntity fire1 = new FireEnemy(Position, Room.enemyProj, link);
@@ -544,7 +549,6 @@ namespace Sprintfinity3902.Dungeon
                     triforce.X = triforce.Position.X + ELEVEN * Global.Var.SCALE;
                     triforce.Y = triforce.Position.Y + ELEVEN * Global.Var.SCALE;
                     Room.items.Add(triforce);
-                    Room.WinRoom = true;
                     break;
                 case "CRIT":
                     IItem crit = new AttackPowerUpItem(Position);

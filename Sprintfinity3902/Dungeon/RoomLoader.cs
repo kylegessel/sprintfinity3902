@@ -2,6 +2,7 @@
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Entities.Doors;
 using Sprintfinity3902.Interfaces;
+using Sprintfinity3902.SpriteFactories;
 using System;
 using System.IO;
 
@@ -449,7 +450,11 @@ namespace Sprintfinity3902.Dungeon
                     spikeNum++;
                     if(spikeNum > 4) { spikeNum = 1; }
                     break;
-
+                case "RPSK":
+                    IEntity ropesnake = new RopeSnakeEnemy(Position);
+                    Room.enemies.Add(enemyID, ropesnake);
+                    enemyID++;
+                    break;
 
                 //ITEMS
                 // Probably could use a static bomb and boomerang object now that I think of it.
@@ -524,6 +529,26 @@ namespace Sprintfinity3902.Dungeon
                     IItem crit = new AttackPowerUpItem(Position);
                     Room.items.Add(crit);
                     break;
+
+                //SHOP
+                case "SHPH":
+                    IShop heartShop = new HeartShop(Position);
+                    Room.shops.Add(heartShop);
+                    break;
+                case "SHPC":
+                    IShop containerShop = new HeartContainerShop(Position);
+                    Room.shops.Add(containerShop);
+                    break;
+                case "SHPB":
+                    IShop bombShop = new BombShop(Position);
+                    Room.shops.Add(bombShop);
+                    break;
+                    
+                case "RPBK":
+                    IBlock rupeeBlock = new RupeeBlock(Position);
+                    Room.blocks.Add(rupeeBlock); /*Add to blocks because they can not be picked up*/
+                    break;
+                    
             }
         }
 

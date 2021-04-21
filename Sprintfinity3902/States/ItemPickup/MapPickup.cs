@@ -11,9 +11,9 @@ namespace Sprintfinity3902.Entities
 
         public bool Pickup(IPlayer Link)
         {
-            //BuildMapHUD();
+            HudMenu.DungeonHud.Instance.MapPickedUp();
+            HudMenu.MiniMapHud.Instance.PickupMap();
             Link.itemcount[IItem.ITEMS.MAP]++;
-            //add Map HUD
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             return false;
 

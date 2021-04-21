@@ -18,18 +18,18 @@ namespace Sprintfinity3902.States.GameStates
 
         public void Update(GameTime gameTime)
         {
-            Game.dungeonHud.Update(gameTime);
+            HudMenu.DungeonHud.Instance.Update(gameTime);
             HudMenu.InGameHud.Instance.Update(gameTime);
             HudMenu.InventoryHud.Instance.Update(gameTime);
-            Game.miniMapHud.Update(gameTime);
+            HudMenu.MiniMapHud.Instance.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Game.dungeonHud.Draw(spriteBatch, Color.White);
+            HudMenu.DungeonHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
-            Game.miniMapHud.Draw(spriteBatch, Color.White);
+            HudMenu.MiniMapHud.Instance.Draw(spriteBatch, Color.White);
 
             Game.dungeon.Draw(spriteBatch);
 

@@ -16,63 +16,50 @@ namespace Sprintfinity3902.HudMenu
         private const int COMPASS_ICON_Y = -24;
         private const int BLOCK_SIZE = 8;
 
-        private Game1 Game;
-        private IPlayer Link;
         private HudInitializer hudInitializer;
-        private List<Point> RoomLocations;
         private bool MapPickup;
-        private bool CompassPickup;
         private IEntity LinkBlock;
         private IRoom CurrentRoom;
-        //public List<IEntity> Icons { get; private set; }
         public List<IEntity> Map { get; private set; }
         public List<int> AlreadyInMap { get; set; }
-        public IDungeon Dungeon { get; protected set; }
 
-        public DungeonHud(Game1 game, IDungeon dungeon)
+        /*Added to create Singleton*/
+        private static DungeonHud instance;
+        public static DungeonHud Instance
         {
-            Game = game;
-            Link = Game.playerCharacter;
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new DungeonHud();
+                }
+                return instance;
+            }
+        }
+
+        public DungeonHud()
+        {
             MapPickup = false;
-            CompassPickup = false;
             Icons = new List<IEntity>();
             Map = new List<IEntity>();
             AlreadyInMap = new List<int>();
             hudInitializer = new HudInitializer(this);
-            Dungeon = dungeon;
-            RoomLocations = dungeon.RoomLocations;
-            CurrentRoom = dungeon.CurrentRoom;
             WorldPoint = new Vector2(0, 0);
         }
 
         public override void Initialize()
         {
-            hudInitializer.InitializeDungeonHud(RoomLocations);
+            hudInitializer.InitializeDungeonHud();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (!MapPickup && Link.itemcount[IItem.ITEMS.MAP] > 0)
-            {
-                CreateInitialHudDungeon();
-                
-            }
-            if (!CompassPickup && Link.itemcount[IItem.ITEMS.COMPASS] > 0)
-            {
-                CreateCompassIcon();
-            }
-            if (CurrentRoom.Id != Dungeon.CurrentRoom.Id)
-            {
-                UpdateHudRooms();
-                UpdateHudLinkLoc();
-                CurrentRoom = Dungeon.CurrentRoom;
-            }
         }
 
-        public void CreateInitialHudDungeon()
+        public void MapPickedUp()
         {
-            int x = (Dungeon.CurrentRoom.RoomPos.X * BLOCK_SIZE + 2) * Global.Var.SCALE;
-            int y = (Dungeon.CurrentRoom.RoomPos.Y * BLOCK_SIZE + 2) * Global.Var.SCALE;
+            int x = (CurrentRoom.RoomPos.X * BLOCK_SIZE + 2) * Global.Var.SCALE;
+            int y = (CurrentRoom.RoomPos.Y * BLOCK_SIZE + 2) * Global.Var.SCALE;
             LinkBlock = new YellowLinkBlock(new Vector2(x + DUNGEON_INSIDE_MAP_X, y + DUNGEON_INSIDE_MAP_Y));
             foreach (IEntity room in Map)
             {
@@ -83,36 +70,47 @@ namespace Sprintfinity3902.HudMenu
             MapPickup = true;
         }
 
-        private void CreateCompassIcon()
+        public void CreateCompassIcon()
         {
             Icons.Add(new CompassIcon(new Vector2(COMPASS_ICON_X * Global.Var.SCALE, COMPASS_ICON_Y * Global.Var.SCALE)));
-            CompassPickup = true;
         }
 
-        public void UpdateHudRooms()
+        public void SetInitialRoom(IRoom room)
+        {
+            CurrentRoom = room;
+        }
+
+        public void RoomChange(IDungeon dungeon)
+        {
+            UpdateHudRooms(dungeon);
+            UpdateHudLinkLoc(dungeon);
+            CurrentRoom = dungeon.CurrentRoom;
+        }
+
+        private void UpdateHudRooms(IDungeon dungeon)
         {
             /*Add every room Link is in into the Map List*/
-            if (!AlreadyInMap.Contains(Dungeon.CurrentRoom.Id))
+            if (!AlreadyInMap.Contains(dungeon.CurrentRoom.Id))
             {
-                Map.Add(GetNewRoom(Dungeon.CurrentRoom));
-                AlreadyInMap.Add(Dungeon.CurrentRoom.Id);
+                Map.Add(GetNewRoom(dungeon.CurrentRoom));
+                AlreadyInMap.Add(dungeon.CurrentRoom.Id);
                 /*If map has already been picked up, add to Icons as well*/
-                if (MapPickup) Icons.Add(GetNewRoom(Dungeon.CurrentRoom));
+                if (MapPickup) Icons.Add(GetNewRoom(dungeon.CurrentRoom));
             }
         }
-        public void UpdateHudLinkLoc()
+        private void UpdateHudLinkLoc(IDungeon dungeon)
         {
             if (MapPickup)
             {
                 Icons.Remove(LinkBlock);
-                int deltaX = (Dungeon.CurrentRoom.RoomPos.X - CurrentRoom.RoomPos.X) * BLOCK_SIZE * Global.Var.SCALE;
+                int deltaX = (dungeon.CurrentRoom.RoomPos.X - CurrentRoom.RoomPos.X) * BLOCK_SIZE * Global.Var.SCALE;
                 if (deltaX != 0)
                 {
                     LinkBlock.X += deltaX;
                 }
                 else
                 {
-                    int deltaY = (Dungeon.CurrentRoom.RoomPos.Y - CurrentRoom.RoomPos.Y) * BLOCK_SIZE * Global.Var.SCALE;
+                    int deltaY = (dungeon.CurrentRoom.RoomPos.Y - CurrentRoom.RoomPos.Y) * BLOCK_SIZE * Global.Var.SCALE;
                     LinkBlock.Y += deltaY;
                 }
                 Icons.Add(LinkBlock);

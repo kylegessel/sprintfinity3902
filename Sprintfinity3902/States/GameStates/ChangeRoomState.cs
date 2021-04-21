@@ -86,11 +86,10 @@ namespace Sprintfinity3902.States.GameStates
                 door.Position = new Vector2(door.Position.X + CurrRoomPositionOffset.X, door.Position.Y + CurrRoomPositionOffset.Y);
                 door.Draw(spriteBatch, Color.White);
             }
-
-            Game.dungeonHud.Draw(spriteBatch, Color.White);
+            HudMenu.DungeonHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
-            Game.miniMapHud.Draw(spriteBatch, Color.White);
+            HudMenu.MiniMapHud.Instance.Draw(spriteBatch, Color.White);
         }
 
         public void Update(GameTime gameTime)
@@ -105,10 +104,10 @@ namespace Sprintfinity3902.States.GameStates
                 door.Update(gameTime);
             }
 
-            Game.dungeonHud.Update(gameTime);
+            HudMenu.DungeonHud.Instance.Update(gameTime);
             HudMenu.InGameHud.Instance.Update(gameTime);
             HudMenu.InventoryHud.Instance.Update(gameTime);
-            Game.miniMapHud.Update(gameTime);
+            HudMenu.MiniMapHud.Instance.Update(gameTime);
 
             if (Change)
             {

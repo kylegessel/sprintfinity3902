@@ -12,6 +12,10 @@ namespace Sprintfinity3902.Collision
 {
     public class CollisionDetector {
 
+        private static int LEFT = 1;
+        private static int RIGHT = 2;
+        private static int UP = 3;
+        private static int DOWN = 4;
 
         Game1 gameInstance;
         IPlayer link;
@@ -55,11 +59,11 @@ namespace Sprintfinity3902.Collision
          * 
          * maybe this should just take in the room instead of each individual list
          */
-        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IEntity> linkProj, List<IEntity> enemyProj, List<IDoor> doors, List<IEntity> garbage, IProjectile bombExplosion) {
+        public void CheckCollision(Dictionary<int, IEntity> enemies, List<IBlock> blocks, List<IEntity> items, List<IShop> shops, List<IEntity> linkProj, List<IEntity> enemyProj, List<IDoor> doors, List<IEntity> garbage, IProjectile bombExplosion) {
             DetectLinkDamage(enemies, enemyProj);
             DetectBlockCollision(enemies, blocks, linkProj, enemyProj);
             DetectEnemyDamage(enemies, linkProj, items, garbage);
-            DetectItemPickup(items);
+            DetectItemPickup(items, shops);
             DetectDoorCollision(enemies, doors, linkProj, enemyProj, bombExplosion);
         }
         private void DetectDoorCollision(Dictionary<int, IEntity> enemies, List<IDoor> doors, List<IEntity> linkProj, List<IEntity> enemyProj, IProjectile bombExplosion)
@@ -278,12 +282,13 @@ namespace Sprintfinity3902.Collision
             }
         }
 
-        private void DetectItemPickup(List<IEntity> items)
+        private void DetectItemPickup(List<IEntity> items, List<IShop> shops)
         {
             if (!shouldCheck) return;
 
             Rectangle linkRect = ((IEntity)link).GetBoundingRect();
             List<IEntity> deletionList = new List<IEntity>();
+            List<IShop> boughtList = new List<IShop>();
 
             foreach (AbstractEntity item in items)
             {
@@ -293,11 +298,18 @@ namespace Sprintfinity3902.Collision
                     deletionList.Add(item);
                 }
             }
+            foreach (IShop shop in shops){
+                if (shop.GetBoundingRect().Intersects(linkRect) && link.itemcount[IItem.ITEMS.RUPEE] >= shop.Cost)
+                {
+                    shop.BuyItem(link);
+                    boughtList.Add(shop);
+                }
+            }
 
             foreach (AbstractEntity pickup in deletionList)
-            {
                 items.Remove(pickup);
-            }
+            foreach (IShop shop in boughtList)
+                shops.Remove(shop);
           
         }
 
@@ -311,6 +323,26 @@ namespace Sprintfinity3902.Collision
         {
             Rectangle bombRec = gameInstance.dungeon.bombItem.GetBoundingRect();
             return rec.Intersects(bombRec);
+        }
+
+        public int LinkInSight(Rectangle rec, int direction)
+        {
+            int distance = -1; ;
+            Rectangle linkRect = ((IEntity)link).GetBoundingRect();
+
+            if (rec.Intersects(linkRect))
+            {
+                if (direction == RIGHT)
+                    distance = linkRect.X - rec.X;
+                else if (direction == LEFT)
+                    distance = rec.X - linkRect.X;
+                else if (direction == UP)
+                    distance = rec.Y - linkRect.Y;
+                else if (direction == DOWN)
+                    distance = linkRect.Y - rec.Y;
+            }
+
+            return distance;
         }
 
         public void Pause() {

@@ -18,10 +18,8 @@ namespace Sprintfinity3902.States.GameStates
         public ILink Link;
         public IPlayer Player;
         public IMap Map { get; set; }
+        IRoom currentRoom;
         IRoom nextRoom;
-        Vector2 NextRoomPositionOffset;
-        Vector2 CurrRoomPositionOffset;
-        Vector2 CurrRoomPositionReset;
         DoorDirection doorDirection;
         public bool Change;
         int nextRoomID;
@@ -35,6 +33,11 @@ namespace Sprintfinity3902.States.GameStates
         private const int LINK_DOWN_Y = 193;
         private const int LINK_LEFT_X = 35;
         private const int LINK_RIGHT_X = 208;
+        private List<IBlock> currRoomBlocks;
+        private List<IDoor> currRoomDoor;
+        private List<IBlock> nextRoomBlocks;
+        private List<IDoor> nextRoomDoor;
+        private Vector2 startPosition;
 
         public ChangeRoomState(Game1 game, IDoor door)
         {
@@ -43,9 +46,6 @@ namespace Sprintfinity3902.States.GameStates
             game.link.RemoveDecorator();
             Player = (IPlayer)game.link;
             Change = false;
-            offsetTotal = 0;
-            CurrRoomPositionOffset = new Vector2(0, 0);
-            NextRoomPositionOffset = new Vector2(-1, -1);
             Door = door;
             nextRoomID = door.DoorDestination;
         }
@@ -53,184 +53,190 @@ namespace Sprintfinity3902.States.GameStates
         {
             KeyboardManager.Instance.PushCommandMatrix();
             Player.CurrentState.Sprite.Animation.Stop();
+            currentRoom = Game.dungeon.GetCurrentRoom();
             nextRoom = Game.dungeon.GetById(nextRoomID);
             doorDirection = Door.CurrentState.doorDirection;
-            Offset();
+
+            currRoomBlocks = new List<IBlock>(currentRoom.blocks);
+            currRoomDoor = new List<IDoor>(currentRoom.doors);
+            nextRoomBlocks = new List<IBlock>(nextRoom.blocks);
+            nextRoomDoor = new List<IDoor>(nextRoom.doors);
+            startPosition = nextRoomDoor[0].Position;
+
             Change = true;
             Link.Position = new Vector2(-1000, -1000);
+
+            BeginOffset();
         }
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
-            foreach (IBlock block in nextRoom.blocks)
+            foreach (IEntity block in currRoomBlocks)
             {
-
-                block.Position = new Vector2(block.Position.X + NextRoomPositionOffset.X, block.Position.Y + NextRoomPositionOffset.Y);
                 block.Draw(spriteBatch, Color.White);
             }
-
-            foreach (IDoor door in nextRoom.doors)
+            foreach (IEntity door in currRoomDoor)
             {
-                door.Position = new Vector2(door.Position.X + NextRoomPositionOffset.X, door.Position.Y + NextRoomPositionOffset.Y);
                 door.Draw(spriteBatch, Color.White);
             }
-
-            foreach (IBlock block in Game.dungeon.CurrentRoom.blocks)
+            foreach (IEntity block in nextRoomBlocks)
             {
-                block.Position = new Vector2(block.Position.X + CurrRoomPositionOffset.X, block.Position.Y + CurrRoomPositionOffset.Y);
                 block.Draw(spriteBatch, Color.White);
             }
-
-            foreach (IDoor door in Game.dungeon.CurrentRoom.doors)
+            foreach (IEntity door in nextRoomDoor)
             {
-                door.Position = new Vector2(door.Position.X + CurrRoomPositionOffset.X, door.Position.Y + CurrRoomPositionOffset.Y);
                 door.Draw(spriteBatch, Color.White);
             }
+            
             HudMenu.DungeonHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.MiniMapHud.Instance.Draw(spriteBatch, Color.White);
+            
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (IBlock block in nextRoom.blocks)
+            foreach (IEntity block in currRoomBlocks)
             {
                 block.Update(gameTime);
             }
-              
-            foreach (IDoor door in nextRoom.doors)
+            foreach (IEntity door in currRoomDoor)
             {
                 door.Update(gameTime);
             }
-
+            foreach (IEntity block in nextRoomBlocks)
+            {
+                block.Update(gameTime);
+            }
+            foreach (IEntity door in nextRoomDoor)
+            {
+                door.Update(gameTime);
+            }
             HudMenu.DungeonHud.Instance.Update(gameTime);
             HudMenu.InGameHud.Instance.Update(gameTime);
             HudMenu.InventoryHud.Instance.Update(gameTime);
             HudMenu.MiniMapHud.Instance.Update(gameTime);
 
-            if (Change)
-            {
-                ChangeOffset();
-            }
+            ChangeOffset();
 
-            if (offsetTotal == 0)
+            if (startPosition == nextRoomDoor[0].Position)
             {
                 StopAnimation();
             }
         }
 
 
-        public void Offset()
+        public void BeginOffset()
         {
-            CurrRoomPositionOffset = new Vector2(0, 0);
+            Vector2 nextRoomOffset = new Vector2(0, 0);
             switch (doorDirection)
             {
                 case DoorDirection.UP:
-                    NextRoomPositionOffset = new Vector2(0, -(ROOM_HEIGHT) * Global.Var.SCALE);
-                    CurrRoomPositionReset = new Vector2(0, -(ROOM_HEIGHT - 2) * Global.Var.SCALE);
+                    nextRoomOffset = new Vector2(0, (-ROOM_HEIGHT) * Global.Var.SCALE);
                     offsetTotal = -ROOM_HEIGHT * Global.Var.SCALE;
                     break;
                 case DoorDirection.DOWN:
-                    NextRoomPositionOffset = new Vector2(0, (ROOM_HEIGHT) * Global.Var.SCALE);
-                    CurrRoomPositionReset = new Vector2(0, (ROOM_HEIGHT - 2) * Global.Var.SCALE);
+                    nextRoomOffset = new Vector2(0, (ROOM_HEIGHT) * Global.Var.SCALE);
                     offsetTotal = ROOM_HEIGHT * Global.Var.SCALE;
                     break;
                 case DoorDirection.LEFT:
-                    NextRoomPositionOffset = new Vector2(-ROOM_WIDTH * Global.Var.SCALE, 0);
-                    CurrRoomPositionReset = new Vector2(-(ROOM_WIDTH - 2) * Global.Var.SCALE, 0);
+                    nextRoomOffset = new Vector2(-ROOM_WIDTH * Global.Var.SCALE, 0);
                     offsetTotal = -ROOM_WIDTH * Global.Var.SCALE;
                     break;
                 case DoorDirection.RIGHT:
-                    NextRoomPositionOffset = new Vector2(ROOM_WIDTH * Global.Var.SCALE, 0);
-                    CurrRoomPositionReset = new Vector2((ROOM_WIDTH - 2) * Global.Var.SCALE, 0);
+                    nextRoomOffset = new Vector2(ROOM_WIDTH * Global.Var.SCALE, 0);
                     offsetTotal = ROOM_WIDTH * Global.Var.SCALE;
                     break;
+            }
+
+            foreach (IEntity block in nextRoomBlocks)
+            {
+                block.Position = new Vector2(block.Position.X + nextRoomOffset.X, block.Position.Y + nextRoomOffset.Y);
+            }
+            foreach (IEntity door in nextRoomDoor)
+            {
+                door.Position = new Vector2(door.Position.X + nextRoomOffset.X, door.Position.Y + nextRoomOffset.Y);
             }
         }
         public void ChangeOffset()
         {
-
+            int offsetX = 0;
+            int offsetY = 0;
             switch (doorDirection)
             {
                 case DoorDirection.UP:
-                    NextRoomPositionOffset = new Vector2(0, SHIFT_AMOUNT * Global.Var.SCALE);
-                    CurrRoomPositionOffset = new Vector2(0, SHIFT_AMOUNT * Global.Var.SCALE);
-                    offsetTotal += SHIFT_AMOUNT * Global.Var.SCALE;
+                    offsetY = SHIFT_AMOUNT * Global.Var.SCALE;
                     break;
                 case DoorDirection.DOWN:
-                    NextRoomPositionOffset = new Vector2(0, -SHIFT_AMOUNT * Global.Var.SCALE);
-                    CurrRoomPositionOffset = new Vector2(0, -SHIFT_AMOUNT * Global.Var.SCALE);
-                    offsetTotal += -SHIFT_AMOUNT * Global.Var.SCALE;
+                    offsetY = -SHIFT_AMOUNT * Global.Var.SCALE;
                     break;
                 case DoorDirection.LEFT:
-                    NextRoomPositionOffset = new Vector2(SHIFT_AMOUNT * Global.Var.SCALE, 0);
-                    CurrRoomPositionOffset = new Vector2(SHIFT_AMOUNT * Global.Var.SCALE, 0);
-                    offsetTotal += SHIFT_AMOUNT * Global.Var.SCALE;
+                    offsetX = SHIFT_AMOUNT * Global.Var.SCALE;
                     break;
                 case DoorDirection.RIGHT:
-                    NextRoomPositionOffset = new Vector2(-SHIFT_AMOUNT * Global.Var.SCALE, 0);
-                    CurrRoomPositionOffset = new Vector2(-SHIFT_AMOUNT * Global.Var.SCALE, 0);
-                    offsetTotal += -SHIFT_AMOUNT * Global.Var.SCALE;
+                    offsetX = -SHIFT_AMOUNT * Global.Var.SCALE;
                     break;
+            }
+
+            foreach (IEntity block in currRoomBlocks)
+            {
+                block.Position = new Vector2(block.Position.X + offsetX, block.Position.Y + offsetY);
+            }
+            foreach (IEntity door in currRoomDoor)
+            {
+                door.Position = new Vector2(door.Position.X + offsetX, door.Position.Y + offsetY);
+            }
+
+            foreach (IEntity block in nextRoomBlocks)
+            {
+                block.Position = new Vector2(block.Position.X + offsetX, block.Position.Y + offsetY);
+            }
+            foreach (IEntity door in nextRoomDoor)
+            {
+                door.Position = new Vector2(door.Position.X + offsetX, door.Position.Y + offsetY);
             }
         }
         public void StopAnimation()
         {
-            // Temp while I change bounding boxes for unopened rooms.          
-            foreach (IBlock block in nextRoom.blocks)
-            {
-
-                block.Position = new Vector2(block.Position.X + NextRoomPositionOffset.X, block.Position.Y + NextRoomPositionOffset.Y);
-            }
-
-            foreach (IDoor door in nextRoom.doors)
-            {
-                door.Position = new Vector2(door.Position.X + NextRoomPositionOffset.X, door.Position.Y + NextRoomPositionOffset.Y);
-            }
-
-            foreach (IBlock block in Game.dungeon.CurrentRoom.blocks)
-            {
-                block.Position = new Vector2(block.Position.X + CurrRoomPositionReset.X, block.Position.Y + CurrRoomPositionReset.Y);
-            }
-
-            foreach (IDoor door in Game.dungeon.CurrentRoom.doors)
-            {
-                door.Position = new Vector2(door.Position.X + CurrRoomPositionReset.X, door.Position.Y + CurrRoomPositionReset.Y);
-            }
-
+            Vector2 currRoomOffset = new Vector2(0, 0);
             Game.dungeon.SetCurrentRoom(nextRoomID);
-            
-
             switch (doorDirection)
             {
                 case DoorDirection.UP:
-                    // Set links position to the bottom of the next room.
+                    currRoomOffset = new Vector2(0, (-ROOM_HEIGHT) * Global.Var.SCALE);
                     if (Game.dungeon.CurrentRoom.doors[1].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[1].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[1].Open();
                     SetLinkPositionDown();
                     break;
                 case DoorDirection.DOWN:
-                    // Set links position to the top of the next room.
+                    currRoomOffset = new Vector2(0, (ROOM_HEIGHT) * Global.Var.SCALE);
                     if (Game.dungeon.CurrentRoom.doors[0].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[0].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[0].Open();
                     SetLinkPositionUp();
                     break;
                 case DoorDirection.LEFT:
+                    currRoomOffset = new Vector2(-ROOM_WIDTH * Global.Var.SCALE, 0);
                     if (Game.dungeon.CurrentRoom.doors[3].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[3].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[3].Open();
-                    // Set links position to the top of the next room.
                     SetLinkPositionRight();
-
                     break;
                 case DoorDirection.RIGHT:
+                    currRoomOffset = new Vector2(ROOM_WIDTH * Global.Var.SCALE, 0);
                     if (Game.dungeon.CurrentRoom.doors[2].CurrentState.IsBombable || Game.dungeon.CurrentRoom.doors[2].CurrentState.IsLocked)
                         Game.dungeon.CurrentRoom.doors[2].Open();
-                    // Set links position to the top of the next room.
                     SetLinkPositionLeft();
-
                     break;
             }
+
+            foreach (IEntity block in currRoomBlocks)
+            {
+                block.Position = new Vector2(block.Position.X + currRoomOffset.X, block.Position.Y + currRoomOffset.Y);
+            }
+            foreach (IEntity door in currRoomDoor)
+            {
+                door.Position = new Vector2(door.Position.X + currRoomOffset.X, door.Position.Y + currRoomOffset.Y);
+            }
+
             Change = false;
 
             foreach (IDoor door in nextRoom.doors)

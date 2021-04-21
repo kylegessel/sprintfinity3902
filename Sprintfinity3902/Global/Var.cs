@@ -6,6 +6,7 @@
         public static int ZERO = 0;
 
         public static int floor = 1;
+        public static int FINAL_FLOOR = 5;
 
         /*Audio*/
         public static float VOLUME = 0.00f;

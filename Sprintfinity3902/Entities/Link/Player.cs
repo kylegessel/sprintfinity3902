@@ -109,9 +109,12 @@ namespace Sprintfinity3902.Link
             IPickup itemPickup = item.GetPickup();
             bool win = itemPickup.Pickup(this);
 
-            if (win)
+            if (win && Global.Var.floor == Global.Var.FINAL_FLOOR)
             {
-                wantsSoftReset=true;
+                game.SetState(game.WIN);
+            } else if (win)
+            {
+                wantsSoftReset = true;
             }
         }
 

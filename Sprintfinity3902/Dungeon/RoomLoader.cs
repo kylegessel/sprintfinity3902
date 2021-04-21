@@ -76,7 +76,7 @@ namespace Sprintfinity3902.Dungeon
             UseRoomGen = useRoomGen;
             spikeNum = 1;
             enemyID = 0;
-            wildcard1 = (IEnemy.ENEMIES)EnemyTypes.GetValue(random.Next(2));
+            wildcard1 = (IEnemy.ENEMIES)EnemyTypes.GetValue(random.Next(3));
             wildcard2 = (IEnemy.ENEMIES)EnemyTypes.GetValue(random.Next(EnemyTypes.Length));
         }
 
@@ -669,6 +669,7 @@ namespace Sprintfinity3902.Dungeon
         private IEntity BuildEnumEnemy(IEnemy.ENEMIES selection)
         {
             IEntity newEnemy;
+
             switch (selection)
             {
                 case IEnemy.ENEMIES.BAT:
@@ -686,6 +687,9 @@ namespace Sprintfinity3902.Dungeon
                     IEntity goriyaBoomerang = new BoomerangItem();
                     Room.enemyProj.Add(goriyaBoomerang);
                     newEnemy = new GoriyaEnemy(goriyaBoomerang, Position);
+                    break;
+                case IEnemy.ENEMIES.SNAKE:
+                    newEnemy = new RopeSnakeEnemy(Position);
                     break;
                 default:
                     newEnemy = new DodongoBoss(Position);

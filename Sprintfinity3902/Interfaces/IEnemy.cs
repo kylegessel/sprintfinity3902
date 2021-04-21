@@ -11,6 +11,7 @@ namespace Sprintfinity3902.Interfaces
             GEL,
             SKELETON,
             GORIYA,
+            SNAKE,
         };
 
         int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room);

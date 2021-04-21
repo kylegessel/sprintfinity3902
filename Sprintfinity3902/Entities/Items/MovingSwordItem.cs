@@ -139,12 +139,18 @@ namespace Sprintfinity3902.Entities
             itemUse = true;
         }
 
-        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room)
+        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room, IPlayer player)
         {
-            // Code for removing sword on contact, needs to be replaced.
+            int damage = 1;
+            int critChance = player.itemcount[IItem.ITEMS.ATTACKPWRUP];
+            Random random = new Random();
+            if (random.Next(11) <= critChance)
+            {
+                damage = 2;
+            }
             room.garbage.Add(new MovingSwordSplitItem(Position));
             Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);
-            return enemy.HitRegister(enemyID, 1, 0, this, swordDirection, room) <= 0;
+            return enemy.HitRegister(enemyID, damage, 0, this, swordDirection, room) <= 0;
         }
 
         public void Collide(IRoom room)

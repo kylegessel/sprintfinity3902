@@ -11,6 +11,7 @@ using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.States.Door;
+using Sprintfinity3902.States.GameStates;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -23,7 +24,6 @@ namespace Sprintfinity3902.Dungeon
         public Game1 Game;
         private List<IRoom> dungeonRooms;
         public List<Point> RoomLocations { get; set; }
-        public ChangeRoom changeRoom { get; set; }
         public int NextId { get; set; }
         public Point WinLocation { get; set; }
         private IEntity movingSword;
@@ -50,9 +50,6 @@ namespace Sprintfinity3902.Dungeon
             movingSword = new MovingSwordItem(new Vector2(-1000, -1000));
             hitboxSword = new SwordHitboxItem(new Vector2(-1000, -1000));
             bowArrow = new ArrowItem(new Vector2(-1000, -1000));
-
-            changeRoom = new ChangeRoom(game);
-
             dungeonRooms = new List<IRoom>();
             RoomLocations = new List<Point>();
 
@@ -120,24 +117,25 @@ namespace Sprintfinity3902.Dungeon
                     WinLocation = room.RoomPos;
                 }
             }
+            HudMenu.DungeonHud.Instance.SetInitialRoom(GetById(2)); /*Can I just use CurrentRoom here??*/
+            HudMenu.MiniMapHud.Instance.InitializeRooms(RoomLocations, GetById(2).RoomPos, WinLocation);
+
+            foreach (IDoor door in CurrentRoom.doors)
+            {
+                door.roomEntered = true;
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            if (changeRoom.Change)
+            CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, CurrentRoom.shops, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage, (IProjectile)Game.bombExplosion);
+            CurrentRoom.Update(gameTime);
+            foreach (IEntity entity in linkProj)
             {
-                changeRoom.Update(gameTime);
+                entity.Update(gameTime);
             }
-            else
-            {
-                CollisionDetector.Instance.CheckCollision(CurrentRoom.enemies, CurrentRoom.blocks, CurrentRoom.items, linkProj, CurrentRoom.enemyProj, CurrentRoom.doors, CurrentRoom.garbage, (IProjectile)Game.bombExplosion);
-                CurrentRoom.Update(gameTime);
-                foreach (IEntity entity in linkProj)
-                {
-                    entity.Update(gameTime);
-                }
-                bombItem.Update(gameTime);
-            }
+            bombItem.Update(gameTime);
+
 
             if(!CurrentRoom.roomCleared && CurrentRoom.enemies.Keys.Count == 0)
             {
@@ -154,19 +152,14 @@ namespace Sprintfinity3902.Dungeon
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (changeRoom.Change)
-            {
-                changeRoom.Draw(spriteBatch);
-            }
-            else
-            {
+
                 CurrentRoom.Draw(spriteBatch, Color.White);
                 foreach (IEntity entity in linkProj)
                 {
                     entity.Draw(spriteBatch, Color.White);
                 }
                 bombItem.Draw(spriteBatch, Color.White);
-            }
+
         }
 
 
@@ -179,14 +172,28 @@ namespace Sprintfinity3902.Dungeon
         {
             int currentId = (CurrentRoom.Id + 1) % 19 == 0 ? 1 : CurrentRoom.Id + 1;
             SetCurrentRoom(currentId);
+            foreach (IDoor door in CurrentRoom.doors)
+            {
+                door.roomEntered = true;
+            }
             SetLinkPosition();
+
+            HudMenu.DungeonHud.Instance.RoomChange(this);
+            HudMenu.MiniMapHud.Instance.UpdateHudLinkLoc(this.CurrentRoom.RoomPos);
         }
 
         public void PreviousRoom()
         {
             int currentId = (CurrentRoom.Id - 1) < 1 ? 18 : CurrentRoom.Id - 1;
             SetCurrentRoom(currentId);
+            foreach (IDoor door in CurrentRoom.doors)
+            {
+                door.roomEntered = true;
+            }
             SetLinkPosition();
+
+            HudMenu.DungeonHud.Instance.RoomChange(this);
+            HudMenu.MiniMapHud.Instance.UpdateHudLinkLoc(this.CurrentRoom.RoomPos);
         }
 
         public IRoom GetCurrentRoom()
@@ -200,14 +207,16 @@ namespace Sprintfinity3902.Dungeon
         }
         public void ChangeRoom(IDoor door)
         {
-            CurrentRoom.garbage.Clear();
-            changeRoom.StartAnimation(door.DoorDestination, door.CurrentState.doorDirection);
+            Game.CHANGE_ROOM = new ChangeRoomState(Game, door);
+            Game.SetState(Game.CHANGE_ROOM);
         }
+        // I see why we need this now! Changed the implementation to make a fake door.
+        /*
         public void ChangeRoom(int doorDest, DoorDirection direction)
         {
-            CurrentRoom.garbage.Clear();
-            changeRoom.StartAnimation(doorDest, direction);
+            Game.SetState(new ChangeRoomState(Game, ))
         }
+        */
 
         public void SetLinkPosition()
         {
@@ -220,12 +229,18 @@ namespace Sprintfinity3902.Dungeon
             {
                 case IDungeon.GameState.WIN:
                     KeyboardManager.Instance.PushCommandMatrix();
-                    Game.playerCharacter.SetState(Game.playerCharacter.facingDown);
                     Game.playerCharacter.CurrentState.Sprite.Animation.Stop();
+                    Game.playerCharacter.SetState(Game.playerCharacter.facingDown);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                    // Workaround since ResetGame is a private member of Game.RESET
+                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
                     CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.LOSE:
                     KeyboardManager.Instance.PushCommandMatrix();
+                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                    // Workaround since ResetGame is a private member of Game.RESET
+                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
                     CurrentRoom = new LoseWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.RETURN:

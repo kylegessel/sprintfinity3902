@@ -83,6 +83,14 @@ namespace Sprintfinity3902.SpriteFactories
         {
             return new SpikeEnemySprite(enemySpriteSheet);
         }
+        public ISprite CreateRopeSnakeRightEnemy()
+        {
+            return new RopeSnakeRightSprite(enemySpriteSheet);
+        }
+        public ISprite CreateRopeSnakeLeftEnemy()
+        {
+            return new RopeSnakeLeftSprite(enemySpriteSheet);
+        }
 
         public ISprite CreateDodongoBackDamaged()
         {

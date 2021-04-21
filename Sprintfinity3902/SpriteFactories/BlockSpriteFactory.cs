@@ -8,6 +8,7 @@ namespace Sprintfinity3902.SpriteFactories
     public class BlockSpriteFactory
     {
         private Texture2D blockSpriteSheet;
+        private Texture2D itemSpriteSheet;
         private Texture2D[] floorSpriteSheets;
 
         private Texture2D eagleDungeonSprite;
@@ -21,7 +22,7 @@ namespace Sprintfinity3902.SpriteFactories
         private static string FLOOR_4_FILE_NAME = "Zelda_Dungeon_Tileset_Red_Transparent";
         private static string FLOOR_5_FILE_NAME = "Zelda_Dungeon_Tileset_Gray_Transparent";
 
-        //private static string BLOCK_FILE_NAME = "Zelda_Dungeon_Tileset_Green_Transparent";
+        private static string ITEM_FILE_NAME = "Zelda_Items_and_Weapons_Transparent";
         private static string EAGLE_FILE_NAME = "Zelda_Eagle-Map";
         private static string TITLE_SCREEN_SPRITE = "Zelda_FullTitleScreen_Transparent";
 
@@ -47,6 +48,7 @@ namespace Sprintfinity3902.SpriteFactories
             floorSpriteSheets[3] = content.Load<Texture2D>(FLOOR_4_FILE_NAME);
             floorSpriteSheets[4] = content.Load<Texture2D>(FLOOR_5_FILE_NAME);
 
+            itemSpriteSheet = content.Load<Texture2D>(ITEM_FILE_NAME);
             eagleDungeonSprite = content.Load<Texture2D>(EAGLE_FILE_NAME);
             titleScreenSpriteSheet = content.Load<Texture2D>(TITLE_SCREEN_SPRITE);
             blockSpriteSheet = floorSpriteSheets[0];
@@ -97,6 +99,10 @@ namespace Sprintfinity3902.SpriteFactories
         public ISprite CreateDarkBlueBlock()
         {
             return new DarkBlueBlockSprite(blockSpriteSheet);
+        }
+        public ISprite CreateRupeeBlock()
+        {
+            return new RupeeBlockSprite(itemSpriteSheet);
         }
 
         /*Doors*/

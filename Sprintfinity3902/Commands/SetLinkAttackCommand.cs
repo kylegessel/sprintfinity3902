@@ -32,7 +32,6 @@ namespace Sprintfinity3902.Commands
             if (!MovingSword.getItemUse()  && PlayerCharacter.LinkHealth == PlayerCharacter.MaxHealth)
             {
                 PlayerCharacter.Attack();
-                Sword.UseItem(PlayerCharacter);
                 MovingSword.UseItem(PlayerCharacter);
 
                 SoundManager.Instance.GetSoundEffectInstance(swordThrowInstanceID).Play();

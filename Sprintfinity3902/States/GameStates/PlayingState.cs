@@ -20,10 +20,10 @@ namespace Sprintfinity3902.States.GameStates
         {
             Game.dungeon.Update(gameTime);
             Game.link.Update(gameTime);
-            Game.dungeonHud.Update(gameTime);
+            HudMenu.DungeonHud.Instance.Update(gameTime);
             HudMenu.InGameHud.Instance.Update(gameTime);
             HudMenu.InventoryHud.Instance.Update(gameTime);
-            Game.miniMapHud.Update(gameTime);
+            HudMenu.MiniMapHud.Instance.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
@@ -32,30 +32,33 @@ namespace Sprintfinity3902.States.GameStates
 
             Game.link.Draw(spriteBatch, Color.White);
             
-            Game.dungeonHud.Draw(spriteBatch, Color.White);
+            HudMenu.DungeonHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
-            Game.miniMapHud.Draw(spriteBatch, Color.White);
+            HudMenu.MiniMapHud.Instance.Draw(spriteBatch, Color.White);
         }
 
         public void SetUp()
         {
             if (Game.PreviousState.Equals(Game.PAUSED_TRANSITION) || Game.PreviousState.Equals(Game.FLUTE))
             {
+                // This is bad practice for state autanomy but difficult to remove. It's fine for now.
                 KeyboardManager.Instance.PopCommandMatrix();
             }
             else if (Game.PreviousState.Equals(Game.INTRO))
             {
-                KeyboardManager.Instance.PopCommandMatrix();
+                /* We know that the command matrix has one layer here, so we'll push the playing commands
+                 * and copy the previous layer; quit and reset commands
+                 */
                 KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
                 KeyboardManager.Instance.RegisterKeyUpCallback(PauseGame, Keys.P);
                 Game.dungeon.Initialize();
-                Game.dungeonHud.Initialize();
+                HudMenu.DungeonHud.Instance.Initialize();
                 HudMenu.InGameHud.Instance.Initialize();
                 HudMenu.InGameHud.Instance.UpdateHearts(Game.playerCharacter.MaxHealth, Game.playerCharacter.LinkHealth);
                 HudMenu.InventoryHud.Instance.Initialize();
                 HudMenu.InventoryHud.Instance.GiveGame(Game);
-                Game.miniMapHud.Initialize();
+                HudMenu.MiniMapHud.Instance.Initialize();
 
                 /* Player Controls */
                 KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(Game.playerCharacter), Keys.W, Keys.Up);
@@ -66,6 +69,9 @@ namespace Sprintfinity3902.States.GameStates
                 KeyboardManager.Instance.RegisterKeyUpCallback(() => {
                     Game.playerCharacter.CurrentState.Sprite.Animation.Stop();
                 }, Keys.W, Keys.A, Keys.S, Keys.D, Keys.Up, Keys.Down, Keys.Left, Keys.Right);
+            }else if (Game.PreviousState.Equals(Game.CHANGE_ROOM))
+            {
+                KeyboardManager.Instance.PopCommandMatrix();
             }
 
 

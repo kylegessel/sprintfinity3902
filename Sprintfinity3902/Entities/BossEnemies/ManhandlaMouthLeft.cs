@@ -28,6 +28,9 @@ namespace Sprintfinity3902.Entities
         private int attackCount;
         private int random;
 
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
+
 
         public ManhandlaMouthLeft(Vector2 pos, IAttack fire)
         {
@@ -35,6 +38,8 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             fireAttack = fire;
             health = STARTING_HEALTH;
+            EnemyHealth = STARTING_HEALTH;
+            EnemyAttack = 1;
             decorateTime = TIME_DECORATED;
             decorate = false;
         }

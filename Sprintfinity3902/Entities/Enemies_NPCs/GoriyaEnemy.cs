@@ -54,7 +54,10 @@ namespace Sprintfinity3902.Entities
         private int decorateCount;
         private int decorateTime;
         private int counter;
-        
+
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
+
         public GoriyaEnemy(IEntity boomerang, Vector2 pos)
         {
             Sprite = EnemySpriteFactory.Instance.CreateGoriyaDownEnemy();
@@ -63,6 +66,8 @@ namespace Sprintfinity3902.Entities
             Boomerang = (IBoomerang) boomerang;
             goriyaAI = new GoriyaAI(this);
             health = 3;
+            EnemyHealth = 3;
+            EnemyAttack = 1;
             decorate = false;
             movingDown = new GoriyaDownMovingState(this);
             movingLeft = new GoriyaLeftMovingState(this);

@@ -47,6 +47,8 @@ namespace Sprintfinity3902.Entities
         public IAttack fireAttack { get; set; }
         public int attackCount { get; set; }
         public int randomFireCount { get; set; }
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
 
         public GohmaBoss(Vector2 pos)
         {
@@ -60,6 +62,8 @@ namespace Sprintfinity3902.Entities
 
             direction = LEFT;
             count = 0;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             attackCount = 0;
             speed = SPEED;
             SetStepSize(speed);
@@ -77,6 +81,9 @@ namespace Sprintfinity3902.Entities
 
             CurrentState = closedEye;
             CurrentState.Start = true;
+
+            EnemyHealth = 1;
+            EnemyAttack = 1;
 
             direction = LEFT;
             count = 0;

@@ -37,7 +37,7 @@ namespace Sprintfinity3902.Interfaces
         bool wantsSoftReset { get; set; }
 
         /*These methods are only used when link is not invinsible (damaged state)*/
-        void TakeDamage();
+        void TakeDamage(int damage);
         void BounceOfEnemy(ICollision.CollisionSide Side);
         void StopLowHealth();
         void GiveItemsBack(int currentHealth, int maxHealth, Dictionary<IItem.ITEMS, int> inventory);

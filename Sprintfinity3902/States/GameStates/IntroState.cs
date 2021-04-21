@@ -45,6 +45,10 @@ namespace Sprintfinity3902.States.GameStates
         private void StartPlaying()
         {
             SoundManager.Instance.GetSoundEffectInstance(introMusicInstanceID).Stop();
+            /* At this point, Command Stack has two members, we will remove the top, so only one layer exists
+             * containing exit and reset commands
+             */
+            KeyboardManager.Instance.PopCommandMatrix();
             Game.SetState(Game.PLAYING);
         }
     }

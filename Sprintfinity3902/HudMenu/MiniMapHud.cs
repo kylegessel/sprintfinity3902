@@ -16,12 +16,7 @@ namespace Sprintfinity3902.HudMenu
         private const int INSIDE_MAP_X = 16;
         private const int INSIDE_MAP_Y = 16;
 
-        private Game1 Game;
-        private IPlayer Link;
         private HudInitializer hudInitializer;
-        private List<Point> RoomLocations;
-        private IDungeon Dungeon;
-        private bool MapPickup;
         private bool CompassPickup;
         float x, y;
 
@@ -29,46 +24,63 @@ namespace Sprintfinity3902.HudMenu
         private IEntity LinkLocation;
 
         private Point Location;
+        private Point WinPoint;
 
         //public List<IEntity> Icons { get; private set; }
 
         public List<IEntity> locationIcons {get; set;}
         public List<IEntity> Map { get; private set; }
 
-        public MiniMapHud(Game1 game, IDungeon dungeon)
+        private static MiniMapHud instance;
+        public static MiniMapHud Instance
         {
-            Game = game;
-            Link = Game.playerCharacter;
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new MiniMapHud();
+                }
+                return instance;
+            }
+        }
+        public MiniMapHud()
+        {
             Icons = new List<IEntity>();
             Map = new List<IEntity>();
-            RoomLocations = dungeon.RoomLocations;
-            Dungeon = dungeon;
+            //RoomLocations = dungeon.RoomLocations;
             WorldPoint = new Vector2(0, 0 * Global.Var.SCALE);
             hudInitializer = new HudInitializer(this);
-            MapPickup = false;
+            //MapPickup = false;
             CompassPickup = false;
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (!MapPickup && Link.itemcount[IItem.ITEMS.MAP] > 0)
-            {
-                foreach (IEntity room in Map)
-                {
-                    Icons.Add(room);
-                }
-                MapPickup = true;
-            }
-
-            if (!CompassPickup && Link.itemcount[IItem.ITEMS.COMPASS] > 0)
-            {
-                CompassPickup = true;
-            }
-
-            UpdateHudLinkLoc();
+           
         }
 
-        
+        public void PickupMap()
+        {
+            if (CompassPickup) Icons.Remove(WinLocation);
+            Icons.Remove(LinkLocation);
+            foreach (IEntity room in Map)
+            {
+                Icons.Add(room);
+            }
+            if (CompassPickup) Icons.Add(WinLocation);
+            Icons.Add(LinkLocation);
+        }
+
+        public void PickupCompass()
+        {
+            CompassPickup = true;
+            x = WinPoint.X * ROOM_WIDTH + INSIDE_MAP_X;
+            y = WinPoint.Y * ROOM_HEIGHT + INSIDE_MAP_Y;
+            WinLocation = new WinLocationIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE));
+            Icons.Add(WinLocation);
+        }
+
+        /*
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
             pushMatrix(Icons.ToArray());
@@ -88,11 +100,11 @@ namespace Sprintfinity3902.HudMenu
             popMatrix(WinLocation);
             popMatrix(Icons.ToArray());
         }
+        */
 
-        public void UpdateHudLinkLoc()
+        public void UpdateHudLinkLoc(Point loc)
         {
-
-            Location = Dungeon.CurrentRoom.RoomPos;
+            Location = loc;
             LinkLocation.X = (Location.X * ROOM_WIDTH + INSIDE_MAP_X) * Global.Var.SCALE;
             LinkLocation.Y = (Location.Y * ROOM_HEIGHT + INSIDE_MAP_Y) * Global.Var.SCALE;
         }
@@ -100,21 +112,31 @@ namespace Sprintfinity3902.HudMenu
 
         public override void Initialize()
         {
-            hudInitializer.InitializeMiniMap(RoomLocations, Map);
+            hudInitializer.InitializeMiniMap();
             InitLocationMarkers();
         }
 
         private void InitLocationMarkers()
         {
-            Location = Dungeon.WinLocation;
             x = Location.X * ROOM_WIDTH + INSIDE_MAP_X;
             y = Location.Y * ROOM_HEIGHT + INSIDE_MAP_Y;
 
-            //link icon is temporarily built in final room, update manages his location
             LinkLocation = new GreenLinkLocationIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE));
-            WinLocation = new WinLocationIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE));
+            Icons.Add(LinkLocation);
+            //WinLocation = new WinLocationIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE));
+        }
 
+        public void InitializeRooms(List<Point> roomLocations, Point loc, Point winLoc)
+        {
+            Location = loc;
+            WinPoint = winLoc;
 
+            foreach (Point location in roomLocations)
+            {
+                x = location.X * ROOM_WIDTH + INSIDE_MAP_X;
+                y = location.Y * ROOM_HEIGHT + INSIDE_MAP_Y;
+                Map.Add(new MiniRoomIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+            }
         }
     }
 }

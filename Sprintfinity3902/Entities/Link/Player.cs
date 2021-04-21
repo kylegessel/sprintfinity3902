@@ -202,11 +202,11 @@ namespace Sprintfinity3902.Link
         public override void Draw(SpriteBatch spriteBatch, Color color) {
             CurrentState.Sprite.Draw(spriteBatch, Position, isVisible ? color : Color.Transparent);
         }
-        public void TakeDamage()
+        public void TakeDamage(int damage)
         {
             _collidable = false;
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Link_Hurt).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
-            LinkHealth--;
+            LinkHealth -= damage;
             HudMenu.InGameHud.Instance.UpdateHearts(MaxHealth, LinkHealth);
             
             if (LinkHealth <= 0) {

@@ -33,7 +33,7 @@ namespace Sprintfinity3902.HudMenu
             for (j = 0; j < digitColumns; j++)
             {
                 if(digitColumns == DOUBLE_DIGIT_COLUMNS)
-                {
+                 {
                     if(j == DOUBLES_PLACE)
                     {
                         int doubleDigit = (rupeeNum / 10) % 10;
@@ -45,6 +45,7 @@ namespace Sprintfinity3902.HudMenu
                         HudMenu.InGameHud.Instance.Icons.Add(GetDigit(singleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
                 }
+               
                 else if(digitColumns == SINGLE_DIGIT_COLUMNS)
                 {
                     HudMenu.InGameHud.Instance.Icons.Add(GetDigit(rupeeNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));

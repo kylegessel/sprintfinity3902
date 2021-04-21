@@ -25,6 +25,8 @@ namespace Sprintfinity3902.Entities
         public IEnemyState verticalMovingForward { get; set; }
         public IEnemyState verticalMovingBackward { get; set; }
         public IEnemyState idleState { get; set; }
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
 
         public int Id { get; set; }
 
@@ -36,6 +38,8 @@ namespace Sprintfinity3902.Entities
             Position = pos;
             Id = spikeId;
             spikeAI = new SpikeAI(this);
+            EnemyHealth = 1;
+            EnemyAttack = 1;
 
             horizontalMovingForward = new SpikeHorizontalMovingForwardState(this);
             horizontalMovingBackward = new SpikeHorizontalMovingBackwardState(this);

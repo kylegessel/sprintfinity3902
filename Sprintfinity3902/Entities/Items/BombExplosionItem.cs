@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
+using System;
 
 namespace Sprintfinity3902.Entities
 {
@@ -44,7 +45,7 @@ namespace Sprintfinity3902.Entities
 
         }
 
-        public bool Collide(int enemyID, IEnemy enemy, IRoom room)
+        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room, IPlayer player)
         {
             return enemy.HitRegister(enemyID, 3, STUN_LENGTH, this, Direction.NONE, room) <= 0;
         }

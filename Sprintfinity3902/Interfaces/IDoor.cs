@@ -24,6 +24,7 @@
         IDoorState holeDoorLeft { get; set; }
         IDoorState holeDoorRight { get; set; }
         int DoorDestination { get; set; }
+        bool roomEntered { get; set; }
 
         void SetState(IDoorState state);
         void Open();

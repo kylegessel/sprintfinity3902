@@ -18,18 +18,18 @@ namespace Sprintfinity3902.States.GameStates
 
         public void Update(GameTime gameTime)
         {
-            Game.dungeonHud.Update(gameTime);
+            HudMenu.DungeonHud.Instance.Update(gameTime);
             HudMenu.InGameHud.Instance.Update(gameTime);
             HudMenu.InventoryHud.Instance.Update(gameTime);
-            Game.miniMapHud.Update(gameTime);
+            HudMenu.MiniMapHud.Instance.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Game.dungeonHud.Draw(spriteBatch, Color.White);
+            HudMenu.DungeonHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InGameHud.Instance.Draw(spriteBatch, Color.White);
             HudMenu.InventoryHud.Instance.Draw(spriteBatch, Color.White);
-            Game.miniMapHud.Draw(spriteBatch, Color.White);
+            HudMenu.MiniMapHud.Instance.Draw(spriteBatch, Color.White);
 
             Game.dungeon.Draw(spriteBatch);
 
@@ -39,7 +39,10 @@ namespace Sprintfinity3902.States.GameStates
         public void SetUp()
         {
             KeyboardManager.Instance.PushCommandMatrix(copyPreviousLayer: true);
-
+            KeyboardManager.Instance.RegisterKeyUpCallback(() => {
+                KeyboardManager.Instance.PopCommandMatrix();
+                Game.SetState(Game.PAUSED_TRANSITION);
+            }, Keys.P);
             KeyboardManager.Instance.RegisterKeyUpCallback(HudMenu.InventoryHud.Instance.MoveSelectorLeft, Keys.A, Keys.Left);
             KeyboardManager.Instance.RegisterKeyUpCallback(HudMenu.InventoryHud.Instance.MoveSelectorRight, Keys.D, Keys.Right);
         }

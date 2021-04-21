@@ -23,6 +23,8 @@ namespace Sprintfinity3902.Entities
         public bool isMoving { get; set; }
         private int direction;
         private int speed = 3;
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
 
         public FireAttack(int moveDirection)
         {
@@ -32,6 +34,8 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             tracking = false;
             trackOnly = false;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = 0;
         }
 
@@ -44,6 +48,8 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = true;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = SPLIT_WAIT_TIME;
         }
 
@@ -56,6 +62,8 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = true;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = SPLIT_WAIT_TIME;
         }
 
@@ -68,6 +76,8 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             tracking = false;
             trackOnly = false;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = 0;
         }
 
@@ -81,6 +91,8 @@ namespace Sprintfinity3902.Entities
             tracking = true;
             trackOnly = false;
             this.speed = 8;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = 0;
         }
 
@@ -94,6 +106,8 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = false;
+            EnemyHealth = 1;
+            EnemyAttack = 1;
             count = 0;
         }
 
@@ -184,7 +198,7 @@ namespace Sprintfinity3902.Entities
             return 0;
         }
 
-        public bool Collide(int enemyID, IEnemy enemy, IRoom room)
+        public Boolean Collide(int enemyID, IEnemy enemy, IRoom room, IPlayer player)
         {
             // This will never collide with an enemy, so we'll just return false.
             Position = new Vector2(-1000, -1000);

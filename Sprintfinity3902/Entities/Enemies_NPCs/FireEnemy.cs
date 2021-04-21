@@ -15,6 +15,8 @@ namespace Sprintfinity3902.Entities
         private IAttack attack;
         List<IEntity> EnemyProj;
         IPlayer Player;
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
         public FireEnemy(Vector2 pos, List<IEntity> enemyProj, IPlayer player)
         {
             Sprite = EnemySpriteFactory.Instance.CreateFire();

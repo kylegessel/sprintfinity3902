@@ -16,6 +16,7 @@ BRIK: Brick Block
 DARK: Dark Blue Block
 STAR: Stairs
 STIP: Striped Block
+RPBK: Rupee Block
 
 Enemies:
 BBAT: Blue Bat
@@ -72,3 +73,8 @@ HDRT: Hole Door Top
 HDRB: Hole Door Bottom
 HDRL: Hole Door Left
 HDRR: Hole Door Right
+
+SHPC: Heart Container Shop
+SHPH: Heart Shop
+SHPB: Bomb Shop
+SHPP: CritHit Shop

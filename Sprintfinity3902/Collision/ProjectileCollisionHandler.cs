@@ -19,9 +19,9 @@ namespace Sprintfinity3902.Collision
 
 
 
-        public static void ProjectileEnemyHit(int enemy, IEntity currentEnemy, IProjectile proj, List<int> deletionList, List<IEntity> garbage, Game1 gameInstance, List<IEntity> items)
+        public static void ProjectileEnemyHit(int enemy, IEntity currentEnemy, IProjectile proj, List<int> deletionList, List<IEntity> garbage, Game1 gameInstance, List<IEntity> items, IPlayer player)
         {
-            bool removeItem = proj.Collide(enemy, (IEnemy)currentEnemy, gameInstance.dungeon.CurrentRoom);
+            bool removeItem = proj.Collide(enemy, (IEnemy)currentEnemy, gameInstance.dungeon.CurrentRoom, player);
             if (removeItem)
             {
                 deletionList.Add(enemy);

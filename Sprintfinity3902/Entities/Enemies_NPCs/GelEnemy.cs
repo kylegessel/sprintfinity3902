@@ -19,7 +19,8 @@ namespace Sprintfinity3902.Entities
         private int health;
         private float speed;
         private Boolean wait;
-        
+        public int EnemyHealth { get; set; }
+        public int EnemyAttack { get; set; }
 
         public GelEnemy()
         {
@@ -28,7 +29,7 @@ namespace Sprintfinity3902.Entities
             speed = 2f;
             count = 0;
             SetStepSize(speed);
-            health = 1;
+            EnemyHealth = 1;
             Sprite = EnemySpriteFactory.Instance.CreateGelEnemy();
             Position = new Vector2(750, 540);
         }
@@ -39,7 +40,7 @@ namespace Sprintfinity3902.Entities
             count = 0;
             speed = 2f;
             SetStepSize(speed);
-            health = 1;
+            EnemyHealth = 1;
             Sprite = EnemySpriteFactory.Instance.CreateGelEnemy();
             Position = pos;
         }
@@ -93,14 +94,14 @@ namespace Sprintfinity3902.Entities
         }
         public int HitRegister(int enemyID, int damage, int stunLength, IEntity proj, Direction projDirection, IRoom room)
         {
-            health = health - damage;
+            EnemyHealth = EnemyHealth - damage;
             if (stunLength > Global.Var.ZERO)
             {
                 wait = true;
                 direction = Direction.NONE;
             }
             // Typical enemy would have code for projectile direction and causing the enemy to move backwards a few times.
-            return health;
+            return EnemyHealth;
         }
     }
 }

@@ -11,6 +11,12 @@ namespace Sprintfinity3902.Entities
 
         public bool Pickup(IPlayer Link)
         {
+            if (Link.itemcount[IItem.ITEMS.ATTACKPWRUP] < 10)
+            {
+                Link.itemcount[IItem.ITEMS.ATTACKPWRUP]++;
+            }
+
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
 
             return false;
         }

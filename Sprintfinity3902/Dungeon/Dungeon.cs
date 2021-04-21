@@ -36,7 +36,7 @@ namespace Sprintfinity3902.Dungeon
         public IEntity bombItem { get; set; }
         public IEntity boomerangItem { get; set; }
 
-        private bool UseRoomGen = false;
+        private bool UseRoomGen = true;
 
         private string backgroundMusicInstanceID;
 
@@ -187,7 +187,7 @@ namespace Sprintfinity3902.Dungeon
 
         public void NextRoom()
         {
-            int currentId = (CurrentRoom.Id + 1) % numRooms+1 == 0 ? 1 : CurrentRoom.Id + 1;
+            int currentId = (CurrentRoom.Id + 1) % numRooms == 0 ? 1 : CurrentRoom.Id + 1;
             SetCurrentRoom(currentId);
             foreach (IDoor door in CurrentRoom.doors)
             {

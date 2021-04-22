@@ -35,6 +35,8 @@ namespace Sprintfinity3902.States.GameStates
 
         public void SetUp()
         {
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Stairs).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
             KeyboardManager.Instance.Reset();
             SoundManager.Instance.Reset();
             CollisionDetector.Instance.Reset();

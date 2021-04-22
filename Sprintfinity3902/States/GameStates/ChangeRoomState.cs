@@ -247,6 +247,7 @@ namespace Sprintfinity3902.States.GameStates
                     door.Close();
                 }
             }
+            HudMenu.DungeonHud.Instance.RoomChange(Game.dungeon);
             HudMenu.MiniMapHud.Instance.UpdateHudLinkLoc(nextRoom.RoomPos);
             Game.SetState(Game.PLAYING);
         }

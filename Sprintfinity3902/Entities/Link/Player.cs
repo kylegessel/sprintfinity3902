@@ -144,7 +144,7 @@ namespace Sprintfinity3902.Link
             if (itemcount.ContainsKey(item) && itemcount[item] > 0)
             {
                 itemcount[item]--;
-                HudMenu.InGameHud.Instance.UpdateItems(itemcount[IItem.ITEMS.RUPEE], itemcount[IItem.ITEMS.KEY], itemcount[IItem.ITEMS.BOMB]);
+                HudMenu.InGameHud.Instance.UpdateItems(itemcount[IItem.ITEMS.RUPEE], itemcount[IItem.ITEMS.KEY], itemcount[IItem.ITEMS.BOMB], itemcount[IItem.ITEMS.ATTACKPWRUP]);
             }
             if (itemcount[IItem.ITEMS.BOMB] == 0)
             {

@@ -55,6 +55,12 @@ namespace Sprintfinity3902.HudMenu
             hudHeartManager.UpdateHearts(maxHealth, currentHealth);
         }
 
+        public void UpdateCrit(int num)
+        {
+            int critNum = num;
+            hudNumberManager.CritNumbers(critNum);
+        }
+
         public void UpdateRupees(int num)
         {
             int rupeeNum = num;
@@ -70,11 +76,12 @@ namespace Sprintfinity3902.HudMenu
             int bombNum = num;
             hudNumberManager.BombNumbers(bombNum);
         }
-        public void UpdateItems(int rupee, int keys, int bomb)
+        public void UpdateItems(int rupee, int keys, int bomb, int crit)
         {
             UpdateRupees(rupee);
             UpdateKeys(keys);
             UpdateBomb(bomb);
+            UpdateCrit(crit);
         }
 
         public void UpdateSelectedItems(IPlayer.SelectableWeapons weapon)

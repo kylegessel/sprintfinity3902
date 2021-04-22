@@ -63,32 +63,35 @@ namespace Sprintfinity3902.HudMenu
 
         public void CritNumbers(int critNum)
         {
-            x = CRIT_COUNT_X + HUD_SQUARE_WIDTH;
-            y = CRIT_COUNT_Y;
-            digitColumns = isDoubleDigit(critNum);
-
-            for (j = 0; j < digitColumns; j++)
+            if (critNum != 0)
             {
-                if (digitColumns == DOUBLE_DIGIT_COLUMNS)
+                x = CRIT_COUNT_X + HUD_SQUARE_WIDTH;
+                y = CRIT_COUNT_Y;
+                digitColumns = isDoubleDigit(critNum);
+
+                for (j = 0; j < digitColumns; j++)
                 {
-                    if (j == CRIT_DOUBLES_PLACE)
+                    if (digitColumns == DOUBLE_DIGIT_COLUMNS)
                     {
-                        int doubleDigit = (critNum / 10) % 10;
-                        HudMenu.InGameHud.Instance.Icons.Add(GetDigit(doubleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        if (j == CRIT_DOUBLES_PLACE)
+                        {
+                            int doubleDigit = (critNum / 10) % 10;
+                            HudMenu.InGameHud.Instance.Icons.Add(GetDigit(doubleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        }
+                        else if (j == CRIT_SINGLES_PLACE)
+                        {
+                            int singleDigit = critNum % 10;
+                            HudMenu.InGameHud.Instance.Icons.Add(GetDigit(singleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        }
                     }
-                    else if (j == CRIT_SINGLES_PLACE)
+                    else if (digitColumns == SINGLE_DIGIT_COLUMNS)
                     {
-                        int singleDigit = critNum % 10;
-                        HudMenu.InGameHud.Instance.Icons.Add(GetDigit(singleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                        HudMenu.InGameHud.Instance.Icons.Add(GetDigit(critNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
                     }
+                    x = x - HUD_SQUARE_WIDTH;
                 }
-                else if (digitColumns == SINGLE_DIGIT_COLUMNS)
-                {
-                    HudMenu.InGameHud.Instance.Icons.Add(GetDigit(critNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
-                }
-                x = x - HUD_SQUARE_WIDTH;
+                y = y + HUD_SQUARE_WIDTH;
             }
-            y = y + HUD_SQUARE_WIDTH;
         }
 
         public void KeyNumbers(int keyNum)

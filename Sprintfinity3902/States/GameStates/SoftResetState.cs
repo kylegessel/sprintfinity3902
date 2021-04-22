@@ -15,23 +15,28 @@ namespace Sprintfinity3902.States.GameStates
     public class SoftResetState : IGameState
     {
         private Game1 Game;
+        private ISprite loadingScreen;
         public SoftResetState(Game1 game)
         {
             Game = game;
+            loadingScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
+
         }
 
         public void Update(GameTime gameTime)
         {
-
+            loadingScreen.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
+            loadingScreen.Draw(spriteBatch, new Vector2(0, 16 * Global.Var.SCALE), Color.White);
         }
 
         public void SetUp()
         {
+            Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Stairs).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+
             KeyboardManager.Instance.Reset();
             SoundManager.Instance.Reset();
             CollisionDetector.Instance.Reset();
@@ -56,22 +61,12 @@ namespace Sprintfinity3902.States.GameStates
             Game.pauseMenu = new PauseMenu(Game);
             Game.optionMenu = new OptionMenu(Game);
 
-            //Game.dungeonHud = new DungeonHud(Game, Game.dungeon);
-            //Game.miniMapHud = new MiniMapHud(Game, Game.dungeon);
-
-            
-
-
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);
 
             BuildStates();
 
-            //HudMenu.InGameHud.Instance.UpdateItems(savedInventory[IItem.ITEMS.RUPEE], savedInventory[IItem.ITEMS.KEY], savedInventory[IItem.ITEMS.BOMB]);
-
-            Game.SetState(Game.INTRO);
-
-            //Game.playerCharacter.GiveItemsBack(currHealth, maxHealth, savedInventory);
+            Game.SetState(Game.PLAYING);
         }
 
         private void ResetGame()

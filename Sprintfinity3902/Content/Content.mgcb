@@ -344,6 +344,42 @@
 /processorParam:TextureFormat=Color
 /build:Zelda_Dungeon_Tileset_Red_Transparent.png
 
+#begin Zelda_Dungeon_Tileset_Red2_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_Dungeon_Tileset_Red2_Transparent.png
+
+#begin Zelda_Dungeon_Tileset_Red3_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_Dungeon_Tileset_Red3_Transparent.png
+
+#begin Zelda_Dungeon_Tileset_Red4_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_Dungeon_Tileset_Red4_Transparent.png
+
 #begin Zelda_Dungeon_Tileset_Transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor

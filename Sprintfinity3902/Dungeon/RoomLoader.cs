@@ -35,6 +35,8 @@ namespace Sprintfinity3902.Dungeon
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int TWO_HUNDRED_FORTY = 240;
         private static int TWO_HUNDRED_FIFTY_SIX = 256;
+        private static int STAIRS_X = 32;
+        private static int STAIRS_Y = 192;
 
         private static int BMRG_X_OFFSET = 5;
         private static int BMRG_Y_OFFSET = 4;
@@ -240,6 +242,9 @@ namespace Sprintfinity3902.Dungeon
                     break;
                 case "RM13":
                     Room.blocks.Add(new Room13(new Vector2(0 * Global.Var.SCALE, EIGHTY * Global.Var.SCALE)));
+                    break;
+                case "SHP1":
+                    Room.blocks.Add(new StairsBlock(new Vector2(STAIRS_X * Global.Var.SCALE, STAIRS_Y * Global.Var.SCALE)));
                     break;
                 case " ":
                     break;

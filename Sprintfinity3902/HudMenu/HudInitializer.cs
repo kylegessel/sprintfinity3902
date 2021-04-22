@@ -28,6 +28,9 @@ namespace Sprintfinity3902.HudMenu
         private const int A_BUTTON_X = 152;
         private const int B_BUTTON_X = 128;
         private const int EMPTY_SECOND_ROW = 1;
+        private const int BOX_BEHIND_BOMB_X = 88;
+        private const int BOX_BEHIND_BOMB_Y = 40;
+        private const int BOTTOM_BAR_Y = 56;
 
         //MINI MAP HUD CONSTANTS
         private const int MINIMAP_HUD_X = 16;
@@ -57,7 +60,9 @@ namespace Sprintfinity3902.HudMenu
         public void InitializeInGameHud()
         {
             //HUD BACKGROUND
+            HudMenu.InGameHud.Instance.Icons.Add(new BlackSquareIcon(new Vector2(BOX_BEHIND_BOMB_X * Global.Var.SCALE, BOX_BEHIND_BOMB_Y * Global.Var.SCALE)));
             HudMenu.InGameHud.Instance.Icons.Add(new InGameHudEntity(new Vector2(IN_GAME_HUD_X, IN_GAME_HUD_Y)));
+            HudMenu.InGameHud.Instance.Icons.Add(new InGameHudBottomBlackBar(new Vector2(IN_GAME_HUD_X * Global.Var.SCALE, BOTTOM_BAR_Y * Global.Var.SCALE)));
 
             //HEALTH
             y = HEALTH_Y;

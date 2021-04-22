@@ -45,7 +45,7 @@ namespace Sprintfinity3902.States.GameStates
                 // This is bad practice for state autanomy but difficult to remove. It's fine for now.
                 KeyboardManager.Instance.PopCommandMatrix();
             }
-            else if (Game.PreviousState.Equals(Game.INTRO))
+            else if (Game.PreviousState.Equals(Game.INTRO) || Game.PreviousState.Equals(Game.SOFT_RESET))
             {
                 /* We know that the command matrix has one layer here, so we'll push the playing commands
                  * and copy the previous layer; quit and reset commands
@@ -56,6 +56,7 @@ namespace Sprintfinity3902.States.GameStates
                 HudMenu.DungeonHud.Instance.Initialize();
                 HudMenu.InGameHud.Instance.Initialize();
                 HudMenu.InGameHud.Instance.UpdateHearts(Game.playerCharacter.MaxHealth, Game.playerCharacter.LinkHealth);
+                HudMenu.InGameHud.Instance.UpdateItems(Game.playerCharacter.itemcount[IItem.ITEMS.RUPEE], Game.playerCharacter.itemcount[IItem.ITEMS.KEY], Game.playerCharacter.itemcount[IItem.ITEMS.BOMB]);
                 HudMenu.InventoryHud.Instance.Initialize();
                 HudMenu.InventoryHud.Instance.GiveGame(Game);
                 HudMenu.MiniMapHud.Instance.Initialize();

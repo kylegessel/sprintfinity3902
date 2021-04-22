@@ -15,19 +15,22 @@ namespace Sprintfinity3902.States.GameStates
     public class SoftResetState : IGameState
     {
         private Game1 Game;
+        private ISprite loadingScreen;
         public SoftResetState(Game1 game)
         {
             Game = game;
+            loadingScreen = BlockSpriteFactory.Instance.CreateTitleScreen();
+
         }
 
         public void Update(GameTime gameTime)
         {
-
+            loadingScreen.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-
+            loadingScreen.Draw(spriteBatch, new Vector2(0, 16 * Global.Var.SCALE), Color.White);
         }
 
         public void SetUp()
@@ -61,7 +64,7 @@ namespace Sprintfinity3902.States.GameStates
 
             BuildStates();
 
-            Game.SetState(Game.INTRO);
+            Game.SetState(Game.PLAYING);
         }
 
         private void ResetGame()

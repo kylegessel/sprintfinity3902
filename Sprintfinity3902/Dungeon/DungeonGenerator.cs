@@ -17,8 +17,8 @@ namespace Sprintfinity3902.Dungeon
         private static int MIDDLE_ROOM_MIN = 3;
         private static int MIDDLE_ROOM_MAX = 5;
         private static int START_ROOM_ID = 1;
-        private static int TOTAL_ROOMS = 16;
-        private static int NUM_OF_TEMPLATES = 4;
+        private static int TOTAL_ROOMS = 18;
+        private static int NUM_OF_TEMPLATES = 20;
         private static int MAP_MIN = 0;
         private static int MAP_MAX = 7;
         public static DungeonGenerator Instance
@@ -46,6 +46,8 @@ namespace Sprintfinity3902.Dungeon
 
         public int PopulateRooms()
         {
+
+            int currentFloor = Global.Var.floor;
             HashSet<Point> RoomLocations = new HashSet<Point>();
             HashSet<Point> FinalRooms = new HashSet<Point>();
             
@@ -54,10 +56,6 @@ namespace Sprintfinity3902.Dungeon
             int id;
             int bossRoomId = WIN_ROOM_ID - 1;
             int preBossRoomId = bossRoomId - 1;
-
-            Point bossRoom = new Point(0,0);
-            Point preBossRoom = new Point(0, 0);
-            Point winRoom = new Point(0, 0);
 
 
             Point startPoint = new Point(Random.Next(MIDDLE_ROOM_MIN, MIDDLE_ROOM_MAX), Random.Next(MIDDLE_ROOM_MIN, MIDDLE_ROOM_MAX));
@@ -79,44 +77,70 @@ namespace Sprintfinity3902.Dungeon
             {
                 Point room = pair.Key;
                 id = pair.Value;
-
-                if (id == bossRoomId)
+                
+                if (id == preBossRoomId)
                 {
-                    bossRoom = room;
-                }
-                else if (id == WIN_ROOM_ID)
-                {
-                    winRoom = room;
-                }
-                else if (id == preBossRoomId)
-                {
-                    preBossRoom = room;
                     FinalRooms.Add(room);
                 }
                 
 
             }
 
+            //int test = 1;
+            int KeyId = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
+            int MapId = KeyId;
+            int CompassId = KeyId;
+            while (KeyId == MapId)
+            {
+                MapId = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
+            }
+            while (KeyId == CompassId)
+            {
+                CompassId = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
+            }
+
             //build csv file for each room
+
+
             foreach (KeyValuePair<Point, int> pair in LocationId)
             {
                 Point room = pair.Key;
                 id = pair.Value;
+
+                
+
+
                 if (id == START_ROOM_ID)
                 {
-                    File.Copy(@"..\..\..\Content\RoomTemplates\Room2.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+
+                    File.Copy(@"..\..\..\Content\RoomTemplates\StartRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
                 else if (id == bossRoomId)
                 {
-                    File.Copy(@"..\..\..\Content\RoomTemplates\RoomBoss.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\BossRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
                 else if (id == WIN_ROOM_ID)
                 {
-                    File.Copy(@"..\..\..\Content\RoomTemplates\RoomWin.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\Shop"+currentFloor+".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                }
+                else if (id == KeyId)
+                {
+                    File.Copy(@"..\..\..\Content\RoomTemplates\KeyRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                }
+                else if (id == CompassId)
+                {
+                    File.Copy(@"..\..\..\Content\RoomTemplates\CompassRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                }
+                else if (id == MapId)
+                {
+                    File.Copy(@"..\..\..\Content\RoomTemplates\MapRoom.csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
                 }
                 else 
                 {
-                    File.Copy(@"..\..\..\Content\RoomTemplates\Room" + Random.Next(1,NUM_OF_TEMPLATES+1) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\Room" + Random.Next(1,NUM_OF_TEMPLATES+1) + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    //File.Copy(@"..\..\..\Content\Floor " + currentFloor + " Room Templates\\Room" + test + ".csv", @"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv");
+                    //test++;
+                    //if (test > 20) test = 1;
                 }
 
                 

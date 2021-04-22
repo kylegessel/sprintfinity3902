@@ -20,7 +20,7 @@ namespace Sprintfinity3902.Link
         private static int THIRTEEN = 13;
         private static int ONE_HUNDRED_TWENTY = 120;
         private static int ONE_HUNDRED_NINETY_THREE = 193;
-        private static int INITIAL_HEALTH = 10;
+        private static int INITIAL_HEALTH = 6;
 
         private IPlayerState _currentState;
         private ICollision.CollisionSide _side;
@@ -61,6 +61,7 @@ namespace Sprintfinity3902.Link
 
         private bool isVisible;
 
+        public bool wantsSoftReset { get; set; }
         public Dictionary<IItem.ITEMS, int> itemcount { get; set; }
 
         private Game1 game;
@@ -92,6 +93,7 @@ namespace Sprintfinity3902.Link
             _deathSpinCount = 0.0;
             SelectedWeapon = IPlayer.SelectableWeapons.NONE;
 
+            wantsSoftReset = false;
             isVisible = true;
 
         itemcount = new Dictionary<IItem.ITEMS, int>();
@@ -107,9 +109,12 @@ namespace Sprintfinity3902.Link
             IPickup itemPickup = item.GetPickup();
             bool win = itemPickup.Pickup(this);
 
-            if (win)
+            if (win && Global.Var.floor == Global.Var.FINAL_FLOOR)
             {
                 game.SetState(game.WIN);
+            } else if (win)
+            {
+                wantsSoftReset = true;
             }
         }
 
@@ -249,6 +254,16 @@ namespace Sprintfinity3902.Link
         {
             if (end) SetState(facingDown);
             _deathSpinCount = end ? 0.0 : 0.01;
+        }
+
+        public void GiveItemsBack(int currentHealth, int maxHealth, Dictionary<IItem.ITEMS, int> inventory)
+        {
+            LinkHealth = currentHealth;
+            MaxHealth = maxHealth;
+
+            itemcount.Clear();
+
+            itemcount = inventory;
         }
     }
 }

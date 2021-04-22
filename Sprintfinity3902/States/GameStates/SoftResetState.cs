@@ -12,10 +12,10 @@ using System.Collections.Generic;
 
 namespace Sprintfinity3902.States.GameStates
 {
-    public class ResetState : IGameState
+    public class SoftResetState : IGameState
     {
         private Game1 Game;
-        public ResetState(Game1 game)
+        public SoftResetState(Game1 game)
         {
             Game = game;
         }
@@ -36,27 +36,42 @@ namespace Sprintfinity3902.States.GameStates
             SoundManager.Instance.Reset();
             CollisionDetector.Instance.Reset();
 
-            Global.Var.floor = 1;
+            Global.Var.floor++;
 
             BlockSpriteFactory.Instance.UpdateFloorSheet();
 
+            IPlayer savedLink = Game.playerCharacter;
+
+            int currHealth = savedLink.LinkHealth;
+            int maxHealth = savedLink.MaxHealth;
+            Dictionary<IItem.ITEMS, int> savedInventory = savedLink.itemcount;
+
             Game.link = new Player(Game);
             Game.playerCharacter = (IPlayer)Game.link;
+
+            Game.playerCharacter.GiveItemsBack(currHealth, maxHealth, savedInventory);
 
             Game.dungeon = new Dungeon.Dungeon(Game);
 
             Game.pauseMenu = new PauseMenu(Game);
             Game.optionMenu = new OptionMenu(Game);
 
-            //dungeonHud = new DungeonHud(Game, Game.dungeon);
+            //Game.dungeonHud = new DungeonHud(Game, Game.dungeon);
             //Game.miniMapHud = new MiniMapHud(Game, Game.dungeon);
+
+            
+
 
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);
 
             BuildStates();
 
+            //HudMenu.InGameHud.Instance.UpdateItems(savedInventory[IItem.ITEMS.RUPEE], savedInventory[IItem.ITEMS.KEY], savedInventory[IItem.ITEMS.BOMB]);
+
             Game.SetState(Game.INTRO);
+
+            //Game.playerCharacter.GiveItemsBack(currHealth, maxHealth, savedInventory);
         }
 
         private void ResetGame()

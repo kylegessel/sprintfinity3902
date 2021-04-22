@@ -25,6 +25,7 @@ namespace Sprintfinity3902
         public IGameState LOSE { get; set; }
         public IGameState OPTIONS { get; set; }
         public IGameState RESET { get; set; }
+        public IGameState SOFT_RESET { get; set; }
 
         public IGameState CurrentState;
         public IGameState PreviousState;
@@ -67,6 +68,7 @@ namespace Sprintfinity3902
             SoundLoader.Instance.LoadContent(Content);
 
             RESET = new ResetState(this);
+            SOFT_RESET = new SoftResetState(this);
             CurrentState = RESET;
             SetState(RESET);
         }
@@ -76,6 +78,10 @@ namespace Sprintfinity3902
             base.Update(gameTime);
 
             KeyboardManager.Instance.Update(gameTime);
+            if (playerCharacter.wantsSoftReset)
+            {
+                SetState(SOFT_RESET);
+            }
             CurrentState.Update(gameTime);
         }
 

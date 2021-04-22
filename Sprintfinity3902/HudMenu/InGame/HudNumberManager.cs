@@ -49,6 +49,7 @@ namespace Sprintfinity3902.HudMenu
                 else if(digitColumns == SINGLE_DIGIT_COLUMNS)
                 {
                     HudMenu.InGameHud.Instance.Icons.Add(GetDigit(rupeeNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    HudMenu.InGameHud.Instance.Icons.Add(new BlackSquareIcon(new Vector2((x + HUD_SQUARE_WIDTH) * Global.Var.SCALE, y * Global.Var.SCALE)));
                 }
                 x = x + HUD_SQUARE_WIDTH;
             }
@@ -70,19 +71,36 @@ namespace Sprintfinity3902.HudMenu
             }
         }
 
-        public void BombNumbers(int keyNum)
+        public void BombNumbers(int bombNum)
         {
+            x = ITEM_COUNT_X;
             y = BOMB_COUNT_Y;
-            for (i = 0; i < SINGLE_DIGIT_COLUMNS; i++)
+            digitColumns = isDoubleDigit(bombNum);
+
+            for (j = 0; j < digitColumns; j++)
             {
-                x = ITEM_COUNT_X;
-                for (j = 0; j < SINGLE_DIGIT_COLUMNS; j++)
+                if (digitColumns == DOUBLE_DIGIT_COLUMNS)
                 {
-                    HudMenu.InGameHud.Instance.Icons.Add(GetDigit(keyNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
-                    x = x + HUD_SQUARE_WIDTH;
+                    if (j == DOUBLES_PLACE)
+                    {
+                        int doubleDigit = (bombNum / 10) % 10;
+                        HudMenu.InGameHud.Instance.Icons.Add(GetDigit(doubleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    }
+                    else if (j == SINGLES_PLACE)
+                    {
+                        int singleDigit = bombNum % 10;
+                        HudMenu.InGameHud.Instance.Icons.Add(GetDigit(singleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    }
                 }
-                y = y + HUD_SQUARE_WIDTH;
+
+                else if (digitColumns == SINGLE_DIGIT_COLUMNS)
+                {
+                    HudMenu.InGameHud.Instance.Icons.Add(GetDigit(bombNum, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                    HudMenu.InGameHud.Instance.Icons.Add(new BlackSquareIcon(new Vector2((x + HUD_SQUARE_WIDTH) * Global.Var.SCALE, y * Global.Var.SCALE)));
+                }
+                x = x + HUD_SQUARE_WIDTH;
             }
+            y = y + HUD_SQUARE_WIDTH;
         }
 
         public int isDoubleDigit(int num)

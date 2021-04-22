@@ -36,7 +36,7 @@ namespace Sprintfinity3902.Dungeon
         public IEntity bombItem { get; set; }
         public IEntity boomerangItem { get; set; }
 
-        private bool UseRoomGen = false;
+        private bool UseRoomGen = true;
 
         private string backgroundMusicInstanceID;
 

@@ -39,6 +39,7 @@ namespace Sprintfinity3902.Entities
             {
                 link.itemcount[IItem.ITEMS.RUPEE] = link.itemcount[IItem.ITEMS.RUPEE] - HEARTCONTAINERCOST;
                 link.MaxHealth = link.MaxHealth + 2;
+                link.LinkHealth = link.LinkHealth + 2;
 
                 HudMenu.InGameHud.Instance.UpdateRupees(link.itemcount[IItem.ITEMS.RUPEE]);
                 HudMenu.InGameHud.Instance.UpdateHearts(link.MaxHealth, link.LinkHealth);

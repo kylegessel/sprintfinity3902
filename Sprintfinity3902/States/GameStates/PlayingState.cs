@@ -56,6 +56,7 @@ namespace Sprintfinity3902.States.GameStates
                 HudMenu.DungeonHud.Instance.Initialize();
                 HudMenu.InGameHud.Instance.Initialize();
                 HudMenu.InGameHud.Instance.UpdateHearts(Game.playerCharacter.MaxHealth, Game.playerCharacter.LinkHealth);
+                HudMenu.InGameHud.Instance.UpdateItems(Game.playerCharacter.itemcount[IItem.ITEMS.RUPEE], Game.playerCharacter.itemcount[IItem.ITEMS.KEY], Game.playerCharacter.itemcount[IItem.ITEMS.BOMB]);
                 HudMenu.InventoryHud.Instance.Initialize();
                 HudMenu.InventoryHud.Instance.GiveGame(Game);
                 HudMenu.MiniMapHud.Instance.Initialize();

@@ -56,22 +56,12 @@ namespace Sprintfinity3902.States.GameStates
             Game.pauseMenu = new PauseMenu(Game);
             Game.optionMenu = new OptionMenu(Game);
 
-            //Game.dungeonHud = new DungeonHud(Game, Game.dungeon);
-            //Game.miniMapHud = new MiniMapHud(Game, Game.dungeon);
-
-            
-
-
             KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
             KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);
 
             BuildStates();
 
-            //HudMenu.InGameHud.Instance.UpdateItems(savedInventory[IItem.ITEMS.RUPEE], savedInventory[IItem.ITEMS.KEY], savedInventory[IItem.ITEMS.BOMB]);
-
             Game.SetState(Game.INTRO);
-
-            //Game.playerCharacter.GiveItemsBack(currHealth, maxHealth, savedInventory);
         }
 
         private void ResetGame()

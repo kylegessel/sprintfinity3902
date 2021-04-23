@@ -39,7 +39,7 @@ namespace Sprintfinity3902.HudMenu
             {
                 if(digitColumns == DOUBLE_DIGIT_COLUMNS)
                  {
-                    if(j == SINGLES_PLACE)
+                    if(j == DOUBLES_PLACE)
                     {
                         int doubleDigit = (rupeeNum / 10) % 10;
                         HudMenu.InGameHud.Instance.Icons.Add(GetDigit(doubleDigit, new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));

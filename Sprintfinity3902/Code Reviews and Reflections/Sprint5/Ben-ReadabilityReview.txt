@@ -1,0 +1,24 @@
+﻿Author: Benjamin Hobson
+Date: 4/22/21
+Sprint 5
+
+Reviewed: Soft Reset
+Written by: Kyle Gessel
+
+Reviewed by: Benjamin Hobson
+
+Reviewing commit: ad0c711b34af026bff6d6eace4e823c1a16f73d0 
+
+Reviewing empahsis: Readability
+
+Time Spent: 20min
+
+Review:
+
+Kyle's code here is totally readable. Well spaced and consistent. He didnt import anything he didnt need. 
+My only piece of constructive criticism (that we've learned in class but that I would not give) is to keep
+methods short (the setup method is long).
+
+That's really all there is to say; the code is succint and quality. It would be professional with comments,
+however, it's really easy to follow without them so it could be cluttered and at this point I'm being nit picky.
+Again, the code is good 10/10.

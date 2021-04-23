@@ -49,8 +49,14 @@ namespace Sprintfinity3902.HudMenu
 
         public override void Initialize()
         {
+            MapPickup = false;
+            Icons.Clear();
+            Map.Clear();
+            AlreadyInMap.Clear();
             hudInitializer.InitializeDungeonHud();
         }
+
+        
 
         public override void Update(GameTime gameTime)
         {
@@ -77,48 +83,58 @@ namespace Sprintfinity3902.HudMenu
 
         public void SetInitialRoom(IRoom room)
         {
+            
             CurrentRoom = room;
+            //UpdateHudLinkLoc(room);
+            //UpdateHudRooms(room);
+            
         }
 
         public void RoomChange(IDungeon dungeon)
         {
-            UpdateHudRooms(dungeon);
-            UpdateHudLinkLoc(dungeon);
+            UpdateHudRooms(dungeon.CurrentRoom);
+            UpdateHudLinkLoc(dungeon.CurrentRoom);
             CurrentRoom = dungeon.CurrentRoom;
         }
 
-        private void UpdateHudRooms(IDungeon dungeon)
+        private void UpdateHudRooms(IRoom room)
         {
             /*Add every room Link is in into the Map List*/
-            if (!AlreadyInMap.Contains(dungeon.CurrentRoom.Id))
+            if (!AlreadyInMap.Contains(room.Id))
             {
-                Map.Add(GetNewRoom(dungeon.CurrentRoom));
-                AlreadyInMap.Add(dungeon.CurrentRoom.Id);
+                Map.Add(GetNewRoom(room));
+                AlreadyInMap.Add(room.Id);
                 /*If map has already been picked up, add to Icons as well*/
-                if (MapPickup) Icons.Add(GetNewRoom(dungeon.CurrentRoom));
+                if (MapPickup)
+                {
+                    Icons.Remove(LinkBlock);
+                    Icons.Add(GetNewRoom(room));
+                    Icons.Add(LinkBlock);
+                }
+                
             }
         }
-        private void UpdateHudLinkLoc(IDungeon dungeon)
+       // private void UpdateHudLinkLoc(IDungeon dungeon)
+        private void UpdateHudLinkLoc(IRoom room)
         {
             if (MapPickup)
             {
-                Icons.Remove(LinkBlock);
-                int deltaX = (dungeon.CurrentRoom.RoomPos.X - CurrentRoom.RoomPos.X) * BLOCK_SIZE * Global.Var.SCALE;
+                int deltaX = (room.RoomPos.X - CurrentRoom.RoomPos.X) * BLOCK_SIZE * Global.Var.SCALE;
                 if (deltaX != 0)
                 {
                     LinkBlock.X += deltaX;
                 }
                 else
                 {
-                    int deltaY = (dungeon.CurrentRoom.RoomPos.Y - CurrentRoom.RoomPos.Y) * BLOCK_SIZE * Global.Var.SCALE;
+                    int deltaY = (room.RoomPos.Y - CurrentRoom.RoomPos.Y) * BLOCK_SIZE * Global.Var.SCALE;
                     LinkBlock.Y += deltaY;
                 }
-                Icons.Add(LinkBlock);
             }
         }
 
         public IEntity GetNewRoom(IRoom room)
         {
+
             int input = room.RoomType;
             int x = room.RoomPos.X * Global.Var.SCALE;
             int y = room.RoomPos.Y * Global.Var.SCALE;

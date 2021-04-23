@@ -24,6 +24,10 @@ namespace Sprintfinity3902.HudMenu
         private const int ITEM_ROW = 3;
         private const int ITEM_Y = 16;
         private const int ITEM_X = 96;
+        private const int CRIT_X = 119;
+        private const int CRIT_Y = 4;
+        private const int CRIT_FIRST_DIGIT = 2;
+        private const int CRIT_COLUMN = 3;
         private const int A_B_BUTTON_Y = 24;
         private const int A_BUTTON_X = 152;
         private const int B_BUTTON_X = 128;
@@ -99,6 +103,22 @@ namespace Sprintfinity3902.HudMenu
                     x = x + HUD_SQUARE_WIDTH;
                 }
                 y = y + HUD_SQUARE_WIDTH;
+            }
+
+            //CRIT
+            x = CRIT_X;
+            y = CRIT_Y;
+            for (i = 0; i < CRIT_COLUMN; i++)
+            {
+                if (i == CRIT_FIRST_DIGIT)
+                {
+                    HudMenu.InGameHud.Instance.Icons.Add(new Number0(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                }
+                else
+                { 
+                    HudMenu.InGameHud.Instance.Icons.Add(new BlackSquareIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
+                }
+                x = x + HUD_SQUARE_WIDTH;
             }
 
             //B BUTTON

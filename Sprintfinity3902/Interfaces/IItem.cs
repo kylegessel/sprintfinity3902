@@ -17,7 +17,7 @@
             SWORD,
             RUPEE,
             TRIFORCE,
-            ATTACKPWRUP
+            ATTACKPWRUP,
         };
 
         public IPickup GetPickup();

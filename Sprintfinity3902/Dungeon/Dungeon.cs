@@ -22,6 +22,7 @@ namespace Sprintfinity3902.Dungeon
     {
 
         private int DEFAULT_NUM_ROOMS = 18;
+        private const float VOLUME_MULTIPLYER = .5f;
 
         public Game1 Game;
         private List<IRoom> dungeonRooms;
@@ -190,7 +191,7 @@ namespace Sprintfinity3902.Dungeon
 
                 if(CurrentRoom.hasEnemies && CurrentRoom.roomCleared)
                 {
-                    Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Door_Unlock).Play(Global.Var.VOLUME * .5f, Global.Var.PITCH, Global.Var.PAN);
+                    Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Door_Unlock).Play(Global.Var.VOLUME * VOLUME_MULTIPLYER, Global.Var.PITCH, Global.Var.PAN);
                 }
             }
         }

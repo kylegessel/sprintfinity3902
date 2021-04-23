@@ -101,6 +101,8 @@ namespace Sprintfinity3902.Link
             {
                 itemcount.Add(item, 0);
             }
+            itemcount[IItem.ITEMS.ATTACKPWRUP] = itemcount[IItem.ITEMS.ATTACKPWRUP] + 5;
+
         }
 
         public void Pickup(IItem item) {

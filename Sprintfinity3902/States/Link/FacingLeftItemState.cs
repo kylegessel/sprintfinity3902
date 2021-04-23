@@ -43,6 +43,7 @@ namespace Sprintfinity3902.States
         {
             if (!Sprite.Animation.IsPlaying && itemExecuted)
             {
+                PlayerCharacter.openToInput = true;
                 PlayerCharacter.SetState(PlayerCharacter.facingLeft);
                 itemExecuted = false;
             }

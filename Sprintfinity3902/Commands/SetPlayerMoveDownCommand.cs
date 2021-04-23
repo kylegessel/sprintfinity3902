@@ -13,13 +13,16 @@ namespace Sprintfinity3902.Commands
 
         public void Execute()
         {
-            if (PlayerCharacter.CurrentState != PlayerCharacter.facingDown)
+            if (PlayerCharacter.openToInput)
             {
-                PlayerCharacter.SetState(PlayerCharacter.facingDown);
-            }
-            else
-            {
-                PlayerCharacter.Move();
+                if (PlayerCharacter.CurrentState != PlayerCharacter.facingDown)
+                {
+                    PlayerCharacter.SetState(PlayerCharacter.facingDown);
+                }
+                else
+                {
+                    PlayerCharacter.Move();
+                }
             }
             
         }

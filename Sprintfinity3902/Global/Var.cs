@@ -9,7 +9,7 @@
         public static int FINAL_FLOOR = 5;
 
         /*Audio*/
-        public static float VOLUME = 0.2f;
+        public static float VOLUME = 0.50f;
         public static float PITCH, PAN = 0.0f;
 
         /*Tile Size*/

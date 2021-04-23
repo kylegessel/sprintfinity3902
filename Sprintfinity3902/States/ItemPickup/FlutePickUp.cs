@@ -18,6 +18,9 @@ namespace Sprintfinity3902.Entities
 
             HudMenu.InventoryHud.Instance.EnableItemInInventory(IPlayer.SelectableWeapons.FLUTE);
 
+            Link.openToInput = false;
+            Link.UseItem();
+
             if (Link.SelectedWeapon == IPlayer.SelectableWeapons.NONE)
             {
                 Link.SelectedWeapon = IPlayer.SelectableWeapons.FLUTE;

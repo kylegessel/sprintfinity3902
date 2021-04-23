@@ -16,6 +16,9 @@ namespace Sprintfinity3902.Entities
 
             HudMenu.InventoryHud.Instance.EnableItemInInventory(IPlayer.SelectableWeapons.BOOMERANG);
 
+            Link.openToInput = false;
+            Link.UseItem();
+
             if (Link.SelectedWeapon == IPlayer.SelectableWeapons.NONE)
             {
                 Link.SelectedWeapon = IPlayer.SelectableWeapons.BOOMERANG;

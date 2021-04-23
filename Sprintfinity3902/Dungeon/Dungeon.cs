@@ -6,14 +6,11 @@ using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Dungeon.GameState;
 using Sprintfinity3902.Entities;
-using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
-using Sprintfinity3902.States.Door;
 using Sprintfinity3902.States.GameStates;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Sprintfinity3902.Dungeon

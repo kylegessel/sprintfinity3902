@@ -2,7 +2,6 @@
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Entities.Doors;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.SpriteFactories;
 using System;
 using System.IO;
 

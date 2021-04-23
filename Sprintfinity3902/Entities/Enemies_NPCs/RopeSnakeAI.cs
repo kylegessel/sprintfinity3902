@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Collision;
-using System;
 
 namespace Sprintfinity3902.Entities
 {

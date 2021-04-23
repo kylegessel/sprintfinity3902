@@ -101,9 +101,8 @@ namespace Sprintfinity3902.Dungeon
             CollisionDetector.Instance.Initialize(Game);
             KeyboardManager.Instance.RegisterKeyUpCallback(NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(PreviousRoom, Keys.K);
-            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseSelectedItemCommand((Player)Game.playerCharacter, this, Game), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new UseSelectedItemCommand((Player)Game.playerCharacter, this, Game), Global.Var.SPECIAL_KEY, Global.Var.SPECIAL_KEY_SECONDARY);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Global.Var.ATTACK_KEY, Global.Var.ATTACK_KEY_SECONDARY);
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
 
@@ -258,16 +257,16 @@ namespace Sprintfinity3902.Dungeon
                     KeyboardManager.Instance.PushCommandMatrix();
                     Game.playerCharacter.CurrentState.Sprite.Animation.Stop();
                     Game.playerCharacter.SetState(Game.playerCharacter.facingDown);
-                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Global.Var.QUIT_KEY);
                     // Workaround since ResetGame is a private member of Game.RESET
-                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Global.Var.RESET_KEY);
                     CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.LOSE:
                     KeyboardManager.Instance.PushCommandMatrix();
-                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Global.Var.QUIT_KEY);
                     // Workaround since ResetGame is a private member of Game.RESET
-                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Global.Var.RESET_KEY);
                     CurrentRoom = new LoseWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.RETURN:

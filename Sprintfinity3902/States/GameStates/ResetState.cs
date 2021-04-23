@@ -51,8 +51,8 @@ namespace Sprintfinity3902.States.GameStates
             //dungeonHud = new DungeonHud(Game, Game.dungeon);
             //Game.miniMapHud = new MiniMapHud(Game, Game.dungeon);
 
-            KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
-            KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);
+            KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Global.Var.QUIT_KEY);
+            KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Global.Var.RESET_KEY);
 
             BuildStates();
 

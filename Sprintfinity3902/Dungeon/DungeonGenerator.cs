@@ -94,7 +94,7 @@ namespace Sprintfinity3902.Dungeon
             {
                 MapId = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
             }
-            while (KeyId == CompassId)
+            while (KeyId == CompassId || CompassId == MapId)
             {
                 CompassId = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
             }

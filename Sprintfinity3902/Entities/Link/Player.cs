@@ -93,12 +93,11 @@ namespace Sprintfinity3902.Link
             wantsSoftReset = false;
             isVisible = true;
 
-        itemcount = new Dictionary<IItem.ITEMS, int>();
+            itemcount = new Dictionary<IItem.ITEMS, int>();
             foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
             {
                 itemcount.Add(item, 0);
             }
-            itemcount[IItem.ITEMS.ATTACKPWRUP] = itemcount[IItem.ITEMS.ATTACKPWRUP] + 5;
 
         }
 

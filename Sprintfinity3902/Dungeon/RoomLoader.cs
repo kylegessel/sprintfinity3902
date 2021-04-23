@@ -339,6 +339,10 @@ namespace Sprintfinity3902.Dungeon
                     IBlock mlbk = new MovingLeftBlock(Position);
                     Room.blocks.Add(mlbk);
                     break;
+                case "RPBK":
+                    IBlock rpbk = new RupeeBlock(Position);
+                    Room.blocks.Add(rpbk); /*Add to blocks because they can not be picked up*/
+                    break;
 
                 //ENEMIES
                 case "WILD":
@@ -561,8 +565,8 @@ namespace Sprintfinity3902.Dungeon
                     break;
 
                 //SHOP
-                case "SHPH":
-                    IShop heartShop = new HeartShop(Position);
+                case "SHPF":
+                    IShop heartShop = new FairyShop(Position);
                     Room.shops.Add(heartShop);
                     break;
                 case "SHPC":
@@ -573,12 +577,13 @@ namespace Sprintfinity3902.Dungeon
                     IShop bombShop = new BombShop(Position);
                     Room.shops.Add(bombShop);
                     break;
-                    
-                case "RPBK":
-                    IBlock rupeeBlock = new RupeeBlock(Position);
-                    Room.blocks.Add(rupeeBlock); /*Add to blocks because they can not be picked up*/
+                case "SHPH":
+                    IShop critShop = new CritHitShop(Position);
+                    Room.shops.Add(critShop);
                     break;
-                    
+
+
+
             }
         }
 

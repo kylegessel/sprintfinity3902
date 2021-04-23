@@ -170,6 +170,18 @@ namespace Sprintfinity3902.Dungeon
                 }
             }
 
+            foreach (IShop entity in shops)
+            {
+                if (count != PAUSE_COUNT * Global.Var.SCALE && pause)
+                {
+                    entity.Y = entity.Y + SHIFT_AMOUNT * Global.Var.SCALE;
+                }
+                else if (count != PAUSE_COUNT * Global.Var.SCALE && pause == false)
+                {
+                    entity.Y = entity.Y - SHIFT_AMOUNT * Global.Var.SCALE;
+                }
+            }
+
             count = count + SHIFT_AMOUNT * Global.Var.SCALE;
         }
 

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.HudMenu
 {
@@ -114,6 +115,9 @@ namespace Sprintfinity3902.HudMenu
 
         public override void Initialize()
         {
+            Icons.Clear();
+            CompassPickup = false;
+            Debug.WriteLine(Global.Var.floor);
             hudInitializer.InitializeMiniMap();
             InitLocationMarkers();
         }
@@ -132,6 +136,8 @@ namespace Sprintfinity3902.HudMenu
         {
             Location = loc;
             WinPoint = winLoc;
+
+            Map.Clear();
 
             foreach (Point location in roomLocations)
             {

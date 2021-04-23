@@ -33,10 +33,10 @@ namespace Sprintfinity3902.SpriteFactories
             shopSpriteSheet = content.Load<Texture2D>(ITEM_FILE_NAME);
         }
 
-        public List<ISprite> CreateHeartShopSprite()
+        public List<ISprite> CreateFairyShopSprite()
         {
             List<ISprite> list = new List<ISprite>();
-            list.Add(ItemSpriteFactory.Instance.CreateHeartItem());
+            list.Add(ItemSpriteFactory.Instance.CreateFairyItem());
             list.Add(HudSpriteFactory.Instance.CreateLetterX());
             list.Add(HudSpriteFactory.Instance.CreateNumber5());
 
@@ -62,17 +62,17 @@ namespace Sprintfinity3902.SpriteFactories
 
             return list;
         }
-        /*
-         * public List<ISprite> CreateCritHitChanceShopSprite()
+
+        public List<ISprite> CreateCritHitChanceShopSprite()
         {
             List<ISprite> list = new List<ISprite>();
-            list.Add(ItemSpriteFactory.Instance.Create_____Item());
+            list.Add(ItemSpriteFactory.Instance.CreateAttackPowerUpItem());
             list.Add(HudSpriteFactory.Instance.CreateLetterX());
             list.Add(HudSpriteFactory.Instance.CreateNumber5());
 
             return list;
         }
-        */
+
 
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Sprintfinity3902.HudMenu
 {
@@ -15,6 +16,8 @@ namespace Sprintfinity3902.HudMenu
         private const int ROOM_HEIGHT = 4;
         private const int INSIDE_MAP_X = 16;
         private const int INSIDE_MAP_Y = 16;
+        private const int LEVEL_NUM_X = 64;
+        private const int LEVEL_NUM_Y = 8;
 
         private HudInitializer hudInitializer;
         private bool CompassPickup;
@@ -112,6 +115,9 @@ namespace Sprintfinity3902.HudMenu
 
         public override void Initialize()
         {
+            Icons.Clear();
+            CompassPickup = false;
+            Debug.WriteLine(Global.Var.floor);
             hudInitializer.InitializeMiniMap();
             InitLocationMarkers();
         }
@@ -131,12 +137,40 @@ namespace Sprintfinity3902.HudMenu
             Location = loc;
             WinPoint = winLoc;
 
+            Map.Clear();
+
             foreach (Point location in roomLocations)
             {
                 x = location.X * ROOM_WIDTH + INSIDE_MAP_X;
                 y = location.Y * ROOM_HEIGHT + INSIDE_MAP_Y;
                 Map.Add(new MiniRoomIcon(new Vector2(x * Global.Var.SCALE, y * Global.Var.SCALE)));
             }
+        }
+
+        public void UpdateLevel()
+        {
+            switch (Global.Var.floor)
+            {
+                case 1:
+                    Icons.Add(new Number1(new Vector2(LEVEL_NUM_X * Global.Var.SCALE, LEVEL_NUM_Y * Global.Var.SCALE)));
+                    break;
+                case 2:
+                    Icons.Add(new Number2(new Vector2(LEVEL_NUM_X * Global.Var.SCALE, LEVEL_NUM_Y * Global.Var.SCALE)));
+                    break;
+                case 3:
+                    Icons.Add(new Number3(new Vector2(LEVEL_NUM_X * Global.Var.SCALE, LEVEL_NUM_Y * Global.Var.SCALE)));
+                    break;
+                case 4:
+                    Icons.Add(new Number4(new Vector2(LEVEL_NUM_X * Global.Var.SCALE, LEVEL_NUM_Y * Global.Var.SCALE)));
+                    break;
+                case 5:
+                    Icons.Add(new Number5(new Vector2(LEVEL_NUM_X * Global.Var.SCALE, LEVEL_NUM_Y * Global.Var.SCALE)));
+                    break;
+                default:
+                    Icons.Add(new Number0(new Vector2(LEVEL_NUM_X * Global.Var.SCALE, LEVEL_NUM_Y * Global.Var.SCALE)));
+                    break;
+            }
+
         }
     }
 }

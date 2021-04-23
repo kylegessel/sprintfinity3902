@@ -21,6 +21,8 @@ namespace Sprintfinity3902.Dungeon
         private static int NUM_OF_TEMPLATES = 20;
         private static int MAP_MIN = 0;
         private static int MAP_MAX = 7;
+
+        public int hudIconNum;
         public static DungeonGenerator Instance
         {
             get
@@ -94,7 +96,7 @@ namespace Sprintfinity3902.Dungeon
             {
                 MapId = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
             }
-            while (KeyId == CompassId)
+            while (KeyId == CompassId || CompassId == MapId)
             {
                 CompassId = Random.Next(WIN_ROOM_ID + 1, TOTAL_ROOMS + 1);
             }
@@ -159,7 +161,7 @@ namespace Sprintfinity3902.Dungeon
                 
 
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", room.X + "," + room.Y + ",,,,,,,,,,,\n");
-                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "1\n");
+                File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", hudIconNum + "\n");
             }
             return TOTAL_ROOMS;
 
@@ -210,41 +212,46 @@ namespace Sprintfinity3902.Dungeon
         private void BuildTypicalDoors(HashSet<Point> RoomLocations, Point room, int id, Dictionary<Point, int> LocationId)
         {
             int nextId;
+            hudIconNum = 0;
 
-            if (RoomLocations.Contains(new Point(room.X + 1, room.Y)))
+            if (RoomLocations.Contains(new Point(room.X + 1, room.Y))) /*Door on the right*/
             {
                 nextId = LocationId.GetValueOrDefault(new Point(room.X + 1, room.Y));
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRR, " + nextId + ",,,,,,,,,,,\n");
+                hudIconNum++;
             }
             else
             {
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALR, -1,,,,,,,,,,\n");
             }
 
-            if (RoomLocations.Contains(new Point(room.X - 1, room.Y)))
+            if (RoomLocations.Contains(new Point(room.X - 1, room.Y))) /*Door on the left*/
             {
                 nextId = LocationId.GetValueOrDefault(new Point(room.X - 1, room.Y));
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRL, " + nextId + ",,,,,,,,,,,\n");
+                hudIconNum += 2;
             }
             else
             {
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALL, -1,,,,,,,,,,\n");
             }
 
-            if (RoomLocations.Contains(new Point(room.X, room.Y + 1)))
+            if (RoomLocations.Contains(new Point(room.X, room.Y + 1))) /*Door on bot*/
             {
                 nextId = LocationId.GetValueOrDefault(new Point(room.X, room.Y + 1));
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRB, " + nextId + ",,,,,,,,,,,\n");
+                hudIconNum += 4;
             }
             else
             {
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "WALB, -1,,,,,,,,,,\n");
             }
 
-            if (RoomLocations.Contains(new Point(room.X, room.Y - 1)))
+            if (RoomLocations.Contains(new Point(room.X, room.Y - 1))) /*Door on top*/
             {
                 nextId = LocationId.GetValueOrDefault(new Point(room.X, room.Y - 1));
                 File.AppendAllText(@"..\..\..\Content\GeneratedRooms\GenRoom" + id + ".csv", "ODRT, " + nextId + ",,,,,,,,,,,\n");
+                hudIconNum += 8;
             }
             else
             {
@@ -362,9 +369,6 @@ namespace Sprintfinity3902.Dungeon
                 currentPoint.Y++;
             }
         }
-
-
-
 
     }
 }

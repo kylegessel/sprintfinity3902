@@ -9,7 +9,7 @@ namespace Sprintfinity3902.States
     {
         private static int ONE_HUNDRED_THIRTY_FIVE = 135;
         private static int ONE_HUNDRED_FIFTY_TWO = 152;
-        private static float F_ONE_DOT_FIVE = 1.5f;
+        private static float F_ONE_DOT_FIVE = 1.25f;
 
         public ISprite Sprite { get; set; }
         public SpikeEnemy Spike { get; set; }

@@ -30,6 +30,7 @@ namespace Sprintfinity3902.Entities
             count = 0;
             SetStepSize(speed);
             EnemyHealth = 1;
+            EnemyAttack = 1;
             Sprite = EnemySpriteFactory.Instance.CreateGelEnemy();
             Position = new Vector2(750, 540);
         }
@@ -41,6 +42,7 @@ namespace Sprintfinity3902.Entities
             speed = 2f;
             SetStepSize(speed);
             EnemyHealth = 1;
+            EnemyAttack = 1;
             Sprite = EnemySpriteFactory.Instance.CreateGelEnemy();
             Position = pos;
         }

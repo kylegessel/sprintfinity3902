@@ -64,6 +64,7 @@ namespace Sprintfinity3902.Entities
             EnemyHealth = 1;
             EnemyAttack = 1;
             Speed = NORMSPEED;
+            SetStepSize(NORMSPEED);
             direction = RIGHT;
             ropesnakeAI = new RopeSnakeAI(this);
         }
@@ -136,10 +137,12 @@ namespace Sprintfinity3902.Entities
             distance = dist;
             dart = true;
             Speed = DARTSPEED;
+            SetStepSize(DARTSPEED);
         }
         public void EndDart()
         {
             Speed = NORMSPEED;
+            SetStepSize(NORMSPEED);
             dart = false;
         }
 

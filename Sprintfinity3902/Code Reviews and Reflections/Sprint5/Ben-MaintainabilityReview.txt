@@ -1,0 +1,23 @@
+﻿Author: Benjamin Hobson
+Date: 4/22/21
+Sprint 5
+
+Reviewed: Shop Classes
+Written by: Casey Vancauwenbergh
+
+Reviewed by: Benjamin Hobson
+
+Reviewing commit: ad0c711b34af026bff6d6eace4e823c1a16f73d0 
+
+Reviewing empahsis: Maintainability
+
+Time Spent: 20min
+
+Review:
+
+Casey's shop classes are well written... I'm not going to mess around and type a bunch of paragraphs.
+Casey's code is neat, well organized, cohesive for sure. I enjoy that he coded to interfaces. One 
+plain critique I have is that Casey shouldn't make the createspritelist method because its body is one
+line and it is only called from one other area, thus, it should just live in the other spot and the method 
+removed. As I said before there is one reference to it from within the class. With 70 lines of code, and
+well-identified static class constants, I would give Casey a 10/10 here.

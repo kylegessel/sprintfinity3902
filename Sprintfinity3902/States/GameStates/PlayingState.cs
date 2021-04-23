@@ -60,6 +60,7 @@ namespace Sprintfinity3902.States.GameStates
                 HudMenu.InventoryHud.Instance.Initialize();
                 HudMenu.InventoryHud.Instance.GiveGame(Game);
                 HudMenu.MiniMapHud.Instance.Initialize();
+                HudMenu.MiniMapHud.Instance.UpdateLevel();
 
                 /* Player Controls */
                 KeyboardManager.Instance.RegisterCommand(new SetPlayerMoveUpCommand(Game.playerCharacter), Keys.W, Keys.Up);

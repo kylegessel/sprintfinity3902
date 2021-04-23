@@ -8,7 +8,7 @@ namespace Sprintfinity3902.States
     public class SpikeHorizontalMovingForwardState : IEnemyState
     {
         private static int ONE_HUNDRED_TWENTY_NINE = 129;
-        private static float F_ONE_DOT_FIVE = 1.5f;
+        private static float F_ONE_DOT_FIVE = 1.25f;
         private static int ONE_HUNDRED_ELEVEN = 111;
 
         public ISprite Sprite { get; set; }

@@ -65,7 +65,6 @@ namespace Sprintfinity3902.States.GameStates
             KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);
 
             BuildStates();
-
             Game.SetState(Game.PLAYING);
         }
 

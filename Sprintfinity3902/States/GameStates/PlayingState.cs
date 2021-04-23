@@ -73,6 +73,10 @@ namespace Sprintfinity3902.States.GameStates
             }else if (Game.PreviousState.Equals(Game.CHANGE_ROOM))
             {
                 KeyboardManager.Instance.PopCommandMatrix();
+                if(Game.dungeon.CurrentRoom.enemies.Count > 0)
+                {
+                    Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Door_Unlock).Play(Global.Var.VOLUME - .15f, Global.Var.PITCH, Global.Var.PAN);
+                }
             }
 
 

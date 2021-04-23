@@ -29,14 +29,14 @@ namespace Sprintfinity3902.Commands
             //    PlayerCharacter.setState(PlayerCharacter.facingDownAttack);
             //}
             //else
-            if (!MovingSword.getItemUse()  && PlayerCharacter.LinkHealth == PlayerCharacter.MaxHealth)
+            if (PlayerCharacter.openToInput && !MovingSword.getItemUse()  && PlayerCharacter.LinkHealth == PlayerCharacter.MaxHealth)
             {
                 PlayerCharacter.Attack();
                 MovingSword.UseItem(PlayerCharacter);
 
                 SoundManager.Instance.GetSoundEffectInstance(swordThrowInstanceID).Play();
             }
-            else if(!Sword.getItemUse())
+            else if(PlayerCharacter.openToInput && !Sword.getItemUse())
             {
                 PlayerCharacter.Attack();
                 Sword.UseItem(PlayerCharacter);

@@ -15,6 +15,8 @@ namespace Sprintfinity3902.States
             Sprite = PlayerSpriteFactory.Instance.CreateLinkDownSprite();
             
             Sprite.Animation.IsPlaying = false;
+            PlayerCharacter.openToInput = true;
+
         }
 
         public void Move()

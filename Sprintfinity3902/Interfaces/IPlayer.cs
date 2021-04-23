@@ -29,6 +29,7 @@ namespace Sprintfinity3902.Interfaces
         int MaxHealth { get; set; }
         int LinkHealth { get; set; }
         Dictionary<IItem.ITEMS, int> itemcount { get; set; }
+        bool openToInput { get; set; }
 
         SelectableWeapons SelectedWeapon { get; set; }
 

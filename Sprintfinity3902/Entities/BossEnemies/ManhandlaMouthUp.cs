@@ -8,7 +8,7 @@ namespace Sprintfinity3902.Entities
 {
     public class ManhandlaMouthUp : AbstractEntity, IEnemy
     {
-        private static int STARTING_HEALTH = 5;
+        private static int STARTING_HEALTH = 6;
         private static int TIME_DECORATED = 30;
         private static int MOD_BOUND = 12;
         private static int THREE = 3;

@@ -102,7 +102,7 @@ namespace Sprintfinity3902.Dungeon
             KeyboardManager.Instance.RegisterKeyUpCallback(NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(PreviousRoom, Keys.K);
             KeyboardManager.Instance.RegisterCommand(new UseSelectedItemCommand((Player)Game.playerCharacter, this, Game), Global.Var.SPECIAL_KEY);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Global.Var.ATTACK_KEY, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Global.Var.ATTACK_KEY);
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
 

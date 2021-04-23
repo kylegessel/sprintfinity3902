@@ -24,7 +24,7 @@ namespace Sprintfinity3902.Entities
         private static int SIX = 6;
         private static int MOD_BOUND = 12;
         private static int NINE = 9;
-        private static int STARTING_HEALTH = 12;
+        private static int STARTING_HEALTH = 10;
 
         private ISprite ClosedMouth;
         private ISprite OpenedMouth;

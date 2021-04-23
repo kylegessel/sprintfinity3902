@@ -19,7 +19,7 @@ namespace Sprintfinity3902.Entities
         private const int STUNNED_X_OFFSET = 12;
         private const int STUNNED_Y_OFFSET = 16;
 
-        private const int HEALTH = 6;
+        private const int HEALTH = 5;
         private const int ATTACK = 1;
         private const float SPEED = .35f;
         private const float STUNNED_SPEED = .1f;

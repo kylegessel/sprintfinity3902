@@ -56,6 +56,12 @@
 /processorParam:TextureFormat=Color
 /build:NES - The Legend of Zelda - Level 1 E.png
 
+#begin Sounds/Critical_Hit_Sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Critical_Hit_Sound.wav
+
 #begin Sounds/Dungeon.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

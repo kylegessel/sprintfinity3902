@@ -258,16 +258,16 @@ namespace Sprintfinity3902.Dungeon
                     KeyboardManager.Instance.PushCommandMatrix();
                     Game.playerCharacter.CurrentState.Sprite.Animation.Stop();
                     Game.playerCharacter.SetState(Game.playerCharacter.facingDown);
-                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Global.Var.QUIT_KEY);
                     // Workaround since ResetGame is a private member of Game.RESET
-                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Global.Var.RESET_KEY);
                     CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.LOSE:
                     KeyboardManager.Instance.PushCommandMatrix();
-                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Global.Var.QUIT_KEY);
                     // Workaround since ResetGame is a private member of Game.RESET
-                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Global.Var.RESET_KEY);
                     CurrentRoom = new LoseWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.RETURN:

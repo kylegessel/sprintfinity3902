@@ -35,9 +35,9 @@ namespace Sprintfinity3902.States.GameStates
             if (Game.PreviousState.Equals(Game.PLAYING))
             {
                 KeyboardManager.Instance.PushCommandMatrix();
-                KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Global.Var.QUIT_KEY);
                 // Workaround since ResetGame is a private member of Game.RESET
-                KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
+                KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Global.Var.RESET_KEY);
                 // Should not be able to use this command until the menu is truly paused
                 // KeyboardManager.Instance.RegisterKeyUpCallback(PauseGame, Keys.P);
             }

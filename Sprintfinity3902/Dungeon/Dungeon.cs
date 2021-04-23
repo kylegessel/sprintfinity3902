@@ -28,8 +28,8 @@ namespace Sprintfinity3902.Dungeon
         public List<Point> RoomLocations { get; set; }
         public int NextId { get; set; }
         public Point WinLocation { get; set; }
-        private IEntity movingSword;
-        public IEntity bombExplosion;
+        public IEntity movingSword { get; set; }
+        public IEntity bombExplosion { get; set; }
         public IEntity hitboxSword;
         public IRoom CurrentRoom { get; set; }
         public IEntity bowArrow { get; set; }

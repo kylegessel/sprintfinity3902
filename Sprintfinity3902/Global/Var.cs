@@ -26,6 +26,9 @@ namespace Sprintfinity3902.Global
         public static Keys RESET_KEY = Keys.R;
         public static Keys SPECIAL_KEY = Keys.Z;
         public static Keys ATTACK_KEY = Keys.X;
+
+        public static Keys ATTACK_KEY_SECONDARY = Keys.N;
+        public static Keys SPECIAL_KEY_SECONDARY = Keys.B;
     }
 }
 

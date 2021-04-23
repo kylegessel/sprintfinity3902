@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Collision;
 using Sprintfinity3902.Controllers;
-using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
@@ -61,8 +60,8 @@ namespace Sprintfinity3902.States.GameStates
             Game.pauseMenu = new PauseMenu(Game);
             Game.optionMenu = new OptionMenu(Game);
 
-            KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
-            KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);
+            KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Global.Var.QUIT_KEY);
+            KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Global.Var.RESET_KEY);
 
             BuildStates();
             Game.SetState(Game.PLAYING);

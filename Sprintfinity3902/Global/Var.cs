@@ -1,4 +1,6 @@
-﻿namespace Sprintfinity3902.Global
+﻿using Microsoft.Xna.Framework.Input;
+
+namespace Sprintfinity3902.Global
 {
     public static class Var
     {
@@ -19,6 +21,14 @@
         public static float F_ZERO = 0.0f;
         public static int TILE_ROW_NUM = 7;
         public static int TILE_COLUMN_NUM = 12;
+
+        public static Keys QUIT_KEY = Keys.Escape;
+        public static Keys RESET_KEY = Keys.R;
+        public static Keys SPECIAL_KEY = Keys.Z;
+        public static Keys ATTACK_KEY = Keys.X;
+
+        public static Keys ATTACK_KEY_SECONDARY = Keys.N;
+        public static Keys SPECIAL_KEY_SECONDARY = Keys.B;
     }
 }
 

@@ -50,6 +50,7 @@ RUPE: Rupee
 BRUP: Blue Rupee
 BMRG: Boomerang
 BOMB: Bomb
+BOM5: Bomb5
 TRIF: Triforce
 
 Doors:

@@ -2,10 +2,8 @@
 using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Sprintfinity3902.Entities.Enemies_NPCs
 {

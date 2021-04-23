@@ -42,7 +42,7 @@ namespace Sprintfinity3902.Entities
 
                 HudMenu.InGameHud.Instance.UpdateRupees(link.itemcount[IItem.ITEMS.RUPEE]);
                 HudMenu.InGameHud.Instance.UpdateCrit(link.itemcount[IItem.ITEMS.ATTACKPWRUP]);
-                //Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Rupee).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
             }
         }
 

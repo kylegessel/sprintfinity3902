@@ -10,6 +10,8 @@ namespace Sprintfinity3902.States.GameStates
     public class PlayingState : IGameState
     {
         private Game1 Game;
+        private const float VOLUME_MULTIPLYER = .5f;
+
 
         public PlayingState(Game1 game)
         {
@@ -74,6 +76,10 @@ namespace Sprintfinity3902.States.GameStates
             }else if (Game.PreviousState.Equals(Game.CHANGE_ROOM))
             {
                 KeyboardManager.Instance.PopCommandMatrix();
+                if(Game.dungeon.CurrentRoom.enemies.Count > 0)
+                {
+                    Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Door_Unlock).Play(Global.Var.VOLUME * VOLUME_MULTIPLYER, Global.Var.PITCH, Global.Var.PAN);
+                }
             }
 
 

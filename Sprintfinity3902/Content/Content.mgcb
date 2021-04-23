@@ -56,6 +56,12 @@
 /processorParam:TextureFormat=Color
 /build:NES - The Legend of Zelda - Level 1 E.png
 
+#begin Sounds/Critical_Hit_Sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/Critical_Hit_Sound.wav
+
 #begin Sounds/Dungeon.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -379,6 +385,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Zelda_Dungeon_Tileset_Red4_Transparent.png
+
+#begin Zelda_Dungeon_Tileset_Red5_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_Dungeon_Tileset_Red5_Transparent.png
+
+#begin Zelda_Dungeon_Tileset_Red6_Transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Zelda_Dungeon_Tileset_Red6_Transparent.png
 
 #begin Zelda_Dungeon_Tileset_Transparent.png
 /importer:TextureImporter

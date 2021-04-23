@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities;
-using Sprintfinity3902.Interfaces;
 
 namespace Sprintfinity3902.HudMenu
 {

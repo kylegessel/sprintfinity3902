@@ -3,12 +3,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Sprintfinity3902.Collision;
 using Sprintfinity3902.Controllers;
-using Sprintfinity3902.HudMenu;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
 using Sprintfinity3902.SpriteFactories;
-using System.Collections.Generic;
 
 namespace Sprintfinity3902.States.GameStates
 {
@@ -51,8 +49,8 @@ namespace Sprintfinity3902.States.GameStates
             //dungeonHud = new DungeonHud(Game, Game.dungeon);
             //Game.miniMapHud = new MiniMapHud(Game, Game.dungeon);
 
-            KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
-            KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Keys.R);
+            KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Global.Var.QUIT_KEY);
+            KeyboardManager.Instance.RegisterKeyUpCallback(ResetGame, Global.Var.RESET_KEY);
 
             BuildStates();
 

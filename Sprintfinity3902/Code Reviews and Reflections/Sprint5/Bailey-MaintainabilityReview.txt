@@ -1,0 +1,31 @@
+﻿Reviewed by: Bailey Ardrey
+Reviewed on: 4/23/2021
+Sprint 5
+Reviewed Class: FireAttack.cs
+File changed by: Brad Knez
+Time Spent: 20min
+
+Reviewing commit: f0f3f758fa3b8d5cd7748621c65d3281cbb09160
+Reviewing empahsis: Maintainability
+
+This sprint, Brad took another look at the FireAttack class to ensure that it worked with more
+than just the Aquamentus boss. In this respect, Brad completed exactly what he set out to do!
+By ensureing that the FireAttack can work with many different enemy types, he made the class more
+usable and maintainable in the long run, skipping the need for specific FireAttack classes for 
+different enemies. 
+
+There is one change I would recommend to make the class even more maintainable. For starters,
+the class has many constructors, and 4 of them are never used. Although this isn't a huge issue,
+it might make the class harder to maintain in the long run. It can be difficult to figure out
+which constructor for the FireAttack corresponds with which behavior. If this was more explicitly
+stated, it might go a long way in making the class more maintainable in the future becuase anyone 
+looking at it again would have a more clear understanding of how it works and know what might need
+to be looked at.
+
+Other than that, the class looks very good. Magic numbers are taken care of with detailed names, 
+which helps with understanding why they are there, and the variable names are detailed and 
+accomplish the same thing. This will help the class be maintained more easily in the long run.
+And, I again want to say that making the FireAttack work for any enemy (or even blocks) was 
+genuis and makes the class so much more usable and maintainable.
+
+Great job, Brad!

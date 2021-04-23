@@ -6,14 +6,11 @@ using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Dungeon.GameState;
 using Sprintfinity3902.Entities;
-using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
-using Sprintfinity3902.States.Door;
 using Sprintfinity3902.States.GameStates;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Sprintfinity3902.Dungeon
@@ -22,6 +19,7 @@ namespace Sprintfinity3902.Dungeon
     {
 
         private int DEFAULT_NUM_ROOMS = 18;
+        private const float VOLUME_MULTIPLYER = .5f;
 
         public Game1 Game;
         private List<IRoom> dungeonRooms;
@@ -37,7 +35,7 @@ namespace Sprintfinity3902.Dungeon
         public IEntity boomerangItem { get; set; }
 
         private bool UseRoomGen = true;
-
+ 
         private string backgroundMusicInstanceID;
 
         private int numRooms;
@@ -133,11 +131,24 @@ namespace Sprintfinity3902.Dungeon
                 HudMenu.MiniMapHud.Instance.InitializeRooms(RoomLocations, GetById(2).RoomPos, WinLocation);
             }
 
+            foreach(IRoom room in dungeonRooms)
+            {
+                if(room.enemies.Count > 0)
+                {
+                    room.hasEnemies = true;
+                }
+                else
+                {
+                    room.hasEnemies = false;
+                }
+            }
+
 
             foreach (IDoor door in CurrentRoom.doors)
             {
                 door.roomEntered = true;
             }
+
         }
 
         public void Update(GameTime gameTime)
@@ -172,6 +183,11 @@ namespace Sprintfinity3902.Dungeon
                         }
                     }
                     CurrentRoom.roomCleared = true;
+                }
+
+                if(CurrentRoom.hasEnemies && CurrentRoom.roomCleared)
+                {
+                    Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Door_Unlock).Play(Global.Var.VOLUME * VOLUME_MULTIPLYER, Global.Var.PITCH, Global.Var.PAN);
                 }
             }
         }

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 using System;
-using System.Diagnostics;
 
 namespace Sprintfinity3902.Entities
 {

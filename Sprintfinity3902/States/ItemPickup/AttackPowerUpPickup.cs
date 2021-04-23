@@ -16,6 +16,7 @@ namespace Sprintfinity3902.Entities
                 Link.itemcount[IItem.ITEMS.ATTACKPWRUP]++;
             }
 
+            HudMenu.InGameHud.Instance.UpdateCrit(Link.itemcount[IItem.ITEMS.ATTACKPWRUP]);
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
 
             return false;

@@ -2,12 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.Link;
 using Sprintfinity3902.States.Door;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 
 namespace Sprintfinity3902.States.GameStates
 {
@@ -65,6 +61,18 @@ namespace Sprintfinity3902.States.GameStates
 
             Change = true;
             Link.Position = new Vector2(-1000, -1000);
+            Game.dungeon.bombItem.Position = new Vector2(-1000, -1000);
+            Game.dungeon.bowArrow.Position = new Vector2(-1000, -1000);
+            Game.dungeon.bombItem.Position = new Vector2(-1000, -1000);
+            Game.dungeon.movingSword.Position = new Vector2(-1000, -1000);
+            Game.dungeon.bombExplosion.Position = new Vector2(-1000, -1000); 
+            /*
+             * I should be resetting the boomerang here as well, don't want
+             * to do this last minute though. Works a little differently 
+             * because it has to STOP swinging back to the player
+             * and fully reset instead.
+             */
+
 
             BeginOffset();
         }

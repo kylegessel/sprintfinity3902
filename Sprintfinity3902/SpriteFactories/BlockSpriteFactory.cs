@@ -19,7 +19,7 @@ namespace Sprintfinity3902.SpriteFactories
         private static string FLOOR_1_FILE_NAME = "Zelda_Dungeon_Tileset_Transparent";
         private static string FLOOR_2_FILE_NAME = "Zelda_Dungeon_Tileset_Green_Transparent";
         private static string FLOOR_3_FILE_NAME = "Zelda_Dungeon_Tileset_Yellow_Transparent";
-        private static string FLOOR_4_FILE_NAME = "Zelda_Dungeon_Tileset_Red4_Transparent";
+        private static string FLOOR_4_FILE_NAME = "Zelda_Dungeon_Tileset_Red6_Transparent";
         private static string FLOOR_5_FILE_NAME = "Zelda_Dungeon_Tileset_Gray_Transparent";
 
         private static string ITEM_FILE_NAME = "Zelda_Items_and_Weapons_Transparent";

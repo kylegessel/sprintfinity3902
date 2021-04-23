@@ -10,6 +10,7 @@ namespace Sprintfinity3902.Sound
 
         public enum Sounds
         {
+            Critical_Hit_Sound,
             Dungeon,
             Game_Over,
             Intro,

@@ -27,6 +27,7 @@ namespace Sprintfinity3902.Dungeon
         public int RoomType { get; set; }
 
         public bool WinRoom { get; set; }
+        public bool hasEnemies { get; set; }
         public bool roomCleared { get; set; }
         //projectiles may have to be added here later.
 

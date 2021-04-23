@@ -2,7 +2,6 @@
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Entities.Doors;
 using Sprintfinity3902.Interfaces;
-using Sprintfinity3902.SpriteFactories;
 using System;
 using System.IO;
 
@@ -542,6 +541,10 @@ namespace Sprintfinity3902.Dungeon
                 case "BOMB":
                     IItem bomb = new BombStaticItem(Position);
                     Room.items.Add(bomb);
+                    break;
+                case "BOM5":
+                    IItem bomb5 = new Bomb5Item(Position);
+                    Room.items.Add(bomb5);
                     break;
                 case "BMRG":
                     IItem boom = new BoomerangStaticItem(Position);

@@ -1,0 +1,31 @@
+﻿Reviewed by: Bailey Ardrey
+Reviewed on: 4/23/2021
+Sprint 5
+Reviewed Class: RopeSnakeEnemy.cs + Rope Snake State pattern
+File changed by: Casey VanCauwenbergh
+Time Spent: 20min
+
+Reviewing commit: f0f3f758fa3b8d5cd7748621c65d3281cbb09160
+Reviewing empahsis: Readability
+
+This sprint, Casey implemented a new Rope Snake enemy. The enemy is designed to dart towards
+Link when Link enters his line of sight. This works great most of the time during runtime, 
+although there is a little bit of variability in when the snake darts. Additionally, there is
+a small bug where the snake may dart out of a doorway, thus out of the dungeon.
+
+As for readability though, the class is set up very well. Magic numbers are all taken care of 
+with descriptive names that make it easy to understand why they exist. Additionally, all variable
+names make sense which greatly enhanses comprehension of the class.
+
+There is really only one suggestion I might have for this class in the area of readability. The 
+class is currently 155 lines long which is pretty long. It may be possible to move the ChangeDirection
+method into the state pattern to decrease the lenghth.
+
+When looking at the state pattern, there is a bit of confusion when looking at the titles of the
+classes. They are quite long and hard to follow at first. Perhaps they could be consolidated a bit.
+Although I first felt like they should be consolidated to fix this, I now see that with the rope 
+snake enemy this might be necessary. Whether the snake is facing right or left deteremines which 
+direction it will dart. Other than that, the states are similarly written in an understandable
+way. There are a few variables set up that are never used that should be taken out.
+
+Great work, Casey!

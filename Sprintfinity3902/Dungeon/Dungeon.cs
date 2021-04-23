@@ -6,14 +6,11 @@ using Sprintfinity3902.Commands;
 using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Dungeon.GameState;
 using Sprintfinity3902.Entities;
-using Sprintfinity3902.Entities.Items;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Link;
 using Sprintfinity3902.Sound;
-using Sprintfinity3902.States.Door;
 using Sprintfinity3902.States.GameStates;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Sprintfinity3902.Dungeon
@@ -22,14 +19,15 @@ namespace Sprintfinity3902.Dungeon
     {
 
         private int DEFAULT_NUM_ROOMS = 18;
+        private const float VOLUME_MULTIPLYER = .5f;
 
         public Game1 Game;
         private List<IRoom> dungeonRooms;
         public List<Point> RoomLocations { get; set; }
         public int NextId { get; set; }
         public Point WinLocation { get; set; }
-        private IEntity movingSword;
-        public IEntity bombExplosion;
+        public IEntity movingSword { get; set; }
+        public IEntity bombExplosion { get; set; }
         public IEntity hitboxSword;
         public IRoom CurrentRoom { get; set; }
         public IEntity bowArrow { get; set; }
@@ -37,7 +35,7 @@ namespace Sprintfinity3902.Dungeon
         public IEntity boomerangItem { get; set; }
 
         private bool UseRoomGen = true;
-
+ 
         private string backgroundMusicInstanceID;
 
         private int numRooms;
@@ -101,9 +99,8 @@ namespace Sprintfinity3902.Dungeon
             CollisionDetector.Instance.Initialize(Game);
             KeyboardManager.Instance.RegisterKeyUpCallback(NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(PreviousRoom, Keys.K);
-            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
-            KeyboardManager.Instance.RegisterCommand(new UseSelectedItemCommand((Player)Game.playerCharacter, this, Game), Keys.D1);
-            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
+            KeyboardManager.Instance.RegisterCommand(new UseSelectedItemCommand((Player)Game.playerCharacter, this, Game), Global.Var.SPECIAL_KEY, Global.Var.SPECIAL_KEY_SECONDARY);
+            KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Global.Var.ATTACK_KEY, Global.Var.ATTACK_KEY_SECONDARY);
 
             SoundManager.Instance.GetSoundEffectInstance(backgroundMusicInstanceID).Play();
 
@@ -134,11 +131,24 @@ namespace Sprintfinity3902.Dungeon
                 HudMenu.MiniMapHud.Instance.InitializeRooms(RoomLocations, GetById(2).RoomPos, WinLocation);
             }
 
+            foreach(IRoom room in dungeonRooms)
+            {
+                if(room.enemies.Count > 0)
+                {
+                    room.hasEnemies = true;
+                }
+                else
+                {
+                    room.hasEnemies = false;
+                }
+            }
+
 
             foreach (IDoor door in CurrentRoom.doors)
             {
                 door.roomEntered = true;
             }
+
         }
 
         public void Update(GameTime gameTime)
@@ -173,6 +183,11 @@ namespace Sprintfinity3902.Dungeon
                         }
                     }
                     CurrentRoom.roomCleared = true;
+                }
+
+                if(CurrentRoom.hasEnemies && CurrentRoom.roomCleared)
+                {
+                    Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Door_Unlock).Play(Global.Var.VOLUME * VOLUME_MULTIPLYER, Global.Var.PITCH, Global.Var.PAN);
                 }
             }
         }
@@ -258,16 +273,16 @@ namespace Sprintfinity3902.Dungeon
                     KeyboardManager.Instance.PushCommandMatrix();
                     Game.playerCharacter.CurrentState.Sprite.Animation.Stop();
                     Game.playerCharacter.SetState(Game.playerCharacter.facingDown);
-                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Global.Var.QUIT_KEY);
                     // Workaround since ResetGame is a private member of Game.RESET
-                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Global.Var.RESET_KEY);
                     CurrentRoom = new WinWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.LOSE:
                     KeyboardManager.Instance.PushCommandMatrix();
-                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Keys.Q);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(Game.Exit, Global.Var.QUIT_KEY);
                     // Workaround since ResetGame is a private member of Game.RESET
-                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Keys.R);
+                    KeyboardManager.Instance.RegisterKeyUpCallback(() => Game.SetState(Game.RESET), Global.Var.RESET_KEY);
                     CurrentRoom = new LoseWrapper(CurrentRoom, this, Game);
                     break;
                 case IDungeon.GameState.RETURN:

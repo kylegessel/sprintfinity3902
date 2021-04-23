@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using Sprintfinity3902.Dungeon;
-using Sprintfinity3902.States.Door;
 
 namespace Sprintfinity3902.Interfaces
 {
@@ -19,6 +17,8 @@ namespace Sprintfinity3902.Interfaces
         public IEntity bowArrow { get; set; }
         public IEntity bombItem { get; set; }
         public IEntity boomerangItem { get; set; }
+        public IEntity movingSword { get; set; }
+        public IEntity bombExplosion { get; set; }
 
         public Point WinLocation { get; set; }
         public IRoom CurrentRoom { get; set; }

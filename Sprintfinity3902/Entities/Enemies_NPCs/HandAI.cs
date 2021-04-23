@@ -2,10 +2,8 @@
 using Sprintfinity3902.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Sprintfinity3902.Entities.Enemies_NPCs
 {
@@ -56,14 +54,20 @@ namespace Sprintfinity3902.Entities.Enemies_NPCs
             sr.ReadLine();
             sr.ReadLine();
 
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < Global.Var.TILE_ROW_NUM; i++) {
                 string line = sr.ReadLine();
                 if (!string.IsNullOrWhiteSpace(line)) {
                     string[] lineValues = line.Split(',');
 
-                    for (int j = 0; j < lineValues.Length; j++) {
-                        pathMatrix[i, j] = lineValues[j] != "BLOK";
+                    if (lineValues.Length > Global.Var.TILE_COLUMN_NUM) {
+                        throw new Exception("" + path + " is not formatted correctly. Expected " + Global.Var.TILE_COLUMN_NUM + " items, got " + lineValues.Length + " from string: '" + line + "'");
                     }
+
+                        for (int j = 0; j < lineValues.Length; j++) {
+                            pathMatrix[i, j] = lineValues[j] != "BLOK";
+                        }
+                    
+                    
                 }
             }
 

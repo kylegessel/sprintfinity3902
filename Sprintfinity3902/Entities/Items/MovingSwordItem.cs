@@ -18,6 +18,7 @@ namespace Sprintfinity3902.Entities
         private static int SIX = 6;
         private static int TWO = 2;
         private static int SIXTY = 60;
+        private const float VOLUME_MULTIPLYER = .5f;
 
         IPlayer PlayerCharacter;
         Boolean itemUse;
@@ -147,6 +148,7 @@ namespace Sprintfinity3902.Entities
             if (random.Next(11) <= critChance)
             {
                 damage = 2;
+                Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.Critical_Hit_Sound).Play(Global.Var.VOLUME * VOLUME_MULTIPLYER, Global.Var.PITCH, Global.Var.PAN);
             }
             room.garbage.Add(new MovingSwordSplitItem(Position));
             Position = new Vector2(-ONE_THOUSAND, -ONE_THOUSAND);

@@ -12,7 +12,6 @@ namespace Sprintfinity3902.Entities
 
         private static int EIGHTY_FIVE = 85;
         private static int THIRTY = 30;
-        private static int FIVE = 5;
         private static int ONE = 1;
         private static int ONE_HUNDRED_FORTY_FIVE = 145;
         private static int TWO =  2;
@@ -25,6 +24,7 @@ namespace Sprintfinity3902.Entities
         private static int SIX = 6;
         private static int MOD_BOUND = 12;
         private static int NINE = 9;
+        private static int STARTING_HEALTH = 10;
 
         private ISprite ClosedMouth;
         private ISprite OpenedMouth;
@@ -58,14 +58,14 @@ namespace Sprintfinity3902.Entities
             fireAttackDown = down;
             Position = pos;
             color = Color.White;
-            health = FIVE;
+            health = STARTING_HEALTH;
 
             decorateTime = THIRTY;
             decorate = false;
 
             rd = new Random();
 
-            EnemyHealth = FIVE;
+            EnemyHealth = STARTING_HEALTH;
             EnemyAttack = ONE;
 
             direction = rd.Next(ONE, FOUR);

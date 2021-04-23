@@ -1,8 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Sprintfinity3902.Commands;
-using Sprintfinity3902.Controllers;
 using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.Sound;
@@ -97,11 +94,12 @@ namespace Sprintfinity3902.Link
             wantsSoftReset = false;
             isVisible = true;
 
-        itemcount = new Dictionary<IItem.ITEMS, int>();
+            itemcount = new Dictionary<IItem.ITEMS, int>();
             foreach (IItem.ITEMS item in Enum.GetValues(typeof(IItem.ITEMS)))
             {
                 itemcount.Add(item, 0);
             }
+
         }
 
         public void Pickup(IItem item) {

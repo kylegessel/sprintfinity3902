@@ -1,7 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace Sprintfinity3902.Interfaces
+﻿namespace Sprintfinity3902.Interfaces
 {
     public interface ILink : IEntity
     {

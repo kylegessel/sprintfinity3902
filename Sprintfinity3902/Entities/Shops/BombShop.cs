@@ -13,6 +13,7 @@ namespace Sprintfinity3902.Entities
         private static Vector2 X_OFFSET = new Vector2(0 , 8 * Global.Var.SCALE);
         private static Vector2 NUMBER_OFFSET = new Vector2(8 * Global.Var.SCALE, 8 * Global.Var.SCALE);
         private static int BOMB_COST = 5;
+        private const int GET_BOMBS = 5;
 
         public IItem Product { get; set; }
         public int Cost { get; set; }
@@ -38,7 +39,7 @@ namespace Sprintfinity3902.Entities
             if (Buyable)
             {
                 link.itemcount[IItem.ITEMS.RUPEE] = link.itemcount[IItem.ITEMS.RUPEE] - BOMB_COST;
-                link.itemcount[IItem.ITEMS.BOMB] = link.itemcount[IItem.ITEMS.BOMB] + 1;
+                link.itemcount[IItem.ITEMS.BOMB] = link.itemcount[IItem.ITEMS.BOMB] + GET_BOMBS;
                 Buyable = false;
 
                 HudMenu.InGameHud.Instance.UpdateRupees(link.itemcount[IItem.ITEMS.RUPEE]);

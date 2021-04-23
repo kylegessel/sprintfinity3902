@@ -56,7 +56,7 @@ namespace Sprintfinity3902.SpriteFactories
         public List<ISprite> CreateBombShopSprite()
         {
             List<ISprite> list = new List<ISprite>();
-            list.Add(ItemSpriteFactory.Instance.CreateBombItem());
+            list.Add(ItemSpriteFactory.Instance.CreateBomb5Item());
             list.Add(HudSpriteFactory.Instance.CreateLetterX());
             list.Add(HudSpriteFactory.Instance.CreateNumber5());
 

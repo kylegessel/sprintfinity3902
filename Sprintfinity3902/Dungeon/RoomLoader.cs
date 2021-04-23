@@ -543,6 +543,10 @@ namespace Sprintfinity3902.Dungeon
                     IItem bomb = new BombStaticItem(Position);
                     Room.items.Add(bomb);
                     break;
+                case "BOM5":
+                    IItem bomb5 = new Bomb5Item(Position);
+                    Room.items.Add(bomb5);
+                    break;
                 case "BMRG":
                     IItem boom = new BoomerangStaticItem(Position);
                     boom.X = boom.Position.X + BMRG_X_OFFSET * Global.Var.SCALE;

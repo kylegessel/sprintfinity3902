@@ -167,6 +167,7 @@ namespace Sprintfinity3902.Dungeon.GameState
 
         public IDungeon dungeon { get; protected set; }
         public int RoomType { get; set; }
+        public bool hasEnemies { get; set; }
 
         protected IRoom CurrentState;
 

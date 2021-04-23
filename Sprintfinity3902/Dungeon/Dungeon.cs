@@ -37,7 +37,7 @@ namespace Sprintfinity3902.Dungeon
         public IEntity boomerangItem { get; set; }
 
         private bool UseRoomGen = true;
-
+ 
         private string backgroundMusicInstanceID;
 
         private int numRooms;
@@ -134,11 +134,24 @@ namespace Sprintfinity3902.Dungeon
                 HudMenu.MiniMapHud.Instance.InitializeRooms(RoomLocations, GetById(2).RoomPos, WinLocation);
             }
 
+            foreach(IRoom room in dungeonRooms)
+            {
+                if(room.enemies.Count > 0)
+                {
+                    room.hasEnemies = true;
+                }
+                else
+                {
+                    room.hasEnemies = false;
+                }
+            }
+
 
             foreach (IDoor door in CurrentRoom.doors)
             {
                 door.roomEntered = true;
             }
+
         }
 
         public void Update(GameTime gameTime)
@@ -173,6 +186,11 @@ namespace Sprintfinity3902.Dungeon
                         }
                     }
                     CurrentRoom.roomCleared = true;
+                }
+
+                if(CurrentRoom.hasEnemies && CurrentRoom.roomCleared)
+                {
+                    Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Door_Unlock).Play(Global.Var.VOLUME * .5f, Global.Var.PITCH, Global.Var.PAN);
                 }
             }
         }

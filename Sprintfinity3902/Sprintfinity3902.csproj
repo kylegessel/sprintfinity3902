@@ -16,6 +16,12 @@
     <None Remove="Hud\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Code Reviews and Reflections\Sprint5\Casey-ReadabilityReview.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code Reviews and Reflections\Sprint5\Casey-ReadabilityReview.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>

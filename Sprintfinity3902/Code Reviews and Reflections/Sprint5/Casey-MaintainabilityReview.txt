@@ -3,7 +3,7 @@ Reviewed on: 4/23/21
 Sprint 5
 Reviewed Class: FontSpriteFactory
 File written by: Ben Hobson
-Time Spent: 
+Time Spent: 20 min
 Reviewing empahsis: Maintainability
 
 The Font Sprite Factory is a well written class. The sprite factory uses the 

@@ -1,0 +1,35 @@
+﻿Code Review
+Readability on DungeonGenerator.cs by Brad Knez
+4/23/2021
+Sprint 5
+Code written by Kyle Gessel
+Time Spent: 25 minutes
+
+Quick notes on the class: 
+Starts by becoming a singleton instance. 
+Basic initialize method where it deletes items and creates a new Random.
+
+PopulateRooms is a method that starts by creating a basic start point.
+Then from there adds it to the RoomLocations. Then calls CreateNewRooms
+which goes through and adds the rooms using the snake generator.
+It then goes through and removes the final room, then adds the rest of the
+rooms using the sprawl generation.
+
+It then goes through and sets the KeyID, MapId, and CompassId.
+
+Then, it goes through and builds the templates and changes the doors
+depending on the roomID.
+
+Actual Maintainability Review:
+
+All in all this code is about as maintainable as it could be. This is a
+complex class where a LOT happens. I thought about the possibility of this 
+being seperate classes but that doesn't really make sense either. 
+I don't necesarilly see one part of the code changing and then the other
+remaining the same. The nice thing about this though is how easily it works
+with our current codebase and the roomloader. That's sweet how easily things
+worked together. In that regard the code is very maintainable as it works
+seamlessly with our other systems. Overall, I think this is maintainable code
+within the bounds of what it's trying to accomplish. It works well inside of
+our game as a system, inside though it's a complex system to go through and
+generate the rooms. All in all, nice job!

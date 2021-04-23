@@ -1,0 +1,33 @@
+﻿Code Review
+Readability on GohmaBoss.cs by Brad Knez
+4/2/2021
+Sprint 4
+Code written by Bailey Ardrey 
+Time Spent: 20 minutes
+
+Quick notes on the class: 
+
+Class starts by basic initialization, nothing unusal here.
+
+Update is setting the sprite, telling it to useitem? 
+Update is constantly setting the sprite to the current state's.
+Updating, and moving.
+
+Draw is our typical draw, do we need to set sprite if we're 
+accessing the current state's sprite.
+
+HitRegister checks to see if it was hit by an arrow, then it sets to 0.
+This should be working with EnemyHealth and EnemyDamage, but I just added
+these and probably should've fixed this myself.
+
+Actual Readability Review:
+
+Overall this class is not too differnet from any of our enemy classes.
+It was pretty easy to understand what everything does and I wasn't confused
+why some piece of code was there. My only issue would be I don't know what
+UseItem does initially. After a quick look though this made sense since he uses
+the fireball. Nice!
+
+Overall this is a really easy to read class and makes sense within the context
+of our game. Really cool to see how robust of an enemy we can create with 
+our current setup. Nice job!

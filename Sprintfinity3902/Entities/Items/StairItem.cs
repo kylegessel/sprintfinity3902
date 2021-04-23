@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Sprintfinity3902.Entities.Items;
+using Sprintfinity3902.Entities;
 using Sprintfinity3902.Interfaces;
 using Sprintfinity3902.SpriteFactories;
 

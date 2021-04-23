@@ -65,11 +65,15 @@ namespace Sprintfinity3902
                 entity.Y = entity.Y + shiftAmount;
             }
 
+            foreach (IEntity shop in Game.dungeon.GetCurrentRoom().shops)
+            {
+                shop.Y = shop.Y + shiftAmount;
+            }
             //foreach (IEntity proj in game.dungeon.linkProj) {
-                //proj.Y = proj.Y + shiftAmount;
+            //proj.Y = proj.Y + shiftAmount;
             //}
-            
-            foreach(IEntity garbage in Game.dungeon.GetCurrentRoom().garbage) {
+
+            foreach (IEntity garbage in Game.dungeon.GetCurrentRoom().garbage) {
                 garbage.Y = garbage.Y + shiftAmount;
             }
 

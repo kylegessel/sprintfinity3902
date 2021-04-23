@@ -122,7 +122,7 @@ namespace Sprintfinity3902.Dungeon
                     WinLocation = room.RoomPos;
                 }
             }
-            HudMenu.DungeonHud.Instance.SetInitialRoom(GetById(2)); /*Can I just use CurrentRoom here??*/
+            HudMenu.DungeonHud.Instance.SetInitialRoom(GetById(1)); /*Can I just use CurrentRoom here??*/
             HudMenu.MiniMapHud.Instance.InitializeRooms(RoomLocations, GetById(2).RoomPos, WinLocation);
 
             foreach (IDoor door in CurrentRoom.doors)

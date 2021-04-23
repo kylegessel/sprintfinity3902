@@ -75,6 +75,6 @@ HDRL: Hole Door Left
 HDRR: Hole Door Right
 
 SHPC: Heart Container Shop
-SHPH: Heart Shop
+SHPF: Fairy Shop
 SHPB: Bomb Shop
-SHPP: CritHit Shop
+SHPH: CritHit Shop

@@ -18,6 +18,7 @@ namespace Sprintfinity3902.Entities
         private static IPlayer Player;
         private bool tracking;
         private bool trackOnly;
+        private bool drawProj;
         private int count;
         private Vector2 ProjectileIncrementAmnt;
         public bool isMoving { get; set; }
@@ -34,6 +35,7 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             tracking = false;
             trackOnly = false;
+            drawProj = false;
             EnemyHealth = 1;
             EnemyAttack = 1;
             count = 0;
@@ -48,6 +50,7 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = true;
+            drawProj = false;
             EnemyHealth = 1;
             EnemyAttack = 1;
             count = SPLIT_WAIT_TIME;
@@ -62,6 +65,7 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = true;
+            drawProj = false;
             EnemyHealth = 1;
             EnemyAttack = 1;
             count = SPLIT_WAIT_TIME;
@@ -76,6 +80,7 @@ namespace Sprintfinity3902.Entities
             isMoving = false;
             tracking = false;
             trackOnly = false;
+            drawProj = false;
             EnemyHealth = 1;
             EnemyAttack = 1;
             count = 0;
@@ -90,6 +95,7 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = false;
+            drawProj = false;
             this.speed = 8;
             EnemyHealth = 1;
             EnemyAttack = 1;
@@ -106,6 +112,7 @@ namespace Sprintfinity3902.Entities
             Player = player;
             tracking = true;
             trackOnly = false;
+            drawProj = false;
             EnemyHealth = 1;
             EnemyAttack = 1;
             count = 0;
@@ -115,7 +122,7 @@ namespace Sprintfinity3902.Entities
         {
             Sprite.Update(gameTime);
 
-            if (isMoving)
+            if (this.isMoving)
                 Move();
         }
 
@@ -126,7 +133,7 @@ namespace Sprintfinity3902.Entities
 
         public override void Draw(SpriteBatch spriteBatch, Color color)
         {
-            if (isMoving)
+            if (drawProj)
                 Sprite.Draw(spriteBatch, Position, Color.White);
         }
 
@@ -140,7 +147,6 @@ namespace Sprintfinity3902.Entities
                 {
                     angle += Math.PI;
                 }
-            
                 ProjectileIncrementAmnt = new Vector2((float)(Math.Cos(angle) * speed), (float)(Math.Sin(angle) * speed));
             }
             else if (count > SPLIT_WAIT_TIME && tracking)
@@ -158,11 +164,14 @@ namespace Sprintfinity3902.Entities
                 if (this.direction == TWO) //DOWN
                     this.Y = Y + VERTICAL_SPEED_NONTRACK * Global.Var.SCALE;
             }
+            drawProj = true;
             count++;
         }
 
         public void StartOver(Vector2 position)
         {
+            this.isMoving = false;
+            drawProj = false;
             Position = position;
             if (!trackOnly)
             {
@@ -182,6 +191,7 @@ namespace Sprintfinity3902.Entities
         public void StopMoving()
         {
             this.isMoving = false;
+            drawProj = false;
             if (!trackOnly)
             {
                 count = 0;

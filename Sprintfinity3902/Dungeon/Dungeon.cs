@@ -101,7 +101,6 @@ namespace Sprintfinity3902.Dungeon
             CollisionDetector.Instance.Initialize(Game);
             KeyboardManager.Instance.RegisterKeyUpCallback(NextRoom, Keys.L);
             KeyboardManager.Instance.RegisterKeyUpCallback(PreviousRoom, Keys.K);
-            KeyboardManager.Instance.RegisterCommand(new SetDamageLinkCommand(Game), Keys.E);
             KeyboardManager.Instance.RegisterCommand(new UseSelectedItemCommand((Player)Game.playerCharacter, this, Game), Keys.D1);
             KeyboardManager.Instance.RegisterCommand(new SetLinkAttackCommand((Player)Game.playerCharacter, (MovingSwordItem)movingSword, (SwordHitboxItem)hitboxSword), Keys.Z, Keys.N);
 

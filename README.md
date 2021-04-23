@@ -23,12 +23,47 @@ screen.
 
 'e' key shows a demo of what Link looks like in his damaged state.
 
-'l' and 'k' allows you to cycle through each of the rooms in the dungeon.
+'l' and 'k' allows you to cycle through each of the rooms in the dungeon. (This
+is intended for game testing and is NOT an intended game feature. For this
+reason, it can causes issues like no longer locking rooms with enemies inside
+upon entry)
 
-'p' pauses the game and gives you a map menu. On this map menu, you can click
-on a room to go there.
+'p' pauses the game and gives you a map menu. In this pause menu, you can use
+either arrow keys or 'A' and 'D' to change the currently selected room.
 
 'r' resets the program to its original state and 'q' quits the program.
+
+## New Features and gameplay
+
+crit
+
+map generation
+
+new floors
+
+shops
+
+new bosses + enemy type
+
+doors close
+
+
+## Guide
+
+## Cheat Guide
+
+If you would like to simply see the new room generation and new bosses, we
+reccomend using 'l' and 'k'.
+
+To get to the boss room hit "l" 6 times from the start room.
+
+To get to the shop room hit "l" 7 times from the start room or once from the 
+boss room. This is a good way to get to the next floor quickly as you can enter
+the staircase in this room.
+
+We strongly reccomend you give the floor a chance to load before hitting 'l' or
+'k'. That reason is briefly discussed in bugs below, but it can cause issues
+where the dungeon generator may not fully complete operation.
 
 ## Authors
 
@@ -36,10 +71,7 @@ Bailey Ardrey, Kyle Gessel, Ben Hobson, Brad Knez, and Casey Vancauwenbergh
 
 
 ## Known bugs/ things to fix
-* Room with the Old Man is not a locked door.
-* If you die during a room transition, the game goes into a broken state.
-* Fire attacks don't track link.
-* Dungeon rooms can be off by a few pixels after moving rooms.
-* Sometimes doors push link back into previous room after walking into it.
+
 * Fairys can leave the dungeon.
 * Goriya boomerang doesn't move down when the game is paused.
+* Double hits at full health.

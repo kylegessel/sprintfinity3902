@@ -132,7 +132,7 @@ namespace Sprintfinity3902.HudMenu
         public void InitializeMiniMap()
         {
             Hud.Icons.Add(new MiniMapEntity(new Vector2(MINIMAP_HUD_X * Global.Var.SCALE, MINIMAP_HUD_Y * Global.Var.SCALE)));
-            Hud.Icons.Add(new Number1(new Vector2(LEVEL_NUM_X * Global.Var.SCALE, LEVEL_NUM_Y * Global.Var.SCALE)));
+            //d.Icons.Add(new Number1(new Vector2(LEVEL_NUM_X * Global.Var.SCALE, LEVEL_NUM_Y * Global.Var.SCALE)));
 
             y = INSIDE_MAP_Y;
             for (i = 0; i < MINIMAP_COLUMN; i++)

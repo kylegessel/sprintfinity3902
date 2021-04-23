@@ -8,7 +8,7 @@ namespace Sprintfinity3902.Collision
 {
     public class ProjectileCollisionHandler
     {
-        private static double NO_ITEM_FREQ = .4;
+        private static double NO_ITEM_FREQ = .35;
 
         //THESE ARE CUMULATIVE FREQUENCIES (in this order)
         private static double RUPEE_FREQ = .30;

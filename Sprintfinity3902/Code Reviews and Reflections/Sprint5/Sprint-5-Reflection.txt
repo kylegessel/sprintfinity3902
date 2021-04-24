@@ -1,0 +1,41 @@
+﻿Sprint 5 Reflection
+
+This was a fantastic sprint. It was our first chance to stop mimicking someone
+elses work the best we could and instead create the game that we wanted to see.
+We choose to take inspiration from other dungeon crawlers such as the "Binding
+of Isaac" and create a randomly generating dungeon with more enemies, a shop
+and new floors.
+
+One of our biggest challenges this sprint as well as every prior sprint was 
+spending time reviewing and cleaning up old code. We know there are a few 
+classes that could use a rework for the sake of code quality, one such class
+is the collision class. A few helper methods would undoubtly clean this class
+up. Its unfortunate we weren't able to clean up everything to the exact state
+we wanted. That doesn't mean that nothing was reworked! This sprint saw a
+rework of the HUD elements, further clean up to game via the use of 
+gamestates as well as many other various changes to classes.
+
+One thing we focused on heavily this sprint was playtesting to remove as many
+bugs as possible. We spent the tail end of this sprint testing and ensuring
+that the game plays exactly as we expect, removing most bugs from our game.
+Those bugs that still exist in this game have been documented.
+
+Teamwork was something of a well oiled machine by this point. Our meeting times
+felt impactful and meaningful. The project board helped to keep them focused
+and directed. Overall, because of this strategy, meetings never felt like a
+waste of time and everyone always walked away from them with something to
+complete for the next meeting.
+
+One thing that was especially different about this sprint was brainstorming new
+ideas for the game. We spent our first couple meetings specifically talking
+about our vision for the game and deciding which ideas we wanted to implement.
+This was significantly more complex as we no longer had a CSE website to give
+us a checklist of things to complete. Instead, we created our own document in
+the same vein of that CSE website checklist to define exactly which ideas we
+wanted implemented. We made sure each idea was implemented, but we also tried
+to ensure each idea integrated with the others. For example, the new crit chance
+can be sold in the new shop after defeating the new bosses. We believe each of
+our new implementations works to form a really cohesive gameplay experience.
+
+Something that was a key focus in these meetings was that we wanted our game to
+be ACTUALLY fun to play. We think we met this goal and we hope you agree!

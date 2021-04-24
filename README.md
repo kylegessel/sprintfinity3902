@@ -119,7 +119,8 @@ to use these commands.
 * Sometimes, an enemy may attack you as soon as you get through the door.
 Given more time we would have experimented with I-frames upon entry.
 * Enemies have a chance to push link through solid tiles.
-* We would refactor more code given more time.
+* We would re-factor more code given more time. We are also aware that while 
+we believe we got a majority of the magic numbers, a few still exist.
 
 
 

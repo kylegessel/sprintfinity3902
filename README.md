@@ -127,6 +127,8 @@ this is related to the bugs category, but slightly different.
 * Fairies can leave the dungeon. You have to be quick to grab them!
 * Link's sword or item animations can be canceled by new inputs. This may make 
 it appear like the sword doesn't come out, but that is simply because a new
-input has been received.
+input has been received. We have the capability to lock link into the sword
+animation, but found that to be less enjoyable, especially when dodging
+fireballs. For the reason we chose to go with this implementation.
 * Items drop quite frequently. Given more time we would have liked to tweak the
 item drop table to create a more interesting playing experience.

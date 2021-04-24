@@ -1,0 +1,29 @@
+﻿Reviewed by: Casey VanCauwenbergh
+Reviewed on: 4 / 23 / 21
+Sprint 5
+Reviewed Class:  AttackPowerUpItem.cs, AttackPowerUpPickup.cs, and MovingSwordItem
+File written by: Brad Knez
+Time Spent: 20 min
+Reviewing empahsis: Readability
+
+These classes are some of the main places that code was added to implement
+critical hits in our game. The Power up was made to be an item so that it
+could be picked up like other items and a "count" of them stored in the item
+list in player class. The code for this implementation is spread out, which
+increases each classes readability.
+
+The AttackPowerUpItem class is very similar to the way we create all of our
+entities. It is very easy to read. Much of the code for this entity is hidden
+in helper classes and the abstract class. One of the classes that hides 
+implementation is the AttackPowerUpPickup class. This Pickup class is also done
+very similar to other item pickup classes and easy to read. Both are short and 
+concise methods.
+
+The new code in the MovingSwordItem class resides in the Collide function that
+returns a Boolean. This implementation It is as simple adding a few lines that
+generate a random value and do double damage in some cases. The code used here
+is clear in its purpose. 
+
+In all these classes variables are well named and methods are kept consise. The
+implementation of Crit hit was overall done in a manner to make it easy for the
+reader to interpret. 

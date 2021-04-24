@@ -73,7 +73,7 @@ Dungeon layouts are now randomly generated to ensure a unique experience for
 each floor. New floors with new color schemes and difficulties were added.
 
 A new enemy (Ropesnake) and many new bosses have been added. The game now 
-extends past beating the aquamentus and has 4 new bosses to beat. One lives at
+extends past beating the Aquamentus and has 4 new bosses to beat. One lives at
 the end of each floor.
 
 Shops have been added. After beating each boss, you'll have a chance to buy
@@ -115,13 +115,18 @@ the files that build the game have not finished loading, and thus can't be
 deleted. This error is seen on button press for reset and upon next floor entry
 for "l" and "k". This can be avoided by waiting until after the room has loaded
 to use these commands.
+* Upon next floor entry, your secondary item is unequipped.
+* Sometimes, an enemy may attack you as soon as you get through the door.
+Given more time we would have experimented with I-frames upon entry.
 
 
 
 ### Intentional game design
 Here is a small list of things that *may* look to be bugs, but are intentional.
 this is related to the bugs category, but slightly different.
-* Fairys can leave the dungeon. You have to be quick to grab them!
-* Link's sword or item animations can be cancelled by new inputs. This may make 
+* Fairies can leave the dungeon. You have to be quick to grab them!
+* Link's sword or item animations can be canceled by new inputs. This may make 
 it appear like the sword doesn't come out, but that is simply because a new
-input has been recieved.
+input has been received.
+* Items drop quite frequently. Given more time we would have liked to tweak the
+item drop table to create a more interesting playing experience.

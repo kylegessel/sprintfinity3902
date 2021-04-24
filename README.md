@@ -118,6 +118,9 @@ to use these commands.
 * Upon next floor entry, your secondary item is unequipped.
 * Sometimes, an enemy may attack you as soon as you get through the door.
 Given more time we would have experimented with I-frames upon entry.
+* Enemies have a chance to push link through solid tiles.
+* We would refactor more code given more time.
+
 
 
 

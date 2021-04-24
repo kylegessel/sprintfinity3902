@@ -1,0 +1,29 @@
+﻿Reviewed by: Kyle Gessel
+Reviewed on: 4/23/2021
+Sprint 5
+Reviewed Class:  Entities/BossEnemies/ManhandlaBoss.cs
+File written by: Bailey Ardery
+Time Spent: 25min
+
+This class is my favorite of the new bosses that we implemented, so I had to
+review it.
+
+I love how all of the mandhandla parts move together as one entity despite
+being 5. I like that the central one controls the movement of all of them.
+I think this is highly maintainable. Say we changed the movement pattern of the
+boss. We would only have to change the movement pattern on this main central
+component since each respective part bases their position on this compononet.
+
+Things like the update and draw methods are kept very clean which helps with
+maintainability. Hit register is a little complex since it depends on each of
+the other components, however I think it is easily maintainable.
+
+Most other components act exactly like a typical enemy. For example, we
+set the step size in a very typical way for an enemy. I think this helps to
+keep the code maintainable as well.
+
+The least maintainable part that I see would be the boundaries within the move 
+function. They decrease moves cohesion and are generally kind of hard to
+understand at first glance. 
+
+This a cool class for a really cool enemy. Great work!

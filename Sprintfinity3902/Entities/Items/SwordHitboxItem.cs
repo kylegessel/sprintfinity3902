@@ -42,9 +42,7 @@ namespace Sprintfinity3902.Entities
             int critChance = player.itemcount[IItem.ITEMS.ATTACKPWRUP];
             Random random = new Random();
             int randint = random.Next(11);
-            Debug.WriteLine(critChance);
-            Debug.WriteLine(randint);
-            if (randint <= critChance)
+            if (randint < critChance)
             {
                 damage = 2;
                 Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.Critical_Hit_Sound).Play(Global.Var.VOLUME * VOLUME_MULTIPLYER, Global.Var.PITCH, Global.Var.PAN);

@@ -1,0 +1,20 @@
+﻿Reviewed by: Casey VanCauwenbergh
+Reviewed on: 4/23/21
+Sprint 5
+Reviewed Class: FontSpriteFactory
+File written by: Ben Hobson
+Time Spent: 20 min
+Reviewing empahsis: Maintainability
+
+The Font Sprite Factory is a well written class. The sprite factory uses the 
+Singleton design pattern. I think this class is overal a very maintainable 
+class. It does a good job of focusing on just one job and not doing to much
+within the class. This class takes the alphabet and creates a Sprite for each
+letter.
+
+A possible change to the code that would affect this class is if we needed a
+new or additional charachter to draw. The only thing that would be required to
+do this is to add that character to the ALPHABET string in the factory. Adding
+it here would allow for it to be added to the dictionary in the factory and 
+could easily be accessed using the Singleton. This code is also very reusable
+and would not need to be changed at all to be used in other programs.

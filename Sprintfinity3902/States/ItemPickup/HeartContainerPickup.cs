@@ -16,6 +16,9 @@ namespace Sprintfinity3902.Entities
             HudMenu.InGameHud.Instance.UpdateHearts(Link.MaxHealth, Link.LinkHealth);
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
 
+            Link.openToInput = false;
+            Link.UseItem();
+
             return false;
 
         }

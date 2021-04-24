@@ -13,6 +13,8 @@ namespace Sprintfinity3902.States
             PlayerCharacter = currentPlayer;
             Sprite = PlayerSpriteFactory.Instance.CreateLinkUpSprite();
             Sprite.Animation.IsPlaying = false;
+            PlayerCharacter.openToInput = true;
+
 
         }
 

@@ -17,6 +17,8 @@ namespace Sprintfinity3902.Entities
             Sound.SoundLoader.Instance.GetSound(Sound.SoundLoader.Sounds.LOZ_Get_Item).Play(Global.Var.VOLUME, Global.Var.PITCH, Global.Var.PAN);
 
             HudMenu.InventoryHud.Instance.EnableItemInInventory(IPlayer.SelectableWeapons.BOW);
+            Link.openToInput = false;
+            Link.UseItem();
 
             if (Link.SelectedWeapon == IPlayer.SelectableWeapons.NONE)
             {

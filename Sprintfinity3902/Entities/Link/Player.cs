@@ -55,6 +55,7 @@ namespace Sprintfinity3902.Link
 
         public int MaxHealth { get; set; }
         public int LinkHealth { get; set; }
+        public bool openToInput { get; set; }
 
         private bool isVisible;
 
@@ -89,7 +90,7 @@ namespace Sprintfinity3902.Link
             lowHealthInstanceID = SoundManager.Instance.RegisterSoundEffectInst(SoundLoader.Instance.GetSound(SoundLoader.Sounds.LOZ_LowHealth), 0.02f, true);
             _deathSpinCount = 0.0;
             SelectedWeapon = IPlayer.SelectableWeapons.NONE;
-
+            openToInput = true;
             wantsSoftReset = false;
             isVisible = true;
 
@@ -112,6 +113,10 @@ namespace Sprintfinity3902.Link
                 game.SetState(game.WIN);
             } else if (win)
             {
+                /*
+                 * this is bad because it is set by polling, but reseting the
+                 * game state in the middle of player causes a ton of problems.
+                 */
                 wantsSoftReset = true;
             }
         }

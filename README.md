@@ -19,7 +19,7 @@ screen.
 
 'x' and 'n' causes Link to sword attack in the direction that he is facing.
 
-'b' and 'z' uses Link's equipped item
+'z' and 'b' uses Link's equipped item
 
 'l' and 'k' allows you to cycle through each of the rooms in the dungeon. (This
 is intended for game testing and is NOT an intended game feature. For this
@@ -119,6 +119,8 @@ to use these commands.
 * Sometimes, an enemy may attack you as soon as you get through the door.
 Given more time we would have experimented with I-frames upon entry.
 * Enemies have a chance to push link through solid tiles.
+* If you reset while in the pause state, the pause menu will still appear upon
+re-entry into the game.
 * We would re-factor more code given more time. We are also aware that while 
 we believe we got a majority of the magic numbers, a few still exist.
 

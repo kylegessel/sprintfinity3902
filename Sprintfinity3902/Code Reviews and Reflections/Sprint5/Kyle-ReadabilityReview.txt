@@ -1,0 +1,28 @@
+﻿Reviewed by: Kyle Gessel
+Reviewed on: 4/23/2021
+Sprint 5
+Reviewed Class:  Entities/Enemies_NPCs/HandEnemy.cs
+File written by: Ben Hobson
+Time Spent: 20min
+
+The Hand class is one of the most unique enemies in the game! While this enemy
+may not appear in the final verison of the game, the code is still very
+applicable and a point of future interest if the game were to be developed
+further.
+
+Overall, the class is ver readable. Very few methods are involved in this class
+and those that are are clearly applicable to the goals of the class.
+
+The abstraction of the AI portion of the Hand into its own seperate class helps
+this class a ton. Having that logic within the Hand enemy class itself would
+greatly reduce the cohesion of the enemy class. Logic for tracking link is not
+inherently applicable to the hand itself, especially since that tracking does
+not even indicate how to move, just which direction link is in.
+
+My biggest complaints would be that both the update and the move methods are
+quite long and complex. Adding helper methods could possibly reduce these and
+make them not only more readable but more maintainable as well.
+
+The hand enemy is so unique, so the class is somewhat doomed to be much more
+complex than the logic behind most enemies. Despite that, I think the class is
+quite a good implementation.
